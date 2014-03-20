@@ -1,0 +1,261 @@
+/* -------- Page Layout -------- */
+
+body 
+{
+    background-color:#FBFCFD;
+    font-family:Arial,Helvetica,sans-serif;
+    min-width:40em;
+}
+div.header
+{
+    border-bottom:1px solid #c9d7f1;
+    clear:both;
+}
+div.headerlink
+{
+    font-size:small;
+    font-weight:bold;
+    text-align:right;
+}
+div.headertxt
+{
+    font-size:x-large;
+    margin-top:10px;
+}
+a.headertxt
+{
+    text-decoration:none;
+    margin-top:10px;
+}
+div.headertxtsub
+{
+    font-size:small;
+}
+table.headertitle{
+    padding:0px; 
+    margin:0px 0px 10px 0px; 
+    width:100%
+}
+td.search
+{
+    white-space:nowrap;
+    text-align:right;
+    vertical-align:bottom;
+}
+div.content
+{
+    margin-left:11em;
+    padding:0.25em;
+    clear:none;
+}
+div.content_navi
+{
+    font-size:small;
+    margin-top:0.5em;
+    margin-bottom:0.5em;
+}
+div.content_obj_title
+{
+    background-color:#B9CEDF;
+    border-style:solid;
+    border-width:1px;
+    border-color:#678EB7;
+    box-shadow:2px 2px 1px #A8B8C7;
+    font-size:x-large;
+    margin-top:0.5em;
+    padding-top:0.25em;
+    padding-left:0.25em;
+    padding-bottom:0.1em;
+}
+div.content_obj
+{
+    background-color:#DFEBF5;
+    border-style:solid;
+    border-width:1px;
+    border-color:#678EB7;
+    box-shadow:2px 2px 1px #A8B8C7;
+    padding-top:0.5em;
+    padding-left:0.5em;
+    padding-bottom:1em;
+}
+table.content_obj
+{
+    font-size:small;
+    margin:0px 0px 10px 0px;
+    padding:0px;
+}
+table.alv
+{
+    border-collapse:collapse;
+    font-size:small;
+    margin:0px 0px 10px 0px;
+    padding:0px;
+}
+th.alv
+{
+    background-color:#F2E1AD;
+    box-shadow:2px 2px 1px #69655C;
+    border:2px solid #69655C;
+    font-size:1em;
+    padding:2px 7px 2px 7px;
+}
+td.alv
+{
+    background-color:#DBE4F3;
+    border:1px solid #A5AEB7;
+    font-size:1em;
+    padding:4px 7px 4px 7px;
+}
+td.left_attribute
+{
+    padding:0.5em 0px 0px 0px;
+}
+td.left_value
+{
+    word-break: break-all;    /* Wrap long text */
+}
+td.field
+{
+    background-color:#DBE5F1;
+    border-width:1px;
+    border-style:solid;
+    border-color:#A5AEB7;
+    font-size:1em;
+    padding:2px 7px 2px 7px;
+}
+td.content_label
+{
+    min-width:15em;
+    border-width:1px;
+    border-bottom-style:solid;
+    border-bottom-color:#A5AEB7;
+}
+caption, td.caption
+{
+    background-color:#BACFDF;
+    border-color:#A5AEB7;
+    border-style:solid;
+    border-width:1px;
+    font-size:1em;
+    text-align:left;
+    white-space:nowrap;
+}
+div.left
+{
+    float:left;
+    width:11em;
+    /* margin:0;
+      padding:1em; */
+}
+div.footer
+{
+    border-top:1px solid #c9d7f1;
+    clear:both;
+    font-size:small;
+    margin-top:1em;
+    padding-top:1em;
+    text-align:center;
+}
+div.footer_note
+{
+    margin-top:1em;
+    text-align:left;
+    font-size:small;
+}
+
+/* -------- ABAP Object content -------- */
+root
+{ 
+    display:block;
+}
+
+h4 /* Content Header */
+{
+    font-size:small;
+    margin-top:1em;
+    margin-bottom:0.5em;
+}
+
+h5 /* Left Header */
+{
+    font-size:medium;
+    margin-top:0.5em;
+    margin-left:0em;
+    margin-bottom:0.5em;
+}
+
+dt /* Object list */
+{
+    font-size:small;
+    margin-top:0.5em;
+}
+dl /* Object list description */
+{
+    font-size:small;
+}
+
+/* Talbe Cell style */
+/*td
+{
+    white-space:nowrap
+}*/
+
+/* Wrape */
+td.normal 
+{
+    white-space:normal
+}
+ol
+{
+    list-style-type:circle
+}
+
+/* -------- Home page -------- */
+
+div.home_logo
+{
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-size:xx-large;
+    font-style:normal;
+    margin-top: 4em;
+    text-align:center;
+}
+div.home_link
+{
+    font-size:small;
+    margin-top: 3em;
+    text-align:center;
+}
+div.home_form
+{
+    font-size:small;
+    margin-top: 0.5em;
+    margin-bottom: 1em;
+    text-align:center;
+}
+
+input.home_search_input{
+    width:420px;
+    height:2em;
+    padding:6px;
+    font-size:large;
+    color:#444;
+    border-width: 4px;
+    border-style: solid;
+    border-color: #A8B8C7;
+}
+input.home_search_submit{
+    height:2.25em;
+    font-size:x-large;
+    color:#444;
+    border-width: 4px;
+    border-style: solid;
+    border-color: #A8B8C7;
+}
+
+div.home_footer
+{
+    position:relative;
+    bottom:-200px;
+    text-align:center;
+}
