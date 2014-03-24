@@ -2,11 +2,9 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>SQL T</title>
+        <title>Note Found</title>
     </head>
     <body>
-        <?php
-        // put your code here
-        ?>
+        <h1>The object you requested unfortunately not found.</h1>
     </body>
 </html>
