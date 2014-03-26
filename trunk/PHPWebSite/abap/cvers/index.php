@@ -1,3 +1,4 @@
+<?php ob_start(); ?>
 <!DOCTYPE html>
 <!-- Software component index. -->
 <?php
@@ -46,7 +47,7 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::CVERS_DESC;
                         <th class="alv"> Component Type Text </th></tr>
                     <?php
                     $table = ABAP_DB_TABLE_HIER::CVERS_List();
-                    foreach ($table as $row) {
+                    while ($row = mysqli_fetch_array($table)) {
                         $cvers_component = $row['COMPONENT'];
                         $cvers_desc = ABAP_DB_TABLE_HIER::CVERS_REF($row['COMPONENT']);
                         $cvers_comp_type = $row['COMP_TYPE'];
@@ -67,3 +68,9 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::CVERS_DESC;
 
     </body>
 </html>
+<?php 
+$ob_content = ob_get_contents();
+$ob_fp = fopen("./index.html", "w");
+fwrite($ob_fp, $ob_content);
+fclose($ob_fp);
+?>

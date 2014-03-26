@@ -1,8 +1,6 @@
 <?php
 
-/** Database schema type. */
-//$GLOBALS['ABAP_DB_SCHEMA_TYPE'] = ABAP_DB_SCHEMA::TYPE_PRD;
-$GLOBALS['ABAP_DB_SCHEMA_TYPE'] = ABAP_DB_SCHEMA::TYPE_QAS;
+require_once 'config.php';
 
 class ABAP_DB_CONST {
 
@@ -20,15 +18,6 @@ class ABAP_DB_CONST {
 
 /** Database schema & connection. */
 class ABAP_DB_SCHEMA {
-
-    /** Database connection information. */
-//    public static $host = '66.116.150.166';
-//    public static $user = 'A943634_abapr';
-//    public static $pass = 'QWERTY123456';
-
-    public static $host = 'localhost';
-    public static $user = 'root';
-    public static $pass = '123456';
 
     /** Database schema type: QAS - QA System (local testing web), PRD - Production System (online web) */
     const TYPE_QAS = 'QAS';
@@ -145,7 +134,8 @@ class ABAP_DB_SCHEMA {
 
     /** Get database conection object. */
     private static function getConn($schema) {
-        $msqli = new mysqli(ABAP_DB_SCHEMA::$host, ABAP_DB_SCHEMA::$user, ABAP_DB_SCHEMA::$pass, $schema);
+        $msqli = new mysqli(ABAP_DB_CONN::$host, ABAP_DB_CONN::$user, ABAP_DB_CONN::$pass, $schema);
+        $msqli->set_charset("utf8");
         return $msqli;
     }
 
@@ -157,7 +147,7 @@ class ABAP_DB_TABLE_DOMA {
     /**
      * Domains.
      */
-    const DD01L = "dd01L";
+    const DD01L = "dd01l";
 
     /**
      * R/3 DD: domain texts.
@@ -181,26 +171,23 @@ class ABAP_DB_TABLE_DOMA {
      * </pre>
      */
     public static function DD01L_List($index) {
-        $sql = 'SELECT DOMNAME, DATATYPE, LENG, DECIMALS, AS4DATE FROM ' . ABAP_DB_TABLE_DOMA::DD01L 
-                . ' where DOMNAME LIKE ? order by DOMNAME';
-        $stmt = ABAP_DB_SCHEMA::getConnDoma()->prepare($sql);
-        $index = $index . '%';
-        $stmt->bind_param("s", $index);
-        $stmt->execute();
-        return $stmt->get_result()->fetch_all(MYSQL_ASSOC);
+        $con = ABAP_DB_SCHEMA::getConnDoma();
+        $index = $con->real_escape_string($index . '%');
+        $sql = "SELECT DOMNAME, DATATYPE, LENG, DECIMALS, AS4DATE FROM " . ABAP_DB_TABLE_DOMA::DD01L 
+                . " where DOMNAME LIKE '" . $index . "' order by DOMNAME";
+        return $con->query($sql);
     }
 
     /**
      * Domain.
      */
     public static function DD01L($DomName) {
-        $sql = 'SELECT * FROM ' . ABAP_DB_TABLE_DOMA::DD01L . ' where DOMNAME = ?';
-        $stmt = ABAP_DB_SCHEMA::getConnDoma()->prepare($sql);
-        $stmt->bind_param('s', $DomName);
-        $stmt->execute();
-        $out = $stmt->get_result();
-        $result = $out->fetch_all(MYSQL_ASSOC);
-        return $result[0];        
+        $con = ABAP_DB_SCHEMA::getConnDoma();
+        $DomName = $con->real_escape_string($DomName);
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_DOMA::DD01L . " where DOMNAME = '" . $DomName . "'";
+        $qry = $con->query($sql);
+        $result = mysqli_fetch_array($qry);
+        return $result;
     }
 
     /**
@@ -221,9 +208,8 @@ class ABAP_DB_TABLE_DOMA {
      * Get Domain Value Text.
      */
     public static function DD07T($Domain, $ValueL) {
-        $dbc = ABAP_DB_SCHEMA::getConnDoma();
         $sql = "select DDTEXT from " . ABAP_DB_TABLE_DOMA::DD07T . " where DOMNAME = ? and DDLANGUAGE = ? and DOMVALUE_L = ?";
-        $stmt = $dbc->prepare($sql);
+        $stmt = ABAP_DB_SCHEMA::getConnDoma()->prepare($sql);
         $stmt->bind_param("sss", $Domain, $langu = ABAP_DB_CONST::LANGU_EN, $ValueL);
         $stmt->execute();
         $stmt->bind_result($result);
@@ -334,46 +320,19 @@ class ABAP_DB_TABLE_HIER {
     public static function CVERS_List() {
         $dbc = ABAP_DB_SCHEMA::getConnHier();
         $sql = "select * from " . ABAP_DB_TABLE_HIER::CVERS . " order by COMPONENT";
-        $stmt = $dbc->prepare($sql);
-        $stmt->execute();
-        return $stmt->get_result()->fetch_all(MYSQL_ASSOC);
+        $result = $dbc->query($sql);
+        return $result;
     }
 
     /**
      * Software Component.
      */
     public static function CVERS($SoftComp) {
-        $dbc = ABAP_DB_SCHEMA::getConnHier();
-        $sql = "select * from " . ABAP_DB_TABLE_HIER::CVERS . " where COMPONENT = ? ";
-        $stmt = $dbc->prepare($sql);
-        $stmt->bind_param('s', $SoftComp);
-        $stmt->execute();
-        $out = $stmt->get_result();
-        $result = $out->fetch_all(MYSQL_ASSOC);
-        return $result[0];
-    }
-
-    /**
-     * Get application component list for one software component.
-     * <p>
-     * Example SQL Statement:</p>
-     * <pre>
-     * select FCTR_ID, PS_POSID, (length(PS_POSID) - LENGTH(REPLACE(PS_POSID, '-', '')) + 1) AS LEVEL 
-     * from df14l where fctr_id in (
-     *     select distinct COMPONENT from tdevc where dlvunit = 'SAP_BASIS'
-     * ) AND trim(coalesce(PS_POSID, '')) <>'' order by PS_POSID
-     * </pre>
-     */
-    public static function CVERS_Child($SoftComp) {
-        $sql = "select FCTR_ID, PS_POSID, (length(PS_POSID) - LENGTH(REPLACE(PS_POSID, '-', '')) + 1) AS LEVEL "
-                . " from " . ABAP_DB_TABLE_HIER::DF14L . " where fctr_id in ( "
-                . " select distinct COMPONENT from " . ABAP_DB_TABLE_HIER::TDEVC . " where dlvunit = ? "
-                . " ) AND trim(coalesce(PS_POSID, '')) <>'' order by PS_POSID ";
-        $stmt = ABAP_DB_SCHEMA::getConnHier()->prepare($sql);
-        $stmt->bind_param('s', $SoftComp);
-        $stmt->execute();
-        $out = $stmt->get_result();
-        $result = $out->fetch_all(MYSQL_ASSOC);
+        $con = ABAP_DB_SCHEMA::getConnHier();
+        $SoftComp = $con->real_escape_string($SoftComp);
+        $sql = "select * from " . ABAP_DB_TABLE_HIER::CVERS . " where COMPONENT = '" . $SoftComp . "'";
+        $qry = $con->query($sql);
+        $result = mysqli_fetch_array($qry);
         return $result;
     }
 
@@ -401,29 +360,63 @@ class ABAP_DB_TABLE_HIER {
      * </pre>
      */
     public static function DF14L_List($index) {
+        $con = ABAP_DB_SCHEMA::getConnHier();
         if (ABAP_DB_CONST::INDEX_TOP == $index) {
-            $sql = "select * from " . ABAP_DB_TABLE_HIER::DF14L . " where PS_POSID not like '%-%' AND trim(coalesce(PS_POSID, '')) <>'' ORDER BY PS_POSID";
-            $stmt = ABAP_DB_SCHEMA::getConnHier()->prepare($sql);
+            $sql = "select * from " . ABAP_DB_TABLE_HIER::DF14L 
+                    . " where PS_POSID not like '%-%' AND trim(coalesce(PS_POSID, '')) <>'' ORDER BY PS_POSID";
         } else {
-            $sql = "select * from " . ABAP_DB_TABLE_HIER::DF14L . " where PS_POSID like ? AND trim(coalesce(PS_POSID, '')) <>'' ORDER BY PS_POSID";
-            $stmt = ABAP_DB_SCHEMA::getConnHier()->prepare($sql);
-            $stmt->bind_param('s', $like = $index . '%');
+            $index = $con->real_escape_string($index);
+            $sql = "select * from " . ABAP_DB_TABLE_HIER::DF14L 
+                    . " where PS_POSID like '" . $index . "%' AND trim(coalesce(PS_POSID, '')) <>'' ORDER BY PS_POSID";
         }
-        $stmt->execute();
-        return $stmt->get_result()->fetch_all(MYSQL_ASSOC);
+        return $con->query($sql);
     }
 
     /**
      * Application Component.
      */
     public static function DF14L($AppComp) {
-        $sql = "select * from " . ABAP_DB_TABLE_HIER::DF14L . " where FCTR_ID = ? ";
-        $stmt = ABAP_DB_SCHEMA::getConnHier()->prepare($sql);
-        $stmt->bind_param('s', $AppComp);
-        $stmt->execute();
-        $out = $stmt->get_result();
-        $result = $out->fetch_all(MYSQL_ASSOC);
-        return $result[0];
+        $con = ABAP_DB_SCHEMA::getConnHier();
+        $AppComp = $con->real_escape_string($AppComp);
+        $sql = "select * from " . ABAP_DB_TABLE_HIER::DF14L . " where FCTR_ID = '" . $AppComp . "'";
+        $qry = $con->query($sql);
+        $result = mysqli_fetch_array($qry);
+        return $result;
+    }
+
+
+    /**
+     * Get application component list for one software component.
+     * <p>
+     * Example SQL Statement:</p>
+     * a. with sub-query, low performance: 
+     * <pre>
+     * select FCTR_ID, PS_POSID, (length(PS_POSID) - LENGTH(REPLACE(PS_POSID, '-', '')) + 1) AS LEVEL 
+     * from df14l where fctr_id in (
+     *     select distinct COMPONENT from tdevc where dlvunit = 'SAP_BASIS'
+     * ) AND trim(coalesce(PS_POSID, '')) <>'' order by PS_POSID
+     * </pre>
+     * b. without sub-query:
+     * <pre>
+     * select FCTR_ID, PS_POSID, (length(PS_POSID) - LENGTH(REPLACE(PS_POSID, '-', '')) + 1) AS LEVEL 
+     * from df14l where fctr_id = '/ISDFPS/PD10000011' AND trim(coalesce(PS_POSID, '')) <>'' 
+     * order by PS_POSID
+     * </pre>
+     */
+    public static function DF14L_ID_LEVEL($Fctr_id) {
+        $con = ABAP_DB_SCHEMA::getConnHier();
+        $Fctr_id = $con->real_escape_string($Fctr_id);
+        $sql = "select FCTR_ID, PS_POSID, (length(PS_POSID) - LENGTH(REPLACE(PS_POSID, '-', '')) + 1) AS LEVEL "
+                . " from " . ABAP_DB_TABLE_HIER::DF14L . " where fctr_id = '" . $Fctr_id . "' AND trim(coalesce(PS_POSID, '')) <>'' order by PS_POSID ";
+        return $con->query($sql);
+    }
+
+    public static function DF14L_ID($Fctr_id) {
+        $con = ABAP_DB_SCHEMA::getConnHier();
+        $Fctr_id = $con->real_escape_string($Fctr_id);
+        $sql = "select FCTR_ID, PS_POSID "
+                . " from " . ABAP_DB_TABLE_HIER::DF14L . " where fctr_id = '" . $Fctr_id . "' AND trim(coalesce(PS_POSID, '')) <>'' order by PS_POSID ";
+        return $con->query($sql);
     }
 
     /**
@@ -448,13 +441,13 @@ class ABAP_DB_TABLE_HIER {
      * </pre>
      */
     public static function DF14L_Child($posid, $fctr) {
+        $con = ABAP_DB_SCHEMA::getConnHier();
+        $posid = $con->real_escape_string($posid);
+        $fctr = $con->real_escape_string($fctr);
         $sql = "select FCTR_ID, PS_POSID from " . ABAP_DB_TABLE_HIER::DF14L
-                . " where PS_POSID LIKE ? and FCTR_ID <> ? order by PS_POSID";
-        $stmt = ABAP_DB_SCHEMA::getConnHier()->prepare($sql);
-        $posid = $posid . '%';
-        $stmt->bind_param('ss', $posid, $fctr);
-        $stmt->execute();
-        return $stmt->get_result()->fetch_all(MYSQL_ASSOC);
+                . " where PS_POSID LIKE '" . $posid . "%'"
+                . " and FCTR_ID <> " . $fctr . " order by PS_POSID";
+        return $con->query($sql);
     }
 
     /**
@@ -490,13 +483,17 @@ class ABAP_DB_TABLE_HIER {
      * ABAP Object directory.
      */
     public static function TADIR($Pgmid, $ObjType, $ObjName) {
+        $con = ABAP_DB_SCHEMA::getConnHier();
+        $Pgmid = $con->real_escape_string($Pgmid);
+        $ObjType = $con->real_escape_string($ObjType);
+        $ObjName = $con->real_escape_string($ObjName);
         $sql = "select * from " . ABAP_DB_TABLE_HIER::TADIR
-                . " where pgmid = ? and object = ? and obj_name = ?";
-        $stmt = ABAP_DB_SCHEMA::getConnHier()->prepare($sql);
-        $stmt->bind_param('sss', $Pgmid, $ObjType, $ObjName);
-        $stmt->execute();
-        $result = $stmt->get_result()->fetch_all(MYSQL_ASSOC);
-        return $result[0];
+                . " where pgmid = '" . $Pgmid . "'"
+                . " and object = '" . $ObjType . "'"
+                . " and obj_name = '" . $ObjName . "'";
+        $qry = $con->query($sql);
+        $result = mysqli_fetch_array($qry);
+        return $result;
     }
 
     /**
@@ -506,41 +503,58 @@ class ABAP_DB_TABLE_HIER {
      * </pre>
      */
     public static function TADIR_Child($Package, $Pgmid, $ObjType) {
+        $con = ABAP_DB_SCHEMA::getConnHier();
+        $Package = $con->real_escape_string($Package);
+        $Pgmid = $con->real_escape_string($Pgmid);
+        $ObjType = $con->real_escape_string($ObjType);
         $sql = "select OBJ_NAME from " . ABAP_DB_TABLE_HIER::TADIR
-                . " where PGMID = ? and OBJECT = ? AND DEVCLASS = ?";
-        $stmt = ABAP_DB_SCHEMA::getConnHier()->prepare($sql);
-        $stmt->bind_param('sss', $Pgmid, $ObjType, $Package);
-        $stmt->execute();
-        return $stmt->get_result()->fetch_all(MYSQL_ASSOC);
+                . " where PGMID = '" . $Pgmid . "'"
+                . " and OBJECT = '" . $ObjType . "'"
+                . " AND DEVCLASS = '" . $Package . "'";
+        return $con->query($sql);
     }
 
     /**
-     * Package List.
+     * Package List, of an index.
      * <pre>
      * SELECT * FROM tdevc where DEVCLASS LIKE 'A%' order by devclass
      * </pre>
      */
     public static function TDEVC_List($index) {
-        $sql = "select * from " . ABAP_DB_TABLE_HIER::TDEVC . " where devclass like ? order by devclass";
-        $stmt = ABAP_DB_SCHEMA::getConnHier()->prepare($sql);
-        $index = $index . '%';
-        $stmt->bind_param('s', $index);
-        $stmt->execute();
-        return $stmt->get_result()->fetch_all(MYSQL_ASSOC);
+        $con = ABAP_DB_SCHEMA::getConnHier();
+        $index = $con->real_escape_string($index);
+        $sql = "select * from " . ABAP_DB_TABLE_HIER::TDEVC 
+                . " where devclass like '" . $index . "%' order by devclass";
+        return $con->query($sql);
     }
 
     /**
      * Package.
      */
     public static function TDEVC($Package) {
-        $sql = "select * from " . ABAP_DB_TABLE_HIER::TDEVC . " where devclass = ? ";
-        $stmt = ABAP_DB_SCHEMA::getConnHier()->prepare($sql);
-        $stmt->bind_param('s', $Package);
-        $stmt->execute();
-        $result = $stmt->get_result()->fetch_all(MYSQL_ASSOC);
-        return $result[0];
+        $con = ABAP_DB_SCHEMA::getConnHier();
+        $Package = $con->real_escape_string($Package);
+        $sql = "select * from " . ABAP_DB_TABLE_HIER::TDEVC 
+                . " where devclass = '" . $Package . "'";
+        $qry = $con->query($sql);
+        $result = mysqli_fetch_array($qry);
+        return $result;
     }
 
+    /**
+     * Application Component list for one software component.
+     * <pre>
+     * select distinct COMPONENT from tdevc where dlvunit = 'SAP_BASIS'
+     * </pre>
+     */
+    public static function TDEVC_COMPONENT($SoftComp) {
+        $con = ABAP_DB_SCHEMA::getConnHier();
+        $SoftComp = $con->real_escape_string($SoftComp);
+        $sql = "select distinct COMPONENT from " . ABAP_DB_TABLE_HIER::TDEVC
+                . " where dlvunit = '" . $SoftComp . "'";
+        return $con->query($sql);
+    }
+    
     /**
      * Package list for one application component.
      * <pre>
@@ -548,13 +562,13 @@ class ABAP_DB_TABLE_HIER {
      * and devclass not like 'Y%' and devclass not like 'Z%'
      * </pre>
      */
-    public static function TDEVC_COMPONENT($AppComp) {
+    public static function TDEVC_DEVCLASS($AppComp) {
+        $con = ABAP_DB_SCHEMA::getConnHier();
+        $AppComp = $con->real_escape_string($AppComp);
         $sql = "select DEVCLASS from " . ABAP_DB_TABLE_HIER::TDEVC
-                . " where COMPONENT = ? and devclass not like 'Y%' and devclass not like 'Z%'";
-        $stmt = ABAP_DB_SCHEMA::getConnHier()->prepare($sql);
-        $stmt->bind_param('s', $AppComp);
-        $stmt->execute();
-        return $stmt->get_result()->fetch_all(MYSQL_ASSOC);
+                . " where COMPONENT = '" . $AppComp . "'"
+                . " and devclass not like 'Y%' and devclass not like 'Z%'";
+        return $con->query($sql);
     }
 
     /**

@@ -14,7 +14,6 @@ if (empty($index)) {
     $index = strtoupper($index);
 }
 $dd01l = ABAP_DB_TABLE_DOMA::DD01L_List($index);
-//print_r($dd01l);
 ?>
 <html>
     <head>
@@ -84,7 +83,7 @@ $dd01l = ABAP_DB_TABLE_DOMA::DD01L_List($index);
                         <th class="alv"> Decimals </th>
                     </tr>
                     <?php
-                    foreach ($dd01l as $dd01l_item) {
+                    while ($dd01l_item = mysqli_fetch_array($dd01l)) {
                         $dd01l_item_t = ABAP_DB_TABLE_DOMA::DD01T($dd01l_item['DOMNAME'])
                         ?>
                         <tr><td class="alv"><?php echo ABAP_Navigation::GetURLDomain($dd01l_item['DOMNAME'], $dd01l_item_t) ?> </td>

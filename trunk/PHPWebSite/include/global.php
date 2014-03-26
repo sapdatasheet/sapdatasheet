@@ -1,5 +1,9 @@
 <?php
 
+$GLOBALS['TITLE_TEXT'] = 'SAP';
+error_reporting(-1);
+
+
 /** Web Site Constants. */
 class WEBSITE {
 
@@ -37,8 +41,6 @@ class ABAP_OTYPE {
     const VIEW_DESC = 'View';
 
 }
-
-$GLOBALS['TITLE_TEXT'] = 'SAP';
 
 /**
  * HTTP Status Codes.

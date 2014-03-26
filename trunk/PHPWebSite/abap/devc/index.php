@@ -84,7 +84,7 @@ $devc = ABAP_DB_TABLE_HIER::TDEVC_List($index);
                         <th class="alv"> <?php echo ABAP_OTYPE::BMFR_DESC ?> </th>
                     </tr>
                     <?php
-                    foreach ($devc as $row) {
+                    while ($row = mysqli_fetch_array($devc)) {
                         $devc_desc = ABAP_DB_TABLE_HIER::TDEVCT($row['DEVCLASS']);
                         $devc_ps_posid = ABAP_DB_TABLE_HIER::DF14L_PS_POSID($row['COMPONENT']);
                         ?>

@@ -82,7 +82,7 @@ $bmfr = ABAP_DB_TABLE_HIER::DF14L_List($index);
                         <th class="alv"> First Release </th>
                         <th class="alv"> Application Component </th></tr>
                     <?php
-                    foreach ($bmfr as $row) {
+                    while ($row = mysqli_fetch_array($bmfr)) {
                         $bmfr_desc = ABAP_DB_TABLE_HIER::DF14T($row['FCTR_ID']);
                         ?>
                         <tr><td class="alv"><?php echo ABAP_Navigation::GetURLAppComp($row['FCTR_ID'], $row['PS_POSID'], $bmfr_desc); ?> </td>
