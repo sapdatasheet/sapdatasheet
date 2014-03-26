@@ -84,7 +84,7 @@ $child_tran = ABAP_DB_TABLE_HIER::TADIR_Child($Package, ABAP_DB_CONST::TADIR_PGM
 
                 <!-- Package Content -->
                 <?php if (!empty($child_tabl) || !empty($child_tran)) { ?>
-                    <h4> Package Content </h4>
+                    <h4> Content </h4>
                     <table class="alv">
                         <tr><td class="caption" colspan="2">Contained Tables</td></tr>
                         <!-- Contained Tables -->
@@ -93,7 +93,7 @@ $child_tran = ABAP_DB_TABLE_HIER::TADIR_Child($Package, ABAP_DB_CONST::TADIR_PGM
                                 <th class="alv"> Table Name </th>
                                 <th class="alv"> Short Description </th></tr>                        
                             <?php
-                            foreach ($child_tabl as $child_tabl_item) {
+                            while ($child_tabl_item = mysqli_fetch_array($child_tabl)) {
                                 $child_tabl_item_t = ABAP_DB_TABLE_TABL::DD02T($child_tabl_item['OBJ_NAME']);
                                 ?>
                                 <tr><td class="alv"><?php echo ABAP_Navigation::GetURLTable($child_tabl_item['OBJ_NAME'], $child_tabl_item_t) ?></td>
@@ -109,7 +109,7 @@ $child_tran = ABAP_DB_TABLE_HIER::TADIR_Child($Package, ABAP_DB_CONST::TADIR_PGM
                                 <th class="alv"> Transaction Code </th>
                                 <th class="alv"> Short Description </th></tr>                        
                             <?php
-                            foreach ($child_tran as $child_tran_item) {
+                            while ($child_tran_item = mysqli_fetch_array($child_tran)) {
                                 $child_tran_item_t = ABAP_DB_TABLE_TRAN::TSTCT($child_tran_item['OBJ_NAME']);
                                 ?>
                                 <tr><td class="alv"><?php echo ABAP_Navigation::GetURLTransactionCode($child_tran_item['OBJ_NAME'], $child_tran_item_t) ?></td>

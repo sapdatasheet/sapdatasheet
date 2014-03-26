@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<?php require_once '/include/global.php'; ?>
+<?php require_once './include/global.php'; ?>
 <?php $GLOBALS['SearchTerm'] = "Company Code"; ?>
-
 <html>
     <head>
         <link rel="stylesheet" href="abap.css" type="text/css" >
