@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<?php require_once '../../include/global.php'; ?>
-<?php require_once '../../include/abap_db.php'; ?>
-<?php require_once '../../include/abap_ui.php'; ?>
+<!-- Software component object. -->
 <?php
-$SoftComp = $_GET["id"];
+require_once '../../include/global.php';
+require_once '../../include/abap_db.php';
+require_once '../../include/abap_ui.php';
+
+$SoftComp = filter_input(INPUT_GET, 'id');
 $cvers = ABAP_DB_TABLE_HIER::CVERS($SoftComp);
 if (empty($cvers['COMPONENT'])) {
     ABAP_Redirect::Redirect404();
@@ -46,7 +48,8 @@ $children = ABAP_DB_TABLE_HIER::CVERS_Child($cvers['COMPONENT']);
                             $l1_appcomp_desc = ABAP_DB_TABLE_HIER::DF14T($l1_child['FCTR_ID']);
                             ?>
                             <tr><td class="left_value"><?php echo ABAP_Navigation::GetURLAppComp($l1_child['FCTR_ID'], $l1_child['PS_POSID'], $l1_appcomp_desc) ?> </td></tr>
-                        <?php }
+                            <?php
+                        }
                     }
                     ?>
                 </tbody>

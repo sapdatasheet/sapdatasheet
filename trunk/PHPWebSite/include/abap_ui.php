@@ -16,8 +16,20 @@ class ABAP_Navigation {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::DOMA_NAME, $domain, $domainValue, $desc);
     }
 
+    public static function GetURLPackage($package, $desc) {
+        return ABAP_Navigation::GetURL(ABAP_OTYPE::DEVC_NAME, $package, $package, $desc);
+    }
+
     public static function GetURLSoftComp($compName, $desc) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::CVERS_NAME, $compName, $compName, $desc);
+    }
+
+    public static function GetURLTable($table, $desc) {
+        return ABAP_Navigation::GetURL(ABAP_OTYPE::CVERS_NAME, $table, $table, $desc);
+    }
+
+    public static function GetURLTransactionCode($tcode, $desc) {
+        return ABAP_Navigation::GetURL(ABAP_OTYPE::CVERS_NAME, $tcode, $tcode, $desc);
     }
 
     private static function GetURL($objtype, $objname, $value, $title) {
@@ -41,4 +53,46 @@ class ABAP_Redirect {
 
 }
 
+class ABAP_Hierarchy {
 
+    /**
+     * Package. <p> Database field: TADIR-DEVCLASS or TDEVC-DEVCLASS. </p>
+     */
+    public $DEVCLASS = '';
+
+    /**
+     * Text of {@link #DEVCLASS}.
+     */
+    public $DEVCLASS_T = '';
+
+    /**
+     * Software Component. <p> Database field: TDEVC-DLVUNIT. </p>
+     */
+    public $DLVUNIT = '';
+
+    /**
+     * Text of {@link #DLVUNIT}. <p> Database field: CVERS_REF-DESC_TEXT. </p>
+     */
+    public $DLVUNIT_T = '';
+
+    /**
+     * Application Component. <p> Database field: DF14L-FCTR_ID. </p>
+     */
+    public $FCTR_ID = '';
+
+    /**
+     * Application component ID. <p> Database field: DF14L-PS_POSID. </p>
+     */
+    public $POSID = '';
+
+    /**
+     * Text of {@link #POSID}.
+     */
+    public $POSID_T = '';
+
+    /**
+     * SAP Release. <p> Database field: TADIR-CRELEASE. </p>
+     */
+    public $CRELEASE = '';
+
+}
