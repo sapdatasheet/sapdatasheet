@@ -70,6 +70,7 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::CVERS_DESC;
 </html>
 <?php 
 $ob_content = ob_get_contents();
+ob_end_flush();
 $ob_fp = fopen("./index.html", "w");
 fwrite($ob_fp, $ob_content);
 fclose($ob_fp);
