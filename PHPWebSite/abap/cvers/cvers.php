@@ -8,7 +8,7 @@ require_once '../../include/abap_ui.php';
 $SoftComp = filter_input(INPUT_GET, 'id');
 $cvers = ABAP_DB_TABLE_HIER::CVERS($SoftComp);
 if (empty($cvers['COMPONENT'])) {
-    ABAP_Redirect::Redirect404();
+    ABAP_UI_TOOL::Redirect404();
 }
 $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::CVERS_DESC . ' ' . $cvers['COMPONENT'];
 $cvers_desc = ABAP_DB_TABLE_HIER::CVERS_REF($SoftComp);

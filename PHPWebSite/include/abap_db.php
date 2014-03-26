@@ -9,6 +9,9 @@ class ABAP_DB_CONST {
     const INDEX_TOP = "TOP";
     const INDEX_A = "A";
     const LANGU_EN = "E";
+    
+    /** Domain names. */
+    const DD01L_DATATYPE_DOMAIN = "DATATYPE";
     const TADIR_COMP_TYPE_DOMAIN = "RELC_TYPE";
     const TADIR_PGMID_R3TR = "R3TR";
     const TDEVC_MAINPACK_DOMAIN = "MAINPACK";
@@ -171,22 +174,47 @@ class ABAP_DB_TABLE_DOMA {
      */
     const DD07T = "dd07t";
 
-    public static function DD01L_Index($index) {
-        $dbc = ABAP_DB_SCHEMA::getConnDoma();
-        $sth = $dbc->prepare("select * from :table where DOMNAME like :index ORDER BY domname");
-        $sth->bindParam(':table', ABAP_DB_TABLE_DOMA::DD01L, PDO::PARAM_STR);
-        $sth->bindParam(':index', $index, PDO::PARAM_STR);
-        $sth->execute();
-        return $sth;
+    /**
+     * Domain List.
+     * <pre>
+     * SELECT * FROM dd01l where DOMNAME LIKE 'A%' order by DOMNAME
+     * </pre>
+     */
+    public static function DD01L_List($index) {
+        $sql = 'SELECT DOMNAME, DATATYPE, LENG, DECIMALS, AS4DATE FROM ' . ABAP_DB_TABLE_DOMA::DD01L 
+                . ' where DOMNAME LIKE ? order by DOMNAME';
+        $stmt = ABAP_DB_SCHEMA::getConnDoma()->prepare($sql);
+        $index = $index . '%';
+        $stmt->bind_param("s", $index);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQL_ASSOC);
     }
 
+    /**
+     * Domain.
+     */
     public static function DD01L($DomName) {
-        $dbc = ABAP_DB_SCHEMA::getConnDoma();
-        $sth = $dbc->prepare("select * from :table where DOMNAME = :domname");
-        $sth->bindParam(':table', ABAP_DB_TABLE_DOMA::DD01L, PDO::PARAM_STR);
-        $sth->bindParam(':domname', $DomName, PDO::PARAM_STR);
-        $sth->execute();
-        return $sth;
+        $sql = 'SELECT * FROM ' . ABAP_DB_TABLE_DOMA::DD01L . ' where DOMNAME = ?';
+        $stmt = ABAP_DB_SCHEMA::getConnDoma()->prepare($sql);
+        $stmt->bind_param('s', $DomName);
+        $stmt->execute();
+        $out = $stmt->get_result();
+        $result = $out->fetch_all(MYSQL_ASSOC);
+        return $result[0];        
+    }
+
+    /**
+     * Domain text.
+     */
+    public static function DD01T($Domain) {
+        $sql = "select DDTEXT from " . ABAP_DB_TABLE_DOMA::DD01T 
+                . " where DOMNAME = ? and DDLANGUAGE = ?";
+        $stmt = ABAP_DB_SCHEMA::getConnDoma()->prepare($sql);
+        $stmt->bind_param('ss', $Domain, $langu = ABAP_DB_CONST::LANGU_EN);
+        $stmt->execute();
+        $stmt->bind_result($result);
+        $stmt->fetch();
+        return $result;
     }
 
     /**
@@ -308,8 +336,7 @@ class ABAP_DB_TABLE_HIER {
         $sql = "select * from " . ABAP_DB_TABLE_HIER::CVERS . " order by COMPONENT";
         $stmt = $dbc->prepare($sql);
         $stmt->execute();
-        $out = $stmt->get_result();
-        return $out->fetch_all(MYSQL_ASSOC);
+        return $stmt->get_result()->fetch_all(MYSQL_ASSOC);
     }
 
     /**

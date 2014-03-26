@@ -7,11 +7,11 @@ require_once '../../include/abap_ui.php';
 
 $AppComp = filter_input(INPUT_GET, 'id');
 if (empty($AppComp)) {
-    ABAP_Redirect::Redirect404();
+    ABAP_UI_TOOL::Redirect404();
 }
 $df14l = ABAP_DB_TABLE_HIER::DF14L($AppComp);
 if (empty($df14l['FCTR_ID'])) {
-    ABAP_Redirect::Redirect404();
+    ABAP_UI_TOOL::Redirect404();
 }
 
 $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::BMFR_DESC . ' ' . $df14l['PS_POSID'] . ' (' . $df14l['FCTR_ID'] . ')';

@@ -44,11 +44,27 @@ class ABAP_Navigation {
 
 }
 
-class ABAP_Redirect {
+class ABAP_UI_TOOL {
 
     public static function Redirect404() {
         header(HTTP_STATUS::STATUS_404);
         header("Location: /abap/page404.php");
+    }
+
+    public static function CheckText($Text) {
+        if (empty($Text)) {
+            return '(Not Set)';
+        } else {
+            return $Text;
+        }
+    }
+
+    public static function CheckInt($Int) {
+        if ($Int == 0) {
+            return '&nbsp;';
+        } else {
+            return $Int;
+        }
     }
 
 }
