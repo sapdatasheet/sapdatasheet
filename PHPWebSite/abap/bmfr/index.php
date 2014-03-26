@@ -7,7 +7,7 @@ require_once '../../include/abap_ui.php';
 
 $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::BMFR_DESC;
 
-$index = $_GET["index"];
+$index = filter_input(INPUT_GET, 'index');;
 if (empty($index)) {
     $index = ABAP_DB_CONST::INDEX_TOP;
 } else {

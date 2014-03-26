@@ -6,9 +6,12 @@ $GLOBALS['ABAP_DB_SCHEMA_TYPE'] = ABAP_DB_SCHEMA::TYPE_QAS;
 
 class ABAP_DB_CONST {
 
+    const INDEX_TOP = "TOP";
+    const INDEX_A = "A";
     const LANGU_EN = "E";
     const TADIR_COMP_TYPE_DOMAIN = "RELC_TYPE";
-    const INDEX_TOP = "TOP";
+    const TADIR_PGMID_R3TR = "R3TR";
+    const TDEVC_MAINPACK_DOMAIN = "MAINPACK";
 
 }
 
@@ -83,12 +86,18 @@ class ABAP_DB_SCHEMA {
 
     /** Get database connection for data element. */
     public static function getConnDtel() {
-        return ABAP_DB_SCHEMA::getConn(ABAP_DB_SCHEMA::Schema(ABAP_DB_SCHEMA::DTEL));
+        if (is_null(ABAP_DB_SCHEMA::$conn_dtel)) {
+            ABAP_DB_SCHEMA::$conn_dtel = ABAP_DB_SCHEMA::getConn(ABAP_DB_SCHEMA::Schema(ABAP_DB_SCHEMA::DTEL));
+        }
+        return ABAP_DB_SCHEMA::$conn_dtel;
     }
 
     /** Get database connection for function module. */
     public static function getConnFunc() {
-        return ABAP_DB_SCHEMA::getConn(ABAP_DB_SCHEMA::Schema(ABAP_DB_SCHEMA::FUNC));
+        if (is_null(ABAP_DB_SCHEMA::$conn_func)) {
+            ABAP_DB_SCHEMA::$conn_func = ABAP_DB_SCHEMA::getConn(ABAP_DB_SCHEMA::Schema(ABAP_DB_SCHEMA::FUNC));
+        }
+        return ABAP_DB_SCHEMA::$conn_func;
     }
 
     /** Get database connection for hierarchy. */
@@ -101,22 +110,34 @@ class ABAP_DB_SCHEMA {
 
     /** Get database connection for program. */
     public static function getConnProg() {
-        return ABAP_DB_SCHEMA::getConn(ABAP_DB_SCHEMA::Schema(ABAP_DB_SCHEMA::PROG));
+        if (is_null(ABAP_DB_SCHEMA::$conn_prog)) {
+            ABAP_DB_SCHEMA::$conn_prog = ABAP_DB_SCHEMA::getConn(ABAP_DB_SCHEMA::Schema(ABAP_DB_SCHEMA::PROG));
+        }
+        return ABAP_DB_SCHEMA::$conn_prog;
     }
 
     /** Get database connection for table. */
     public static function getConnTabl() {
-        return ABAP_DB_SCHEMA::getConn(ABAP_DB_SCHEMA::Schema(ABAP_DB_SCHEMA::TABL));
+        if (is_null(ABAP_DB_SCHEMA::$conn_tabl)) {
+            ABAP_DB_SCHEMA::$conn_tabl = ABAP_DB_SCHEMA::getConn(ABAP_DB_SCHEMA::Schema(ABAP_DB_SCHEMA::TABL));
+        }
+        return ABAP_DB_SCHEMA::$conn_tabl;
     }
 
     /** Get database connection for transaction codes. */
     public static function getConnTran() {
-        return ABAP_DB_SCHEMA::getConn(ABAP_DB_SCHEMA::Schema(ABAP_DB_SCHEMA::TRAN));
+        if (is_null(ABAP_DB_SCHEMA::$conn_tran)) {
+            ABAP_DB_SCHEMA::$conn_tran = ABAP_DB_SCHEMA::getConn(ABAP_DB_SCHEMA::Schema(ABAP_DB_SCHEMA::TRAN));
+        }
+        return ABAP_DB_SCHEMA::$conn_tran;
     }
 
     /** Get database connection for view. */
     public static function getConnView() {
-        return ABAP_DB_SCHEMA::getConn(ABAP_DB_SCHEMA::Schema(ABAP_DB_SCHEMA::VIEW));
+        if (is_null(ABAP_DB_SCHEMA::$conn_view)) {
+            ABAP_DB_SCHEMA::$conn_view = ABAP_DB_SCHEMA::getConn(ABAP_DB_SCHEMA::Schema(ABAP_DB_SCHEMA::VIEW));
+        }
+        return ABAP_DB_SCHEMA::$conn_view;
     }
 
     /** Get database conection object. */
@@ -353,19 +374,60 @@ class ABAP_DB_TABLE_HIER {
      * </pre>
      */
     public static function DF14L_List($index) {
-        $dbc = ABAP_DB_SCHEMA::getConnHier();
         if (ABAP_DB_CONST::INDEX_TOP == $index) {
             $sql = "select * from " . ABAP_DB_TABLE_HIER::DF14L . " where PS_POSID not like '%-%' AND trim(coalesce(PS_POSID, '')) <>'' ORDER BY PS_POSID";
-            $stmt = $dbc->prepare($sql);
+            $stmt = ABAP_DB_SCHEMA::getConnHier()->prepare($sql);
         } else {
             $sql = "select * from " . ABAP_DB_TABLE_HIER::DF14L . " where PS_POSID like ? AND trim(coalesce(PS_POSID, '')) <>'' ORDER BY PS_POSID";
-            $stmt = $dbc->prepare($sql);
+            $stmt = ABAP_DB_SCHEMA::getConnHier()->prepare($sql);
             $stmt->bind_param('s', $like = $index . '%');
         }
         $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQL_ASSOC);
+    }
+
+    /**
+     * Application Component.
+     */
+    public static function DF14L($AppComp) {
+        $sql = "select * from " . ABAP_DB_TABLE_HIER::DF14L . " where FCTR_ID = ? ";
+        $stmt = ABAP_DB_SCHEMA::getConnHier()->prepare($sql);
+        $stmt->bind_param('s', $AppComp);
+        $stmt->execute();
         $out = $stmt->get_result();
         $result = $out->fetch_all(MYSQL_ASSOC);
+        return $result[0];
+    }
+
+    /**
+     * Application Component PS_POSID.
+     */
+    public static function DF14L_PS_POSID($fctr_id) {
+        $sql = "select PS_POSID from " . ABAP_DB_TABLE_HIER::DF14L . " where FCTR_ID = ? ";
+        $stmt = ABAP_DB_SCHEMA::getConnHier()->prepare($sql);
+        $stmt->bind_param('s', $fctr_id);
+        $stmt->execute();
+        $stmt->bind_result($result);
+        $stmt->fetch();
         return $result;
+    }
+
+    /**
+     * Child Application Component.
+     * <pre>
+     * select FCTR_ID, PS_POSID from df14l 
+     * where PS_POSID LIKE 'BW-SYS%' and FCTR_ID <> 'ARS0000024' 
+     * order by PS_POSID
+     * </pre>
+     */
+    public static function DF14L_Child($posid, $fctr) {
+        $sql = "select FCTR_ID, PS_POSID from " . ABAP_DB_TABLE_HIER::DF14L
+                . " where PS_POSID LIKE ? and FCTR_ID <> ? order by PS_POSID";
+        $stmt = ABAP_DB_SCHEMA::getConnHier()->prepare($sql);
+        $posid = $posid . '%';
+        $stmt->bind_param('ss', $posid, $fctr);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQL_ASSOC);
     }
 
     /**
@@ -375,6 +437,106 @@ class ABAP_DB_TABLE_HIER {
         $sql = "select name from " . ABAP_DB_TABLE_HIER::DF14T . " where FCTR_ID = ? and LANGU = ?";
         $stmt = ABAP_DB_SCHEMA::getConnHier()->prepare($sql);
         $stmt->bind_param('ss', $AppComp, $langu = ABAP_DB_CONST::LANGU_EN);
+        $stmt->execute();
+        $stmt->bind_result($result);
+        $stmt->fetch();
+        return $result;
+    }
+
+    public static function Hier($Pgmid, $ObjType, $ObjName) {
+        $hier = new ABAP_Hierarchy();
+        $tadir = ABAP_DB_TABLE_HIER::TADIR($Pgmid, $ObjType, $ObjName);
+        $hier->CRELEASE = $tadir['CRELEASE'];
+        $hier->DEVCLASS = $tadir['DEVCLASS'];
+        $hier->DEVCLASS_T = ABAP_DB_TABLE_HIER::TDEVCT($hier->DEVCLASS);
+        $tdevc = ABAP_DB_TABLE_HIER::TDEVC($hier->DEVCLASS);
+        $hier->DLVUNIT = $tdevc['DLVUNIT'];
+        $hier->DLVUNIT_T = ABAP_DB_TABLE_HIER::CVERS_REF($hier->DLVUNIT);
+        $df14l = ABAP_DB_TABLE_HIER::DF14L($tdevc['COMPONENT']);
+        $hier->FCTR_ID = $tdevc['COMPONENT'];
+        $hier->POSID = $df14l['PS_POSID'];
+        $hier->POSID_T = ABAP_DB_TABLE_HIER::DF14T($hier->FCTR_ID);
+        return $hier;
+    }
+
+    /**
+     * ABAP Object directory.
+     */
+    public static function TADIR($Pgmid, $ObjType, $ObjName) {
+        $sql = "select * from " . ABAP_DB_TABLE_HIER::TADIR
+                . " where pgmid = ? and object = ? and obj_name = ?";
+        $stmt = ABAP_DB_SCHEMA::getConnHier()->prepare($sql);
+        $stmt->bind_param('sss', $Pgmid, $ObjType, $ObjName);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQL_ASSOC);
+        return $result[0];
+    }
+
+    /**
+     * Get contained object for one package.
+     * <pre>
+     * select OBJ_NAME from tadir where PGMID = 'R3TR' and OBJECT = 'TABL' AND DEVCLASS = '/AIN/ACTIVITIES'
+     * </pre>
+     */
+    public static function TADIR_Child($Package, $Pgmid, $ObjType) {
+        $sql = "select OBJ_NAME from " . ABAP_DB_TABLE_HIER::TADIR
+                . " where PGMID = ? and OBJECT = ? AND DEVCLASS = ?";
+        $stmt = ABAP_DB_SCHEMA::getConnHier()->prepare($sql);
+        $stmt->bind_param('sss', $Pgmid, $ObjType, $Package);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQL_ASSOC);
+    }
+
+    /**
+     * Package List.
+     * <pre>
+     * SELECT * FROM tdevc where DEVCLASS LIKE 'A%' order by devclass
+     * </pre>
+     */
+    public static function TDEVC_List($index) {
+        $sql = "select * from " . ABAP_DB_TABLE_HIER::TDEVC . " where devclass like ? order by devclass";
+        $stmt = ABAP_DB_SCHEMA::getConnHier()->prepare($sql);
+        $index = $index . '%';
+        $stmt->bind_param('s', $index);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQL_ASSOC);
+    }
+
+    /**
+     * Package.
+     */
+    public static function TDEVC($Package) {
+        $sql = "select * from " . ABAP_DB_TABLE_HIER::TDEVC . " where devclass = ? ";
+        $stmt = ABAP_DB_SCHEMA::getConnHier()->prepare($sql);
+        $stmt->bind_param('s', $Package);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQL_ASSOC);
+        return $result[0];
+    }
+
+    /**
+     * Package list for one application component.
+     * <pre>
+     * select DEVCLASS from tdevc where COMPONENT = 'HLB0009110' 
+     * and devclass not like 'Y%' and devclass not like 'Z%'
+     * </pre>
+     */
+    public static function TDEVC_COMPONENT($AppComp) {
+        $sql = "select DEVCLASS from " . ABAP_DB_TABLE_HIER::TDEVC
+                . " where COMPONENT = ? and devclass not like 'Y%' and devclass not like 'Z%'";
+        $stmt = ABAP_DB_SCHEMA::getConnHier()->prepare($sql);
+        $stmt->bind_param('s', $AppComp);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQL_ASSOC);
+    }
+
+    /**
+     * Package text.
+     */
+    public static function TDEVCT($Package) {
+        $sql = "select ctext from " . ABAP_DB_TABLE_HIER::TDEVCT . " where devclass = ? and spras = ?";
+        $stmt = ABAP_DB_SCHEMA::getConnHier()->prepare($sql);
+        $stmt->bind_param('ss', $Package, $langu = ABAP_DB_CONST::LANGU_EN);
         $stmt->execute();
         $stmt->bind_result($result);
         $stmt->fetch();
@@ -567,6 +729,23 @@ class ABAP_DB_TABLE_TABL {
      */
     const YTDDAT = "ytddat";
 
+    /**
+     * Table text.
+     * <pre>
+     * SELECT DDTEXT FROM dd02t where tabname = 'BKPF' AND DDLANGUAGE = 'E'
+     * </pre>
+     */
+    public static function DD02T($TableName) {
+        $sql = "select DDTEXT from " . ABAP_DB_TABLE_TABL::DD02T
+                . " where tabname = ? and DDLANGUAGE = ?";
+        $stmt = ABAP_DB_SCHEMA::getConnTabl()->prepare($sql);
+        $stmt->bind_param('ss', $TableName, $langu = ABAP_DB_CONST::LANGU_EN);
+        $stmt->execute();
+        $stmt->bind_result($result);
+        $stmt->fetch();
+        return $result;
+    }
+
 }
 
 /** Database table names - transaction code. */
@@ -596,6 +775,23 @@ class ABAP_DB_TABLE_TRAN {
      * Transaction Code Texts.
      */
     const TSTCT = "tstct";
+
+    /**
+     * Transaction Code text.
+     * <pre>
+     * SELECT ttext FROM tstct where tcode = 'FB03' AND SPRSL = 'E'
+     * </pre>
+     */
+    public static function TSTCT($TCode) {
+        $sql = "select ttext from " . ABAP_DB_TABLE_TRAN::TSTCT
+                . " where TCODE = ? and SPRSL = ?";
+        $stmt = ABAP_DB_SCHEMA::getConnTran()->prepare($sql);
+        $stmt->bind_param('ss', $TCode, $langu = ABAP_DB_CONST::LANGU_EN);
+        $stmt->execute();
+        $stmt->bind_result($result);
+        $stmt->fetch();
+        return $result;
+    }
 
 }
 
