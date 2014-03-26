@@ -7,11 +7,11 @@ require_once '../../include/abap_ui.php';
 
 $Package = filter_input(INPUT_GET, 'id');
 if (empty($Package)) {
-    ABAP_Redirect::Redirect404();
+    ABAP_UI_TOOL::Redirect404();
 }
 $tdevc = ABAP_DB_TABLE_HIER::TDEVC($Package);
 if (empty($tdevc['DEVCLASS'])) {
-    ABAP_Redirect::Redirect404();
+    ABAP_UI_TOOL::Redirect404();
 }
 
 $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DEVC_DESC . ' ' . $tdevc['DEVCLASS'];
