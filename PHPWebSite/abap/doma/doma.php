@@ -9,7 +9,7 @@ $Domain = filter_input(INPUT_GET, 'id');
 if (empty($Domain)) {
     ABAP_UI_TOOL::Redirect404();
 }
-$doma = ABAP_DB_TABLE_DOMA::DD01L($Domain);
+$doma = ABAP_DB_TABLE_DOMA::DD01L(strtoupper($Domain));
 if (empty($doma['DOMNAME'])) {
     ABAP_UI_TOOL::Redirect404();
 }

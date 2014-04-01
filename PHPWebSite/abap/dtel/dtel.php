@@ -9,7 +9,7 @@ $DataElement = filter_input(INPUT_GET, 'id');
 if (empty($DataElement)) {
     ABAP_UI_TOOL::Redirect404();
 }
-$dtel = ABAP_DB_TABLE_DTEL::DD04L($DataElement);
+$dtel = ABAP_DB_TABLE_DTEL::DD04L(strtoupper($DataElement));
 if (empty($dtel['ROLLNAME'])) {
     ABAP_UI_TOOL::Redirect404();
 }

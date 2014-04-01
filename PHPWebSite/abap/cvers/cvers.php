@@ -6,7 +6,7 @@ require_once '../../include/abap_db.php';
 require_once '../../include/abap_ui.php';
 
 $SoftComp = filter_input(INPUT_GET, 'id');
-$cvers = ABAP_DB_TABLE_HIER::CVERS($SoftComp);
+$cvers = ABAP_DB_TABLE_HIER::CVERS(strtoupper($SoftComp));
 if (empty($cvers['COMPONENT'])) {
     ABAP_UI_TOOL::Redirect404();
 }

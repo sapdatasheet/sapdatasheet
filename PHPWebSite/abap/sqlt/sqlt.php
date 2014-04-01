@@ -9,7 +9,7 @@ $ClusterTable = filter_input(INPUT_GET, 'id');
 if (empty($ClusterTable)) {
     ABAP_UI_TOOL::Redirect404();
 }
-$sqlt = ABAP_DB_TABLE_TABL::DD06L($ClusterTable);
+$sqlt = ABAP_DB_TABLE_TABL::DD06L(strtoupper($ClusterTable));
 if (empty($sqlt['SQLTAB'])) {
     ABAP_UI_TOOL::Redirect404();
 }

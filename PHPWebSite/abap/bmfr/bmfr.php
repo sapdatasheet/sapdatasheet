@@ -9,7 +9,7 @@ $AppComp = filter_input(INPUT_GET, 'id');
 if (empty($AppComp)) {
     ABAP_UI_TOOL::Redirect404();
 }
-$df14l = ABAP_DB_TABLE_HIER::DF14L($AppComp);
+$df14l = ABAP_DB_TABLE_HIER::DF14L(strtoupper($AppComp));
 if (empty($df14l['FCTR_ID'])) {
     ABAP_UI_TOOL::Redirect404();
 }
