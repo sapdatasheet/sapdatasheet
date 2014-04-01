@@ -4,8 +4,8 @@ require_once 'global.php';
 
 class ABAP_Navigation {
 
-    public static function GetURLAppComp($appcompID, $appcomp, $desc) {
-        return ABAP_Navigation::GetURL(ABAP_OTYPE::BMFR_NAME, $appcompID, $appcomp, $desc);
+    public static function GetURLAppComp($fctr_id, $posid, $desc) {
+        return ABAP_Navigation::GetURL(ABAP_OTYPE::BMFR_NAME, $fctr_id, $posid, $desc);
     }
 
     public static function GetURLDomain($domain, $desc) {
@@ -13,7 +13,14 @@ class ABAP_Navigation {
     }
 
     public static function GetURLDomainValue($domain, $domainValue, $desc) {
+        if (strlen(trim($domainValue)) < 1) {
+            $domainValue = '&nbsp;';
+        }
         return ABAP_Navigation::GetURL(ABAP_OTYPE::DOMA_NAME, $domain, $domainValue, $desc);
+    }
+
+    public static function GetURLDtel($rollname, $desc) {
+        return ABAP_Navigation::GetURL(ABAP_OTYPE::DTEL_NAME, $rollname, $rollname, $desc);
     }
 
     public static function GetURLPackage($package, $desc) {
@@ -22,6 +29,10 @@ class ABAP_Navigation {
 
     public static function GetURLSoftComp($compName, $desc) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::CVERS_NAME, $compName, $compName, $desc);
+    }
+
+    public static function GetURLSqltable($sqlTable, $desc) {
+        return ABAP_Navigation::GetURL(ABAP_OTYPE::SQLT_NAME, $sqlTable, $sqlTable, $desc);
     }
 
     public static function GetURLTable($table, $desc) {
@@ -64,6 +75,28 @@ class ABAP_UI_TOOL {
             return '&nbsp;';
         } else {
             return $Int;
+        }
+    }
+
+    /**
+     * Get check box UI control.
+     */
+    public static function GetCheckBox($Name, $CheckedValue) {
+        if ($CheckedValue == ABAP_DB_CONST::FLAG_TRUE) {
+            return "<input type=\"checkbox\" name=\"" . $Name . "\"  disabled=\"disabled\" checked=\"checked\" />";
+        } else {
+            return "<input type=\"checkbox\" name=\"" . $Name . "\"  disabled=\"disabled\" />";
+        }
+    }
+    
+    /**
+     * Get check box UI control.
+     */
+    public static function GetSqltDesc($Sqlclass) {
+        if ($Sqlclass == 'POOL') {
+            return 'Table pool';
+        } else {
+            return 'Table cluster';
         }
     }
 

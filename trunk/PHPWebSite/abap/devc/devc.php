@@ -17,7 +17,7 @@ if (empty($tdevc['DEVCLASS'])) {
 $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DEVC_DESC . ' ' . $tdevc['DEVCLASS'];
 $tdevc_desc = ABAP_DB_TABLE_HIER::TDEVCT($Package);
 $tdevc_parent_desc = ABAP_DB_TABLE_HIER::TDEVCT($tdevc['PARENTCL']);
-$tdevc_mainpack_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::TDEVC_MAINPACK_DOMAIN, $tdevc['MAINPACK']);
+$tdevc_mainpack_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_TDEVC_MAINPACK, $tdevc['MAINPACK']);
 $hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_CONST::TADIR_PGMID_R3TR, ABAP_OTYPE::DEVC_NAME, $tdevc['DEVCLASS']);
 $child_tabl = ABAP_DB_TABLE_HIER::TADIR_Child($Package, ABAP_DB_CONST::TADIR_PGMID_R3TR, ABAP_OTYPE::TABL_NAME);
 $child_tran = ABAP_DB_TABLE_HIER::TADIR_Child($Package, ABAP_DB_CONST::TADIR_PGMID_R3TR, ABAP_OTYPE::TRAN_NAME);
@@ -76,7 +76,7 @@ $child_tran = ABAP_DB_TABLE_HIER::TADIR_Child($Package, ABAP_DB_CONST::TADIR_PGM
                             <td class="field"><?php echo ABAP_Navigation::GetURLPackage($tdevc['PARENTCL'], $tdevc_parent_desc) ?> &nbsp;</td>
                             <td><?php echo $tdevc_parent_desc ?>&nbsp;</td></tr>
                         <tr><td class="content_label"> Main package indicator </td>
-                            <td class="field"> <?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::TDEVC_MAINPACK_DOMAIN, $tdevc['MAINPACK'], $tdevc_mainpack_desc) ?> &nbsp;</td>
+                            <td class="field"> <?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_TDEVC_MAINPACK, $tdevc['MAINPACK'], $tdevc_mainpack_desc) ?> &nbsp;</td>
                             <td><?php echo $tdevc_mainpack_desc ?>&nbsp;</td></tr>
                         <tr><td class="content_label"> Created by/on          </td><td class="field"><?php echo $tdevc['CREATED_BY'] ?>&nbsp;</td><td class="field"> <?php echo $tdevc['CREATED_ON'] ?>&nbsp;</td></tr>
                     </tbody>
