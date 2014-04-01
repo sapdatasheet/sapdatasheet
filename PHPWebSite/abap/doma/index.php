@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Domain index. -->
+<!-- DDIC Domain index. -->
 <?php
 require_once '../../include/global.php';
 require_once '../../include/abap_db.php';
@@ -19,7 +19,7 @@ $dd01l = ABAP_DB_TABLE_DOMA::DD01L_List($index);
     <head>
         <link rel="stylesheet" href="../../abap.css" type="text/css" >
         <title><?php echo $GLOBALS['TITLE_TEXT'] ?> <?php echo WEBSITE::TITLE ?> </title>
-        <meta name="keywords" content="SAP,ABAP,<?php echo ABAP_OTYPE::DEVC_DESC ?>">
+        <meta name="keywords" content="SAP,ABAP,<?php echo ABAP_OTYPE::DOMA_DESC ?>">
         <meta name="description" content="<?php echo WEBSITE::META_DESC ?>">
         <meta name="author" content="SAP Datasheet">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
@@ -88,7 +88,7 @@ $dd01l = ABAP_DB_TABLE_DOMA::DD01L_List($index);
                         ?>
                         <tr><td class="alv"><?php echo ABAP_Navigation::GetURLDomain($dd01l_item['DOMNAME'], $dd01l_item_t) ?> </td>
                             <td class="alv"><?php echo ABAP_UI_TOOL::CheckText($dd01l_item_t) ?></td>
-                            <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DD01L_DATATYPE_DOMAIN, $dd01l_item['DATATYPE'], '') ?></td>
+                            <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DATATYPE, $dd01l_item['DATATYPE'], '') ?></td>
                             <td class="alv" style="text-align: right;"><?php echo intval($dd01l_item['LENG']) ?>&nbsp;</td>
                             <td class="alv"><?php echo ABAP_UI_TOOL::CheckInt(intval($dd01l_item['DECIMALS'])) ?>&nbsp;</td>
                         </tr>

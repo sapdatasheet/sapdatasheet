@@ -12,7 +12,7 @@ if (empty($cvers['COMPONENT'])) {
 }
 $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::CVERS_DESC . ' ' . $cvers['COMPONENT'];
 $cvers_desc = ABAP_DB_TABLE_HIER::CVERS_REF($SoftComp);
-$cvers_comp_type_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::TADIR_COMP_TYPE_DOMAIN, $cvers['COMP_TYPE']);
+$cvers_comp_type_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_TADIR_COMP_TYPE, $cvers['COMP_TYPE']);
 $child_bmfr = ABAP_DB_TABLE_HIER::TDEVC_COMPONENT($cvers['COMPONENT']);
 ?>
 <html>
@@ -47,9 +47,9 @@ $child_bmfr = ABAP_DB_TABLE_HIER::TDEVC_COMPONENT($cvers['COMPONENT']);
                         $child_bmfr_item_s = ABAP_DB_TABLE_HIER::DF14L_ID_LEVEL($child_bmfr_item['COMPONENT']);
                         while ($l1_bmfr = mysqli_fetch_array($child_bmfr_item_s)) {
                             if ($l1_bmfr['LEVEL'] <= 2) {
-                                $$l1_bmfr_desc = ABAP_DB_TABLE_HIER::DF14T($l1_bmfr['FCTR_ID']);
+                                $l1_bmfr_desc = ABAP_DB_TABLE_HIER::DF14T($l1_bmfr['FCTR_ID']);
                                 ?>
-                                <tr><td class="left_value"><?php echo ABAP_Navigation::GetURLAppComp($l1_bmfr['FCTR_ID'], $l1_bmfr['PS_POSID'], $$l1_bmfr_desc) ?> </td></tr>
+                                <tr><td class="left_value"><?php echo ABAP_Navigation::GetURLAppComp($l1_bmfr['FCTR_ID'], $l1_bmfr['PS_POSID'], $l1_bmfr_desc) ?> </td></tr>
                                 <?php
                             }
                         }
@@ -78,7 +78,7 @@ $child_bmfr = ABAP_DB_TABLE_HIER::TDEVC_COMPONENT($cvers['COMPONENT']);
                         <tr><td class="content_label"> Software Component </td><td class="field"><?php echo $cvers['COMPONENT'] ?> &nbsp;</td><td>&nbsp;</td></tr>
                         <tr><td class="content_label"> Short Description  </td><td class="field"><?php echo $cvers_desc ?> &nbsp;</td><td>&nbsp;</td></tr>
                         <tr><td class="content_label"> Component type     </td>
-                            <td class="field"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::TADIR_COMP_TYPE_DOMAIN, $cvers['COMP_TYPE'], $cvers_comp_type_desc) ?>&nbsp;</td>
+                            <td class="field"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_TADIR_COMP_TYPE, $cvers['COMP_TYPE'], $cvers_comp_type_desc) ?>&nbsp;</td>
                             <td><?php echo $cvers_comp_type_desc ?>&nbsp;</td></tr>
                     </tbody>
                 </table><!-- Basic Data: End -->

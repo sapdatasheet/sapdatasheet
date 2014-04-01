@@ -7,12 +7,16 @@ class ABAP_DB_CONST {
     const INDEX_TOP = "TOP";
     const INDEX_A = "A";
     const LANGU_EN = "E";
-    
+    const FLAG_TRUE = "X";
+
     /** Domain names. */
-    const DD01L_DATATYPE_DOMAIN = "DATATYPE";
-    const TADIR_COMP_TYPE_DOMAIN = "RELC_TYPE";
+    const DOMAIN_DATATYPE = "DATATYPE";
+    const DOMAIN_DD04L_REFKIND = "TYPEKIND";
+    const DOMAIN_DD04L_REFTYPE = "DDREFTYPE"; 
+    const DOMAIN_DD06L_SQLCLASS = "SQLCLASS";
+    const DOMAIN_TADIR_COMP_TYPE = "RELC_TYPE";
+    const DOMAIN_TDEVC_MAINPACK = "MAINPACK";
     const TADIR_PGMID_R3TR = "R3TR";
-    const TDEVC_MAINPACK_DOMAIN = "MAINPACK";
 
 }
 
@@ -173,7 +177,7 @@ class ABAP_DB_TABLE_DOMA {
     public static function DD01L_List($index) {
         $con = ABAP_DB_SCHEMA::getConnDoma();
         $index = $con->real_escape_string($index . '%');
-        $sql = "SELECT DOMNAME, DATATYPE, LENG, DECIMALS, AS4DATE FROM " . ABAP_DB_TABLE_DOMA::DD01L 
+        $sql = "SELECT DOMNAME, DATATYPE, LENG, DECIMALS, AS4DATE FROM " . ABAP_DB_TABLE_DOMA::DD01L
                 . " where DOMNAME LIKE '" . $index . "' order by DOMNAME";
         return $con->query($sql);
     }
@@ -194,7 +198,7 @@ class ABAP_DB_TABLE_DOMA {
      * Domain text.
      */
     public static function DD01T($Domain) {
-        $sql = "select DDTEXT from " . ABAP_DB_TABLE_DOMA::DD01T 
+        $sql = "select DDTEXT from " . ABAP_DB_TABLE_DOMA::DD01T
                 . " where DOMNAME = ? and DDLANGUAGE = ?";
         $stmt = ABAP_DB_SCHEMA::getConnDoma()->prepare($sql);
         $stmt->bind_param('ss', $Domain, $langu = ABAP_DB_CONST::LANGU_EN);
@@ -205,12 +209,27 @@ class ABAP_DB_TABLE_DOMA {
     }
 
     /**
+     * Domain value list.
+     * <pre>
+     * SELECT * FROM abapdoma.dd07l where DOMNAME = 'DATATYPE' ORDER BY valpos;
+     * </pre>
+     */
+    public static function DD07L($Domain) {
+        $con = ABAP_DB_SCHEMA::getConnDoma();
+        $Domain = $con->real_escape_string($Domain);
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_DOMA::DD07L
+                . " where DOMNAME = '" . $Domain . "' order by valpos";
+        return $con->query($sql);
+    }
+
+    /**
      * Get Domain Value Text.
      */
     public static function DD07T($Domain, $ValueL) {
         $sql = "select DDTEXT from " . ABAP_DB_TABLE_DOMA::DD07T . " where DOMNAME = ? and DDLANGUAGE = ? and DOMVALUE_L = ?";
         $stmt = ABAP_DB_SCHEMA::getConnDoma()->prepare($sql);
-        $stmt->bind_param("sss", $Domain, $langu = ABAP_DB_CONST::LANGU_EN, $ValueL);
+        $langu = ABAP_DB_CONST::LANGU_EN;
+        $stmt->bind_param("sss", $Domain, $langu, $ValueL);
         $stmt->execute();
         $stmt->bind_result($result);
         $stmt->fetch();
@@ -231,6 +250,67 @@ class ABAP_DB_TABLE_DTEL {
      * R/3 DD: Data element texts.
      */
     const DD04T = "dd04t";
+
+    /**
+     * Data Element List.
+     * <pre>
+     * SELECT * FROM dd04l where ROLLNAME LIKE 'A%' order by ROLLNAME
+     * SELECT ROLLNAME, DOMNAME, DATATYPE, LENG, AS4DATE FROM dd04l 
+     *     where ROLLNAME LIKE 'A%' order by ROLLNAME
+     * </pre>
+     */
+    public static function DD04L_List($index) {
+        $con = ABAP_DB_SCHEMA::getConnDtel();
+        $index = $con->real_escape_string($index . '%');
+        $sql = "SELECT ROLLNAME, DOMNAME, DATATYPE, LENG, AS4DATE FROM " . ABAP_DB_TABLE_DTEL::DD04L
+                . " where ROLLNAME LIKE '" . $index . "' order by ROLLNAME";
+        return $con->query($sql);
+    }
+
+    /**
+     * Data Element.
+     */
+    public static function DD04L($Rollname) {
+        $con = ABAP_DB_SCHEMA::getConnDtel();
+        $Rollname = $con->real_escape_string($Rollname);
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_DTEL::DD04L . " where ROLLNAME = '" . $Rollname . "'";
+        $qry = $con->query($sql);
+        $result = mysqli_fetch_array($qry);
+        return $result;
+    }
+
+    /**
+     * Data Element text.
+     * <pre>
+     * SELECT DDTEXT FROM dd04t where ROLLNAME = 'BUKRS' and DDLANGUAGE = 'E';
+     * </pre>
+     */
+    public static function DD04T($Rollname) {
+        $sql = "select DDTEXT from " . ABAP_DB_TABLE_DTEL::DD04T
+                . " where ROLLNAME = ? and DDLANGUAGE = ?";
+        $stmt = ABAP_DB_SCHEMA::getConnDtel()->prepare($sql);
+        $stmt->bind_param('ss', $Rollname, $langu = ABAP_DB_CONST::LANGU_EN);
+        $stmt->execute();
+        $stmt->bind_result($result);
+        $stmt->fetch();
+        return $result;
+    }
+
+    /**
+     * Data Element text.
+     * <pre>
+     * SELECT * FROM dd04t where ROLLNAME = 'BUKRS' and DDLANGUAGE = 'E';
+     * </pre>
+     */
+    public static function DD04T_ALL($Rollname) {
+        $con = ABAP_DB_SCHEMA::getConnDtel();
+        $Rollname = $con->real_escape_string($Rollname);
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_DTEL::DD04T
+                . " where ROLLNAME = '" . $Rollname . "' and DDLANGUAGE = 'E'";
+        $qry = $con->query($sql);
+        $result = mysqli_fetch_array($qry);
+        return $result;
+    }
 
 }
 
@@ -343,7 +423,8 @@ class ABAP_DB_TABLE_HIER {
         $dbc = ABAP_DB_SCHEMA::getConnHier();
         $sql = "select desc_text from " . ABAP_DB_TABLE_HIER::CVERS_REF . " where COMPONENT = ? and LANGU = ?";
         $stmt = $dbc->prepare($sql);
-        $stmt->bind_param('ss', $SoftComp, $langu = ABAP_DB_CONST::LANGU_EN);
+        $langu = ABAP_DB_CONST::LANGU_EN;
+        $stmt->bind_param('ss', $SoftComp, $langu);
         $stmt->execute();
         $stmt->bind_result($result);
         $stmt->fetch();
@@ -362,11 +443,11 @@ class ABAP_DB_TABLE_HIER {
     public static function DF14L_List($index) {
         $con = ABAP_DB_SCHEMA::getConnHier();
         if (ABAP_DB_CONST::INDEX_TOP == $index) {
-            $sql = "select * from " . ABAP_DB_TABLE_HIER::DF14L 
+            $sql = "select * from " . ABAP_DB_TABLE_HIER::DF14L
                     . " where PS_POSID not like '%-%' AND trim(coalesce(PS_POSID, '')) <>'' ORDER BY PS_POSID";
         } else {
             $index = $con->real_escape_string($index);
-            $sql = "select * from " . ABAP_DB_TABLE_HIER::DF14L 
+            $sql = "select * from " . ABAP_DB_TABLE_HIER::DF14L
                     . " where PS_POSID like '" . $index . "%' AND trim(coalesce(PS_POSID, '')) <>'' ORDER BY PS_POSID";
         }
         return $con->query($sql);
@@ -383,7 +464,6 @@ class ABAP_DB_TABLE_HIER {
         $result = mysqli_fetch_array($qry);
         return $result;
     }
-
 
     /**
      * Get application component list for one software component.
@@ -456,7 +536,8 @@ class ABAP_DB_TABLE_HIER {
     public static function DF14T($AppComp) {
         $sql = "select name from " . ABAP_DB_TABLE_HIER::DF14T . " where FCTR_ID = ? and LANGU = ?";
         $stmt = ABAP_DB_SCHEMA::getConnHier()->prepare($sql);
-        $stmt->bind_param('ss', $AppComp, $langu = ABAP_DB_CONST::LANGU_EN);
+        $langu = ABAP_DB_CONST::LANGU_EN;
+        $stmt->bind_param('ss', $AppComp, $langu);
         $stmt->execute();
         $stmt->bind_result($result);
         $stmt->fetch();
@@ -523,7 +604,7 @@ class ABAP_DB_TABLE_HIER {
     public static function TDEVC_List($index) {
         $con = ABAP_DB_SCHEMA::getConnHier();
         $index = $con->real_escape_string($index);
-        $sql = "select * from " . ABAP_DB_TABLE_HIER::TDEVC 
+        $sql = "select * from " . ABAP_DB_TABLE_HIER::TDEVC
                 . " where devclass like '" . $index . "%' order by devclass";
         return $con->query($sql);
     }
@@ -534,7 +615,7 @@ class ABAP_DB_TABLE_HIER {
     public static function TDEVC($Package) {
         $con = ABAP_DB_SCHEMA::getConnHier();
         $Package = $con->real_escape_string($Package);
-        $sql = "select * from " . ABAP_DB_TABLE_HIER::TDEVC 
+        $sql = "select * from " . ABAP_DB_TABLE_HIER::TDEVC
                 . " where devclass = '" . $Package . "'";
         $qry = $con->query($sql);
         $result = mysqli_fetch_array($qry);
@@ -554,7 +635,7 @@ class ABAP_DB_TABLE_HIER {
                 . " where dlvunit = '" . $SoftComp . "'";
         return $con->query($sql);
     }
-    
+
     /**
      * Package list for one application component.
      * <pre>
@@ -771,6 +852,20 @@ class ABAP_DB_TABLE_TABL {
     const YTDDAT = "ytddat";
 
     /**
+     * Table list for a SQLTAB.
+     * <pre>
+     * SELECT * FROM dd02l where sqltab = 'RFBLG' order by TABNAME
+     * </pre>
+     */
+    public static function DD02L_SQLTAB($Sqltab) {
+        $con = ABAP_DB_SCHEMA::getConnTabl();
+        $Sqltab = $con->real_escape_string($Sqltab);
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD02L 
+                . " WHERE SQLTAB = '" .$Sqltab  . "' order by TABNAME";
+        return $con->query($sql);
+    }
+
+    /**
      * Table text.
      * <pre>
      * SELECT DDTEXT FROM dd02t where tabname = 'BKPF' AND DDLANGUAGE = 'E'
@@ -785,6 +880,58 @@ class ABAP_DB_TABLE_TABL {
         $stmt->bind_result($result);
         $stmt->fetch();
         return $result;
+    }
+
+    /**
+     * Cluster/Pool Table List.
+     * <pre>
+     * SELECT * FROM dd06l order by SQLTAB
+     * </pre>
+     */
+    public static function DD06L_List() {
+        $con = ABAP_DB_SCHEMA::getConnTabl();
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD06L . " order by SQLTAB";
+        return $con->query($sql);
+    }
+
+    /**
+     * Cluster/Pool table.
+     */
+    public static function DD06L($Sqltab) {
+        $con = ABAP_DB_SCHEMA::getConnTabl();
+        $Sqltab = $con->real_escape_string($Sqltab);
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD06L . " where SQLTAB = '" . $Sqltab . "'";
+        $qry = $con->query($sql);
+        $result = mysqli_fetch_array($qry);
+        return $result;
+    }
+
+    /**
+     * Cluster/Pool table text.
+     */
+    public static function DD06T($Sqltab) {
+        $sql = "select DDTEXT from " . ABAP_DB_TABLE_TABL::DD06T . " where SQLTAB = ? and DDLANGUAGE = ?";
+        $stmt = ABAP_DB_SCHEMA::getConnTabl()->prepare($sql);
+        $langu = ABAP_DB_CONST::LANGU_EN;
+        $stmt->bind_param('ss', $Sqltab, $langu);
+        $stmt->execute();
+        $stmt->bind_result($result);
+        $stmt->fetch();
+        return $result;
+    }
+
+    /**
+     * Data Element List.
+     * <pre>
+     * SELECT * FROM dd16s where SQLTAB = 'AABLG' order by position
+     * </pre>
+     */
+    public static function DD16S($Sqltable) {
+        $con = ABAP_DB_SCHEMA::getConnTabl();
+        $Sqltable = $con->real_escape_string($Sqltable);
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD16S
+                . " where SQLTAB = '" . $Sqltable . "' order by position";
+        return $con->query($sql);
     }
 
 }
