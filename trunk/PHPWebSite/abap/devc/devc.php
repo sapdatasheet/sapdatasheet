@@ -9,7 +9,7 @@ $Package = filter_input(INPUT_GET, 'id');
 if (empty($Package)) {
     ABAP_UI_TOOL::Redirect404();
 }
-$tdevc = ABAP_DB_TABLE_HIER::TDEVC($Package);
+$tdevc = ABAP_DB_TABLE_HIER::TDEVC(strtoupper($Package));
 if (empty($tdevc['DEVCLASS'])) {
     ABAP_UI_TOOL::Redirect404();
 }
