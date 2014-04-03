@@ -36,7 +36,7 @@ class ABAP_Navigation {
     }
 
     public static function GetURLTable($table, $desc) {
-        return ABAP_Navigation::GetURL(ABAP_OTYPE::CVERS_NAME, $table, $table, $desc);
+        return ABAP_Navigation::GetURL(ABAP_OTYPE::TABL_NAME, $table, $table, $desc);
     }
 
     public static function GetURLTransactionCode($tcode, $desc) {

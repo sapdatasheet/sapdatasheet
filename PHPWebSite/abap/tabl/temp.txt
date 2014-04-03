@@ -1,0 +1,226 @@
+                <!-- Foreign Keys -->
+                <?php if (!tabl . FKFD . isEmpty()) { ?>
+                    <h4> Foreign Keys </h4>
+                    <?php for (TABL.ForeignKey fk : tabl.FKFD) { ?>
+                        <table class="alv">
+                            <caption> Foreign Key for Field <?php echo tabl . TABNAME ?>-<?php echo fk . FIELDNAME ?> </caption>
+                            <thead>
+                                <tr>
+                                    <th class="alv">Check table</th>
+                                    <th class="alv">Check table field</th>
+                                    <th class="alv">Foreign Key Table</th>
+                                    <th class="alv">Foreign Key Field</th>
+                                    <th class="alv">Generic</th>
+                                    <th class="alv">Constant</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php for (TABL.ForeignKeyField fkf : fk.FKFD) { ?>
+                                    <tr>
+                                        <td class="alv"><?php echo Navigation . GetTablURL(fkf . CHECKTABLE) ?></td>
+                                        <td class="alv"><?php echo fkf . CHECKFIELD ?></td>
+                                        <td class="alv"><?php echo Navigation . GetTablURL(fkf . FORTABLE) ?></td>
+                                        <td class="alv"><?php echo fkf . FORKEY ?></td>
+                                        <td class="alv"><?php echo Navigation . getCheckBox("", fkf . GENERIC) ?></td>
+                                        <td class="alv"><?php echo fkf . CONSTANT ?></td>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                        <table class="content_obj">
+                            <tbody>
+                                <tr><td class="content_label"> Field </td>
+                                    <td class="field"> <?php echo fk . FIELDNAME ?> &nbsp;</td>
+                                    <td>&nbsp;</td></tr>
+                                <tr><td class="content_label"> Short text        </td>
+                                    <td class="field"> <?php echo Navigation . checkExist(fk . DDTEXT) ?> &nbsp;</td>
+                                    <td>&nbsp;</td></tr>
+                                <tr><td class="content_label"> Check table </td>
+                                    <td class="field"> <?php echo Navigation . GetTablURL(fk . CHECKTABLE) ?>&nbsp;</td>
+                                    <td><?php echo fk . CHECKTABLE_T ?>&nbsp;</td></tr>
+                                <tr><td class="content_label" rowspan="4"> Foreign key field type </td>
+                                    <td> <?php echo Navigation . getRadioButton("fk_" + fk . FIELDNAME, fk . D_FRKART) ?> Not Specified &nbsp;</td><td>&nbsp;</td></tr>
+                                <tr><td> <?php echo Navigation . getRadioButton("fk_" + fk . FIELDNAME, fk . N_FRKART) ?> Non-key-fields/candidates</td><td>&nbsp;</td></tr>
+                                <tr><td> <?php echo Navigation . getRadioButton("fk_" + fk . FIELDNAME, fk . K_FRKART) ?> Key fields/candidates</td><td>&nbsp;</td></tr>
+                                <tr><td> <?php echo Navigation . getRadioButton("fk_" + fk . FIELDNAME, fk . T_FRKART) ?> Key fields of a text table</td><td>&nbsp;</td></tr>
+                                <tr><td class="content_label"> Cardinality </td>
+                                    <td class="field"> <?php echo Navigation . GetDomainValueURL(TABL . ForeignKey . CARDLEFT_DOMA, fk . CARDLEFT) ?> : 
+                                        <?php echo Navigation . GetDomainValueURL(TABL . ForeignKey . CARD_DOMA, fk . CARD) ?></td><td>&nbsp;</td>
+                                </tr>
+                            </tbody>
+                        </table>                    
+                    <?php } ?>
+                <?php } ?><!-- Foreign Keys: End -->
+
+                <!-- Technical Settings -->
+                <h4>Technical Settings</h4>
+                <table class="content_obj">
+                    <tbody>
+                        <tr><td class="content_label"> Logical Storage - Data class </td>
+                            <td class="field"> <?php echo Navigation . GetTablURL("DDART", tabl . TECH . TABART) ?> &nbsp;</td>
+                            <td><?php echo tabl . TECH . TABART_T ?>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td class="content_label"> Logical Storage - Size Category </td>
+                            <td class="field" align="right"> <?php echo Navigation . GetDomainValueURL(tabl . TECH . TABKAT_DOMA, tabl . TECH . TABKAT) ?>&nbsp;</td>
+                            <td><?php echo tabl . TECH . TABKAT_T ?>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td class="content_label"> Buffering </td>
+                            <td><?php echo Navigation . getRadioButton("buff", tabl . TECH . BUFALLOW_N) ?> Buffering not allowed <br/>
+                                <?php echo Navigation . getRadioButton("buff", tabl . TECH . BUFALLOW_A) ?> Buffering allowed but switched off <br/>
+                                <?php echo Navigation . getRadioButton("buff", tabl . TECH . BUFALLOW_X) ?> Buffering switched on </td>
+                            <td>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td class="content_label" rowspan="3"> Buffering Type </td>
+                            <td><?php echo Navigation . getCheckBox("buff_type", tabl . TECH . PUFFERUNG_P) ?> Single record buff </td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td><?php echo Navigation . getCheckBox("buff_type", tabl . TECH . PUFFERUNG_G) ?> Generic Area Buffered</td>
+                            <td class="content_label" align="right">No of key fields &nbsp;</td>
+                            <td class="field"><?php echo tabl . TECH . SCHFELDANZ ?></td></tr>
+                        <tr><td><?php echo Navigation . getCheckBox("buff_type", tabl . TECH . PUFFERUNG_X) ?> Fully Buffered </td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td class="content_label">Log data changes </td><td><?php echo Navigation . getCheckBox("TECH", tabl . TECH . PROTOKOLL) ?>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td class="content_label">Write access only with JAVA </td><td><?php echo Navigation . getCheckBox("TECH", tabl . TECH . JAVAONLY) ?> &nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td class="content_label">Maintain as transparent table </td><td><?php echo Navigation . getCheckBox("TECH", tabl . TECH . TRANSPFLAG) ?> &nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                    </tbody>
+                </table>
+
+                <!-- Index -->
+                <?php if (!tabl . INDX . isEmpty()) { ?><!-- Index section: begin -->
+                    <h4>Indexes</h4>
+                    <table class="alv"><!-- Index list begin -->
+                        <thead>
+                            <tr>
+                                <th class="alv">Index<br/>Name</th>
+                                <th class="alv">Extension<br/>Index</th>
+                                <th class="alv">Short text</th>
+                                <th class="alv">Unique</th>
+                                <th class="alv">Author</th>
+                                <th class="alv">Date</th>
+                                <th class="alv">DB index name</th>
+                                <th class="alv">DB status</th>
+                                <th class="alv">Include /<br/> Exclude</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php for (TABL.Index idx : tabl.INDX) { ?>
+                                <tr>
+                                    <td class="alv"> <?php echo id ?>~<?php echo idx . INDEXNAME ?> </td>
+                                    <td class="alv" align="center"> <?php echo Navigation . getCheckBox("index_" + idx . INDEXNAME, idx . ISEXTIND) ?> </td>
+                                    <td class="alv"> <?php echo idx . DDTEXT ?> </td>
+                                    <td class="alv"> <?php echo Navigation . getCheckBox("index_" + idx . INDEXNAME, idx . UNIQUEFLAG) ?> </td>
+                                    <td class="alv"> <?php echo idx . AS4USER ?> </td>
+                                    <td class="alv"> <?php echo idx . AS4DATE . toText() ?> </td>
+                                    <td class="alv"> <?php echo idx . DBINDEX ?> </td>
+                                    <td class="alv"> <?php echo idx . DBSTATE ?> </td>
+                                    <td class="alv" align="center"> <?php echo Navigation . GetDomainValueURL(idx . DBINCLEXCL_DOMA, idx . DBINCLEXCL) ?> </td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table><!-- Index list end -->
+                    <table class="content_obj">
+                        <tbody>
+                            <?php for (TABL.Index idx : tabl.INDX) { ?><!-- Index: begin -->
+                                <tr><td class="caption" colspan="2"> Index <?php echo tabl . TABNAME ?>-<?php echo idx . INDEXNAME ?> </td></tr>
+                                <tr><td colspan="2">
+                                        <table class="alv">
+                                            <thead>
+                                                <tr>
+                                                    <th class="alv">#</th>
+                                                    <th class="alv">Field name</th>
+                                                    <th class="alv">Short Description</th>
+                                                    <th class="alv">Data Type</th>
+                                                    <th class="alv">Length</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php for (TABL.IndexField idxf : idx.FIELD) { ?>
+                                                    <tr>
+                                                        <td class="alv"><?php echo idxf . POSITION ?></td>
+                                                        <td class="alv"><?php echo idxf . FIELDNAME ?></td>
+                                                        <td class="alv"><?php echo idxf . FIELDDESC ?></td>
+                                                        <td class="alv"><?php echo Navigation . GetDomainValueURL(TABL . Field . DATATYPE_DOMA, idxf . FIELDTYPE) ?></td>
+                                                        <td class="alv" align="right"><?php echo idxf . FIELDLENG ?>&nbsp;</td>
+                                                    </tr>
+                                                <?php } ?>
+                                            </tbody>
+                                        </table>
+                                    </td></tr>
+                                <tr><td class="content_label">Index Name       </td><td class="field"><?php echo id ?>~<?php echo idx . INDEXNAME ?></td></tr>
+                                <tr><td class="content_label">Short Description</td><td class="field"><?php echo idx . DDTEXT ?></td></tr>
+                                <tr><td class="content_label">Last changed     </td><td class="field"><?php echo idx . AS4USER ?> &nbsp; / &nbsp; <?php echo idx . AS4DATE . toText() ?></td></tr>
+                                <tr><td class="content_label">Original Language</td><td class="field"><?php echo tabl . ATTR . MALANGU ?> &nbsp; <?php echo tabl . ATTR . MALANGU_T ?></td></tr>
+                                <tr><td class="content_label">Package          </td><td class="field"><?php echo tabl . HIER . DEVCLASS ?></td></tr>
+                                <tr><td colspan="2"><?php echo Navigation . getRadioButton("idx_flag_unique" + idx . INDEXNAME, !idx . UNIQUEFLAG) ?> Non-unique index</td></tr>
+                                <tr><td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <?php echo Navigation . getRadioButton("idx_unique_" + idx . INDEXNAME, idx . DBINDEX_YES) ?> Index on all database systems </td></tr>
+                                <tr><td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <?php echo Navigation . getRadioButton("idx_unique_" + idx . INDEXNAME, idx . DBINDEX_DBDEP) ?> For selected database systems <br/></tr>
+                                <?php if (idx . DBINDEX_DBDEP) { ?><!-- DB-Specific Index: Begin -->
+                                    <tr><td>&nbsp;</td><td>
+                                            <h4>Database-specific Index </h4>
+                                            <table class="alv">
+                                                <caption> Create Index for Selected Database Systems</caption>
+                                                <tbody>
+                                                    <tr><td class="field"><?php echo Navigation . getRadioButton("idx_dbdep" + idx . INDEXNAME, idx . DBINCLEXCL_I) ?> Selection List </td></tr>
+                                                    <tr><td class="field"><?php echo Navigation . getRadioButton("idx_dbdep" + idx . INDEXNAME, idx . DBINCLEXCL_E) ?> Exclusion List </td></tr>
+                                                </tbody>
+                                            </table>
+                                            <table class="alv">
+                                                <caption> Database Systems</caption>
+                                                <thead>
+                                                    <tr><th class="alv">DB Name</th><th class="alv">Short Description</th></tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr><td class="alv"><?php echo idx . DBSYSSEL1 ?>&nbsp;</td><td class="alv"><?php echo idx . DBSYSSEL1_T ?>&nbsp;</td></tr>
+                                                    <tr><td class="alv"><?php echo idx . DBSYSSEL2 ?>&nbsp;</td><td class="alv"><?php echo idx . DBSYSSEL2_T ?>&nbsp;</td></tr>
+                                                    <tr><td class="alv"><?php echo idx . DBSYSSEL3 ?>&nbsp;</td><td class="alv"><?php echo idx . DBSYSSEL3_T ?>&nbsp;</td></tr>
+                                                    <tr><td class="alv"><?php echo idx . DBSYSSEL4 ?>&nbsp;</td><td class="alv"><?php echo idx . DBSYSSEL4_T ?>&nbsp;</td></tr>
+                                                </tbody>
+                                            </table>
+                                        </td></tr>
+                                <?php } ?><!-- DB-Specific Index: End -->
+                                <tr><td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <?php echo Navigation . getRadioButton("idx_unique_" + idx . INDEXNAME, idx . DBINDEX_NO) ?> No database Index </td></tr>
+                                <tr><td colspan="2"><?php echo Navigation . getRadioButton("idx_flag_unique" + idx . INDEXNAME, idx . UNIQUEFLAG) ?> Unique Index (database Index required)</td></tr>
+                            <?php } ?><!-- Index: end -->
+                        </tbody>
+                    </table>
+                <?php } ?><!-- Index section: end -->
+
+                <!-- Append Structure -->
+                <?php if (!tabl . ASTR . isEmpty()) { ?>
+                    <h4>Append Structure </h4>
+                    <table class="alv">
+                        <caption> Appends for <?php echo id ?> </caption>
+                        <thead>
+                            <tr><th class="alv">Object Name</th><th class="alv">Short text</th></tr>
+                        </thead>
+                        <tbody>
+                            <?php for (TABL.AppendStruc astr : tabl.ASTR) { ?>
+                                <tr><td class="alv"><?php echo Navigation . GetTablURL(astr . APPENDNAME) ?>&nbsp;</td><td class="alv"><?php echo astr . DDTEXT ?>&nbsp;</td></tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                <?php } ?>
+
+                <!-- Table Maintenance Generator -->
+                <h4>Table Maintenance Generator</h4>
+                <table class="content_obj">
+                    <tbody>
+                        <tr><td class="caption" colspan="3">Technical Dialog Details</td><tr>
+                        <tr><td class="content_label">Authorization Group </td><td class="field"><?php echo tabl . MTGR . CCLASS ?></td><td> <?php echo tabl . MTGR . CCLASS_T ?> </td></tr>
+                        <tr><td class="content_label">Authorization object</td><td>S_TABU_DIS</td><td>&nbsp;</td></tr>
+                        <tr><td class="content_label">Function group      </td><td class="field"><?php echo tabl . MTGR . AREA ?>&nbsp;</td><td>&nbsp;</td></tr><!-- TODO - ADD HYPER LINK -->
+                        <tr><td class="content_label">Package             </td><td class="field"><?php echo tabl . MTGR . DEVCLASS ?>&nbsp;</td><td><?php echo tabl . MTGR . DEVCLASS_T ?>&nbsp;</td></tr>
+                        <tr><td class="caption" colspan="3">Maintenance Screens</td><tr>
+                        <tr><td class="content_label">Maintenance type</td><td colspan="2"><?php echo Navigation . getRadioButton("MIGR_TYPE", VIM_MTYPE . VALUE_1 == tabl . MTGR . TYPE) ?> one step</td></tr>
+                        <tr><td>&nbsp;</td>                                <td colspan="2"><?php echo Navigation . getRadioButton("MIGR_TYPE", VIM_MTYPE . VALUE_2 == tabl . MTGR . TYPE) ?> two step</td></tr>
+                        <tr><td class="content_label">Maintenance Screen No.</td><td> Overview screen </td><td class="field"> <?php echo tabl . MTGR . LISTE ?> </td></tr>
+                        <tr><td>&nbsp;</td><td> Single screen </td><td class="field"> <?php echo tabl . MTGR . DETAIL ?> </td></tr>
+                    </tbody>
+                </table>
+
+                <!-- TODO: <h4>Search help for table</h4> -->
+                <h4>Enhancement category </h4>
+                <table class="content_obj">
+                    <tbody>
+                        <?php for (DomainValue.TypeInt v : DDRANKING.VALUES) { ?>
+                            <tr><td class="content_label"><?php echo Navigation . getRadioButton("ehct", tabl . EXCLASS == v . value) ?> &nbsp; <?php echo v . desc ?></td></tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
