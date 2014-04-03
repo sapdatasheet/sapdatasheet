@@ -9,13 +9,19 @@ class ABAP_DB_CONST {
     const LANGU_EN = "E";
     const FLAG_TRUE = "X";
 
-    /** Domain names. */
+    /** Domain names OR Domain values */
     const DOMAIN_DATATYPE = "DATATYPE";
+    const DOMAIN_DD02L_TABCLASS = "TABCLASS";
+    const DOMAIN_DD02L_CONTFLAG = "CONTFLAG";
+    const DOMAIN_DD02L_MAINFLAG = "MAINTFLAG";
+    const DOMAIN_DD03L_COMPTYPE_E = "E";         // E - Data Element
+    const DOMAIN_DD03L_COMPTYPE_S = "S";         // S - Structure (Table)
     const DOMAIN_DD04L_REFKIND = "TYPEKIND";
     const DOMAIN_DD04L_REFTYPE = "DDREFTYPE"; 
     const DOMAIN_DD06L_SQLCLASS = "SQLCLASS";
     const DOMAIN_TADIR_COMP_TYPE = "RELC_TYPE";
     const DOMAIN_TDEVC_MAINPACK = "MAINPACK";
+    
     const TADIR_PGMID_R3TR = "R3TR";
 
 }
@@ -852,6 +858,20 @@ class ABAP_DB_TABLE_TABL {
     const YTDDAT = "ytddat";
 
     /**
+     * Table List.
+     * <pre>
+     * SELECT TABNAME, TABCLASS, CONTFLAG FROM dd02l WHERE tabname like 'A%' order by TABNAME
+     * </pre>
+     */
+    public static function DD02L_List($index) {
+        $con = ABAP_DB_SCHEMA::getConnTabl();
+        $index = $con->real_escape_string($index . '%');
+        $sql = "SELECT TABNAME, TABCLASS, CONTFLAG FROM " . ABAP_DB_TABLE_TABL::DD02L 
+                . " WHERE tabname like '" . $index . "' order by TABNAME";
+        return $con->query($sql);
+    }
+    
+    /**
      * Table list for a SQLTAB.
      * <pre>
      * SELECT * FROM dd02l where sqltab = 'RFBLG' order by TABNAME
@@ -865,6 +885,21 @@ class ABAP_DB_TABLE_TABL {
         return $con->query($sql);
     }
 
+
+    /**
+     * Table Attributes.
+     * <pre>
+     * SELECT * FROM dd02l WHERE tabname = 'BKPF'
+     * </pre>
+     */
+    public static function DD02L($TableName) {
+        $con = ABAP_DB_SCHEMA::getConnTabl();
+        $TableName = $con->real_escape_string($TableName);
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD02L . " WHERE tabname = '" . $TableName . "'";
+        $qry = $con->query($sql);
+        return mysqli_fetch_array($qry);
+    }
+    
     /**
      * Table text.
      * <pre>
@@ -880,6 +915,34 @@ class ABAP_DB_TABLE_TABL {
         $stmt->bind_result($result);
         $stmt->fetch();
         return $result;
+    }
+
+    /**
+     * Table Field List.
+     * <pre>
+     * SELECT * FROM dd03l WHERE tabname = 'BKPF' order by POSITION;
+     * </pre>
+     */
+    public static function DD03L_List($TableName) {
+        $con = ABAP_DB_SCHEMA::getConnTabl();
+        $TableName = $con->real_escape_string($TableName);
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD03L 
+                . " WHERE tabname = '" . $TableName . "' order by POSITION";
+        return $con->query($sql);
+    }
+    
+    /**
+     * Foreign Key Fields.
+     * <pre>
+     * SELECT * FROM dd05s WHERE tabname = 'BKPF' order by FIELDNAME, PRIMPOS;
+     * </pre>
+     */
+    public static function DD05S($TableName) {
+        $con = ABAP_DB_SCHEMA::getConnTabl();
+        $TableName = $con->real_escape_string($TableName);
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD05S 
+                . " WHERE tabname = '" . $TableName . "' order by FIELDNAME, PRIMPOS";
+        return $con->query($sql);
     }
 
     /**
