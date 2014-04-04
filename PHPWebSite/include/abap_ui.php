@@ -27,6 +27,10 @@ class ABAP_Navigation {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::DEVC_NAME, $package, $package, $desc);
     }
 
+    public static function GetURLProgram($program, $desc) {
+        return ABAP_Navigation::GetURL(ABAP_OTYPE::PROG_NAME, $program, $program, $desc);
+    }
+
     public static function GetURLSoftComp($compName, $desc) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::CVERS_NAME, $compName, $compName, $desc);
     }
@@ -40,7 +44,11 @@ class ABAP_Navigation {
     }
 
     public static function GetURLTransactionCode($tcode, $desc) {
-        return ABAP_Navigation::GetURL(ABAP_OTYPE::CVERS_NAME, $tcode, $tcode, $desc);
+        return ABAP_Navigation::GetURL(ABAP_OTYPE::TRAN_NAME, $tcode, $tcode, $desc);
+    }
+
+    public static function GetURLView($view, $desc) {
+        return ABAP_Navigation::GetURL(ABAP_OTYPE::VIEW_NAME, $view, $view, $desc);
     }
 
     private static function GetURL($objtype, $objname, $value, $title) {
@@ -82,13 +90,15 @@ class ABAP_UI_TOOL {
      * Get check box UI control.
      */
     public static function GetCheckBox($Name, $CheckedValue) {
-        if ($CheckedValue == ABAP_DB_CONST::FLAG_TRUE) {
+        if ($CheckedValue == ABAP_DB_CONST::FLAG_TRUE || 
+                $CheckedValue == ABAP_DB_CONST::TSTCC_S_WEBGUI_1 || 
+                $CheckedValue == ABAP_DB_CONST::TSTCC_S_WEBGUI_2) {
             return "<input type=\"checkbox\" name=\"" . $Name . "\"  disabled=\"disabled\" checked=\"checked\" />";
         } else {
             return "<input type=\"checkbox\" name=\"" . $Name . "\"  disabled=\"disabled\" />";
         }
     }
-    
+
     /**
      * Get check box UI control.
      */
@@ -98,6 +108,29 @@ class ABAP_UI_TOOL {
         } else {
             return 'Table cluster';
         }
+    }
+    
+    public static function GetTCodeTypeDesc($TCodeType){
+        $desc = 'Transaction Code Type';
+        if ($TCodeType == '00') {
+        } else if ($TCodeType == '01') {
+        } else if ($TCodeType == '02') {
+        } else if ($TCodeType == '04') {
+        } else if ($TCodeType == '05') {
+        } else if ($TCodeType == '06') {
+        } else if ($TCodeType == '08') {
+        } else if ($TCodeType == '0c') {
+        } else if ($TCodeType == '21') {
+        } else if ($TCodeType == '22') {
+        } else if ($TCodeType == '44') {
+        } else if ($TCodeType == '80') {
+        } else if ($TCodeType == '84') {
+        } else if ($TCodeType == '90') {
+        } else if ($TCodeType == '94') {
+        } else if ($TCodeType == 'a0') {
+        } 
+
+        return $desc;
     }
 
 }

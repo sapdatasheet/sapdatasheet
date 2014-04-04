@@ -19,10 +19,13 @@ class ABAP_DB_CONST {
     const DOMAIN_DD04L_REFKIND = "TYPEKIND";
     const DOMAIN_DD04L_REFTYPE = "DDREFTYPE"; 
     const DOMAIN_DD06L_SQLCLASS = "SQLCLASS";
+    const DOMAIN_DD25L_VIEWCLASS = "VIEWCLASS";
     const DOMAIN_TADIR_COMP_TYPE = "RELC_TYPE";
     const DOMAIN_TDEVC_MAINPACK = "MAINPACK";
-    
+
     const TADIR_PGMID_R3TR = "R3TR";
+    const TSTCC_S_WEBGUI_1 = "1";
+    const TSTCC_S_WEBGUI_2 = "2";
 
 }
 
@@ -752,6 +755,21 @@ class ABAP_DB_TABLE_PROG {
      */
     const YTAPLT = "ytaplt";
 
+
+    /**
+     * Report title text.
+     */
+    public static function TRDIRT($Progname) {
+        $sql = "select TEXT from " . ABAP_DB_TABLE_PROG::TRDIRT 
+                . " where NAME = ? and SPRSL = ?";
+        $stmt = ABAP_DB_SCHEMA::getConnProg()->prepare($sql);
+        $stmt->bind_param('ss', $Progname, $langu = ABAP_DB_CONST::LANGU_EN);
+        $stmt->execute();
+        $stmt->bind_result($result);
+        $stmt->fetch();
+        return $result;
+    }    
+    
 }
 
 /** Database table names - table. */
@@ -965,8 +983,7 @@ class ABAP_DB_TABLE_TABL {
         $Sqltab = $con->real_escape_string($Sqltab);
         $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD06L . " where SQLTAB = '" . $Sqltab . "'";
         $qry = $con->query($sql);
-        $result = mysqli_fetch_array($qry);
-        return $result;
+        return mysqli_fetch_array($qry);
     }
 
     /**
@@ -1028,6 +1045,76 @@ class ABAP_DB_TABLE_TRAN {
     const TSTCT = "tstct";
 
     /**
+     * Transaction Code List.
+     * <pre>
+     * SELECT * FROM tstc where TCODE LIKE 'A%' order by TCODE
+     * </pre>
+     */
+    public static function TSTC_List($index) {
+        $con = ABAP_DB_SCHEMA::getConnTran();
+        $index = $con->real_escape_string($index . '%');
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_TRAN::TSTC
+                . " where TCODE LIKE '" . $index . "' order by TCODE";
+        return $con->query($sql);
+    }
+
+    /**
+     * Transaction Code attribute.
+     * <pre>
+     * SELECT * FROM tstc where TCODE  = 'FB01'
+     * </pre>
+     */
+    public static function TSTC($tcode) {
+        $con = ABAP_DB_SCHEMA::getConnTran();
+        $tcode = $con->real_escape_string($tcode);
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_TRAN::TSTC . " where TCODE = '" . $tcode . "'";
+        $qry = $con->query($sql);
+        return mysqli_fetch_array($qry);
+    }    
+    
+    /**
+     * Transaction Code attribute - Authorization.
+     * <pre>
+     * SELECT * FROM tstca where TCODE  = 'FB01'
+     * </pre>
+     */
+    public static function TSTCA_List($tcode) {
+        $con = ABAP_DB_SCHEMA::getConnTran();
+        $tcode = $con->real_escape_string($tcode);
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_TRAN::TSTCA
+                . " where TCODE = '" . $tcode . "' order by OBJECT";
+        return $con->query($sql);
+    }
+
+    /**
+     * Transaction Code attribute - Additional Attributes.
+     * <pre>
+     * SELECT * FROM tstcc WHERE TCODE = 'FB01'
+     * </pre>
+     */
+    public static function TSTCC($tcode) {
+        $con = ABAP_DB_SCHEMA::getConnTran();
+        $tcode = $con->real_escape_string($tcode);
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_TRAN::TSTCC . " where TCODE = '" . $tcode . "'";
+        $qry = $con->query($sql);
+        return mysqli_fetch_array($qry);
+    }
+
+    /**
+     * Transaction Code attribute - Additional Attributes.
+     * <pre>
+     * SELECT * FROM tstcp WHERE TCODE = '/AIN/CS'
+     * </pre>
+     */
+    public static function TSTCP($tcode) {
+        $con = ABAP_DB_SCHEMA::getConnTran();
+        $tcode = $con->real_escape_string($tcode);
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_TRAN::TSTCP . " where TCODE = '" . $tcode . "'";
+        $qry = $con->query($sql);
+        return mysqli_fetch_array($qry);
+    }
+
+    /**
      * Transaction Code text.
      * <pre>
      * SELECT ttext FROM tstct where tcode = 'FB03' AND SPRSL = 'E'
@@ -1084,7 +1171,49 @@ class ABAP_DB_TABLE_VIEW {
      */
     const DM25L = "dm25l";
 
-}
+
+    /**
+     * DDIC View List.
+     * <pre>
+     * SELECT * FROM dd25l where VIEWNAME like 'A%' order by VIEWNAME
+     * </pre>
+     */
+    public static function DD25L_List($index) {
+        $con = ABAP_DB_SCHEMA::getConnView();
+        $index = $con->real_escape_string($index . '%');
+        $sql = "SELECT VIEWNAME, VIEWCLASS, ROOTTAB FROM " . ABAP_DB_TABLE_VIEW::DD25L
+                . " where VIEWNAME LIKE '" . $index . "' order by VIEWNAME";
+        return $con->query($sql);
+    }    
+    
+
+    /**
+     * View.
+     */
+    public static function DD25L($ViewName) {
+        $con = ABAP_DB_SCHEMA::getConnView();
+        $ViewName = $con->real_escape_string($ViewName);
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_VIEW::DD25L . " where VIEWNAME = '" . $ViewName . "'";
+        $qry = $con->query($sql);
+        return mysqli_fetch_array($qry);
+    }
+
+     /**
+     * View text.
+     */
+    public static function DD25T($ViewName) {
+        $sql = "select DDTEXT from " . ABAP_DB_TABLE_VIEW::DD25T . " where VIEWNAME = ? and DDLANGUAGE = ?";
+        $stmt = ABAP_DB_SCHEMA::getConnView()->prepare($sql);
+        $langu = ABAP_DB_CONST::LANGU_EN;
+        $stmt->bind_param('ss', $ViewName, $langu);
+        $stmt->execute();
+        $stmt->bind_result($result);
+        $stmt->fetch();
+        return $result;
+    }   
+    
+    
+    }
 
 /** Database table names. */
 class ABAP_DB_TABLE {
