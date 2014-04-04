@@ -38,11 +38,11 @@ $dd02l = ABAP_DB_TABLE_TABL::DD02L_List($index);
             <div class="content_navi">
                 <a href="/">Home page</a> &gt; 
                 <a href="/abap/">ABAP Object</a> &gt; 
-                <a href="/abap/tabl/"><?php echo ABAP_TABL ?></a> 
+                <a href="/abap/tabl/"><?php echo ABAP_OTYPE::TABL_DESC ?></a> 
             </div>
 
             <!-- Content Object -->
-            <div class="content_obj_title"><span>SAP ABAP <?php echo ABAP_TABL ?></span></div>
+            <div class="content_obj_title"><span><?php echo $GLOBALS['TITLE_TEXT'] ?></span></div>
             <div class="content_obj">        
 
                 <div>
