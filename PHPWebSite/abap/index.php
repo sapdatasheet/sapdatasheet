@@ -3,12 +3,13 @@
 <?php $GLOBALS['TITLE_TEXT'] = "SAP ABAP"; ?>
 <html>
     <head>
-        <link rel="stylesheet" href="../abap.css" type="text/css" >
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+        <link rel="stylesheet" href="../abap.css" type="text/css" />
         <title>SAP ABAP Objects <?php echo WEBSITE::TITLE ?> </title>
-        <meta name="keywords" content="SAP,ABAP">
-        <meta name="description" content="<?php echo WEBSITE::META_DESC ?>">
-        <meta name="author" content="SAP Datasheet">
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
+        <meta name="keywords" content="SAP,ABAP" />
+        <meta name="description" content="<?php echo WEBSITE::META_DESC ?>" />
+        <meta name="author" content="SAP Datasheet" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
     <body>
 

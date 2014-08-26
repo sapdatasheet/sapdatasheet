@@ -18,12 +18,13 @@ $devc = ABAP_DB_TABLE_HIER::TDEVC_List($index);
 
 <html>
     <head>
-        <link rel="stylesheet" href="../../abap.css" type="text/css" >
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+        <link rel="stylesheet" href="../../abap.css" type="text/css" />
         <title><?php echo $GLOBALS['TITLE_TEXT'] ?> <?php echo WEBSITE::TITLE ?> </title>
-        <meta name="keywords" content="SAP,ABAP,<?php echo ABAP_OTYPE::DEVC_DESC ?>">
-        <meta name="description" content="<?php echo WEBSITE::META_DESC ?>">
-        <meta name="author" content="SAP Datasheet">
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
+        <meta name="keywords" content="SAP,ABAP,<?php echo ABAP_OTYPE::DEVC_DESC ?>" />
+        <meta name="description" content="<?php echo WEBSITE::META_DESC ?>" />
+        <meta name="author" content="SAP Datasheet" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
     <body>
 

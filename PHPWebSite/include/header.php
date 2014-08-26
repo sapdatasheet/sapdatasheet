@@ -2,6 +2,7 @@
 
     <!-- Header Links -->
     <div class="headerlink">
+        <a href="/abap/"><b>ALL</b></a> |
         <a href="/abap/doma/"><b><?php echo ABAP_OTYPE::DOMA_DESC ?></b></a> |
         <a href="/abap/dtel/"><b><?php echo ABAP_OTYPE::DTEL_DESC ?></b></a> |
         <a href="/abap/tabl/"><b><?php echo ABAP_OTYPE::TABL_DESC ?></b></a> |
@@ -11,13 +12,14 @@
     </div>
 
     <!-- Header Text & Search -->
-    <table class="headertitle" cellpadding="0">
+    <table class="headertitle" cellpadding="0"> 
         <tr>
-            <!-- Icon (TODO) -->
-            <td></td>
             <!-- Title -->
             <td>
-                <div class="headertxt"><a class="headertxt" href="/"><span><?php echo  WEBSITE::NAME ?></span></a></div>
+                <div class="headertxt"><a class="headertxt" href="/">
+                        <img src="/sapdatasheet-middle.png"  alt="SAP Datasheet logo - Middle" />
+                        <span><?php // echo  WEBSITE::NAME ?></span>
+                    </a></div>
                 <div class="headertxtsub"><span><?php echo  WEBSITE::DESC ?></span></div>
             </td>
             <!-- Search -->
