@@ -46,6 +46,7 @@ $fm_list = ABAP_DB_TABLE_FUNC::TFDIR_List($index);
             <div class="content_obj">        
 
                 <div>
+                    <a href="index.php?index=RFC">RFC</a>&nbsp; - &nbsp;
                     <a href="index.php?index=a">A</a>&nbsp;
                     <a href="index.php?index=b">B</a>&nbsp;
                     <a href="index.php?index=c">C</a>&nbsp;
@@ -83,7 +84,7 @@ $fm_list = ABAP_DB_TABLE_FUNC::TFDIR_List($index);
                     <a href="index.php?index=/">/</a>&nbsp;
                 </div>
 
-                <h4> <?php echo ABAP_OTYPE::PROG_DESC ?> - <?php echo $index ?></h4>
+                <h4> <?php echo ABAP_OTYPE::FUNC_DESC ?> - <?php echo $index ?></h4>
                 <table class="alv">
                     <tr>
                         <th class="alv"> Function Module </th>
