@@ -5,6 +5,6 @@
         <title>Note Found</title>
     </head>
     <body>
-        <h1>The object you requested unfortunately not found.</h1>
+        <h1>The page you requested unfortunately not found.</h1>
     </body>
 </html>

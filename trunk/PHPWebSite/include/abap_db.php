@@ -17,12 +17,23 @@ class ABAP_DB_CONST {
     const DOMAIN_DD03L_COMPTYPE_E = "E";         // E - Data Element
     const DOMAIN_DD03L_COMPTYPE_S = "S";         // S - Structure (Table)
     const DOMAIN_DD04L_REFKIND = "TYPEKIND";
-    const DOMAIN_DD04L_REFTYPE = "DDREFTYPE"; 
+    const DOMAIN_DD04L_REFTYPE = "DDREFTYPE";
     const DOMAIN_DD06L_SQLCLASS = "SQLCLASS";
+    const DOMAIN_DD25L_CUSTOMAUTH = "CONTFLAG";
+    const DOMAIN_DD25L_GLOBALFLAG = "MAINTFLAG";
     const DOMAIN_DD25L_VIEWCLASS = "VIEWCLASS";
+    const DOMAIN_DD25L_VIEWGRANT = "VIEWGRANT";
+    const DOMAIN_DD27S_RDONLY = "VFLDRDONLY";
     const DOMAIN_TADIR_COMP_TYPE = "RELC_TYPE";
     const DOMAIN_TDEVC_MAINPACK = "MAINPACK";
-
+    const DOMAINVALUE_VIEWGRANT_R = 'R';
+    const DOMAINVALUE_VIEWGRANT_U = 'U';
+    const DOMAINVALUE_VIEWGRANT_M = 'M';
+    const DOMAINVALUE_VIEWGRANT_SPACE = ' ';
+    const DOMAINVALUE_VIEWGRANT_R_DESC = 'read only';
+    const DOMAINVALUE_VIEWGRANT_U_DESC = 'read and change';
+    const DOMAINVALUE_VIEWGRANT_M_DESC = "Time-dependent views: like U, validity data like ' '";
+    const DOMAINVALUE_VIEWGRANT_SPACE_DESC = 'read, change, delete and insert';
     const TADIR_PGMID_R3TR = "R3TR";
     const TSTCC_S_WEBGUI_1 = "1";
     const TSTCC_S_WEBGUI_2 = "2";
@@ -335,8 +346,8 @@ class ABAP_DB_TABLE_FUNC {
      * Function Module Short Texts.
      */
     const FUNCT = "funct";
-    const FUNCT_D = "funct_d";
-    const FUNCT_E = "funct_e";
+    const FUNCT_D = "funct_d";   // Germany texts
+    const FUNCT_E = "funct_e";   // English texts
 
     /**
      * Parameters of function modules.
@@ -357,6 +368,34 @@ class ABAP_DB_TABLE_FUNC {
      * Function Group Short Texts.
      */
     const TLIBT = "tlibt";
+
+    /**
+     * Function Module List.
+     * <pre>
+     * SELECT funcname, fmode FROM tfdir where funcname LIKE 'A%' order by funcname
+     * </pre>
+     */
+    public static function TFDIR_List($index) {
+        $con = ABAP_DB_SCHEMA::getConnFunc();
+        $index = $con->real_escape_string($index);
+        $sql = "SELECT FUNCNAME, FMODE FROM " . ABAP_DB_TABLE_FUNC::TFDIR
+                . " where funcname LIKE '" . $index . "%' order by funcname";
+        return $con->query($sql);
+    }
+    
+    /**
+     * Function Module text.
+     */
+    public static function TFTIT($fm) {
+        $sql = "select STEXT from " . ABAP_DB_TABLE_FUNC::TFTIT
+                . " where FUNCNAME = ? and SPRAS = ?";
+        $stmt = ABAP_DB_SCHEMA::getConnFunc()->prepare($sql);
+        $stmt->bind_param('ss', $fm, $langu = ABAP_DB_CONST::LANGU_EN);
+        $stmt->execute();
+        $stmt->bind_result($result);
+        $stmt->fetch();
+        return $result;
+    }    
 
 }
 
@@ -605,6 +644,25 @@ class ABAP_DB_TABLE_HIER {
     }
 
     /**
+     * Get program list.
+     * <pre>
+     * SELECT OBJ_NAME, DEVCLASS, COMPONENT FROM abaphier.tadir 
+     *   where pgmid = 'R3TR' and object = 'PROG' 
+     *   and obj_name like 'A%' 
+     *   order by obj_name
+     * </pre>
+     */
+    public static function TADIR_PROG_List($index) {
+        $con = ABAP_DB_SCHEMA::getConnHier();
+        $index = $con->real_escape_string($index);
+        $sql = "SELECT OBJ_NAME, DEVCLASS, COMPONENT FROM " . ABAP_DB_TABLE_HIER::TADIR
+                . " WHERE pgmid = 'R3TR' and object = 'PROG' "
+                . " and OBJ_NAME like '" . $index . "%'"
+                . " order by OBJ_NAME";
+        return $con->query($sql);
+    }
+
+    /**
      * Package List, of an index.
      * <pre>
      * SELECT * FROM tdevc where DEVCLASS LIKE 'A%' order by devclass
@@ -755,12 +813,11 @@ class ABAP_DB_TABLE_PROG {
      */
     const YTAPLT = "ytaplt";
 
-
     /**
      * Report title text.
      */
     public static function TRDIRT($Progname) {
-        $sql = "select TEXT from " . ABAP_DB_TABLE_PROG::TRDIRT 
+        $sql = "select TEXT from " . ABAP_DB_TABLE_PROG::TRDIRT
                 . " where NAME = ? and SPRSL = ?";
         $stmt = ABAP_DB_SCHEMA::getConnProg()->prepare($sql);
         $stmt->bind_param('ss', $Progname, $langu = ABAP_DB_CONST::LANGU_EN);
@@ -768,8 +825,8 @@ class ABAP_DB_TABLE_PROG {
         $stmt->bind_result($result);
         $stmt->fetch();
         return $result;
-    }    
-    
+    }
+
 }
 
 /** Database table names - table. */
@@ -884,11 +941,11 @@ class ABAP_DB_TABLE_TABL {
     public static function DD02L_List($index) {
         $con = ABAP_DB_SCHEMA::getConnTabl();
         $index = $con->real_escape_string($index . '%');
-        $sql = "SELECT TABNAME, TABCLASS, CONTFLAG FROM " . ABAP_DB_TABLE_TABL::DD02L 
+        $sql = "SELECT TABNAME, TABCLASS, CONTFLAG FROM " . ABAP_DB_TABLE_TABL::DD02L
                 . " WHERE tabname like '" . $index . "' order by TABNAME";
         return $con->query($sql);
     }
-    
+
     /**
      * Table list for a SQLTAB.
      * <pre>
@@ -898,11 +955,10 @@ class ABAP_DB_TABLE_TABL {
     public static function DD02L_SQLTAB($Sqltab) {
         $con = ABAP_DB_SCHEMA::getConnTabl();
         $Sqltab = $con->real_escape_string($Sqltab);
-        $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD02L 
-                . " WHERE SQLTAB = '" .$Sqltab  . "' order by TABNAME";
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD02L
+                . " WHERE SQLTAB = '" . $Sqltab . "' order by TABNAME";
         return $con->query($sql);
     }
-
 
     /**
      * Table Attributes.
@@ -917,7 +973,7 @@ class ABAP_DB_TABLE_TABL {
         $qry = $con->query($sql);
         return mysqli_fetch_array($qry);
     }
-    
+
     /**
      * Table text.
      * <pre>
@@ -944,11 +1000,11 @@ class ABAP_DB_TABLE_TABL {
     public static function DD03L_List($TableName) {
         $con = ABAP_DB_SCHEMA::getConnTabl();
         $TableName = $con->real_escape_string($TableName);
-        $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD03L 
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD03L
                 . " WHERE tabname = '" . $TableName . "' order by POSITION";
         return $con->query($sql);
     }
-    
+
     /**
      * Foreign Key Fields.
      * <pre>
@@ -958,7 +1014,7 @@ class ABAP_DB_TABLE_TABL {
     public static function DD05S($TableName) {
         $con = ABAP_DB_SCHEMA::getConnTabl();
         $TableName = $con->real_escape_string($TableName);
-        $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD05S 
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD05S
                 . " WHERE tabname = '" . $TableName . "' order by FIELDNAME, PRIMPOS";
         return $con->query($sql);
     }
@@ -1070,8 +1126,8 @@ class ABAP_DB_TABLE_TRAN {
         $sql = "SELECT * FROM " . ABAP_DB_TABLE_TRAN::TSTC . " where TCODE = '" . $tcode . "'";
         $qry = $con->query($sql);
         return mysqli_fetch_array($qry);
-    }    
-    
+    }
+
     /**
      * Transaction Code attribute - Authorization.
      * <pre>
@@ -1171,7 +1227,6 @@ class ABAP_DB_TABLE_VIEW {
      */
     const DM25L = "dm25l";
 
-
     /**
      * DDIC View List.
      * <pre>
@@ -1184,8 +1239,7 @@ class ABAP_DB_TABLE_VIEW {
         $sql = "SELECT VIEWNAME, VIEWCLASS, ROOTTAB FROM " . ABAP_DB_TABLE_VIEW::DD25L
                 . " where VIEWNAME LIKE '" . $index . "' order by VIEWNAME";
         return $con->query($sql);
-    }    
-    
+    }
 
     /**
      * View.
@@ -1198,7 +1252,7 @@ class ABAP_DB_TABLE_VIEW {
         return mysqli_fetch_array($qry);
     }
 
-     /**
+    /**
      * View text.
      */
     public static function DD25T($ViewName) {
@@ -1210,10 +1264,82 @@ class ABAP_DB_TABLE_VIEW {
         $stmt->bind_result($result);
         $stmt->fetch();
         return $result;
-    }   
-    
-    
     }
+
+    /**
+     * Base tables and foreign key relationships for a view.
+     * <pre>
+     * SELECT * FROM dd26s where viewname = 'AANL' order by TABPOS;
+     * </pre>
+     */
+    public static function DD26S_List($ViewName) {
+        $con = ABAP_DB_SCHEMA::getConnView();
+        $ViewName = $con->real_escape_string($ViewName);
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_VIEW::DD26S
+                . " where VIEWNAME = '" . $ViewName . "' order by TABPOS";
+        return $con->query($sql);
+    }
+
+    /**
+     * Fields in an Aggregate (View, MC Object, Lock Object).
+     * <pre>
+     * SELECT * FROM abapview.dd27s WHERE VIEWNAME = 'AANL' ORDER BY OBJPOS
+     * </pre>
+     */
+    public static function DD27S_List($ViewName) {
+        $con = ABAP_DB_SCHEMA::getConnView();
+        $ViewName = $con->real_escape_string($ViewName);
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_VIEW::DD27S
+                . " where VIEWNAME = '" . $ViewName . "' order by OBJPOS";
+        return $con->query($sql);
+    }
+
+    /**
+     * Lines of a selection condition.
+     * <pre>
+     * SELECT * FROM dd28s where CONDNAME = 'ANEKPV' order by POSITION
+     * </pre>
+     */
+    public static function DD28S_List($ViewName) {
+        $con = ABAP_DB_SCHEMA::getConnView();
+        $ViewName = $con->real_escape_string($ViewName);
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_VIEW::DD28S
+                . " where CONDNAME = '" . $ViewName . "' order by POSITION";
+        return $con->query($sql);
+    }
+
+    /**
+     * DM Entity Type Short Text.
+     * <pre>
+     * SELECT LANGBEZ FROM dm02t where SPRACHE = 'E' and entid = '12052'
+     * </pre>
+     */
+    public static function DM02T($Entid) {
+        $sql = "select LANGBEZ from " . ABAP_DB_TABLE_VIEW::DM02T . " where entid = ? and SPRACHE = ?";
+        $stmt = ABAP_DB_SCHEMA::getConnView()->prepare($sql);
+        $langu = ABAP_DB_CONST::LANGU_EN;
+        $stmt->bind_param('ss', $Entid, $langu);
+        $stmt->execute();
+        $stmt->bind_result($result);
+        $stmt->fetch();
+        return $result;
+    }
+
+    /**
+     * DM View-Entity Type Assignment.
+     * <pre>
+     * SELECT * FROM abapview.dm25l where VIEWNAME = 'ENT1003'
+     * </pre>
+     */
+    public static function DM25L($ViewName) {
+        $con = ABAP_DB_SCHEMA::getConnView();
+        $ViewName = $con->real_escape_string($ViewName);
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_VIEW::DM25L . " where VIEWNAME = '" . $ViewName . "'";
+        $qry = $con->query($sql);
+        return mysqli_fetch_array($qry);
+    }
+
+}
 
 /** Database table names. */
 class ABAP_DB_TABLE {

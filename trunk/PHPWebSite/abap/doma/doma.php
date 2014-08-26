@@ -22,12 +22,13 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DOMA_DESC . ' ' . $doma['DOMN
 
 <html>
     <head>
-        <link rel="stylesheet" href="../../abap.css" type="text/css" >
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+        <link rel="stylesheet" href="../../abap.css" type="text/css" />
         <title><?php echo $GLOBALS['TITLE_TEXT'] ?> <?php echo WEBSITE_TITLE ?> </title>
-        <meta name="keywords" content="SAP,<?php echo ABAP_OTYPE::DOMA_DESC ?>,<?php echo $doma['DOMNAME'] ?>,<?php echo $doma_desc ?>">
-        <meta name="description" content="<?php echo WEBSITE::META_DESC; ?>">
-        <meta name="author" content="SAP Datasheet">
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
+        <meta name="keywords" content="SAP,<?php echo ABAP_OTYPE::DOMA_DESC ?>,<?php echo $doma['DOMNAME'] ?>,<?php echo $doma_desc ?>" />
+        <meta name="description" content="<?php echo WEBSITE::META_DESC; ?>" />
+        <meta name="author" content="SAP Datasheet" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
     <body>
 

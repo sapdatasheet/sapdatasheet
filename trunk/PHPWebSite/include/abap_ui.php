@@ -23,6 +23,10 @@ class ABAP_Navigation {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::DTEL_NAME, $rollname, $rollname, $desc);
     }
 
+    public static function GetURLFuncModule($fm, $desc) {
+        return ABAP_Navigation::GetURL(ABAP_OTYPE::FUNC_NAME, $fm, $fm, $desc);
+    }
+
     public static function GetURLPackage($package, $desc) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::DEVC_NAME, $package, $package, $desc);
     }
@@ -67,7 +71,7 @@ class ABAP_UI_TOOL {
 
     public static function Redirect404() {
         header(HTTP_STATUS::STATUS_404);
-        header("Location: /abap/page404.php");
+        header("Location: /page404.php");
     }
 
     public static function CheckText($Text) {
@@ -96,6 +100,17 @@ class ABAP_UI_TOOL {
             return "<input type=\"checkbox\" name=\"" . $Name . "\"  disabled=\"disabled\" checked=\"checked\" />";
         } else {
             return "<input type=\"checkbox\" name=\"" . $Name . "\"  disabled=\"disabled\" />";
+        }
+    }
+
+    /**
+     * Get radio box UI control.
+     */
+    public static function GetRadioBox($Name, $Flag) {
+        if ($Flag) {
+            return "<input type=\"radio\" name=\"" . $Name . "\"  disabled=\"disabled\" checked=\"checked\" />";
+        } else {
+            return "<input type=\"radio\" name=\"" . $Name . "\"  disabled=\"disabled\" />";
         }
     }
 

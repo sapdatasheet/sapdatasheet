@@ -13,18 +13,28 @@ if (empty($dd25l['VIEWNAME'])) {
     ABAP_UI_TOOL::Redirect404();
 }
 $dd25l_desc = ABAP_DB_TABLE_VIEW::DD25T($dd25l['VIEWNAME']);
+$dd25l_roottab_desc = ABAP_DB_TABLE_TABL::DD02T($dd25l['ROOTTAB']);
+$dd25l_viewclass_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_DD25L_VIEWCLASS, $dd25l['VIEWCLASS']);
+$dd26s_list = ABAP_DB_TABLE_VIEW::DD26S_List($dd25l['VIEWNAME']);
+$dd27s_list = ABAP_DB_TABLE_VIEW::DD27S_List($dd25l['VIEWNAME']);
+$dd28s_list = ABAP_DB_TABLE_VIEW::DD28S_List($dd25l['VIEWNAME']);
+$dm25l = ABAP_DB_TABLE_VIEW::DM25L($dd25l['VIEWNAME']);
+if (!empty($dm25l['ENTID'])) {
+    $dm25l_entid_desc = ABAP_DB_TABLE_VIEW::DM02T($dm25l['ENTID']);
+}
 
 $hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_CONST::TADIR_PGMID_R3TR, ABAP_OTYPE::VIEW_NAME, $dd25l['VIEWNAME']);
 $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::VIEW_DESC . ' ' . $dd25l['VIEWNAME'];
 ?>
 <html>
     <head>
-        <link rel="stylesheet" href="../../abap.css" type="text/css" >
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+        <link rel="stylesheet" href="../../abap.css" type="text/css" />
         <title><?php echo $GLOBALS['TITLE_TEXT'] ?> <?php echo WEBSITE::TITLE ?> </title>
-        <meta name="keywords" content="SAP,<?php echo ABAP_OTYPE::VIEW_DESC ?>,<?php echo $dd25l['VIEWNAME']; ?>,<?php echo $dd25l_desc ?>">
-        <meta name="description" content="<?php echo WEBSITE::META_DESC; ?>">
-        <meta name="author" content="SAP Datasheet">
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
+        <meta name="keywords" content="SAP,<?php echo ABAP_OTYPE::VIEW_DESC ?>,<?php echo $dd25l['VIEWNAME']; ?>,<?php echo $dd25l_desc ?>" />
+        <meta name="description" content="<?php echo WEBSITE::META_DESC; ?>" />
+        <meta name="author" content="SAP Datasheet" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
     <body>
 
@@ -68,85 +78,111 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::VIEW_DESC . ' ' . $dd25l['VIE
                 <table class="content_obj">
                     <tbody>
                         <tr><td class="content_label"> View Type             </td>
-                            <td class="field"> <?php echo  Navigation.GetDomainValueURL(VIEW.VIEWCLASS_DOMA, view.VIEWCLASS, view.VIEWCLASS_T) ?> </td>
-                            <td><?php echo  view.VIEWCLASS_T ?>&nbsp;</td>
+                            <td class="field"> <?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DD25L_VIEWCLASS, $dd25l['VIEWCLASS'], $dd25l_viewclass_desc) ?> </td>
+                            <td><?php echo $dd25l_viewclass_desc ?>&nbsp;</td>
                         </tr>
-                        <tr><td class="content_label"> <?php echo  view.VIEWCLASS_T ?></td><td class="field"> <?php echo  Navigation.GetDomaURL(view.VIEWNAME) ?> </td><td>&nbsp;</td></tr>
-                        <tr><td class="content_label"> Short Description     </td><td class="field"> <?php echo  view.DDTEXT ?> &nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td class="content_label"> <?php echo $dd25l_viewclass_desc ?></td>
+                            <td class="field"> <?php echo ABAP_Navigation::GetURLView($dd25l['VIEWNAME'], $dd25l_desc) ?> </td>
+                            <td>&nbsp;</td></tr>
+                        <tr><td class="content_label"> Short Description     </td>
+                            <td class="field"> <?php echo $dd25l_desc ?> &nbsp;</td>
+                            <td>&nbsp;</td></tr>
+                        <tr><td class="content_label"> Root table </td>
+                            <td class="field"> <?php echo ABAP_Navigation::GetURLTable($dd25l['ROOTTAB'], $dd25l_roottab_desc) ?> &nbsp;</td>
+                            <td><?php echo $dd25l_roottab_desc ?>&nbsp; </td></tr>
                     </tbody>
                 </table>
 
-                <!-- Attributes -->
-                <?php  if (VIEWCLASS.VALUE_A == view.VIEWCLASS) { ?>
-                <table class="content_obj">
-                    <tbody>
-                        <tr><td class="content_label">Appending view</td><td class="field"><?php echo  Navigation.GetViewURL(view.ATTR.ROOTTAB) ?>&nbsp;</td></tr>
-                        <!-- TODO: <tr><td>Switch</td><td>????&nbsp;</td></tr> -->
-                    </tbody>
-                </table>
-                <?php  }             ?>
-                <?php  if (!Constant.IsInitial(view.ATTR.UDENTITY)) { ?>
-                <table  class="content_obj">
-                    <tbody>
-                        <tr><td class="content_label">Entity Type</td><td class="field"><?php echo  Navigation.GetTablURL("DM02L", view.ATTR.UDENTITY) ?>&nbsp;</td></tr>
-                        <tr><td class="content_label">Short text </td><td class="field"><?php echo  view.ATTR.UDENTITY_T ?></td></tr>
-                    </tbody>
-                </table>
-                <?php  } ?>
+                <?php if (!empty($dm25l['ENTID'])) { ?>
+                    <table  class="content_obj">
+                        <tbody>
+                            <tr><td class="content_label">Entity Type</td><td class="field"><?php echo ABAP_Navigation::GetURLTable("DM02L", $dm25l['ENTID']) ?>&nbsp;</td></tr>
+                            <tr><td class="content_label">Short text </td><td class="field"><?php echo $dm25l_entid_desc ?></td></tr>
+                        </tbody>
+                    </table>
+                <?php } ?>
 
                 <!-- Table / Join Conditions -->
-                <h4>Table / Join Conditions </h4>
-                <table  class="content_obj">
+                <h4>Table</h4>
+                <table class="alv">
+                    <thead>
+                        <tr><th class="alv">#</th>
+                            <th class="alv">Table Name</th>
+                            <th class="alv">Foreign Table</th>
+                            <th class="alv">Foreign Field</th>
+                            <th class="alv">Foreign DIR</th></tr>
+                    </thead>
                     <tbody>
-                        <tr><td valign="top">
-                                <table class="alv">
-                                    <caption>Tables</caption>
-                                    <thead>
-                                        <tr><th class="alv"> # </th><th class="alv"> Table </th></tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php  for (VIEW.Table t : view.TABL) { ?>
-                                        <tr>
-                                            <td class="alv"><?php echo  t.TABPOS ?> </td>
-                                            <td class="alv"><?php echo  Navigation.GetTablURL(t.TABNAME) ?> </td>
-                                        </tr>
-                                        <?php  } ?>
-                                    </tbody>
-                                </table>
-                            </td>
-                            <td valign="top">
-                                <table  class="alv">
-                                    <caption>Join conditions</caption>
-                                    <thead>
-                                        <tr><th class="alv">#</th><th class="alv">Table</th><th class="alv">Field name</th><th class="alv">=</th><th class="alv">Table</th><th class="alv">Field name</th><th class="alv">Join</th><th class="alv">#</th></tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php  for (VIEW.JoinCondition jc : view.JNCD) { ?>
-                                        <tr>
-                                            <td class="alv"><?php echo  jc.LPOSITION ?> </td>
-                                            <td class="alv"><?php echo  Navigation.GetTablURL(jc.LTAB) ?> </td>
-                                            <td class="alv"><?php echo  jc.LFIELD ?> </td>
-                                            <td class="alv"><?php echo  Navigation.GetDomainValueURL(VIEW.JoinCondition.OPERATOR_DOMA, jc.LOPERATOR) ?> </td>
-                                            <td class="alv"><?php echo  Navigation.GetTablURL(jc.RTAB) ?> </td>
-                                            <td class="alv"><?php echo  jc.RFIELD ?> </td>
-                                            <td class="alv"><?php echo  Navigation.GetDomainValueURL(VIEW.SelectionCondition.AND_OR_DOMA, jc.RAND_OR) ?> </td>
-                                            <td class="alv"><?php echo  jc.RPOSITION ?> </td>
-                                        </tr>
-                                        <?php  } ?>
-                                        <tr><td class="alv">&nbsp;</td><td class="alv">&nbsp;</td><td class="alv">&nbsp;</td><td class="alv">&nbsp;</td><td class="alv">&nbsp;</td><td class="alv">&nbsp;</td><td class="alv">&nbsp;</td><td class="alv">&nbsp;</td></tr>
-                                    </tbody>
-                                </table>
-                            </td></tr>
+                        <?php
+                        while ($dd26s = mysqli_fetch_array($dd26s_list)) {
+                            $dd26s_tabname_desc = ABAP_DB_TABLE_TABL::DD02T($dd26s['TABNAME']);
+                            $dd26s_fortabname_desc = ABAP_DB_TABLE_TABL::DD02T($dd26s['FORTABNAME']);
+                            ?>
+                            <tr>
+                                <td class="alv"><?php echo $dd26s['TABPOS'] ?></td>
+                                <td class="alv"><?php echo ABAP_Navigation::GetURLTable($dd26s['TABNAME'], $dd26s_tabname_desc) ?></td>
+                                <td class="alv"><?php echo ABAP_Navigation::GetURLTable($dd26s['FORTABNAME'], $dd26s_fortabname_desc) ?></td>
+                                <td class="alv"><?php echo $dd26s['FORFIELD'] ?></td>
+                                <td class="alv"><?php echo $dd26s['FORDIR'] ?></td>
+                            </tr>
+                        <?php } ?>
                     </tbody>
-                </table><!-- Table / Join Conditions: End -->
+                </table>                
+
+                <h4>Join Conditions</h4>
+                <table class="alv">
+                    <thead>
+                        <tr><th class="alv">#</th>
+                            <th class="alv">Table Name</th>
+                            <th class="alv">Field Name</th>
+                            <th class="alv">Negation</th>
+                            <th class="alv">Operator</th>
+                            <th class="alv">Constants</th>
+                            <th class="alv">Cont. line</th>
+                            <th class="alv">AND/OR</th>
+                            <th class="alv">Offset</th>
+                            <th class="alv">F Length</th>
+                            <th class="alv">Mco Field</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        while ($dd28s = mysqli_fetch_array($dd28s_list)) {
+                            $dd28s_tabname_desc = ABAP_DB_TABLE_TABL::DD02T($dd28s['TABNAME']);
+                            ?>
+                            <tr>
+                                <td class="alv"><?php echo $dd28s['POSITION'] ?></td>
+                                <td class="alv"><?php echo ABAP_Navigation::GetURLTable($dd28s['TABNAME'], $dd28s_tabname_desc) ?></td>
+                                <td class="alv"><?php echo $dd28s['FIELDNAME'] ?></td>
+                                <td class="alv"><?php echo $dd28s['NEGATION'] ?></td>
+                                <td class="alv"><?php echo $dd28s['OPERATOR'] ?></td>
+                                <td class="alv"><?php echo $dd28s['CONSTANTS'] ?></td>
+                                <td class="alv"><?php echo $dd28s['CONTLINE'] ?></td>
+                                <td class="alv"><?php echo $dd28s['AND_OR'] ?></td>
+                                <td class="alv"><?php echo $dd28s['OFFSET'] ?></td>
+                                <td class="alv"><?php echo $dd28s['FLENGTH'] ?></td>
+                                <td class="alv"><?php echo $dd28s['MCOFIELD'] ?></td>
+                            </tr>
+                        <?php } ?>
+                        <tr>
+                            <td class="alv">&nbsp;</td>
+                            <td class="alv">&nbsp;</td>
+                            <td class="alv">&nbsp;</td>
+                            <td class="alv">&nbsp;</td>
+                            <td class="alv">&nbsp;</td>
+                            <td class="alv">&nbsp;</td>
+                            <td class="alv">&nbsp;</td>
+                            <td class="alv">&nbsp;</td>
+                            <td class="alv">&nbsp;</td>
+                            <td class="alv">&nbsp;</td>
+                            <td class="alv">&nbsp;</td>
+                        </tr>
+                    </tbody>
+                </table>                  
+                <!-- Table / Join Conditions: End -->
 
                 <!-- View Fields -->
                 <h4>View Fields </h4>
-                <table class="content_obj">
-                    <tbody>
-                        <tr><td class="content_label">Basis Table</td><td class="field"><?php echo  Navigation.GetTablURL(view.ATTR.ROOTTAB) ?>&nbsp;</td></tr>
-                    </tbody>
-                </table>
                 <table class="alv">
                     <thead>
                         <tr>
@@ -154,7 +190,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::VIEW_DESC . ' ' . $dd25l['VIE
                             <th class="alv">View field</th>
                             <th class="alv">Table</th>
                             <th class="alv">Field</th>
-                            <th class="alv">Flag</th>
+                            <th class="alv">Maintenance Flag</th>
                             <th class="alv">Key</th>
                             <th class="alv">Data element</th>
                             <th class="alv">Mod</th>
@@ -164,74 +200,76 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::VIEW_DESC . ' ' . $dd25l['VIE
                             <!-- TODO: <th class="alv">Switch</th></tr> -->
                     </thead>
                     <tbody>
-                        <?php  for (VIEW.Field f : view.FELD) { ?>
+                        <?php
+                        while ($dd27s = mysqli_fetch_array($dd27s_list)) {
+                            $dd27s_rollname_desc = ABAP_DB_TABLE_DTEL::DD04T($dd27s['ROLLNAME']);
+                            ?>
+                            <tr>
+                                <td class="alv"><?php echo $dd27s['OBJPOS'] ?> </td>
+                                <td class="alv"><?php echo $dd27s['VIEWFIELD'] ?> </td>
+                                <td class="alv"><?php echo ABAP_Navigation::GetURLTable($dd27s['TABNAME'], '') ?> </td>
+                                <td class="alv"><?php echo $dd27s['FIELDNAME'] ?> </td>
+                                <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DD27S_RDONLY, $dd27s['RDONLY'], '') ?> </td>
+                                <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox("FELD_KEY_" . $dd27s['OBJPOS'], $dd27s['RDONLY']) ?> </td>
+                                <td class="alv"><?php echo ABAP_Navigation::GetURLDtel($dd27s['ROLLNAME'], '') ?> </td>
+                                <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox("FELD_MOD_" . $dd27s['OBJPOS'], $dd27s['ROLLCHANGE']) ?> </td>
+                                <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DATATYPE, $dd27s['DATATYPE'], $dd27s_rollname_desc) ?> </td>
+                                <td class="alv" align="right"><?php echo ABAP_UI_TOOL::CheckInt($dd27s['LENG']) ?>&nbsp; </td>
+                                <td class="alv"><?php echo $dd27s_rollname_desc ?> </td>
+                                <!-- TODO: <td class="alv">f.SWITCH_ID </td> -->
+                            </tr>
+                        <?php } ?>
                         <tr>
-                            <td class="alv"><?php echo  f.OBJPOS ?> </td>
-                            <td class="alv"><?php echo  f.VIEWFIELD ?> </td>
-                            <td class="alv"><?php echo  Navigation.GetTablURL(f.TABNAME) ?> </td>
-                            <td class="alv"><?php echo  f.FIELDNAME ?> </td>
-                            <td class="alv"><?php echo  Navigation.GetDomainValueURL(VIEW.Field.RDONLY_DOMA, f.RDONLY) ?> </td>
-                            <td class="alv"><?php echo  Navigation.getCheckBox("FELD_KEY_" + f.OBJPOS, f.KEYFLAG) ?> </td>
-                            <td class="alv"><?php echo  Navigation.GetDtelURL(f.ROLLNAME) ?> </td>
-                            <td class="alv"><?php echo  Navigation.getCheckBox("FELD_MOD_" + f.OBJPOS, f.ROLLCHANGE) ?> </td>
-                            <td class="alv"><?php echo  Navigation.GetDomainValueURL(VIEW.Field.DATATYPE_DOMA, f.DATATYPE) ?> </td>
-                            <td class="alv" align="right"><?php echo  f.LENG ?>&nbsp; </td>
-                            <td class="alv"><?php echo  f.ROLLNAME_T ?> </td>
-                            <!-- TODO: <td class="alv">f.SWITCH_ID </td> -->
+                            <td class="alv">&nbsp;</td>
+                            <td class="alv">&nbsp;</td>
+                            <td class="alv">&nbsp;</td>
+                            <td class="alv">&nbsp;</td>
+                            <td class="alv">&nbsp;</td>
+                            <td class="alv">&nbsp;</td>
+                            <td class="alv">&nbsp;</td>
+                            <td class="alv">&nbsp;</td>
+                            <td class="alv">&nbsp;</td>
+                            <td class="alv">&nbsp;</td>
+                            <td class="alv">&nbsp;</td>
+                        <!-- TODO: <td class="alv">f.SWITCH_ID </td> -->
                         </tr>
-                        <?php  } ?>
                     </tbody>
                 </table><!-- View Fields: End -->
-
-                <!-- Selection Conditions -->
-                <?php  if (!view.STCD.isEmpty()) {   ?>
-                <h4>Selection Conditions </h4>
-                <table class="alv">
-                    <thead>
-                        <tr>
-                            <th class="alv">#</th>
-                            <th class="alv">Table</th>
-                            <th class="alv">Field name</th>
-                            <th class="alv">Operator</th>
-                            <th class="alv">Comparison Value</th>
-                            <th class="alv">AND/OR</th>
-                    </thead>
-                    <tbody>
-                        <?php  for (VIEW.SelectionCondition sc : view.STCD) { ?>
-                        <tr>
-                            <td class="alv"><?php echo  sc.POSITION ?> </td>
-                            <td class="alv"><?php echo  Navigation.GetTablURL(sc.TABNAME) ?> </td>
-                            <td class="alv"><?php echo  sc.FIELDNAME ?> </td>
-                            <td class="alv"><?php echo  Navigation.GetDomainValueURL(VIEW.JoinCondition.OPERATOR_DOMA, sc.OPERATOR) ?> </td>
-                            <td class="alv"><?php echo  sc.CONSTANTS ?> </td>
-                            <td class="alv"><?php echo  Navigation.GetDomainValueURL(VIEW.SelectionCondition.AND_OR_DOMA, sc.AND_OR) ?> </td>
-                        </tr>
-                        <?php  } ?>
-                    </tbody>
-                </table>
-                <?php  }   ?><!-- Selection Conditions: End -->
 
                 <!-- Maintenance Status -->
                 <h4>Maintenance Status </h4>
                 <table class="content_obj">
                     <caption>Access</caption>
                     <tbody>
-                        <?php  for (DomainValue.TypeString v : VIEWGRANT.VALUES) { ?>
-                        <tr><td class="field"><?php echo  Navigation.getRadioButton("mtst_access", v.value.equalsIgnoreCase(view.MTST.VIEWGRANT)) ?> &nbsp; <?php echo  v.desc ?></td></tr>
-                        <?php  } ?>
+                        <tr><td class="field">
+                                <?php echo ABAP_UI_TOOL::GetRadioBox("mtst_access", $dd25l['VIEWGRANT'] == ABAP_DB_CONST::DOMAINVALUE_VIEWGRANT_R) ?> &nbsp; 
+                                <?php echo ABAP_DB_CONST::DOMAINVALUE_VIEWGRANT_R_DESC ?></td></tr>
+                        <tr><td class="field">
+                                <?php echo ABAP_UI_TOOL::GetRadioBox("mtst_access", $dd25l['VIEWGRANT'] == ABAP_DB_CONST::DOMAINVALUE_VIEWGRANT_U) ?> &nbsp; 
+                                <?php echo ABAP_DB_CONST::DOMAINVALUE_VIEWGRANT_U_DESC ?></td></tr>
+                        <tr><td class="field">
+                                <?php echo ABAP_UI_TOOL::GetRadioBox("mtst_access", $dd25l['VIEWGRANT'] == ABAP_DB_CONST::DOMAINVALUE_VIEWGRANT_M) ?> &nbsp; 
+                                <?php echo ABAP_DB_CONST::DOMAINVALUE_VIEWGRANT_M_DESC ?></td></tr>
+                        <tr><td class="field">
+                                <?php echo ABAP_UI_TOOL::GetRadioBox("mtst_access", $dd25l['VIEWGRANT'] == ABAP_DB_CONST::DOMAINVALUE_VIEWGRANT_SPACE) ?> &nbsp; 
+                                <?php echo ABAP_DB_CONST::DOMAINVALUE_VIEWGRANT_SPACE_DESC ?></td></tr>
                     </tbody>
                 </table>
                 <table class="content_obj">
+                    <?php
+                    $dd25l_customauth_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_DD25L_CUSTOMAUTH, $dd25l['CUSTOMAUTH']);
+                    $dd25l_globalflag_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_DD25L_GLOBALFLAG, $dd25l['GLOBALFLAG']);
+                    ?>
                     <tbody>
                         <tr>
                             <td class="content_label"> Delivery Class </td>
-                            <td class="field"> <?php echo  Navigation.GetDomainValueURL(VIEW.MaintStatus.CUSTOMAUTH_DOMA, view.MTST.CUSTOMAUTH) ?> &nbsp;</td>
-                            <td> <?php echo  view.MTST.CUSTOMAUTH_T ?>&nbsp;</td>
+                            <td class="field"> <?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DD25L_CUSTOMAUTH, $dd25l['CUSTOMAUTH'], $dd25l_customauth_desc) ?> &nbsp;</td>
+                            <td> <?php echo $dd25l_customauth_desc ?>&nbsp;</td>
                         </tr>
                         <tr>
                             <td class="content_label"> Data Browser/Table View Maintenance </td>
-                            <td class="field"><?php echo  Navigation.GetDomainValueURL(VIEW.MaintStatus.GLOBALFLAG_DOMA, view.MTST.GLOBALFLAG) ?>&nbsp;</td>
-                            <td><?php echo  view.MTST.GLOBALFLAG_T ?> &nbsp;</td></tr>
+                            <td class="field"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DD25L_GLOBALFLAG, $dd25l['GLOBALFLAG'], $dd25l_globalflag_desc) ?>&nbsp;</td>
+                            <td><?php echo $dd25l_globalflag_desc ?> &nbsp;</td></tr>
                     </tbody>
                 </table><!-- Maintenance Status: End -->
 
@@ -239,12 +277,11 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::VIEW_DESC . ' ' . $dd25l['VIE
                 <h4> Hierarchy </h4>
                 <table class="content_obj">
                     <tbody>
-                        <tr><td class="content_label"> Last changed by/on      </td><td class="field"><?php echo  view.ATTR.AS4USER ?>&nbsp;</td><td> <?php echo  view.ATTR.AS4DATE.toText() ?>&nbsp;</td></tr>
-                        <tr><td class="content_label"> Software Component      </td><td class="field"><?php echo  Navigation.GetSoftCompURL(view.HIER.DLVUNIT, view.HIER.DLVUNIT_T) ?>&nbsp;</td><td> <?php echo  view.HIER.DLVUNIT_T ?>&nbsp;</td></tr>
-                        <tr><td class="content_label"> SAP Release Created in  </td><td class="field"><?php echo  view.HIER.CRELEASE ?>&nbsp;</td><td>&nbsp;</td></tr>
-                        <tr><td class="content_label"> Application Component ID</td><td class="field"><?php echo  Navigation.GetAppCompURL(view.HIER.FCTR_ID, view.HIER.POSID, view.HIER.POSID_T) ?>&nbsp;</td><td> <?php echo  view.HIER.POSID_T ?>&nbsp;</td></tr>
-                        <tr><td class="content_label"> Application Component   </td><td class="field"><?php echo  Navigation.GetAppCompURL(view.HIER.FCTR_ID, view.HIER.FCTR_ID, view.HIER.POSID_T) ?>&nbsp;</td><td>&nbsp;</td></tr>
-                        <tr><td class="content_label"> Package                 </td><td class="field"><?php echo  Navigation.GetPackageURL(view.HIER.DEVCLASS, view.HIER.DEVCLASS_T) ?>&nbsp;</td><td> <?php echo  view.HIER.DEVCLASS_T ?>&nbsp;</td></tr>
+                        <tr><td class="content_label"> Last changed by/on      </td><td class="field"><?php echo $dd25l['AS4USER'] ?>&nbsp;</td><td> <?php echo $dd25l['AS4DATE'] ?>&nbsp;</td></tr>
+                        <tr><td class="content_label"> Software Component      </td><td class="field"><?php echo ABAP_Navigation::GetURLSoftComp($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td><td> <?php echo $hier->DLVUNIT_T ?>&nbsp;</td></tr>
+                        <tr><td class="content_label"> SAP Release Created in  </td><td class="field"><?php echo $hier->CRELEASE ?>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td class="content_label"> Application Component   </td><td class="field"><?php echo ABAP_Navigation::GetURLAppComp($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;(<?php echo $hier->FCTR_ID ?>)</td><td> <?php echo $hier->POSID_T ?>&nbsp;</td></tr>
+                        <tr><td class="content_label"> Package                 </td><td class="field"><?php echo ABAP_Navigation::GetURLPackage($hier->DEVCLASS, $hier->DEVCLASS_T) ?>&nbsp;</td><td> <?php echo $hier->DEVCLASS_T ?>&nbsp;</td></tr>
                     </tbody>
                 </table><!-- Hierarchy: End -->
 
