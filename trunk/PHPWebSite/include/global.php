@@ -34,7 +34,7 @@ class ABAP_OTYPE {
     const SQLT_NAME = 'SQLT';
     const SQLT_DESC = 'Cluster/Pool Table';
     const TABL_NAME = 'TABL';
-    const TABL_DESC = 'Table';
+    const TABL_DESC = 'Transparent Table';
     const TRAN_NAME = 'TRAN';
     const TRAN_DESC = 'Transaction Code';
     const VIEW_NAME = 'VIEW';

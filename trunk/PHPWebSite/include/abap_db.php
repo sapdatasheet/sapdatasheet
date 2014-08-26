@@ -377,12 +377,17 @@ class ABAP_DB_TABLE_FUNC {
      */
     public static function TFDIR_List($index) {
         $con = ABAP_DB_SCHEMA::getConnFunc();
-        $index = $con->real_escape_string($index);
-        $sql = "SELECT FUNCNAME, FMODE FROM " . ABAP_DB_TABLE_FUNC::TFDIR
-                . " where funcname LIKE '" . $index . "%' order by funcname";
+        $index = strtoupper($con->real_escape_string($index));
+        if (strcmp($index, 'RFC') == 0) {
+            $sql = "SELECT FUNCNAME, FMODE FROM " . ABAP_DB_TABLE_FUNC::TFDIR
+                    . " where FMODE = 'R' order by funcname";
+        } else {
+            $sql = "SELECT FUNCNAME, FMODE FROM " . ABAP_DB_TABLE_FUNC::TFDIR
+                    . " where funcname LIKE '" . $index . "%' order by funcname";
+        }
         return $con->query($sql);
     }
-    
+
     /**
      * Function Module text.
      */
@@ -395,7 +400,7 @@ class ABAP_DB_TABLE_FUNC {
         $stmt->bind_result($result);
         $stmt->fetch();
         return $result;
-    }    
+    }
 
 }
 
@@ -942,7 +947,7 @@ class ABAP_DB_TABLE_TABL {
         $con = ABAP_DB_SCHEMA::getConnTabl();
         $index = $con->real_escape_string($index . '%');
         $sql = "SELECT TABNAME, TABCLASS, CONTFLAG FROM " . ABAP_DB_TABLE_TABL::DD02L
-                . " WHERE tabname like '" . $index . "' order by TABNAME";
+                . " WHERE tabname like '" . $index . "' and TABCLASS = 'TRANSP' order by TABNAME";
         return $con->query($sql);
     }
 

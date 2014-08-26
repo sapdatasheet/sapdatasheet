@@ -8,7 +8,7 @@ $Table = filter_input(INPUT_GET, 'id');
 if (empty($Table)) {
     ABAP_UI_TOOL::Redirect404();
 }
-$dd02l = ABAP_DB_TABLE_TABL::DD02L($Table);
+$dd02l = ABAP_DB_TABLE_TABL::DD02L(strtoupper($Table));
 if (empty($dd02l['TABNAME'])) {
     ABAP_UI_TOOL::Redirect404();
 }

@@ -8,7 +8,7 @@ $ViewName = filter_input(INPUT_GET, 'id');
 if (empty($ViewName)) {
     ABAP_UI_TOOL::Redirect404();
 }
-$dd25l = ABAP_DB_TABLE_VIEW::DD25L($ViewName);
+$dd25l = ABAP_DB_TABLE_VIEW::DD25L(strtoupper($ViewName));
 if (empty($dd25l['VIEWNAME'])) {
     ABAP_UI_TOOL::Redirect404();
 }

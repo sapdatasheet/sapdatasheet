@@ -8,7 +8,7 @@ $TCode = filter_input(INPUT_GET, 'id');
 if (empty($TCode)) {
     ABAP_UI_TOOL::Redirect404();
 }
-$tstc = ABAP_DB_TABLE_TRAN::TSTC($TCode);
+$tstc = ABAP_DB_TABLE_TRAN::TSTC(strtoupper($TCode));
 if (empty($tstc['TCODE'])) {
     ABAP_UI_TOOL::Redirect404();
 }
