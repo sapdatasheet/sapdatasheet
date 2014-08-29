@@ -389,6 +389,21 @@ class ABAP_DB_TABLE_FUNC {
     }
 
     /**
+     * Function Module parameters.
+     * <pre>
+     * SELECT * FROM abapfunc.fupararef where funcname = 'RFC_READ_TABLE' ORDER BY PARAMTYPE, PPOSITION;
+     * </pre>
+     */
+    public static function FUPARAREF($fm) {
+        $con = ABAP_DB_SCHEMA::getConnFunc();
+        $fm = strtoupper($con->real_escape_string($fm));
+        // TODO: Replace * with Field list for performance improvement
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_FUNC::FUPARAREF
+                . " where funcname = '" . $fm . "' order by PARAMTYPE, PPOSITION";
+        return $con->query($sql);
+    }
+
+    /**
      * Function Module text.
      */
     public static function TFTIT($fm) {
@@ -646,6 +661,14 @@ class ABAP_DB_TABLE_HIER {
                 . " and OBJECT = '" . $ObjType . "'"
                 . " AND DEVCLASS = '" . $Package . "'";
         return $con->query($sql);
+    }
+
+    /**
+     * Get contained transpart/cluster/pool table for one package.
+     */
+    public static function TADIR_Child_Table($Package) {
+        $child_tabl = ABAP_DB_TABLE_HIER::TADIR_Child($Package, ABAP_DB_CONST::TADIR_PGMID_R3TR, ABAP_OTYPE::TABL_NAME);
+        return $child_tabl;
     }
 
     /**
