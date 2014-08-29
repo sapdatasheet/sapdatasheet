@@ -19,7 +19,7 @@ $tdevc_desc = ABAP_DB_TABLE_HIER::TDEVCT($Package);
 $tdevc_parent_desc = ABAP_DB_TABLE_HIER::TDEVCT($tdevc['PARENTCL']);
 $tdevc_mainpack_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_TDEVC_MAINPACK, $tdevc['MAINPACK']);
 $hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_CONST::TADIR_PGMID_R3TR, ABAP_OTYPE::DEVC_NAME, $tdevc['DEVCLASS']);
-$child_tabl = ABAP_DB_TABLE_HIER::TADIR_Child($Package, ABAP_DB_CONST::TADIR_PGMID_R3TR, ABAP_OTYPE::TABL_NAME);
+$child_tabl = ABAP_DB_TABLE_HIER::TADIR_Child_Table($Package);
 $child_tran = ABAP_DB_TABLE_HIER::TADIR_Child($Package, ABAP_DB_CONST::TADIR_PGMID_R3TR, ABAP_OTYPE::TRAN_NAME);
 ?>
 <html>
