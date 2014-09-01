@@ -19,7 +19,7 @@ $tdevc_desc = ABAP_DB_TABLE_HIER::TDEVCT($Package);
 $tdevc_parent_desc = ABAP_DB_TABLE_HIER::TDEVCT($tdevc['PARENTCL']);
 $tdevc_mainpack_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_TDEVC_MAINPACK, $tdevc['MAINPACK']);
 $hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_CONST::TADIR_PGMID_R3TR, ABAP_OTYPE::DEVC_NAME, $tdevc['DEVCLASS']);
-$child_tabl = ABAP_DB_TABLE_HIER::TADIR_Child_Table($Package);
+$child_tabl = ABAP_DB_TABLE_HIER::TADIR_Child($Package, ABAP_DB_CONST::TADIR_PGMID_R3TR, ABAP_OTYPE::TABL_NAME);
 $child_tran = ABAP_DB_TABLE_HIER::TADIR_Child($Package, ABAP_DB_CONST::TADIR_PGMID_R3TR, ABAP_OTYPE::TRAN_NAME);
 ?>
 <html>
@@ -84,41 +84,64 @@ $child_tran = ABAP_DB_TABLE_HIER::TADIR_Child($Package, ABAP_DB_CONST::TADIR_PGM
                 </table><!-- Basic Data: End -->
 
                 <!-- Package Content -->
-                <?php if (!empty($child_tabl) || !empty($child_tran)) { ?>
-                    <h4> Content </h4>
+                <h4> Package Content</h4>
+                <!-- Contained Tables or Views -->
+                <?php if (!empty($child_tabl)) { ?>
                     <table class="alv">
-                        <tr><td class="caption" colspan="2">Contained Tables</td></tr>
-                        <!-- Contained Tables -->
-                        <?php if (!empty($child_tabl)) { ?>
-                            <tr>
-                                <th class="alv"> Table Name </th>
-                                <th class="alv"> Short Description </th></tr>                        
-                            <?php
-                            while ($child_tabl_item = mysqli_fetch_array($child_tabl)) {
-                                $child_tabl_item_t = ABAP_DB_TABLE_TABL::DD02T($child_tabl_item['OBJ_NAME']);
+                        <caption>Contained Tables / Views</caption>
+                        <tr>
+                            <th class="alv"> Table Name </th>
+                            <th class="alv"> Short Description </th>
+                            <th class="alv"> Table Category </th>
+                            <th class="alv"> Delivery Class </th>
+                        </tr>                        
+                        <?php
+                        while ($child_tabl_item = mysqli_fetch_array($child_tabl)) {
+                            $table_dd02l = ABAP_DB_TABLE_TABL::DD02L($child_tabl_item['OBJ_NAME']);
+                            $child_tabl_item_t = ABAP_DB_TABLE_TABL::DD02T($child_tabl_item['OBJ_NAME']);
+                            if ($table_dd02l['TABCLASS'] === ABAP_DB_CONST::DOMAINVALUE_TABCLASS_TRANSP || $table_dd02l['TABCLASS'] == ABAP_DB_CONST::DOMAINVALUE_TABCLASS_POOL || $table_dd02l['TABCLASS'] == ABAP_DB_CONST::DOMAINVALUE_TABCLASS_CLUSTER || $table_dd02l['TABCLASS'] == ABAP_DB_CONST::DOMAINVALUE_TABCLASS_VIEW
+                            ) {
                                 ?>
                                 <tr><td class="alv"><?php echo ABAP_Navigation::GetURLTable($child_tabl_item['OBJ_NAME'], $child_tabl_item_t) ?></td>
-                                    <td class="alv"><?php echo $child_tabl_item_t ?>&nbsp;</td></tr>
+                                    <td class="alv"><?php echo $child_tabl_item_t ?>&nbsp;</td>
+                                    <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DD02L_TABCLASS, $table_dd02l['TABCLASS'], '') ?> &nbsp;</td>
+                                    <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DD02L_CONTFLAG, $table_dd02l['CONTFLAG'], '') ?> &nbsp;</td>
+                                </tr>
                             <?php } ?>
-                            <?php } ?><!-- Contained Tables: End -->
-
-                        <!-- Contained T-Codes -->
-                        <?php if (!empty($child_tran)) {
+                        <?php } ?>
+                        <tr><td class="alv">&nbsp;</td>
+                            <td class="alv">&nbsp;</td>
+                            <td class="alv">&nbsp;</td>
+                            <td class="alv">&nbsp;</td>
+                        </tr>
+                    </table><!-- Contained Tables or Views: End -->
+                <?php } ?>
+                <!-- Contained T-Codes -->
+                <?php if (!empty($child_tran)) { ?>
+                    <table class="alv">
+                        <caption>Contained Transaction Codes</caption>
+                        <tr>
+                            <th class="alv"> Transaction Code </th>
+                            <th class="alv"> Short Description </th>
+                            <th class="alv"> Program </th>
+                        </tr>                        
+                        <?php
+                        while ($child_tran_item = mysqli_fetch_array($child_tran)) {
+                            $tcode_tstc = ABAP_DB_TABLE_TRAN::TSTC($child_tran_item['OBJ_NAME']);
+                            $child_tran_item_t = ABAP_DB_TABLE_TRAN::TSTCT($child_tran_item['OBJ_NAME']);
                             ?>
-                            <tr><td class="caption" colspan="2">Contained Transaction Codes</td></tr>
-                            <tr>
-                                <th class="alv"> Transaction Code </th>
-                                <th class="alv"> Short Description </th></tr>                        
-                            <?php
-                            while ($child_tran_item = mysqli_fetch_array($child_tran)) {
-                                $child_tran_item_t = ABAP_DB_TABLE_TRAN::TSTCT($child_tran_item['OBJ_NAME']);
-                                ?>
-                                <tr><td class="alv"><?php echo ABAP_Navigation::GetURLTransactionCode($child_tran_item['OBJ_NAME'], $child_tran_item_t) ?></td>
-                                    <td class="alv"><?php echo $child_tran_item_t ?>&nbsp;</td></tr>
-                            <?php } ?>
-                            <?php } ?><!-- Contained T-Codes: End -->
+                            <tr><td class="alv"><?php echo ABAP_Navigation::GetURLTransactionCode($child_tran_item['OBJ_NAME'], $child_tran_item_t) ?></td>
+                                <td class="alv"><?php echo $child_tran_item_t ?>&nbsp;</td>
+                                <td class="alv"><?php echo ABAP_Navigation::GetURLProgram($tcode_tstc['PGMNA'], '') ?> &nbsp;</td>
+                            </tr>
+                        <?php } ?>
+                        <tr><td class="alv">&nbsp;</td>
+                            <td class="alv">&nbsp;</td>
+                            <td class="alv">&nbsp;</td>
+                        </tr>
                     </table>
-                <?php } ?><!-- Package Content: End -->
+                <?php } ?><!-- Contained T-Codes: End -->
+                <!-- Package Content: End -->
 
                 <h4> Hierarchy </h4>
                 <table class="content_obj">
