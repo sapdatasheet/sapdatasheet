@@ -60,7 +60,7 @@ class ABAP_Navigation {
         $result = "";
         if (!empty($objname)) {
             $sTitle = (empty($title)) ? $value : $title;
-            $result = "<a href=\"/abap/" . $objtype . "/" . $objtype . ".php?id=" . $objname . "\" title=\"" . $sTitle . "\"> " . $value . " </a>";
+            $result = "<a href=\"/abap/" . $objtype . "/" . $objtype . ".php?id=" . $objname . "\" title=\"" . $sTitle . "\"> " . $value . "</a>";
         }
         return $result;
     }

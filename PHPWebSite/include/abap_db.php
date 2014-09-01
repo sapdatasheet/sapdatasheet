@@ -26,6 +26,10 @@ class ABAP_DB_CONST {
     const DOMAIN_DD27S_RDONLY = "VFLDRDONLY";
     const DOMAIN_TADIR_COMP_TYPE = "RELC_TYPE";
     const DOMAIN_TDEVC_MAINPACK = "MAINPACK";
+    const DOMAINVALUE_TABCLASS_TRANSP = "TRANSP";    // Transparent table
+    const DOMAINVALUE_TABCLASS_CLUSTER = "CLUSTER";  // Cluster table
+    const DOMAINVALUE_TABCLASS_POOL = "POOL";        // Pooled table
+    const DOMAINVALUE_TABCLASS_VIEW = "VIEW";        // General view structure
     const DOMAINVALUE_VIEWGRANT_R = 'R';
     const DOMAINVALUE_VIEWGRANT_U = 'U';
     const DOMAINVALUE_VIEWGRANT_M = 'M';
@@ -661,14 +665,6 @@ class ABAP_DB_TABLE_HIER {
                 . " and OBJECT = '" . $ObjType . "'"
                 . " AND DEVCLASS = '" . $Package . "'";
         return $con->query($sql);
-    }
-
-    /**
-     * Get contained transpart/cluster/pool table for one package.
-     */
-    public static function TADIR_Child_Table($Package) {
-        $child_tabl = ABAP_DB_TABLE_HIER::TADIR_Child($Package, ABAP_DB_CONST::TADIR_PGMID_R3TR, ABAP_OTYPE::TABL_NAME);
-        return $child_tabl;
     }
 
     /**
