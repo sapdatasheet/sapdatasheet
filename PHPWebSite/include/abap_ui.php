@@ -94,8 +94,8 @@ class ABAP_UI_TOOL {
      * Get check box UI control.
      */
     public static function GetCheckBox($Name, $CheckedValue) {
-        if ($CheckedValue == ABAP_DB_CONST::FLAG_TRUE || 
-                $CheckedValue == ABAP_DB_CONST::TSTCC_S_WEBGUI_1 || 
+        if ($CheckedValue == ABAP_DB_CONST::FLAG_TRUE ||
+                $CheckedValue == ABAP_DB_CONST::TSTCC_S_WEBGUI_1 ||
                 $CheckedValue == ABAP_DB_CONST::TSTCC_S_WEBGUI_2) {
             return "<input type=\"checkbox\" name=\"" . $Name . "\"  disabled=\"disabled\" checked=\"checked\" />";
         } else {
@@ -115,6 +115,24 @@ class ABAP_UI_TOOL {
     }
 
     /**
+     * Function Module parameter Typing. Type assignment.
+     * <p> Related table field FUPARAREF-REF_CLASS. </p>
+     * <pre>
+     *   Value 'X' - TYPE REF TO;
+     *   Value '' - TYPE. 
+     * </pre>
+     * <p> Related table RSFBTYPEIN.</p>
+     *
+     */
+    public static function GetFunctionModuleTyping($RefClass) {
+        if ($RefClass == ABAP_DB_CONST::FLAG_TRUE) {
+            return 'TYPE REF TO';
+        } else {
+            return 'TYPE';
+        }
+    }
+
+    /**
      * Get check box UI control.
      */
     public static function GetSqltDesc($Sqlclass) {
@@ -124,26 +142,45 @@ class ABAP_UI_TOOL {
             return 'Table cluster';
         }
     }
-    
-    public static function GetTCodeTypeDesc($TCodeType){
+
+    /**
+     * Get transaction code type.
+     */
+    public static function GetTCodeTypeDesc($TCodeType) {
         $desc = 'Transaction Code Type';
         if ($TCodeType == '00') {
+            
         } else if ($TCodeType == '01') {
+            
         } else if ($TCodeType == '02') {
+            
         } else if ($TCodeType == '04') {
+            
         } else if ($TCodeType == '05') {
+            
         } else if ($TCodeType == '06') {
+            
         } else if ($TCodeType == '08') {
+            
         } else if ($TCodeType == '0c') {
+            
         } else if ($TCodeType == '21') {
+            
         } else if ($TCodeType == '22') {
+            
         } else if ($TCodeType == '44') {
+            
         } else if ($TCodeType == '80') {
+            
         } else if ($TCodeType == '84') {
+            
         } else if ($TCodeType == '90') {
+            
         } else if ($TCodeType == '94') {
+            
         } else if ($TCodeType == 'a0') {
-        } 
+            
+        }
 
         return $desc;
     }

@@ -8,6 +8,7 @@ class ABAP_DB_CONST {
     const INDEX_A = "A";
     const LANGU_EN = "E";
     const FLAG_TRUE = "X";
+    const FLAG_FALSE = "";
 
     /** Domain names OR Domain values */
     const DOMAIN_DATATYPE = "DATATYPE";
@@ -38,6 +39,8 @@ class ABAP_DB_CONST {
     const DOMAINVALUE_VIEWGRANT_U_DESC = 'read and change';
     const DOMAINVALUE_VIEWGRANT_M_DESC = "Time-dependent views: like U, validity data like ' '";
     const DOMAINVALUE_VIEWGRANT_SPACE_DESC = 'read, change, delete and insert';
+    const FUNCT_KIND_P = "P";
+    const FUPARAREF_PARAMTYPE_X = "X";
     const TADIR_PGMID_R3TR = "R3TR";
     const TSTCC_S_WEBGUI_1 = "1";
     const TSTCC_S_WEBGUI_2 = "2";
@@ -393,6 +396,34 @@ class ABAP_DB_TABLE_FUNC {
     }
 
     /**
+     * Function Module text.
+     */
+    public static function TFTIT($fm) {
+        $sql = "select STEXT from " . ABAP_DB_TABLE_FUNC::TFTIT
+                . " where FUNCNAME = ? and SPRAS = ?";
+        $stmt = ABAP_DB_SCHEMA::getConnFunc()->prepare($sql);
+        $stmt->bind_param('ss', $fm, $langu = ABAP_DB_CONST::LANGU_EN);
+        $stmt->execute();
+        $stmt->bind_result($result);
+        $stmt->fetch();
+        return $result;
+    }
+
+    /**
+     * Function Module Attributes.
+     * <pre>
+     * SELECT * FROM tfdir WHERE funcname = 'RFC_READ_TABLE'
+     * </pre>
+     */
+    public static function TFDIR($TableName) {
+        $con = ABAP_DB_SCHEMA::getConnFunc();
+        $TableName = $con->real_escape_string($TableName);
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_FUNC::TFDIR . " WHERE funcname = '" . $TableName . "'";
+        $qry = $con->query($sql);
+        return mysqli_fetch_array($qry);
+    }
+
+    /**
      * Function Module parameters.
      * <pre>
      * SELECT * FROM abapfunc.fupararef where funcname = 'RFC_READ_TABLE' ORDER BY PARAMTYPE, PPOSITION;
@@ -408,15 +439,22 @@ class ABAP_DB_TABLE_FUNC {
     }
 
     /**
-     * Function Module text.
+     * Function Module parameters text.
+     * <pre>
+     * SELECT STEXT FROM abapfunc.funct_e where SPRAS = 'E' AND funcname = 'RFC_READ_TABLE' AND PARAMETER = 'DATA' AND KIND = 'P'
+     * </pre>
      */
-    public static function TFTIT($fm) {
-        $sql = "select STEXT from " . ABAP_DB_TABLE_FUNC::TFTIT
-                . " where FUNCNAME = ? and SPRAS = ?";
+    public static function FUNCT($fm, $para, $kind) {
+        if ($kind != ABAP_DB_CONST::FUPARAREF_PARAMTYPE_X) {
+            $kind = ABAP_DB_CONST::FUNCT_KIND_P;
+        }
+        $sql = "select STEXT from " . ABAP_DB_TABLE_FUNC::FUNCT_E         // Only English text in this table
+                . " where SPRAS = ? and funcname = ? and PARAMETER = ? and KIND = ?";
         $stmt = ABAP_DB_SCHEMA::getConnFunc()->prepare($sql);
-        $stmt->bind_param('ss', $fm, $langu = ABAP_DB_CONST::LANGU_EN);
+        $stmt->bind_param('ssss', $langu = ABAP_DB_CONST::LANGU_EN, $fm, $para, $kind);
         $stmt->execute();
         $stmt->bind_result($result);
+        echo $result;
         $stmt->fetch();
         return $result;
     }
