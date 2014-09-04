@@ -29,6 +29,8 @@ class ABAP_OTYPE {
     const DTEL_DESC = 'Data Element';
     const FUNC_NAME = 'FUNC';
     const FUNC_DESC = 'Function Module';
+    const FUGR_NAME = 'FUGR';
+    const FUGR_DESC = 'Function Group';
     const PROG_NAME = 'PROG';
     const PROG_DESC = 'Program';
     const SQLT_NAME = 'SQLT';

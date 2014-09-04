@@ -9,14 +9,20 @@ $input_id = filter_input(INPUT_GET, 'id');
 if (empty($input_id)) {
     ABAP_UI_TOOL::Redirect404();
 }
-$func = ABAP_DB_TABLE_FUNC::TFDIR($input_id);
+$func = ABAP_DB_TABLE_FUNC::TFDIR(strtoupper($input_id));
 if (empty($func['FUNCNAME'])) {
     ABAP_UI_TOOL::Redirect404();
 }
 $func_desc = ABAP_DB_TABLE_FUNC::TFTIT($func['FUNCNAME']);
 $fupararef = ABAP_DB_TABLE_FUNC::FUPARAREF($func['FUNCNAME']);
 
-$hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_CONST::TADIR_PGMID_R3TR, 'FUGR', $func['FUNCNAME']);
+$enlfdir = ABAP_DB_TABLE_FUNC::ENLFDIR($func['FUNCNAME']);
+$funcgrp_desc = ABAP_DB_TABLE_FUNC::TLIBT($enlfdir['AREA']);
+
+$include = ABAP_DB_TABLE_FUNC::GET_INCLUDE($enlfdir['AREA'], $func['INCLUDE']);
+$progmeta = ABAP_DB_TABLE_PROG::YREPOSRCMETA($include);
+
+$hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_CONST::TADIR_PGMID_R3TR, ABAP_OTYPE::FUGR_NAME, $enlfdir['AREA']);
 $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::FUNC_DESC . ' ' . $func['FUNCNAME'];
 ?>
 <html>
@@ -70,8 +76,22 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::FUNC_DESC . ' ' . $func['FUNC
                 <h4> Basic data </h4>
                 <table class="content_obj">
                     <tbody>
-                        <tr><td class="content_label"> Function Module </td><td class="field"> <?php echo ABAP_Navigation::GetURLFuncModule($func['FUNCNAME'], $func_desc); ?> </td></tr>
-                        <tr><td class="content_label"> Short Text </td><td class="field"> <?php echo $func_desc ?> &nbsp;</td></tr>
+                        <tr><td class="content_label"> Function Module </td>
+                            <td class="field"> <?php echo ABAP_Navigation::GetURLFuncModule($func['FUNCNAME'], $func_desc); ?> </td>
+                            <td> <?php echo $func_desc ?> &nbsp;</td>
+                        </tr>
+                        <tr><td class="content_label"> Function Group </td>
+                            <td class="field"> <?php echo $enlfdir['AREA'] ?> &nbsp;</td>
+                            <td> <?php echo $funcgrp_desc ?> &nbsp;</td>
+                        </tr>
+                        <tr><td class="content_label"> Program Name </td>
+                            <td class="field"> <?php echo $func['PNAME'] ?> &nbsp;</td>
+                            <td> &nbsp;</td>
+                        </tr>
+                        <tr><td class="content_label"> INCLUDE Name </td>
+                            <td class="field"> <?php echo $include ?> &nbsp;</td>
+                            <td> &nbsp;</td>
+                        </tr>
                     </tbody>
                 </table>
 
@@ -104,7 +124,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::FUNC_DESC . ' ' . $func['FUNC
                             $para_stext = ABAP_DB_TABLE_FUNC::FUNCT($fupararef_item['FUNCNAME'], $fupararef_item['PARAMETER'], $fupararef_item['PARAMTYPE']);
                             ?>
                             <tr>
-                                <td class="alv"> <?php echo $fupararef_item['PARAMTYPE'] ?> </td>
+                                <td class="alv"> <?php echo ABAP_UI_TOOL::GetFunctionModuleParameterType($fupararef_item['PARAMTYPE']) ?> </td>
                                 <td class="alv"> <?php echo $fupararef_item['PARAMETER'] ?> </td>
                                 <td class="alv"> <?php echo ABAP_UI_TOOL::GetFunctionModuleTyping($fupararef_item['REF_CLASS']) ?> </td>
                                 <td class="alv"> <?php echo $fupararef_item['STRUCTURE'] ?> </td>
@@ -133,7 +153,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::FUNC_DESC . ' ' . $func['FUNC
                 <h4> Hierarchy </h4>
                 <table class="content_obj">
                     <tbody>
-                        <!--                        Last changed by/on-->
+                        <tr><td class="content_label"> Last changed by/on      </td><td class="field"><?php echo $progmeta['CNAM'] ?>&nbsp;</td><td> <?php echo $progmeta['CDAT'] ?>&nbsp;</td></tr>
                         <tr><td class="content_label"> Software Component      </td><td class="field"><?php echo ABAP_Navigation::GetURLSoftComp($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td><td> <?php echo $hier->DLVUNIT_T ?>&nbsp;</td></tr>
                         <tr><td class="content_label"> SAP Release Created in  </td><td class="field"><?php echo $hier->CRELEASE ?>&nbsp;</td><td>&nbsp;</td></tr>
                         <tr><td class="content_label"> Application Component   </td><td class="field"><?php echo ABAP_Navigation::GetURLAppComp($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;(<?php echo $hier->FCTR_ID ?>)</td><td> <?php echo $hier->POSID_T ?>&nbsp;</td></tr>

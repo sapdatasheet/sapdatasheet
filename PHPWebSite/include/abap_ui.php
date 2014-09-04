@@ -27,6 +27,10 @@ class ABAP_Navigation {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::FUNC_NAME, $fm, $fm, $desc);
     }
 
+    public static function GetURLFuncGroup($fg, $desc) {
+        return ABAP_Navigation::GetURL(ABAP_OTYPE::FUGR_NAME, $fg, $fg, $desc);
+    }
+
     public static function GetURLPackage($package, $desc) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::DEVC_NAME, $package, $package, $desc);
     }
@@ -114,6 +118,33 @@ class ABAP_UI_TOOL {
         }
     }
 
+
+    /**
+     * Function Module parameter Typing. Type assignment.
+     * <p> Related table field FUPARAREF-REF_CLASS. </p>
+     * <pre>
+     *   Value 'X' - TYPE REF TO;
+     *   Value '' - TYPE. 
+     * </pre>
+     * <p> Related table RSFBTYPEIN.</p>
+     *
+     */
+    public static function GetFunctionModuleParameterType($Type) {
+        if ($Type == ABAP_DB_CONST::FUPARAREF_PARAMTYPE_I) {
+            return 'Importing';
+        } else if ($Type == ABAP_DB_CONST::FUPARAREF_PARAMTYPE_E) {
+            return 'Exporting';
+        } else if ($Type == ABAP_DB_CONST::FUPARAREF_PARAMTYPE_C) {
+            return 'Changing';
+        } else if ($Type == ABAP_DB_CONST::FUPARAREF_PARAMTYPE_T) {
+            return 'Tables';
+        } else if ($Type == ABAP_DB_CONST::FUPARAREF_PARAMTYPE_X) {
+            return 'Exception';
+        } else {
+            return 'Unknown Type';
+        }
+    }
+    
     /**
      * Function Module parameter Typing. Type assignment.
      * <p> Related table field FUPARAREF-REF_CLASS. </p>
