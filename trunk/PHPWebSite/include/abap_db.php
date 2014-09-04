@@ -40,7 +40,11 @@ class ABAP_DB_CONST {
     const DOMAINVALUE_VIEWGRANT_M_DESC = "Time-dependent views: like U, validity data like ' '";
     const DOMAINVALUE_VIEWGRANT_SPACE_DESC = 'read, change, delete and insert';
     const FUNCT_KIND_P = "P";
-    const FUPARAREF_PARAMTYPE_X = "X";
+    const FUPARAREF_PARAMTYPE_I = "I";         // Importing
+    const FUPARAREF_PARAMTYPE_E = "E";         // Exporting
+    const FUPARAREF_PARAMTYPE_C = "C";         // Changing
+    const FUPARAREF_PARAMTYPE_T = "T";         // Tables
+    const FUPARAREF_PARAMTYPE_X = "X";         // Exception
     const TADIR_PGMID_R3TR = "R3TR";
     const TSTCC_S_WEBGUI_1 = "1";
     const TSTCC_S_WEBGUI_2 = "2";
@@ -410,15 +414,86 @@ class ABAP_DB_TABLE_FUNC {
     }
 
     /**
+     * Function Group text.
+     * <pre>
+     * SELECT AREAT FROM abapfunc.tlibt where area = 'FMCA_INCORR_BOR' and spras = 'E'
+     * </pre>
+     */
+    public static function TLIBT($fg) {
+        $sql = "select AREAT from " . ABAP_DB_TABLE_FUNC::TLIBT
+                . " where area = ? and SPRAS = ?";
+        $stmt = ABAP_DB_SCHEMA::getConnFunc()->prepare($sql);
+        $stmt->bind_param('ss', $fg, $langu = ABAP_DB_CONST::LANGU_EN);
+        $stmt->execute();
+        $stmt->bind_result($result);
+        $stmt->fetch();
+        return $result;
+    }
+    
+    /**
+     * Generate the include file name of current function module. <p>ABAP is
+     * trying to load the include file from the ABAP source code of the
+     * corresponding function group file L+FunctionGroup+UXX. </p> <p>Refer to
+     * the ABAP code class CL_FUNCTION_BUILDER_DATA method GET_INCLUDE. </p> <p>
+     * We have no place to find the source code of the UXX file. So we just
+     * generate the file based on the following pattern:</p>
+     * <pre>
+     * Function Module name: RFC_READ_TABLE  /BEV1/EM0_LEERGUT_VERBUCHER
+     * Function Group name : SDTX            /BEV1/EM0
+     * INCLUDE name        : LSDTXU01        /BEV1/LEM0U04
+     * Program nmae        : SAPLSDTX        /BEV1/SAPLEM0
+     * </pre>
+     * <pre>
+     * Function Group name : [FG]            [NameSpace]EM0
+     * INCLUDE name        : L[FG]U[01]      [NameSpace]L[FG]U[04]
+     * </pre>
+     *
+     * @param fg Function Group name
+     * @param seq Sequence number of the include file
+     */
+    public static function GET_INCLUDE($fg, $seq){
+        $pos = strrpos($fg, "/");
+        if ($pos === false) { // note: three equal signs
+             // not found...
+            return 'L' . $fg . 'U' . $seq;
+        } else {
+            $fg_left  = substr($fg, 0, $pos + 1);
+            $fg_right = substr($fg, $pos + 1);
+            return $fg_left . 'L' . $fg_right . 'U' . $seq;
+        }        
+        
+//        int idx = fg.lastIndexOf(Constant.S_SLASH);
+//        if (idx != -1) {
+//            return String.format("%sL%sU%s", fg.substring(0, idx + 1), fg.substring(idx + 1), seq);
+//        } else {
+//            return String.format("L%sU%s", fg, seq);
+//        }
+    }
+
+    /**
      * Function Module Attributes.
      * <pre>
      * SELECT * FROM tfdir WHERE funcname = 'RFC_READ_TABLE'
      * </pre>
      */
-    public static function TFDIR($TableName) {
+    public static function TFDIR($fm) {
         $con = ABAP_DB_SCHEMA::getConnFunc();
-        $TableName = $con->real_escape_string($TableName);
-        $sql = "SELECT * FROM " . ABAP_DB_TABLE_FUNC::TFDIR . " WHERE funcname = '" . $TableName . "'";
+        $fm = $con->real_escape_string($fm);
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_FUNC::TFDIR . " WHERE funcname = '" . $fm . "'";
+        $qry = $con->query($sql);
+        return mysqli_fetch_array($qry);
+    }
+
+    /**
+     * Additional Attributes for Function Modules.
+     * <pre>
+     * SELECT * FROM abapfunc.enlfdir where funcname = 'RFC_READ_TABLE'
+     * </pre>
+     */
+    public static function ENLFDIR($fm) {
+        $con = ABAP_DB_SCHEMA::getConnFunc();
+        $fm = $con->real_escape_string($fm);
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_FUNC::ENLFDIR . " WHERE funcname = '" . $fm . "'";
         $qry = $con->query($sql);
         return mysqli_fetch_array($qry);
     }
@@ -833,6 +908,7 @@ class ABAP_DB_TABLE_PROG {
      * @deprecated Replaced by {@link #YREPOSRCMETA} and {@link #YREPOSRCDATA}.
      */
     const REPOSRC = "reposrc";
+    const YREPOSRCMETA = 'yreposrcmeta';
 
     /**
      * Menu Painter: Texts.
@@ -887,6 +963,20 @@ class ABAP_DB_TABLE_PROG {
         $stmt->bind_result($result);
         $stmt->fetch();
         return $result;
+    }
+    
+    /**
+     * Report Attributes.
+     * <pre>
+     * SELECT * FROM abapprog.yreposrcmeta where PROGNAME = 'SAPLFMCA_INCORR_BOR';
+     * </pre>
+     */
+    public static function YREPOSRCMETA($ProgName) {
+        $con = ABAP_DB_SCHEMA::getConnProg();
+        $ProgName = $con->real_escape_string($ProgName);
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_PROG::YREPOSRCMETA . " WHERE PROGNAME = '" . $ProgName . "'";
+        $qry = $con->query($sql);
+        return mysqli_fetch_array($qry);
     }
 
 }
