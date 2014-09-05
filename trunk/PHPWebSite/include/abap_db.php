@@ -39,6 +39,11 @@ class ABAP_DB_CONST {
     const DOMAINVALUE_VIEWGRANT_U_DESC = 'read and change';
     const DOMAINVALUE_VIEWGRANT_M_DESC = "Time-dependent views: like U, validity data like ' '";
     const DOMAINVALUE_VIEWGRANT_SPACE_DESC = 'read, change, delete and insert';
+
+    /* Table values */
+    const DD02L_TABCLASS_TRANSP = "TRANSP";
+    const DD02L_TABCLASS_CLUSTER = "CLUSTER";
+    const DD02L_TABCLASS_POOL = "POOL";
     const FUNCT_KIND_P = "P";
     const FUPARAREF_PARAMTYPE_I = "I";         // Importing
     const FUPARAREF_PARAMTYPE_E = "E";         // Exporting
@@ -46,6 +51,17 @@ class ABAP_DB_CONST {
     const FUPARAREF_PARAMTYPE_T = "T";         // Tables
     const FUPARAREF_PARAMTYPE_X = "X";         // Exception
     const TADIR_PGMID_R3TR = "R3TR";
+    const TFDIR_FMODE_SPACE = " ";      // Type of function module - Normal Function Module.
+    const TFDIR_FMODE_AT = "@";
+    const TFDIR_FMODE_J = "J";         // Type of function module - JAVA Module Callable from ABAP.
+    const TFDIR_FMODE_K = "K";         // Type of function module - Remote-Enabled JAVA Module.
+    const TFDIR_FMODE_L = "L";         // Type of function module - Module Callable from JAVA.
+    const TFDIR_FMODE_R = "R";         // Type of function module - Remote-Enabled Module.
+    const TFDIR_FMODE_X = "X";         // Type of function module - Remote-Enabled Module & BaseXML supported.
+    const TFDIR_UTASK_1 = "1";         // Update module - Start immediately.
+    const TFDIR_UTASK_2 = "2";         // Update module - Immediate Start, No Restart.
+    const TFDIR_UTASK_3 = "3";         // Update module - Start Delayed.
+    const TFDIR_UTASK_4 = "4";         // Update module - Coll.run.
     const TSTCC_S_WEBGUI_1 = "1";
     const TSTCC_S_WEBGUI_2 = "2";
 
@@ -429,7 +445,7 @@ class ABAP_DB_TABLE_FUNC {
         $stmt->fetch();
         return $result;
     }
-    
+
     /**
      * Generate the include file name of current function module. <p>ABAP is
      * trying to load the include file from the ABAP source code of the
@@ -451,17 +467,17 @@ class ABAP_DB_TABLE_FUNC {
      * @param fg Function Group name
      * @param seq Sequence number of the include file
      */
-    public static function GET_INCLUDE($fg, $seq){
+    public static function GET_INCLUDE($fg, $seq) {
         $pos = strrpos($fg, "/");
         if ($pos === false) { // note: three equal signs
-             // not found...
+            // not found...
             return 'L' . $fg . 'U' . $seq;
         } else {
-            $fg_left  = substr($fg, 0, $pos + 1);
+            $fg_left = substr($fg, 0, $pos + 1);
             $fg_right = substr($fg, $pos + 1);
             return $fg_left . 'L' . $fg_right . 'U' . $seq;
-        }        
-        
+        }
+
 //        int idx = fg.lastIndexOf(Constant.S_SLASH);
 //        if (idx != -1) {
 //            return String.format("%sL%sU%s", fg.substring(0, idx + 1), fg.substring(idx + 1), seq);
@@ -482,6 +498,58 @@ class ABAP_DB_TABLE_FUNC {
         $sql = "SELECT * FROM " . ABAP_DB_TABLE_FUNC::TFDIR . " WHERE funcname = '" . $fm . "'";
         $qry = $con->query($sql);
         return mysqli_fetch_array($qry);
+    }
+
+    /**
+     * Calculate function module processing type.
+     */
+    public static function TFDIR_PTYPE($fmode, $utask) {
+        $ptype = new ABAP_TFDIR_ProcessingType();
+
+        switch ($fmode) {
+            case ABAP_DB_CONST::TFDIR_FMODE_SPACE:
+                $ptype->CHK_NORMAL = TRUE;
+                $ptype->CHK_UKIND1 = TRUE;
+                break;
+            case ABAP_DB_CONST::TFDIR_FMODE_J:
+                $ptype->CHK_ABAP2JAVA = TRUE;
+                break;
+            case ABAP_DB_CONST::TFDIR_FMODE_K:
+                $ptype->CHK_REMOTE_JAVA = TRUE;
+                break;
+            case ABAP_DB_CONST::TFDIR_FMODE_L:
+            case ABAP_DB_CONST::TFDIR_FMODE_AT:
+                $ptype->CHK_JAVA2ABAP = TRUE;
+                break;
+            case ABAP_DB_CONST::TFDIR_FMODE_R:
+                $ptype->CHK_REMOTE = TRUE;
+                $ptype->CHK_UKIND1 = TRUE;
+                break;
+            case ABAP_DB_CONST::TFDIR_FMODE_X:
+                $ptype->CHK_REMOTE = TRUE;
+                $ptype->CHK_BASXML_ENABLED = TRUE;
+                break;
+        }
+        switch ($utask) {
+            case ABAP_DB_CONST::TFDIR_UTASK_1:
+                $ptype->CHK_VERBUCHER = TRUE;
+                $ptype->CHK_UKIND1 = TRUE;
+                break;
+            case ABAP_DB_CONST::TFDIR_UTASK_2:
+                $ptype->CHK_VERBUCHER = TRUE;
+                $ptype->CHK_UKIND2 = TRUE;
+                break;
+            case ABAP_DB_CONST::TFDIR_UTASK_3:
+                $ptype->CHK_VERBUCHER = TRUE;
+                $ptype->CHK_UKIND3 = TRUE;
+                break;
+            case ABAP_DB_CONST::TFDIR_UTASK_4:
+                $ptype->CHK_VERBUCHER = TRUE;
+                $ptype->CHK_UKIND4 = TRUE;
+                break;
+        }
+        
+        return $ptype;
     }
 
     /**
@@ -964,7 +1032,7 @@ class ABAP_DB_TABLE_PROG {
         $stmt->fetch();
         return $result;
     }
-    
+
     /**
      * Report Attributes.
      * <pre>
@@ -1092,9 +1160,20 @@ class ABAP_DB_TABLE_TABL {
      */
     public static function DD02L_List($index) {
         $con = ABAP_DB_SCHEMA::getConnTabl();
-        $index = $con->real_escape_string($index . '%');
-        $sql = "SELECT TABNAME, TABCLASS, CONTFLAG FROM " . ABAP_DB_TABLE_TABL::DD02L
-                . " WHERE tabname like '" . $index . "' and TABCLASS = 'TRANSP' order by TABNAME";
+        $index = $con->real_escape_string($index);
+        if ($index == ABAP_DB_CONST::DD02L_TABCLASS_CLUSTER) {
+            $sql = "SELECT TABNAME, TABCLASS, CONTFLAG FROM " . ABAP_DB_TABLE_TABL::DD02L
+                    . " WHERE TABCLASS = '" . ABAP_DB_CONST::DD02L_TABCLASS_CLUSTER . "' order by TABNAME";
+        } else if ($index == ABAP_DB_CONST::DD02L_TABCLASS_POOL) {
+            $sql = "SELECT TABNAME, TABCLASS, CONTFLAG FROM " . ABAP_DB_TABLE_TABL::DD02L
+                    . " WHERE TABCLASS = '" . ABAP_DB_CONST::DD02L_TABCLASS_POOL . "' order by TABNAME";
+        } else {
+            $sql = "SELECT TABNAME, TABCLASS, CONTFLAG FROM " . ABAP_DB_TABLE_TABL::DD02L
+                    . " WHERE tabname like '" . $index . "%' and"
+                    . " ( TABCLASS = '" . ABAP_DB_CONST::DD02L_TABCLASS_TRANSP
+                    . "' OR TABCLASS = '" . ABAP_DB_CONST::DD02L_TABCLASS_CLUSTER
+                    . "' OR TABCLASS = '" . ABAP_DB_CONST::DD02L_TABCLASS_POOL . "' ) order by TABNAME";
+        }
         return $con->query($sql);
     }
 

@@ -47,6 +47,8 @@ $dd02l = ABAP_DB_TABLE_TABL::DD02L_List($index);
             <div class="content_obj">        
 
                 <div>
+                    <a href="index.php?index=cluster">CLUSTER</a>&nbsp;
+                    <a href="index.php?index=pool">POOL</a>&nbsp; - &nbsp;
                     <a href="index.php?index=a">A</a>&nbsp;
                     <a href="index.php?index=b">B</a>&nbsp;
                     <a href="index.php?index=c">C</a>&nbsp;
