@@ -118,7 +118,6 @@ class ABAP_UI_TOOL {
         }
     }
 
-
     /**
      * Function Module parameter Typing. Type assignment.
      * <p> Related table field FUPARAREF-REF_CLASS. </p>
@@ -144,7 +143,7 @@ class ABAP_UI_TOOL {
             return 'Unknown Type';
         }
     }
-    
+
     /**
      * Function Module parameter Typing. Type assignment.
      * <p> Related table field FUPARAREF-REF_CLASS. </p>
@@ -259,5 +258,69 @@ class ABAP_Hierarchy {
      * SAP Release. <p> Database field: TADIR-CRELEASE. </p>
      */
     public $CRELEASE = '';
+
+}
+
+/**
+ * Function module processing type.
+ */
+class ABAP_TFDIR_ProcessingType {
+
+    /**
+     * Radio button - Normal Function Module.
+     */
+    public $CHK_NORMAL = FALSE;
+
+    /**
+     * Radio button - JAVA Module Callable from ABAP.
+     */
+    public $CHK_ABAP2JAVA = FALSE;
+
+    /**
+     * Radio button - Module Callable from JAVA.
+     */
+    public $CHK_JAVA2ABAP = FALSE;
+
+    /**
+     * Radio button - Remote-Enabled Module.
+     */
+    public $CHK_REMOTE = FALSE;
+
+    /**
+     * Radio button - Remote-Enabled JAVA Module.
+     */
+    public $CHK_REMOTE_JAVA = FALSE;
+
+    /**
+     * Check box - BasXML supported.
+     */
+    public $CHK_BASXML_ENABLED = FALSE;
+
+    /**
+     * Radio button - Update Module.
+     */
+    public $CHK_VERBUCHER = FALSE;
+
+    /**
+     * Radio button - Update Module - Start update immediately.
+     */
+    public $CHK_UKIND1 = FALSE;
+
+    /**
+     * Radio button - Update Module - Update is started immediately, no
+     * restart possible.
+     */
+    public $CHK_UKIND3 = FALSE;
+
+    /**
+     * Radio button - Update Module - Start of update delayed.
+     */
+    public $CHK_UKIND2 = FALSE;
+
+    /**
+     * Radio button - Update Module - Update triggered by collector (For
+     * internal use only).
+     */
+    public $CHK_UKIND4 = FALSE;
 
 }

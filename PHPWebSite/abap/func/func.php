@@ -15,6 +15,7 @@ if (empty($func['FUNCNAME'])) {
 }
 $func_desc = ABAP_DB_TABLE_FUNC::TFTIT($func['FUNCNAME']);
 $fupararef = ABAP_DB_TABLE_FUNC::FUPARAREF($func['FUNCNAME']);
+$ptype = ABAP_DB_TABLE_FUNC::TFDIR_PTYPE($func['FMODE'], $func['UTASK']);
 
 $enlfdir = ABAP_DB_TABLE_FUNC::ENLFDIR($func['FUNCNAME']);
 $funcgrp_desc = ABAP_DB_TABLE_FUNC::TLIBT($enlfdir['AREA']);
@@ -149,6 +150,36 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::FUNC_DESC . ' ' . $func['FUNC
                     </tbody>
                 </table>
 
+
+                <h4> Processing Type </h4>      
+                <table class="content_obj">
+                    <tbody>
+                        <tr><td class="field"> <?php echo ABAP_UI_TOOL::GetRadioBox("pType", $ptype->CHK_NORMAL) ?> Normal Function Module </td>
+                            <td> &nbsp; </td>
+                        </tr>
+                        <tr><td class="field"> <?php echo  ABAP_UI_TOOL::GetRadioBox("pType", $ptype->CHK_REMOTE) ?> Remote-Enabled Module </td>
+                            <td class="field"> <?php echo ABAP_UI_TOOL::GetCheckBox("BaseXML", $ptype->CHK_BASXML_ENABLED) ?> BaseXML supported </td>
+                        </tr>
+                        <tr><td class="field" rowspan="4"> <?php echo  ABAP_UI_TOOL::GetRadioBox("pType", $ptype->CHK_VERBUCHER) ?> Update Module </td>
+                            <td class="field"> <?php echo  ABAP_UI_TOOL::GetRadioBox("updateType", $ptype->CHK_UKIND1) ?> Start immediately </td>
+                        </tr>
+                        <tr><td class="field"> <?php echo  ABAP_UI_TOOL::GetRadioBox("updateType", $ptype->CHK_UKIND3) ?> Immediate Start, No Restart </td>
+                        </tr>
+                        <tr><td class="field"> <?php echo  ABAP_UI_TOOL::GetRadioBox("updateType", $ptype->CHK_UKIND2) ?> Start Delayed </td>
+                        </tr>
+                        <tr><td class="field"> <?php echo  ABAP_UI_TOOL::GetRadioBox("updateType", $ptype->CHK_UKIND4) ?> Coll.run </td>
+                        </tr>
+                        <tr><td class="field"> <?php echo  ABAP_UI_TOOL::GetRadioBox("pType", $ptype->CHK_ABAP2JAVA) ?> JAVA Module Callable from ABAP </td>
+                            <td> &nbsp; </td>
+                        </tr>
+                        <tr><td class="field"> <?php echo  ABAP_UI_TOOL::GetRadioBox("pType", $ptype->CHK_REMOTE_JAVA) ?> Remote-Enabled JAVA Module </td>
+                            <td> &nbsp; </td>
+                        </tr>
+                        <tr><td class="field"> <?php echo  ABAP_UI_TOOL::GetRadioBox("pType", $ptype->CHK_JAVA2ABAP) ?> Module Callable from JAVA </td>
+                            <td> &nbsp; </td>
+                        </tr>
+                    </tbody>
+                </table>
 
                 <h4> Hierarchy </h4>
                 <table class="content_obj">

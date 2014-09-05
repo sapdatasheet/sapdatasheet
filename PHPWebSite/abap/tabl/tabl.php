@@ -48,7 +48,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $dd02l_tabclass_desc . ' ' . $dd02l['TABN
                     <tr><td class="left_attribute"> Package </td></tr>
                     <tr><td class="left_value"><?php echo ABAP_Navigation::GetURLPackage($hier->DEVCLASS, $hier->DEVCLASS_T) ?></td></tr>
                     <tr><td class="left_attribute"> Object type </td></tr>
-                    <tr><td class="left_value"><a href="/abap/tabl/"><?php echo ABAP_OTYPE::TABL_DESC ?></a></td></tr>
+                    <tr><td class="left_value"><a href="/abap/tabl/"><?php echo $dd02l_tabclass_desc ?></a></td></tr>
                     <tr><td class="left_attribute"> Object name </td></tr>
                     <tr><td class="left_value"> <a href="#" title="<?php echo $dd02l['TABNAME'] ?>"><?php echo $dd02l['TABNAME'] ?></a> </td></tr>
                 </tbody>
@@ -61,7 +61,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $dd02l_tabclass_desc . ' ' . $dd02l['TABN
             <div class="content_navi">
                 <a href="/">Home page</a> &gt; 
                 <a href="/abap/">ABAP Object</a> &gt; 
-                <a href="/abap/tabl/"><?php echo ABAP_OTYPE::TABL_DESC ?></a> &gt; 
+                <a href="/abap/tabl/"><?php echo $dd02l_tabclass_desc ?></a> &gt; 
                 <a href="#"><?php echo $dd02l['TABNAME'] ?></a>
             </div>
 
