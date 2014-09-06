@@ -129,6 +129,8 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $dd02l_tabclass_desc . ' ' . $dd02l['TABN
                                 $dd03l_fieldname_desc = ABAP_DB_TABLE_DTEL::DD04T($dd03l_item['ROLLNAME']);
                             } else if (ABAP_DB_CONST::DOMAIN_DD03L_COMPTYPE_S == $dd03l_item['COMPTYPE']) {
                                 $dd03l_rollname_url = ABAP_Navigation::GetURLTable($dd03l_item['ROLLNAME'], '');
+                            } else {
+                                $dd03l_fieldname_desc = ABAP_DB_TABLE_DTEL::DD04T($dd03l_item['ROLLNAME']);
                             }
                             
                             ?>
@@ -147,6 +149,8 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $dd02l_tabclass_desc . ' ' . $dd02l['TABN
                         <?php } ?>
                     </tbody>
                 </table>  
+
+                <h4> Index </h4>
 
                 <!-- Hierarchy -->
                 <h4> Hierarchy </h4>
