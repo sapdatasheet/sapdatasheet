@@ -25,6 +25,8 @@ class ABAP_DB_CONST {
     const DOMAIN_DD25L_VIEWCLASS = "VIEWCLASS";
     const DOMAIN_DD25L_VIEWGRANT = "VIEWGRANT";
     const DOMAIN_DD27S_RDONLY = "VFLDRDONLY";
+    const DOMAIN_REPOSRC_RSTAT = "RSTAT";
+    const DOMAIN_REPOSRC_SUBC = "SUBC";
     const DOMAIN_TADIR_COMP_TYPE = "RELC_TYPE";
     const DOMAIN_TDEVC_MAINPACK = "MAINPACK";
     const DOMAINVALUE_TABCLASS_TRANSP = "TRANSP";    // Transparent table
@@ -548,7 +550,7 @@ class ABAP_DB_TABLE_FUNC {
                 $ptype->CHK_UKIND4 = TRUE;
                 break;
         }
-        
+
         return $ptype;
     }
 
@@ -986,6 +988,15 @@ class ABAP_DB_TABLE_PROG {
     const RSMPTEXTS_E = "rsmptexts_e";
 
     /**
+     * Table contains text for field REPOSRC-APPL (Application).
+     *
+     * The data was depressed into table {@link #YTAPLT}.
+     *
+     * @deprecated Replaced by {@link #YTAPLT}
+     */
+    const TAPLT = "taplt";
+
+    /**
      * Title texts for programs in TRDIR.
      */
     const TRDIRT = "trdirt";
@@ -1016,6 +1027,12 @@ class ABAP_DB_TABLE_PROG {
 
     /**
      * Extracted data of table {@link #TAPLT}.
+     * Table TAPLT contains text for field REPOSRC-APPL (Application).
+     * <p>
+     * Value from domain <code>PAPPL</code>, pointing to table TAPLP/TAPLT
+     * (Pooled Table).
+     * </p>
+     * 
      */
     const YTAPLT = "ytaplt";
 
@@ -1027,6 +1044,23 @@ class ABAP_DB_TABLE_PROG {
                 . " where NAME = ? and SPRSL = ?";
         $stmt = ABAP_DB_SCHEMA::getConnProg()->prepare($sql);
         $stmt->bind_param('ss', $Progname, $langu = ABAP_DB_CONST::LANGU_EN);
+        $stmt->execute();
+        $stmt->bind_result($result);
+        $stmt->fetch();
+        return $result;
+    }
+
+    /**
+     * Text for field REPOSRC-LDBNAME (Logical database).
+     * <pre>
+     * SELECT LDBTEXT FROM abapprog.ldbt where LDBNAME = 'AAV' and spras = 'E';
+     * </pre>
+     */
+    public static function LDBT($LdbName) {
+        $sql = "select LDBTEXT from " . ABAP_DB_TABLE_PROG::LDBT
+                . " where LDBNAME = ? and spras = ?";
+        $stmt = ABAP_DB_SCHEMA::getConnProg()->prepare($sql);
+        $stmt->bind_param('ss', $LdbName, $langu = ABAP_DB_CONST::LANGU_EN);
         $stmt->execute();
         $stmt->bind_result($result);
         $stmt->fetch();
@@ -1046,7 +1080,23 @@ class ABAP_DB_TABLE_PROG {
         $qry = $con->query($sql);
         return mysqli_fetch_array($qry);
     }
-
+    
+    /**
+     * Text for field REPOSRC-APPL (Application).
+     * <pre>
+     * SELECT ATEXT FROM abapprog.ytaplt where sprsl = 'E' and appl = 'A'
+     * </pre>
+     */
+    public static function YTAPLT($Appl) {
+        $sql = "select ATEXT from " . ABAP_DB_TABLE_PROG::YTAPLT
+                . " where APPL = ? and SPRSL = ?";
+        $stmt = ABAP_DB_SCHEMA::getConnProg()->prepare($sql);
+        $stmt->bind_param('ss', $Appl, $langu = ABAP_DB_CONST::LANGU_EN);
+        $stmt->execute();
+        $stmt->bind_result($result);
+        $stmt->fetch();
+        return $result;
+    }
 }
 
 /** Database table names - table. */
