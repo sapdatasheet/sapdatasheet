@@ -65,8 +65,8 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP Table Field ' . $dd02l['TABNAME'] . '-' . $Fi
                 <a href="/">Home page</a> &gt; 
                 <a href="/abap/">ABAP Object</a> &gt; 
                 <a href="/abap/tabl/"><?php echo $dd02l_tabclass_desc ?></a> &gt; 
-                <a href="/abap/tabl/tabl.php?id=<?php echo $dd02l['TABNAME'] ?>"><?php echo $dd02l['TABNAME'] ?></a>&gt;
-                Field <a href="#"><?php echo $Field ?></a>&gt;
+                <a href="/abap/tabl/tabl.php?id=<?php echo $dd02l['TABNAME'] ?>"><?php echo $dd02l['TABNAME'] ?></a>-
+                <a href="#"><?php echo $Field ?></a>
             </div>
 
             <!-- Content Object -->
