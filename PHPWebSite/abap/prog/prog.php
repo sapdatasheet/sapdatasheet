@@ -14,6 +14,10 @@ if (empty($prog['PROGNAME'])) {
     ABAP_UI_TOOL::Redirect404();
 }
 $prog_desc = ABAP_DB_TABLE_PROG::TRDIRT($prog['PROGNAME']);
+$reposrc_subc_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_REPOSRC_SUBC, $prog['SUBC']);
+$reposrc_rstat_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_REPOSRC_RSTAT, $prog['RSTAT']);
+$reposrc_appl_desc = ABAP_DB_TABLE_PROG::YTAPLT($prog['APPL']);
+$reposrc_ldbname_desc = ABAP_DB_TABLE_PROG::LDBT($prog['LDBNAME']);
 
 $hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_CONST::TADIR_PGMID_R3TR, ABAP_OTYPE::PROG_NAME, $prog['PROGNAME']);
 $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::PROG_DESC . ' ' . $prog['PROGNAME'];
@@ -22,7 +26,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::PROG_DESC . ' ' . $prog['PROG
     <head>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="stylesheet" href="../../abap.css" type="text/css" />
-        <title><?php echo $GLOBALS['TITLE_TEXT'] ?> <?php echo WEBSITE_TITLE ?> </title>
+        <title><?php echo $GLOBALS['TITLE_TEXT'] ?> <?php echo WEBSITE::TITLE ?> </title>
         <meta name="keywords" content="SAP,<?php echo ABAP_OTYPE::PROG_DESC ?>,<?php echo $prog['PROGNAME'] ?>,<?php echo $prog_desc ?>" />
         <meta name="description" content="<?php echo WEBSITE::META_DESC; ?>" />
         <meta name="author" content="SAP Datasheet" />
@@ -73,14 +77,60 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::PROG_DESC . ' ' . $prog['PROG
                             <td class="field"> <?php echo ABAP_Navigation::GetURLProgram($prog['PROGNAME'], $prog_desc); ?> </td>
                             <td> <?php echo $prog_desc ?> &nbsp;</td>
                         </tr>
+                        <tr><td class="content_label"> Program Type </td>
+                            <td class="field"> <?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_REPOSRC_SUBC, $prog['SUBC'], $reposrc_subc_desc); ?> </td>
+                            <td> <?php echo $reposrc_subc_desc ?> &nbsp;</td>
+                        </tr>
                     </tbody>
                 </table>
 
+                <h4> Attributes </h4>
+                <table class="content_obj">
+                    <tbody>
+                        <tr><td class="content_label"> Status </td>
+                            <td class="field"> <?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_REPOSRC_RSTAT, $prog['RSTAT'], $reposrc_rstat_desc); ?> </td>
+                            <td> <?php echo $reposrc_rstat_desc ?> &nbsp;</td>
+                        </tr>
+                        <tr><td class="content_label"> Application </td>
+                            <td class="field"> <?php echo $prog['APPL'] ?> </td>
+                            <td> <?php echo $reposrc_appl_desc ?> &nbsp;</td>
+                        </tr>
+                        <tr><td class="content_label"> Authorization Group </td>
+                            <td class="field"> <?php echo $prog['SECU'] ?> </td> <!-- TODO: Add link -->
+                            <td> &nbsp;</td>
+                        </tr>
+                        <tr><td class="content_label"> Logical database </td>
+                            <td class="field"> <?php echo $prog['LDBNAME'] ?> </td> <!-- TODO: Add link -->
+                            <td> <?php echo $reposrc_ldbname_desc ?> &nbsp;</td>
+                        </tr>
+                        <tr><td class="content_label">Selection screen </td>
+                            <td class="field"> <?php echo $prog['TYPE'] ?> </td>
+                            <td> &nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td class="content_label"> <?php echo ABAP_UI_TOOL::GetCheckBox("PROG", $prog['EDTX']) ?> Editor lock </td>
+                            <td class="content_label"> <?php echo ABAP_UI_TOOL::GetCheckBox("PROG", $prog['FIXPT']) ?> Fixed point arithmetic </td>
+                            <td> &nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td class="content_label"> <?php echo ABAP_UI_TOOL::GetCheckBox("PROG", $prog['UCCHECK']) ?> Unicode checks active</td>
+                            <td class="content_label"> <?php echo ABAP_UI_TOOL::GetCheckBox("PROG", $prog['SSET']) ?> Start using variant </td>
+                            <td> &nbsp;</td>
+                        </tr>
+                    </tbody>
+                </table><!-- Attributes: End -->
 
+                <h4>Transaction Code </h4>
+                <h4>Function Group </h4>
+                <h4>Screens </h4>
+                <h4>GUI Status </h4>
+                <h4>GUI Title </h4>
+
+                
                 <h4> Hierarchy </h4>
                 <table class="content_obj">
                     <tbody>
-                        <tr><td class="content_label"> Last changed by/on      </td><td class="field"><?php echo $progmeta['CNAM'] ?>&nbsp;</td><td> <?php echo $progmeta['CDAT'] ?>&nbsp;</td></tr>
+                        <tr><td class="content_label"> Last changed by/on      </td><td class="field"><?php echo $prog['CNAM'] ?>&nbsp;</td><td> <?php echo $prog['CDAT'] ?>&nbsp;</td></tr>
                         <tr><td class="content_label"> Software Component      </td><td class="field"><?php echo ABAP_Navigation::GetURLSoftComp($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td><td> <?php echo $hier->DLVUNIT_T ?>&nbsp;</td></tr>
                         <tr><td class="content_label"> SAP Release Created in  </td><td class="field"><?php echo $hier->CRELEASE ?>&nbsp;</td><td>&nbsp;</td></tr>
                         <tr><td class="content_label"> Application Component   </td><td class="field"><?php echo ABAP_Navigation::GetURLAppComp($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;(<?php echo $hier->FCTR_ID ?>)</td><td> <?php echo $hier->POSID_T ?>&nbsp;</td></tr>
