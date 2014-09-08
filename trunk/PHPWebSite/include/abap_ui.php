@@ -16,6 +16,8 @@ class ABAP_Navigation {
         if (strlen(trim($domainValue)) < 1) {
             $domainValue = '&nbsp;';
         }
+
+        $domain = $domain . '#VALUES';
         return ABAP_Navigation::GetURL(ABAP_OTYPE::DOMA_NAME, $domain, $domainValue, $desc);
     }
 
@@ -49,6 +51,12 @@ class ABAP_Navigation {
 
     public static function GetURLTable($table, $desc) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::TABL_NAME, $table, $table, $desc);
+    }
+
+    public static function GetURLTableField($table, $field) {
+       return "<a href=\"/abap/tabl/field.php?table=" . $table . "&field=" . $field 
+               . "\" title=\"" . $field 
+               . "\" target=\"_blank\"> " . $field . "</a>";
     }
 
     public static function GetURLTransactionCode($tcode, $desc) {

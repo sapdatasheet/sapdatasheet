@@ -86,7 +86,7 @@ $child_tran = ABAP_DB_TABLE_HIER::TADIR_Child($Package, ABAP_DB_CONST::TADIR_PGM
                 <!-- Package Content -->
                 <h4> Package Content</h4>
                 <!-- Contained Tables or Views -->
-                <?php if (!empty($child_tabl)) { ?>
+                <?php if (mysqli_num_rows($child_tabl) > 0) { ?>
                     <table class="alv">
                         <caption>Contained Tables / Views</caption>
                         <tr>
@@ -117,7 +117,7 @@ $child_tran = ABAP_DB_TABLE_HIER::TADIR_Child($Package, ABAP_DB_CONST::TADIR_PGM
                     </table><!-- Contained Tables or Views: End -->
                 <?php } ?>
                 <!-- Contained T-Codes -->
-                <?php if (!empty($child_tran)) { ?>
+                <?php if (mysqli_num_rows($child_tran) > 0) { ?>
                     <table class="alv">
                         <caption>Contained Transaction Codes</caption>
                         <tr>

@@ -51,7 +51,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP Table Field ' . $dd02l['TABNAME'] . '-' . $Fi
                     <tr><td class="left_attribute"> Object type </td></tr>
                     <tr><td class="left_value"><a href="/abap/tabl/"><?php echo $dd02l_tabclass_desc ?></a></td></tr>
                     <tr><td class="left_attribute"> Object name </td></tr>
-                    <tr><td class="left_value"> <a href="/abap/tabl/tabl.php?id=<?php echo $dd02l['TABNAME'] ?>" title="<?php echo $dd02l['TABNAME'] ?>"><?php echo $dd02l['TABNAME'] ?></a> </td></tr>
+                    <tr><td class="left_value"><?php echo ABAP_Navigation::GetURLTable($dd02l['TABNAME'], $dd02l['TABNAME']) ?></td></tr>
                     <tr><td class="left_attribute"> Field </td></tr>
                     <tr><td class="left_value"> <a href="#"><?php echo $Field ?></a> </td></tr>
                 </tbody>
@@ -63,9 +63,9 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP Table Field ' . $dd02l['TABNAME'] . '-' . $Fi
             <!-- Content Navigator -->
             <div class="content_navi">
                 <a href="/">Home page</a> &gt; 
-                <a href="/abap/">ABAP Object</a> &gt; 
+                <a href="/abap/">ABAP Object</a> &gt;
                 <a href="/abap/tabl/"><?php echo $dd02l_tabclass_desc ?></a> &gt; 
-                <a href="/abap/tabl/tabl.php?id=<?php echo $dd02l['TABNAME'] ?>"><?php echo $dd02l['TABNAME'] ?></a>-
+                <?php echo ABAP_Navigation::GetURLTable($dd02l['TABNAME'], $dd02l['TABNAME']) ?>-
                 <a href="#"><?php echo $Field ?></a>
             </div>
 
