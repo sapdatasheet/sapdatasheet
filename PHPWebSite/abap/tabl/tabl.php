@@ -121,17 +121,8 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $dd02l_tabclass_desc . ' ' . $dd02l['TABN
                         <?php
                         while ($dd03l_item = mysqli_fetch_array($dd03l)) {
                             $anchor_name = 'FIELD_' . $dd03l_item['FIELDNAME'];
-                            $dd03l_rollname_url = $dd03l_item['ROLLNAME'];
-                            $dd03l_fieldname_desc = '';
-                            if (ABAP_DB_CONST::DOMAIN_DD03L_COMPTYPE_E == $dd03l_item['COMPTYPE']) {          // Data element
-                                $dd03l_rollname_url = ABAP_Navigation::GetURLDtel($dd03l_item['ROLLNAME'], '');
-                                $dd03l_fieldname_desc = ABAP_DB_TABLE_DTEL::DD04T($dd03l_item['ROLLNAME']);
-                            } else if (ABAP_DB_CONST::DOMAIN_DD03L_COMPTYPE_S == $dd03l_item['COMPTYPE']) {   // Structured type (possibly as INCLUDE) 
-                                $dd03l_rollname_url = ABAP_Navigation::GetURLTable($dd03l_item['ROLLNAME'], '');
-                            } else {
-                                $dd03l_rollname_url = ABAP_Navigation::GetURLDtel($dd03l_item['ROLLNAME'], '');
-                                $dd03l_fieldname_desc = ABAP_DB_TABLE_DTEL::DD04T($dd03l_item['ROLLNAME']);
-                            }
+                            $dd03l_fieldname_desc = ABAP_DB_TABLE_TABL::DD03L_FIELDNAME_DESC($dd03l_item['COMPTYPE'], $dd03l_item['ROLLNAME']);
+                            $dd03l_rollname_url = ABAP_Navigation::GetURLDtel($dd03l_item['ROLLNAME'], '');
 
                             ?>
                             <tr>                        
@@ -151,6 +142,10 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $dd02l_tabclass_desc . ' ' . $dd02l['TABN
                 </table>  
 
                 <h4> Index </h4>
+                <h4> Append Structure </h4>
+                <h4> Technical Settings </h4>
+                <h4> Table Maintenance Generator </h4>
+                <h4> Enhancement category </h4>
 
                 <!-- Hierarchy -->
                 <h4> Hierarchy </h4>

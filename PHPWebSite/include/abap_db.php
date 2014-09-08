@@ -1356,6 +1356,10 @@ class ABAP_DB_TABLE_TABL {
      * </pre>
      */
     public static function DD02T($TableName) {
+        if (strlen(trim($TableName)) < 1) {
+            return '';
+        }
+        
         $sql = "select DDTEXT from " . ABAP_DB_TABLE_TABL::DD02T
                 . " where tabname = ? and DDLANGUAGE = ?";
         $stmt = ABAP_DB_SCHEMA::getConnTabl()->prepare($sql);
@@ -1378,6 +1382,36 @@ class ABAP_DB_TABLE_TABL {
         $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD03L
                 . " WHERE tabname = '" . $TableName . "' order by POSITION";
         return $con->query($sql);
+    }
+
+    /**
+     * Table Field Attributes.
+     * <pre>
+     * SELECT * FROM abaptabl.dd03l where TABNAME = 'BKPF' and FIELDNAME = 'BUKRS'
+     * </pre>
+     */
+    public static function DD03L($TableName, $FieldName) {
+        $con = ABAP_DB_SCHEMA::getConnTabl();
+        $TableName = $con->real_escape_string($TableName);
+        $FieldName = $con->real_escape_string($FieldName);
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD03L
+                . " WHERE TABNAME = '" . $TableName
+                . "' AND FIELDNAME = '" . $FieldName . "'";
+        $qry = $con->query($sql);
+        return mysqli_fetch_array($qry);
+    }
+
+    /**
+     * Get Table Field description.
+     */
+    public static function DD03L_FIELDNAME_DESC($CompType, $RollName) {
+        if (ABAP_DB_CONST::DOMAIN_DD03L_COMPTYPE_S == $CompType) {   // Structured type (possibly as INCLUDE) 
+            $dd03l_fieldname_desc = '';
+        } else {
+            $dd03l_fieldname_desc = ABAP_DB_TABLE_DTEL::DD04T($RollName);
+        }
+
+        return $dd03l_fieldname_desc;
     }
 
     /**
