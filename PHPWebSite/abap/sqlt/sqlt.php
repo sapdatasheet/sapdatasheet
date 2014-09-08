@@ -86,7 +86,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $sqlt_sqlcalss_desc . ' ' . $sqlt['SQLTAB
                             <tr>
                                 <td class="alv"><?php echo $dd16s_item['FIELDNAME'] ?></td>
                                 <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox($dd16s_item['FIELDNAME'], $dd16s_item['KEYFLAG']) ?></td>
-                                <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(DOMAIN_DATATYPE, $dd16s_item['DATATYPE'], '') ?></td>
+                                <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DATATYPE, $dd16s_item['DATATYPE'], '') ?></td>
                                 <td class="alv"><?php echo intval($dd16s_item['LENG']) ?></td>
                             </tr>
                         <?php } ?>

@@ -19,6 +19,10 @@ $reposrc_rstat_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_REPOSRC_RS
 $reposrc_appl_desc = ABAP_DB_TABLE_PROG::YTAPLT($prog['APPL']);
 $reposrc_ldbname_desc = ABAP_DB_TABLE_PROG::LDBT($prog['LDBNAME']);
 
+$tcode_list = ABAP_DB_TABLE_TRAN::TSTC_PGMNA($prog['PROGNAME']);
+$dynr_list = ABAP_DB_TABLE_PROG::D020S_PROG($prog['PROGNAME']);
+$rsmptexts_list = ABAP_DB_TABLE_PROG::RSMPTEXTS($prog['PROGNAME']);
+
 $hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_CONST::TADIR_PGMID_R3TR, ABAP_OTYPE::PROG_NAME, $prog['PROGNAME']);
 $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::PROG_DESC . ' ' . $prog['PROGNAME'];
 ?>
@@ -120,13 +124,138 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::PROG_DESC . ' ' . $prog['PROG
                     </tbody>
                 </table><!-- Attributes: End -->
 
-                <h4>Transaction Code </h4>
-                <h4>Function Group </h4>
-                <h4>Screens </h4>
-                <h4>GUI Status </h4>
-                <h4>GUI Title </h4>
+                <!-- Function Group -->
+                <?php
+                if ($prog['SUBC'] == ABAP_DB_CONST::DOMAINVALUE_SUBC_F) {
+                    $tfdir_list = ABAP_DB_TABLE_FUNC::TFDIR_PGMNA($prog['PROGNAME']);
+                    ?>
+                    <h4>Function Group </h4>
+                    <table class="alv">
+                        <thead>
+                            <tr><th class="alv"> Include </th>
+                                <th class="alv"> Function Module </th>
+                                <th class="alv"> Short Description </th>
+                                <th class="alv"> Mode </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            while ($tfdir = mysqli_fetch_array($tfdir_list)) {
+                                $tfdir_desc = ABAP_DB_TABLE_FUNC::TFTIT($tfdir['FUNCNAME']);
+                                ?>
+                                <tr>
+                                    <td class="alv"> <?php echo $tfdir['INCLUDE'] ?> &nbsp;</td>
+                                    <td class="alv"> <?php echo ABAP_Navigation::GetURLFuncModule($tfdir['FUNCNAME'], $tfdir_desc) ?> &nbsp;</td>
+                                    <td class="alv"> <?php echo $tfdir_desc ?> &nbsp;</td>
+                                    <td class="alv"> <?php echo $tfdir['FMODE'] ?> &nbsp;</td>
+                                </tr>
+                            <?php } ?>
+                            <tr>
+                                <td class="alv"> &nbsp; </td>
+                                <td class="alv"> &nbsp; </td>
+                                <td class="alv"> &nbsp; </td>
+                                <td class="alv"> &nbsp; </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                <?php } ?>
+                <!-- Function Group: End -->
 
-                
+                <!-- Transaction Code -->
+                <h4>Transaction Code </h4>
+                <?php if (mysqli_num_rows($tcode_list) > 0) { ?>
+                    <table class="alv">
+                        <caption>Transactions reference to this program</caption>
+                        <tr>
+                            <th class="alv"> Transaction Code </th>
+                            <th class="alv"> Short Description </th>
+                        </tr>                        
+                        <?php
+                        while ($tcode = mysqli_fetch_array($tcode_list)) {
+                            $tcode_desc = ABAP_DB_TABLE_TRAN::TSTCT($tcode['TCODE']);
+                            ?>
+                            <tr><td class="alv"><?php echo ABAP_Navigation::GetURLTransactionCode($tcode['TCODE'], $tcode_desc) ?></td>
+                                <td class="alv"><?php echo $tcode_desc ?>&nbsp;</td>
+                            </tr>
+                        <?php } ?>
+                        <tr><td class="alv">&nbsp;</td>
+                            <td class="alv">&nbsp;</td>
+                        </tr>
+                    </table>
+                <?php } else { ?>
+                    <table class="alv">
+                        <caption>There is no transaction reference to this program &nbsp;</caption>
+                    </table>
+                <?php } ?>
+                <!-- Transaction Code: End -->
+
+                <!-- Screen -->
+                <?php if (mysqli_num_rows($dynr_list) > 0) { ?>
+                    <h4>Screens </h4>
+                    <table class="alv">
+                        <tr>
+                            <th class="alv"> Screen </th>
+                            <th class="alv"> Short Description </th>
+                        </tr>
+                        <?php
+                        while ($dynr = mysqli_fetch_array($dynr_list)) {
+                            $dynr_desc = ABAP_DB_TABLE_PROG::D020T($prog['PROGNAME'], $dynr['DNUM']);
+                            ?>
+                            <tr><td class="alv"><?php echo $dynr['DNUM'] ?>&nbsp;</td>
+                                <td class="alv"><?php echo $dynr_desc ?>&nbsp;</td>
+                            </tr>
+                        <?php } ?>
+                        <tr><td class="alv">&nbsp;</td>
+                            <td class="alv">&nbsp;</td>
+                        </tr>
+                    </table>
+                <?php } ?>
+                <!-- Screen: End -->
+
+                <!-- Report Texts  -->
+                <?php if (count($rsmptexts_list) > 0) { ?>
+                    <h4>GUI Status </h4>
+                    <table class="alv">
+                        <tr>
+                            <th class="alv"> GUI Status </th>
+                            <th class="alv"> Short Description </th>
+                        </tr>
+                        <?php
+                        foreach ($rsmptexts_list as $rsmptexts) {
+                            if ($rsmptexts['OBJ_TYPE'] == ABAP_DB_CONST::DOMAINVALUE_MP_OBJTYPE_C) {
+                                ?>
+                                <tr><td class="alv"><?php echo $rsmptexts['OBJ_CODE'] ?>&nbsp;</td>
+                                    <td class="alv"><?php echo $rsmptexts['TEXT'] ?>&nbsp;</td>
+                                </tr>
+                            <?php } ?>
+                        <?php } ?>
+                        <tr><td class="alv">&nbsp;</td>
+                            <td class="alv">&nbsp;</td>
+                        </tr>
+                    </table>
+                    <h4>GUI Title </h4>
+                    <table class="alv">
+                        <tr>
+                            <th class="alv"> GUI Status </th>
+                            <th class="alv"> Short Description </th>
+                        </tr>
+                        <?php
+                        foreach ($rsmptexts_list as $rsmptexts) {
+                            if ($rsmptexts['OBJ_TYPE'] == ABAP_DB_CONST::DOMAINVALUE_MP_OBJTYPE_T) {
+                                ?>
+                                <tr><td class="alv"><?php echo $rsmptexts['OBJ_CODE'] ?>&nbsp;</td>
+                                    <td class="alv"><?php echo $rsmptexts['TEXT'] ?>&nbsp;</td>
+                                </tr>
+                            <?php } ?>
+                        <?php } ?>
+                        <tr><td class="alv">&nbsp;</td>
+                            <td class="alv">&nbsp;</td>
+                        </tr>
+                    </table>
+                <?php } ?>
+                <!-- Report Texts: End  -->
+
+
                 <h4> Hierarchy </h4>
                 <table class="content_obj">
                     <tbody>

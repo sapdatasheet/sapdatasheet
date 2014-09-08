@@ -29,6 +29,14 @@ class ABAP_DB_CONST {
     const DOMAIN_REPOSRC_SUBC = "SUBC";
     const DOMAIN_TADIR_COMP_TYPE = "RELC_TYPE";
     const DOMAIN_TDEVC_MAINPACK = "MAINPACK";
+    const DOMAINVALUE_MP_OBJTYPE_M = "M";            // Menu
+    const DOMAINVALUE_MP_OBJTYPE_F = "F";            // Function
+    const DOMAINVALUE_MP_OBJTYPE_T = "T";            // Title
+    const DOMAINVALUE_MP_OBJTYPE_A = "A";            // Menu Bar
+    const DOMAINVALUE_MP_OBJTYPE_P = "P";            // Function Key Setting
+    const DOMAINVALUE_MP_OBJTYPE_B = "B";            // Pushbutton settings
+    const DOMAINVALUE_MP_OBJTYPE_C = "C";            // Status
+    const DOMAINVALUE_SUBC_F = "F";                  // Function group
     const DOMAINVALUE_TABCLASS_TRANSP = "TRANSP";    // Transparent table
     const DOMAINVALUE_TABCLASS_CLUSTER = "CLUSTER";  // Cluster table
     const DOMAINVALUE_TABCLASS_POOL = "POOL";        // Pooled table
@@ -555,6 +563,21 @@ class ABAP_DB_TABLE_FUNC {
     }
 
     /**
+     * List function modules in an program (function group).
+     * <pre>
+     * SELECT INCLUDE, FUNCNAME, FMODE FROM A943634_abapfunc.tfdir 
+     * WHERE PNAME = '/1BCDWBEN/SAPL/BDL/EN0000' ORDER BY INCLUDE;
+     * </pre>
+     */
+    public static function TFDIR_PGMNA($prog) {
+        $con = ABAP_DB_SCHEMA::getConnFunc();
+        $prog = $con->real_escape_string($prog);
+        $sql = "SELECT INCLUDE, FUNCNAME, FMODE FROM " . ABAP_DB_TABLE_FUNC::TFDIR
+                . " where PNAME = '" . $prog . "' order by INCLUDE";
+        return $con->query($sql);
+    }
+
+    /**
      * Additional Attributes for Function Modules.
      * <pre>
      * SELECT * FROM abapfunc.enlfdir where funcname = 'RFC_READ_TABLE'
@@ -982,9 +1005,19 @@ class ABAP_DB_TABLE_PROG {
 
     /**
      * Menu Painter: Texts.
+     * 
+     * @deprecated Replaced by {@link #RSMPTEXTS_D}, {@link #RSMPTEXTS_E}
      */
     const RSMPTEXTS = "rsmptexts";
+
+    /**
+     * Germany language of {@link #RSMPTEXTS}.
+     */
     const RSMPTEXTS_D = "rsmptexts_d";
+
+    /**
+     * English language of {@link #RSMPTEXTS}.
+     */
     const RSMPTEXTS_E = "rsmptexts_e";
 
     /**
@@ -1037,6 +1070,66 @@ class ABAP_DB_TABLE_PROG {
     const YTAPLT = "ytaplt";
 
     /**
+     * Screen number list.
+     * <pre>
+     * SELECT DNUM FROM abapprog.d020s
+     * where prog = '/1BCDWB/DB/ORM/ORMT_ACT' order by DNUM
+     * </pre>
+     */
+    public static function D020S_PROG($prog) {
+        $con = ABAP_DB_SCHEMA::getConnProg();
+        $prog = $con->real_escape_string($prog);
+        $sql = "select DNUM from " . ABAP_DB_TABLE_PROG::D020S
+                . " where prog = '" . $prog . "' order by DNUM";
+        return $con->query($sql);
+    }
+
+    /**
+     * Screen number list.
+     * <pre>
+     * SELECT DTXT FROM abapprog.d020t 
+     * where prog = '/1BCDWB/DB/ORM/ORMT_ACT' and dynr = '1000' and lang = 'E'
+     * </pre>
+     */
+    public static function D020T($prog, $dynr) {
+        $sql = "select DTXT from " . ABAP_DB_TABLE_PROG::D020T
+                . " where prog = ? AND dynr = ? AND lang = ?";
+        $stmt = ABAP_DB_SCHEMA::getConnProg()->prepare($sql);
+        $stmt->bind_param('sss', $prog, $dynr, $langu = ABAP_DB_CONST::LANGU_EN);
+        $stmt->execute();
+        $stmt->bind_result($result);
+        $stmt->fetch();
+        return $result;
+    }
+
+    /**
+     * Texts used in an program. Including:
+     * <pre>
+     *   1. M - Menu
+     *   2. F - Function
+     *   3. T - Title
+     *   4. A - Menu Bar
+     *   5. P - Function Key Setting
+     *   6. B - Pushbutton settings
+     *   7. C - Status
+     * </pre>
+     * 
+     * <pre>
+     * SELECT * FROM abapprog.rsmptexts_e where progname = 'RDDM0001' and SPRSL = 'E' order by obj_type
+     * </pre>
+     */
+    public static function RSMPTEXTS($ProgName) {
+        $con = ABAP_DB_SCHEMA::getConnProg();
+        $ProgName = $con->real_escape_string($ProgName);
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_PROG::RSMPTEXTS_E
+                . " WHERE PROGNAME = '" . $ProgName
+                . "' AND SPRSL = '" . ABAP_DB_CONST::LANGU_EN
+                . "' order by obj_type";
+        $qry = $con->query($sql);
+        return ABAP_DB_TABLE::QUERYRESULT_2_ARRAY($qry);
+    }
+
+    /**
      * Report title text.
      */
     public static function TRDIRT($Progname) {
@@ -1080,7 +1173,7 @@ class ABAP_DB_TABLE_PROG {
         $qry = $con->query($sql);
         return mysqli_fetch_array($qry);
     }
-    
+
     /**
      * Text for field REPOSRC-APPL (Application).
      * <pre>
@@ -1097,6 +1190,7 @@ class ABAP_DB_TABLE_PROG {
         $stmt->fetch();
         return $result;
     }
+
 }
 
 /** Database table names - table. */
@@ -1420,6 +1514,20 @@ class ABAP_DB_TABLE_TRAN {
         $tcode = $con->real_escape_string($tcode);
         $sql = "SELECT * FROM " . ABAP_DB_TABLE_TRAN::TSTCA
                 . " where TCODE = '" . $tcode . "' order by OBJECT";
+        return $con->query($sql);
+    }
+
+    /**
+     * Transaction code refers to one program.
+     * <pre>
+     * SELECT TCODE FROM abaptran.tstc where PGMNA = '/AIN/SAPLUI_DOC' order by TCODE
+     * </pre>
+     */
+    public static function TSTC_PGMNA($prog) {
+        $con = ABAP_DB_SCHEMA::getConnTran();
+        $prog = $con->real_escape_string($prog);
+        $sql = "SELECT TCODE FROM " . ABAP_DB_TABLE_TRAN::TSTC
+                . " where PGMNA = '" . $prog . "' order by TCODE";
         return $con->query($sql);
     }
 
@@ -1776,5 +1884,16 @@ class ABAP_DB_TABLE {
      * @see #REPOSRC
      */
     const YREPOSRCDATA = "yreposrcdata";
+
+    /**
+     * Convert SQL query result to PHP array.
+     */
+    public static function QUERYRESULT_2_ARRAY($result) {
+        $data = array();     // create a variable to hold the information
+        while ($row = mysqli_fetch_array($result)) {
+            $data[] = $row;  // add the row in to the results (data) array
+        }
+        return $data;
+    }
 
 }

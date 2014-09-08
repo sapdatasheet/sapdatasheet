@@ -102,7 +102,6 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $dd02l_tabclass_desc . ' ' . $dd02l['TABN
 
                 <!-- Components -->
                 <h4> Components </h4>
-                <a name="#dest" id="dest"></a>
                 <table class="alv">
                     <thead>
                         <tr>
@@ -124,19 +123,20 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $dd02l_tabclass_desc . ' ' . $dd02l['TABN
                             $anchor_name = 'FIELD_' . $dd03l_item['FIELDNAME'];
                             $dd03l_rollname_url = $dd03l_item['ROLLNAME'];
                             $dd03l_fieldname_desc = '';
-                            if (ABAP_DB_CONST::DOMAIN_DD03L_COMPTYPE_E == $dd03l_item['COMPTYPE']) {
+                            if (ABAP_DB_CONST::DOMAIN_DD03L_COMPTYPE_E == $dd03l_item['COMPTYPE']) {          // Data element
                                 $dd03l_rollname_url = ABAP_Navigation::GetURLDtel($dd03l_item['ROLLNAME'], '');
                                 $dd03l_fieldname_desc = ABAP_DB_TABLE_DTEL::DD04T($dd03l_item['ROLLNAME']);
-                            } else if (ABAP_DB_CONST::DOMAIN_DD03L_COMPTYPE_S == $dd03l_item['COMPTYPE']) {
+                            } else if (ABAP_DB_CONST::DOMAIN_DD03L_COMPTYPE_S == $dd03l_item['COMPTYPE']) {   // Structured type (possibly as INCLUDE) 
                                 $dd03l_rollname_url = ABAP_Navigation::GetURLTable($dd03l_item['ROLLNAME'], '');
                             } else {
+                                $dd03l_rollname_url = ABAP_Navigation::GetURLDtel($dd03l_item['ROLLNAME'], '');
                                 $dd03l_fieldname_desc = ABAP_DB_TABLE_DTEL::DD04T($dd03l_item['ROLLNAME']);
                             }
-                            
+
                             ?>
                             <tr>                        
                                 <td class="alv" align="center"> <a name="#<?php echo $anchor_name ?>" id="<?php echo $anchor_name ?>"></a> <?php echo $dd03l_item['POSITION'] ?> </td>
-                                <td class="alv"> <a href="/abap/tabl/field.php?table=<?php echo $dd02l['TABNAME'] ?>&field=<?php echo $dd03l_item['FIELDNAME'] ?>" target="_blank"><?php echo $dd03l_item['FIELDNAME'] ?></a> </td>
+                                <td class="alv"> <?php echo ABAP_Navigation::GetURLTableField($dd02l['TABNAME'], $dd03l_item['FIELDNAME']) ?> </td>
                                 <td class="alv" align="center"> <?php echo ABAP_UI_TOOL::GetCheckBox('field_' . $dd03l_item['FIELDNAME'], $dd03l_item['KEYFLAG']) ?> </td>
                                 <td class="alv"> <?php echo $dd03l_rollname_url ?> </td>
                                 <td class="alv"> <?php echo ABAP_Navigation::GetURLDomain($dd03l_item['DOMNAME'], '') ?> </td>
