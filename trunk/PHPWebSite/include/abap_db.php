@@ -12,11 +12,18 @@ class ABAP_DB_CONST {
 
     /** Domain names OR Domain values */
     const DOMAIN_DATATYPE = "DATATYPE";
+    const DOMAIN_INTTYPE = "INTTYPE";
     const DOMAIN_DD02L_TABCLASS = "TABCLASS";
     const DOMAIN_DD02L_CONTFLAG = "CONTFLAG";
     const DOMAIN_DD02L_MAINFLAG = "MAINTFLAG";
     const DOMAIN_DD03L_COMPTYPE_E = "E";         // E - Data Element
     const DOMAIN_DD03L_COMPTYPE_S = "S";         // S - Structure (Table)
+    const DOMAIN_DD03L_COMPTYPE = "COMPTYPE";
+    const DOMAIN_DD03L_LANGUFLAG = "DDLANGUFLG";
+    const DOMAIN_DD03L_NOTNULL = "NOTNULL";
+    const DOMAIN_DD03L_SHLPORIGIN = "SHLPORIGIN";
+    const DOMAIN_DD03L_TABLETYPE = "DDFLAG";
+    const DOMAIN_DD03L_REFTYPE = "DDREFTYPE";
     const DOMAIN_DD04L_REFKIND = "TYPEKIND";
     const DOMAIN_DD04L_REFTYPE = "DDREFTYPE";
     const DOMAIN_DD06L_SQLCLASS = "SQLCLASS";
@@ -622,7 +629,6 @@ class ABAP_DB_TABLE_FUNC {
         $stmt->bind_param('ssss', $langu = ABAP_DB_CONST::LANGU_EN, $fm, $para, $kind);
         $stmt->execute();
         $stmt->bind_result($result);
-        echo $result;
         $stmt->fetch();
         return $result;
     }
@@ -1402,6 +1408,23 @@ class ABAP_DB_TABLE_TABL {
     }
 
     /**
+     * Table Field Attributes, by position.
+     * <pre>
+     * SELECT * FROM abaptabl.dd03l where TABNAME = 'BKPF' and POSITION = '0076'
+     * </pre>
+     */
+    public static function DD03L_POSITION($TableName, $Position) {
+        $con = ABAP_DB_SCHEMA::getConnTabl();
+        $TableName = $con->real_escape_string($TableName);
+        $Position = $con->real_escape_string($Position);
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD03L
+                . " WHERE TABNAME = '" . $TableName
+                . "' AND POSITION = '" . $Position . "'";
+        $qry = $con->query($sql);
+        return mysqli_fetch_array($qry);
+    }
+
+    /**
      * Get Table Field description.
      */
     public static function DD03L_FIELDNAME_DESC($CompType, $RollName) {
@@ -1479,6 +1502,22 @@ class ABAP_DB_TABLE_TABL {
         return $con->query($sql);
     }
 
+    /**
+     * Get index by field.
+     * <pre>
+     * SELECT * FROM abaptabl.dd17s where SQLTAB = 'BKPF' AND FIELDNAME = 'MANDT' ORDER BY INDEXNAME
+     * </pre>
+     */
+    public static function DD17S_FIELDNAME($Sqltab, $FieldName) {
+        $con = ABAP_DB_SCHEMA::getConnTabl();
+        $Sqltab = $con->real_escape_string($Sqltab);
+        $FieldName = $con->real_escape_string($FieldName);
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD17S
+                . " WHERE SQLTAB = '" . $Sqltab 
+                . "' AND FIELDNAME = '" . $FieldName . "' order by INDEXNAME";
+        return $con->query($sql);
+    }
+    
 }
 
 /** Database table names - transaction code. */
