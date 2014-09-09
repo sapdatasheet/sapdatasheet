@@ -59,6 +59,12 @@ class ABAP_Navigation {
                . "\" target=\"_blank\"> " . $field . "</a>";
     }
 
+    public static function GetURLTableInclude($table, $field, $position) {
+       return "<a href=\"/abap/tabl/field.php?table=" . $table . "&position=" . $position 
+               . "\" title=\"" . $position 
+               . "\" target=\"_blank\"> " . $field . "</a>";
+    }
+
     public static function GetURLTransactionCode($tcode, $desc) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::TRAN_NAME, $tcode, $tcode, $desc);
     }

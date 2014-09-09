@@ -7,11 +7,16 @@ require_once '../../include/abap_ui.php';
 
 $Table = filter_input(INPUT_GET, 'table');
 $Field = strtoupper(filter_input(INPUT_GET, 'field'));
-if (empty($Table) || empty($Field)) {
+$Position = strtoupper(filter_input(INPUT_GET, 'position'));
+if (empty($Table) || (strlen(trim($Field)) + strlen(trim($Position)) == 0)) {
     ABAP_UI_TOOL::Redirect404();
 }
 
-$dd03l = ABAP_DB_TABLE_TABL::DD03L(strtoupper($Table), strtoupper($Field));
+if (strlen(trim($Field)) > 0) {
+    $dd03l = ABAP_DB_TABLE_TABL::DD03L(strtoupper($Table), strtoupper($Field));
+} else if (strlen(trim($Position)) > 0) {
+    $dd03l = ABAP_DB_TABLE_TABL::DD03L_POSITION(strtoupper($Table), strtoupper($Position));
+}
 if (empty($dd03l['FIELDNAME'])) {
     ABAP_UI_TOOL::Redirect404();
 }
@@ -22,6 +27,19 @@ $dd02l_tabclass_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_DD02L_TAB
 
 $dd03l_fieldname_desc = ABAP_DB_TABLE_TABL::DD03L_FIELDNAME_DESC($dd03l['COMPTYPE'], $dd03l['ROLLNAME']);
 $dd03l_checktable_desc = ABAP_DB_TABLE_TABL::DD02T($dd03l['CHECKTABLE']);
+$dd03l_inttype_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_INTTYPE, $dd03l['INTTYPE']);
+$dd03l_reftable_desc = ABAP_DB_TABLE_TABL::DD02T($dd03l['REFTABLE']);
+$dd03l_precfield_desc = ABAP_DB_TABLE_TABL::DD02T($dd03l['PRECFIELD']);
+$dd03l_notnull_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_DD03L_NOTNULL, $dd03l['NOTNULL']);
+$dd03l_datatype_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_DATATYPE, $dd03l['DATATYPE']);
+$dd03l_domname_desc = ABAP_DB_TABLE_DOMA::DD01T($dd03l['DOMNAME']);
+$dd03l_shlporigin_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_DD03L_SHLPORIGIN, $dd03l['SHLPORIGIN']);
+$dd03l_tabletype_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_DD03L_TABLETYPE, $dd03l['TABLETYPE']);
+$dd03l_comptype_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_DD03L_COMPTYPE, $dd03l['COMPTYPE']);
+$dd03l_reftype_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_DD03L_REFTYPE, $dd03l['REFTYPE']);
+$dd03l_languflag_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_DD03L_LANGUFLAG, $dd03l['LANGUFLAG']);
+
+$dd17s_list = ABAP_DB_TABLE_TABL::DD17S_FIELDNAME($dd02l['TABNAME'], $dd03l['FIELDNAME']);
 
 $hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_CONST::TADIR_PGMID_R3TR, ABAP_OTYPE::TABL_NAME, $dd02l['TABNAME']);
 $GLOBALS['TITLE_TEXT'] = 'SAP ABAP Table Field ' . $dd02l['TABNAME'] . '-' . $dd03l['FIELDNAME'];
@@ -85,8 +103,12 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP Table Field ' . $dd02l['TABNAME'] . '-' . $dd
                             <td> <?php echo $dd02l_desc ?> &nbsp;</td>
                         </tr>
                         <tr><td class="content_label"> Field </td>
-                            <td class="field"> <?php echo ABAP_Navigation::GetURLTableField($dd02l['TABNAME'], $dd03l['FIELDNAME']) ?> &nbsp;</td>
+                            <td class="field"> <a href="#"><?php echo $dd03l['FIELDNAME'] ?></a> &nbsp;</td>
                             <td> <?php echo $dd03l_fieldname_desc ?> &nbsp;</td>
+                        </tr>
+                        <tr><td class="content_label"> Position </td>
+                            <td class="field"> <?php echo $dd03l['POSITION'] ?> &nbsp;</td>
+                            <td> &nbsp;</td>
                         </tr>
                     </tbody>
                 </table>
@@ -94,10 +116,6 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP Table Field ' . $dd02l['TABNAME'] . '-' . $dd
                 <h4> Field Attributes </h4>
                 <table class="content_obj">
                     <tbody>
-                        <tr><td class="content_label"> Position </td>
-                            <td class="field"> <?php echo $dd03l['POSITION'] ?> &nbsp;</td>
-                            <td> &nbsp;</td>
-                        </tr>
                         <tr><td class="content_label"> Key </td>
                             <td> <?php echo ABAP_UI_TOOL::GetCheckBox('field_' . $dd03l['FIELDNAME'], $dd03l['KEYFLAG']) ?> &nbsp;</td>
                             <td> &nbsp;</td>
@@ -114,10 +132,112 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP Table Field ' . $dd02l['TABNAME'] . '-' . $dd
                             <td class="field"> <?php echo ABAP_Navigation::GetURLTable($dd03l['CHECKTABLE'], $dd03l_checktable_desc) ?> &nbsp;</td>
                             <td> <?php echo $dd03l_checktable_desc ?> &nbsp;</td>
                         </tr>
+                        <tr><td class="content_label"> Nesting depth for includes </td>
+                            <td class="field"> <?php echo $dd03l['ADMINFIELD'] ?> &nbsp;</td>
+                            <td> &nbsp;</td>
+                        </tr>
+                        <tr><td class="content_label"> Internal ABAP Type </td>
+                            <td class="field"> <?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_INTTYPE, $dd03l['INTTYPE'], $dd03l_inttype_desc) ?> &nbsp;</td>
+                            <td> <?php echo $dd03l_inttype_desc ?> &nbsp;</td>
+                        </tr>
+                        <tr><td class="content_label"> Internal Length in Bytes </td>
+                            <td class="field"> <?php echo $dd03l['INTLEN'] ?> &nbsp;</td>
+                            <td> &nbsp;</td>
+                        </tr>
+                        <tr><td class="content_label"> Reference table </td>
+                            <td class="field"> <?php echo ABAP_Navigation::GetURLTable($dd03l['REFTABLE'], $dd03l_reftable_desc) ?> &nbsp;</td>
+                            <td> <?php echo $dd03l_reftable_desc ?> &nbsp;</td>
+                        </tr>
+                        <tr><td class="content_label"> Name of Include </td>
+                            <td class="field"> <?php echo ABAP_Navigation::GetURLTable($dd03l['PRECFIELD'], $dd03l_precfield_desc) ?> &nbsp;</td>
+                            <td> <?php echo $dd03l_precfield_desc ?> &nbsp;</td>
+                        </tr>
+                        <tr><td class="content_label"> Reference Field (CURR or QTY) </td>
+                            <td class="field"> <?php echo ABAP_Navigation::GetURLTableField($dd03l['REFTABLE'], $dd03l['REFFIELD']) ?> &nbsp;</td>
+                            <td> &nbsp;</td>
+                        </tr> 
+                        <tr><td class="content_label"> Check module </td>
+                            <td class="field"> <?php echo $dd03l['CONROUT'] ?> &nbsp;</td>
+                            <td> &nbsp;</td>
+                        </tr> 
+                        <tr><td class="content_label"> NOT NULL forced </td>
+                            <td class="field"> <?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DD03L_NOTNULL, $dd03l['NOTNULL'], $dd03l_notnull_desc) ?> &nbsp;</td>
+                            <td> <?php echo $dd03l_notnull_desc ?> &nbsp;</td>
+                        </tr> 
+                        <tr><td class="content_label"> Data Type in ABAP Dictionary </td>
+                            <td class="field"> <?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DATATYPE, $dd03l['DATATYPE'], $dd03l_datatype_desc) ?> &nbsp;</td>
+                            <td> <?php echo $dd03l_datatype_desc ?> &nbsp;</td>
+                        </tr> 
+                        <tr><td class="content_label"> Length (No. of Characters) </td>
+                            <td class="field"> <?php echo $dd03l['LENG'] ?> &nbsp;</td>
+                            <td> &nbsp;</td>
+                        </tr> 
+                        <tr><td class="content_label"> Number of Decimal Places </td>
+                            <td class="field"> <?php echo $dd03l['DECIMALS'] ?> &nbsp;</td>
+                            <td> &nbsp;</td>
+                        </tr> 
+                        <tr><td class="content_label"> Domain name </td>
+                            <td class="field"> <?php echo ABAP_Navigation::GetURLDomain($dd03l['DOMNAME'], $dd03l_domname_desc) ?> &nbsp;</td>
+                            <td> <?php echo $dd03l_domname_desc ?> &nbsp;</td>
+                        </tr> 
+                        <tr><td class="content_label"> Origin of an input help (F4) </td>
+                            <td class="field"> <?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DD03L_SHLPORIGIN, $dd03l['SHLPORIGIN'], $dd03l_shlporigin_desc) ?> &nbsp;</td>
+                            <td> <?php echo $dd03l_shlporigin_desc ?> &nbsp;</td>
+                        </tr> 
+                        <tr><td class="content_label"> DD: Flag if it is a table </td>
+                            <td class="field"> <?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DD03L_TABLETYPE, $dd03l['TABLETYPE'], $dd03l_tabletype_desc) ?> &nbsp;</td>
+                            <td> <?php echo $dd03l_tabletype_desc ?> &nbsp;</td>
+                        </tr> 
+                        <tr><td class="content_label"> DD: Depth for structured types </td>
+                            <td class="field"> <?php echo $dd03l['DEPTH'] ?> &nbsp;</td>
+                            <td> &nbsp;</td>
+                        </tr> 
+                        <tr><td class="content_label"> DD: Component Type </td>
+                            <td class="field"> <?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DD03L_COMPTYPE, $dd03l['COMPTYPE'], $dd03l_comptype_desc) ?> &nbsp;</td>
+                            <td> <?php echo $dd03l_comptype_desc ?> &nbsp;</td>
+                        </tr> 
+                        <tr><td class="content_label"> Type of Object Referenced </td>
+                            <td class="field"> <?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DD03L_REFTYPE, $dd03l['REFTYPE'], $dd03l_reftype_desc) ?> &nbsp;</td>
+                            <td> <?php echo $dd03l_reftype_desc ?> &nbsp;</td>
+                        </tr> 
+                        <tr><td class="content_label"> DD: Indicator for a Language Field </td>
+                            <td class="field"> <?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DD03L_LANGUFLAG, $dd03l['LANGUFLAG'], $dd03l_languflag_desc) ?> &nbsp;</td>
+                            <td> <?php echo $dd03l_languflag_desc ?> &nbsp;</td>
+                        </tr> 
+                        <tr><td class="content_label"> Position of the field in the table </td>
+                            <td class="field"> <?php echo $dd03l['DBPOSITION'] ?> &nbsp;</td>
+                            <td> &nbsp;</td>
+                        </tr> 
                     </tbody>
                 </table>
-
-                <h4> Contained in Index </h4>
+                <?php if (mysqli_num_rows($dd17s_list) > 0) { ?>
+                    <h4> Contained in Index </h4>
+                    <table class="alv">
+                        <tr>
+                            <th class="alv"> Table Name </th>
+                            <th class="alv"> Index Name </th>
+                            <th class="alv"> Position </th>
+                            <th class="alv"> Field Name </th>
+                            <th class="alv"> DESC Flag </th>
+                        </tr>                        
+                        <?php
+                        while ($dd17s = mysqli_fetch_array($dd17s_list)) {
+                            ?>
+                            <tr><td class="alv"><?php echo ABAP_Navigation::GetURLTable($dd17s['SQLTAB'], '') ?></td>
+                                <td class="alv"><?php echo $dd17s['INDEXNAME'] ?></td>
+                                <td class="alv"><?php echo $dd17s['POSITION'] ?></td>
+                                <td class="alv"><a href="#"><?php echo $dd17s['FIELDNAME'] ?></a> &nbsp;</td>
+                                <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox('DESC', $dd17s['DESCFLAG']) ?> &nbsp;</td>
+                            </tr>
+                        <?php } ?>
+                        <tr><td class="alv">&nbsp;</td>
+                            <td class="alv">&nbsp;</td>
+                            <td class="alv">&nbsp;</td>
+                            <td class="alv">&nbsp;</td>
+                            <td class="alv">&nbsp;</td>
+                        </tr>
+                    </table><!-- Contained Tables or Views: End -->
+                <?php } ?>
 
                 <!-- Hierarchy -->
                 <h4> Hierarchy </h4>
