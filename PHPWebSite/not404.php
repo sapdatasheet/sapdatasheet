@@ -1,15 +1,22 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>This is not an 404 Page</title>
-    </head>
-    <body>
-        <h1>This is NOT an 404 Page</h1>
-        <?php
-        $args = func_get_args();
-        foreach ($args as $value) {  ?>
-            <?php echo $value ?> <br />
-        <?php } ?>
-    </body>
-</html>
+<?php
+
+require_once 'include/global.php';
+
+$req = $_SERVER['REQUEST_URI'];
+// echo $req;
+
+if ($req == '/') {
+    include 'index.php';
+    exit();
+} else if ($req == '/abap/') {
+    include 'abap/index.php';
+    //exit();
+} else if ($req == '/abap/doma/') {
+    include 'abap/doma/index.php';
+    exit();
+} else if ($req == '/abap/tabl/bkpf.html') {
+    $Table = 'bkpf';
+    include 'abap/tabl/tabl.php';
+    exit();
+}
+?>
