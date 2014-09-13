@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <?php
-require_once '../../include/global.php';
-require_once '../../include/abap_db.php';
-require_once '../../include/abap_ui.php';
+define('__ROOT__', dirname(dirname(dirname(__FILE__))));
+require_once (__ROOT__ . '/include/global.php');
+require_once (__ROOT__ . '/include/abap_db.php');
+require_once (__ROOT__ . '/include/abap_ui.php');
 
-$TCode = filter_input(INPUT_GET, 'id');
+if (!isset($TCode)) {
+    $TCode = filter_input(INPUT_GET, 'id');
+}
+
 if (empty($TCode)) {
     ABAP_UI_TOOL::Redirect404();
 }
@@ -25,7 +29,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::TRAN_DESC . ' ' . $tstc['TCOD
 <html>
     <head>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-        <link rel="stylesheet" href="../../abap.css" type="text/css" />
+        <link rel="stylesheet" href="/abap.css" type="text/css" />
         <title><?php echo $GLOBALS['TITLE_TEXT'] ?> <?php echo WEBSITE::TITLE ?> </title>
         <meta name="keywords" content="SAP,<?php echo ABAP_OTYPE::TRAN_DESC ?>,<?php echo $tstc['TCODE']; ?>,<?php echo $tstc_desc ?>" />
         <meta name="description" content="<?php echo WEBSITE::META_DESC; ?>" />
@@ -35,7 +39,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::TRAN_DESC . ' ' . $tstc['TCOD
     <body>
 
         <!-- Header -->
-        <?php require '../../include/header.php' ?>
+        <?php require __ROOT__ . '/include/header.php' ?>
 
         <!-- Left -->
         <div class="left">
@@ -149,7 +153,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::TRAN_DESC . ' ' . $tstc['TCOD
         </div><!-- Content: End -->
 
         <!-- Footer -->
-        <?php include '../../include/footer.html' ?>
+        <?php include __ROOT__ . '/include/footer.html' ?>
 
     </body>
 </html>

@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <!-- DDIC Data Element index. -->
 <?php
-require_once '../../include/global.php';
-require_once '../../include/abap_db.php';
-require_once '../../include/abap_ui.php';
+define('__ROOT__', dirname(dirname(dirname(__FILE__))));
+require_once (__ROOT__ . '/include/global.php');
+require_once (__ROOT__ . '/include/abap_db.php');
+require_once (__ROOT__ . '/include/abap_ui.php');
 
-$GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::DTEL_DESC;
+if (!isset($index)) {
+    $index = filter_input(INPUT_GET, 'index');
+}
 
-$index = filter_input(INPUT_GET, 'index');
 if (empty($index)) {
     $index = ABAP_DB_CONST::INDEX_A;
 } else {
     $index = strtoupper($index);
 }
 $dd04l = ABAP_DB_TABLE_DTEL::DD04L_List($index);
+$GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::DTEL_DESC;
 ?>
 <html>
     <head>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-        <link rel="stylesheet" href="../../abap.css" type="text/css" />
+        <link rel="stylesheet" href="/abap.css" type="text/css" />
         <title><?php echo $GLOBALS['TITLE_TEXT'] ?> <?php echo WEBSITE::TITLE ?> </title>
         <meta name="keywords" content="SAP,ABAP,<?php echo ABAP_OTYPE::DTEL_DESC ?>" />
         <meta name="description" content="<?php echo WEBSITE::META_DESC ?>" />
@@ -28,10 +31,10 @@ $dd04l = ABAP_DB_TABLE_DTEL::DD04L_List($index);
     <body>
 
         <!-- Header -->
-        <?php require '../../include/header.php' ?>
+        <?php require __ROOT__ . '/include/header.php' ?>
 
         <!-- Left -->
-        <?php require '../../include/abap_index_left.php' ?>
+        <?php require __ROOT__ . '/include/abap_index_left.php' ?>
 
         <!-- Content -->
         <div class="content">
@@ -97,7 +100,7 @@ $dd04l = ABAP_DB_TABLE_DTEL::DD04L_List($index);
         </div><!-- Content: End -->        
 
         <!-- Footer -->
-        <?php include '../../include/footer.html' ?>
+        <?php include __ROOT__ . '/include/footer.html' ?>
 
     </body>
 </html>

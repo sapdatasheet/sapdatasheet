@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <!-- Application component object. -->
 <?php
-require_once '../../include/global.php';
-require_once '../../include/abap_db.php';
-require_once '../../include/abap_ui.php';
+define('__ROOT__', dirname(dirname(dirname(__FILE__))));
+require_once (__ROOT__ . '/include/global.php');
+require_once (__ROOT__ . '/include/abap_db.php');
+require_once (__ROOT__ . '/include/abap_ui.php');
 
-$AppComp = filter_input(INPUT_GET, 'id');
+if (!isset($AppComp)) {
+    $AppComp = filter_input(INPUT_GET, 'id');
+}
+
 if (empty($AppComp)) {
     ABAP_UI_TOOL::Redirect404();
 }
@@ -23,7 +27,7 @@ $child_tdevc = ABAP_DB_TABLE_HIER::TDEVC_DEVCLASS($df14l['FCTR_ID']);
 <html>
     <head>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-        <link rel="stylesheet" href="../../abap.css" type="text/css" />
+        <link rel="stylesheet" href="/abap.css" type="text/css" />
         <title><?php echo $GLOBALS['TITLE_TEXT'] ?> <?php echo WEBSITE::TITLE ?> </title>
         <meta name="keywords" content="SAP,<?php echo ABAP_OTYPE::BMFR_DESC ?>,<?php echo $cvers['FCTR_ID'] ?>,<?php echo $cvers['PS_POSID'] ?>,<?php echo $df14l_desc ?>" />
         <meta name="description" content="<?php echo WEBSITE::META_DESC; ?>" />
@@ -33,7 +37,7 @@ $child_tdevc = ABAP_DB_TABLE_HIER::TDEVC_DEVCLASS($df14l['FCTR_ID']);
     <body>
 
         <!-- Header -->
-        <?php require '../../include/header.php' ?>
+        <?php require __ROOT__ . '/include/header.php' ?>
 
         <!-- Left -->
         <div class="left">
@@ -107,7 +111,7 @@ $child_tdevc = ABAP_DB_TABLE_HIER::TDEVC_DEVCLASS($df14l['FCTR_ID']);
                             while ($child_tdevc_item = mysqli_fetch_array($child_tdevc)) {
                                 $child_tdevc_item_desc = ABAP_DB_TABLE_HIER::TDEVCT($child_tdevc_item['DEVCLASS']);
                                 ?>
-                            <tr><td class="alv"><?php echo ABAP_Navigation::GetURLPackage($child_tdevc_item['DEVCLASS'], $child_tdevc_item_desc) ?></td>
+                                <tr><td class="alv"><?php echo ABAP_Navigation::GetURLPackage($child_tdevc_item['DEVCLASS'], $child_tdevc_item_desc) ?></td>
                                     <td class="alv"><?php echo $child_tdevc_item_desc ?>&nbsp;</td></tr>
                             <?php } ?>
                         </table>
@@ -127,7 +131,7 @@ $child_tdevc = ABAP_DB_TABLE_HIER::TDEVC_DEVCLASS($df14l['FCTR_ID']);
         </div><!-- Content: End -->
 
         <!-- Footer -->
-        <?php include '../../include/footer.html' ?>
+        <?php include __ROOT__ . '/include/footer.html' ?>
 
     </body>
 </html>
