@@ -354,7 +354,8 @@ class ABAP_DB_TABLE_DTEL {
         $sql = "select DDTEXT from " . ABAP_DB_TABLE_DTEL::DD04T
                 . " where ROLLNAME = ? and DDLANGUAGE = ?";
         $stmt = ABAP_DB_SCHEMA::getConnDtel()->prepare($sql);
-        $stmt->bind_param('ss', $Rollname, $langu = ABAP_DB_CONST::LANGU_EN);
+        $langu = ABAP_DB_CONST::LANGU_EN;
+        $stmt->bind_param('ss', $Rollname, $langu);
         $stmt->execute();
         $stmt->bind_result($result);
         $stmt->fetch();
