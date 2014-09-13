@@ -1,6 +1,9 @@
 <!DOCTYPE html>
-<?php require_once './include/global.php'; ?>
-<?php $GLOBALS['SearchTerm'] = "Company Code"; ?>
+<?php 
+define('__ROOT__', dirname(__FILE__)); 
+require_once(__ROOT__ . '/include/global.php');
+$GLOBALS['SearchTerm'] = "Company Code"; 
+?>
 <html>
     <head>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />

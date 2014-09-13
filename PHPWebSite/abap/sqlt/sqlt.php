@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <!-- DDIC Cluster/Pool table object. -->
 <?php
-require_once '../../include/global.php';
-require_once '../../include/abap_db.php';
-require_once '../../include/abap_ui.php';
+define('__ROOT__', dirname(dirname(dirname(__FILE__))));
+require_once (__ROOT__ . '/include/global.php');
+require_once (__ROOT__ . '/include/abap_db.php');
+require_once (__ROOT__ . '/include/abap_ui.php');
 
-$ClusterTable = filter_input(INPUT_GET, 'id');
+if (!isset($ClusterTable)) {
+    $ClusterTable = filter_input(INPUT_GET, 'id');
+}
+
 if (empty($ClusterTable)) {
     ABAP_UI_TOOL::Redirect404();
 }
@@ -22,7 +26,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $sqlt_sqlcalss_desc . ' ' . $sqlt['SQLTAB
 <html>
     <head>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-        <link rel="stylesheet" href="../../abap.css" type="text/css" />
+        <link rel="stylesheet" href="/abap.css" type="text/css" />
         <title><?php echo $GLOBALS['TITLE_TEXT'] ?> <?php echo WEBSITE::TITLE ?> </title>
         <meta name="keywords" content="SAP,<?php echo ABAP_OTYPE::SQLT_DESC ?>,<?php echo $sqlt_sqlcalss_desc ?>,<?php echo $doma['SQLTAB'] ?>,<?php echo $sqlt_desc ?>" />
         <meta name="description" content="<?php echo WEBSITE::META_DESC; ?>" />
@@ -30,8 +34,9 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $sqlt_sqlcalss_desc . ' ' . $sqlt['SQLTAB
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
     <body>
+
         <!-- Header -->
-        <?php require '../../include/header.php' ?>
+        <?php require __ROOT__ . '/include/header.php' ?>
 
         <!-- Left -->
         <div class="left">
@@ -132,7 +137,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $sqlt_sqlcalss_desc . ' ' . $sqlt['SQLTAB
         </div><!-- Content: End -->
 
         <!-- Footer -->
-        <?php include '../../include/footer.html' ?>
+        <?php include __ROOT__ . '/include/footer.html' ?>
 
     </body>
 </html>

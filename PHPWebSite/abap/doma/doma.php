@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <!-- DDIC Domain object. -->
 <?php
-require_once '../../include/global.php';
-require_once '../../include/abap_db.php';
-require_once '../../include/abap_ui.php';
+define('__ROOT__', dirname(dirname(dirname(__FILE__))));
+require_once (__ROOT__ . '/include/global.php');
+require_once (__ROOT__ . '/include/abap_db.php');
+require_once (__ROOT__ . '/include/abap_ui.php');
 
-$Domain = filter_input(INPUT_GET, 'id');
+if (!isset($Domain)) {
+    $Domain = filter_input(INPUT_GET, 'id');
+}
+
 if (empty($Domain)) {
     ABAP_UI_TOOL::Redirect404();
 }
@@ -23,7 +27,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DOMA_DESC . ' ' . $doma['DOMN
 <html>
     <head>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-        <link rel="stylesheet" href="../../abap.css" type="text/css" />
+        <link rel="stylesheet" href="/abap.css" type="text/css" />
         <title><?php echo $GLOBALS['TITLE_TEXT'] ?> <?php echo WEBSITE::TITLE ?> </title>
         <meta name="keywords" content="SAP,<?php echo ABAP_OTYPE::DOMA_DESC ?>,<?php echo $doma['DOMNAME'] ?>,<?php echo $doma_desc ?>" />
         <meta name="description" content="<?php echo WEBSITE::META_DESC; ?>" />
@@ -33,7 +37,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DOMA_DESC . ' ' . $doma['DOMN
     <body>
 
         <!-- Header -->
-        <?php require '../../include/header.php' ?>
+        <?php require __ROOT__ . '/include/header.php' ?>
 
         <!-- Left -->
         <div class="left">
@@ -54,13 +58,13 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DOMA_DESC . ' ' . $doma['DOMN
                 </tbody>
             </table>
             <?php if (strlen(trim($doma['ENTITYTAB'])) > 0) { ?>
-            <h5>Relationship</h5>
-            <table class="content_obj">
-                <tbody>
-                    <tr><td>Value table</td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_Navigation::GetURLTable($doma['ENTITYTAB'], '') ?>&nbsp;</td></tr>
-                </tbody>
-            </table>
+                <h5>Relationship</h5>
+                <table class="content_obj">
+                    <tbody>
+                        <tr><td>Value table</td></tr>
+                        <tr><td class="left_value"><?php echo ABAP_Navigation::GetURLTable($doma['ENTITYTAB'], '') ?>&nbsp;</td></tr>
+                    </tbody>
+                </table>
             <?php } ?>
         </div>
 
@@ -98,7 +102,8 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DOMA_DESC . ' ' . $doma['DOMN
                     </tbody>
                 </table>
 
-                <?php if (strlen(trim($doma['ENTITYTAB'])) > 0) {
+                <?php
+                if (strlen(trim($doma['ENTITYTAB'])) > 0) {
                     $entitytab_desc = ABAP_DB_TABLE_TABL::DD02T($doma['ENTITYTAB']);
                     ?>
                     <h4> Value Table</h4>
@@ -111,7 +116,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DOMA_DESC . ' ' . $doma['DOMN
                     </table>
                 <?php } ?>
 
-                <?php if (mysqli_num_rows($doma_vall) > 0) { ?>
+<?php if (mysqli_num_rows($doma_vall) > 0) { ?>
                     <h4>Value Range</h4>
                     <a name="#VALUES" id="VALUES"></a>
                     <table class="alv">
@@ -128,14 +133,14 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DOMA_DESC . ' ' . $doma['DOMN
                                     <td class="alv" align="right"> <?php echo $doma_vall_item['DOMVALUE_L'] ?> &nbsp; </td>
                                     <td class="alv" align="right"> <?php echo $doma_vall_item['DOMVALUE_H'] ?> &nbsp; </td>
                                     <td class="alv"><?php echo $doma_vall_item_text ?></td> </tr>
-                            <?php } ?>
-                                <tr><td class="alv" align="center"> &nbsp; </td>
-                                    <td class="alv" align="right">  &nbsp; </td>
-                                    <td class="alv" align="right">  &nbsp; </td>
-                                    <td class="alv"> &nbsp; </td> </tr>
+    <?php } ?>
+                            <tr><td class="alv" align="center"> &nbsp; </td>
+                                <td class="alv" align="right">  &nbsp; </td>
+                                <td class="alv" align="right">  &nbsp; </td>
+                                <td class="alv"> &nbsp; </td> </tr>
                         </tbody>
                     </table>
-                <?php } ?>
+<?php } ?>
 
                 <h4> Hierarchy </h4>
                 <table class="content_obj">
@@ -152,7 +157,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DOMA_DESC . ' ' . $doma['DOMN
         </div><!-- Content: End -->
 
         <!-- Footer -->
-        <?php include '../../include/footer.html' ?>
+<?php include __ROOT__ . '/include/footer.html' ?>
 
     </body>
 </html>

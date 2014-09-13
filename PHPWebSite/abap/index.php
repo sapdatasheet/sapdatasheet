@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<?php require_once '../include/global.php'; ?>
-<?php $GLOBALS['TITLE_TEXT'] = "SAP ABAP"; ?>
+<!-- ABAP Object Types List -->
+<?php 
+define('__ROOT__', dirname(dirname(__FILE__))); 
+require_once(__ROOT__ . '/include/global.php') ;
+
+$GLOBALS['TITLE_TEXT'] = "SAP ABAP"; 
+?>
 <html>
     <head>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-        <link rel="stylesheet" href="../abap.css" type="text/css" />
+        <link rel="stylesheet" href="/abap.css" type="text/css" />
         <title>SAP ABAP Objects <?php echo WEBSITE::TITLE ?> </title>
         <meta name="keywords" content="SAP,ABAP" />
         <meta name="description" content="<?php echo WEBSITE::META_DESC ?>" />
@@ -14,10 +19,10 @@
     <body>
 
         <!-- Header -->
-        <?php require '../include/header.php' ?>
+        <?php require __ROOT__ . '/include/header.php' ?>
 
         <!-- Left -->
-        <?php require '../include/abap_index_left.php' ?>
+        <?php require __ROOT__ . '/include/abap_index_left.php' ?>
 
         <!-- Content -->
         <div class="content">
@@ -54,7 +59,7 @@
         </div><!-- Content: End -->        
 
         <!-- Footer -->
-        <?php include '../include/footer.html' ?>
+        <?php include __ROOT__ . '/include/footer.html' ?>
 
     </body>
 </html>

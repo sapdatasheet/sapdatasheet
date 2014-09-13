@@ -2,16 +2,17 @@
 <!DOCTYPE html>
 <!-- Software component index. -->
 <?php
-require_once '../../include/global.php';
-require_once '../../include/abap_db.php';
-require_once '../../include/abap_ui.php';
+define('__ROOT__', dirname(dirname(dirname(__FILE__))));
+require_once (__ROOT__ . '/include/global.php');
+require_once (__ROOT__ . '/include/abap_db.php');
+require_once (__ROOT__ . '/include/abap_ui.php');
 
 $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::CVERS_DESC;
 ?>
 <html>
     <head>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-        <link rel="stylesheet" href="../../abap.css" type="text/css" />
+        <link rel="stylesheet" href="/abap.css" type="text/css" />
         <title>SAP ABAP <?php echo ABAP_OTYPE::CVERS_DESC ?> <?php echo WEBSITE::TITLE ?> </title>
         <meta name="keywords" content="SAP,ABAP,<?php echo ABAP_OTYPE::CVERS_DESC ?>" />
         <meta name="description" content="<?php echo WEBSITE::META_DESC ?>" />
@@ -21,10 +22,10 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::CVERS_DESC;
     <body>
 
         <!-- Header -->
-        <?php require '../../include/header.php' ?>
+        <?php require __ROOT__ . '/include/header.php' ?>
 
         <!-- Left -->
-        <?php require '../../include/abap_index_left.php' ?>
+        <?php require __ROOT__ . '/include/abap_index_left.php' ?>
 
         <!-- Content -->
         <div class="content">
@@ -65,7 +66,7 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::CVERS_DESC;
         </div><!-- Content: End -->        
 
         <!-- Footer -->
-        <?php include '../../include/footer.html' ?>
+        <?php include __ROOT__ . '/include/footer.html' ?>
 
     </body>
 </html>

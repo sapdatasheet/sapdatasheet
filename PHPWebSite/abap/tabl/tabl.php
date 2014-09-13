@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <!-- DDIC Table -->
 <?php
-require_once '../../include/global.php';
-require_once '../../include/abap_db.php';
-require_once '../../include/abap_ui.php';
+define('__ROOT__', dirname(dirname(dirname(__FILE__))));
+require_once (__ROOT__ . '/include/global.php');
+require_once (__ROOT__ . '/include/abap_db.php');
+require_once (__ROOT__ . '/include/abap_ui.php');
 
-$Table = filter_input(INPUT_GET, 'id');
+if (!isset($Table)) {
+    $Table = filter_input(INPUT_GET, 'id');
+}
+
 if (empty($Table)) {
     ABAP_UI_TOOL::Redirect404();
 }
@@ -24,7 +28,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $dd02l_tabclass_desc . ' ' . $dd02l['TABN
 <html>
     <head>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-        <link rel="stylesheet" href="../../abap.css" type="text/css" />
+        <link rel="stylesheet" href="/abap.css" type="text/css" />
         <title><?php echo $GLOBALS['TITLE_TEXT'] ?> <?php echo WEBSITE::TITLE ?> </title>
         <meta name="keywords" content="SAP,<?php echo ABAP_OTYPE::TABL_DESC ?>,<?php echo $dd02l['TABNAME'] ?>,<?php echo $dd02l_desc ?>" />
         <meta name="description" content="<?php echo WEBSITE::META_DESC; ?>" />
@@ -34,7 +38,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $dd02l_tabclass_desc . ' ' . $dd02l['TABN
     <body>
 
         <!-- Header -->
-        <?php require '../../include/header.php' ?>
+        <?php require __ROOT__ . '/include/header.php' ?>
 
         <!-- Left -->
         <div class="left">
@@ -128,8 +132,6 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $dd02l_tabclass_desc . ' ' . $dd02l['TABN
                             }
                             $dd03l_fieldname_desc = ABAP_DB_TABLE_TABL::DD03L_FIELDNAME_DESC($dd03l_item['COMPTYPE'], $dd03l_item['ROLLNAME']);
                             $dd03l_rollname_url = ABAP_Navigation::GetURLDtel($dd03l_item['ROLLNAME'], '');
-                            
-
                             ?>
                             <tr>                        
                                 <td class="alv" align="center"> <a name="#<?php echo $anchor_name ?>" id="<?php echo $anchor_name ?>"></a> <?php echo $dd03l_item['POSITION'] ?> </td>
@@ -169,7 +171,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $dd02l_tabclass_desc . ' ' . $dd02l['TABN
         </div><!-- End of Content -->
 
         <!-- Footer -->
-        <?php include '../../include/footer.html' ?>
+        <?php include __ROOT__ . '/include/footer.html' ?>
 
     </body>
 </html>
