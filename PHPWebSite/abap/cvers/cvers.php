@@ -6,16 +6,16 @@ require_once (__ROOT__ . '/include/global.php');
 require_once (__ROOT__ . '/include/abap_db.php');
 require_once (__ROOT__ . '/include/abap_ui.php');
 
-if (!isset($SoftComp)) {
-$SoftComp = filter_input(INPUT_GET, 'id');
+if (!isset($ObjID)) {
+$ObjID = filter_input(INPUT_GET, 'id');
 }
 
-$cvers = ABAP_DB_TABLE_HIER::CVERS(strtoupper($SoftComp));
+$cvers = ABAP_DB_TABLE_HIER::CVERS(strtoupper($ObjID));
 if (empty($cvers['COMPONENT'])) {
     ABAP_UI_TOOL::Redirect404();
 }
 $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::CVERS_DESC . ' ' . $cvers['COMPONENT'];
-$cvers_desc = ABAP_DB_TABLE_HIER::CVERS_REF($SoftComp);
+$cvers_desc = ABAP_DB_TABLE_HIER::CVERS_REF($cvers['COMPONENT']);
 $cvers_comp_type_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_TADIR_COMP_TYPE, $cvers['COMP_TYPE']);
 $child_bmfr = ABAP_DB_TABLE_HIER::TDEVC_COMPONENT($cvers['COMPONENT']);
 ?>

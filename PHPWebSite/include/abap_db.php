@@ -963,7 +963,8 @@ class ABAP_DB_TABLE_HIER {
     public static function TDEVCT($Package) {
         $sql = "select ctext from " . ABAP_DB_TABLE_HIER::TDEVCT . " where devclass = ? and spras = ?";
         $stmt = ABAP_DB_SCHEMA::getConnHier()->prepare($sql);
-        $stmt->bind_param('ss', $Package, $langu = ABAP_DB_CONST::LANGU_EN);
+        $langu = ABAP_DB_CONST::LANGU_EN;
+        $stmt->bind_param('ss', $Package, $langu);
         $stmt->execute();
         $stmt->bind_result($result);
         $stmt->fetch();
@@ -1144,7 +1145,8 @@ class ABAP_DB_TABLE_PROG {
         $sql = "select TEXT from " . ABAP_DB_TABLE_PROG::TRDIRT
                 . " where NAME = ? and SPRSL = ?";
         $stmt = ABAP_DB_SCHEMA::getConnProg()->prepare($sql);
-        $stmt->bind_param('ss', $Progname, $langu = ABAP_DB_CONST::LANGU_EN);
+        $langu = ABAP_DB_CONST::LANGU_EN;
+        $stmt->bind_param('ss', $Progname, $langu);
         $stmt->execute();
         $stmt->bind_result($result);
         $stmt->fetch();

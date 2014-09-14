@@ -1,4 +1,4 @@
-<?php ob_start(); ?>
+<?php // ob_start(); ?>
 <!DOCTYPE html>
 <!-- Software component index. -->
 <?php
@@ -71,9 +71,9 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::CVERS_DESC;
     </body>
 </html>
 <?php 
-$ob_content = ob_get_contents();
-ob_end_flush();
-$ob_fp = fopen("./index.html", "w");
-fwrite($ob_fp, $ob_content);
-fclose($ob_fp);
+// $ob_content = ob_get_contents();
+// ob_end_flush();
+// $ob_fp = fopen("./index.html", "w");
+// fwrite($ob_fp, $ob_content);
+// fclose($ob_fp);
 ?>
