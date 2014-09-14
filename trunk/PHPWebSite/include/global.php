@@ -3,6 +3,27 @@
 $GLOBALS['TITLE_TEXT'] = 'SAP';
 error_reporting(-1);
 
+/**
+ * Source: http://stackoverflow.com/questions/834303/startswith-and-endswith-functions-in-php/834355#834355
+ */
+function startsWith($haystack, $needle)
+{
+     $length = strlen($needle);
+     return (substr($haystack, 0, $length) === $needle);
+}
+
+/**
+ * Source: http://stackoverflow.com/questions/834303/startswith-and-endswith-functions-in-php/834355#834355
+ */
+function endsWith($haystack, $needle)
+{
+    $length = strlen($needle);
+    if ($length == 0) {
+        return true;
+    }
+
+    return (substr($haystack, -$length) === $needle);
+}
 
 /** Web Site Constants. */
 class WEBSITE {

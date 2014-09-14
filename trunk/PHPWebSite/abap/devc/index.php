@@ -52,31 +52,31 @@ $devc = ABAP_DB_TABLE_HIER::TDEVC_List($index);
             <div class="content_obj">
 
                 <div>
-                    <a href="index.php?index=a">A</a>&nbsp;
-                    <a href="index.php?index=b">B</a>&nbsp;
-                    <a href="index.php?index=c">C</a>&nbsp;
-                    <a href="index.php?index=d">D</a>&nbsp;
-                    <a href="index.php?index=e">E</a>&nbsp;
-                    <a href="index.php?index=f">F</a>&nbsp;
-                    <a href="index.php?index=g">G</a>&nbsp;
-                    <a href="index.php?index=h">H</a>&nbsp;
-                    <a href="index.php?index=i">I</a>&nbsp;
-                    <a href="index.php?index=j">J</a>&nbsp;
-                    <a href="index.php?index=k">K</a>&nbsp;
-                    <a href="index.php?index=l">L</a>&nbsp;
-                    <a href="index.php?index=m">M</a>&nbsp;
-                    <a href="index.php?index=n">N</a>&nbsp;
-                    <a href="index.php?index=o">O</a>&nbsp;
-                    <a href="index.php?index=p">P</a>&nbsp;
-                    <a href="index.php?index=q">Q</a>&nbsp;
-                    <a href="index.php?index=r">R</a>&nbsp;
-                    <a href="index.php?index=s">S</a>&nbsp;
-                    <a href="index.php?index=t">T</a>&nbsp;
-                    <a href="index.php?index=u">U</a>&nbsp;
-                    <a href="index.php?index=v">V</a>&nbsp;
-                    <a href="index.php?index=w">W</a>&nbsp;
-                    <a href="index.php?index=x">X</a>&nbsp;
-                    <a href="index.php?index=/">/</a>&nbsp;
+                    <a href="index-a.html">A</a>&nbsp;
+                    <a href="index-b.html">B</a>&nbsp;
+                    <a href="index-c.html">C</a>&nbsp;
+                    <a href="index-d.html">D</a>&nbsp;
+                    <a href="index-e.html">E</a>&nbsp;
+                    <a href="index-f.html">F</a>&nbsp;
+                    <a href="index-g.html">G</a>&nbsp;
+                    <a href="index-h.html">H</a>&nbsp;
+                    <a href="index-i.html">I</a>&nbsp;
+                    <a href="index-j.html">J</a>&nbsp;
+                    <a href="index-k.html">K</a>&nbsp;
+                    <a href="index-l.html">L</a>&nbsp;
+                    <a href="index-m.html">M</a>&nbsp;
+                    <a href="index-n.html">N</a>&nbsp;
+                    <a href="index-o.html">O</a>&nbsp;
+                    <a href="index-p.html">P</a>&nbsp;
+                    <a href="index-q.html">Q</a>&nbsp;
+                    <a href="index-r.html">R</a>&nbsp;
+                    <a href="index-s.html">S</a>&nbsp;
+                    <a href="index-t.html">T</a>&nbsp;
+                    <a href="index-u.html">U</a>&nbsp;
+                    <a href="index-v.html">V</a>&nbsp;
+                    <a href="index-w.html">W</a>&nbsp;
+                    <a href="index-x.html">X</a>&nbsp;
+                    <a href="index-/.html">/</a>&nbsp;
                 </div>
 
                 <h4> <?php echo ABAP_OTYPE::DEVC_DESC ?> - <?php echo $index ?></h4>

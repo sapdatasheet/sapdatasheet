@@ -6,20 +6,20 @@ require_once (__ROOT__ . '/include/global.php');
 require_once (__ROOT__ . '/include/abap_db.php');
 require_once (__ROOT__ . '/include/abap_ui.php');
 
-if (!isset($AppComp)) {
-    $AppComp = filter_input(INPUT_GET, 'id');
+if (!isset($ObjID)) {
+    $ObjID = filter_input(INPUT_GET, 'id');
 }
 
-if (empty($AppComp)) {
+if (empty($ObjID)) {
     ABAP_UI_TOOL::Redirect404();
 }
-$df14l = ABAP_DB_TABLE_HIER::DF14L(strtoupper($AppComp));
+$df14l = ABAP_DB_TABLE_HIER::DF14L(strtoupper($ObjID));
 if (empty($df14l['FCTR_ID'])) {
     ABAP_UI_TOOL::Redirect404();
 }
 
 $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::BMFR_DESC . ' ' . $df14l['PS_POSID'] . ' (' . $df14l['FCTR_ID'] . ')';
-$df14l_desc = ABAP_DB_TABLE_HIER::DF14T($AppComp);
+$df14l_desc = ABAP_DB_TABLE_HIER::DF14T($ObjID);
 $hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_CONST::TADIR_PGMID_R3TR, ABAP_OTYPE::BMFR_NAME, $df14l['FCTR_ID']);
 $child_bmfr = ABAP_DB_TABLE_HIER::DF14L_Child($df14l['PS_POSID'], $df14l['FCTR_ID']);
 $child_tdevc = ABAP_DB_TABLE_HIER::TDEVC_DEVCLASS($df14l['FCTR_ID']);

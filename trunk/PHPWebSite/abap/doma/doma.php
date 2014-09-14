@@ -116,9 +116,9 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DOMA_DESC . ' ' . $doma['DOMN
                     </table>
                 <?php } ?>
 
-<?php if (mysqli_num_rows($doma_vall) > 0) { ?>
+                <?php if (mysqli_num_rows($doma_vall) > 0) { ?>
                     <h4>Value Range</h4>
-                    <a name="#VALUES" id="VALUES"></a>
+                    <a name="#<?php echo ABAP_UI_TOOL::ANCHOR_VALUES ?>" id="<?php echo ABAP_UI_TOOL::ANCHOR_VALUES ?>"></a>
                     <table class="alv">
                         <tbody>
                             <tr><th class="alv">#</th>
@@ -133,14 +133,14 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DOMA_DESC . ' ' . $doma['DOMN
                                     <td class="alv" align="right"> <?php echo $doma_vall_item['DOMVALUE_L'] ?> &nbsp; </td>
                                     <td class="alv" align="right"> <?php echo $doma_vall_item['DOMVALUE_H'] ?> &nbsp; </td>
                                     <td class="alv"><?php echo $doma_vall_item_text ?></td> </tr>
-    <?php } ?>
+                            <?php } ?>
                             <tr><td class="alv" align="center"> &nbsp; </td>
                                 <td class="alv" align="right">  &nbsp; </td>
                                 <td class="alv" align="right">  &nbsp; </td>
                                 <td class="alv"> &nbsp; </td> </tr>
                         </tbody>
                     </table>
-<?php } ?>
+                <?php } ?>
 
                 <h4> Hierarchy </h4>
                 <table class="content_obj">
@@ -157,7 +157,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DOMA_DESC . ' ' . $doma['DOMN
         </div><!-- Content: End -->
 
         <!-- Footer -->
-<?php include __ROOT__ . '/include/footer.html' ?>
+        <?php include __ROOT__ . '/include/footer.html' ?>
 
     </body>
 </html>

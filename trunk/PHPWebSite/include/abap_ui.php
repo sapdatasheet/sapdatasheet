@@ -18,8 +18,10 @@ class ABAP_Navigation {
             $domainValue = '&nbsp;';
         }
 
-        $domain = $domain . '#VALUES';
-        return ABAP_Navigation::GetURL(ABAP_OTYPE::DOMA_NAME, $domain, $domainValue, $desc);
+        return "<a href=\"/abap/" . ABAP_OTYPE::DOMA_NAME 
+                . "/" . strtolower($domain) 
+                . ".html#" . ABAP_UI_TOOL::ANCHOR_VALUES . "\" title=\"" . $desc . "\"> " 
+                . $domainValue . "</a>";
     }
 
     public static function GetURLDtel($rollname, $desc) {
@@ -79,7 +81,8 @@ class ABAP_Navigation {
         $result = "";
         if (!empty($objname)) {
             $sTitle = (empty($title)) ? $value : $title;
-            $result = "<a href=\"/abap/" . $objtype . "/" . $objtype . ".php?id=" . $objname . "\" title=\"" . $sTitle . "\"> " . $value . "</a>";
+            //$result = "<a href=\"/abap/" . $objtype . "/" . $objtype . ".php?id=" . $objname . "\" title=\"" . $sTitle . "\"> " . $value . "</a>";
+            $result = "<a href=\"/abap/" . $objtype . "/" . strtolower($objname) . ".html\" title=\"" . $sTitle . "\"> " . $value . "</a>";
         }
         return $result;
     }
@@ -87,6 +90,8 @@ class ABAP_Navigation {
 }
 
 class ABAP_UI_TOOL {
+
+    const ANCHOR_VALUES = "values";
 
     public static function Redirect404() {
         header(HTTP_STATUS::STATUS_404);
