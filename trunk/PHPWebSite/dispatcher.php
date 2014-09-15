@@ -52,7 +52,7 @@ if ($requri === '/') {
 } else if ($requri === '/abap/tabl/index.html') {
     $target = 'abap/tabl/index.php';
 } else if (startsWith($requri, '/abap/tabl/index-') && endsWith($requri, '.html')) {
-    $ObjID = substr($requri, 17, -5);
+    $index = substr($requri, 17, -5);
     $target = 'abap/tabl/index.php';
 } else if (startsWith($requri, '/abap/tabl/') && endsWith($requri, '.html')) {
     $TablURI = substr($requri, 11, -5);

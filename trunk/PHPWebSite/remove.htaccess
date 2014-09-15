@@ -1,5 +1,5 @@
 <IfModule mod_dir.c>
 
-FallbackResource /not404.php
+FallbackResource /dispatcher.php
 
 </IfModule>
