@@ -5,14 +5,14 @@ require_once (__ROOT__ . '/include/global.php');
 require_once (__ROOT__ . '/include/abap_db.php');
 require_once (__ROOT__ . '/include/abap_ui.php');
 
-if (!isset($TCode)) {
-    $TCode = filter_input(INPUT_GET, 'id');
+if (!isset($ObjID)) {
+    $ObjID = filter_input(INPUT_GET, 'id');
 }
 
-if (empty($TCode)) {
+if (empty($ObjID)) {
     ABAP_UI_TOOL::Redirect404();
 }
-$tstc = ABAP_DB_TABLE_TRAN::TSTC(strtoupper($TCode));
+$tstc = ABAP_DB_TABLE_TRAN::TSTC(strtoupper($ObjID));
 if (empty($tstc['TCODE'])) {
     ABAP_UI_TOOL::Redirect404();
 }

@@ -5,14 +5,14 @@ require_once (__ROOT__ . '/include/global.php');
 require_once (__ROOT__ . '/include/abap_db.php');
 require_once (__ROOT__ . '/include/abap_ui.php');
 
-if (!isset($ViewName)) {
-    $ViewName = filter_input(INPUT_GET, 'id');
+if (!isset($ObjID)) {
+    $ObjID = filter_input(INPUT_GET, 'id');
 }
 
-if (empty($ViewName)) {
+if (empty($ObjID)) {
     ABAP_UI_TOOL::Redirect404();
 }
-$dd25l = ABAP_DB_TABLE_VIEW::DD25L(strtoupper($ViewName));
+$dd25l = ABAP_DB_TABLE_VIEW::DD25L(strtoupper($ObjID));
 if (empty($dd25l['VIEWNAME'])) {
     ABAP_UI_TOOL::Redirect404();
 }

@@ -6,14 +6,14 @@ require_once (__ROOT__ . '/include/global.php');
 require_once (__ROOT__ . '/include/abap_db.php');
 require_once (__ROOT__ . '/include/abap_ui.php');
 
-if (!isset($ClusterTable)) {
-    $ClusterTable = filter_input(INPUT_GET, 'id');
+if (!isset($ObjID)) {
+    $ObjID = filter_input(INPUT_GET, 'id');
 }
 
-if (empty($ClusterTable)) {
+if (empty($ObjID)) {
     ABAP_UI_TOOL::Redirect404();
 }
-$sqlt = ABAP_DB_TABLE_TABL::DD06L(strtoupper($ClusterTable));
+$sqlt = ABAP_DB_TABLE_TABL::DD06L(strtoupper($ObjID));
 if (empty($sqlt['SQLTAB'])) {
     ABAP_UI_TOOL::Redirect404();
 }
