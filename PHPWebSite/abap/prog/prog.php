@@ -6,14 +6,14 @@ require_once (__ROOT__ . '/include/global.php');
 require_once (__ROOT__ . '/include/abap_db.php');
 require_once (__ROOT__ . '/include/abap_ui.php');
 
-if (!isset($progname)) {
-    $progname = filter_input(INPUT_GET, 'id');
+if (!isset($ObjID)) {
+    $ObjID = filter_input(INPUT_GET, 'id');
 }
 
-if (empty($progname)) {
+if (empty($ObjID)) {
     ABAP_UI_TOOL::Redirect404();
 }
-$prog = ABAP_DB_TABLE_PROG::YREPOSRCMETA($progname);
+$prog = ABAP_DB_TABLE_PROG::YREPOSRCMETA(strtoupper($ObjID));
 if (empty($prog['PROGNAME'])) {
     ABAP_UI_TOOL::Redirect404();
 }

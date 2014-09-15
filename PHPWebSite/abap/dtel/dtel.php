@@ -6,14 +6,14 @@ require_once (__ROOT__ . '/include/global.php');
 require_once (__ROOT__ . '/include/abap_db.php');
 require_once (__ROOT__ . '/include/abap_ui.php');
 
-if (!isset($DataElement)) {
-    $DataElement = filter_input(INPUT_GET, 'id');
+if (!isset($ObjID)) {
+    $ObjID = filter_input(INPUT_GET, 'id');
 }
 
-if (empty($DataElement)) {
+if (empty($ObjID)) {
     ABAP_UI_TOOL::Redirect404();
 }
-$dtel = ABAP_DB_TABLE_DTEL::DD04L(strtoupper($DataElement));
+$dtel = ABAP_DB_TABLE_DTEL::DD04L(strtoupper($ObjID));
 if (empty($dtel['ROLLNAME'])) {
     ABAP_UI_TOOL::Redirect404();
 }

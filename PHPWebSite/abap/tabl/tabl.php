@@ -6,14 +6,14 @@ require_once (__ROOT__ . '/include/global.php');
 require_once (__ROOT__ . '/include/abap_db.php');
 require_once (__ROOT__ . '/include/abap_ui.php');
 
-if (!isset($Table)) {
-    $Table = filter_input(INPUT_GET, 'id');
+if (!isset($ObjID)) {
+    $ObjID = filter_input(INPUT_GET, 'id');
 }
 
-if (empty($Table)) {
+if (empty($ObjID)) {
     ABAP_UI_TOOL::Redirect404();
 }
-$dd02l = ABAP_DB_TABLE_TABL::DD02L(strtoupper($Table));
+$dd02l = ABAP_DB_TABLE_TABL::DD02L(strtoupper($ObjID));
 if (empty($dd02l['TABNAME'])) {
     ABAP_UI_TOOL::Redirect404();
 }

@@ -266,7 +266,8 @@ class ABAP_DB_TABLE_DOMA {
         $sql = "select DDTEXT from " . ABAP_DB_TABLE_DOMA::DD01T
                 . " where DOMNAME = ? and DDLANGUAGE = ?";
         $stmt = ABAP_DB_SCHEMA::getConnDoma()->prepare($sql);
-        $stmt->bind_param('ss', $Domain, $langu = ABAP_DB_CONST::LANGU_EN);
+        $langu = ABAP_DB_CONST::LANGU_EN;
+        $stmt->bind_param('ss', $Domain, $langu);
         $stmt->execute();
         $stmt->bind_result($result);
         $stmt->fetch();
@@ -441,7 +442,8 @@ class ABAP_DB_TABLE_FUNC {
         $sql = "select STEXT from " . ABAP_DB_TABLE_FUNC::TFTIT
                 . " where FUNCNAME = ? and SPRAS = ?";
         $stmt = ABAP_DB_SCHEMA::getConnFunc()->prepare($sql);
-        $stmt->bind_param('ss', $fm, $langu = ABAP_DB_CONST::LANGU_EN);
+        $langu = ABAP_DB_CONST::LANGU_EN;
+        $stmt->bind_param('ss', $fm, $langu);
         $stmt->execute();
         $stmt->bind_result($result);
         $stmt->fetch();
@@ -458,7 +460,8 @@ class ABAP_DB_TABLE_FUNC {
         $sql = "select AREAT from " . ABAP_DB_TABLE_FUNC::TLIBT
                 . " where area = ? and SPRAS = ?";
         $stmt = ABAP_DB_SCHEMA::getConnFunc()->prepare($sql);
-        $stmt->bind_param('ss', $fg, $langu = ABAP_DB_CONST::LANGU_EN);
+        $langu = ABAP_DB_CONST::LANGU_EN;
+        $stmt->bind_param('ss', $fg, $langu);
         $stmt->execute();
         $stmt->bind_result($result);
         $stmt->fetch();
@@ -628,7 +631,8 @@ class ABAP_DB_TABLE_FUNC {
         $sql = "select STEXT from " . ABAP_DB_TABLE_FUNC::FUNCT_E         // Only English text in this table
                 . " where SPRAS = ? and funcname = ? and PARAMETER = ? and KIND = ?";
         $stmt = ABAP_DB_SCHEMA::getConnFunc()->prepare($sql);
-        $stmt->bind_param('ssss', $langu = ABAP_DB_CONST::LANGU_EN, $fm, $para, $kind);
+        $langu = ABAP_DB_CONST::LANGU_EN;
+        $stmt->bind_param('ssss', $langu, $fm, $para, $kind);
         $stmt->execute();
         $stmt->bind_result($result);
         $stmt->fetch();
@@ -1104,7 +1108,8 @@ class ABAP_DB_TABLE_PROG {
         $sql = "select DTXT from " . ABAP_DB_TABLE_PROG::D020T
                 . " where prog = ? AND dynr = ? AND lang = ?";
         $stmt = ABAP_DB_SCHEMA::getConnProg()->prepare($sql);
-        $stmt->bind_param('sss', $prog, $dynr, $langu = ABAP_DB_CONST::LANGU_EN);
+        $langu = ABAP_DB_CONST::LANGU_EN;
+        $stmt->bind_param('sss', $prog, $dynr, $langu);
         $stmt->execute();
         $stmt->bind_result($result);
         $stmt->fetch();
@@ -1163,7 +1168,8 @@ class ABAP_DB_TABLE_PROG {
         $sql = "select LDBTEXT from " . ABAP_DB_TABLE_PROG::LDBT
                 . " where LDBNAME = ? and spras = ?";
         $stmt = ABAP_DB_SCHEMA::getConnProg()->prepare($sql);
-        $stmt->bind_param('ss', $LdbName, $langu = ABAP_DB_CONST::LANGU_EN);
+        $langu = ABAP_DB_CONST::LANGU_EN;
+        $stmt->bind_param('ss', $LdbName, $langu);
         $stmt->execute();
         $stmt->bind_result($result);
         $stmt->fetch();
@@ -1194,7 +1200,8 @@ class ABAP_DB_TABLE_PROG {
         $sql = "select ATEXT from " . ABAP_DB_TABLE_PROG::YTAPLT
                 . " where APPL = ? and SPRSL = ?";
         $stmt = ABAP_DB_SCHEMA::getConnProg()->prepare($sql);
-        $stmt->bind_param('ss', $Appl, $langu = ABAP_DB_CONST::LANGU_EN);
+        $langu = ABAP_DB_CONST::LANGU_EN;
+        $stmt->bind_param('ss', $Appl, $langu);
         $stmt->execute();
         $stmt->bind_result($result);
         $stmt->fetch();
@@ -1373,7 +1380,8 @@ class ABAP_DB_TABLE_TABL {
         $sql = "select DDTEXT from " . ABAP_DB_TABLE_TABL::DD02T
                 . " where tabname = ? and DDLANGUAGE = ?";
         $stmt = ABAP_DB_SCHEMA::getConnTabl()->prepare($sql);
-        $stmt->bind_param('ss', $TableName, $langu = ABAP_DB_CONST::LANGU_EN);
+        $langu = ABAP_DB_CONST::LANGU_EN;
+        $stmt->bind_param('ss', $TableName, $langu);
         $stmt->execute();
         $stmt->bind_result($result);
         $stmt->fetch();
@@ -1646,7 +1654,8 @@ class ABAP_DB_TABLE_TRAN {
         $sql = "select ttext from " . ABAP_DB_TABLE_TRAN::TSTCT
                 . " where TCODE = ? and SPRSL = ?";
         $stmt = ABAP_DB_SCHEMA::getConnTran()->prepare($sql);
-        $stmt->bind_param('ss', $TCode, $langu = ABAP_DB_CONST::LANGU_EN);
+        $langu = ABAP_DB_CONST::LANGU_EN;
+        $stmt->bind_param('ss', $TCode, $langu);
         $stmt->execute();
         $stmt->bind_result($result);
         $stmt->fetch();

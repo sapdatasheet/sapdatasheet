@@ -18,7 +18,7 @@ class ABAP_Navigation {
             $domainValue = '&nbsp;';
         }
 
-        return "<a href=\"/abap/" . ABAP_OTYPE::DOMA_NAME 
+        return "<a href=\"/abap/" . strtolower(ABAP_OTYPE::DOMA_NAME) 
                 . "/" . strtolower($domain) 
                 . ".html#" . ABAP_UI_TOOL::ANCHOR_VALUES . "\" title=\"" . $desc . "\"> " 
                 . $domainValue . "</a>";
@@ -57,14 +57,14 @@ class ABAP_Navigation {
     }
 
     public static function GetURLTableField($table, $field) {
-       return "<a href=\"/abap/tabl/field.php?table=" . $table . "&field=" . $field 
-               . "\" title=\"" . $field 
+       return "<a href=\"/abap/tabl/" . strtolower($table) . "-" . strtolower($field) 
+               . ".html\" title=\"" . $field 
                . "\" target=\"_blank\"> " . $field . "</a>";
     }
 
     public static function GetURLTableInclude($table, $field, $position) {
-       return "<a href=\"/abap/tabl/field.php?table=" . $table . "&position=" . $position 
-               . "\" title=\"" . $position 
+       return "<a href=\"/abap/tabl/" . strtolower($table) . "-" . $position 
+               . ".html\" title=\"" . $position 
                . "\" target=\"_blank\"> " . $field . "</a>";
     }
 

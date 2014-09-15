@@ -6,14 +6,14 @@ require_once (__ROOT__ . '/include/global.php');
 require_once (__ROOT__ . '/include/abap_db.php');
 require_once (__ROOT__ . '/include/abap_ui.php');
 
-if (!isset($Domain)) {
-    $Domain = filter_input(INPUT_GET, 'id');
+if (!isset($ObjID)) {
+    $ObjID = filter_input(INPUT_GET, 'id');
 }
 
-if (empty($Domain)) {
+if (empty($ObjID)) {
     ABAP_UI_TOOL::Redirect404();
 }
-$doma = ABAP_DB_TABLE_DOMA::DD01L(strtoupper($Domain));
+$doma = ABAP_DB_TABLE_DOMA::DD01L(strtoupper($ObjID));
 if (empty($doma['DOMNAME'])) {
     ABAP_UI_TOOL::Redirect404();
 }
