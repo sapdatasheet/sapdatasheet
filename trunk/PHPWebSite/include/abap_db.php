@@ -722,6 +722,19 @@ class ABAP_DB_TABLE_HIER {
     }
 
     /**
+     * BMFR Site Map.
+     * <pre>
+     * SELECT FCTR_ID FROM abaphier.df14l where FCTR_ID <> '';
+     * </pre>
+     */
+    public static function DF14L_Sitemap() {
+        $con = ABAP_DB_SCHEMA::getConnHier();
+        $sql = "select FCTR_ID from " . ABAP_DB_TABLE_HIER::DF14L 
+                . " where FCTR_ID <> ''";
+        return $con->query($sql);
+    }
+    
+    /**
      * Application Component list, by index.
      * <p>
      * Example SQL Statement:</p>
