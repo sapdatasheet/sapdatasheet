@@ -9,9 +9,24 @@
         <loc>http://www.sapdatasheet.org/sitemap/abap-bmfr.xml</loc>
         <lastmod><?php echo date("Y-m-d") ?></lastmod>
     </sitemap>
+    <sitemap>
+        <loc>http://www.sapdatasheet.org/sitemap/abap-cvers.xml</loc>
+        <lastmod><?php echo date("Y-m-d") ?></lastmod>
+    </sitemap>
+    <sitemap>
+        <loc>http://www.sapdatasheet.org/sitemap/abap-devc.xml</loc>
+        <lastmod><?php echo date("Y-m-d") ?></lastmod>
+    </sitemap>
+    <sitemap>
+        <loc>http://www.sapdatasheet.org/sitemap/abap-doma1.xml</loc>
+        <lastmod><?php echo date("Y-m-d") ?></lastmod>
+    </sitemap>
+    <sitemap>
+        <loc>http://www.sapdatasheet.org/sitemap/abap-doma2.xml</loc>
+        <lastmod><?php echo date("Y-m-d") ?></lastmod>
+    </sitemap>
 </sitemapindex>
 <?php
-
 $ob_content = ob_get_contents();
 ob_end_flush();
 $ob_fp = fopen("./sitemaps.xml", "w");

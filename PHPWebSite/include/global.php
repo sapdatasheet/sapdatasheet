@@ -35,6 +35,11 @@ class WEBSITE {
 
 }
 
+/** Sitemap constants. */
+class SITEMAP{
+    const MAX_URL_COUNT = 50000;
+}
+
 /** ABAP Object types and description. */
 class ABAP_OTYPE {
 
