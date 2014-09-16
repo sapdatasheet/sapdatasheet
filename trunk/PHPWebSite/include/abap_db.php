@@ -248,6 +248,19 @@ class ABAP_DB_TABLE_DOMA {
     }
 
     /**
+     * DD01L Site Map.
+     * <pre>
+     * SELECT DOMNAME FROM abapdoma.dd01l where DOMNAME not like 'Y%' and DOMNAME not like 'Z%'
+     * </pre>
+     */
+    public static function DD01L_Sitemap() {
+        $con = ABAP_DB_SCHEMA::getConnDoma();
+        $sql = "select DOMNAME from " . ABAP_DB_TABLE_DOMA::DD01L
+                . " where DOMNAME not like 'Y%' and DOMNAME not like 'Z%'";
+        return $con->query($sql);
+    }
+
+    /**
      * Domain.
      */
     public static function DD01L($DomName) {
@@ -928,6 +941,19 @@ class ABAP_DB_TABLE_HIER {
         $index = $con->real_escape_string($index);
         $sql = "select * from " . ABAP_DB_TABLE_HIER::TDEVC
                 . " where devclass like '" . $index . "%' order by devclass";
+        return $con->query($sql);
+    }
+
+    /**
+     * DEVC Site Map.
+     * <pre>
+     * SELECT DEVCLASS FROM abaphier.tdevc where devclass not like 'Y%' and devclass not like 'Z%' and devclass not like '$%'
+     * </pre>
+     */
+    public static function TDEVC_Sitemap() {
+        $con = ABAP_DB_SCHEMA::getConnHier();
+        $sql = "select DEVCLASS from " . ABAP_DB_TABLE_HIER::TDEVC 
+                . " where devclass not like 'Y%' and devclass not like 'Z%' and devclass not like '$%'";
         return $con->query($sql);
     }
 
