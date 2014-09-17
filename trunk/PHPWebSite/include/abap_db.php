@@ -1,7 +1,7 @@
 <?php
 
-define('__ROOT__', dirname(dirname(__FILE__))); 
-require_once(__ROOT__ . '/include/config.php') ;
+define('__ROOT__', dirname(dirname(__FILE__)));
+require_once(__ROOT__ . '/include/config.php');
 
 class ABAP_DB_CONST {
 
@@ -347,6 +347,19 @@ class ABAP_DB_TABLE_DTEL {
     }
 
     /**
+     * DD01L Site Map.
+     * <pre>
+     * SELECT ROLLNAME FROM abapdtel.dd04l where ROLLNAME not like 'Y%' and ROLLNAME not like 'Z%'
+     * </pre>
+     */
+    public static function DD04L_Sitemap() {
+        $con = ABAP_DB_SCHEMA::getConnDtel();
+        $sql = "select ROLLNAME from " . ABAP_DB_TABLE_DTEL::DD04L
+                . " where ROLLNAME not like 'Y%' and ROLLNAME not like 'Z%'";
+        return $con->query($sql);
+    }
+
+    /**
      * Data Element.
      */
     public static function DD04L($Rollname) {
@@ -445,6 +458,19 @@ class ABAP_DB_TABLE_FUNC {
             $sql = "SELECT FUNCNAME, FMODE FROM " . ABAP_DB_TABLE_FUNC::TFDIR
                     . " where funcname LIKE '" . $index . "%' order by funcname";
         }
+        return $con->query($sql);
+    }
+
+    /**
+     * DD01L Site Map.
+     * <pre>
+     * SELECT FUNCNAME FROM abapfunc.tfdir where FUNCNAME not like 'Y%' and FUNCNAME not like 'Z%'
+     * </pre>
+     */
+    public static function TFDIR_Sitemap() {
+        $con = ABAP_DB_SCHEMA::getConnFunc();
+        $sql = "select FUNCNAME from " . ABAP_DB_TABLE_FUNC::TFDIR
+                . " where FUNCNAME not like 'Y%' and FUNCNAME not like 'Z%'";
         return $con->query($sql);
     }
 
@@ -742,11 +768,11 @@ class ABAP_DB_TABLE_HIER {
      */
     public static function DF14L_Sitemap() {
         $con = ABAP_DB_SCHEMA::getConnHier();
-        $sql = "select FCTR_ID from " . ABAP_DB_TABLE_HIER::DF14L 
+        $sql = "select FCTR_ID from " . ABAP_DB_TABLE_HIER::DF14L
                 . " where FCTR_ID <> ''";
         return $con->query($sql);
     }
-    
+
     /**
      * Application Component list, by index.
      * <p>
@@ -931,6 +957,38 @@ class ABAP_DB_TABLE_HIER {
     }
 
     /**
+     * DD01L Site Map.
+     * <pre>
+     * SELECT OBJ_NAME FROM abaphier.tadir 
+     *      WHERE pgmid = 'R3TR' and object = 'PROG'
+     *      and OBJ_NAME <> ''
+     *      and OBJ_NAME not like 'Y%'
+     *      and OBJ_NAME not like 'Z%'
+     *      and OBJ_NAME not like '$%'
+     *      and OBJ_NAME not like '!%'
+     *      and OBJ_NAME not like ' %'
+     *      and OBJ_NAME not like '*%'
+     *      and OBJ_NAME not like '-%'
+     *      and OBJ_NAME not like '\%%' escape '\\'
+     * </pre>
+     */
+    public static function TADIR_PROG_Sitemap() {
+        $con = ABAP_DB_SCHEMA::getConnHier();
+        $sql = "select OBJ_NAME from " . ABAP_DB_TABLE_HIER::TADIR
+                . " WHERE pgmid = 'R3TR' and object = 'PROG'"
+                . " and OBJ_NAME <> ''"
+                . " and OBJ_NAME not like 'Y%'"
+                . " and OBJ_NAME not like 'Z%'"
+                . " and OBJ_NAME not like '$%'"
+                . " and OBJ_NAME not like '!%'"
+                . " and OBJ_NAME not like ' %'"
+                . " and OBJ_NAME not like '*%'"
+                . " and OBJ_NAME not like '-%'"
+                . " and OBJ_NAME not like '\%%' escape '\\\\'";
+        return $con->query($sql);
+    }
+
+    /**
      * Package List, of an index.
      * <pre>
      * SELECT * FROM tdevc where DEVCLASS LIKE 'A%' order by devclass
@@ -952,7 +1010,7 @@ class ABAP_DB_TABLE_HIER {
      */
     public static function TDEVC_Sitemap() {
         $con = ABAP_DB_SCHEMA::getConnHier();
-        $sql = "select DEVCLASS from " . ABAP_DB_TABLE_HIER::TDEVC 
+        $sql = "select DEVCLASS from " . ABAP_DB_TABLE_HIER::TDEVC
                 . " where devclass not like 'Y%' and devclass not like 'Z%' and devclass not like '$%'";
         return $con->query($sql);
     }
@@ -1415,7 +1473,7 @@ class ABAP_DB_TABLE_TABL {
         if (strlen(trim($TableName)) < 1) {
             return '';
         }
-        
+
         $sql = "select DDTEXT from " . ABAP_DB_TABLE_TABL::DD02T
                 . " where tabname = ? and DDLANGUAGE = ?";
         $stmt = ABAP_DB_SCHEMA::getConnTabl()->prepare($sql);
@@ -1564,11 +1622,11 @@ class ABAP_DB_TABLE_TABL {
         $Sqltab = $con->real_escape_string($Sqltab);
         $FieldName = $con->real_escape_string($FieldName);
         $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD17S
-                . " WHERE SQLTAB = '" . $Sqltab 
+                . " WHERE SQLTAB = '" . $Sqltab
                 . "' AND FIELDNAME = '" . $FieldName . "' order by INDEXNAME";
         return $con->query($sql);
     }
-    
+
 }
 
 /** Database table names - transaction code. */
