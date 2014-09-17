@@ -77,9 +77,9 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::TRAN_DESC . ' ' . $tstc['TCOD
                 <h4> Basic Data </h4>
                 <table class="content_obj">
                     <tbody>
-                        <tr><td class="content_label"> Transaction Type        </td><td class="field"> <?php echo $tstc['CINFO'] ?> </td><td><?php echo $tstc_cinfo_desc ?></td></tr>
                         <tr><td class="content_label"> Transaction Code        </td><td class="field"> <?php echo ABAP_Navigation::GetURLTransactionCode($tstc['TCODE'], $tstc_desc) ?> </td><td>&nbsp;</td></tr>
                         <tr><td class="content_label"> Transaction Description </td><td class="field"> <?php echo $tstc_desc ?> &nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td class="content_label"> Transaction Type        </td><td class="field"> <?php echo $tstc['CINFO'] ?> </td><td><?php echo $tstc_cinfo_desc ?></td></tr>
                     </tbody>
                 </table>
 
