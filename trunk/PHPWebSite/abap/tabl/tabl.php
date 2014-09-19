@@ -64,9 +64,9 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $dd02l_tabclass_desc . ' ' . $dd02l['TABN
         <div class="content">
             <!-- Content Navigator -->
             <div class="content_navi">
-                <a href="/">Home page</a> &gt; 
-                <a href="/abap/">ABAP Object</a> &gt; 
-                <a href="/abap/tabl/"><?php echo $dd02l_tabclass_desc ?></a> &gt; 
+                <a href="/">Home page</a> &gt;
+                <a href="/abap/">ABAP Object</a> &gt;
+                <a href="/abap/tabl/"><?php echo $dd02l_tabclass_desc ?></a> &gt;
                 <a href="#"><?php echo $dd02l['TABNAME'] ?></a>
             </div>
 
@@ -119,7 +119,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $dd02l_tabclass_desc . ' ' . $dd02l['TABN
                             <th class="alv"> Decimal<br/>Places</th>
                             <th class="alv"> Short Description</th>
                             <th class="alv"> Check<br/>table</th>
-                        </tr>                        
+                        </tr>
                     </thead>
                     <tbody>
                         <?php
@@ -127,13 +127,14 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $dd02l_tabclass_desc . ' ' . $dd02l['TABN
                             $anchor_name = 'FIELD_' . $dd03l_item['FIELDNAME'];
                             if (strlen(trim($dd03l_item['PRECFIELD'])) > 0) {
                                 $dd03l_fieldname_url = ABAP_Navigation::GetURLTableInclude($dd02l['TABNAME'], $dd03l_item['FIELDNAME'], $dd03l_item['POSITION']);
+                                $dd03l_fieldname_desc = ABAP_DB_TABLE_TABL::DD02T($dd03l_item['PRECFIELD']);
                             } else {
                                 $dd03l_fieldname_url = ABAP_Navigation::GetURLTableField($dd02l['TABNAME'], $dd03l_item['FIELDNAME']);
+                                $dd03l_fieldname_desc = ABAP_DB_TABLE_DTEL::DD04T($dd03l_item['ROLLNAME']);
                             }
-                            $dd03l_fieldname_desc = ABAP_DB_TABLE_TABL::DD03L_FIELDNAME_DESC($dd03l_item['COMPTYPE'], $dd03l_item['ROLLNAME']);
                             $dd03l_rollname_url = ABAP_Navigation::GetURLDtel($dd03l_item['ROLLNAME'], '');
                             ?>
-                            <tr>                        
+                            <tr>
                                 <td class="alv" align="center"> <a name="#<?php echo $anchor_name ?>" id="<?php echo $anchor_name ?>"></a> <?php echo $dd03l_item['POSITION'] ?> </td>
                                 <td class="alv"> <?php echo $dd03l_fieldname_url ?> </td>
                                 <td class="alv" align="center"> <?php echo ABAP_UI_TOOL::GetCheckBox('field_' . $dd03l_item['FIELDNAME'], $dd03l_item['KEYFLAG']) ?> </td>
@@ -147,7 +148,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $dd02l_tabclass_desc . ' ' . $dd02l['TABN
                             </tr>
                         <?php } ?>
                     </tbody>
-                </table>  
+                </table>
 
                 <h4> Index </h4>
                 <h4> Append Structure </h4>
