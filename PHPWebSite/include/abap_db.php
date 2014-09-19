@@ -1436,6 +1436,19 @@ class ABAP_DB_TABLE_TABL {
     }
 
     /**
+     * DD01L Site Map.
+     * <pre>
+     * SELECT TABNAME FROM abaptabl.dd02l WHERE TABNAME NOT LIKE 'Y%' AND TABNAME NOT LIKE 'Z%' 
+     * </pre>
+     */
+    public static function DD02L_Sitemap() {
+        $con = ABAP_DB_SCHEMA::getConnTabl();
+        $sql = "select TABNAME from " . ABAP_DB_TABLE_TABL::DD02L
+                . " where TABNAME not like 'Y%' and TABNAME not like 'Z%'";
+        return $con->query($sql);
+    }
+
+    /**
      * Table list for a SQLTAB.
      * <pre>
      * SELECT * FROM dd02l where sqltab = 'RFBLG' order by TABNAME
@@ -1500,6 +1513,20 @@ class ABAP_DB_TABLE_TABL {
     }
 
     /**
+     * Table Field Sitemap.
+     * <pre>
+     * SELECT IF (CHAR_LENGTH(TRIM(PRECFIELD)) > 0, CONCAT(TABNAME, '-', POSITION), CONCAT(TABNAME, '-', FIELDNAME)) AS FIELD 
+     * FROM abaptabl.dd03l WHERE TABNAME NOT LIKE 'Y%' AND TABNAME NOT LIKE 'Z%'
+     * </pre>
+     */
+    public static function DD03L_Sitemap() {
+        $con = ABAP_DB_SCHEMA::getConnTabl();
+        $sql = "select IF (CHAR_LENGTH(TRIM(PRECFIELD)) > 0, CONCAT(TABNAME, '-', POSITION), CONCAT(TABNAME, '-', FIELDNAME)) AS FIELD from " . ABAP_DB_TABLE_TABL::DD03L
+                . " where TABNAME NOT LIKE 'Y%' AND TABNAME NOT LIKE 'Z%'";
+        return $con->query($sql);
+    }
+
+    /**
      * Table Field Attributes.
      * <pre>
      * SELECT * FROM abaptabl.dd03l where TABNAME = 'BKPF' and FIELDNAME = 'BUKRS'
@@ -1531,19 +1558,6 @@ class ABAP_DB_TABLE_TABL {
                 . "' AND POSITION = '" . $Position . "'";
         $qry = $con->query($sql);
         return mysqli_fetch_array($qry);
-    }
-
-    /**
-     * Get Table Field description.
-     */
-    public static function DD03L_FIELDNAME_DESC($CompType, $RollName) {
-        if (ABAP_DB_CONST::DOMAIN_DD03L_COMPTYPE_S == $CompType) {   // Structured type (possibly as INCLUDE) 
-            $dd03l_fieldname_desc = '';
-        } else {
-            $dd03l_fieldname_desc = ABAP_DB_TABLE_DTEL::DD04T($RollName);
-        }
-
-        return $dd03l_fieldname_desc;
     }
 
     /**
