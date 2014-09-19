@@ -1436,7 +1436,7 @@ class ABAP_DB_TABLE_TABL {
     }
 
     /**
-     * DD01L Site Map.
+     * DD02L Site Map.
      * <pre>
      * SELECT TABNAME FROM abaptabl.dd02l WHERE TABNAME NOT LIKE 'Y%' AND TABNAME NOT LIKE 'Z%' 
      * </pre>
@@ -1682,6 +1682,19 @@ class ABAP_DB_TABLE_TRAN {
         $index = $con->real_escape_string($index . '%');
         $sql = "SELECT * FROM " . ABAP_DB_TABLE_TRAN::TSTC
                 . " where TCODE LIKE '" . $index . "' order by TCODE";
+        return $con->query($sql);
+    }
+
+    /**
+     * DD01L Site Map.
+     * <pre>
+     * SELECT TCODE FROM abaptran.tstc where TCODE not like 'Y%' and  TCODE not like 'Z%'
+     * </pre>
+     */
+    public static function TSTC_Sitemap() {
+        $con = ABAP_DB_SCHEMA::getConnTran();
+        $sql = "select TCODE from " . ABAP_DB_TABLE_TRAN::TSTC
+                . " where TCODE not like 'Y%' and TCODE not like 'Z%'";
         return $con->query($sql);
     }
 
