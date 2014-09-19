@@ -29,6 +29,7 @@
         array("prog", 6),
         array("tabl", 9),
         array("table-field", 153),
+        array("tran", 3),
     );
     ?>
     <?php foreach ($abap_type_count as $abap_type_item) { ?>
