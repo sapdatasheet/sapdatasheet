@@ -1840,6 +1840,20 @@ class ABAP_DB_TABLE_VIEW {
         return $con->query($sql);
     }
 
+
+    /**
+     * DD25L Site Map.
+     * <pre>
+     * SELECT VIEWNAME FROM abapview.dd25l WHERE VIEWNAME <> '' AND VIEWNAME NOT LIKE 'Y%' AND VIEWNAME NOT LIKE 'Z%'
+     * </pre>
+     */
+    public static function DD25L_Sitemap() {
+        $con = ABAP_DB_SCHEMA::getConnView();
+        $sql = "select VIEWNAME from " . ABAP_DB_TABLE_VIEW::DD25L
+                . " where VIEWNAME <> '' AND VIEWNAME NOT LIKE 'Y%' AND VIEWNAME NOT LIKE 'Z%'";
+        return $con->query($sql);
+    }
+
     /**
      * View.
      */

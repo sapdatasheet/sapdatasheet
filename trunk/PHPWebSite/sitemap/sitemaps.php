@@ -30,6 +30,7 @@
         array("tabl", 9),
         array("table-field", 153),
         array("tran", 3),
+        array("view", 2),
     );
     ?>
     <?php foreach ($abap_type_count as $abap_type_item) { ?>
