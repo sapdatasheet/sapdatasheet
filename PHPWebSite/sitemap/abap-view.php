@@ -1,11 +1,11 @@
-<!-- ABAP TRAN - 120,679 -->
+<!-- ABAP View - 55,097 -->
 <?php
 define('__ROOT__', dirname(dirname(__FILE__)));
 require_once (__ROOT__ . '/include/global.php');
 require_once (__ROOT__ . '/include/abap_db.php');
 
-$tran = ABAP_DB_TABLE_TRAN::TSTC_Sitemap();
-$num_rows = mysqli_num_rows($tran);
+$view = ABAP_DB_TABLE_VIEW::DD25L_Sitemap();
+$num_rows = mysqli_num_rows($view);
 $file_count = intval(ceil($num_rows / SITEMAP::MAX_URL_COUNT));
 echo $num_rows . '-' . $file_count  . '<br />';
 
@@ -18,10 +18,10 @@ for ($i = 1; $i <= $file_count; $i++) {
     echo "\r\n";
 
     $j = 1;
-    while ($row = mysqli_fetch_array($tran)) {
-        $abapurl_obj = htmlentities(strtolower($row['TCODE']), ENT_QUOTES, "UTF-8");
+    while ($row = mysqli_fetch_array($view)) {
+        $abapurl_obj = htmlentities(strtolower($row['VIEWNAME']), ENT_QUOTES, "UTF-8");
         if (strlen(trim($abapurl_obj)) > 0) {
-            $abapurl = "http://www.sapdatasheet.org/abap/tran/" . $abapurl_obj . ".html";
+            $abapurl = "http://www.sapdatasheet.org/abap/view/" . $abapurl_obj . ".html";
 
             echo '<url>';
             echo '<loc>' . $abapurl . '</loc>';
@@ -44,7 +44,7 @@ for ($i = 1; $i <= $file_count; $i++) {
     ob_end_flush();
     echo ' --> ';
 
-    $filename = "./abap-tran" . $i . ".xml";
+    $filename = "./abap-view" . $i . ".xml";
     $ob_fp = fopen($filename, "w");
     fwrite($ob_fp, $ob_content);
     fclose($ob_fp);
