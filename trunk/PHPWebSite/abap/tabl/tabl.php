@@ -127,11 +127,10 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $dd02l_tabclass_desc . ' ' . $dd02l['TABN
                             $anchor_name = 'FIELD_' . $dd03l_item['FIELDNAME'];
                             if (strlen(trim($dd03l_item['PRECFIELD'])) > 0) {
                                 $dd03l_fieldname_url = ABAP_Navigation::GetURLTableInclude($dd02l['TABNAME'], $dd03l_item['FIELDNAME'], $dd03l_item['POSITION']);
-                                $dd03l_fieldname_desc = ABAP_DB_TABLE_TABL::DD02T($dd03l_item['PRECFIELD']);
                             } else {
                                 $dd03l_fieldname_url = ABAP_Navigation::GetURLTableField($dd02l['TABNAME'], $dd03l_item['FIELDNAME']);
-                                $dd03l_fieldname_desc = ABAP_DB_TABLE_DTEL::DD04T($dd03l_item['ROLLNAME']);
                             }
+                            $dd03l_fieldname_desc = ABAP_UI_TOOL::GetTablFieldDesc($dd03l_item['PRECFIELD'], $dd03l_item['ROLLNAME']);
                             $dd03l_rollname_url = ABAP_Navigation::GetURLDtel($dd03l_item['ROLLNAME'], '');
                             ?>
                             <tr>

@@ -1,7 +1,7 @@
 <?php
 
-define('__ROOT__', dirname(dirname(__FILE__))); 
-require_once(__ROOT__ . '/include/global.php') ;
+define('__ROOT__', dirname(dirname(__FILE__)));
+require_once(__ROOT__ . '/include/global.php');
 
 class ABAP_Navigation {
 
@@ -18,9 +18,9 @@ class ABAP_Navigation {
             $domainValue = '&nbsp;';
         }
 
-        return "<a href=\"/abap/" . strtolower(ABAP_OTYPE::DOMA_NAME) 
-                . "/" . strtolower($domain) 
-                . ".html#" . ABAP_UI_TOOL::ANCHOR_VALUES . "\" title=\"" . $desc . "\"> " 
+        return "<a href=\"/abap/" . strtolower(ABAP_OTYPE::DOMA_NAME)
+                . "/" . strtolower($domain)
+                . ".html#" . ABAP_UI_TOOL::ANCHOR_VALUES . "\" title=\"" . $desc . "\"> "
                 . $domainValue . "</a>";
     }
 
@@ -57,15 +57,15 @@ class ABAP_Navigation {
     }
 
     public static function GetURLTableField($table, $field) {
-       return "<a href=\"/abap/tabl/" . strtolower($table) . "-" . strtolower($field) 
-               . ".html\" title=\"" . $field 
-               . "\" target=\"_blank\"> " . $field . "</a>";
+        return "<a href=\"/abap/tabl/" . strtolower($table) . "-" . strtolower($field)
+                . ".html\" title=\"" . $field
+                . "\" target=\"_blank\"> " . $field . "</a>";
     }
 
     public static function GetURLTableInclude($table, $field, $position) {
-       return "<a href=\"/abap/tabl/" . strtolower($table) . "-" . $position 
-               . ".html\" title=\"" . $position 
-               . "\" target=\"_blank\"> " . $field . "</a>";
+        return "<a href=\"/abap/tabl/" . strtolower($table) . "-" . $position
+                . ".html\" title=\"" . $position
+                . "\" target=\"_blank\"> " . $field . "</a>";
     }
 
     public static function GetURLTransactionCode($tcode, $desc) {
@@ -194,6 +194,17 @@ class ABAP_UI_TOOL {
     }
 
     /**
+     * Get Table Filed description.
+     */
+    public static function GetTablFieldDesc($PrecField, $RollName) {
+        if (strlen(trim($PrecField)) > 0) {
+            return ABAP_DB_TABLE_TABL::DD02T($PrecField);
+        } else {
+            return ABAP_DB_TABLE_DTEL::DD04T($RollName);
+        }
+    }
+
+    /**
      * Get transaction code type.
      */
     public static function GetTCodeTypeDesc($TCodeType) {
@@ -233,6 +244,28 @@ class ABAP_UI_TOOL {
         }
 
         return $desc;
+    }
+
+    public static function GetFuncParamLink($ParamType, $Structure) {
+        $result = $Structure;
+
+        if ($ParamType == ABAP_DB_CONST::FUPARAREF_PARAMTYPE_T) {
+            $result = ABAP_Navigation::GetURLTable($Structure, '');
+        } else if ($ParamType == ABAP_DB_CONST::FUPARAREF_PARAMTYPE_X) {
+            $result = $Structure;
+        } else if ($ParamType == ABAP_DB_CONST::FUPARAREF_PARAMTYPE_I || $ParamType == ABAP_DB_CONST::FUPARAREF_PARAMTYPE_E || $ParamType == ABAP_DB_CONST::FUPARAREF_PARAMTYPE_C) {
+            if (strpos($Structure, '-') !== false) {
+                // We have checked the database, 
+                //   the '-' is always in the middle
+                //   the '-' will not located at beginning or end
+                list($Table, $Field) = explode('-', $Structure, 2);
+                $link_table = ABAP_Navigation::GetURLTable($Table, '');
+                $link_field = ABAP_Navigation::GetURLTableField($Table, $Field);
+                $result = $link_table . '-' . $link_field;
+            }
+        }
+
+        return $result;
     }
 
 }
