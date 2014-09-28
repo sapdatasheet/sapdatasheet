@@ -126,18 +126,19 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::FUNC_DESC . ' ' . $func['FUNC
                             if ($fupararef_item['REFERENCE'] == ABAP_DB_CONST::FLAG_TRUE) {
                                 $para_passvalue = ABAP_DB_CONST::FLAG_FALSE;
                             }
+                            $param_link = ABAP_UI_TOOL::GetFuncParamLink($fupararef_item['PARAMTYPE'], $fupararef_item['STRUCTURE']);
                             // Load Parameter text
-                            $para_stext = ABAP_DB_TABLE_FUNC::FUNCT($fupararef_item['FUNCNAME'], $fupararef_item['PARAMETER'], $fupararef_item['PARAMTYPE']);
+                            $param_stext = ABAP_DB_TABLE_FUNC::FUNCT($fupararef_item['FUNCNAME'], $fupararef_item['PARAMETER'], $fupararef_item['PARAMTYPE']);
                             ?>
                             <tr>
                                 <td class="alv"> <?php echo ABAP_UI_TOOL::GetFunctionModuleParameterType($fupararef_item['PARAMTYPE']) ?> </td>
                                 <td class="alv"> <?php echo $fupararef_item['PARAMETER'] ?> </td>
                                 <td class="alv"> <?php echo ABAP_UI_TOOL::GetFunctionModuleTyping($fupararef_item['REF_CLASS']) ?> </td>
-                                <td class="alv"> <?php echo $fupararef_item['STRUCTURE'] ?> </td>
+                                <td class="alv"> <?php echo $param_link ?> </td>
                                 <td class="alv"> <?php echo $fupararef_item['DEFAULTVAL'] ?> </td>
                                 <td class="alv"> <?php echo ABAP_UI_TOOL::GetCheckBox("optional", $fupararef_item['OPTIONAL']) ?> </td>
                                 <td class="alv"> <?php echo ABAP_UI_TOOL::GetCheckBox("passval", $para_passvalue) ?> </td>
-                                <td class="alv"> <?php echo $para_stext ?> </td>
+                                <td class="alv"> <?php echo $param_stext ?> </td>
                                 <!-- <td class="alv"> Long Text </td> -->
                             </tr>
                         <?php } ?>
