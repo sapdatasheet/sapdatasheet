@@ -24,8 +24,12 @@ div.headertxt
 }
 a.headertxt
 {
-    text-decoration:none;
     margin-top:10px;
+    text-decoration:none;
+}
+a img {
+    /* IE adds a border around images if they’re the child of an anchor. We can remove this by setting the border to none:  */
+    border: none;
 }
 div.headertxtsub
 {
