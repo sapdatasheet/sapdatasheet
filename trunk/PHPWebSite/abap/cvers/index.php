@@ -1,4 +1,14 @@
-<?php ob_start(); ?>
+<?php
+$ob_fname = dirname(__FILE__) . "/index.html";
+if (file_exists($ob_fname)) {
+    $ob_file_content = file_get_contents($ob_fname);
+    if ($ob_file_content !== FALSE) {
+        echo $ob_file_content;
+        exit();
+    }
+}
+ob_start();
+?>
 <!DOCTYPE html>
 <!-- Software component index. -->
 <?php
@@ -73,9 +83,8 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::CVERS_DESC;
 <?php
 $ob_content = ob_get_contents();
 ob_end_flush();
-$ob_fname = __ROOT__ . "/abap/cvers/index.html";
-echo '<br />' . $ob_fname;
-$ob_fp = fopen($ob_fname, "w");
-fwrite($ob_fp, $ob_content);
-fclose($ob_fp);
+file_put_contents($ob_fname, $ob_content)
+//$ob_file = fopen($ob_fname, 'w');
+//fwrite($ob_file, $ob_content);
+//fclose($ob_file);
 ?>
