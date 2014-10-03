@@ -1,4 +1,16 @@
+<?php
+$ob_fname = dirname(__FILE__) . "/index.html";
+if (file_exists($ob_fname)) {
+    $ob_file_content = file_get_contents($ob_fname);
+    if ($ob_file_content !== FALSE) {
+        echo $ob_file_content;
+        exit();
+    }
+}
+ob_start();
+?>
 <!DOCTYPE html>
+<!-- SQLT index. -->
 <?php
 define('__ROOT__', dirname(dirname(dirname(__FILE__))));
 require_once (__ROOT__ . '/include/global.php');
@@ -68,4 +80,8 @@ $dd06l = ABAP_DB_TABLE_TABL::DD06L_List();
 
     </body>
 </html>
-
+<?php
+$ob_content = ob_get_contents();
+ob_end_flush();
+file_put_contents($ob_fname, $ob_content)
+?>

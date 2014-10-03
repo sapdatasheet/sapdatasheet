@@ -5,8 +5,9 @@ require_once(__ROOT__ . '/include/config.php');
 
 class ABAP_DB_CONST {
 
-    const INDEX_TOP = "TOP";
     const INDEX_A = "A";
+    const INDEX_SLASH = "SLASH";
+    const INDEX_TOP = "TOP";
     const LANGU_EN = "E";
     const FLAG_TRUE = "X";
     const FLAG_FALSE = "";
