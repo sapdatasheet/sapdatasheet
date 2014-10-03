@@ -29,7 +29,7 @@ ob_start();
 <!DOCTYPE html>
 <!-- Package index. -->
 <?php
-$GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::DEVC_DESC;
+$GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::DEVC_DESC  . " - Index " . $index . " ";
 
 if ($index === ABAP_DB_CONST::INDEX_SLASH) {
     $index = '/';

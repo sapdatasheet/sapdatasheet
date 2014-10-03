@@ -29,7 +29,7 @@ ob_start();
 <!DOCTYPE html>
 <!-- Application component index. -->
 <?php
-$GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::BMFR_DESC;
+$GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::BMFR_DESC  . " - Index " . $index . " ";
 $bmfr = ABAP_DB_TABLE_HIER::DF14L_List($index);
 ?>
 <html>
