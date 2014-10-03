@@ -1,13 +1,10 @@
-<!DOCTYPE html>
-<!-- Application component index. -->
 <?php
 define('__ROOT__', dirname(dirname(dirname(__FILE__))));
 require_once (__ROOT__ . '/include/global.php');
 require_once (__ROOT__ . '/include/abap_db.php');
 require_once (__ROOT__ . '/include/abap_ui.php');
 
-$GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::BMFR_DESC;
-
+// Get Index
 if (!isset($index)) {
     $index = filter_input(INPUT_GET, 'index');
 }
@@ -17,6 +14,22 @@ if (empty($index)) {
 } else {
     $index = strtoupper($index);
 }
+
+// Check Buffer
+$ob_fname = dirname(__FILE__) . "/index-" . strtolower($index) . ".html";
+if (file_exists($ob_fname)) {
+    $ob_file_content = file_get_contents($ob_fname);
+    if ($ob_file_content !== FALSE) {
+        echo $ob_file_content;
+        exit();
+    }
+}
+ob_start();
+?>
+<!DOCTYPE html>
+<!-- Application component index. -->
+<?php
+$GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::BMFR_DESC;
 $bmfr = ABAP_DB_TABLE_HIER::DF14L_List($index);
 ?>
 <html>
@@ -106,3 +119,14 @@ $bmfr = ABAP_DB_TABLE_HIER::DF14L_List($index);
 
     </body>
 </html>
+<?php
+$ob_content = ob_get_contents();
+ob_end_flush();
+file_put_contents($ob_fname, $ob_content);
+
+// Make default index file
+if ($index === ABAP_DB_CONST::INDEX_TOP) {
+    $ob_fname = dirname(__FILE__) . "/index.html";
+    file_put_contents($ob_fname, $ob_content);
+}       
+?>
