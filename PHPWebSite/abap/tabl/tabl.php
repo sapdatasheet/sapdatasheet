@@ -124,24 +124,25 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $dd02l_tabclass_desc . ' ' . $dd02l['TABN
                     <tbody>
                         <?php
                         while ($dd03l_item = mysqli_fetch_array($dd03l)) {
-                            $anchor_name = 'FIELD_' . $dd03l_item['FIELDNAME'];
                             if (strlen(trim($dd03l_item['PRECFIELD'])) > 0) {
                                 $dd03l_fieldname_url = ABAP_Navigation::GetURLTableInclude($dd02l['TABNAME'], $dd03l_item['FIELDNAME'], $dd03l_item['POSITION']);
+                                $anchor_name = 'FIELD_' . $dd03l_item['POSITION'];
                             } else {
                                 $dd03l_fieldname_url = ABAP_Navigation::GetURLTableField($dd02l['TABNAME'], $dd03l_item['FIELDNAME']);
+                                $anchor_name = 'FIELD_' . $dd03l_item['FIELDNAME'];
                             }
                             $dd03l_fieldname_desc = ABAP_UI_TOOL::GetTablFieldDesc($dd03l_item['PRECFIELD'], $dd03l_item['ROLLNAME']);
                             $dd03l_rollname_url = ABAP_Navigation::GetURLDtel($dd03l_item['ROLLNAME'], '');
                             ?>
                             <tr>
-                                <td class="alv" align="center"> <a name="#<?php echo $anchor_name ?>" id="<?php echo $anchor_name ?>"></a> <?php echo $dd03l_item['POSITION'] ?> </td>
+                                <td class="alv"> <a id="<?php echo $anchor_name ?>"></a> <?php echo $dd03l_item['POSITION'] ?> </td>
                                 <td class="alv"> <?php echo $dd03l_fieldname_url ?> </td>
-                                <td class="alv" align="center"> <?php echo ABAP_UI_TOOL::GetCheckBox('field_' . $dd03l_item['FIELDNAME'], $dd03l_item['KEYFLAG']) ?> </td>
+                                <td class="alv_center"> <?php echo ABAP_UI_TOOL::GetCheckBox('field_' . $dd03l_item['FIELDNAME'], $dd03l_item['KEYFLAG']) ?> </td>
                                 <td class="alv"> <?php echo $dd03l_rollname_url ?> </td>
                                 <td class="alv"> <?php echo ABAP_Navigation::GetURLDomain($dd03l_item['DOMNAME'], '') ?> </td>
                                 <td class="alv"> <?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DATATYPE, $dd03l_item['DATATYPE'], '') ?> </td>
-                                <td class="alv" align="right"> <?php echo intval($dd03l_item['LENG']) ?> &nbsp; </td>
-                                <td class="alv" align="right"> <?php echo intval($dd03l_item['DECIMALS']) ?> &nbsp; </td>
+                                <td class="alv_right"> <?php echo intval($dd03l_item['LENG']) ?> &nbsp; </td>
+                                <td class="alv_right"> <?php echo intval($dd03l_item['DECIMALS']) ?> &nbsp; </td>
                                 <td class="alv"> <?php echo htmlentities($dd03l_fieldname_desc) ?> </td>
                                 <td class="alv"> <?php echo ABAP_Navigation::GetURLTable($dd03l_item['CHECKTABLE'], '') ?> </td>
                             </tr>

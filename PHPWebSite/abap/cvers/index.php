@@ -1,5 +1,5 @@
 <?php
-$ob_fname = __DIR__ . "/index.html";
+$ob_fname = dirname(__FILE__) . "/index.html";
 if (file_exists($ob_fname)) {
     $ob_file_content = file_get_contents($ob_fname);
     if ($ob_file_content !== FALSE) {
