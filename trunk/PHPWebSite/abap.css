@@ -36,6 +36,7 @@ div.headertxtsub
     font-size:small;
 }
 table.headertitle{
+    border-spacing:0px;
     padding:0px; 
     margin:0px 0px 10px 0px; 
     width:100%
@@ -109,6 +110,22 @@ td.alv
     border:1px solid #A5AEB7;
     font-size:1em;
     padding:4px 7px 4px 7px;
+}
+td.alv_center
+{
+    background-color:#DBE4F3;
+    border:1px solid #A5AEB7;
+    font-size:1em;
+    padding:4px 7px 4px 7px;
+    text-align: center;
+}
+td.alv_right
+{
+    background-color:#DBE4F3;
+    border:1px solid #A5AEB7;
+    font-size:1em;
+    padding:4px 7px 4px 7px;
+    text-align: right;
 }
 td.left_attribute
 {

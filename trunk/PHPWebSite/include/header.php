@@ -12,7 +12,7 @@
     </div>
 
     <!-- Header Text & Search -->
-    <table class="headertitle" cellpadding="0"> 
+    <table class="headertitle"> 
         <tr>
             <!-- Title -->
             <td>

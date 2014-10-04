@@ -20,7 +20,7 @@ class ABAP_Navigation {
 
         return "<a href=\"/abap/" . strtolower(ABAP_OTYPE::DOMA_NAME)
                 . "/" . strtolower($domain)
-                . ".html#" . ABAP_UI_TOOL::ANCHOR_VALUES . "\" title=\"" . $desc . "\"> "
+                . ".html#" . ABAP_UI_TOOL::ANCHOR_VALUES . "\" title=\"" . htmlentities($desc) . "\"> "
                 . $domainValue . "</a>";
     }
 
@@ -58,13 +58,13 @@ class ABAP_Navigation {
 
     public static function GetURLTableField($table, $field) {
         return "<a href=\"/abap/tabl/" . strtolower($table) . "-" . strtolower($field)
-                . ".html\" title=\"" . $field
+                . ".html\" title=\"" . htmlentities($field)
                 . "\" target=\"_blank\"> " . $field . "</a>";
     }
 
     public static function GetURLTableInclude($table, $field, $position) {
         return "<a href=\"/abap/tabl/" . strtolower($table) . "-" . $position
-                . ".html\" title=\"" . $position
+                . ".html\" title=\"" . htmlentities($position)
                 . "\" target=\"_blank\"> " . $field . "</a>";
     }
 
@@ -77,11 +77,11 @@ class ABAP_Navigation {
     }
 
     private static function GetURL($objtype, $objname, $value, $title) {
-        $objtype = strtolower($objtype);
         $result = "";
-        if (!empty($objname)) {
+        if (strlen(trim($objname)) > 0) {
             $sTitle = (empty($title)) ? $value : $title;
-            $result = "<a href=\"/abap/" . $objtype . "/" . strtolower($objname) . ".html\" title=\"" . $sTitle . "\"> " . $value . "</a>";
+            $result = "<a href=\"/abap/" . strtolower($objtype) . "/" . strtolower($objname) . ".html\" title=\"" 
+                    . htmlentities($sTitle) . "\"> " . $value . "</a>";
         }
         return $result;
     }
