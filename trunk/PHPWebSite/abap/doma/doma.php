@@ -94,7 +94,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DOMA_DESC . ' ' . $doma['DOMN
                     <tbody>
                         <tr><td class="content_label"> Data Type          </td><td class="field"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DATATYPE, $doma['DATATYPE'], $doma_datatype_desc) ?> </td><td> <?php echo $doma_datatype_desc ?> </td></tr>
                         <tr><td class="content_label"> No. Characters     </td><td class="field" align="right"><?php echo intval($doma['LENG']) ?>&nbsp;</td><td>&nbsp;</td></tr>
-                        <tr><td class="content_label"> Decimal Places     </td><td class="field" align="right"><?php echo ABAP_UI_TOOL::CheckInt(intval($doma['DECIMALS'])) ?>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td class="content_label"> Decimal Places     </td><td class="field" align="right"><?php echo ABAP_UI_TOOL::ClearZero(intval($doma['DECIMALS'])) ?>&nbsp;</td><td>&nbsp;</td></tr>
                         <tr><td class="content_label"> Output Length      </td><td class="field" align="right"><?php echo intval($doma['OUTPUTLEN']) ?>&nbsp;</td><td>&nbsp;</td></tr>
                         <tr><td class="content_label"> Conversion Routine </td><td class="field"><?php echo $doma['CONVEXIT'] ?>&nbsp;</td><td>&nbsp;</td></tr>
                         <tr><td class="content_label"> Sign               </td><td align="right"><?php echo ABAP_UI_TOOL::GetCheckBox('SIGNFLAG', $doma['SIGNFLAG']) ?></td><td>&nbsp;</td></tr>

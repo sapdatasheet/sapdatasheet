@@ -65,7 +65,7 @@ $dd06l = ABAP_DB_TABLE_TABL::DD06L_List();
                         $dd06l_sqlclass_t = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_DD06L_SQLCLASS, $dd06l_item['SQLCLASS']);
                         ?>
                         <tr><td class="alv"><?php echo ABAP_Navigation::GetURLSqltable($dd06l_item['SQLTAB'], $dd06l_item_t) ?> </td>
-                            <td class="alv"><?php echo htmlentities(ABAP_UI_TOOL::CheckText($dd06l_item_t)) ?></td>
+                            <td class="alv"><?php echo htmlentities($dd06l_item_t) ?></td>
                             <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DD06L_SQLCLASS, $dd06l_item['SQLCLASS'], $dd06l_sqlclass_t) ?></td>
                             <td class="alv"><?php echo $dd06l_item['AS4DATE'] ?></td>
                         </tr>

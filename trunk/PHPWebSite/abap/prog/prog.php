@@ -98,11 +98,11 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::PROG_DESC . ' ' . $prog['PROG
                     <tbody>
                         <tr><td class="content_label"> Status </td>
                             <td class="field"> <?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_REPOSRC_RSTAT, $prog['RSTAT'], $reposrc_rstat_desc); ?> </td>
-                            <td> <?php echo $reposrc_rstat_desc ?> &nbsp;</td>
+                            <td> <?php echo htmlentities($reposrc_rstat_desc) ?> &nbsp;</td>
                         </tr>
                         <tr><td class="content_label"> Application </td>
                             <td class="field"> <?php echo $prog['APPL'] ?> </td>
-                            <td> <?php echo $reposrc_appl_desc ?> &nbsp;</td>
+                            <td> <?php echo htmlentities($reposrc_appl_desc) ?> &nbsp;</td>
                         </tr>
                         <tr><td class="content_label"> Authorization Group </td>
                             <td class="field"> <?php echo $prog['SECU'] ?> </td> <!-- TODO: Add link -->
@@ -110,7 +110,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::PROG_DESC . ' ' . $prog['PROG
                         </tr>
                         <tr><td class="content_label"> Logical database </td>
                             <td class="field"> <?php echo $prog['LDBNAME'] ?> </td> <!-- TODO: Add link -->
-                            <td> <?php echo $reposrc_ldbname_desc ?> &nbsp;</td>
+                            <td> <?php echo htmlentities($reposrc_ldbname_desc) ?> &nbsp;</td>
                         </tr>
                         <tr><td class="content_label">Selection screen </td>
                             <td class="field"> <?php echo $prog['TYPE'] ?> </td>
@@ -151,7 +151,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::PROG_DESC . ' ' . $prog['PROG
                                 <tr>
                                     <td class="alv"> <?php echo $tfdir['INCLUDE'] ?> &nbsp;</td>
                                     <td class="alv"> <?php echo ABAP_Navigation::GetURLFuncModule($tfdir['FUNCNAME'], $tfdir_desc) ?> &nbsp;</td>
-                                    <td class="alv"> <?php echo $tfdir_desc ?> &nbsp;</td>
+                                    <td class="alv"> <?php echo htmlentities($tfdir_desc) ?> &nbsp;</td>
                                     <td class="alv"> <?php echo $tfdir['FMODE'] ?> &nbsp;</td>
                                 </tr>
                             <?php } ?>
@@ -180,7 +180,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::PROG_DESC . ' ' . $prog['PROG
                             $tcode_desc = ABAP_DB_TABLE_TRAN::TSTCT($tcode['TCODE']);
                             ?>
                             <tr><td class="alv"><?php echo ABAP_Navigation::GetURLTransactionCode($tcode['TCODE'], $tcode_desc) ?></td>
-                                <td class="alv"><?php echo $tcode_desc ?>&nbsp;</td>
+                                <td class="alv"><?php echo htmlentities($tcode_desc) ?>&nbsp;</td>
                             </tr>
                         <?php } ?>
                         <tr><td class="alv">&nbsp;</td>
@@ -207,7 +207,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::PROG_DESC . ' ' . $prog['PROG
                             $dynr_desc = ABAP_DB_TABLE_PROG::D020T($prog['PROGNAME'], $dynr['DNUM']);
                             ?>
                             <tr><td class="alv"><?php echo $dynr['DNUM'] ?>&nbsp;</td>
-                                <td class="alv"><?php echo $dynr_desc ?>&nbsp;</td>
+                                <td class="alv"><?php echo htmlentities($dynr_desc) ?>&nbsp;</td>
                             </tr>
                         <?php } ?>
                         <tr><td class="alv">&nbsp;</td>
@@ -230,7 +230,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::PROG_DESC . ' ' . $prog['PROG
                             if ($rsmptexts['OBJ_TYPE'] == ABAP_DB_CONST::DOMAINVALUE_MP_OBJTYPE_C) {
                                 ?>
                                 <tr><td class="alv"><?php echo $rsmptexts['OBJ_CODE'] ?>&nbsp;</td>
-                                    <td class="alv"><?php echo $rsmptexts['TEXT'] ?>&nbsp;</td>
+                                    <td class="alv"><?php echo htmlentities($rsmptexts['TEXT']) ?>&nbsp;</td>
                                 </tr>
                             <?php } ?>
                         <?php } ?>
@@ -249,7 +249,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::PROG_DESC . ' ' . $prog['PROG
                             if ($rsmptexts['OBJ_TYPE'] == ABAP_DB_CONST::DOMAINVALUE_MP_OBJTYPE_T) {
                                 ?>
                                 <tr><td class="alv"><?php echo $rsmptexts['OBJ_CODE'] ?>&nbsp;</td>
-                                    <td class="alv"><?php echo $rsmptexts['TEXT'] ?>&nbsp;</td>
+                                    <td class="alv"><?php echo htmlentities($rsmptexts['TEXT']) ?>&nbsp;</td>
                                 </tr>
                             <?php } ?>
                         <?php } ?>
