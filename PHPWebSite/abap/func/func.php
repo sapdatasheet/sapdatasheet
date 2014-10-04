@@ -84,11 +84,11 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::FUNC_DESC . ' ' . $func['FUNC
                     <tbody>
                         <tr><td class="content_label"> Function Module </td>
                             <td class="field"> <?php echo ABAP_Navigation::GetURLFuncModule($func['FUNCNAME'], $func_desc); ?> </td>
-                            <td> <?php echo $func_desc ?> &nbsp;</td>
+                            <td> <?php echo htmlentities($func_desc) ?> &nbsp;</td>
                         </tr>
                         <tr><td class="content_label"> Function Group </td>
                             <td class="field"> <?php echo $enlfdir['AREA'] ?> &nbsp;</td>
-                            <td> <?php echo $funcgrp_desc ?> &nbsp;</td>
+                            <td> <?php echo htmlentities($funcgrp_desc) ?> &nbsp;</td>
                         </tr>
                         <tr><td class="content_label"> Program Name </td>
                             <td class="field"> <?php echo $func['PNAME'] ?> &nbsp;</td>
@@ -138,7 +138,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::FUNC_DESC . ' ' . $func['FUNC
                                 <td class="alv"> <?php echo $fupararef_item['DEFAULTVAL'] ?> </td>
                                 <td class="alv"> <?php echo ABAP_UI_TOOL::GetCheckBox("optional", $fupararef_item['OPTIONAL']) ?> </td>
                                 <td class="alv"> <?php echo ABAP_UI_TOOL::GetCheckBox("passval", $para_passvalue) ?> </td>
-                                <td class="alv"> <?php echo $param_stext ?> </td>
+                                <td class="alv"> <?php echo htmlentities($param_stext) ?> </td>
                                 <!-- <td class="alv"> Long Text </td> -->
                             </tr>
                         <?php } ?>

@@ -77,7 +77,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DTEL_DESC . ' ' . $dtel['ROLL
                 <table class="content_obj">
                     <tbody>
                         <tr><td class="content_label"> Data Element      </td><td class="field"> <?php echo ABAP_Navigation::GetURLDtel($dtel['ROLLNAME'], $dtel_desc) ?> </td></tr>
-                        <tr><td class="content_label"> Short Description </td><td class="field"> <?php echo $dtel_desc ?> &nbsp;</td></tr>
+                        <tr><td class="content_label"> Short Description </td><td class="field"> <?php echo htmlentities($dtel_desc) ?> &nbsp;</td></tr>
                     </tbody>
                 </table>
 
@@ -98,7 +98,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DTEL_DESC . ' ' . $dtel['ROLL
                             <td>&nbsp;</td></tr>
                         <tr><td class="content_label">Data Type </td>
                             <td class="field"> <?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DATATYPE, $dtel['DATATYPE'], $dtel_datatype_desc) ?> &nbsp;</td>
-                            <td><?php echo $dtel_datatype_desc ?>&nbsp;</td></tr>
+                            <td><?php echo htmlentities($dtel_datatype_desc) ?>&nbsp;</td></tr>
                         <tr><td class="content_label">Length </td>
                             <td class="field" align="right"> <?php echo intval($dtel['LENG']) ?> &nbsp;</td>
                             <td>&nbsp;</td></tr>

@@ -9,7 +9,7 @@ if (!isset($index)) {
     $index = filter_input(INPUT_GET, 'index');
 }
 
-if (empty($index)) {
+if (strlen(trim($index)) == 0) {
     $index = ABAP_DB_CONST::INDEX_A;
 } else {
     $index = strtoupper($index);
@@ -111,7 +111,7 @@ $devc = ABAP_DB_TABLE_HIER::TDEVC_List($index);
                         $devc_ps_posid = ABAP_DB_TABLE_HIER::DF14L_PS_POSID($row['COMPONENT']);
                         ?>
                         <tr><td class="alv"><?php echo ABAP_Navigation::GetURLPackage($row['DEVCLASS'], $devc_desc) ?> </td>
-                            <td class="alv"><?php echo $devc_desc ?></td>
+                            <td class="alv"><?php echo htmlentities($devc_desc) ?></td>
                             <td class="alv"><?php echo ABAP_Navigation::GetURLPackage($row['PARENTCL'], '') ?></td>
                             <td class="alv"><?php echo ABAP_Navigation::GetURLSoftComp($row['DLVUNIT'], '') ?></td>
                             <td class="alv"><?php echo ABAP_Navigation::GetURLAppComp($row['COMPONENT'], $devc_ps_posid, '') ?></td>

@@ -66,9 +66,9 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::CVERS_DESC;
                         $cvers_comp_type_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_TADIR_COMP_TYPE, $row['COMP_TYPE']);
                         ?>
                         <tr><td class="alv"><?php echo ABAP_Navigation::GetURLSoftComp($cvers_component, $cvers_desc) ?></td>
-                            <td class="alv"><?php echo $cvers_desc ?></td>
+                            <td class="alv"><?php echo htmlentities($cvers_desc) ?></td>
                             <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_TADIR_COMP_TYPE, $cvers_comp_type, $cvers_comp_type_desc) ?></td>
-                            <td class="alv"><?php echo $cvers_comp_type_desc ?></td></tr>
+                            <td class="alv"><?php echo htmlentities($cvers_comp_type_desc) ?></td></tr>
                         <?php } ?>
                 </table>
 
@@ -84,7 +84,4 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::CVERS_DESC;
 $ob_content = ob_get_contents();
 ob_end_flush();
 file_put_contents($ob_fname, $ob_content)
-//$ob_file = fopen($ob_fname, 'w');
-//fwrite($ob_file, $ob_content);
-//fclose($ob_file);
 ?>

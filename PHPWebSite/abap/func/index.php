@@ -1,23 +1,40 @@
-<!DOCTYPE html>
-<!-- Function Module index -->
 <?php
 define('__ROOT__', dirname(dirname(dirname(__FILE__))));
 require_once (__ROOT__ . '/include/global.php');
 require_once (__ROOT__ . '/include/abap_db.php');
 require_once (__ROOT__ . '/include/abap_ui.php');
 
-
+// Get Index
 if (!isset($index)) {
     $index = filter_input(INPUT_GET, 'index');
 }
 
-if (empty($index)) {
+if (strlen(trim($index)) == 0) {
     $index = ABAP_DB_CONST::INDEX_A;
 } else {
     $index = strtoupper($index);
 }
+
+// Check Buffer
+$ob_fname = dirname(__FILE__) . "/index-" . strtolower($index) . ".html";
+if (file_exists($ob_fname)) {
+    $ob_file_content = file_get_contents($ob_fname);
+    if ($ob_file_content !== FALSE) {
+        echo $ob_file_content;
+        exit();
+    }
+}
+ob_start();
+?>
+<!DOCTYPE html>
+<!-- Function Module index -->
+<?php
+$GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::FUNC_DESC . " - Index " . $index . " ";
+
+if ($index === ABAP_DB_CONST::INDEX_SLASH) {
+    $index = '/';
+}
 $fm_list = ABAP_DB_TABLE_FUNC::TFDIR_List($index);
-$GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::FUNC_DESC;
 ?>
 <html>
     <head>
@@ -86,7 +103,7 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::FUNC_DESC;
                     <a href="index-7.html">7</a>&nbsp;
                     <a href="index-8.html">8</a>&nbsp;
                     <a href="index-9.html">9</a>&nbsp;
-                    <a href="index-/.html">/</a>&nbsp;
+                    <a href="index-slash.html">/</a>&nbsp;
                 </div>
 
                 <h4> <?php echo ABAP_OTYPE::FUNC_DESC ?> - <?php echo $index ?></h4>
@@ -102,7 +119,7 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::FUNC_DESC;
                         ?>
                         <tr><td class="alv"><?php echo ABAP_Navigation::GetURLFuncModule($fm['FUNCNAME'], $fm_desc) ?> </td>
                             <td class="alv"><?php echo $fm['FMODE'] ?> </td>
-                            <td class="alv"><?php echo $fm_desc ?>&nbsp;</td>
+                            <td class="alv"><?php echo htmlentities($fm_desc) ?>&nbsp;</td>
                         </tr>
                     <?php } ?>
                 </table>                
@@ -115,3 +132,14 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::FUNC_DESC;
 
     </body>
 </html>
+<?php
+$ob_content = ob_get_contents();
+ob_end_flush();
+file_put_contents($ob_fname, $ob_content);
+
+// Make default index file
+if ($index === ABAP_DB_CONST::INDEX_A) {
+    $ob_fname = dirname(__FILE__) . "/index.html";
+    file_put_contents($ob_fname, $ob_content);
+}       
+?>

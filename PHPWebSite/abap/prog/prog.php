@@ -84,11 +84,11 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::PROG_DESC . ' ' . $prog['PROG
                     <tbody>
                         <tr><td class="content_label"> Program </td>
                             <td class="field"> <?php echo ABAP_Navigation::GetURLProgram($prog['PROGNAME'], $prog_desc); ?> </td>
-                            <td> <?php echo $prog_desc ?> &nbsp;</td>
+                            <td> <?php echo htmlentities($prog_desc) ?> &nbsp;</td>
                         </tr>
                         <tr><td class="content_label"> Program Type </td>
                             <td class="field"> <?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_REPOSRC_SUBC, $prog['SUBC'], $reposrc_subc_desc); ?> </td>
-                            <td> <?php echo $reposrc_subc_desc ?> &nbsp;</td>
+                            <td> <?php echo htmlentities($reposrc_subc_desc) ?> &nbsp;</td>
                         </tr>
                     </tbody>
                 </table>

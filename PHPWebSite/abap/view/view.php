@@ -16,15 +16,15 @@ $dd25l = ABAP_DB_TABLE_VIEW::DD25L(strtoupper($ObjID));
 if (empty($dd25l['VIEWNAME'])) {
     ABAP_UI_TOOL::Redirect404();
 }
-$dd25l_desc = ABAP_DB_TABLE_VIEW::DD25T($dd25l['VIEWNAME']);
-$dd25l_roottab_desc = ABAP_DB_TABLE_TABL::DD02T($dd25l['ROOTTAB']);
-$dd25l_viewclass_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_DD25L_VIEWCLASS, $dd25l['VIEWCLASS']);
+$dd25l_desc = htmlentities(ABAP_DB_TABLE_VIEW::DD25T($dd25l['VIEWNAME']));
+$dd25l_roottab_desc = htmlentities(ABAP_DB_TABLE_TABL::DD02T($dd25l['ROOTTAB']));
+$dd25l_viewclass_desc = htmlentities(ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_DD25L_VIEWCLASS, $dd25l['VIEWCLASS']));
 $dd26s_list = ABAP_DB_TABLE_VIEW::DD26S_List($dd25l['VIEWNAME']);
 $dd27s_list = ABAP_DB_TABLE_VIEW::DD27S_List($dd25l['VIEWNAME']);
 $dd28s_list = ABAP_DB_TABLE_VIEW::DD28S_List($dd25l['VIEWNAME']);
 $dm25l = ABAP_DB_TABLE_VIEW::DM25L($dd25l['VIEWNAME']);
 if (!empty($dm25l['ENTID'])) {
-    $dm25l_entid_desc = ABAP_DB_TABLE_VIEW::DM02T($dm25l['ENTID']);
+    $dm25l_entid_desc = htmlentities(ABAP_DB_TABLE_VIEW::DM02T($dm25l['ENTID']));
 }
 
 $hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_CONST::TADIR_PGMID_R3TR, ABAP_OTYPE::VIEW_NAME, $dd25l['VIEWNAME']);
