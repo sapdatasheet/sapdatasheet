@@ -117,7 +117,7 @@ $tstc_list = ABAP_DB_TABLE_TRAN::TSTC_List($index);
                         $tstc_desc = ABAP_DB_TABLE_TRAN::TSTCT($tstc['TCODE']);
                         ?>
                         <tr><td class="alv"><?php echo ABAP_Navigation::GetURLTransactionCode($tstc['TCODE'], $tstc_desc) ?> </td>
-                            <td class="alv"><?php echo htmlentities(ABAP_UI_TOOL::CheckText($tstc_desc)) ?></td>
+                            <td class="alv"><?php echo htmlentities($tstc_desc) ?></td>
                             <td class="alv"><?php echo ABAP_Navigation::GetURLProgram($tstc['PGMNA'], '') ?></td></tr>
                         <?php } ?>
                 </table>

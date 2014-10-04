@@ -109,7 +109,7 @@ $dd02l = ABAP_DB_TABLE_TABL::DD02L_List($index);
                         $dd02l_item_desc = ABAP_DB_TABLE_TABL::DD02T($dd02l_item['TABNAME']);
                         ?>
                         <tr><td class="alv"><?php echo ABAP_Navigation::GetURLTable($dd02l_item['TABNAME'], $dd02l_item_desc); ?> </td>
-                            <td class="alv"><?php echo htmlentities(ABAP_UI_TOOL::CheckText($dd02l_item_desc)) ?></td>
+                            <td class="alv"><?php echo htmlentities($dd02l_item_desc) ?></td>
                             <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DD02L_TABCLASS, $dd02l_item['TABCLASS'], '') ?></td>
                             <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DD02L_CONTFLAG, $dd02l_item['CONTFLAG'], '') ?></td></tr>
                         <?php } ?>

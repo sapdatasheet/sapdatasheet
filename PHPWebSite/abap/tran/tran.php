@@ -16,9 +16,9 @@ $tstc = ABAP_DB_TABLE_TRAN::TSTC(strtoupper($ObjID));
 if (empty($tstc['TCODE'])) {
     ABAP_UI_TOOL::Redirect404();
 }
-$tstc_cinfo_desc = htmlentities(ABAP_UI_TOOL::GetTCodeTypeDesc($tstc['CINFO']));
-$tstc_pgmna_desc = htmlentities(ABAP_DB_TABLE_PROG::TRDIRT($tstc['PGMNA']));
-$tstc_desc = htmlentities(ABAP_DB_TABLE_TRAN::TSTCT($tstc['TCODE']));
+$tstc_cinfo_desc = ABAP_UI_TOOL::GetTCodeTypeDesc($tstc['CINFO']);
+$tstc_pgmna_desc = ABAP_DB_TABLE_PROG::TRDIRT($tstc['PGMNA']);
+$tstc_desc = ABAP_DB_TABLE_TRAN::TSTCT($tstc['TCODE']);
 $tstca_list = ABAP_DB_TABLE_TRAN::TSTCA_List($tstc['TCODE']);
 $tstcc = ABAP_DB_TABLE_TRAN::TSTCC($tstc['TCODE']);
 $tstcp = ABAP_DB_TABLE_TRAN::TSTCP($tstc['TCODE']);
@@ -78,7 +78,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::TRAN_DESC . ' ' . $tstc['TCOD
                 <table class="content_obj">
                     <tbody>
                         <tr><td class="content_label"> Transaction Code        </td><td class="field"> <?php echo ABAP_Navigation::GetURLTransactionCode($tstc['TCODE'], $tstc_desc) ?> </td><td>&nbsp;</td></tr>
-                        <tr><td class="content_label"> Transaction Description </td><td class="field"> <?php echo $tstc_desc ?> &nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td class="content_label"> Transaction Description </td><td class="field"> <?php echo htmlentities($tstc_desc) ?> &nbsp;</td><td>&nbsp;</td></tr>
                         <tr><td class="content_label"> Transaction Type        </td><td class="field"> <?php echo $tstc['CINFO'] ?> </td><td><?php echo $tstc_cinfo_desc ?></td></tr>
                     </tbody>
                 </table>
@@ -89,7 +89,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::TRAN_DESC . ' ' . $tstc['TCOD
                     <tbody>
                         <tr><td class="content_label"> Program       </td>
                             <td class="field"><?php echo ABAP_Navigation::GetURLProgram($tstc['PGMNA'], $tstc_pgmna_desc) ?>&nbsp; </td>
-                            <td><?php echo $tstc_pgmna_desc ?></td></tr>
+                            <td><?php echo htmlentities($tstc_pgmna_desc) ?></td></tr>
                         <tr><td class="content_label"> Screen number </td>
                             <td class="field"><?php echo $tstc['DYPNO'] ?>&nbsp;</td>
                             <td>&nbsp;</td></tr>

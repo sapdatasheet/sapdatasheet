@@ -114,7 +114,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $sqlt_sqlcalss_desc . ' ' . $sqlt['SQLTAB
                             ?>
                             <tr>
                                 <td class="alv"><?php echo ABAP_Navigation::GetURLTable($dd02l_sqlt_item['TABNAME'], $dd02l_sqlt_item_desc) ?></td>
-                                <td class="alv"><?php echo $dd02l_sqlt_item_desc ?></td>
+                                <td class="alv"><?php echo htmlentities($dd02l_sqlt_item_desc) ?></td>
                                 <td class="alv"><?php echo $dd02l_sqlt_item['AS4DATE'] ?></td>
                             </tr>
                         <?php } ?>

@@ -81,7 +81,6 @@ class ABAP_Navigation {
         $result = "";
         if (!empty($objname)) {
             $sTitle = (empty($title)) ? $value : $title;
-            //$result = "<a href=\"/abap/" . $objtype . "/" . $objtype . ".php?id=" . $objname . "\" title=\"" . $sTitle . "\"> " . $value . "</a>";
             $result = "<a href=\"/abap/" . $objtype . "/" . strtolower($objname) . ".html\" title=\"" . $sTitle . "\"> " . $value . "</a>";
         }
         return $result;
@@ -98,15 +97,10 @@ class ABAP_UI_TOOL {
         header("Location: /page404.php");
     }
 
-    public static function CheckText($Text) {
-        if (empty($Text)) {
-            return '(Not Set)';
-        } else {
-            return $Text;
-        }
-    }
-
-    public static function CheckInt($Int) {
+    /**
+     * Clear zero value from UI.
+     */
+    public static function ClearZero($Int) {
         if ($Int == 0) {
             return '&nbsp;';
         } else {

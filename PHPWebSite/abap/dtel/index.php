@@ -107,7 +107,7 @@ $dd04l = ABAP_DB_TABLE_DTEL::DD04L_List($index);
                         $dd04l_item_t = ABAP_DB_TABLE_DTEL::DD04T($dd04l_item['ROLLNAME']);
                         ?>
                         <tr><td class="alv"><?php echo ABAP_Navigation::GetURLDtel($dd04l_item['ROLLNAME'], $dd04l_item_t) ?> </td>
-                            <td class="alv"><?php echo htmlentities(ABAP_UI_TOOL::CheckText($dd04l_item_t)) ?></td>
+                            <td class="alv"><?php echo htmlentities($dd04l_item_t) ?></td>
                             <td class="alv"><?php echo ABAP_Navigation::GetURLDomain($dd04l_item['DOMNAME'], '') ?> </td>
                             <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DATATYPE, $dd04l_item['DATATYPE'], '') ?>&nbsp;</td>
                         </tr>
