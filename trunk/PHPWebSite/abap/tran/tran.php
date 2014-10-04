@@ -16,9 +16,9 @@ $tstc = ABAP_DB_TABLE_TRAN::TSTC(strtoupper($ObjID));
 if (empty($tstc['TCODE'])) {
     ABAP_UI_TOOL::Redirect404();
 }
-$tstc_cinfo_desc = ABAP_UI_TOOL::GetTCodeTypeDesc($tstc['CINFO']);
-$tstc_pgmna_desc = ABAP_DB_TABLE_PROG::TRDIRT($tstc['PGMNA']);
-$tstc_desc = ABAP_DB_TABLE_TRAN::TSTCT($tstc['TCODE']);
+$tstc_cinfo_desc = htmlentities(ABAP_UI_TOOL::GetTCodeTypeDesc($tstc['CINFO']));
+$tstc_pgmna_desc = htmlentities(ABAP_DB_TABLE_PROG::TRDIRT($tstc['PGMNA']));
+$tstc_desc = htmlentities(ABAP_DB_TABLE_TRAN::TSTCT($tstc['TCODE']));
 $tstca_list = ABAP_DB_TABLE_TRAN::TSTCA_List($tstc['TCODE']);
 $tstcc = ABAP_DB_TABLE_TRAN::TSTCC($tstc['TCODE']);
 $tstcp = ABAP_DB_TABLE_TRAN::TSTCP($tstc['TCODE']);

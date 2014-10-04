@@ -1,22 +1,40 @@
-<!DOCTYPE html>
-<!-- DDIC View index. -->
 <?php
 define('__ROOT__', dirname(dirname(dirname(__FILE__))));
 require_once (__ROOT__ . '/include/global.php');
 require_once (__ROOT__ . '/include/abap_db.php');
 require_once (__ROOT__ . '/include/abap_ui.php');
 
+// Get Index
 if (!isset($index)) {
     $index = filter_input(INPUT_GET, 'index');
 }
 
-if (empty($index)) {
+if (strlen(trim($index)) == 0) {
     $index = ABAP_DB_CONST::INDEX_A;
 } else {
     $index = strtoupper($index);
 }
+
+// Check Buffer
+$ob_fname = dirname(__FILE__) . "/index-" . strtolower($index) . ".html";
+if (file_exists($ob_fname)) {
+    $ob_file_content = file_get_contents($ob_fname);
+    if ($ob_file_content !== FALSE) {
+        echo $ob_file_content;
+        exit();
+    }
+}
+ob_start();
+?>
+<!DOCTYPE html>
+<!-- DDIC View index. -->
+<?php
+$GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::VIEW_DESC . " - Index " . $index . " ";
+
+if ($index === ABAP_DB_CONST::INDEX_SLASH) {
+    $index = '/';
+}
 $dd25l_list = ABAP_DB_TABLE_VIEW::DD25L_List($index);
-$GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::VIEW_DESC;
 ?>
 
 <html>
@@ -75,7 +93,7 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::VIEW_DESC;
                     <a href="index-v.html">V</a>&nbsp;
                     <a href="index-w.html">W</a>&nbsp;
                     <a href="index-x.html">X</a>&nbsp;
-                    <a href="index-/.html">/</a>&nbsp;
+                    <a href="index-slash.html">/</a>&nbsp;
                 </div>
 
 
@@ -91,7 +109,7 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::VIEW_DESC;
                         $dd25l_desc = ABAP_DB_TABLE_VIEW::DD25T($dd25l['VIEWNAME']);
                         ?>
                         <tr><td class="alv"><?php echo ABAP_Navigation::GetURLView($dd25l['VIEWNAME'], $dd25l_desc) ?> </td>
-                            <td class="alv"><?php echo ABAP_UI_TOOL::CheckText($dd25l_desc) ?></td>
+                            <td class="alv"><?php echo htmlentities(ABAP_UI_TOOL::CheckText($dd25l_desc)) ?></td>
                             <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DD25L_VIEWCLASS, $dd25l['VIEWCLASS'], '') ?> </td>
                             <td class="alv"><?php echo ABAP_Navigation::GetURLTable($dd25l['ROOTTAB'], '') ?>&nbsp;</td></tr>
                         <?php } ?>
@@ -105,3 +123,14 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::VIEW_DESC;
 
     </body>
 </html>
+<?php
+$ob_content = ob_get_contents();
+ob_end_flush();
+file_put_contents($ob_fname, $ob_content);
+
+// Make default index file
+if ($index === ABAP_DB_CONST::INDEX_A) {
+    $ob_fname = dirname(__FILE__) . "/index.html";
+    file_put_contents($ob_fname, $ob_content);
+}       
+?>

@@ -9,7 +9,7 @@ if (!isset($index)) {
     $index = filter_input(INPUT_GET, 'index');
 }
 
-if (empty($index)) {
+if (strlen(trim($index)) == 0) {
     $index = ABAP_DB_CONST::INDEX_A;
 } else {
     $index = strtoupper($index);
@@ -109,7 +109,7 @@ $dd01l = ABAP_DB_TABLE_DOMA::DD01L_List($index);
                         $dd01l_item_t = ABAP_DB_TABLE_DOMA::DD01T($dd01l_item['DOMNAME'])
                         ?>
                         <tr><td class="alv"><?php echo ABAP_Navigation::GetURLDomain($dd01l_item['DOMNAME'], $dd01l_item_t) ?> </td>
-                            <td class="alv"><?php echo ABAP_UI_TOOL::CheckText($dd01l_item_t) ?></td>
+                            <td class="alv"><?php echo htmlentities(ABAP_UI_TOOL::CheckText($dd01l_item_t)) ?></td>
                             <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DATATYPE, $dd01l_item['DATATYPE'], '') ?></td>
                             <td class="alv" style="text-align: right;"><?php echo intval($dd01l_item['LENG']) ?>&nbsp;</td>
                             <td class="alv"><?php echo ABAP_UI_TOOL::CheckInt(intval($dd01l_item['DECIMALS'])) ?>&nbsp;</td>

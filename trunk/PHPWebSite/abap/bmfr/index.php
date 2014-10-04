@@ -9,7 +9,7 @@ if (!isset($index)) {
     $index = filter_input(INPUT_GET, 'index');
 }
 
-if (empty($index)) {
+if (strlen(trim($index)) == 0) {
     $index = ABAP_DB_CONST::INDEX_TOP;
 } else {
     $index = strtoupper($index);
@@ -104,7 +104,7 @@ $bmfr = ABAP_DB_TABLE_HIER::DF14L_List($index);
                         $bmfr_desc = ABAP_DB_TABLE_HIER::DF14T($row['FCTR_ID']);
                         ?>
                         <tr><td class="alv"><?php echo ABAP_Navigation::GetURLAppComp($row['FCTR_ID'], $row['PS_POSID'], $bmfr_desc); ?> </td>
-                            <td class="alv"><?php echo $bmfr_desc ?></td>
+                            <td class="alv"><?php echo htmlentities($bmfr_desc) ?></td>
                             <td class="alv"><?php echo $row['FSTDATE'] ?></td>
                             <td class="alv"><?php echo $row['RELE'] ?></td>
                             <td class="alv"><?php echo $row['FCTR_ID'] ?></td></tr>

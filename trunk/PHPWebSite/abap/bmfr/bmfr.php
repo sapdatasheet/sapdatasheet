@@ -93,7 +93,7 @@ $child_tdevc = ABAP_DB_TABLE_HIER::TDEVC_DEVCLASS($df14l['FCTR_ID']);
                                 $child_bmfr_item_desc = ABAP_DB_TABLE_HIER::DF14T($child_bmfr_item['FCTR_ID'])
                                 ?>
                                 <tr><td class="alv"><?php echo ABAP_Navigation::GetURLAppComp($child_bmfr_item['FCTR_ID'], $child_bmfr_item['PS_POSID'], $child_bmfr_item_desc) ?></td>
-                                    <td class="alv"><?php echo $child_bmfr_item_desc ?>&nbsp;</td>
+                                    <td class="alv"><?php echo htmlentities($child_bmfr_item_desc) ?>&nbsp;</td>
                                     <td class="alv"><?php echo $child_bmfr_item['FCTR_ID'] ?>&nbsp;</td>
                                 </tr>
                             <?php } ?>
@@ -112,7 +112,7 @@ $child_tdevc = ABAP_DB_TABLE_HIER::TDEVC_DEVCLASS($df14l['FCTR_ID']);
                                 $child_tdevc_item_desc = ABAP_DB_TABLE_HIER::TDEVCT($child_tdevc_item['DEVCLASS']);
                                 ?>
                                 <tr><td class="alv"><?php echo ABAP_Navigation::GetURLPackage($child_tdevc_item['DEVCLASS'], $child_tdevc_item_desc) ?></td>
-                                    <td class="alv"><?php echo $child_tdevc_item_desc ?>&nbsp;</td></tr>
+                                    <td class="alv"><?php echo htmlentities($child_tdevc_item_desc) ?>&nbsp;</td></tr>
                             <?php } ?>
                         </table>
                     <?php } ?><!-- Contained Packages: End -->

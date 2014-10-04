@@ -85,7 +85,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DOMA_DESC . ' ' . $doma['DOMN
                 <table class="content_obj">
                     <tbody>
                         <tr><td class="content_label"> Domain Name       </td><td class="field"> <?php echo ABAP_Navigation::GetURLDomain($doma['DOMNAME'], $doma_desc) ?> </td></tr>
-                        <tr><td class="content_label"> Short Description </td><td class="field"> <?php echo $doma_desc ?> &nbsp;</td></tr>
+                        <tr><td class="content_label"> Short Description </td><td class="field"> <?php echo htmlentities($doma_desc) ?> &nbsp;</td></tr>
                     </tbody>
                 </table>
 
@@ -132,7 +132,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DOMA_DESC . ' ' . $doma['DOMN
                                 <tr><td class="alv" align="center"> <?php echo intval($doma_vall_item['VALPOS']) ?> </td>
                                     <td class="alv" align="right"> <?php echo $doma_vall_item['DOMVALUE_L'] ?> &nbsp; </td>
                                     <td class="alv" align="right"> <?php echo $doma_vall_item['DOMVALUE_H'] ?> &nbsp; </td>
-                                    <td class="alv"><?php echo $doma_vall_item_text ?></td> </tr>
+                                    <td class="alv"><?php echo htmlentities($doma_vall_item_text) ?></td> </tr>
                             <?php } ?>
                             <tr><td class="alv" align="center"> &nbsp; </td>
                                 <td class="alv" align="right">  &nbsp; </td>

@@ -76,7 +76,7 @@ $child_tran = ABAP_DB_TABLE_HIER::TADIR_Child($tdevc['DEVCLASS'], ABAP_DB_CONST:
                         <tr><td class="content_label"> Package                </td>
                             <td class="field"><a href="#"><?php echo $tdevc['DEVCLASS'] ?></a>&nbsp;</td>
                             <td>&nbsp;</td></tr>
-                        <tr><td class="content_label"> Short Description      </td><td class="field"> <?php echo $tdevc_desc ?> &nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td class="content_label"> Short Description      </td><td class="field"> <?php echo htmlentities($tdevc_desc) ?> &nbsp;</td><td>&nbsp;</td></tr>
                         <tr><td class="content_label"> Super package          </td>
                             <td class="field"><?php echo ABAP_Navigation::GetURLPackage($tdevc['PARENTCL'], $tdevc_parent_desc) ?> &nbsp;</td>
                             <td><?php echo $tdevc_parent_desc ?>&nbsp;</td></tr>
@@ -107,7 +107,7 @@ $child_tran = ABAP_DB_TABLE_HIER::TADIR_Child($tdevc['DEVCLASS'], ABAP_DB_CONST:
                             ) {
                                 ?>
                                 <tr><td class="alv"><?php echo ABAP_Navigation::GetURLTable($child_tabl_item['OBJ_NAME'], $child_tabl_item_t) ?></td>
-                                    <td class="alv"><?php echo $child_tabl_item_t ?>&nbsp;</td>
+                                    <td class="alv"><?php echo htmlentities($child_tabl_item_t) ?>&nbsp;</td>
                                     <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DD02L_TABCLASS, $table_dd02l['TABCLASS'], '') ?> &nbsp;</td>
                                     <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DD02L_CONTFLAG, $table_dd02l['CONTFLAG'], '') ?> &nbsp;</td>
                                 </tr>
@@ -135,7 +135,7 @@ $child_tran = ABAP_DB_TABLE_HIER::TADIR_Child($tdevc['DEVCLASS'], ABAP_DB_CONST:
                             $child_tran_item_t = ABAP_DB_TABLE_TRAN::TSTCT($child_tran_item['OBJ_NAME']);
                             ?>
                             <tr><td class="alv"><?php echo ABAP_Navigation::GetURLTransactionCode($child_tran_item['OBJ_NAME'], $child_tran_item_t) ?></td>
-                                <td class="alv"><?php echo $child_tran_item_t ?>&nbsp;</td>
+                                <td class="alv"><?php echo htmlentities($child_tran_item_t) ?>&nbsp;</td>
                                 <td class="alv"><?php echo ABAP_Navigation::GetURLProgram($tcode_tstc['PGMNA'], '') ?> &nbsp;</td>
                             </tr>
                         <?php } ?>

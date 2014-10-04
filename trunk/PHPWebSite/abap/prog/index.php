@@ -1,22 +1,40 @@
-<!DOCTYPE html>
-<!-- Program index -->
 <?php
 define('__ROOT__', dirname(dirname(dirname(__FILE__))));
 require_once (__ROOT__ . '/include/global.php');
 require_once (__ROOT__ . '/include/abap_db.php');
 require_once (__ROOT__ . '/include/abap_ui.php');
 
+// Get Index
 if (!isset($index)) {
     $index = filter_input(INPUT_GET, 'index');
 }
 
-if (empty($index)) {
+if (strlen(trim($index)) == 0) {
     $index = ABAP_DB_CONST::INDEX_A;
 } else {
     $index = strtoupper($index);
 }
+
+// Check Buffer
+$ob_fname = dirname(__FILE__) . "/index-" . strtolower($index) . ".html";
+if (file_exists($ob_fname)) {
+    $ob_file_content = file_get_contents($ob_fname);
+    if ($ob_file_content !== FALSE) {
+        echo $ob_file_content;
+        exit();
+    }
+}
+ob_start();
+?>
+<!DOCTYPE html>
+<!-- Program index -->
+<?php
+$GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::PROG_DESC . " - Index " . $index . " ";
+
+if ($index === ABAP_DB_CONST::INDEX_SLASH) {
+    $index = '/';
+}
 $prog_list = ABAP_DB_TABLE_HIER::TADIR_PROG_List($index);
-$GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::PROG_DESC;
 ?>
 <html>
     <head>
@@ -74,7 +92,7 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::PROG_DESC;
                     <a href="index-v.html">V</a>&nbsp;
                     <a href="index-w.html">W</a>&nbsp;
                     <a href="index-x.html">X</a>&nbsp;
-                    <a href="index-/.html">/</a>&nbsp;
+                    <a href="index-slash.html">/</a>&nbsp;
                 </div>
 
                 <h4> <?php echo ABAP_OTYPE::PROG_DESC ?> - <?php echo $index ?></h4>
@@ -92,7 +110,7 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::PROG_DESC;
                         <tr><td class="alv"><?php echo ABAP_Navigation::GetURLProgram($prog['OBJ_NAME'], '') ?> </td>
                             <td class="alv"><?php echo ABAP_Navigation::GetURLPackage($prog['DEVCLASS'], '') ?> </td>
                             <td class="alv"><?php echo ABAP_Navigation::GetURLSoftComp($prog['COMPONENT'], '') ?>&nbsp;</td>
-                            <td class="alv"><?php echo $prog_desc ?> &nbsp; </td>
+                            <td class="alv"><?php echo htmlspecialchars($prog_desc) ?> &nbsp; </td>
                         </tr>
                     <?php } ?>
                 </table>                
@@ -105,3 +123,14 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::PROG_DESC;
 
     </body>
 </html>
+<?php
+$ob_content = ob_get_contents();
+ob_end_flush();
+file_put_contents($ob_fname, $ob_content);
+
+// Make default index file
+if ($index === ABAP_DB_CONST::INDEX_A) {
+    $ob_fname = dirname(__FILE__) . "/index.html";
+    file_put_contents($ob_fname, $ob_content);
+}       
+?>
