@@ -57,15 +57,15 @@ class ABAP_Navigation {
     }
 
     public static function GetURLTableField($table, $field) {
-        return "<a href=\"/abap/tabl/" . strtolower($table) . "-" . strtolower($field)
+        return "<a href=\"/abap/tabl/" . htmlentities(strtolower($table)) . "-" . htmlentities(strtolower($field))
                 . ".html\" title=\"" . htmlentities($field)
-                . "\" target=\"_blank\"> " . $field . "</a>";
+                . "\" target=\"_blank\"> " . htmlentities($field) . "</a>";
     }
 
     public static function GetURLTableInclude($table, $field, $position) {
-        return "<a href=\"/abap/tabl/" . strtolower($table) . "-" . $position
+        return "<a href=\"/abap/tabl/" . htmlentities(strtolower($table)) . "-" . htmlentities($position)
                 . ".html\" title=\"" . htmlentities($position)
-                . "\" target=\"_blank\"> " . $field . "</a>";
+                . "\" target=\"_blank\"> " . htmlentities($field) . "</a>";
     }
 
     public static function GetURLTransactionCode($tcode, $desc) {
@@ -80,8 +80,9 @@ class ABAP_Navigation {
         $result = "";
         if (strlen(trim($objname)) > 0) {
             $sTitle = (empty($title)) ? $value : $title;
-            $result = "<a href=\"/abap/" . strtolower($objtype) . "/" . strtolower($objname) . ".html\" title=\"" 
-                    . htmlentities($sTitle) . "\"> " . $value . "</a>";
+            $result = "<a href=\"/abap/" . strtolower($objtype) 
+                    . "/" . htmlentities(strtolower($objname)) . ".html\" title=\"" 
+                    . htmlentities($sTitle) . "\"> " . htmlentities($value) . "</a>";
         }
         return $result;
     }

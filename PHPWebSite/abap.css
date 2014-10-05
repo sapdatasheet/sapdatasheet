@@ -144,6 +144,20 @@ td.field
     font-size:1em;
     padding:2px 7px 2px 7px;
 }
+td.field_right
+{
+    background-color:#DBE5F1;
+    border-width:1px;
+    border-style:solid;
+    border-color:#A5AEB7;
+    font-size:1em;
+    padding:2px 7px 2px 7px;
+    text-align: right;
+}
+td.right
+{
+    text-align: right;
+}
 td.content_label
 {
     min-width:15em;
