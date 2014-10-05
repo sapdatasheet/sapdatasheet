@@ -93,12 +93,12 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DOMA_DESC . ' ' . $doma['DOMN
                 <table class="content_obj">
                     <tbody>
                         <tr><td class="content_label"> Data Type          </td><td class="field"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DATATYPE, $doma['DATATYPE'], $doma_datatype_desc) ?> </td><td> <?php echo $doma_datatype_desc ?> </td></tr>
-                        <tr><td class="content_label"> No. Characters     </td><td class="field" align="right"><?php echo intval($doma['LENG']) ?>&nbsp;</td><td>&nbsp;</td></tr>
-                        <tr><td class="content_label"> Decimal Places     </td><td class="field" align="right"><?php echo ABAP_UI_TOOL::ClearZero(intval($doma['DECIMALS'])) ?>&nbsp;</td><td>&nbsp;</td></tr>
-                        <tr><td class="content_label"> Output Length      </td><td class="field" align="right"><?php echo intval($doma['OUTPUTLEN']) ?>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td class="content_label"> No. Characters     </td><td class="field_right"><?php echo intval($doma['LENG']) ?>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td class="content_label"> Decimal Places     </td><td class="field_right"><?php echo ABAP_UI_TOOL::ClearZero(intval($doma['DECIMALS'])) ?>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td class="content_label"> Output Length      </td><td class="field_right"><?php echo intval($doma['OUTPUTLEN']) ?>&nbsp;</td><td>&nbsp;</td></tr>
                         <tr><td class="content_label"> Conversion Routine </td><td class="field"><?php echo $doma['CONVEXIT'] ?>&nbsp;</td><td>&nbsp;</td></tr>
-                        <tr><td class="content_label"> Sign               </td><td align="right"><?php echo ABAP_UI_TOOL::GetCheckBox('SIGNFLAG', $doma['SIGNFLAG']) ?></td><td>&nbsp;</td></tr>
-                        <tr><td class="content_label"> Lower Case         </td><td align="right"><?php echo ABAP_UI_TOOL::GetCheckBox('LOWERCASE', $doma['LOWERCASE']) ?></td><td>&nbsp;</td></tr>
+                        <tr><td class="content_label"> Sign               </td><td class="right"><?php echo ABAP_UI_TOOL::GetCheckBox('SIGNFLAG', $doma['SIGNFLAG']) ?></td><td>&nbsp;</td></tr>
+                        <tr><td class="content_label"> Lower Case         </td><td class="right"><?php echo ABAP_UI_TOOL::GetCheckBox('LOWERCASE', $doma['LOWERCASE']) ?></td><td>&nbsp;</td></tr>
                     </tbody>
                 </table>
 
@@ -118,7 +118,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DOMA_DESC . ' ' . $doma['DOMN
 
                 <?php if (mysqli_num_rows($doma_vall) > 0) { ?>
                     <h4>Value Range</h4>
-                    <a name="#<?php echo ABAP_UI_TOOL::ANCHOR_VALUES ?>" id="<?php echo ABAP_UI_TOOL::ANCHOR_VALUES ?>"></a>
+                    <a id="<?php echo ABAP_UI_TOOL::ANCHOR_VALUES ?>"></a>
                     <table class="alv">
                         <tbody>
                             <tr><th class="alv">#</th>
@@ -129,14 +129,14 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DOMA_DESC . ' ' . $doma['DOMN
                             while ($doma_vall_item = mysqli_fetch_array($doma_vall)) {
                                 $doma_vall_item_text = ABAP_DB_TABLE_DOMA::DD07T($doma['DOMNAME'], $doma_vall_item['DOMVALUE_L']);
                                 ?>
-                                <tr><td class="alv" align="center"> <?php echo intval($doma_vall_item['VALPOS']) ?> </td>
-                                    <td class="alv" align="right"> <?php echo $doma_vall_item['DOMVALUE_L'] ?> &nbsp; </td>
-                                    <td class="alv" align="right"> <?php echo $doma_vall_item['DOMVALUE_H'] ?> &nbsp; </td>
+                                <tr><td class="alv_center"> <?php echo intval($doma_vall_item['VALPOS']) ?> </td>
+                                    <td class="alv_right"> <?php echo $doma_vall_item['DOMVALUE_L'] ?> &nbsp; </td>
+                                    <td class="alv_right"> <?php echo $doma_vall_item['DOMVALUE_H'] ?> &nbsp; </td>
                                     <td class="alv"><?php echo htmlentities($doma_vall_item_text) ?></td> </tr>
                             <?php } ?>
-                            <tr><td class="alv" align="center"> &nbsp; </td>
-                                <td class="alv" align="right">  &nbsp; </td>
-                                <td class="alv" align="right">  &nbsp; </td>
+                            <tr><td class="alv_center"> &nbsp; </td>
+                                <td class="alv_right">  &nbsp; </td>
+                                <td class="alv_right">  &nbsp; </td>
                                 <td class="alv"> &nbsp; </td> </tr>
                         </tbody>
                     </table>

@@ -100,16 +100,16 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DTEL_DESC . ' ' . $dtel['ROLL
                             <td class="field"> <?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DATATYPE, $dtel['DATATYPE'], $dtel_datatype_desc) ?> &nbsp;</td>
                             <td><?php echo htmlentities($dtel_datatype_desc) ?>&nbsp;</td></tr>
                         <tr><td class="content_label">Length </td>
-                            <td class="field" align="right"> <?php echo intval($dtel['LENG']) ?> &nbsp;</td>
+                            <td class="field_right"> <?php echo intval($dtel['LENG']) ?> &nbsp;</td>
                             <td>&nbsp;</td></tr>
                         <tr><td class="content_label">Decimal Places </td>
-                            <td class="field" align="right"> <?php echo intval($dtel['DECIMALS']) ?> &nbsp;</td>
+                            <td class="field_right"> <?php echo intval($dtel['DECIMALS']) ?> &nbsp;</td>
                             <td>&nbsp;</td></tr>
                         <tr><td class="content_label">Output Length </td>
-                            <td class="field" align="right"> <?php echo intval($dtel['OUTPUTLEN']) ?> &nbsp;</td>
+                            <td class="field_right"> <?php echo intval($dtel['OUTPUTLEN']) ?> &nbsp;</td>
                             <td>&nbsp;</td></tr>
                         <tr><td class="content_label">Value Table </td>
-                            <td class="field" align="right"> <?php echo ABAP_Navigation::GetURLTable($dtel['ENTITYTAB'], '') ?> &nbsp;</td>
+                            <td class="field_right"> <?php echo ABAP_Navigation::GetURLTable($dtel['ENTITYTAB'], '') ?> &nbsp;</td>
                             <td>&nbsp;</td></tr>
                     </tbody>
                 </table>
@@ -132,10 +132,10 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DTEL_DESC . ' ' . $dtel['ROLL
                 <table class="content_obj">
                     <tbody>
                         <tr><td> &nbsp; </td><td>Length &nbsp;</td><td>Field Label &nbsp;</td></tr>
-                        <tr><td class="content_label"> Short   </td><td class="field" align="right"><?php echo intval($dtel['SCRLEN1']) ?>&nbsp;</td><td class="field"><?php echo $dtel_label['SCRTEXT_S'] ?>&nbsp;</td></tr>
-                        <tr><td class="content_label"> Medium  </td><td class="field" align="right"><?php echo intval($dtel['SCRLEN2']) ?>&nbsp;</td><td class="field"><?php echo $dtel_label['SCRTEXT_M'] ?>&nbsp;</td></tr>
-                        <tr><td class="content_label"> Long    </td><td class="field" align="right"><?php echo intval($dtel['SCRLEN3']) ?>&nbsp;</td><td class="field"><?php echo $dtel_label['SCRTEXT_L'] ?>&nbsp;</td></tr>
-                        <tr><td class="content_label"> Heading </td><td class="field" align="right"><?php echo intval($dtel['HEADLEN']) ?>&nbsp;</td><td class="field"><?php echo $dtel_label['REPTEXT'] ?>&nbsp;</td></tr>
+                        <tr><td class="content_label"> Short   </td><td class="field_right"><?php echo intval($dtel['SCRLEN1']) ?>&nbsp;</td><td class="field"><?php echo $dtel_label['SCRTEXT_S'] ?>&nbsp;</td></tr>
+                        <tr><td class="content_label"> Medium  </td><td class="field_right"><?php echo intval($dtel['SCRLEN2']) ?>&nbsp;</td><td class="field"><?php echo $dtel_label['SCRTEXT_M'] ?>&nbsp;</td></tr>
+                        <tr><td class="content_label"> Long    </td><td class="field_right"><?php echo intval($dtel['SCRLEN3']) ?>&nbsp;</td><td class="field"><?php echo $dtel_label['SCRTEXT_L'] ?>&nbsp;</td></tr>
+                        <tr><td class="content_label"> Heading </td><td class="field_right"><?php echo intval($dtel['HEADLEN']) ?>&nbsp;</td><td class="field"><?php echo $dtel_label['REPTEXT'] ?>&nbsp;</td></tr>
                     </tbody>
                 </table>
 
