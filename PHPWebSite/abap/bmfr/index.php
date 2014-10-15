@@ -6,7 +6,11 @@ require_once (__ROOT__ . '/include/abap_ui.php');
 
 // Get Index
 if (!isset($index)) {
-    $index = filter_input(INPUT_GET, 'index');
+    if (php_sapi_name() == 'cli') {
+        $index = $argv[1];
+    } else {
+        $index = filter_input(INPUT_GET, 'index');
+    }
 }
 
 if (strlen(trim($index)) == 0) {
@@ -29,7 +33,7 @@ ob_start();
 <!DOCTYPE html>
 <!-- Application component index. -->
 <?php
-$GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::BMFR_DESC  . " - Index " . $index . " ";
+$GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::BMFR_DESC . " - Index " . $index . " ";
 $bmfr = ABAP_DB_TABLE_HIER::DF14L_List($index);
 ?>
 <html>
@@ -128,5 +132,5 @@ file_put_contents($ob_fname, $ob_content);
 if ($index === ABAP_DB_CONST::INDEX_TOP) {
     $ob_fname = dirname(__FILE__) . "/index.html";
     file_put_contents($ob_fname, $ob_content);
-}       
+}
 ?>

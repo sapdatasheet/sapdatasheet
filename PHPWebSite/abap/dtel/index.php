@@ -6,7 +6,11 @@ require_once (__ROOT__ . '/include/abap_ui.php');
 
 // Get Index
 if (!isset($index)) {
-    $index = filter_input(INPUT_GET, 'index');
+    if (php_sapi_name() == 'cli') {
+        $index = $argv[1];
+    } else {
+        $index = filter_input(INPUT_GET, 'index');
+    }
 }
 
 if (strlen(trim($index)) == 0) {
