@@ -1,5 +1,0 @@
-<IfModule mod_dir.c>
-
-FallbackResource /dispatcher.php
-
-</IfModule>
