@@ -1,5 +1,5 @@
 User-agent: *
+Disallow: /google/
 Disallow: /include/
-Disallow: /sysinfo/
 Disallow: /admin/
 Sitemap: http://www.sapdatasheet.org/sitemap/sitemaps.xml
