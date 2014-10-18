@@ -90,7 +90,7 @@ Include /etc/apache2/mods-available/ssl.load
 Include /etc/apache2/mods-available/status.load
 Include /etc/apache2/mods-available/perl.load
 
-Listen <% $port %>
+Listen 888
 User <% $user %>
 Group <% $group %>
 
