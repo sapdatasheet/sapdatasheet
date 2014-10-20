@@ -11,6 +11,10 @@ class ABAP_DB_CONN {
     //public static $user = 'A943634_abapr';
     //public static $pass = 'QWERTY123456';
 
+    //public static $host = 'localhost';
+    //public static $user = 'abapread';
+    //public static $pass = 'QWERTYUI87654321';
+
     public static $host = 'localhost';
     public static $user = 'root';
     public static $pass = '123456';
