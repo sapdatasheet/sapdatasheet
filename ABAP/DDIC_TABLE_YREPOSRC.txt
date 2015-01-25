@@ -1,0 +1,17 @@
+YREPOSRCMETA
+Report Source Code
+========================
+
+  Components are copied from table REPOSRC
+  Remove the last column
+
+YREPOSRCDATA
+Report Source Code
+========================
+
+  PROGNAME    PROGNAME    CHAR    40    0    ABAP Program Name
+  SEQ         INT4        INT4    10    0    Natural Number
+  LEN         INT4        INT4    10    0    Natural Number
+  LINE        CHAR1024    CHAR  1024    0    Character 1024                                                 
+
+Note. The component 'LINE' could be type 'STRING'.
