@@ -1,0 +1,42 @@
+YDYNPSOURCED021S
+Contains Screen Source Information - Field Information
+========================================================
+
+PROGNAME      PROGNAME    CHAR    40    0    ABAP Program Name
+DYNPNUMBER    DYNPRONR    NUMC     4    0    Screen number
+SEQ           INT4        INT4    10    0    Natural Number
+.INCLUDE      D021S       STRU     0    0    Screen fields
+
+
+
+YDYNPSOURCED022S
+Contains Screen Source Information - Flow Logic
+========================================================
+
+PROGNAME      PROGNAME    CHAR    40    0    ABAP Program Name
+DYNPNUMBER    DYNPRONR    NUMC     4    0    Screen number
+SEQ           INT4        INT4    10    0    Natural Number
+.INCLUDE      D022S       STRU     0    0    Screen Flow Logic
+
+
+
+YDYNPSOURCED023S
+Contains Screen Source Information - Screen parameters
+========================================================
+
+PROGNAME      PROGNAME    CHAR    40    0    ABAP Program Name
+DYNPNUMBER    DYNPRONR    NUMC     4    0    Screen number
+SEQ           INT4        INT4    10    0    Natural Number
+.INCLUDE      D023S       STRU     0    0    Screen parameters
+
+For lower Basis, there an error saying:
+  Field CONTENT is too long (Specify a length between 1 and 255)
+Then we can use the following structure to replace D023S:
+
+YD023S
+TYPE          SCRPDYTYPE  CHAR    10    0      Parameter informatino type for a screen
+CONTENT1      CHAR255     CHAR   255    0      Char255
+CONTENT2      CHAR255     CHAR   255    0      Char255
+CONTENT3      CHAR2       CHAR     2    0      Version Number Component
+
+

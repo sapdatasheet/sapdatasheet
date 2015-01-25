@@ -1,0 +1,6 @@
+YTAPLT
+Copy of TAPLT
+=============================================================
+SPRSL    SPRSL      LANG     1    0    Language Key
+APPL     PAPPL_D    CHAR     1    0    Applications programs, function modules, logical databases
+ATEXT    APPLTXT    CHAR    30    0    Application texts (program attributes)

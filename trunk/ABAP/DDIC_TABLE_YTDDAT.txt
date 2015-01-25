@@ -1,0 +1,7 @@
+YTDDAT
+Copy of TDDAT
+=====================================================
+TABNAME    TABNAME     CHAR    30    0    Table Name
+MCLASS     DDMCLASS    CHAR     4    0    Authorization group for DD objects
+CCLASS     BRGRU       CHAR     4    0    Authorization Group
+FLAG       DDFLAG      CHAR     1    0    Flag for internal table

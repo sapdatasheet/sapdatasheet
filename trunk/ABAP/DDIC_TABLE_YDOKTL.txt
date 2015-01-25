@@ -1,0 +1,11 @@
+YDOKTL
+Copy of DOKTL
+=============================================
+ID            DOKU_ID       CHAR     2    0    Document class
+OBJECT        DOKU_OBJ      CHAR    60    0    Documentation Object
+LANGU         DOKU_LANGU    LANG     1    0    Documentation language
+TYP           DOKU_TYP      CHAR     1    0    Documentation type
+DOKVERSION    DOKVERS       NUMC     4    0    Version of Documentation Module
+LINE          DOKU_LINE     NUMC     6    0    Line number within the documentation element
+DOKFORMAT     DOK_FORMAT    CHAR     2    0    Documentation format from SAPscript
+DOKTEXT       DOK_TEXT      CHAR    72    0    Text line in the documentation module
