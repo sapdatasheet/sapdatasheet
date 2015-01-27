@@ -10,7 +10,7 @@ $cvers = ABAP_DB_TABLE_HIER::CVERS_List();
     <?php while ($row = mysqli_fetch_array($cvers)) { ?>
     <url>
         <loc>http://www.sapdatasheet.org/abap/cvers/<?php echo htmlentities(strtolower($row['COMPONENT'])) ?>.html</loc> 
-        <changefreq>monthly</changefreq>
+        <changefreq>yearly</changefreq>
         <priority>0.6</priority>
     </url>
     <?php } ?>

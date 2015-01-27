@@ -10,7 +10,7 @@ $bmfr = ABAP_DB_TABLE_HIER::DF14L_Sitemap();
     <?php while ($row = mysqli_fetch_array($bmfr)) { ?>
     <url>
         <loc>http://www.sapdatasheet.org/abap/bmfr/<?php echo htmlentities(strtolower($row['FCTR_ID'])) ?>.html</loc> 
-        <changefreq>monthly</changefreq>
+        <changefreq>yearly</changefreq>
         <priority>0.6</priority>
     </url>
     <?php } ?>

@@ -21,7 +21,7 @@ for ($i = 1; $i <= $file_count; $i++) {
 
         echo '<url>';
         echo '<loc>' . $abapurl . '</loc>';
-        echo '<changefreq>monthly</changefreq>';
+        echo '<changefreq>yearly</changefreq>';
         echo '<priority>0.6</priority>';
         echo '</url>';
         echo "\r\n";
