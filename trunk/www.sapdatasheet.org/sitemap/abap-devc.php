@@ -10,7 +10,7 @@ $devc = ABAP_DB_TABLE_HIER::TDEVC_Sitemap();
     <?php while ($row = mysqli_fetch_array($devc)) { ?>
     <url>
         <loc>http://www.sapdatasheet.org/abap/devc/<?php echo htmlentities(strtolower($row['DEVCLASS'])) ?>.html</loc> 
-        <changefreq>monthly</changefreq>
+        <changefreq>yearly</changefreq>
         <priority>0.6</priority>
     </url>
     <?php } ?>

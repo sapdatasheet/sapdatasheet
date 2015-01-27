@@ -10,7 +10,7 @@ $sqlt = ABAP_DB_TABLE_TABL::DD06L_List();
     <?php while ($row = mysqli_fetch_array($sqlt)) { ?>
     <url>
         <loc>http://www.sapdatasheet.org/abap/sqlt/<?php echo htmlentities(strtolower($row['SQLTAB'])) ?>.html</loc> 
-        <changefreq>monthly</changefreq>
+        <changefreq>yearly</changefreq>
         <priority>0.6</priority>
     </url>
     <?php } ?>
