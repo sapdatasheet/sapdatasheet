@@ -23,12 +23,12 @@
     </sitemap>
     <?php
     $abap_type_count = array(
-        array("doma", 2),
-        array("dtel", 9),
-        array("func", 9),
+        array("doma", 3),
+        array("dtel", 10),
+        array("func", 10),
         array("prog", 6),
-        array("tabl", 9),
-        array("table-field", 153),
+        array("tabl", 10),
+        array("table-field", 150),
         array("tran", 3),
         array("view", 2),
     );
