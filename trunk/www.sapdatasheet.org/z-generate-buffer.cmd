@@ -1,4 +1,4 @@
-cd ..\www-root\abap\bmfr
+cd C:\Data\Business\SAPDatasheet\Runtime\www-root\abap\bmfr
 php index.php
 php -f index.php a
 php -f index.php b
@@ -24,11 +24,11 @@ php -f index.php u
 php -f index.php v
 php -f index.php w
 php -f index.php x
-pause
+
 
 cd ..\cvers
 php index.php
-pause
+
 
 cd ..\devc
 php index.php
@@ -57,7 +57,7 @@ php -f index.php v
 php -f index.php w
 php -f index.php x
 php -f index.php slash
-pause
+
 
 cd ..\doma
 php index.php
@@ -86,7 +86,7 @@ php -f index.php v
 php -f index.php w
 php -f index.php x
 php -f index.php slash
-pause
+
 
 cd ..\dtel
 php index.php
@@ -115,7 +115,7 @@ php -f index.php v
 php -f index.php w
 php -f index.php x
 php -f index.php slash
-pause
+
 
 cd ..\func
 php index.php
@@ -154,7 +154,7 @@ php -f index.php 6
 php -f index.php 7
 php -f index.php 8
 php -f index.php 9
-pause
+
 
 cd ..\prog
 php index.php
@@ -183,11 +183,11 @@ php -f index.php v
 php -f index.php w
 php -f index.php x
 php -f index.php slash
-pause
+
 
 cd ..\sqlt
 php index.php
-pause
+
 
 cd ..\tabl
 php index.php
@@ -218,7 +218,7 @@ php -f index.php v
 php -f index.php w
 php -f index.php x
 php -f index.php slash
-pause
+
 
 cd ..\tran
 php index.php
@@ -256,7 +256,7 @@ php -f index.php 6
 php -f index.php 7
 php -f index.php 8
 php -f index.php 9
-pause
+
 
 cd ..\view
 php index.php
@@ -285,7 +285,7 @@ php -f index.php v
 php -f index.php w
 php -f index.php x
 php -f index.php slash
-pause
+
 
 cd ..\..\sitemap
 php abap-bmfr.php
@@ -302,4 +302,5 @@ php abap-tran.php
 php abap-view.php
 php index.php
 php sitemaps.php
+
 pause
