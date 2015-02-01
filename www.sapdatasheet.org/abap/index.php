@@ -47,6 +47,7 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP";
                     <tr><td class="alv"><a href="/abap/devc">DEVC</a></td><td class="alv"><?php echo  ABAP_OTYPE::DEVC_DESC ?></td></tr>
                     <tr><td class="alv"><a href="/abap/tran">TRAN</a></td><td class="alv"><?php echo  ABAP_OTYPE::TRAN_DESC ?></td></tr>
                     <tr><td class="alv"><a href="/abap/prog">PROG</a></td><td class="alv"><?php echo  ABAP_OTYPE::PROG_DESC ?></td></tr>
+                    <tr><td class="alv"><a href="/abap/fugr"><?php echo  ABAP_OTYPE::FUGR_NAME ?></a></td><td class="alv"><?php echo  ABAP_OTYPE::FUGR_DESC ?></td></tr>
                     <tr><td class="alv"><a href="/abap/func">FUNC</a></td><td class="alv"><?php echo  ABAP_OTYPE::FUNC_DESC ?></td></tr>
                     <tr><td class="alv"><a href="/abap/tabl">TABL</a></td><td class="alv"><?php echo  ABAP_OTYPE::TABL_DESC ?></td></tr>
                     <tr><td class="alv"><a href="/abap/sqlt">SQLT</a></td><td class="alv"><?php echo  ABAP_OTYPE::SQLT_DESC ?></td></tr>

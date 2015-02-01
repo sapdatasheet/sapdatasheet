@@ -427,13 +427,15 @@ class ABAP_DB_TABLE_FUNC {
      * @param seq Sequence number of the include file
      */
     public static function GET_INCLUDE($fg, $seq) {
-        $pos = strrpos($fg, "/");
-        if ($pos === false) { // note: three equal signs
+        // TODO - To be fixed - namsapce is just the first 2 '/'
+        $pos1 = strpos($fg, "/");
+        if ($pos1 === false) { // note: three equal signs
             // not found...
             return 'L' . $fg . 'U' . $seq;
         } else {
-            $fg_left = substr($fg, 0, $pos + 1);
-            $fg_right = substr($fg, $pos + 1);
+            $pos2 = strpos($fg, "/", 1);  // Get the 2nd position
+            $fg_left = substr($fg, 0, $pos2 + 1);
+            $fg_right = substr($fg, $pos2 + 1);
             return $fg_left . 'L' . $fg_right . 'U' . $seq;
         }
     }
@@ -507,7 +509,7 @@ class ABAP_DB_TABLE_FUNC {
     /**
      * List function modules in an program (function group).
      * <pre>
-     * SELECT INCLUDE, FUNCNAME, FMODE FROM A943634_abapfunc.tfdir 
+     * SELECT INCLUDE, FUNCNAME, FMODE FROM abap.tfdir 
      * WHERE PNAME = '/1BCDWBEN/SAPL/BDL/EN0000' ORDER BY INCLUDE;
      * </pre>
      */
@@ -827,11 +829,43 @@ class ABAP_DB_TABLE_HIER {
                 . " AND DEVCLASS = '" . $Package . "'";
         return $con->query($sql);
     }
+    
+    /**
+     * Get function group list.
+     */
+    public static function TADIR_FUGR_List($index) {
+        $con = ABAP_DB_SCHEMA::getConnection();
+        $index = $con->real_escape_string($index);
+        $sql = "SELECT OBJ_NAME, DEVCLASS, COMPONENT FROM " . ABAP_DB_TABLE_HIER::TADIR
+                . " WHERE pgmid = 'R3TR' and object = 'FUGR' "
+                . " and OBJ_NAME like '" . $index . "%'"
+                . " order by OBJ_NAME";
+        return $con->query($sql);
+    }
+    
+    /**
+     * Function Group Site Map.
+     */
+    public static function TADIR_FUGR_Sitemap() {
+        $con = ABAP_DB_SCHEMA::getConnection();
+        $sql = "select OBJ_NAME from " . ABAP_DB_TABLE_HIER::TADIR
+                . " WHERE pgmid = 'R3TR' and object = 'FUGR'"
+                . " and OBJ_NAME <> ''"
+                . " and OBJ_NAME not like 'Y%'"
+                . " and OBJ_NAME not like 'Z%'"
+                . " and OBJ_NAME not like '$%'"
+                . " and OBJ_NAME not like '!%'"
+                . " and OBJ_NAME not like ' %'"
+                . " and OBJ_NAME not like '*%'"
+                . " and OBJ_NAME not like '-%'"
+                . " and OBJ_NAME not like '\%%' escape '\\\\'";
+        return $con->query($sql);
+    }
 
     /**
      * Get program list.
      * <pre>
-     * SELECT OBJ_NAME, DEVCLASS, COMPONENT FROM abaphier.tadir 
+     * SELECT OBJ_NAME, DEVCLASS, COMPONENT FROM abap.tadir 
      *   where pgmid = 'R3TR' and object = 'PROG' 
      *   and obj_name like 'A%' 
      *   order by obj_name
@@ -848,7 +882,7 @@ class ABAP_DB_TABLE_HIER {
     }
 
     /**
-     * DD01L Site Map.
+     * Program Site Map.
      * <pre>
      * SELECT OBJ_NAME FROM abaphier.tadir 
      *      WHERE pgmid = 'R3TR' and object = 'PROG'
@@ -1090,6 +1124,45 @@ class ABAP_DB_TABLE_PROG {
         $stmt->bind_result($result);
         $stmt->fetch();
         return $result;
+    }
+
+    /**
+     * Generate the program name of current function group.
+     * <p>
+     * Name space is defined in table NAMESPACE, with data type NAMESPACE
+     * CHAR(10). Example of name space is:
+     * </p>
+     * <pre>
+     * /1UKM/
+     * /1WDA/
+     * /1WRF/
+     * /1WRMA/
+     * /AFS/
+     * /APB/
+     * </pre>
+     * <pre>
+     * Function Group name : SDTX       /BEV1/EM0      /1BCDWBEN//BEV3/EN0000
+     * Program nmae        : SAPLSDTX   /BEV1/SAPLEM0  /1BCDWBEN/SAPL/BEV3/EN0000
+     * </pre>
+     * <pre>
+     * Function Group name : [FG]       [NameSpace]EM0
+     * Program name        : SAPL[FG]   [NameSpace]SAPLEMO
+     * </pre>
+     *
+     * @param $fugr Function Group name
+     */
+    public static function GET_PROG_FUGR($fugr) {
+        $pos1 = strpos($fugr, "/");
+        if ($pos1 === false) { // note: three equal signs
+            // not found...
+            return 'SAPL' . $fugr;
+        } else {
+            $pos2 = strpos($fugr, "/", 1);  // get the 2nd position
+
+            $fg_left = substr($fugr, 0, $pos2 + 1);
+            $fg_right = substr($fugr, $pos2 + 1);
+            return $fg_left . 'SAPL' . $fg_right;
+        }
     }
 
     /**

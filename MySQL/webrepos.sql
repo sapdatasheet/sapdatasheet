@@ -46,6 +46,9 @@ insert into abap.tfdir select * from saperpehp7.tfdir;
 create table if not exists abap.tftit like saperpehp7.tftit;
 insert into abap.tftit select * from saperpehp7.tftit;
 
+create table if not exists abap.tlibt like saperpehp7.tlibt;
+insert into abap.tlibt select * from saperpehp7.tlibt;
+
 -- Database table for HIER
 
 create table if not exists abap.cvers like saperpehp7.cvers;
@@ -89,7 +92,6 @@ create table if not exists abap.trdirt like saperpehp7.trdirt;
 insert into abap.trdirt select * from saperpehp7.trdirt where sprsl in ('D', 'E');
 
 create table if not exists abap.ytaplt like saperpehp7.ytaplt;
-alter table abap.ytaplt partition by key() partitions 10;
 insert into abap.ytaplt select * from saperpehp7.ytaplt;
 
 CREATE TABLE abap.`yd021s` (

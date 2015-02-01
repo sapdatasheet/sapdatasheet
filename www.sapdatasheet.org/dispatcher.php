@@ -86,6 +86,7 @@ $abap_uris = array(
     array("devc", '/abap/devc/index.html', '/abap/devc/index-', '/abap/devc/'),
     array("doma", '/abap/doma/index.html', '/abap/doma/index-', '/abap/doma/'),
     array("dtel", '/abap/dtel/index.html', '/abap/dtel/index-', '/abap/dtel/'),
+    array("fugr", '/abap/fugr/index.html', '/abap/fugr/index-', '/abap/fugr/'),
     array("func", '/abap/func/index.html', '/abap/func/index-', '/abap/func/'),
     array("prog", '/abap/prog/index.html', '/abap/prog/index-', '/abap/prog/'),
     array("sqlt", '/abap/sqlt/index.html', '/abap/sqlt/index-', '/abap/sqlt/'),

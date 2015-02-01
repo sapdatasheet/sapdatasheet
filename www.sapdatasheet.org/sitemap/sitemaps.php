@@ -25,6 +25,7 @@
     $abap_type_count = array(
         array("doma", 3),
         array("dtel", 10),
+        array("fugr", 2),
         array("func", 10),
         array("prog", 6),
         array("tabl", 10),
