@@ -40,8 +40,11 @@ class ABAP_Navigation {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::DEVC_NAME, $package, $package, $desc);
     }
 
-    public static function GetURLProgram($program, $desc) {
-        return ABAP_Navigation::GetURL(ABAP_OTYPE::PROG_NAME, $program, $program, $desc);
+    public static function GetURLProgram($program, $desc, $value = "") {
+        if ($value === "") {
+            $value = $program;
+        }
+        return ABAP_Navigation::GetURL(ABAP_OTYPE::PROG_NAME, $program, $value, $desc);
     }
 
     public static function GetURLSoftComp($compName, $desc) {

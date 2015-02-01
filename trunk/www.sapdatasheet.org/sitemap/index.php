@@ -33,7 +33,7 @@
         , 'h', 'i', 'j', 'k', 'l', 'm', 'n'
         , 'o', 'p', 'q', 'r', 's', 't'
         , 'u', 'v', 'w', 'x', 'slash');
-    $abap_otpye_a0s = array('tran', 'func');
+    $abap_otpye_a0s = array('tran', 'fugr', 'func');
     $abap_index_a0s = array('a', 'b', 'c', 'd', 'e', 'f', 'g'
         , 'h', 'i', 'j', 'k', 'l', 'm', 'n'
         , 'o', 'p', 'q', 'r', 's', 't'
@@ -83,7 +83,7 @@
             </url>
         <?php } ?>
     <?php } ?>
-    <!-- TRAN, FUNC -->
+    <!-- TRAN, FUGR, FUNC -->
     <url>
         <loc>http://www.sapdatasheet.org/abap/func/index-rfc.html</loc>
         <changefreq>monthly</changefreq>
