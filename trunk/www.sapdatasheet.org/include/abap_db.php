@@ -1178,7 +1178,8 @@ class ABAP_DB_TABLE_PROG {
      * </pre>
      * 
      * <pre>
-     * SELECT * FROM abapprog.rsmptexts_e where progname = 'RDDM0001' and SPRSL = 'E' order by obj_type
+     * SELECT * FROM abap.rsmptexts_e where progname = 'RDDM0001' and SPRSL = 'E' 
+     * order by obj_type, OBJ_CODE, SUB_CODE, TEXTTYPE
      * </pre>
      */
     public static function RSMPTEXTS($ProgName) {
@@ -1187,9 +1188,8 @@ class ABAP_DB_TABLE_PROG {
         $sql = "SELECT * FROM " . ABAP_DB_TABLE_PROG::RSMPTEXTS
                 . " WHERE PROGNAME = '" . $ProgName
                 . "' AND SPRSL = '" . ABAP_DB_CONST::LANGU_EN
-                . "' order by obj_type";
-        $qry = $con->query($sql);
-        return ABAP_DB_TABLE::QUERYRESULT_2_ARRAY($qry);
+                . "' order by obj_type, OBJ_CODE, SUB_CODE, TEXTTYPE";
+        return $con->query($sql);
     }
 
     /**
@@ -2060,16 +2060,4 @@ class ABAP_DB_TABLE {
      * @see #REPOSRC
      */
     const YREPOSRCDATA = "yreposrcdata";
-
-    /**
-     * Convert SQL query result to PHP array.
-     */
-    public static function QUERYRESULT_2_ARRAY($result) {
-        $data = array();     // create a variable to hold the information
-        while ($row = mysqli_fetch_array($result)) {
-            $data[] = $row;  // add the row in to the results (data) array
-        }
-        return $data;
-    }
-
 }
