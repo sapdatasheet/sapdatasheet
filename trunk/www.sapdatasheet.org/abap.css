@@ -175,6 +175,16 @@ caption, td.caption
     text-align:left;
     white-space:nowrap;
 }
+caption.right
+{
+    background-color:#BACFDF;
+    border-color:#A5AEB7;
+    border-style:solid;
+    border-width:1px;
+    font-size:1em;
+    text-align:right;
+    white-space:nowrap;
+}
 div.left
 {
     float:left;
