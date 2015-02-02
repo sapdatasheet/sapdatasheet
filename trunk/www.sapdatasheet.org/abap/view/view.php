@@ -198,8 +198,6 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::VIEW_DESC . ' ' . $dd25l['VIE
                             <th class="alv">Key</th>
                             <th class="alv">Data element</th>
                             <th class="alv">Mod</th>
-                            <th class="alv">Data Type</th>
-                            <th class="alv">Length</th>
                             <th class="alv">Short Description</th>
                             <!-- TODO: <th class="alv">Switch</th></tr> -->
                     </thead>
@@ -217,8 +215,6 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::VIEW_DESC . ' ' . $dd25l['VIE
                                 <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox("FELD_KEY_" . $dd27s['OBJPOS'], $dd27s['RDONLY']) ?> </td>
                                 <td class="alv"><?php echo ABAP_Navigation::GetURLDtel($dd27s['ROLLNAME'], '') ?> </td>
                                 <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox("FELD_MOD_" . $dd27s['OBJPOS'], $dd27s['ROLLCHANGE']) ?> </td>
-                                <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DATATYPE, $dd27s['DATATYPE'], $dd27s_rollname_desc) ?> </td>
-                                <td class="alv_right"><?php echo ABAP_UI_TOOL::ClearZero($dd27s['LENG']) ?>&nbsp; </td>
                                 <td class="alv"><?php echo htmlentities($dd27s_rollname_desc) ?> </td>
                                 <!-- TODO: <td class="alv">f.SWITCH_ID </td> -->
                             </tr>
