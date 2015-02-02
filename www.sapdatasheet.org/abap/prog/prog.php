@@ -218,7 +218,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::PROG_DESC . ' ' . $prog['PROG
                 <!-- Screen: End -->
 
                 <!-- Report Texts  -->
-                <?php if (count($rsmptexts_list) > 0) { ?>
+                <?php if (mysqli_num_rows($rsmptexts_list) > 0) { ?>
                     <h4>GUI Status </h4>
                     <table class="alv">
                         <tr>
@@ -259,7 +259,6 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::PROG_DESC . ' ' . $prog['PROG
                     </table>
                 <?php } ?>
                 <!-- Report Texts: End  -->
-
 
                 <h4> Hierarchy </h4>
                 <table class="content_obj">
