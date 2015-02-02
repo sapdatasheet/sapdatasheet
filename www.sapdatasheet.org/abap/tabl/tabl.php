@@ -107,9 +107,13 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $dd02l_tabclass_desc . ' ' . $dd02l['TABN
                 <!-- Components -->
                 <h4> Components </h4>
                 <table class="alv">
+                    <caption class="right">
+                        <img src='/abap/icon/s_lisvie.gif'> &nbsp;
+                        <!-- <img src='/abap/icon/s_x__xls.gif'> &nbsp;<img src='/abap/icon/s_xmldoc.gif'> &nbsp; -->
+                    </caption>
                     <thead>
                         <tr>
-                            <th class="alv"> # </th>
+                            <th class="alv"> <img src='/abap/icon/s_b_pvre.gif'> </th>
                             <th class="alv"> Field </th>
                             <th class="alv"> Key </th>
                             <th class="alv"> Data Element</th>
