@@ -1,2 +1,3 @@
-User-agent: *
 Sitemap: http://www.sapdatasheet.org/sitemap/sitemaps.xml
+User-agent: *
+Disallow: /download/
