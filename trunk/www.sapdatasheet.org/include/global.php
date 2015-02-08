@@ -117,3 +117,14 @@ class HTTP_STATUS {
     const STATUS_504 = "HTTP/1.1 504 Gateway Time-out";
 
 }
+
+
+/**
+ * Download file Format
+ */
+class DOWNLOAD {
+
+    const FORMAT_CSV = "CSV";
+    const FORMAT_XLS = "XLS";
+    const FORMAT_XLSX = "XLSX";
+}

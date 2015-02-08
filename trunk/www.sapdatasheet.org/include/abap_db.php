@@ -1,7 +1,7 @@
 <?php
 
-define('__ROOT__', dirname(dirname(__FILE__)));
-require_once(__ROOT__ . '/include/config.php');
+$__ROOT__ = dirname(dirname(__FILE__));
+require_once($__ROOT__ . '/include/config.php');
 
 class ABAP_DB_CONST {
 
