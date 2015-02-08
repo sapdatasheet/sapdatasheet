@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <!-- DDIC Table -->
 <?php
-define('__ROOT__', dirname(dirname(dirname(__FILE__))));
-require_once (__ROOT__ . '/include/global.php');
-require_once (__ROOT__ . '/include/abap_db.php');
-require_once (__ROOT__ . '/include/abap_ui.php');
+$__ROOT__ = dirname(dirname(dirname(__FILE__)));
+require_once ($__ROOT__ . '/include/global.php');
+require_once ($__ROOT__ . '/include/abap_db.php');
+require_once ($__ROOT__ . '/include/abap_ui.php');
 
 if (!isset($ObjID)) {
     $ObjID = filter_input(INPUT_GET, 'id');
@@ -108,11 +108,18 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $dd02l_tabclass_desc . ' ' . $dd02l['TABN
                 <h4> Components </h4>
                 <table class="alv">
                     <caption class="right">
-                        <a href="/download/abap-tabl-component.php?tabname=<?php echo $dd02l['TABNAME'] ?>"
+                        <a href="/download/abap-tabl-component.php?format=<?php echo strtolower(DOWNLOAD::FORMAT_CSV) ?>&tabname=<?php echo $dd02l['TABNAME'] ?>"
                            title="Download components as CSV file.&#10;The downloaded file contains more columns than displayed here."
                            target="_blank">
+                           <img src='/abap/icon/s_wdvtxe.gif'></a> &nbsp;
+                        <a href="/download/abap-tabl-component.php?format=<?php echo strtolower(DOWNLOAD::FORMAT_XLS) ?>&tabname=<?php echo $dd02l['TABNAME'] ?>"
+                           title="Download components as Excel (.xls) file.&#10;The downloaded file contains more columns than displayed here."
+                           target="_blank">
+                           <img src='/abap/icon/s_x__xls.gif'></a> &nbsp;
+                        <a href="/download/abap-tabl-component.php?format=<?php echo strtolower(DOWNLOAD::FORMAT_XLSX) ?>&tabname=<?php echo $dd02l['TABNAME'] ?>"
+                           title="Download components as Excel (.xlsx) file.&#10;The downloaded file contains more columns than displayed here."
+                           target="_blank">
                            <img src='/abap/icon/s_lisvie.gif'></a> &nbsp;
-                        <!-- <img src='/abap/icon/s_x__xls.gif'> &nbsp;<img src='/abap/icon/s_xmldoc.gif'> &nbsp; -->
                     </caption>
                     <thead>
                         <tr>
