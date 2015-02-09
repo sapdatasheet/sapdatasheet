@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <!-- Software component object. -->
 <?php
-define('__ROOT__', dirname(dirname(dirname(__FILE__))));
-require_once (__ROOT__ . '/include/global.php');
-require_once (__ROOT__ . '/include/abap_db.php');
-require_once (__ROOT__ . '/include/abap_ui.php');
+$__ROOT__ = dirname(dirname(dirname(__FILE__)));
+require_once ($__ROOT__ . '/include/global.php');
+require_once ($__ROOT__ . '/include/abap_db.php');
+require_once ($__ROOT__ . '/include/abap_ui.php');
 
 if (!isset($ObjID)) {
 $ObjID = filter_input(INPUT_GET, 'id');
@@ -32,7 +32,7 @@ $child_bmfr = ABAP_DB_TABLE_HIER::TDEVC_COMPONENT($cvers['COMPONENT']);
     <body>
 
         <!-- Header -->
-        <?php require __ROOT__ . '/include/header.php' ?>
+        <?php require $__ROOT__ . '/include/header.php' ?>
 
         <!-- Left -->
         <div class="left">
@@ -118,7 +118,7 @@ $child_bmfr = ABAP_DB_TABLE_HIER::TDEVC_COMPONENT($cvers['COMPONENT']);
         </div><!-- Content: End -->
 
         <!-- Footer -->
-        <?php include __ROOT__ . '/include/footer.html' ?>
+        <?php include $__ROOT__ . '/include/footer.html' ?>
 
     </body>
 </html>

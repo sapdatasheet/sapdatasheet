@@ -1,8 +1,8 @@
 <?php
-define('__ROOT__', dirname(dirname(dirname(__FILE__))));
-require_once (__ROOT__ . '/include/global.php');
-require_once (__ROOT__ . '/include/abap_db.php');
-require_once (__ROOT__ . '/include/abap_ui.php');
+$__ROOT__ = dirname(dirname(dirname(__FILE__)));
+require_once ($__ROOT__ . '/include/global.php');
+require_once ($__ROOT__ . '/include/abap_db.php');
+require_once ($__ROOT__ . '/include/abap_ui.php');
 
 // Get Index
 if (!isset($index)) {
@@ -54,10 +54,10 @@ $devc = ABAP_DB_TABLE_HIER::TDEVC_List($index);
     <body>
 
         <!-- Header -->
-        <?php require __ROOT__ . '/include/header.php' ?>
+        <?php require $__ROOT__ . '/include/header.php' ?>
 
         <!-- Left -->
-        <?php require __ROOT__ . '/include/abap_index_left.php' ?>
+        <?php require $__ROOT__ . '/include/abap_index_left.php' ?>
 
         <!-- Content -->
         <div class="content">
@@ -126,7 +126,7 @@ $devc = ABAP_DB_TABLE_HIER::TDEVC_List($index);
         </div><!-- Content: End -->        
 
         <!-- Footer -->
-        <?php include __ROOT__ . '/include/footer.html' ?>
+        <?php include $__ROOT__ . '/include/footer.html' ?>
 
     </body>
 </html>

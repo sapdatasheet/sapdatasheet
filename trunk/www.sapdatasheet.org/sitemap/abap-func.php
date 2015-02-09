@@ -1,8 +1,8 @@
 <!-- ABAP FUNC - 436,823 lines -->
 <?php
-define('__ROOT__', dirname(dirname(__FILE__)));
-require_once (__ROOT__ . '/include/global.php');
-require_once (__ROOT__ . '/include/abap_db.php');
+$__ROOT__ = dirname(dirname(__FILE__));
+require_once ($__ROOT__ . '/include/global.php');
+require_once ($__ROOT__ . '/include/abap_db.php');
 
 $func = ABAP_DB_TABLE_FUNC::TFDIR_Sitemap();
 $num_rows = mysqli_num_rows($func);

@@ -1,7 +1,6 @@
 <?php
 ob_start();
-define('__ROOT__', dirname(dirname(__FILE__)));
-require_once (__ROOT__ . '/include/abap_db.php');
+require_once (dirname(dirname(__FILE__)) . '/include/abap_db.php');
 $sqlt = ABAP_DB_TABLE_TABL::DD06L_List();
 ?>
 <?xml version="1.0" encoding="UTF-8"?>

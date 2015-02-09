@@ -1,8 +1,8 @@
 <!-- ABAP View - 55,097 -->
 <?php
-define('__ROOT__', dirname(dirname(__FILE__)));
-require_once (__ROOT__ . '/include/global.php');
-require_once (__ROOT__ . '/include/abap_db.php');
+$__ROOT__ = dirname(dirname(__FILE__));
+require_once ($__ROOT__ . '/include/global.php');
+require_once ($__ROOT__ . '/include/abap_db.php');
 
 $view = ABAP_DB_TABLE_VIEW::DD25L_Sitemap();
 $num_rows = mysqli_num_rows($view);

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <!-- ABAP Object Types List -->
 <?php 
-define('__ROOT__', dirname(dirname(__FILE__))); 
-require_once(__ROOT__ . '/include/global.php') ;
+$__ROOT__ = dirname(dirname(__FILE__)); 
+require_once($__ROOT__ . '/include/global.php') ;
 
 $GLOBALS['TITLE_TEXT'] = "SAP ABAP"; 
 ?>
@@ -19,10 +19,10 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP";
     <body>
 
         <!-- Header -->
-        <?php require __ROOT__ . '/include/header.php' ?>
+        <?php require $__ROOT__ . '/include/header.php' ?>
 
         <!-- Left -->
-        <?php require __ROOT__ . '/include/abap_index_left.php' ?>
+        <?php require $__ROOT__ . '/include/abap_index_left.php' ?>
 
         <!-- Content -->
         <div class="content">
@@ -60,7 +60,7 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP";
         </div><!-- Content: End -->        
 
         <!-- Footer -->
-        <?php include __ROOT__ . '/include/footer.html' ?>
+        <?php include $__ROOT__ . '/include/footer.html' ?>
 
     </body>
 </html>

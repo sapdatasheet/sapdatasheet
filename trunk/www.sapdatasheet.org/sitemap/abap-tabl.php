@@ -1,8 +1,8 @@
 <!-- ABAP TABL - 430,214 lines -->
 <?php
-define('__ROOT__', dirname(dirname(__FILE__)));
-require_once (__ROOT__ . '/include/global.php');
-require_once (__ROOT__ . '/include/abap_db.php');
+$__ROOT__ = dirname(dirname(__FILE__));
+require_once ($__ROOT__ . '/include/global.php');
+require_once ($__ROOT__ . '/include/abap_db.php');
 
 $tabl = ABAP_DB_TABLE_TABL::DD02L_Sitemap();
 $num_rows = mysqli_num_rows($tabl);
