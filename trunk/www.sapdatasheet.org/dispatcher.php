@@ -25,8 +25,13 @@ require_once(dirname(__FILE__) . '/include/global.php');
 $requri = html_entity_decode(strtolower($_SERVER['REQUEST_URI']));
 unset($target);
 
+// - Hacker URL
+if ($requri === '/wp/wp-admin/' 
+        || $requri === '/test/wp-admin/') {
+    $target = 'page404.php';
+
 // - Root path
-if ($requri === '/') {
+} else if ($requri === '/') {
     $target = 'index.php';
 
 // - ALL other URL

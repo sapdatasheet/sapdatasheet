@@ -90,11 +90,8 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DTEL_DESC . ' ' . $dtel['ROLL
                         <tr><td class="content_label"> Type of Object Referenced  </td>
                             <td class="field"> <?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DD04L_REFTYPE, $dtel['REFTYPE'], $dtel_reftype_desc); ?> &nbsp;</td>
                             <td><?php echo $dtel_reftype_desc ?></td></tr>
-                        <tr><td class="content_label">Domain </td>
+                        <tr><td class="content_label">Domain / Name of Reference Type</td>
                             <td class="field"> <?php echo ABAP_Navigation::GetURLDomain($dtel['DOMNAME'], ''); ?> &nbsp;</td>
-                            <td>&nbsp;</td></tr>
-                        <tr><td class="content_label">Name of Reference Type </td>
-                            <td class="field"> <?php echo $dtel['REFTYPNAME'] ?> &nbsp;</td>
                             <td>&nbsp;</td></tr>
                         <tr><td class="content_label">Data Type </td>
                             <td class="field"> <?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DATATYPE, $dtel['DATATYPE'], $dtel_datatype_desc) ?> &nbsp;</td>
