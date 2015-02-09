@@ -96,18 +96,20 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::TRAN_DESC . ' ' . $tstc['TCOD
                     </tbody>
                 </table>
 
-                <h4>Authorization</h4>
-                <table class="alv">
-                    <tbody>
-                        <tr><th class="alv">Authorization Object</th><th class="alv">Authorization Field</th><th class="alv">Value</th></tr>
-                        <?php while ($tstca_item = mysqli_fetch_array($tstca_list)) { ?>
-                            <tr><td class="alv"><?php echo $tstca_item['OBJECT'] ?>&nbsp;</td>
-                                <td class="alv"><?php echo $tstca_item['FIELD'] ?></td>
-                                <td class="alv"><?php echo $tstca_item['VALUE'] ?>&nbsp;</td></tr>
-                        <?php } ?>
-                        <tr><td class="alv">&nbsp;</td><td class="alv">&nbsp;</td><td class="alv">&nbsp;</td></tr>
-                    </tbody>
-                </table>
+                <?php if ($tstca_list !== FALSE) { ?>
+                    <h4>Authorization</h4>
+                    <table class="alv">
+                        <tbody>
+                            <tr><th class="alv">Authorization Object</th><th class="alv">Authorization Field</th><th class="alv">Value</th></tr>
+                            <?php while ($tstca_item = mysqli_fetch_array($tstca_list)) { ?>
+                                <tr><td class="alv"><?php echo $tstca_item['OBJECT'] ?>&nbsp;</td>
+                                    <td class="alv"><?php echo $tstca_item['FIELD'] ?></td>
+                                    <td class="alv"><?php echo $tstca_item['VALUE'] ?>&nbsp;</td></tr>
+                            <?php } ?>
+                            <tr><td class="alv">&nbsp;</td><td class="alv">&nbsp;</td><td class="alv">&nbsp;</td></tr>
+                        </tbody>
+                    </table>
+                <?php } ?>
 
                 <h4>Parameter</h4>
                 <table class="content_obj">
