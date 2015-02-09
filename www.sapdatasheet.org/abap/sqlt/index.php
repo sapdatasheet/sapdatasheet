@@ -12,10 +12,10 @@ ob_start();
 <!DOCTYPE html>
 <!-- SQLT index. -->
 <?php
-define('__ROOT__', dirname(dirname(dirname(__FILE__))));
-require_once (__ROOT__ . '/include/global.php');
-require_once (__ROOT__ . '/include/abap_db.php');
-require_once (__ROOT__ . '/include/abap_ui.php');
+$__ROOT__ = dirname(dirname(dirname(__FILE__)));
+require_once ($__ROOT__ . '/include/global.php');
+require_once ($__ROOT__ . '/include/abap_db.php');
+require_once ($__ROOT__ . '/include/abap_ui.php');
 
 $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::SQLT_DESC;
 $dd06l = ABAP_DB_TABLE_TABL::DD06L_List();
@@ -33,10 +33,10 @@ $dd06l = ABAP_DB_TABLE_TABL::DD06L_List();
     <body>
 
         <!-- Header -->
-        <?php require __ROOT__ . '/include/header.php' ?>
+        <?php require $__ROOT__ . '/include/header.php' ?>
 
         <!-- Left -->
-        <?php require __ROOT__ . '/include/abap_index_left.php' ?>
+        <?php require $__ROOT__ . '/include/abap_index_left.php' ?>
 
         <!-- Content -->
         <div class="content">
@@ -76,7 +76,7 @@ $dd06l = ABAP_DB_TABLE_TABL::DD06L_List();
         </div><!-- Content: End -->        
 
         <!-- Footer -->
-        <?php include __ROOT__ . '/include/footer.html' ?>
+        <?php include $__ROOT__ . '/include/footer.html' ?>
 
     </body>
 </html>

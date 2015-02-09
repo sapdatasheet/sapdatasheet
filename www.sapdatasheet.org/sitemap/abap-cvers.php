@@ -1,7 +1,6 @@
 <?php
 ob_start();
-define('__ROOT__', dirname(dirname(__FILE__)));
-require_once (__ROOT__ . '/include/abap_db.php');
+require_once (dirname(dirname(__FILE__)) . '/include/abap_db.php');
 $cvers = ABAP_DB_TABLE_HIER::CVERS_List();
 ?>
 <?xml version="1.0" encoding="UTF-8"?>

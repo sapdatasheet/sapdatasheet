@@ -38,7 +38,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $dd02l_tabclass_desc . ' ' . $dd02l['TABN
     <body>
 
         <!-- Header -->
-        <?php require __ROOT__ . '/include/header.php' ?>
+        <?php require $__ROOT__ . '/include/header.php' ?>
 
         <!-- Left -->
         <div class="left">
@@ -186,7 +186,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $dd02l_tabclass_desc . ' ' . $dd02l['TABN
         </div><!-- End of Content -->
 
         <!-- Footer -->
-        <?php include __ROOT__ . '/include/footer.html' ?>
+        <?php include $__ROOT__ . '/include/footer.html' ?>
 
     </body>
 </html>

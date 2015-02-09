@@ -1,8 +1,8 @@
 <!-- ABAP DTEL - 435,198 lines -->
 <?php
-define('__ROOT__', dirname(dirname(__FILE__)));
-require_once (__ROOT__ . '/include/global.php');
-require_once (__ROOT__ . '/include/abap_db.php');
+$__ROOT__ = dirname(dirname(__FILE__));
+require_once ($__ROOT__ . '/include/global.php');
+require_once ($__ROOT__ . '/include/abap_db.php');
 
 $dtel = ABAP_DB_TABLE_DTEL::DD04L_Sitemap();
 $num_rows = mysqli_num_rows($dtel);

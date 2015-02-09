@@ -20,8 +20,7 @@
 //   http://localhost/abap/bmfr/HLB0009009.html
 //   http://localhost/abap/bmfr/bmfr.php?id=HLB0009009
 
-define('__ROOT__', dirname(__FILE__));
-require_once(__ROOT__ . '/include/global.php');
+require_once(dirname(__FILE__) . '/include/global.php');
 
 $requri = html_entity_decode(strtolower($_SERVER['REQUEST_URI']));
 unset($target);

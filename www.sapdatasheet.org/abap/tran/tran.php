@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <?php
-define('__ROOT__', dirname(dirname(dirname(__FILE__))));
-require_once (__ROOT__ . '/include/global.php');
-require_once (__ROOT__ . '/include/abap_db.php');
-require_once (__ROOT__ . '/include/abap_ui.php');
+$__ROOT__ = dirname(dirname(dirname(__FILE__)));
+require_once ($__ROOT__ . '/include/global.php');
+require_once ($__ROOT__ . '/include/abap_db.php');
+require_once ($__ROOT__ . '/include/abap_ui.php');
 
 if (!isset($ObjID)) {
     $ObjID = filter_input(INPUT_GET, 'id');
@@ -39,7 +39,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::TRAN_DESC . ' ' . $tstc['TCOD
     <body>
 
         <!-- Header -->
-        <?php require __ROOT__ . '/include/header.php' ?>
+        <?php require $__ROOT__ . '/include/header.php' ?>
 
         <!-- Left -->
         <div class="left">
@@ -153,7 +153,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::TRAN_DESC . ' ' . $tstc['TCOD
         </div><!-- Content: End -->
 
         <!-- Footer -->
-        <?php include __ROOT__ . '/include/footer.html' ?>
+        <?php include $__ROOT__ . '/include/footer.html' ?>
 
     </body>
 </html>

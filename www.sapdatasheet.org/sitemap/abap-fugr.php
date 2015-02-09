@@ -1,8 +1,8 @@
 <!-- ABAP FUGR  -->
 <?php
-define('__ROOT__', dirname(dirname(__FILE__)));
-require_once (__ROOT__ . '/include/global.php');
-require_once (__ROOT__ . '/include/abap_db.php');
+$__ROOT__ = dirname(dirname(__FILE__));
+require_once ($__ROOT__ . '/include/global.php');
+require_once ($__ROOT__ . '/include/abap_db.php');
 
 $fugr = ABAP_DB_TABLE_HIER::TADIR_FUGR_Sitemap();
 $num_rows = mysqli_num_rows($fugr);
