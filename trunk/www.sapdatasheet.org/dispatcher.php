@@ -27,7 +27,8 @@ unset($target);
 
 // - Hacker URL
 if ($requri === '/wp/wp-admin/' 
-        || $requri === '/test/wp-admin/') {
+        || $requri === '/test/wp-admin/'
+        || $requri === '/blog/wp-admin/') {
     $target = 'page404.php';
 
 // - Root path
@@ -117,7 +118,7 @@ if (!isset($target)) {
 }
 
 //  Logging
-error_log('dispatcher: ' . $requri . ' --> ' . $target);
+error_log('dispatcher: [' . $requri . '] --> [' . $target . ']');
 
 //  Navigation
 include $target;
