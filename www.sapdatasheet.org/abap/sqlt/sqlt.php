@@ -28,7 +28,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $sqlt_sqlcalss_desc . ' ' . $sqlt['SQLTAB
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="stylesheet" href="/abap.css" type="text/css" />
         <title><?php echo $GLOBALS['TITLE_TEXT'] ?> <?php echo WEBSITE::TITLE ?> </title>
-        <meta name="keywords" content="SAP,<?php echo ABAP_OTYPE::SQLT_DESC ?>,<?php echo $sqlt_sqlcalss_desc ?>,<?php echo $doma['SQLTAB'] ?>,<?php echo $sqlt_desc ?>" />
+        <meta name="keywords" content="SAP,<?php echo ABAP_OTYPE::SQLT_DESC ?>,<?php echo $sqlt_sqlcalss_desc ?>,<?php echo $sqlt['SQLTAB'] ?>,<?php echo $sqlt_desc ?>" />
         <meta name="description" content="<?php echo WEBSITE::META_DESC; ?>" />
         <meta name="author" content="SAP Datasheet" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
