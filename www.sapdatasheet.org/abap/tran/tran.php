@@ -59,6 +59,11 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::TRAN_DESC . ' ' . $tstc['TCOD
                     <tr><td class="left_value"> <a href="#" title="<?php echo $tstc_desc ?>"><?php echo $tstc['TCODE'] ?></a> </td></tr>
                 </tbody>
             </table>
+
+            <!-- Google Adsense: left -->
+            <div>
+                <?php include $__ROOT__ . '/include/google/adsense-left.html' ?>
+            </div>
         </div>
 
         <!-- Content -->
@@ -151,6 +156,11 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::TRAN_DESC . ' ' . $tstc['TCOD
                     </tbody>
                 </table>
 
+            </div>
+
+            <!-- Google Adsense: bottom -->
+            <div>
+                <?php include $__ROOT__ . '/include/google/adsense-bottom.html' ?>
             </div>
         </div><!-- Content: End -->
 

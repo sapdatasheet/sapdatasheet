@@ -7,7 +7,7 @@ require_once ($__ROOT__ . '/include/abap_db.php');
 require_once ($__ROOT__ . '/include/abap_ui.php');
 
 if (!isset($ObjID)) {
-$ObjID = filter_input(INPUT_GET, 'id');
+    $ObjID = filter_input(INPUT_GET, 'id');
 }
 
 $cvers = ABAP_DB_TABLE_HIER::CVERS(strtoupper($ObjID));
@@ -62,6 +62,11 @@ $child_bmfr = ABAP_DB_TABLE_HIER::TDEVC_COMPONENT($cvers['COMPONENT']);
                     ?>
                 </tbody>
             </table>
+
+            <!-- Google Adsense: left -->
+            <div>
+                <?php include $__ROOT__ . '/include/google/adsense-left.html' ?>
+            </div>
         </div>
 
         <!-- Content -->
@@ -112,8 +117,13 @@ $child_bmfr = ABAP_DB_TABLE_HIER::TDEVC_COMPONENT($cvers['COMPONENT']);
                             }
                             ?>
                     </table>
-<?php } ?><!-- Software Component Content: End -->
+                <?php } ?><!-- Software Component Content: End -->
 
+            </div>
+
+            <!-- Google Adsense: bottom -->
+            <div>
+                <?php include $__ROOT__ . '/include/google/adsense-bottom.html' ?>
             </div>
         </div><!-- Content: End -->
 

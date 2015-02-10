@@ -58,6 +58,11 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $dd02l_tabclass_desc . ' ' . $dd02l['TABN
                     <tr><td class="left_value"> <a href="#" title="<?php echo $dd02l['TABNAME'] ?>"><?php echo $dd02l['TABNAME'] ?></a> </td></tr>
                 </tbody>
             </table>
+
+            <!-- Google Adsense: left -->
+            <div>
+                <?php include $__ROOT__ . '/include/google/adsense-left.html' ?>
+            </div>
         </div>
 
         <!-- Content -->
@@ -182,6 +187,11 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $dd02l_tabclass_desc . ' ' . $dd02l['TABN
                     </tbody>
                 </table>
 
+            </div>
+
+            <!-- Google Adsense: bottom -->
+            <div>
+                <?php include $__ROOT__ . '/include/google/adsense-bottom.html' ?>
             </div>
         </div><!-- End of Content -->
 

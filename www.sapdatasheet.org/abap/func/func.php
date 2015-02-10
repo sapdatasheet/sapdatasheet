@@ -63,6 +63,11 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::FUNC_DESC . ' ' . $func['FUNC
                     <tr><td class="left_value"> <a href="#" title="<?php echo $func_desc ?>"><?php echo $func['FUNCNAME'] ?></a> </td></tr>
                 </tbody>
             </table>
+
+            <!-- Google Adsense: left -->
+            <div>
+                <?php include $__ROOT__ . '/include/google/adsense-left.html' ?>
+            </div>
         </div>
 
         <!-- Content -->
@@ -197,6 +202,11 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::FUNC_DESC . ' ' . $func['FUNC
                         <tr><td class="content_label"> Package                 </td><td class="field"><?php echo ABAP_Navigation::GetURLPackage($hier->DEVCLASS, $hier->DEVCLASS_T) ?>&nbsp;</td><td> <?php echo $hier->DEVCLASS_T ?>&nbsp;</td></tr>
                     </tbody>
                 </table>
+            </div>
+
+            <!-- Google Adsense: bottom -->
+            <div>
+                <?php include $__ROOT__ . '/include/google/adsense-bottom.html' ?>
             </div>
         </div>
 

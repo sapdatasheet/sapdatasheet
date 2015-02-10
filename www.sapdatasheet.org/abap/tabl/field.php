@@ -87,6 +87,11 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP Table Field ' . $dd02l['TABNAME'] . '-' . $dd
                     <tr><td class="left_value"> <a href="#"><?php echo $dd03l['FIELDNAME'] ?></a> </td></tr>
                 </tbody>
             </table>
+
+            <!-- Google Adsense: left -->
+            <div>
+                <?php include $__ROOT__ . '/include/google/adsense-left.html' ?>
+            </div>
         </div>
 
         <!-- Content -->
@@ -259,6 +264,11 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP Table Field ' . $dd02l['TABNAME'] . '-' . $dd
                     </tbody>
                 </table>
 
+            </div>
+
+            <!-- Google Adsense: bottom -->
+            <div>
+                <?php include $__ROOT__ . '/include/google/adsense-bottom.html' ?>
             </div>
         </div><!-- End of Content -->
 

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <!-- ABAP Object Types List -->
-<?php 
-$__ROOT__ = dirname(dirname(__FILE__)); 
-require_once($__ROOT__ . '/include/global.php') ;
+<?php
+$__ROOT__ = dirname(dirname(__FILE__));
+require_once($__ROOT__ . '/include/global.php');
 
-$GLOBALS['TITLE_TEXT'] = "SAP ABAP"; 
+$GLOBALS['TITLE_TEXT'] = "SAP ABAP";
 ?>
 <html>
     <head>
@@ -43,20 +43,26 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP";
                         <th class="alv"> Object Name </th>
                     </tr>
                     <tr><td class="alv"><a href="/abap/cvers">CVERS</a></td><td class="alv"><?php echo ABAP_OTYPE::CVERS_DESC ?></td></tr>
-                    <tr><td class="alv"><a href="/abap/bmfr">BMFR</a></td><td class="alv"><?php echo  ABAP_OTYPE::BMFR_DESC ?></td></tr>
-                    <tr><td class="alv"><a href="/abap/devc">DEVC</a></td><td class="alv"><?php echo  ABAP_OTYPE::DEVC_DESC ?></td></tr>
-                    <tr><td class="alv"><a href="/abap/tran">TRAN</a></td><td class="alv"><?php echo  ABAP_OTYPE::TRAN_DESC ?></td></tr>
-                    <tr><td class="alv"><a href="/abap/prog">PROG</a></td><td class="alv"><?php echo  ABAP_OTYPE::PROG_DESC ?></td></tr>
-                    <tr><td class="alv"><a href="/abap/fugr"><?php echo  ABAP_OTYPE::FUGR_NAME ?></a></td><td class="alv"><?php echo  ABAP_OTYPE::FUGR_DESC ?></td></tr>
-                    <tr><td class="alv"><a href="/abap/func">FUNC</a></td><td class="alv"><?php echo  ABAP_OTYPE::FUNC_DESC ?></td></tr>
-                    <tr><td class="alv"><a href="/abap/tabl">TABL</a></td><td class="alv"><?php echo  ABAP_OTYPE::TABL_DESC ?></td></tr>
-                    <tr><td class="alv"><a href="/abap/sqlt">SQLT</a></td><td class="alv"><?php echo  ABAP_OTYPE::SQLT_DESC ?></td></tr>
-                    <tr><td class="alv"><a href="/abap/view">VIEW</a></td><td class="alv"><?php echo  ABAP_OTYPE::VIEW_DESC ?></td></tr>
-                    <tr><td class="alv"><a href="/abap/dtel">DTEL</a></td><td class="alv"><?php echo  ABAP_OTYPE::DTEL_DESC ?></td></tr>
-                    <tr><td class="alv"><a href="/abap/doma">DOMA</a></td><td class="alv"><?php echo  ABAP_OTYPE::DOMA_DESC ?></td></tr>
+                    <tr><td class="alv"><a href="/abap/bmfr">BMFR</a></td><td class="alv"><?php echo ABAP_OTYPE::BMFR_DESC ?></td></tr>
+                    <tr><td class="alv"><a href="/abap/devc">DEVC</a></td><td class="alv"><?php echo ABAP_OTYPE::DEVC_DESC ?></td></tr>
+                    <tr><td class="alv"><a href="/abap/tran">TRAN</a></td><td class="alv"><?php echo ABAP_OTYPE::TRAN_DESC ?></td></tr>
+                    <tr><td class="alv"><a href="/abap/prog">PROG</a></td><td class="alv"><?php echo ABAP_OTYPE::PROG_DESC ?></td></tr>
+                    <tr><td class="alv"><a href="/abap/fugr"><?php echo ABAP_OTYPE::FUGR_NAME ?></a></td><td class="alv"><?php echo ABAP_OTYPE::FUGR_DESC ?></td></tr>
+                    <tr><td class="alv"><a href="/abap/func">FUNC</a></td><td class="alv"><?php echo ABAP_OTYPE::FUNC_DESC ?></td></tr>
+                    <tr><td class="alv"><a href="/abap/tabl">TABL</a></td><td class="alv"><?php echo ABAP_OTYPE::TABL_DESC ?></td></tr>
+                    <tr><td class="alv"><a href="/abap/sqlt">SQLT</a></td><td class="alv"><?php echo ABAP_OTYPE::SQLT_DESC ?></td></tr>
+                    <tr><td class="alv"><a href="/abap/view">VIEW</a></td><td class="alv"><?php echo ABAP_OTYPE::VIEW_DESC ?></td></tr>
+                    <tr><td class="alv"><a href="/abap/dtel">DTEL</a></td><td class="alv"><?php echo ABAP_OTYPE::DTEL_DESC ?></td></tr>
+                    <tr><td class="alv"><a href="/abap/doma">DOMA</a></td><td class="alv"><?php echo ABAP_OTYPE::DOMA_DESC ?></td></tr>
                 </table>   
 
             </div>
+
+            <!-- Google Adsense: bottom -->
+            <div>
+                <?php include $__ROOT__ . '/include/google/adsense-bottom.html' ?>
+            </div>
+
         </div><!-- Content: End -->        
 
         <!-- Footer -->
