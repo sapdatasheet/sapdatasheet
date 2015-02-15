@@ -64,6 +64,7 @@ $child_bmfr = ABAP_DB_TABLE_HIER::TDEVC_COMPONENT($cvers['COMPONENT']);
             </table>
 
             <!-- Google Adsense: left -->
+            <h5>&nbsp;</h5>
             <div>
                 <?php include $__ROOT__ . '/include/google/adsense-left.html' ?>
             </div>
@@ -120,15 +121,10 @@ $child_bmfr = ABAP_DB_TABLE_HIER::TDEVC_COMPONENT($cvers['COMPONENT']);
                 <?php } ?><!-- Software Component Content: End -->
 
             </div>
-
-            <!-- Google Adsense: bottom -->
-            <div>
-                <?php include $__ROOT__ . '/include/google/adsense-bottom.html' ?>
-            </div>
         </div><!-- Content: End -->
 
         <!-- Footer -->
-        <?php include $__ROOT__ . '/include/footer.html' ?>
+        <?php require $__ROOT__ . '/include/footer.php' ?>
 
     </body>
 </html>

@@ -76,7 +76,7 @@ $dd06l = ABAP_DB_TABLE_TABL::DD06L_List();
         </div><!-- Content: End -->        
 
         <!-- Footer -->
-        <?php include $__ROOT__ . '/include/footer.html' ?>
+        <?php require $__ROOT__ . '/include/footer.php' ?>
 
     </body>
 </html>

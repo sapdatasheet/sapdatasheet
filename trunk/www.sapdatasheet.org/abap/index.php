@@ -57,16 +57,10 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP";
                 </table>   
 
             </div>
-
-            <!-- Google Adsense: bottom -->
-            <div>
-                <?php include $__ROOT__ . '/include/google/adsense-bottom.html' ?>
-            </div>
-
         </div><!-- Content: End -->        
 
         <!-- Footer -->
-        <?php include $__ROOT__ . '/include/footer.html' ?>
+        <?php require $__ROOT__ . '/include/footer.php' ?>
 
     </body>
 </html>

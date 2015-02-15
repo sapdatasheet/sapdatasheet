@@ -123,7 +123,7 @@ $dd02l = ABAP_DB_TABLE_TABL::DD02L_List($index);
         </div><!-- Content: End -->        
 
         <!-- Footer -->
-        <?php include $__ROOT__ . '/include/footer.html' ?>
+        <?php require $__ROOT__ . '/include/footer.php' ?>
 
     </body>
 </html>
