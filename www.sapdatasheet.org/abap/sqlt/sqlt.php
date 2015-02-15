@@ -58,6 +58,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $sqlt_sqlcalss_desc . ' ' . $sqlt['SQLTAB
             </table>
 
             <!-- Google Adsense: left -->
+            <h5>&nbsp;</h5>
             <div>
                 <?php include $__ROOT__ . '/include/google/adsense-left.html' ?>
             </div>
@@ -139,15 +140,10 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $sqlt_sqlcalss_desc . ' ' . $sqlt['SQLTAB
                 </table>
 
             </div>
-
-            <!-- Google Adsense: bottom -->
-            <div>
-                <?php include $__ROOT__ . '/include/google/adsense-bottom.html' ?>
-            </div>
         </div><!-- Content: End -->
 
         <!-- Footer -->
-        <?php include $__ROOT__ . '/include/footer.html' ?>
+        <?php require $__ROOT__ . '/include/footer.php' ?>
 
     </body>
 </html>

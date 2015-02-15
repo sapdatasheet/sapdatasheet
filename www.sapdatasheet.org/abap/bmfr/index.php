@@ -119,7 +119,7 @@ $bmfr = ABAP_DB_TABLE_HIER::DF14L_List($index);
         </div><!-- Content: End -->        
 
         <!-- Footer -->
-        <?php include $__ROOT__ . '/include/footer.html' ?>
+        <?php require $__ROOT__ . '/include/footer.php' ?>
 
     </body>
 </html>

@@ -65,6 +65,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::VIEW_DESC . ' ' . $dd25l['VIE
             </table>
 
             <!-- Google Adsense: left -->
+            <h5>&nbsp;</h5>
             <div>
                 <?php include $__ROOT__ . '/include/google/adsense-left.html' ?>
             </div>
@@ -291,15 +292,10 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::VIEW_DESC . ' ' . $dd25l['VIE
                 </table><!-- Hierarchy: End -->
 
             </div>
-
-            <!-- Google Adsense: bottom -->
-            <div>
-                <?php include $__ROOT__ . '/include/google/adsense-bottom.html' ?>
-            </div>
         </div><!-- Content: End -->
 
         <!-- Footer -->
-        <?php include $__ROOT__ . '/include/footer.html' ?>
+        <?php require $__ROOT__ . '/include/footer.php' ?>
 
     </body>
 </html>

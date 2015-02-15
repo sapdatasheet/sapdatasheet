@@ -19,6 +19,7 @@
     </table>
 
     <!-- Google Adsense: left -->
+    <h5>&nbsp;</h5>
     <div>
         <?php include dirname(dirname(__FILE__)) . '/include/google/adsense-left.html' ?>
     </div>

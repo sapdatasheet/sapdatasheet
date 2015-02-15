@@ -76,7 +76,7 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::CVERS_DESC;
         </div><!-- Content: End -->        
 
         <!-- Footer -->
-        <?php include $__ROOT__ . '/include/footer.html' ?>
+        <?php require $__ROOT__ . '/include/footer.php' ?>
 
     </body>
 </html>
