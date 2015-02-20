@@ -4,7 +4,7 @@
 -- --------------------------------------------------------------------------------
 DELIMITER $$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `tran_data`()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `tran_data_param`()
 BEGIN
 
   DECLARE loop_tran_done INT DEFAULT FALSE;
@@ -24,7 +24,7 @@ BEGIN
 
     set v_param = null;
     select PARAM into v_param from abap.tstcp where TCODE = v_tcode;
-    if LENGTH(v_param) > 0 then
+    if LENGTH(TRIM(v_param)) > 0 then
       update abaprep.tran set param = v_param where tcode = v_tcode;
 	end if;
   end loop;
