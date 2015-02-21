@@ -13,8 +13,11 @@ BEGIN
   DECLARE c_tran  CURSOR FOR SELECT tcode FROM abaprep.tran;
   DECLARE CONTINUE HANDLER FOR NOT FOUND SET loop_tran_done = TRUE;
 
-  OPEN c_tran;
+  -- Clear the existing param value
+  update abaprep.tran set param = null;
 
+  -- Load the new param
+  OPEN c_tran;
   loop_tran:LOOP
     set loop_tran_done = false;
     fetch c_tran into v_tcode;
@@ -28,8 +31,8 @@ BEGIN
       update abaprep.tran set param = v_param where tcode = v_tcode;
 	end if;
   end loop;
-
   CLOSE c_tran;
+
   call abaprep.debug_msg('tran_data() ended');
 
 END
