@@ -6,7 +6,7 @@ DELIMITER $$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `tran_data_param_parse`()
 BEGIN
--- See: https://code.google.com/p/sapdatasheet/wiki/ABAPTRANParameter
+-- See: https://code.google.com/p/sapdatasheet/wiki/ABAPTRANAnalytics
 
   DECLARE loop_tran_done INT DEFAULT FALSE;
   DECLARE v_tcode  VARCHAR(20);
