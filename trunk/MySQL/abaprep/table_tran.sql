@@ -28,5 +28,6 @@ CREATE TABLE `tran` (
   `value6` varchar(50) COLLATE utf8_bin DEFAULT NULL,
   `key7` varchar(132) COLLATE utf8_bin DEFAULT NULL,
   `value7` varchar(50) COLLATE utf8_bin DEFAULT NULL,
+  `debug` varchar(254) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`tcode`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Transaction Code';

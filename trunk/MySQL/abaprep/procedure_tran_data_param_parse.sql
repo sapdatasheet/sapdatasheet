@@ -53,6 +53,7 @@ BEGIN
 		set v_p1 = substr(v_p1, v_ppos);
 --      TODO - Parse the string 'aaa=bbb;ccc=ddd'
         update abaprep.tran set debug = v_p1 where tcode = v_tcode;
+        call tran_data_param_parsekv(v_tcode, v_p1);
 	  end if;
 
     elseif v_param like '@%' then
@@ -77,7 +78,7 @@ BEGIN
     elseif v_param like 'CLASS=%' then
 --    CLASS=CL_UDM_WL_CONTROLLERMETHOD=SHOW_WL
 --    CLASS=METHOD=
-      set v_p1 = substr(v_param, 7);
+      set v_p1 = substr(v_param, 7);               -- Delete 'CLASS='
       set v_ppos = position('METHOD=' in v_p1);
       if v_ppos > 0 then
 --      Class
@@ -86,23 +87,50 @@ BEGIN
 		  update abaprep.tran set calledclass = left(v_p2, 30) where tcode = v_tcode;
 		end if;
 --      Method
-        set v_p2 = substr(v_p1, v_ppos);
-        set v_p2 = substr(v_p2, 8);
+        set v_p2 = substr(v_p1, v_ppos);           -- Delete Class name
+        set v_p2 = substr(v_p2, 8);                -- Delete 'METHOD='
         if length(v_p2) > 0 then
 		  update abaprep.tran set calledmethod = left(v_p2, 61) where tcode = v_tcode;
 		end if;
 	  end if;
 
-	elseif v_param like 'PROGRAM=' then
+	elseif v_param like 'PROGRAM=%' then
 --    PROGRAM=SAPLKE_HDB_TKEHACCCLASS=LCL_MAINMETHOD=RUN
-	  set v_dummy = 0;
+      set v_p1 = substr(v_param, 9);               -- Delete 'PROGRAM='
+      set v_ppos = position('CLASS=' in v_p1);
+      if v_ppos > 0 then
+
+--      Program
+        set v_p2 = substr(v_p1, 1, v_ppos - 1);
+        if length(v_p2) > 0 then
+		  update abaprep.tran set calledprogname = left(v_p2, 40) where tcode = v_tcode;
+		end if;
+
+--      Class
+        set v_p2 = substr(v_p1, v_ppos);           -- Delete Program name
+        set v_p2 = substr(v_p2, 7);                -- Delete 'CLASS='
+        set v_ppos = position('METHOD=' in v_p2);
+        if v_ppos > 0 then
+          set v_p1 = substr(v_p2, 1, v_ppos - 1);
+		  if length(v_p1) > 0 then
+            update abaprep.tran set calledclass = left(v_p1, 30) where tcode = v_tcode;
+          end if;
+
+--        Method
+          set v_p2 = substr(v_p2, v_ppos);           -- Delete Class name
+          set v_p2 = substr(v_p2, 8);                -- Delete 'METHOD='
+          if length(v_p2) > 0 then
+		    update abaprep.tran set calledmethod = left(v_p2, 61) where tcode = v_tcode;
+          end if;
+        end if;
+      end if;
 
     else
 --    para1=value1;para2=value2
 --    variant
       if position('=' in v_param) > 0 then
 --      TODO - Parse key-value
-        set v_dummy = 0;
+        call tran_data_param_parsekv(v_tcode, v_param);
       else
         update abaprep.tran set variant = left(v_param, 14) where tcode = v_tcode;
       end if;
