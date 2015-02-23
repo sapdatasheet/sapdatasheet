@@ -10,5 +10,6 @@ BEGIN
   call tran_data_hira();
   call tran_data_param();
   call tran_data_param_parse();
+  call tran_data_view();
 
 END
