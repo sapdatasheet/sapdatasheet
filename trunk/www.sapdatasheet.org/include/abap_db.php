@@ -642,6 +642,9 @@ class ABAP_DB_TABLE_HIER {
      * Software Component text.
      */
     public static function CVERS_REF($SoftComp) {
+        if (empty($SoftComp)) {
+            return '';
+        }
         $dbc = ABAP_DB_SCHEMA::getConnection();
         $sql = "select desc_text from " . ABAP_DB_TABLE_HIER::CVERS_REF . " where COMPONENT = ? and LANGU = ?";
         $stmt = $dbc->prepare($sql);
@@ -769,6 +772,9 @@ class ABAP_DB_TABLE_HIER {
      * Application Component text.
      */
     public static function DF14T($AppComp) {
+        if (empty($AppComp)) {
+            return '';
+        }
         $sql = "select name from " . ABAP_DB_TABLE_HIER::DF14T . " where FCTR_ID = ? and LANGU = ?";
         $stmt = ABAP_DB_SCHEMA::getConnection()->prepare($sql);
         $langu = ABAP_DB_CONST::LANGU_EN;
@@ -987,6 +993,9 @@ class ABAP_DB_TABLE_HIER {
      * Package text.
      */
     public static function TDEVCT($Package) {
+        if (empty($Package)) {
+            return '';
+        }
         $sql = "select ctext from " . ABAP_DB_TABLE_HIER::TDEVCT . " where devclass = ? and spras = ?";
         $stmt = ABAP_DB_SCHEMA::getConnection()->prepare($sql);
         $langu = ABAP_DB_CONST::LANGU_EN;
@@ -1196,6 +1205,9 @@ class ABAP_DB_TABLE_PROG {
      * Report title text.
      */
     public static function TRDIRT($Progname) {
+        if (empty($Progname)) {
+            return '';
+        }
         $sql = "select TEXT from " . ABAP_DB_TABLE_PROG::TRDIRT
                 . " where NAME = ? and SPRSL = ?";
         $stmt = ABAP_DB_SCHEMA::getConnection()->prepare($sql);
