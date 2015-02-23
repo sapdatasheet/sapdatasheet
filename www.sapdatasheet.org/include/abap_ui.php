@@ -5,12 +5,12 @@ require_once($__ROOT__ . '/include/global.php');
 
 class ABAP_Navigation {
 
-    public static function GetURLAppComp($fctr_id, $posid, $desc) {
-        return ABAP_Navigation::GetURL(ABAP_OTYPE::BMFR_NAME, $fctr_id, $posid, $desc);
+    public static function GetURLAppComp($fctr_id, $posid, $desc, $newwin = FALSE) {
+        return ABAP_Navigation::GetURL(ABAP_OTYPE::BMFR_NAME, $fctr_id, $posid, $desc, $newwin);
     }
 
-    public static function GetURLDomain($domain, $desc) {
-        return ABAP_Navigation::GetURL(ABAP_OTYPE::DOMA_NAME, $domain, $domain, $desc);
+    public static function GetURLDomain($domain, $desc, $newwin = FALSE) {
+        return ABAP_Navigation::GetURL(ABAP_OTYPE::DOMA_NAME, $domain, $domain, $desc, $newwin);
     }
 
     public static function GetURLDomainValue($domain, $domainValue, $desc) {
@@ -24,39 +24,39 @@ class ABAP_Navigation {
                 . $domainValue . "</a>";
     }
 
-    public static function GetURLDtel($rollname, $desc) {
-        return ABAP_Navigation::GetURL(ABAP_OTYPE::DTEL_NAME, $rollname, $rollname, $desc);
+    public static function GetURLDtel($rollname, $desc, $newwin = FALSE) {
+        return ABAP_Navigation::GetURL(ABAP_OTYPE::DTEL_NAME, $rollname, $rollname, $desc, $newwin);
     }
 
-    public static function GetURLFuncModule($fm, $desc) {
-        return ABAP_Navigation::GetURL(ABAP_OTYPE::FUNC_NAME, $fm, $fm, $desc);
+    public static function GetURLFuncModule($fm, $desc, $newwin = FALSE) {
+        return ABAP_Navigation::GetURL(ABAP_OTYPE::FUNC_NAME, $fm, $fm, $desc, $newwin);
     }
 
-    public static function GetURLFuncGroup($fg, $desc) {
-        return ABAP_Navigation::GetURL(ABAP_OTYPE::FUGR_NAME, $fg, $fg, $desc);
+    public static function GetURLFuncGroup($fg, $desc, $newwin = FALSE) {
+        return ABAP_Navigation::GetURL(ABAP_OTYPE::FUGR_NAME, $fg, $fg, $desc, $newwin);
     }
 
-    public static function GetURLPackage($package, $desc) {
-        return ABAP_Navigation::GetURL(ABAP_OTYPE::DEVC_NAME, $package, $package, $desc);
+    public static function GetURLPackage($package, $desc, $newwin = FALSE) {
+        return ABAP_Navigation::GetURL(ABAP_OTYPE::DEVC_NAME, $package, $package, $desc, $newwin);
     }
 
-    public static function GetURLProgram($program, $desc, $value = "") {
+    public static function GetURLProgram($program, $desc, $value = "", $newwin = FALSE) {
         if ($value === "") {
             $value = $program;
         }
-        return ABAP_Navigation::GetURL(ABAP_OTYPE::PROG_NAME, $program, $value, $desc);
+        return ABAP_Navigation::GetURL(ABAP_OTYPE::PROG_NAME, $program, $value, $desc, $newwin);
     }
 
-    public static function GetURLSoftComp($compName, $desc) {
-        return ABAP_Navigation::GetURL(ABAP_OTYPE::CVERS_NAME, $compName, $compName, $desc);
+    public static function GetURLSoftComp($compName, $desc, $newwin = FALSE) {
+        return ABAP_Navigation::GetURL(ABAP_OTYPE::CVERS_NAME, $compName, $compName, $desc, $newwin);
     }
 
-    public static function GetURLSqltable($sqlTable, $desc) {
-        return ABAP_Navigation::GetURL(ABAP_OTYPE::SQLT_NAME, $sqlTable, $sqlTable, $desc);
+    public static function GetURLSqltable($sqlTable, $desc, $newwin = FALSE) {
+        return ABAP_Navigation::GetURL(ABAP_OTYPE::SQLT_NAME, $sqlTable, $sqlTable, $desc, $newwin);
     }
 
-    public static function GetURLTable($table, $desc) {
-        return ABAP_Navigation::GetURL(ABAP_OTYPE::TABL_NAME, $table, $table, $desc);
+    public static function GetURLTable($table, $desc, $newwin = FALSE) {
+        return ABAP_Navigation::GetURL(ABAP_OTYPE::TABL_NAME, $table, $table, $desc, $newwin);
     }
 
     public static function GetURLTableField($table, $field) {
@@ -71,21 +71,22 @@ class ABAP_Navigation {
                 . "\" target=\"_blank\"> " . htmlentities($field) . "</a>";
     }
 
-    public static function GetURLTransactionCode($tcode, $desc) {
-        return ABAP_Navigation::GetURL(ABAP_OTYPE::TRAN_NAME, $tcode, $tcode, $desc);
+    public static function GetURLTransactionCode($tcode, $desc, $newwin = FALSE) {
+        return ABAP_Navigation::GetURL(ABAP_OTYPE::TRAN_NAME, $tcode, $tcode, $desc, $newwin);
     }
 
-    public static function GetURLView($view, $desc) {
-        return ABAP_Navigation::GetURL(ABAP_OTYPE::VIEW_NAME, $view, $view, $desc);
+    public static function GetURLView($view, $desc, $newwin = FALSE) {
+        return ABAP_Navigation::GetURL(ABAP_OTYPE::VIEW_NAME, $view, $view, $desc, $newwin);
     }
 
-    private static function GetURL($objtype, $objname, $value, $title) {
+    private static function GetURL($objtype, $objname, $value, $title, $newwin = FALSE) {
         $result = "";
         if (strlen(trim($objname)) > 0) {
             $sTitle = (empty($title)) ? $value : $title;
-            $result = "<a href=\"/abap/" . strtolower($objtype) 
-                    . "/" . htmlentities(strtolower($objname)) . ".html\" title=\"" 
-                    . htmlentities($sTitle) . "\"> " . htmlentities($value) . "</a>";
+            $newWindow = ($newwin === TRUE) ? 'target="_blank"' : '';
+            $result = "<a href=\"/abap/" . strtolower($objtype)
+                    . "/" . htmlentities(strtolower($objname)) . ".html\" title=\""
+                    . htmlentities($sTitle) . "\" . $newWindow> " . htmlentities($value) . "</a>";
         }
         return $result;
     }
@@ -264,6 +265,19 @@ class ABAP_UI_TOOL {
         }
 
         return $result;
+    }
+
+    /**
+     * Check if the desription string exsit or not
+     * 
+     * @return (description) or emtpy string
+     */
+    public static function CheckDesc($desc) {
+        if (!empty($desc)) {
+            return '(' . htmlentities($desc) . ')';
+        } else {
+            return ''; 
+        }
     }
 
 }
