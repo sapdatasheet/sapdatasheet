@@ -206,6 +206,7 @@ div.footer_note
     margin-top:1em;
     text-align:left;
     font-size:small;
+	color: Gray;
 }
 
 /* -------- ABAP Object content -------- */
