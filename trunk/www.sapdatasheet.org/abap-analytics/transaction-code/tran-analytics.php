@@ -28,6 +28,12 @@ $calledtcode_desc = ABAP_DB_TABLE_TRAN::TSTCT($ana_tran['calledtcode']);
 $calledview_desc = ABAP_DB_TABLE_VIEW::DD25T($ana_tran['calledview']);
 $calledprogname_desc = ABAP_DB_TABLE_PROG::TRDIRT($ana_tran['calledprogname']);
 
+$trans_progname = ABAPANA_DB_TABLE::TRAN_Rela('progname', $ana_tran['progname']);
+$trans_package = ABAPANA_DB_TABLE::TRAN_Rela('package', $ana_tran['package']);
+$trans_calledview = ABAPANA_DB_TABLE::TRAN_Rela('calledview', $ana_tran['calledview']);
+$trans_calledtcode = ABAPANA_DB_TABLE::TRAN_Rela('calledtcode', $ana_tran['calledtcode']);
+$trans_appcomp = ABAPANA_DB_TABLE::TRAN_Rela('applfctr', $ana_tran['applfctr']);
+
 $GLOBALS['TITLE_TEXT'] = 'Analytics for SAP ' . ABAP_OTYPE::TRAN_DESC . ' ' . $ana_tran['tcode'] . ' ' . ABAP_UI_TOOL::CheckDesc($tran_desc);
 ?>
 
@@ -49,7 +55,7 @@ $GLOBALS['TITLE_TEXT'] = 'Analytics for SAP ' . ABAP_OTYPE::TRAN_DESC . ' ' . $a
         <!-- Left -->
         <div class="left">
             <h5>&nbsp;</h5>
-            <h5>Object Hierarchy</h5>
+            <h5>Direct Relations</h5>
             <table class="content_obj">
                 <tbody>
                     <tr><td>Software Component</td></tr>
@@ -82,21 +88,21 @@ $GLOBALS['TITLE_TEXT'] = 'Analytics for SAP ' . ABAP_OTYPE::TRAN_DESC . ' ' . $a
             <!-- Content Object -->
             <div class="content_obj_title"><span><?php echo $GLOBALS['TITLE_TEXT'] ?></span></div>
             <div class="content_obj">
-                <h4> Basic Data </h4>
+                <h4> Basic Analysis </h4>
                 <p>
-                Here is the analysis result for transaction code 
-                <?php echo ABAP_Navigation::GetURLTransactionCode($ana_tran['tcode'], $tran_desc, TRUE) ?>
-                <?php echo ABAP_UI_TOOL::CheckDesc($tran_desc) ?>:
+                    Here is the analysis result for transaction code 
+                    <?php echo ABAP_Navigation::GetURLTransactionCode($ana_tran['tcode'], $tran_desc, TRUE) ?>
+                    <?php echo ABAP_UI_TOOL::CheckDesc($tran_desc) ?>:
                 </p>
                 <ul>
                     <?php if (!empty($ana_tran['progname'])) { ?>
-                        <li>Start transaction code <?php echo ABAP_Navigation::GetURLTransactionCode($ana_tran['tcode'], $tran_desc, TRUE) ?>
-                            will call program <strong><?php echo ABAP_Navigation::GetURLProgram($ana_tran['progname'], $program_desc, $ana_tran['progname'], TRUE) ?></strong>
+                        <li>The transaction code <?php echo ABAP_Navigation::GetURLTransactionCode($ana_tran['tcode'], $tran_desc, TRUE) ?>
+                            is based on program <strong><?php echo ABAP_Navigation::GetURLProgram($ana_tran['progname'], $program_desc, $ana_tran['progname'], TRUE) ?></strong>
                             <?php echo ABAP_UI_TOOL::CheckDesc($program_desc) ?>
-                            <?php if (!empty($ana_tran['dypno'])) {  ?>
+                            <?php if (!empty($ana_tran['dypno'])) { ?>
                                 , via screen number <strong><?php echo $ana_tran['dypno'] ?></strong>
                             <?php } ?>
-                            <?php if (!empty($ana_tran['variant'])) {  ?>
+                            <?php if (!empty($ana_tran['variant'])) { ?>
                                 , with variant <strong><?php echo $ana_tran['variant'] ?></strong>
                             <?php } ?>
                         </li>
@@ -129,7 +135,7 @@ $GLOBALS['TITLE_TEXT'] = 'Analytics for SAP ' . ABAP_OTYPE::TRAN_DESC . ' ' . $a
                         <li>The maintenance view <strong><?php echo ABAP_Navigation::GetURLView($ana_tran['calledview'], $calledview_desc, TRUE) ?></strong>
                             <?php echo ABAP_UI_TOOL::CheckDesc($calledview_desc) ?> will be started by the transaction code 
                             <?php echo ABAP_Navigation::GetURLTransactionCode($ana_tran['tcode'], $tran_desc, TRUE) ?>
-                            <?php if (!empty($ana_tran['updateflag']) and  strtoupper($ana_tran['updateflag']) === ABAP_DB_CONST::FLAG_TRUE) { ?>
+                            <?php if (!empty($ana_tran['updateflag']) and strtoupper($ana_tran['updateflag']) === ABAP_DB_CONST::FLAG_TRUE) { ?>
                                 , in <strong>UPDATE</strong> mode
                             <?php } else { ?>
                                 , in <strong>DISPLAY</strong> mode
@@ -140,17 +146,17 @@ $GLOBALS['TITLE_TEXT'] = 'Analytics for SAP ' . ABAP_OTYPE::TRAN_DESC . ' ' . $a
                         <li>The maintenance view cluster <strong><?php echo $ana_tran['calledviewc'] ?></strong>
                             will be started by the transaction code 
                             <?php echo ABAP_Navigation::GetURLTransactionCode($ana_tran['tcode'], $tran_desc, TRUE) ?>,
-                            <?php if (!empty($ana_tran['updateflag']) and  strtoupper($ana_tran['updateflag']) === ABAP_DB_CONST::FLAG_TRUE) { ?>
+                            <?php if (!empty($ana_tran['updateflag']) and strtoupper($ana_tran['updateflag']) === ABAP_DB_CONST::FLAG_TRUE) { ?>
                                 , in <strong>UPDATE</strong> mode
                             <?php } else { ?>
                                 , in <strong>DISPLAY</strong> mode
                             <?php } ?>
                         </li>
                     <?php } ?>
-                    <?php if (!empty($ana_tran['calledclass']) and !empty($ana_tran['calledmethod'])) { ?>
+                    <?php if (!empty($ana_tran['calledclass']) and ! empty($ana_tran['calledmethod'])) { ?>
                         <li>Start transaction code <?php echo ABAP_Navigation::GetURLTransactionCode($ana_tran['tcode'], $tran_desc, TRUE) ?>
                             will call class  <strong><?php echo $ana_tran['calledclass'] ?></strong> method <strong><?php echo $ana_tran['calledmethod'] ?></strong>
-                            <?php if (!empty($ana_tran['calledprogname'])) {  ?>
+                            <?php if (!empty($ana_tran['calledprogname'])) { ?>
                                 , which is contained in program <strong><?php echo ABAP_Navigation::GetURLProgram($ana_tran['calledprogname'], $calledprogname_desc, $ana_tran['calledprogname'], TRUE) ?></strong>
                                 <?php echo ABAP_UI_TOOL::CheckDesc($calledprogname_desc) ?>
                             <?php } ?>
@@ -158,8 +164,43 @@ $GLOBALS['TITLE_TEXT'] = 'Analytics for SAP ' . ABAP_OTYPE::TRAN_DESC . ' ' . $a
                     <?php } ?>
                 </ul>
 
-                <!-- Attributes - Screen Specific -->
-                <h4> Attribute </h4>
+                <!-- Related tcode - Same Program name -->
+                <?php if ($trans_progname != null && mysqli_num_rows($trans_progname) > 1) { ?>
+                    <h4> Relations: Transaction codes with the same program 
+                        <?php echo ABAP_Navigation::GetURLPackage($ana_tran['progname'], $package_desc, TRUE) ?>
+                        as <?php echo ABAP_Navigation::GetURLTransactionCode($ana_tran['tcode'], $tran_desc, TRUE) ?>
+                    </h4>
+                    <table class="alv">
+                        <caption class="right">&nbsp;</caption>
+                        <thead>
+                            <tr>
+                                <th class="alv"> <img src='/abap/icon/s_b_pvre.gif'> </th>
+                                <th class="alv"> T-Code </th>
+                                <th class="alv"> Short Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $trans_count = 0;
+                            while ($trans_item = mysqli_fetch_array($trans_progname)) {
+                                $trans_count++;
+                                $trans_item_desc = ABAP_DB_TABLE_TRAN::TSTCT($trans_item['tcode']);
+                                ?>
+                                <tr>
+                                    <td class="alv"> <?php echo $trans_count ?> </td>
+                                    <td class="alv"> <?php echo ABAP_Navigation::GetURLTransactionCode($trans_item['tcode'], $trans_item_desc, TRUE) ?> </td>
+                                    <td class="alv"> <?php echo $trans_item_desc ?> </td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                <?php } ?>
+
+                <h4> The following transaction codes contained in the same package 
+                    <?php echo ABAP_Navigation::GetURLPackage($ana_tran['package'], $package_desc, TRUE) ?>
+                    as <?php echo ABAP_Navigation::GetURLTransactionCode($ana_tran['tcode'], $tran_desc, TRUE) ?>
+                </h4>
+
 
             </div>
         </div><!-- Content: End -->
