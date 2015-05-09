@@ -1,6 +1,3 @@
-include "/etc/bind/named.conf.options";
-include "/etc/bind/keys";
-
 // prime the server with knowledge of the root servers
 zone "." {
 	type hint;
@@ -30,4 +27,4 @@ zone "255.in-addr.arpa" {
 	file "/etc/bind/db.255";
 };
 
-include "/etc/bind/named.conf.local";
+

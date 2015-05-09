@@ -1,0 +1,18 @@
+$TTL 3D
+$ORIGIN 124.63.166.in-addr.arpa.
+@	IN	SOA	ns.ns1.sapdatasheet.org.	hostmaster.ns1.sapdatasheet.org. (
+			2015012718	;serial number
+			8H		;refresh
+			2H		;retry
+			4W		;expiration
+			1D )		;
+;
+		NS	ns.ns1.sapdatasheet.org.	;nameserver
+		NS	ns.ns2.sapdatasheet.org.	;nameserver
+		NS	ns.sapdatasheet.org.	;nameserver
+		NS	ns.www.sapdatasheet.org.	;nameserver
+;
+31	PTR	ns.ns1.sapdatasheet.org.
+31	PTR	ns2.sapdatasheet.org.
+31	PTR	sapdatasheet.org.
+31	PTR	www.sapdatasheet.org.

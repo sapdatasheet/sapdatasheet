@@ -1,0 +1,11 @@
+$TTL 3D
+@	IN	SOA	ns.ns1.sapdatasheet.org.	hostmaster (
+			2015012718	;serial number
+			8H		;refresh
+			2H		;retry
+			4W		;expiration
+			1D )		;
+;
+@		A	166.63.124.31
+@               NS      ns
+ns		A	166.63.124.31
