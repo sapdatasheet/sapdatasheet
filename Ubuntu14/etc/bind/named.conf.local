@@ -2,6 +2,23 @@
 // Do any local configuration here
 //
 
+// Forward zone
+zone "sapdatasheet.com" {
+    type master;
+    file "/etc/bind/db.sapdatasheet.com";
+};
+
+zone "sapdatasheet.org" {
+    type master;
+    file "/etc/bind/db.sapdatasheet.org";
+};
+
+//reverse zone
+zone "125.63.166.in-addr.arpa" {
+    type master;
+    file "/etc/bind/db.166";
+};
+
 // Consider adding the 1918 zones here, if they are not used in your
 // organization
 //include "/etc/bind/zones.rfc1918";
