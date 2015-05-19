@@ -5,7 +5,7 @@
 	compress
 	delaycompress
 	notifempty
-	create 640 root adm
+	create 777 root adm
 	sharedscripts
 	postrotate
                 if /etc/init.d/apache2 status > /dev/null ; then \
