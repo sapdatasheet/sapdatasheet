@@ -16,7 +16,7 @@ zone "sapdatasheet.org" {
 //reverse zone
 zone "125.63.166.in-addr.arpa" {
     type master;
-    file "/etc/bind/db.166";
+    file "/etc/bind/db.125.63.166";
 };
 
 // Consider adding the 1918 zones here, if they are not used in your
