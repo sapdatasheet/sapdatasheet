@@ -7,11 +7,19 @@ zone "sapdatasheet.com" {
     type master;
     file "/etc/bind/db.sapdatasheet.com";
 };
-
-zone "sapdatasheet.org" {
-    type master;
-    file "/etc/bind/db.sapdatasheet.org";
+zone "ns1.sapdatasheet.com" {
+	type master;
+	file "/etc/bind/db.ns1.sapdatasheet.com";
 };
+zone "ns2.sapdatasheet.com" {
+	type master;
+	file "/etc/bind/db.ns2.sapdatasheet.com";
+};
+
+// zone "sapdatasheet.org" {
+//     type master;
+//     file "/etc/bind/db.sapdatasheet.org";
+// };
 
 //reverse zone
 zone "125.63.166.in-addr.arpa" {
