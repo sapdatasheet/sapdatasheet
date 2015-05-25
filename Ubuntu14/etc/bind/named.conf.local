@@ -16,10 +16,10 @@ zone "ns2.sapdatasheet.com" {
 	file "/etc/bind/db.ns2.sapdatasheet.com";
 };
 
-// zone "sapdatasheet.org" {
-//     type master;
-//     file "/etc/bind/db.sapdatasheet.org";
-// };
+zone "sapdatasheet.org" {
+    type master;
+    file "/etc/bind/db.sapdatasheet.org";
+};
 
 //reverse zone
 zone "125.63.166.in-addr.arpa" {
