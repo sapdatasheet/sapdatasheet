@@ -118,8 +118,9 @@ if (!isset($target)) {
     $target = 'page404.php';
 }
 
-//  Logging
-error_log('dispatcher: [' . $requri . '] --> [' . $target . ']');
+// Logging
+// Only log for Debug purpose, do not log on production system 
+// error_log('dispatcher: [' . $requri . '] --> [' . $target . ']');
 
 //  Navigation
 include $target;
