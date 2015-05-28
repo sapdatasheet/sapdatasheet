@@ -1,11 +1,11 @@
 *&---------------------------------------------------------------------*
-*& Report  YREPOSRC_GENERATE_CONTROL
+*& Report  YREPOSRC_GENERATE
 *&
 *&---------------------------------------------------------------------*
 *& Prepare YREPOSRC META & DATA
 *&---------------------------------------------------------------------*
 
-REPORT  yreposrc_generate_control.
+REPORT  yreposrc_generate.
 
 PARAMETERS i_grp_sz     TYPE i DEFAULT   4000 OBLIGATORY.  " Group Size for Each Job
 PARAMETERS i_min_ln     TYPE i DEFAULT  20000 OBLIGATORY.  " Minimal lines to be submitted to Database
