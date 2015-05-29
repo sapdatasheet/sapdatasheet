@@ -1,6 +1,6 @@
 YDOKTL
-Copy of DOKTL
-=============================================
+Manually Copy the fields of DOKTL, do not Copy the Cluster Table 
+============================================================================================
 ID            DOKU_ID       CHAR     2    0    Document class
 OBJECT        DOKU_OBJ      CHAR    60    0    Documentation Object
 LANGU         DOKU_LANGU    LANG     1    0    Documentation language
