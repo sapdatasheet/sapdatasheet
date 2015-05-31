@@ -27,88 +27,28 @@ insert into abap.dd04t select * from saperpehp7.dd04t
   where DDLANGUAGE = 'E' 
      or DDLANGUAGE = 'D';
 
--- Database table for FUNC
+-- Database table for VIEW
 
-create table if not exists abap.enlfdir like saperpehp7.enlfdir;
-insert into abap.enlfdir select * from saperpehp7.enlfdir;
+create table if not exists abap.dd25l like saperpehp7.dd25l;
+insert into abap.dd25l select * from saperpehp7.dd25l;
 
-create table if not exists abap.funct like saperpehp7.funct;
-insert into abap.funct select * from saperpehp7.funct 
-  where SPRAS = 'D'
-     or SPRAS = 'E';
+create table if not exists abap.dd25t like saperpehp7.dd25t;
+insert into abap.dd25t select * from saperpehp7.dd25t;
 
-create table if not exists abap.fupararef like saperpehp7.fupararef;
-insert into abap.fupararef select * from saperpehp7.fupararef;
+create table if not exists abap.dd26s like saperpehp7.dd26s;
+insert into abap.dd26s select * from saperpehp7.dd26s;
 
-create table if not exists abap.tfdir like saperpehp7.tfdir;
-insert into abap.tfdir select * from saperpehp7.tfdir;
+create table if not exists abap.dd27s like saperpehp7.dd27s;
+insert into abap.dd27s select * from saperpehp7.dd27s;
 
-create table if not exists abap.tftit like saperpehp7.tftit;
-insert into abap.tftit select * from saperpehp7.tftit;
+create table if not exists abap.dd28s like saperpehp7.dd28s;
+insert into abap.dd28s select * from saperpehp7.dd28s;
 
-create table if not exists abap.tlibt like saperpehp7.tlibt;
-insert into abap.tlibt select * from saperpehp7.tlibt;
+create table if not exists abap.dm02t like saperpehp7.dm02t;
+insert into abap.dm02t select * from saperpehp7.dm02t;
 
--- Database table for HIER
-
-create table if not exists abap.cvers like saperpehp7.cvers;
-insert into abap.cvers select * from saperpehp7.cvers;
-
-create table if not exists abap.cvers_ref like saperpehp7.cvers_ref;
-insert into abap.cvers_ref select * from saperpehp7.cvers_ref;
-
-create table if not exists abap.df14l like saperpehp7.df14l;
-insert into abap.df14l select * from saperpehp7.df14l;
-
-create table if not exists abap.df14t like saperpehp7.df14t;
-insert into abap.df14t select * from saperpehp7.df14t;
-
-create table if not exists abap.tadir like saperpehp7.tadir;
-insert into abap.tadir select * from saperpehp7.tadir;
-
-create table if not exists abap.tdevc like saperpehp7.tdevc;
-insert into abap.tdevc select * from saperpehp7.tdevc;
-
-create table if not exists abap.tdevct like saperpehp7.tdevct;
-insert into abap.tdevct select * from saperpehp7.tdevct;
-
--- Database table for PROG
-
-create table if not exists abap.d020s like saperpehp7.d020s;
-insert into abap.d020s select * from saperpehp7.d020s;
-
-create table if not exists abap.d020t like saperpehp7.d020t;
-insert into abap.d020t select * from saperpehp7.d020t;
-
-create table if not exists abap.ldbt like saperpehp7.ldbt;
-insert into abap.ldbt select * from saperpehp7.ldbt;
-
-create table if not exists abap.rsmptexts like saperpehp7.rsmptexts;
-insert into abap.rsmptexts select * from saperpehp7.rsmptexts 
-  where sprsl = 'D'
-     or sprsl = 'E';
-
-create table if not exists abap.trdirt like saperpehp7.trdirt;
-insert into abap.trdirt select * from saperpehp7.trdirt where sprsl in ('D', 'E');
-
-create table if not exists abap.ytaplt like saperpehp7.ytaplt;
-insert into abap.ytaplt select * from saperpehp7.ytaplt;
-
-CREATE TABLE abap.`yd021s` (
-  `PROGNAME` varchar(120) COLLATE utf8_bin NOT NULL DEFAULT ' ',
-  `DYNPNUMBER` varchar(12) COLLATE utf8_bin NOT NULL DEFAULT ' ',
-  `SEQ` int(10) NOT NULL DEFAULT '0',
-  `FNAM` varchar(396) COLLATE utf8_bin DEFAULT ' ',
-  `DIDX` varchar(4) COLLATE utf8_bin DEFAULT NULL,
-  `PAID` varchar(60) COLLATE utf8_bin DEFAULT ' ',
-  PRIMARY KEY (`PROGNAME`,`DYNPNUMBER`,`SEQ`)
-) ;
-alter table abap.yd021s partition by key() partitions 10;
-insert into abap.yd021s select PROGNAME, dynpnumber, seq, fnam, didx, paid from saperpehp7.ydynpsourced021s;
-
-create table if not exists abap.yreposrcmeta like saperpehp7.yreposrcmeta;
-alter table abap.yreposrcmeta partition by key() partitions 10;
-insert into abap.yreposrcmeta select * from saperpehp7.yreposrcmeta;
+create table if not exists abap.dm25l like saperpehp7.dm25l;
+insert into abap.dm25l select * from saperpehp7.dm25l;
 
 -- Database table for TABL
 
@@ -173,6 +113,65 @@ insert into abap.tvdir select * from saperpehp7.tvdir;
 create table if not exists abap.ytddat like saperpehp7.ytddat;
 insert into abap.ytddat select * from saperpehp7.ytddat;
 
+-- Database table for FUNC
+
+create table if not exists abap.enlfdir like saperpehp7.enlfdir;
+insert into abap.enlfdir select * from saperpehp7.enlfdir;
+
+create table if not exists abap.funct like saperpehp7.funct;
+insert into abap.funct select * from saperpehp7.funct 
+  where SPRAS = 'D'
+     or SPRAS = 'E';
+
+create table if not exists abap.fupararef like saperpehp7.fupararef;
+insert into abap.fupararef select * from saperpehp7.fupararef;
+
+create table if not exists abap.tfdir like saperpehp7.tfdir;
+insert into abap.tfdir select * from saperpehp7.tfdir;
+
+create table if not exists abap.tftit like saperpehp7.tftit;
+insert into abap.tftit select * from saperpehp7.tftit;
+
+create table if not exists abap.tlibt like saperpehp7.tlibt;
+insert into abap.tlibt select * from saperpehp7.tlibt;
+
+-- Database table for PROG
+
+create table if not exists abap.d020s like saperpehp7.d020s;
+insert into abap.d020s select * from saperpehp7.d020s;
+
+create table if not exists abap.d020t like saperpehp7.d020t;
+insert into abap.d020t select * from saperpehp7.d020t;
+
+create table if not exists abap.ldbt like saperpehp7.ldbt;
+insert into abap.ldbt select * from saperpehp7.ldbt;
+
+create table if not exists abap.rsmptexts like saperpehp7.rsmptexts;
+insert into abap.rsmptexts select * from saperpehp7.rsmptexts 
+  where sprsl = 'D'
+     or sprsl = 'E';
+
+create table if not exists abap.trdirt like saperpehp7.trdirt;
+insert into abap.trdirt select * from saperpehp7.trdirt where sprsl in ('D', 'E');
+
+create table if not exists abap.ytaplt like saperpehp7.ytaplt;
+insert into abap.ytaplt select * from saperpehp7.ytaplt;
+
+CREATE TABLE abap.`yd021s` (
+  `PROGNAME` varchar(120) COLLATE utf8_bin NOT NULL DEFAULT ' ',
+  `DYNPNUMBER` varchar(12) COLLATE utf8_bin NOT NULL DEFAULT ' ',
+  `SEQ` int(10) NOT NULL DEFAULT '0',
+  `FNAM` varchar(396) COLLATE utf8_bin DEFAULT ' ',
+  `DIDX` varchar(4) COLLATE utf8_bin DEFAULT NULL,
+  `PAID` varchar(60) COLLATE utf8_bin DEFAULT ' ',
+  PRIMARY KEY (`PROGNAME`,`DYNPNUMBER`,`SEQ`)
+) ;
+alter table abap.yd021s partition by key() partitions 10;
+insert into abap.yd021s select PROGNAME, dynpnumber, seq, fnam, didx, paid from saperpehp7.ydynpsourced021s;
+
+create table if not exists abap.yreposrcmeta like saperpehp7.yreposrcmeta;
+alter table abap.yreposrcmeta partition by key() partitions 10;
+insert into abap.yreposrcmeta select * from saperpehp7.yreposrcmeta;
 
 -- Database table for TRAN
 
@@ -191,26 +190,26 @@ insert into abap.tstcp select * from saperpehp7.tstcp;
 create table if not exists abap.tstct like saperpehp7.tstct;
 insert into abap.tstct select * from saperpehp7.tstct;
 
--- Database table for VIEW
+-- Database table for HIER
 
-create table if not exists abap.dd25l like saperpehp7.dd25l;
-insert into abap.dd25l select * from saperpehp7.dd25l;
+create table if not exists abap.cvers like saperpehp7.cvers;
+insert into abap.cvers select * from saperpehp7.cvers;
 
-create table if not exists abap.dd25t like saperpehp7.dd25t;
-insert into abap.dd25t select * from saperpehp7.dd25t;
+create table if not exists abap.cvers_ref like saperpehp7.cvers_ref;
+insert into abap.cvers_ref select * from saperpehp7.cvers_ref;
 
-create table if not exists abap.dd26s like saperpehp7.dd26s;
-insert into abap.dd26s select * from saperpehp7.dd26s;
+create table if not exists abap.df14l like saperpehp7.df14l;
+insert into abap.df14l select * from saperpehp7.df14l;
 
-create table if not exists abap.dd27s like saperpehp7.dd27s;
-insert into abap.dd27s select * from saperpehp7.dd27s;
+create table if not exists abap.df14t like saperpehp7.df14t;
+insert into abap.df14t select * from saperpehp7.df14t;
 
-create table if not exists abap.dd28s like saperpehp7.dd28s;
-insert into abap.dd28s select * from saperpehp7.dd28s;
+create table if not exists abap.tadir like saperpehp7.tadir;
+insert into abap.tadir select * from saperpehp7.tadir;
 
-create table if not exists abap.dm02t like saperpehp7.dm02t;
-insert into abap.dm02t select * from saperpehp7.dm02t;
+create table if not exists abap.tdevc like saperpehp7.tdevc;
+insert into abap.tdevc select * from saperpehp7.tdevc;
 
-create table if not exists abap.dm25l like saperpehp7.dm25l;
-insert into abap.dm25l select * from saperpehp7.dm25l;
+create table if not exists abap.tdevct like saperpehp7.tdevct;
+insert into abap.tdevct select * from saperpehp7.tdevct;
 
