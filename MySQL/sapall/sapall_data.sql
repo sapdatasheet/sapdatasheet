@@ -26,6 +26,12 @@ insert ignore into sapall.dd07l select * from sapsolman71sr1.dd07l as a
   where not exists ( select DOMNAME from sapall.dd07l where DOMNAME = a.DOMNAME );
 
 
+insert into sapall.dd07t select * from sapcrm7ehp3sr2.dd07t;
+insert ignore into sapall.dd07t select * from sapsrm7ehp3sr2.dd07t;
+insert ignore into sapall.dd07t select * from saperp6ehp7.dd07t;
+insert ignore into sapall.dd07t select * from sapsolman71sr1.dd07t;
+
+
 -- Database table for DTEL
 
 insert into sapall.dd04l select * from sapcrm7ehp3sr2.dd04l;
