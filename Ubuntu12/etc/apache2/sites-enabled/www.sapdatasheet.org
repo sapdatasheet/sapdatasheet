@@ -1,4 +1,0 @@
-Link/short cut file:
-www.sapdatasheet.org
-Point link/short to:
-../sites-available/www.sapdatasheet.org.conf
