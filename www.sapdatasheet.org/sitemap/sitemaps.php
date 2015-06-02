@@ -24,11 +24,11 @@
     <?php
     $abap_type_count = array(
         array("doma", 3),
-        array("dtel", 10),
+        array("dtel", 11),
         array("fugr", 2),
-        array("func", 10),
-        array("prog", 6),
-        array("tabl", 10),
+        array("func", 11),
+        array("prog", 7),
+        array("tabl", 12),
         array("table-field", 150),
         array("tran", 3),
         array("view", 2),
