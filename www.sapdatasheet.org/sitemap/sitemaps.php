@@ -29,7 +29,7 @@
         array("func", 11),
         array("prog", 7),
         array("tabl", 12),
-        array("table-field", 150),
+        array("table-field", 199),
         array("tran", 3),
         array("view", 2),
     );
