@@ -6,16 +6,14 @@ insert into abap.dd01l select * from sapall.dd01l;
 
 create table if not exists abap.dd01t like sapall.dd01t;
 insert into abap.dd01t select * from sapall.dd01t 
-  where DDLANGUAGE = 'E' 
-     or DDLANGUAGE = 'D';
+  where DDLANGUAGE in ('N', 'E', 'F', 'D', 'I', 'J', '3', 'L', 'P', 'R', '1', 'S', 'M', 'T');
 
 create table if not exists abap.dd07l like sapall.dd07l;
 insert into abap.dd07l select * from sapall.dd07l;
 
 create table if not exists abap.dd07t like sapall.dd07t;
 insert into abap.dd07t select * from sapall.dd07t 
-  where DDLANGUAGE = 'E' 
-     or DDLANGUAGE = 'D';
+  where DDLANGUAGE in ('N', 'E', 'F', 'D', 'I', 'J', '3', 'L', 'P', 'R', '1', 'S', 'M', 'T');
 
 -- Database table for DTEL
 
@@ -24,8 +22,7 @@ insert into abap.dd04l select * from sapall.dd04l;
 
 create table if not exists abap.dd04t like sapall.dd04t;
 insert into abap.dd04t select * from sapall.dd04t 
-  where DDLANGUAGE = 'E' 
-     or DDLANGUAGE = 'D';
+  where DDLANGUAGE in ('N', 'E', 'F', 'D', 'I', 'J', '3', 'L', 'P', 'R', '1', 'S', 'M', 'T');
 
 -- Database table for VIEW
 
@@ -68,7 +65,8 @@ create table if not exists abap.dd02l like sapall.dd02l;
 insert into abap.dd02l select * from sapall.dd02l;
 
 create table if not exists abap.dd02t like sapall.dd02t;
-insert into abap.dd02t select * from sapall.dd02t where DDLANGUAGE in ('D', 'E');
+insert into abap.dd02t select * from sapall.dd02t
+  where DDLANGUAGE in ('N', 'E', 'F', 'D', 'I', 'J', '3', 'L', 'P', 'R', '1', 'S', 'M', 'T');
 
 create table if not exists abap.dd03l like sapall.dd03l;
 alter table abap.dd03l partition by key() partitions 10;
@@ -81,7 +79,8 @@ create table if not exists abap.dd08l like sapall.dd08l;
 insert into abap.dd08l select * from sapall.dd08l;
 
 create table if not exists abap.dd08t like sapall.dd08t;
-insert into abap.dd08t select * from sapall.dd08t where DDLANGUAGE in ('D', 'E');
+insert into abap.dd08t select * from sapall.dd08t
+  where DDLANGUAGE in ('N', 'E', 'F', 'D', 'I', 'J', '3', 'L', 'P', 'R', '1', 'S', 'M', 'T');
 
 create table if not exists abap.dd09l like sapall.dd09l;
 insert into abap.dd09l select * from sapall.dd09l;
@@ -120,8 +119,7 @@ insert into abap.enlfdir select * from sapall.enlfdir;
 
 create table if not exists abap.funct like sapall.funct;
 insert into abap.funct select * from sapall.funct 
-  where SPRAS = 'D'
-     or SPRAS = 'E';
+  where SPRAS in ('N', 'E', 'F', 'D', 'I', 'J', '3', 'L', 'P', 'R', '1', 'S', 'M', 'T');
 
 create table if not exists abap.fupararef like sapall.fupararef;
 insert into abap.fupararef select * from sapall.fupararef;
@@ -148,11 +146,11 @@ insert into abap.ldbt select * from sapall.ldbt;
 
 create table if not exists abap.rsmptexts like sapall.rsmptexts;
 insert into abap.rsmptexts select * from sapall.rsmptexts 
-  where sprsl = 'D'
-     or sprsl = 'E';
+  where sprsl in ('N', 'E', 'F', 'D', 'I', 'J', '3', 'L', 'P', 'R', '1', 'S', 'M', 'T');
 
 create table if not exists abap.trdirt like sapall.trdirt;
-insert into abap.trdirt select * from sapall.trdirt where sprsl in ('D', 'E');
+insert into abap.trdirt select * from sapall.trdirt
+  where sprsl in ('N', 'E', 'F', 'D', 'I', 'J', '3', 'L', 'P', 'R', '1', 'S', 'M', 'T');
 
 create table if not exists abap.ytaplt like sapall.ytaplt;
 insert into abap.ytaplt select * from sapall.ytaplt;
