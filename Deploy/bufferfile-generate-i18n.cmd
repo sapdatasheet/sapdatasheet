@@ -4,8 +4,12 @@ rem  cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
 rem  FOR /F %%i IN (config-a-x.txt) DO @call:BuffGenerate  bmfr  %%i
 rem  call:BuffGenerate                                     bmfr  TOP
 
+rem  cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
+rem  call:BuffGenerate                                     cvers ""
+
 cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
-call:BuffGenerate                                     cvers ""
+FOR /F %%i IN (config-a-x-slash.txt) DO @call:BuffGenerate devc  %%i
+
 
 
 ::----------------------------------------------
