@@ -24,7 +24,7 @@ function langOnChnage(sapDescLangu) {
                 window.open(newURL, "_self");
             }
         } else if ((pathArray.length === 5 && window.location.pathname.length === 13)
-                || (pathArray.length === 5 && window.location.pathname.length === 14 && window.location.pathname.startsWith("/abap/cvers/"))
+                || (pathArray.length === 5 && window.location.pathname.length === 14 && window.location.pathname.substring(0, 12) === "/abap/cvers/")
                 ) {
             //  -- /abap/devc/1/    -- 13
             //  -- /abap/cvers/1/   -- 14
@@ -55,6 +55,7 @@ function langOnChnage(sapDescLangu) {
             }
             window.open(newURL, "_self");
         } else {
+            // Simply re-load current page, the cookie containing language will work
             window.location.reload();
         }
     }

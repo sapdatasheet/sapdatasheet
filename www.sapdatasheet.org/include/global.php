@@ -156,4 +156,17 @@ class GLOBAL_UTIL {
         $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU] = $sap_desc_langu;
     }
 
+    /**
+     * Get OB Folder based on the langeuage.
+     */
+    public static function GetObFolder($dirname) {
+        if ($GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU] == ABAP_DB_CONST::LANGU_EN) {
+            $ob_folder = $dirname;
+        } else {
+            $ob_folder = $dirname . "/" . $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU];
+        }
+
+        return $ob_folder;
+    }
+
 }

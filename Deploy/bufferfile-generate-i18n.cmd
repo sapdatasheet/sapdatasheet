@@ -1,10 +1,11 @@
 echo off
 
-cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
-FOR /F %%i IN (config-a-x.txt) DO @call:BuffGenerate  bmfr %%i
-call:BuffGenerate                                     bmfr TOP
+rem  cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
+rem  FOR /F %%i IN (config-a-x.txt) DO @call:BuffGenerate  bmfr  %%i
+rem  call:BuffGenerate                                     bmfr  TOP
 
 cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
+call:BuffGenerate                                     cvers ""
 
 
 ::----------------------------------------------
@@ -31,7 +32,7 @@ goto:eof
 ::----------------------------------------------
 :BuffGenerateI18N
 echo =====================================================================
-echo == Processing for %~1  %~2  %~3
+echo == Processing for Language %~1  %~2  %~3
 
 cd %~1
 php -f index.php %~2  %~3

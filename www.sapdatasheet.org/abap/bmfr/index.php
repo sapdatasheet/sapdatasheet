@@ -22,12 +22,7 @@ if (strlen(trim($index)) == 0) {
 }
 
 // Check Buffer
-if ($GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU] == ABAP_DB_CONST::LANGU_EN) {
-    $ob_folder = dirname(__FILE__);
-} else {
-    $ob_folder = dirname(__FILE__) . "/" . $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU];
-}
-
+$ob_folder = GLOBAL_UTIL::GetObFolder(dirname(__FILE__));
 $ob_fname = $ob_folder . "/index-" . strtolower($index) . ".html";
 if (file_exists($ob_fname)) {
     $ob_file_content = file_get_contents($ob_fname);

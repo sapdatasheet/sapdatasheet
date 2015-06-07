@@ -1,5 +1,17 @@
 <?php
-$ob_fname = dirname(__FILE__) . "/index.html";
+$__ROOT__ = dirname(dirname(dirname(__FILE__)));
+require_once ($__ROOT__ . '/include/global.php');
+require_once ($__ROOT__ . '/include/abap_db.php');
+require_once ($__ROOT__ . '/include/abap_ui.php');
+GLOBAL_UTIL::UpdateSAPDescLangu();
+
+$GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::CVERS_DESC;
+
+if (php_sapi_name() == 'cli') {
+    $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU] = $argv[1];
+}
+$ob_folder = GLOBAL_UTIL::GetObFolder(dirname(__FILE__));
+$ob_fname = $ob_folder . "/index.html";
 if (file_exists($ob_fname)) {
     $ob_file_content = file_get_contents($ob_fname);
     if ($ob_file_content !== FALSE) {
@@ -11,15 +23,6 @@ ob_start();
 ?>
 <!DOCTYPE html>
 <!-- Software component index. -->
-<?php
-$__ROOT__ = dirname(dirname(dirname(__FILE__)));
-require_once ($__ROOT__ . '/include/global.php');
-require_once ($__ROOT__ . '/include/abap_db.php');
-require_once ($__ROOT__ . '/include/abap_ui.php');
-GLOBAL_UTIL::UpdateSAPDescLangu();
-
-$GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::CVERS_DESC;
-?>
 <html>
     <head>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
