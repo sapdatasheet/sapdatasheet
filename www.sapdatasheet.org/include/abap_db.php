@@ -179,7 +179,7 @@ class ABAP_DB_TABLE_DOMA {
         $sql = "select DDTEXT from " . ABAP_DB_TABLE_DOMA::DD01T
                 . " where DOMNAME = ? and DDLANGUAGE = ?";
         $stmt = ABAP_DB_SCHEMA::getConnection()->prepare($sql);
-        $langu = ABAP_DB_CONST::LANGU_EN;
+        $langu = $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU];  // ABAP_DB_CONST::LANGU_EN;
         $stmt->bind_param('ss', $Domain, $langu);
         $stmt->execute();
         $stmt->bind_result($result);
@@ -207,7 +207,7 @@ class ABAP_DB_TABLE_DOMA {
     public static function DD07T($Domain, $ValueL) {
         $sql = "select DDTEXT from " . ABAP_DB_TABLE_DOMA::DD07T . " where DOMNAME = ? and DDLANGUAGE = ? and DOMVALUE_L = ?";
         $stmt = ABAP_DB_SCHEMA::getConnection()->prepare($sql);
-        $langu = ABAP_DB_CONST::LANGU_EN;
+        $langu = $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU];  // ABAP_DB_CONST::LANGU_EN;
         $stmt->bind_param("sss", $Domain, $langu, $ValueL);
         $stmt->execute();
         $stmt->bind_result($result);
@@ -281,7 +281,7 @@ class ABAP_DB_TABLE_DTEL {
         $sql = "select DDTEXT from " . ABAP_DB_TABLE_DTEL::DD04T
                 . " where ROLLNAME = ? and DDLANGUAGE = ?";
         $stmt = ABAP_DB_SCHEMA::getConnection()->prepare($sql);
-        $langu = ABAP_DB_CONST::LANGU_EN;
+        $langu = $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]; // ABAP_DB_CONST::LANGU_EN;
         $stmt->bind_param('ss', $Rollname, $langu);
         $stmt->execute();
         $stmt->bind_result($result);
@@ -379,7 +379,7 @@ class ABAP_DB_TABLE_FUNC {
         $sql = "select STEXT from " . ABAP_DB_TABLE_FUNC::TFTIT
                 . " where FUNCNAME = ? and SPRAS = ?";
         $stmt = ABAP_DB_SCHEMA::getConnection()->prepare($sql);
-        $langu = ABAP_DB_CONST::LANGU_EN;
+        $langu = $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]; // ABAP_DB_CONST::LANGU_EN;
         $stmt->bind_param('ss', $fm, $langu);
         $stmt->execute();
         $stmt->bind_result($result);
@@ -397,7 +397,7 @@ class ABAP_DB_TABLE_FUNC {
         $sql = "select AREAT from " . ABAP_DB_TABLE_FUNC::TLIBT
                 . " where area = ? and SPRAS = ?";
         $stmt = ABAP_DB_SCHEMA::getConnection()->prepare($sql);
-        $langu = ABAP_DB_CONST::LANGU_EN;
+        $langu = $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]; // ABAP_DB_CONST::LANGU_EN;
         $stmt->bind_param('ss', $fg, $langu);
         $stmt->execute();
         $stmt->bind_result($result);
@@ -563,7 +563,7 @@ class ABAP_DB_TABLE_FUNC {
         $sql = "select STEXT from " . ABAP_DB_TABLE_FUNC::FUNCT         // Only English text in this table
                 . " where SPRAS = ? and funcname = ? and PARAMETER = ? and KIND = ?";
         $stmt = ABAP_DB_SCHEMA::getConnection()->prepare($sql);
-        $langu = ABAP_DB_CONST::LANGU_EN;
+        $langu = $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]; // ABAP_DB_CONST::LANGU_EN;
         $stmt->bind_param('ssss', $langu, $fm, $para, $kind);
         $stmt->execute();
         $stmt->bind_result($result);
@@ -648,7 +648,7 @@ class ABAP_DB_TABLE_HIER {
         $dbc = ABAP_DB_SCHEMA::getConnection();
         $sql = "select desc_text from " . ABAP_DB_TABLE_HIER::CVERS_REF . " where COMPONENT = ? and LANGU = ?";
         $stmt = $dbc->prepare($sql);
-        $langu = ABAP_DB_CONST::LANGU_EN;
+        $langu = $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]; // ABAP_DB_CONST::LANGU_EN;
         $stmt->bind_param('ss', $SoftComp, $langu);
         $stmt->execute();
         $stmt->bind_result($result);
@@ -777,7 +777,7 @@ class ABAP_DB_TABLE_HIER {
         }
         $sql = "select name from " . ABAP_DB_TABLE_HIER::DF14T . " where FCTR_ID = ? and LANGU = ?";
         $stmt = ABAP_DB_SCHEMA::getConnection()->prepare($sql);
-        $langu = ABAP_DB_CONST::LANGU_EN;
+        $langu = $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU];  // ABAP_DB_CONST::LANGU_EN;
         $stmt->bind_param('ss', $AppComp, $langu);
         $stmt->execute();
         $stmt->bind_result($result);
@@ -998,7 +998,7 @@ class ABAP_DB_TABLE_HIER {
         }
         $sql = "select ctext from " . ABAP_DB_TABLE_HIER::TDEVCT . " where devclass = ? and spras = ?";
         $stmt = ABAP_DB_SCHEMA::getConnection()->prepare($sql);
-        $langu = ABAP_DB_CONST::LANGU_EN;
+        $langu = $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]; // ABAP_DB_CONST::LANGU_EN;
         $stmt->bind_param('ss', $Package, $langu);
         $stmt->execute();
         $stmt->bind_result($result);
@@ -1127,7 +1127,7 @@ class ABAP_DB_TABLE_PROG {
         $sql = "select DTXT from " . ABAP_DB_TABLE_PROG::D020T
                 . " where prog = ? AND dynr = ? AND lang = ?";
         $stmt = ABAP_DB_SCHEMA::getConnection()->prepare($sql);
-        $langu = ABAP_DB_CONST::LANGU_EN;
+        $langu = $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]; // ABAP_DB_CONST::LANGU_EN;
         $stmt->bind_param('sss', $prog, $dynr, $langu);
         $stmt->execute();
         $stmt->bind_result($result);
@@ -1196,7 +1196,7 @@ class ABAP_DB_TABLE_PROG {
         $ProgName = $con->real_escape_string($ProgName);
         $sql = "SELECT * FROM " . ABAP_DB_TABLE_PROG::RSMPTEXTS
                 . " WHERE PROGNAME = '" . $ProgName
-                . "' AND SPRSL = '" . ABAP_DB_CONST::LANGU_EN
+                . "' AND SPRSL = '" . $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU] // ABAP_DB_CONST::LANGU_EN
                 . "' order by obj_type, OBJ_CODE, SUB_CODE, TEXTTYPE";
         return $con->query($sql);
     }
@@ -1211,7 +1211,7 @@ class ABAP_DB_TABLE_PROG {
         $sql = "select TEXT from " . ABAP_DB_TABLE_PROG::TRDIRT
                 . " where NAME = ? and SPRSL = ?";
         $stmt = ABAP_DB_SCHEMA::getConnection()->prepare($sql);
-        $langu = ABAP_DB_CONST::LANGU_EN;
+        $langu = $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU];  // ABAP_DB_CONST::LANGU_EN;
         $stmt->bind_param('ss', $Progname, $langu);
         $stmt->execute();
         $stmt->bind_result($result);
@@ -1229,7 +1229,7 @@ class ABAP_DB_TABLE_PROG {
         $sql = "select LDBTEXT from " . ABAP_DB_TABLE_PROG::LDBT
                 . " where LDBNAME = ? and spras = ?";
         $stmt = ABAP_DB_SCHEMA::getConnection()->prepare($sql);
-        $langu = ABAP_DB_CONST::LANGU_EN;
+        $langu = $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU];  // ABAP_DB_CONST::LANGU_EN;
         $stmt->bind_param('ss', $LdbName, $langu);
         $stmt->execute();
         $stmt->bind_result($result);
@@ -1261,7 +1261,7 @@ class ABAP_DB_TABLE_PROG {
         $sql = "select ATEXT from " . ABAP_DB_TABLE_PROG::YTAPLT
                 . " where APPL = ? and SPRSL = ?";
         $stmt = ABAP_DB_SCHEMA::getConnection()->prepare($sql);
-        $langu = ABAP_DB_CONST::LANGU_EN;
+        $langu = $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU];  // ABAP_DB_CONST::LANGU_EN;
         $stmt->bind_param('ss', $Appl, $langu);
         $stmt->execute();
         $stmt->bind_result($result);
@@ -1454,7 +1454,7 @@ class ABAP_DB_TABLE_TABL {
         $sql = "select DDTEXT from " . ABAP_DB_TABLE_TABL::DD02T
                 . " where tabname = ? and DDLANGUAGE = ?";
         $stmt = ABAP_DB_SCHEMA::getConnection()->prepare($sql);
-        $langu = ABAP_DB_CONST::LANGU_EN;
+        $langu = $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU];  // ABAP_DB_CONST::LANGU_EN;
         $stmt->bind_param('ss', $TableName, $langu);
         $stmt->execute();
         $stmt->bind_result($result);
@@ -1567,7 +1567,7 @@ class ABAP_DB_TABLE_TABL {
     public static function DD06T($Sqltab) {
         $sql = "select DDTEXT from " . ABAP_DB_TABLE_TABL::DD06T . " where SQLTAB = ? and DDLANGUAGE = ?";
         $stmt = ABAP_DB_SCHEMA::getConnection()->prepare($sql);
-        $langu = ABAP_DB_CONST::LANGU_EN;
+        $langu = $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU];  // ABAP_DB_CONST::LANGU_EN;
         $stmt->bind_param('ss', $Sqltab, $langu);
         $stmt->execute();
         $stmt->bind_result($result);
@@ -1742,7 +1742,7 @@ class ABAP_DB_TABLE_TRAN {
         $sql = "select ttext from " . ABAP_DB_TABLE_TRAN::TSTCT
                 . " where TCODE = ? and SPRSL = ?";
         $stmt = ABAP_DB_SCHEMA::getConnection()->prepare($sql);
-        $langu = ABAP_DB_CONST::LANGU_EN;
+        $langu = $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]; // ABAP_DB_CONST::LANGU_EN;
         $stmt->bind_param('ss', $TCode, $langu);
         $stmt->execute();
         $stmt->bind_result($result);
@@ -1835,7 +1835,7 @@ class ABAP_DB_TABLE_VIEW {
     public static function DD25T($ViewName) {
         $sql = "select DDTEXT from " . ABAP_DB_TABLE_VIEW::DD25T . " where VIEWNAME = ? and DDLANGUAGE = ?";
         $stmt = ABAP_DB_SCHEMA::getConnection()->prepare($sql);
-        $langu = ABAP_DB_CONST::LANGU_EN;
+        $langu = $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]; // ABAP_DB_CONST::LANGU_EN;
         $stmt->bind_param('ss', $ViewName, $langu);
         $stmt->execute();
         $stmt->bind_result($result);
@@ -1894,7 +1894,7 @@ class ABAP_DB_TABLE_VIEW {
     public static function DM02T($Entid) {
         $sql = "select LANGBEZ from " . ABAP_DB_TABLE_VIEW::DM02T . " where entid = ? and SPRACHE = ?";
         $stmt = ABAP_DB_SCHEMA::getConnection()->prepare($sql);
-        $langu = ABAP_DB_CONST::LANGU_EN;
+        $langu = $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]; // ABAP_DB_CONST::LANGU_EN;
         $stmt->bind_param('ss', $Entid, $langu);
         $stmt->execute();
         $stmt->bind_result($result);

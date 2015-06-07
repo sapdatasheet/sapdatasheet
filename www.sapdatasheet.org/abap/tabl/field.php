@@ -5,6 +5,7 @@ $__ROOT__ = dirname(dirname(dirname(__FILE__)));
 require_once ($__ROOT__ . '/include/global.php');
 require_once ($__ROOT__ . '/include/abap_db.php');
 require_once ($__ROOT__ . '/include/abap_ui.php');
+GLOBAL_UTIL::UpdateSAPDescLangu();
 
 if (!isset($Table)) {
     $Table = filter_input(INPUT_GET, 'table');

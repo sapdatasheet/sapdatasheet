@@ -40,7 +40,7 @@ if ($requri === '/wp/wp-admin/'
 //   http://localhost/abap/
 //   http://localhost/abap/cvers/
 //   http://localhost/abap/prog/
-} else if (startsWith($requri, '/') && endsWith($requri, '/')) {
+} else if (GLOBAL_UTIL::StartsWith($requri, '/') && GLOBAL_UTIL::EndsWith($requri, '/')) {
     $target = substr($requri, 1) . 'index.php';
 
 // - TABL - Tables (Transparent, Cluster, Pool)
@@ -57,10 +57,10 @@ if ($requri === '/wp/wp-admin/'
 //   http://localhost/abap/tabl/tabl.php?id=bkpf
 } else if ($requri === '/abap/tabl/index.html') {
     $target = 'abap/tabl/index.php';
-} else if (startsWith($requri, '/abap/tabl/index-') && endsWith($requri, '.html')) {
+} else if (GLOBAL_UTIL::StartsWith($requri, '/abap/tabl/index-') && GLOBAL_UTIL::EndsWith($requri, '.html')) {
     $index = substr($requri, 17, -5);
     $target = 'abap/tabl/index.php';
-} else if (startsWith($requri, '/abap/tabl/') && endsWith($requri, '.html')) {
+} else if (GLOBAL_UTIL::StartsWith($requri, '/abap/tabl/') && GLOBAL_UTIL::EndsWith($requri, '.html')) {
     $TablURI = substr($requri, 11, -5);
     if (strpos($TablURI, '-') !== false) {
         list($Table, $FldPos) = explode('-', $TablURI, 2);
@@ -79,10 +79,10 @@ if ($requri === '/wp/wp-admin/'
 // - BMFR - Application Component
 //if ($requri === '/abap/bmfr/index.html') {
 //    $target = 'abap/bmfr/index.php';
-//} else if (startsWith($requri, '/abap/bmfr/index-') && endsWith($requri, '.html')) {
+//} else if (GLOBAL_UTIL::StartsWith($requri, '/abap/bmfr/index-') && GLOBAL_UTIL::EndsWith($requri, '.html')) {
 //    $index = substr($requri, 17, -5);
 //    $target = 'abap/bmfr/index.php';
-//} else if (startsWith($requri, '/abap/bmfr/') && endsWith($requri, '.html')) {
+//} else if (GLOBAL_UTIL::StartsWith($requri, '/abap/bmfr/') && GLOBAL_UTIL::EndsWith($requri, '.html')) {
 //    $ObjID = substr($requri, 11, -5);
 //    $target = 'abap/bmfr/bmfr.php';
 
@@ -104,10 +104,10 @@ if (!isset($target)) {
     foreach ($abap_uris as $abap_uri) {
         if ($requri === $abap_uri[1]) {
             $target = 'abap/' . $abap_uri[0] . '/index.php';
-        } else if (startsWith($requri, $abap_uri[2]) && endsWith($requri, '.html')) {
+        } else if (GLOBAL_UTIL::StartsWith($requri, $abap_uri[2]) && GLOBAL_UTIL::EndsWith($requri, '.html')) {
             $index = substr($requri, strlen($abap_uri[2]), -5);
             $target = 'abap/' . $abap_uri[0] . '/index.php';
-        } else if (startsWith($requri, $abap_uri[3]) && endsWith($requri, '.html')) {
+        } else if (GLOBAL_UTIL::StartsWith($requri, $abap_uri[3]) && GLOBAL_UTIL::EndsWith($requri, '.html')) {
             $ObjID = substr($requri, strlen($abap_uri[3]), -5);
             $target = 'abap/' . $abap_uri[0] . '/' . $abap_uri[0] . '.php';
         }

@@ -3,11 +3,13 @@ $__ROOT__ = dirname(dirname(dirname(__FILE__)));
 require_once ($__ROOT__ . '/include/global.php');
 require_once ($__ROOT__ . '/include/abap_db.php');
 require_once ($__ROOT__ . '/include/abap_ui.php');
+GLOBAL_UTIL::UpdateSAPDescLangu();
 
 // Get Index
 if (!isset($index)) {
     if (php_sapi_name() == 'cli') {
         $index = $argv[1];
+        $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU] = $argv[2];
     } else {
         $index = filter_input(INPUT_GET, 'index');
     }
@@ -20,7 +22,13 @@ if (strlen(trim($index)) == 0) {
 }
 
 // Check Buffer
-$ob_fname = dirname(__FILE__) . "/index-" . strtolower($index) . ".html";
+if ($GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU] == ABAP_DB_CONST::LANGU_EN) {
+    $ob_folder = dirname(__FILE__);
+} else {
+    $ob_folder = dirname(__FILE__) . "/" . $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU];
+}
+
+$ob_fname = $ob_folder . "/index-" . strtolower($index) . ".html";
 if (file_exists($ob_fname)) {
     $ob_file_content = file_get_contents($ob_fname);
     if ($ob_file_content !== FALSE) {
@@ -130,7 +138,7 @@ file_put_contents($ob_fname, $ob_content);
 
 // Make default index file
 if ($index === ABAP_DB_CONST::INDEX_TOP) {
-    $ob_fname = dirname(__FILE__) . "/index.html";
+    $ob_fname = $ob_folder . "/index.html";
     file_put_contents($ob_fname, $ob_content);
 }
 ?>

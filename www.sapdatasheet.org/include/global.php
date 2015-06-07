@@ -3,28 +3,6 @@
 $GLOBALS['TITLE_TEXT'] = 'SAP';
 error_reporting(-1);
 
-/**
- * Source: http://stackoverflow.com/questions/834303/startswith-and-endswith-functions-in-php/834355#834355
- */
-function startsWith($haystack, $needle)
-{
-     $length = strlen($needle);
-     return (substr($haystack, 0, $length) === $needle);
-}
-
-/**
- * Source: http://stackoverflow.com/questions/834303/startswith-and-endswith-functions-in-php/834355#834355
- */
-function endsWith($haystack, $needle)
-{
-    $length = strlen($needle);
-    if ($length == 0) {
-        return true;
-    }
-
-    return (substr($haystack, -$length) === $needle);
-}
-
 /** Web Site Constants. */
 class WEBSITE {
 
@@ -36,8 +14,10 @@ class WEBSITE {
 }
 
 /** Sitemap constants. */
-class SITEMAP{
+class SITEMAP {
+
     const MAX_URL_COUNT = 50000;
+
 }
 
 /** ABAP Object types and description. */
@@ -67,6 +47,7 @@ class ABAP_OTYPE {
     const TRAN_DESC = 'Transaction Code';
     const VIEW_NAME = 'VIEW';
     const VIEW_DESC = 'View';
+
 }
 
 /**
@@ -118,7 +99,6 @@ class HTTP_STATUS {
 
 }
 
-
 /**
  * Download file Format
  */
@@ -127,4 +107,53 @@ class DOWNLOAD {
     const FORMAT_CSV = "CSV";
     const FORMAT_XLS = "XLS";
     const FORMAT_XLSX = "XLSX";
+
+}
+
+class GLOBAL_UTIL {
+
+    const SAP_DESC_LANGU = 'SAP_DESC_LANGU';
+
+    /**
+     * Source: http://stackoverflow.com/questions/834303/startswith-and-endswith-functions-in-php/834355#834355
+     */
+    public static function StartsWith($haystack, $needle) {
+        $length = strlen($needle);
+        return (substr($haystack, 0, $length) === $needle);
+    }
+
+    /**
+     * Source: http://stackoverflow.com/questions/834303/startswith-and-endswith-functions-in-php/834355#834355
+     */
+    public static function EndsWith($haystack, $needle) {
+        $length = strlen($needle);
+        if ($length == 0) {
+            return true;
+        }
+
+        return (substr($haystack, -$length) === $needle);
+    }
+
+    /**
+     * Update the $GLOBALS['SAP_DESC_LANGU'] variable based on HTTP cookie value.
+     */
+    public static function UpdateSAPDescLangu() {
+        if (empty($_COOKIE['sap-desc-langu']) === FALSE and strlen($_COOKIE['sap-desc-langu']) == 1) {
+            switch ($_COOKIE['sap-desc-langu']) {
+                case "N": case "E": case "F": case "D": case "I":
+                case "J": case "3": case "L": case "P": case "R":
+                case "1": case "S": case "M": case "T":
+                    $sap_desc_langu = $_COOKIE['sap-desc-langu'];
+                    break;
+
+                default:
+                    $sap_desc_langu = "E";
+                    break;
+            }
+        } else {
+            $sap_desc_langu = "E";
+        }
+        $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU] = $sap_desc_langu;
+    }
+
 }

@@ -3,6 +3,7 @@
 <?php
 $__ROOT__ = dirname(dirname(__FILE__));
 require_once($__ROOT__ . '/include/global.php');
+GLOBAL_UTIL::UpdateSAPDescLangu();
 
 $GLOBALS['TITLE_TEXT'] = "SAP ABAP";
 ?>
@@ -54,7 +55,7 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP";
                     <tr><td class="alv"><a href="/abap/view">VIEW</a></td><td class="alv"><?php echo ABAP_OTYPE::VIEW_DESC ?></td></tr>
                     <tr><td class="alv"><a href="/abap/dtel">DTEL</a></td><td class="alv"><?php echo ABAP_OTYPE::DTEL_DESC ?></td></tr>
                     <tr><td class="alv"><a href="/abap/doma">DOMA</a></td><td class="alv"><?php echo ABAP_OTYPE::DOMA_DESC ?></td></tr>
-                </table>   
+                </table>
 
             </div>
         </div><!-- Content: End -->        

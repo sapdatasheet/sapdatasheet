@@ -276,7 +276,7 @@ class ABAP_UI_TOOL {
         if (!empty($desc)) {
             return '(' . htmlentities($desc) . ')';
         } else {
-            return ''; 
+            return '';
         }
     }
 
