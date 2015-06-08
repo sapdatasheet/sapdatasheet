@@ -1,11 +1,11 @@
 echo off
 
 cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
-FOR /F %%i IN (config-a-x.txt) DO @call:BuffGenerate  bmfr  %%i
-call:BuffGenerate                                     bmfr  TOP
+FOR /F %%i IN (config-a-x.txt)       DO @call:BuffGenerate bmfr  %%i
+call:BuffGenerate                                          bmfr  TOP
 
 cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
-call:BuffGenerate                                     cvers ""
+call:BuffGenerate                                          cvers ""
 
 cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
 FOR /F %%i IN (config-a-x-slash.txt) DO @call:BuffGenerate devc  %%i
