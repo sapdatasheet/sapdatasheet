@@ -18,7 +18,8 @@ function langOnChnage(sapDescLangu) {
                 || window.location.pathname === "/abap/prog/"
                 || window.location.pathname === "/abap/sqlt/"
                 || window.location.pathname === "/abap/tabl/"
-                || window.location.pathname === "/abap/tran/") {
+                || window.location.pathname === "/abap/tran/"
+                || window.location.pathname === "/abap/view/") {
             if (sapDescLangu.value !== 'E') {
                 newURL = window.location.href + sapDescLangu.value + "/";
                 window.open(newURL, "_self");

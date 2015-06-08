@@ -324,7 +324,7 @@ php -f index.php w
 php -f index.php x
 php -f index.php slash
 
-echo "Generate file for site map now, click any key to continue..."
+echo "Generate file for site map now, click any key to continue or close window to cancel..."
 pause
 
 cd ..\..\sitemap
