@@ -1,3 +1,5 @@
+echo off
+
 cd C:\Data\Business\SAPDatasheet\Runtime\www-root
 del /S /Q *.php
 cd C:\Data\Business\SAPDatasheet\Development\Repos\www.sapdatasheet.org
