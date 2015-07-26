@@ -40,7 +40,8 @@ FOR /F %%i IN (config-sap-desc-langu.txt) DO @call:HtmlCompress html C:\Data\Bus
 
 call:HtmlCompress                                               xml  C:\Data\Business\SAPDatasheet\Runtime\www-root\sitemap
 
-pause
+timeout 60
+exit
 
 ::----------------------------------------------
 ::-- Buffer Generate with I18N
