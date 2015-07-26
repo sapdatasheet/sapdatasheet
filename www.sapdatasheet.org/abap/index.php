@@ -36,7 +36,9 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP";
             <!-- Content Object -->
             <div class="content_obj_title"><span>SAP ABAP Objects</span></div>
             <div class="content_obj">        
-
+                <div>
+                    <?php include $__ROOT__ . '/include/google/adsense-content-top.html' ?>
+                </div>
                 <h4> ABAP Object </h4>
                 <table class="alv">
                     <tr>

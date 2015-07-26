@@ -3,13 +3,7 @@
 
     <!-- Header Links -->
     <div class="headerlink">
-        <a href="/abap/"><b>ALL</b></a> |
-        <a href="/abap/doma/"><b><?php echo ABAP_OTYPE::DOMA_DESC ?></b></a> |
-        <a href="/abap/dtel/"><b><?php echo ABAP_OTYPE::DTEL_DESC ?></b></a> |
-        <a href="/abap/tabl/"><b><?php echo ABAP_OTYPE::TABL_DESC ?></b></a> |
-        <a href="/abap/sqlt/"><b><?php echo ABAP_OTYPE::SQLT_DESC ?></b></a> |
-        <a href="/abap/view/"><b><?php echo ABAP_OTYPE::VIEW_DESC ?></b></a> |
-        <a href="/abap/tran/"><b><?php echo ABAP_OTYPE::TRAN_DESC ?></b></a> &nbsp;
+        Description language: 
         <select
             name="sap-desc-language" 
             title="Description Language"
@@ -39,7 +33,7 @@
             <td>
                 <div class="headertxt"><a class="headertxt" href="/">
                         <img src="/sapdatasheet-middle.png"  alt="SAP Datasheet logo - Middle" />
-                        <span><?php // echo  WEBSITE::NAME           ?></span>
+                        <span><?php // echo  WEBSITE::NAME            ?></span>
                     </a></div>
                 <div class="headertxtsub"><span><?php echo WEBSITE::DESC ?></span></div>
             </td>
@@ -55,6 +49,17 @@
         </tr>
     </table>
 </div> <!-- End of Header -->
-<div class="header">
-    <?php include dirname(dirname(__FILE__)) . '/include/google/adsense-menu.html' ?>
+<div>
+    <ul class="menu">
+        <li class="menu"><a class="menu" href="/abap/">ABAP Types</a></li>
+        <li class="menu"><a class="menu" href="/abap/doma/"><?php echo ABAP_OTYPE::DOMA_DESC ?></a></li>
+        <li class="menu"><a class="menu" href="/abap/dtel/"><?php echo ABAP_OTYPE::DTEL_DESC ?></a></li>
+        <li class="menu"><a class="menu" href="/abap/tabl/"><?php echo ABAP_OTYPE::TABL_DESC ?></a></li>
+        <li class="menu"><a class="menu" href="/abap/sqlt/"><?php echo ABAP_OTYPE::SQLT_DESC ?></a></li>
+        <li class="menu"><a class="menu" href="/abap/view/"><?php echo ABAP_OTYPE::VIEW_DESC ?></a></li>
+        <li class="menu"><a class="menu" href="/abap/func/"><?php echo ABAP_OTYPE::FUNC_DESC ?></a></li>
+        <li class="menu"><a class="menu" href="/abap/prog/"><?php echo ABAP_OTYPE::PROG_DESC ?></a></li>
+        <li class="menu"><a class="menu" href="/abap/tran/"><?php echo ABAP_OTYPE::TRAN_DESC ?></a></li>
+    </ul>
+    <br/>
 </div> <!-- End of Menu -->

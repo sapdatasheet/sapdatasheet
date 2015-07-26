@@ -6,6 +6,8 @@ body
     font-family:Arial,Helvetica,sans-serif;
     min-width:40em;
 }
+
+/* Header */
 div.header
 {
     border-bottom:1px solid #c9d7f1;
@@ -47,6 +49,32 @@ td.search
     text-align:right;
     vertical-align:bottom;
 }
+
+/* Menu */
+ul.menu {
+    float: left;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+a.menu {
+    background-color: #F2AA00;
+    border-right: 1px solid white;
+    color: white;
+    float: left;
+    font-size: small;
+    padding: 0.2em 0.6em;
+    text-decoration: none;
+}
+a.menu:hover {
+    background-color: #ED8001;
+}
+li.menu {
+    display: inline;
+}
+
+/* Content */
 div.content
 {
     margin-left:11em;
@@ -89,6 +117,8 @@ table.content_obj
     margin:0px 0px 10px 0px;
     padding:0px;
 }
+
+/* ALV Table */
 table.alv
 {
     border-collapse:collapse;
@@ -192,6 +222,8 @@ div.left
     /* margin:0;
       padding:1em; */
 }
+
+/* Footer */
 div.footer
 {
     border-top:1px solid #c9d7f1;
@@ -239,12 +271,6 @@ dl /* Object list description */
 {
     font-size:small;
 }
-
-/* Talbe Cell style */
-/*td
-{
-    white-space:nowrap
-}*/
 
 /* Wrape */
 td.normal 

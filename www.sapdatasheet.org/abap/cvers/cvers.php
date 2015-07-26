@@ -84,6 +84,10 @@ $child_bmfr = ABAP_DB_TABLE_HIER::TDEVC_COMPONENT($cvers['COMPONENT']);
             <!-- Content Object -->
             <div class="content_obj_title"><span><?php echo $GLOBALS['TITLE_TEXT'] ?></span></div>
             <div class="content_obj">
+                <div>
+                    <?php include $__ROOT__ . '/include/google/adsense-content-top.html' ?>
+                </div>
+
                 <h4> Basic Data </h4>
                 <table class="content_obj">
                     <tbody>

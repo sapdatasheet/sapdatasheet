@@ -73,6 +73,9 @@ $dd04l = ABAP_DB_TABLE_DTEL::DD04L_List($index);
             <!-- Content Object -->
             <div class="content_obj_title"><span><?php echo $GLOBALS['TITLE_TEXT'] ?></span></div>
             <div class="content_obj">        
+                <div>
+                    <?php include $__ROOT__ . '/include/google/adsense-content-top.html' ?>
+                </div>
 
                 <div>
                     <a href="index-a.html">A</a>&nbsp;

@@ -85,6 +85,9 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::PROG_DESC . ' ' . $prog['PROG
             <!-- Content Object -->
             <div class="content_obj_title"><span><?php echo $GLOBALS['TITLE_TEXT'] ?></span></div>
             <div class="content_obj">
+                <div>
+                    <?php include $__ROOT__ . '/include/google/adsense-content-top.html' ?>
+                </div>
 
                 <h4> Basic data </h4>
                 <table class="content_obj">

@@ -4,7 +4,7 @@
         <?php include dirname(dirname(__FILE__)) . '/include/google/adsense-bottom.html' ?>
     </div>
     <div>&nbsp;</div>
-    
+
     <div>
         <a target="_blank" href="/site/privacy.html"><b>PRIVACY</b></a> -
         <a target="_blank" href="/site/term.html"><b>TERMS OF USE</b></a> -
@@ -26,19 +26,8 @@
     as <a href="http://www.w3.org/TR/html5/" target="_blank" title="">HTML5</a>. 
     <br/>
 </div>
-<script>
-    (function(i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r;
-        i[r] = i[r] || function() {
-            (i[r].q = i[r].q || []).push(arguments)
-        }, i[r].l = 1 * new Date();
-        a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0];
-        a.async = 1;
-        a.src = g;
-        m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-    ga('create', 'UA-54799157-1', 'auto');
-    ga('send', 'pageview');
-</script>
+<!-- Google Analytics Tracking -->
+<div>
+    <?php include dirname(dirname(__FILE__)) . '/include/google/analyticstracking.html' ?>
+</div>

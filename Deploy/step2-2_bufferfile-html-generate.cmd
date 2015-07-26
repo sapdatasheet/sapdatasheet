@@ -40,28 +40,8 @@ FOR /F %%i IN (config-a-0-slash.txt) DO @call:BuffGenerate tran  %%i
 cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
 FOR /F %%i IN (config-a-x-slash.txt) DO @call:BuffGenerate view  %%i
 
-
-echo "Generate file for site map now, click any key to continue or close window to cancel..."
-pause
-
-cd C:\Data\Business\SAPDatasheet\Runtime\www-root\sitemap
-php abap-bmfr.php
-php abap-cvers.php
-php abap-devc.php
-php abap-doma.php
-php abap-dtel.php
-php abap-fugr.php
-php abap-func.php
-php abap-prog.php
-php abap-sqlt.php
-php abap-tabl.php
-php abap-table-field.php
-php abap-tran.php
-php abap-view.php
-php index.php
-php sitemaps.php
-
-pause
+timeout 60
+exit
 
 ::----------------------------------------------
 ::-- Buffer Generate
@@ -89,8 +69,19 @@ goto:eof
 echo =====================================================================
 echo == Processing for Language %~1  %~2  %~3
 
-cd %~1
-php -f index.php %~2  %~3
+start /min "BuffGenerate HTML Job" "C:\Data\Business\SAPDatasheet\Development\Repos\Deploy\bufferfile-generate-html.cmd" %~1 %~2 %~3
+
+
+setlocal enableextensions enabledelayedexpansion
+:loop
+  for /f "tokens=1,*" %%a in ('tasklist ^| find /I /C "cmd.exe"') do set cmd_count=%%a
+  echo Command count = %cmd_count%
+  if %cmd_count% GEQ 8 (
+    timeout 1
+    goto loop
+  )
+endlocal
+  
 cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
 
 goto:eof

@@ -69,6 +69,9 @@ $bmfr = ABAP_DB_TABLE_HIER::DF14L_List($index);
             <!-- Content Object -->
             <div class="content_obj_title"><span>SAP ABAP <?php echo ABAP_OTYPE::BMFR_DESC ?></span></div>
             <div class="content_obj">
+                <div>
+                    <?php include $__ROOT__ . '/include/google/adsense-content-top.html' ?>
+                </div>
 
                 <div>
                     <a href="index-top.html">Top</a>&nbsp;
