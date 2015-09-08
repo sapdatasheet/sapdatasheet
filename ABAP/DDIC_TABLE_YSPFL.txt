@@ -1,0 +1,18 @@
+These tables are created based on class CL_SPFL_PROFILE_PARAMETER
+
+YSPFLMETADATA
+==============
+SEQ         INT4                       INT4   10    0    Natural Number
+.INCLUDE    SPFL_PARAMETER_METADATA    STRU    0    0    Metadata for a Profile Parameter
+
+
+YSPFLPARASUB
+==============
+SEQ         INT4                   INT4   10    0    Natural Number
+.INCLUDE    SPFL_PARAMETER_LIST    STRU    0    0    List of All Profile Parameters
+
+
+YSPFLPARAUSUB
+==============
+SEQ         INT4                   INT4   10    0    Natural Number
+.INCLUDE    SPFL_PARAMETER_LIST    STRU    0    0    List of All Profile Parameters

@@ -10,6 +10,8 @@ REPORT yddic2mysql.
 TABLES dd03l.
 
 SELECT-OPTIONS it_tname FOR dd03l-tabname OBLIGATORY.
+PARAMETER iv_drop TYPE flag AS CHECKBOX DEFAULT 'X'.
+
 
 TYPES: BEGIN OF ts_ddic2mysql,
          datatype  TYPE dd03l-datatype,
@@ -40,10 +42,21 @@ FORM init.
   ls_tname-sign = 'I'.
   ls_tname-option = 'EQ'.
 
+  ls_tname-low = 'AGR_DEFINE'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'AGR_AGRS'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'AGR_AGRS2'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'AGR_1250'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'AGR_1251'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'AUTHX'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'AUTH_FLDINFO_TMP'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'CUS_ACTEXT'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'CUS_ACTOBJ'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'CUS_ACTOBT'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'CUS_ACTH'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'CUS_ACTT'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'CUS_ATRCOU'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'CUS_ATRH'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'CUS_ATRT'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'CUS_IMGACH'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'CUS_IMGACT'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'CVERS'. APPEND ls_tname TO it_tname.
@@ -86,14 +99,28 @@ FORM init.
   ls_tname-low = 'DOKHL'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'DOKIL'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'ENLFDIR'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'EPSSCHRFRM'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'FUNCT'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'FUPARAREF'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'LDBT'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'OBJH'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'RSMPTEXTS'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'SEOCLASS'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'SEOCLASSDF'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'SEOCOMPO'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'SEOCOMPODF'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'SEOCOMPOTX'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'SEOFRIENDS'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'SEOIMPLREL'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'SEOSUBCO'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'SEOSUBCODF'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'SEOTYPEPLS'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'SFW_SWITCH'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'SFW_SWITCHT'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'T002T'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'TACT'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'TACTT'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'TACTZ'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'TADIR'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'TBRGT'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'TDEVC'. APPEND ls_tname TO it_tname.
@@ -107,20 +134,31 @@ FORM init.
   ls_tname-low = 'TNODEIMG'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'TNODEIMGR'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'TNODEIMGT'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'TOBC'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'TOBCT'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'TOBJ'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'TOBJT'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'TOBJVORFLG'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'TRDIRT'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'TSTC'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'TSTCA'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'TSTCC'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'TSTCP'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'TSTCT'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'TTREES'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'TTREET'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'TTREE_SFW_NODES'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'TVDIR'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'USR12'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'YDOKTL'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'YDYNPSOURCED021S'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'YDYNPSOURCED022S'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'YDYNPSOURCED023S'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'YREPOSRCDATA'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'YREPOSRCMETA'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'YSPFLMETADATA'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'YSPFLPARASUB'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'YSPFLPARAUSUB'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'YTAPLT'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'YTDDAT'. APPEND ls_tname TO it_tname.
 
@@ -185,7 +223,11 @@ FORM init.
   ls_ddic2mysql-mysqltype = mysql_varchar.
   APPEND ls_ddic2mysql TO gt_ddic2mysql.
 
-* LCHR
+* LCHR - To be tested
+  ls_ddic2mysql-datatype = 'LCHR'.
+  ls_ddic2mysql-mysqltype = mysql_varchar.
+  APPEND ls_ddic2mysql TO gt_ddic2mysql.
+
 * LRAW
 
   ls_ddic2mysql-datatype = 'NUMC'.
@@ -267,8 +309,8 @@ FORM generate_mysql_create
   DATA: lt_dd03l    TYPE STANDARD TABLE OF dd03l,
         lt_dd03l_pk TYPE STANDARD TABLE OF dd03l,
         ls_dd03l    TYPE dd03l.
-  DATA: lv_tname    TYPE string,
-        lv_string   TYPE string.
+  DATA: lv_tname  TYPE string,
+        lv_string TYPE string.
 
   SELECT * FROM dd03l INTO TABLE lt_dd03l
     WHERE tabname = i_tname
@@ -283,10 +325,12 @@ FORM generate_mysql_create
   NEW-LINE.
 
 * DROP TABLE IF EXISTS `T000`;
-  CONCATENATE 'DROP TABLE IF EXISTS ' lv_tname ';'
-    INTO lv_string RESPECTING BLANKS.
-  WRITE lv_string.
-  NEW-LINE.
+  IF iv_drop EQ 'X'.
+    CONCATENATE 'DROP TABLE IF EXISTS ' lv_tname ';'
+      INTO lv_string RESPECTING BLANKS.
+    WRITE lv_string.
+    NEW-LINE.
+  ENDIF.
 
 * CREATE TABLE IF NOT EXISTS `T000`(
   CONCATENATE 'CREATE TABLE IF NOT EXISTS ' lv_tname ' ('
