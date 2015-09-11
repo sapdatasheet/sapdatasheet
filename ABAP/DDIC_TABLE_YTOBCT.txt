@@ -1,0 +1,6 @@
+YTOBCT
+Copy of TOBCT
+=====================================================================
+LANGU	SPRAS	LANG	1	0	Language Key
+OCLSS	XUOBJCLASS	CHAR	4	0	Authorization object class
+CTEXT	XUTEXT	CHAR	60	0	Texts in user master/authorizations

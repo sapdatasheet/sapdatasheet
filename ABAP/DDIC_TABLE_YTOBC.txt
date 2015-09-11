@@ -1,0 +1,4 @@
+YTOBC
+Copy of TOBC (Pooled Table)
+================================================================
+OCLSS	XUOBJCLASS	CHAR	4	0	Authorization object class

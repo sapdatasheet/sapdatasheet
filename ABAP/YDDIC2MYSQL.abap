@@ -105,6 +105,7 @@ FORM init.
   ls_tname-low = 'LDBT'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'OBJH'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'RSMPTEXTS'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'SCUS_HIER'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'SEOCLASS'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'SEOCLASSDF'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'SEOCOMPO'. APPEND ls_tname TO it_tname.
@@ -131,11 +132,11 @@ FORM init.
   ls_tname-low = 'TMENU01'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'TMENU01R'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'TMENU01T'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'TNODEH'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'TNODET'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'TNODEIMG'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'TNODEIMGR'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'TNODEIMGT'. APPEND ls_tname TO it_tname.
-  ls_tname-low = 'TOBC'. APPEND ls_tname TO it_tname.
-  ls_tname-low = 'TOBCT'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'TOBJ'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'TOBJT'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'TOBJVORFLG'. APPEND ls_tname TO it_tname.
@@ -161,6 +162,8 @@ FORM init.
   ls_tname-low = 'YSPFLPARAUSUB'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'YTAPLT'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'YTDDAT'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'YTOBC'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'YTOBCT'. APPEND ls_tname TO it_tname.
 
 * Datatype mapping from DDIC type to MySQL type
 
@@ -250,7 +253,9 @@ FORM init.
   ls_ddic2mysql-mysqltype = mysql_varchar.
   APPEND ls_ddic2mysql TO gt_ddic2mysql.
 
-* STRG
+  ls_ddic2mysql-datatype = 'STRG'.           " STRING
+  ls_ddic2mysql-mysqltype = mysql_varchar.
+  APPEND ls_ddic2mysql TO gt_ddic2mysql.
 
   ls_ddic2mysql-datatype = 'TIMS'.
   ls_ddic2mysql-mysqltype = mysql_varchar.
@@ -343,7 +348,7 @@ FORM generate_mysql_create
 
   CLEAR lt_dd03l_pk.
   LOOP AT lt_dd03l INTO ls_dd03l.
-    IF ls_dd03l-leng = 0.
+    IF ls_dd03l-DATATYPE IS INITIAL.
       CONTINUE.
     ENDIF.
 
@@ -420,6 +425,9 @@ FORM ddictype2mysqltype
 *     %s(%d)
       IF lv_mysqltype = 'RAW'.
         i_leng = i_leng + i_leng.
+      ENDIF.
+      IF i_datatype EQ 'STRG'.
+        i_leng = 1024.
       ENDIF.
       MOVE i_leng TO e_mysqltype.
       CONCATENATE '(' e_mysqltype ')' INTO e_mysqltype.

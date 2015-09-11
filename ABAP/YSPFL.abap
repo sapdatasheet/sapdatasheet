@@ -81,7 +81,7 @@ LOOP AT lt_p_usub INTO ls_p_usub.
 ENDLOOP.
 
 
-INSERT yspflparasub FROM TABLE lt_db_p_sub.
+INSERT yspflparasub  FROM TABLE lt_db_p_sub.
 INSERT yspflparausub FROM TABLE lt_db_p_usub.
 COMMIT WORK.
 NEW-LINE.

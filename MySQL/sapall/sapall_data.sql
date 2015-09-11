@@ -680,12 +680,159 @@ insert ignore into sapall.tdevct select * from saperp6ehp7.tdevct;
 insert ignore into sapall.tdevct select * from sapsolman71sr1.tdevct;
 
 
+-- Database table for SPRO
+
+create table if not exists sapall.cus_imgach like saperp6ehp7.cus_imgach;
+insert ignore into sapall.cus_imgach select * from saperp6ehp7.cus_imgach;
+
+create table if not exists sapall.cus_atrh like saperp6ehp7.cus_atrh;
+insert ignore into sapall.cus_atrh select * from saperp6ehp7.cus_atrh;
+
+create table if not exists sapall.cus_atrt like saperp6ehp7.cus_atrt;
+insert ignore into sapall.cus_atrt select * from saperp6ehp7.cus_atrt;
+
+create table if not exists sapall.cus_atrcou like saperp6ehp7.cus_atrcou;
+insert ignore into sapall.cus_atrcou select * from saperp6ehp7.cus_atrcou;
+
+create table if not exists sapall.cus_actobj like saperp6ehp7.cus_actobj;
+insert ignore into sapall.cus_actobj select * from saperp6ehp7.cus_actobj;
+
+create table if not exists sapall.cus_actext like saperp6ehp7.cus_actext;
+insert ignore into sapall.cus_actext select * from saperp6ehp7.cus_actext;
+
+create table if not exists sapall.cus_acth like saperp6ehp7.cus_acth;
+insert ignore into sapall.cus_acth select * from saperp6ehp7.cus_acth;
+
+create table if not exists sapall.tnodeimg like saperp6ehp7.tnodeimg;
+insert ignore into sapall.tnodeimg select * from saperp6ehp7.tnodeimg;
+
+create table if not exists sapall.tnodeimgr like saperp6ehp7.tnodeimgr;
+insert ignore into sapall.tnodeimgr select * from saperp6ehp7.tnodeimgr;
+
+create table if not exists sapall.tnodeimgt like saperp6ehp7.tnodeimgt;
+insert ignore into sapall.tnodeimgt select * from saperp6ehp7.tnodeimgt;
+-- SCUS_HIER
+-- TNODEH
+-- TNODET
 
 
+-- Database table for MENU
+
+create table if not exists sapall.ttrees like saperp6ehp7.ttrees;
+insert ignore into sapall.ttrees select * from saperp6ehp7.ttrees;
+
+create table if not exists sapall.ttreet like saperp6ehp7.ttreet;
+insert ignore into sapall.ttreet select * from saperp6ehp7.ttreet;
+
+create table if not exists sapall.tmenu01 like saperp6ehp7.tmenu01;
+insert ignore into sapall.tmenu01 select * from saperp6ehp7.tmenu01;
+
+create table if not exists sapall.tmenu01r like saperp6ehp7.tmenu01r;
+insert ignore into sapall.tmenu01r select * from saperp6ehp7.tmenu01r;
+
+create table if not exists sapall.tmenu01t like saperp6ehp7.tmenu01t;
+insert ignore into sapall.tmenu01t select * from saperp6ehp7.tmenu01t;
 
 
+-- Database table for INTF or CLAS
+
+create table if not exists sapall.seoclass like saperp6ehp7.seoclass;
+insert ignore into sapall.seoclass select * from saperp6ehp7.seoclass;
+
+create table if not exists sapall.seoclassdf like saperp6ehp7.seoclassdf;
+insert ignore into sapall.seoclassdf select * from saperp6ehp7.seoclassdf;
+
+create table if not exists sapall.seocompo like saperp6ehp7.seocompo;
+insert ignore into sapall.seocompo select * from saperp6ehp7.seocompo;
+
+create table if not exists sapall.seocompodf like saperp6ehp7.seocompodf;
+insert ignore into sapall.seocompodf select * from saperp6ehp7.seocompodf;
+
+create table if not exists sapall.seocompotx like saperp6ehp7.seocompotx;
+insert ignore into sapall.seocompotx select * from saperp6ehp7.seocompotx;
+
+create table if not exists sapall.seofriends like saperp6ehp7.seofriends;
+insert ignore into sapall.seofriends select * from saperp6ehp7.seofriends;
+
+create table if not exists sapall.seoimplrel like saperp6ehp7.seoimplrel;
+insert ignore into sapall.seoimplrel select * from saperp6ehp7.seoimplrel;
+
+create table if not exists sapall.seosubco like saperp6ehp7.seosubco;
+insert ignore into sapall.seosubco select * from saperp6ehp7.seosubco;
+
+create table if not exists sapall.seosubcodf like saperp6ehp7.seosubcodf;
+insert ignore into sapall.seosubcodf select * from saperp6ehp7.seosubcodf;
+
+create table if not exists sapall.seotypepls like saperp6ehp7.seotypepls;
+insert ignore into sapall.seotypepls select * from saperp6ehp7.seotypepls;
 
 
+-- Database table for SU21
+
+create table if not exists sapall.auth_fldinfo_tmp like saperp6ehp7.auth_fldinfo_tmp;
+insert ignore into sapall.auth_fldinfo_tmp select * from saperp6ehp7.auth_fldinfo_tmp;
+
+create table if not exists sapall.authx like saperp6ehp7.authx;
+insert ignore into sapall.authx select * from saperp6ehp7.authx;
+
+create table if not exists sapall.tact like saperp6ehp7.tact;
+insert ignore into sapall.tact select * from saperp6ehp7.tact;
+
+create table if not exists sapall.tactt like saperp6ehp7.tactt;
+insert ignore into sapall.tactt select * from saperp6ehp7.tactt;
+
+create table if not exists sapall.tactz like saperp6ehp7.tactz;
+insert ignore into sapall.tactz select * from saperp6ehp7.tactz;
+
+create table if not exists sapall.tobj like saperp6ehp7.tobj;
+insert ignore into sapall.tobj select * from saperp6ehp7.tobj;
+
+create table if not exists sapall.tobjt like saperp6ehp7.tobjt;
+insert ignore into sapall.tobjt select * from saperp6ehp7.tobjt;
+
+create table if not exists sapall.tobjvorflg like saperp6ehp7.tobjvorflg;
+insert ignore into sapall.tobjvorflg select * from saperp6ehp7.tobjvorflg;
+
+create table if not exists sapall.ytobc like saperp6ehp7.ytobc;
+insert ignore into sapall.ytobc select * from saperp6ehp7.ytobc;
+
+create table if not exists sapall.ytobct like saperp6ehp7.ytobct;
+insert ignore into sapall.ytobct select * from saperp6ehp7.ytobct;
+
+-- epsschrfrm: skip this table
+
+
+-- Database table for PFCG
+
+create table if not exists sapall.agr_define like saperp6ehp7.agr_define;
+insert ignore into sapall.agr_define select * from saperp6ehp7.agr_define;
+
+create table if not exists sapall.agr_agrs like saperp6ehp7.agr_agrs;
+insert ignore into sapall.agr_agrs select * from saperp6ehp7.agr_agrs;
+
+create table if not exists sapall.agr_agrs2 like saperp6ehp7.agr_agrs2;
+insert ignore into sapall.agr_agrs2 select * from saperp6ehp7.agr_agrs2;
+
+create table if not exists sapall.agr_1250 like saperp6ehp7.agr_1250;
+insert ignore into sapall.agr_1250 select * from saperp6ehp7.agr_1250;
+
+create table if not exists sapall.agr_1251 like saperp6ehp7.agr_1251;
+insert ignore into sapall.agr_1251 select * from saperp6ehp7.agr_1251;
+
+create table if not exists sapall.usr12 like saperp6ehp7.usr12;
+insert ignore into sapall.usr12 select * from saperp6ehp7.usr12;
+
+
+-- Database table for RZ10
+
+create table if not exists sapall.yspflmetadata like saperp6ehp7.yspflmetadata;
+insert ignore into sapall.yspflmetadata select * from saperp6ehp7.yspflmetadata;
+
+create table if not exists sapall.yspflparasub like saperp6ehp7.yspflparasub;
+insert ignore into sapall.yspflparasub select * from saperp6ehp7.yspflparasub;
+
+create table if not exists sapall.yspflparausub like saperp6ehp7.yspflparausub;
+insert ignore into sapall.yspflparausub select * from saperp6ehp7.yspflparausub;
 
 
 
