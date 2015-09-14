@@ -703,6 +703,9 @@ insert ignore into sapall.cus_actext select * from saperp6ehp7.cus_actext;
 create table if not exists sapall.cus_acth like saperp6ehp7.cus_acth;
 insert ignore into sapall.cus_acth select * from saperp6ehp7.cus_acth;
 
+create table if not exists sapall.scus_hier like saperp6ehp7.scus_hier;
+insert ignore into sapall.scus_hier select * from saperp6ehp7.scus_hier;
+
 create table if not exists sapall.tnodeimg like saperp6ehp7.tnodeimg;
 insert ignore into sapall.tnodeimg select * from saperp6ehp7.tnodeimg;
 
@@ -711,9 +714,12 @@ insert ignore into sapall.tnodeimgr select * from saperp6ehp7.tnodeimgr;
 
 create table if not exists sapall.tnodeimgt like saperp6ehp7.tnodeimgt;
 insert ignore into sapall.tnodeimgt select * from saperp6ehp7.tnodeimgt;
--- SCUS_HIER
--- TNODEH
--- TNODET
+
+create table if not exists sapall.tnodeh like saperp6ehp7.tnodeh;
+insert ignore into sapall.tnodeh select * from saperp6ehp7.tnodeh;
+
+create table if not exists sapall.tnodet like saperp6ehp7.tnodet;
+insert ignore into sapall.tnodet select * from saperp6ehp7.tnodet;
 
 
 -- Database table for MENU

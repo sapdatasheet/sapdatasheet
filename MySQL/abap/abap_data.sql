@@ -211,3 +211,166 @@ insert into abap.tdevc select * from sapall.tdevc;
 create table if not exists abap.tdevct like sapall.tdevct;
 insert into abap.tdevct select * from sapall.tdevct;
 
+
+-- Database table for SPRO
+
+create table if not exists abap.cus_imgach like sapall.cus_imgach;
+insert ignore into abap.cus_imgach select * from sapall.cus_imgach;
+
+create table if not exists abap.cus_atrh like sapall.cus_atrh;
+insert ignore into abap.cus_atrh select * from sapall.cus_atrh;
+
+create table if not exists abap.cus_atrt like sapall.cus_atrt;
+insert ignore into abap.cus_atrt select * from sapall.cus_atrt
+  where spras in ('N', 'E', 'F', 'D', 'I', 'J', '3', 'L', 'P', 'R', '1', 'S', 'M', 'T');
+
+create table if not exists abap.cus_atrcou like sapall.cus_atrcou;
+insert ignore into abap.cus_atrcou select * from sapall.cus_atrcou;
+
+create table if not exists abap.cus_actobj like sapall.cus_actobj;
+insert ignore into abap.cus_actobj select * from sapall.cus_actobj;
+
+create table if not exists abap.cus_actext like sapall.cus_actext;
+insert ignore into abap.cus_actext select * from sapall.cus_actext;
+
+create table if not exists abap.cus_acth like sapall.cus_acth;
+insert ignore into abap.cus_acth select * from sapall.cus_acth;
+
+create table if not exists abap.scus_hier like sapall.scus_hier;
+insert ignore into abap.scus_hier select * from sapall.scus_hier;
+
+create table if not exists abap.tnodeimg like sapall.tnodeimg;
+insert ignore into abap.tnodeimg select * from sapall.tnodeimg;
+
+create table if not exists abap.tnodeimgr like sapall.tnodeimgr;
+insert ignore into abap.tnodeimgr select * from sapall.tnodeimgr;
+
+create table if not exists abap.tnodeimgt like sapall.tnodeimgt;
+insert ignore into abap.tnodeimgt select * from sapall.tnodeimgt;
+
+create table if not exists abap.tnodeh like sapall.tnodeh;
+insert ignore into abap.tnodeh select * from sapall.tnodeh;
+
+create table if not exists abap.tnodet like sapall.tnodet;
+insert ignore into abap.tnodet select * from sapall.tnodet
+  where spras in ('N', 'E', 'F', 'D', 'I', 'J', '3', 'L', 'P', 'R', '1', 'S', 'M', 'T');
+
+
+-- Database table for MENU
+
+create table if not exists abap.ttrees like sapall.ttrees;
+insert ignore into abap.ttrees select * from sapall.ttrees;
+
+create table if not exists abap.ttreet like sapall.ttreet;
+insert ignore into abap.ttreet select * from sapall.ttreet;
+
+create table if not exists abap.tmenu01 like sapall.tmenu01;
+insert ignore into abap.tmenu01 select * from sapall.tmenu01;
+
+create table if not exists abap.tmenu01r like sapall.tmenu01r;
+insert ignore into abap.tmenu01r select * from sapall.tmenu01r;
+
+create table if not exists abap.tmenu01t like sapall.tmenu01t;
+insert ignore into abap.tmenu01t select * from sapall.tmenu01t
+  where spras in ('N', 'E', 'F', 'D', 'I', 'J', '3', 'L', 'P', 'R', '1', 'S', 'M', 'T');
+
+
+-- Database table for INTF or CLAS
+
+create table if not exists abap.seoclass like sapall.seoclass;
+insert ignore into abap.seoclass select * from sapall.seoclass;
+
+create table if not exists abap.seoclassdf like sapall.seoclassdf;
+insert ignore into abap.seoclassdf select * from sapall.seoclassdf;
+
+create table if not exists abap.seocompo like sapall.seocompo;
+insert ignore into abap.seocompo select * from sapall.seocompo;
+
+create table if not exists abap.seocompodf like sapall.seocompodf;
+insert ignore into abap.seocompodf select * from sapall.seocompodf;
+
+create table if not exists abap.seocompotx like sapall.seocompotx;
+insert ignore into abap.seocompotx select * from sapall.seocompotx;
+
+create table if not exists abap.seofriends like sapall.seofriends;
+insert ignore into abap.seofriends select * from sapall.seofriends;
+
+create table if not exists abap.seoimplrel like sapall.seoimplrel;
+insert ignore into abap.seoimplrel select * from sapall.seoimplrel;
+
+create table if not exists abap.seosubco like sapall.seosubco;
+insert ignore into abap.seosubco select * from sapall.seosubco;
+
+create table if not exists abap.seosubcodf like sapall.seosubcodf;
+insert ignore into abap.seosubcodf select * from sapall.seosubcodf;
+
+create table if not exists abap.seotypepls like sapall.seotypepls;
+insert ignore into abap.seotypepls select * from sapall.seotypepls;
+
+
+-- Database table for SU21
+
+create table if not exists abap.auth_fldinfo_tmp like sapall.auth_fldinfo_tmp;
+insert ignore into abap.auth_fldinfo_tmp select * from sapall.auth_fldinfo_tmp;
+
+create table if not exists abap.authx like sapall.authx;
+insert ignore into abap.authx select * from sapall.authx;
+
+create table if not exists abap.tact like sapall.tact;
+insert ignore into abap.tact select * from sapall.tact;
+
+create table if not exists abap.tactt like sapall.tactt;
+insert ignore into abap.tactt select * from sapall.tactt;
+
+create table if not exists abap.tactz like sapall.tactz;
+insert ignore into abap.tactz select * from sapall.tactz;
+
+create table if not exists abap.tobj like sapall.tobj;
+insert ignore into abap.tobj select * from sapall.tobj;
+
+create table if not exists abap.tobjt like sapall.tobjt;
+insert ignore into abap.tobjt select * from sapall.tobjt;
+
+create table if not exists abap.tobjvorflg like sapall.tobjvorflg;
+insert ignore into abap.tobjvorflg select * from sapall.tobjvorflg;
+
+create table if not exists abap.ytobc like sapall.ytobc;
+insert ignore into abap.ytobc select * from sapall.ytobc;
+
+create table if not exists abap.ytobct like sapall.ytobct;
+insert ignore into abap.ytobct select * from sapall.ytobct;
+-- epsschrfrm: skip this table
+
+
+-- Database table for PFCG
+
+create table if not exists abap.agr_define like sapall.agr_define;
+insert ignore into abap.agr_define select * from sapall.agr_define;
+
+create table if not exists abap.agr_agrs like sapall.agr_agrs;
+insert ignore into abap.agr_agrs select * from sapall.agr_agrs;
+
+create table if not exists abap.agr_agrs2 like sapall.agr_agrs2;
+insert ignore into abap.agr_agrs2 select * from sapall.agr_agrs2;
+
+create table if not exists abap.agr_1250 like sapall.agr_1250;
+insert ignore into abap.agr_1250 select * from sapall.agr_1250;
+
+create table if not exists abap.agr_1251 like sapall.agr_1251;
+insert ignore into abap.agr_1251 select * from sapall.agr_1251;
+
+create table if not exists abap.usr12 like sapall.usr12;
+insert ignore into abap.usr12 select * from sapall.usr12;
+
+
+-- Database table for RZ10
+
+create table if not exists abap.yspflmetadata like sapall.yspflmetadata;
+insert ignore into abap.yspflmetadata select * from sapall.yspflmetadata;
+
+create table if not exists abap.yspflparasub like sapall.yspflparasub;
+insert ignore into abap.yspflparasub select * from sapall.yspflparasub;
+
+create table if not exists abap.yspflparausub like sapall.yspflparausub;
+insert ignore into abap.yspflparausub select * from sapall.yspflparausub;
+
