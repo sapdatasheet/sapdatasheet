@@ -1,0 +1,6 @@
+YSPRO
+SPRO IMG Tree
+=====  ========  ====  ====  ==  ================
+MANDT     MANDT  CLNT     3   0  Client
+SEQ        INT4  INT4    10   0  Natural Number
+ITEM   CHAR1024  CHAR  1024   0  Character 1024
