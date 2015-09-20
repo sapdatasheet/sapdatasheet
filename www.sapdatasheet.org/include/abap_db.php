@@ -1378,8 +1378,8 @@ class ABAP_DB_TABLE_SPRO {
     }
 
     public static function TNODEIMGR($node_id) {
-        $sql = 'select * from ' . ABAP_DB_TABLE_SPRO::TNODEIMGR
-                . ' where `node_id` = :id';
+        $sql = "select * from " . ABAP_DB_TABLE_SPRO::TNODEIMGR
+                . " where `node_id` = :id and ref_type = 'COBJ'";
         $paras = array(
             'id' => $node_id
         );

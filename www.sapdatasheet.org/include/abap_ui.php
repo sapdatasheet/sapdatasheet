@@ -227,18 +227,6 @@ class ABAP_UI_SPRO {
             }
 
             ABAP_UI_SPRO::echo_li($nodeimg);
-            ABAP_UI_SPRO::process_tnodeimg($nodeimg, 0);
-        }
-    }
-
-    private static function process_tnodeimg($nodeimg, $level) {
-        $level++;
-        if ($nodeimg['NODE_TYPE'] === ABAP_DB_TABLE_SPRO::TNODEIMG_NODE_TYPE_REF && empty($nodeimg['REFTREE_ID']) === FALSE && empty($nodeimg['REFNODE_ID']) === FALSE) {
-            ABAP_UI_SPRO::write_child_tree($nodeimg['REFTREE_ID'], $nodeimg['REFNODE_ID'], $level);
-        } else if ($nodeimg['NODE_TYPE'] === ABAP_DB_TABLE_SPRO::TNODEIMG_NODE_TYPE_IMG0) {
-            ABAP_UI_SPRO::write_child_node($nodeimg['NODE_ID'], $level);
-        } else if ($nodeimg['NODE_TYPE'] === ABAP_DB_TABLE_SPRO::TNODEIMG_NODE_TYPE_IMG || $nodeimg['NODE_TYPE'] === ABAP_DB_TABLE_SPRO::TNODEIMG_NODE_TYPE_IMG1) {
-            ABAP_UI_SPRO::write_img_activity($nodeimg, $level);
         }
     }
 
@@ -246,7 +234,6 @@ class ABAP_UI_SPRO {
         $child_list = ABAP_DB_TABLE_SPRO::TNODEIMG_TREE_NODE_ID($tree_id, $node_id);
         foreach ($child_list as $child) {
             ABAP_UI_SPRO::echo_li($child, $level);
-            ABAP_UI_SPRO::process_tnodeimg($child, $level);
         }
     }
 
@@ -254,45 +241,56 @@ class ABAP_UI_SPRO {
         $child_list = ABAP_DB_TABLE_SPRO::TNODEIMG_PARENT_ID($node_id);
         foreach ($child_list as $child) {
             ABAP_UI_SPRO::echo_li($child, $level);
-            ABAP_UI_SPRO::process_tnodeimg($child, $level);
         }
-    }
-    
-    private static function write_img_activity($nodeimg, $level){
-        $imgr = ABAP_DB_TABLE_SPRO::TNODEIMGR($nodeimg['NODE_ID']);
-        if (empty($imgr)) {
-            echo '!!! No Activity Found';
-        }
-        
-        $text = ABAP_DB_TABLE_SPRO::CUS_IMGACT($imgr['REF_OBJECT']);
-
-        $html_li = '<li>';
-        $i = $level;
-        while ($i > 0) {
-            $i--;
-            $html_li = $html_li . '&nbsp;&nbsp;&nbsp;&nbsp;';
-        }
-        $html_li = $html_li . $imgr['REF_OBJECT'] . ' - ' . $text;
-        $html_li = $html_li . '</li>';
-        print_r($html_li);
     }
 
     private static function echo_li($nodeimg, $level = 0) {
-        $text = ABAP_DB_TABLE_SPRO::TNODEIMGT($nodeimg['NODE_ID']);
 
+        // Add a New Line
+        $skip = FALSE;         // If the node has no TNODEIMGR item, skip it
         $html_li = '<li>';
         $i = $level;
         while ($i > 0) {
             $i--;
             $html_li = $html_li . '&nbsp;&nbsp;&nbsp;&nbsp;';
         }
-        $html_li = $html_li . $nodeimg['NODE_ID'] . ' - ' . $nodeimg['NODE_TYPE'] . ' - ' . $text;
+        $html_li = $html_li . $nodeimg['NODE_ID'] . ' - ' . $nodeimg['NODE_TYPE'];
+
+        $text = ABAP_DB_TABLE_SPRO::TNODEIMGT($nodeimg['NODE_ID']);
+        if (empty($text) === FALSE) {
+            $html_li = $html_li . ' - ' . $text;
+        }
+
+        // Add Reference Node
+        if ($nodeimg['NODE_TYPE'] === ABAP_DB_TABLE_SPRO::TNODEIMG_NODE_TYPE_IMG || $nodeimg['NODE_TYPE'] === ABAP_DB_TABLE_SPRO::TNODEIMG_NODE_TYPE_IMG1) {
+            $imgr = ABAP_DB_TABLE_SPRO::TNODEIMGR($nodeimg['NODE_ID']);
+            if (empty($imgr)) {
+                $html_li = $html_li . 'No Reference Found';
+                $skip = TRUE;
+            } else {
+                $html_li = $html_li . ' - ' . $imgr['REF_TYPE'];
+                $imgr_t = ABAP_DB_TABLE_SPRO::CUS_IMGACT($imgr['REF_OBJECT']);
+                if (empty($imgr_t) == FALSE) {
+                    $html_li = $html_li . ' - ' . $imgr_t;
+                }
+            }
+        }
+
         $html_li = $html_li . '</li>';
-        print_r($html_li);
+        if ($skip === FALSE) {
+            print_r($html_li);
+        }
+
+        // Load Lower Level Nodes
+        $level++;
+        if ($nodeimg['NODE_TYPE'] === ABAP_DB_TABLE_SPRO::TNODEIMG_NODE_TYPE_REF && empty($nodeimg['REFTREE_ID']) === FALSE && empty($nodeimg['REFNODE_ID']) === FALSE) {
+            ABAP_UI_SPRO::write_child_tree($nodeimg['REFTREE_ID'], $nodeimg['REFNODE_ID'], $level);
+        } else if ($nodeimg['NODE_TYPE'] === ABAP_DB_TABLE_SPRO::TNODEIMG_NODE_TYPE_IMG0) {
+            ABAP_UI_SPRO::write_child_node($nodeimg['NODE_ID'], $level);
+        }
     }
 
 }
-
 
 class ABAP_UI_TOOL {
 
