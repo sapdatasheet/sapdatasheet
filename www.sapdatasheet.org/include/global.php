@@ -47,8 +47,8 @@ class ABAP_OTYPE {
     const TRAN_DESC = 'Transaction Code';
     const VIEW_NAME = 'VIEW';
     const VIEW_DESC = 'View';
-    const SPRO_NAME = 'SPRO';
-    const SPRO_DESC = 'Implementation Guide (IMG)';
+    const CUS0_NAME = 'CUS0';
+    const CUS0_DESC = 'Customizing IMG Activity';
     const MENU_NAME = 'MENU';
     const MENU_DESC = 'SAP Menu';
     const INTF_NAME = 'INTF';

@@ -109,6 +109,147 @@ class ABAP_DB_SCHEMA {
 
 }
 
+/** Database table access for - SPRO - Customizing - Edit Project. */
+class ABAP_DB_TABLE_CUS0 {
+    
+    const TNODEIMG_NODE_TYPE_REF = 'REF';
+    const TNODEIMG_NODE_TYPE_IMG = 'IMG';
+    const TNODEIMG_NODE_TYPE_IMG0 = 'IMG0';
+    const TNODEIMG_NODE_TYPE_IMG1 = 'IMG1';
+
+    /**
+     * IMG Activities.
+     */
+    const CUS_IMGACH = "cus_imgach";
+
+    /**
+     * Text Table for IMG Activity.
+     */
+    const CUS_IMGACT = "cus_imgact";
+
+    /**
+     * Node table for the new IMG.
+     */
+    const TNODEIMG = "tnodeimg";
+
+    /**
+     * References for the new IMG.
+     */
+    const TNODEIMGR = "tnodeimgr";
+
+    /**
+     * General Structure Storage Node Names.
+     */
+    const TNODEIMGT = "tnodeimgt";
+
+    public static function CUS_IMGACH_List() {
+        $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::CUS_IMGACH . ' order by activity ';
+        return ABAP_DB_TABLE::select($sql);
+    }
+
+    public static function CUS_IMGACH($activity) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::CUS_IMGACH
+                . ' where `activity` = :id';
+        $paras = array(
+            'id' => $activity
+        );
+        $records = ABAP_DB_TABLE::select($sql, $paras);
+        return current($records);
+    }
+
+    public static function CUS_IMGACT($activity) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::CUS_IMGACT
+                . ' where `activity` = :activity and spras = :langu';
+        $paras = array(
+            'activity' => $activity,
+            'langu' => $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]
+        );
+        $records = ABAP_DB_TABLE::select($sql, $paras);
+        $record = current($records);
+        return $record['TEXT'];
+    }
+
+    /**
+     * Load TNODEIMG based on node_id.
+     *
+     * @return array Result list, could be empty
+     */
+    public static function TNODEIMG_NODE_ID($node_id) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::TNODEIMG
+                . ' where `node_id` = :id';
+        $paras = array(
+            'id' => $node_id
+        );
+        return ABAP_DB_TABLE::select($sql, $paras);
+    }
+
+    /**
+     * Load TNODEIMG based on parent_id.
+     *
+     * @return array Result list, could be empty
+     */
+    public static function TNODEIMG_PARENT_ID($parent_id) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::TNODEIMG
+                . ' where `parent_id` = :id order by node_type';
+        $paras = array(
+            'id' => $parent_id
+        );
+        return ABAP_DB_TABLE::select($sql, $paras);
+    }
+
+    /**
+     * Load TNODEIMG based on tree_id.
+     *
+     * @return array Result list, could be empty
+     */
+    public static function TNODEIMG_TREE_ID($tree_id) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::TNODEIMG
+                . ' where `tree_id` = :id';
+        $paras = array(
+            'id' => $tree_id
+        );
+        return ABAP_DB_TABLE::select($sql, $paras);
+    }
+
+    /**
+     * Load TNODEIMG based on tree_id.
+     *
+     * @return array Result list, could be empty
+     */
+    public static function TNODEIMG_TREE_NODE_ID($tree_id, $node_id) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::TNODEIMG
+                . ' where `tree_id` = :tid and `node_id` <> :nid order by node_type';
+        $paras = array(
+            'tid' => $tree_id,
+            'nid' => $node_id
+        );
+        return ABAP_DB_TABLE::select($sql, $paras);
+    }
+
+    public static function TNODEIMGR($node_id) {
+        $sql = "select * from " . ABAP_DB_TABLE_CUS0::TNODEIMGR
+                . " where `node_id` = :id and ref_type = 'COBJ'";
+        $paras = array(
+            'id' => $node_id
+        );
+        $records = ABAP_DB_TABLE::select($sql, $paras);
+        return current($records);
+    }
+
+    public static function TNODEIMGT($node_id) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::TNODEIMGT
+                . ' where `node_id` = :id and spras = :langu';
+        $paras = array(
+            'id' => $node_id,
+            'langu' => $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]
+        );
+        $records = ABAP_DB_TABLE::select($sql, $paras);
+        $record = current($records);
+        return $record['TEXT'];
+    }
+
+}
+
 /** Database table names - domain. */
 class ABAP_DB_TABLE_DOMA {
 
@@ -1266,137 +1407,6 @@ class ABAP_DB_TABLE_PROG {
         $stmt->bind_result($result);
         $stmt->fetch();
         return $result;
-    }
-
-}
-
-/** Database table access for - SPRO - Customizing - Edit Project. */
-class ABAP_DB_TABLE_SPRO {
-    
-    const TNODEIMG_NODE_TYPE_REF = 'REF';
-    const TNODEIMG_NODE_TYPE_IMG = 'IMG';
-    const TNODEIMG_NODE_TYPE_IMG0 = 'IMG0';
-    const TNODEIMG_NODE_TYPE_IMG1 = 'IMG1';
-
-    /**
-     * IMG Activities.
-     */
-    const CUS_IMGACH = "cus_imgach";
-
-    /**
-     * Text Table for IMG Activity.
-     */
-    const CUS_IMGACT = "cus_imgact";
-
-    /**
-     * Node table for the new IMG.
-     */
-    const TNODEIMG = "tnodeimg";
-
-    /**
-     * References for the new IMG.
-     */
-    const TNODEIMGR = "tnodeimgr";
-
-    /**
-     * General Structure Storage Node Names.
-     */
-    const TNODEIMGT = "tnodeimgt";
-
-    public static function CUS_IMGACH_List() {
-        $sql = 'select * from ' . ABAP_DB_TABLE_SPRO::CUS_IMGACH . ' order by activity ';
-        return ABAP_DB_TABLE::select($sql);
-    }
-
-    public static function CUS_IMGACT($activity) {
-        $sql = 'select * from ' . ABAP_DB_TABLE_SPRO::CUS_IMGACT
-                . ' where `activity` = :activity and spras = :langu';
-        $paras = array(
-            'activity' => $activity,
-            'langu' => $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]
-        );
-        $records = ABAP_DB_TABLE::select($sql, $paras);
-        $record = current($records);
-        return $record['TEXT'];
-    }
-
-    /**
-     * Load TNODEIMG based on node_id.
-     *
-     * @return array Result list, could be empty
-     */
-    public static function TNODEIMG_NODE_ID($node_id) {
-        $sql = 'select * from ' . ABAP_DB_TABLE_SPRO::TNODEIMG
-                . ' where `node_id` = :id';
-        $paras = array(
-            'id' => $node_id
-        );
-        return ABAP_DB_TABLE::select($sql, $paras);
-    }
-
-    /**
-     * Load TNODEIMG based on parent_id.
-     *
-     * @return array Result list, could be empty
-     */
-    public static function TNODEIMG_PARENT_ID($parent_id) {
-        $sql = 'select * from ' . ABAP_DB_TABLE_SPRO::TNODEIMG
-                . ' where `parent_id` = :id order by node_type';
-        $paras = array(
-            'id' => $parent_id
-        );
-        return ABAP_DB_TABLE::select($sql, $paras);
-    }
-
-    /**
-     * Load TNODEIMG based on tree_id.
-     *
-     * @return array Result list, could be empty
-     */
-    public static function TNODEIMG_TREE_ID($tree_id) {
-        $sql = 'select * from ' . ABAP_DB_TABLE_SPRO::TNODEIMG
-                . ' where `tree_id` = :id';
-        $paras = array(
-            'id' => $tree_id
-        );
-        return ABAP_DB_TABLE::select($sql, $paras);
-    }
-
-    /**
-     * Load TNODEIMG based on tree_id.
-     *
-     * @return array Result list, could be empty
-     */
-    public static function TNODEIMG_TREE_NODE_ID($tree_id, $node_id) {
-        $sql = 'select * from ' . ABAP_DB_TABLE_SPRO::TNODEIMG
-                . ' where `tree_id` = :tid and `node_id` <> :nid order by node_type';
-        $paras = array(
-            'tid' => $tree_id,
-            'nid' => $node_id
-        );
-        return ABAP_DB_TABLE::select($sql, $paras);
-    }
-
-    public static function TNODEIMGR($node_id) {
-        $sql = "select * from " . ABAP_DB_TABLE_SPRO::TNODEIMGR
-                . " where `node_id` = :id and ref_type = 'COBJ'";
-        $paras = array(
-            'id' => $node_id
-        );
-        $records = ABAP_DB_TABLE::select($sql, $paras);
-        return current($records);
-    }
-
-    public static function TNODEIMGT($node_id) {
-        $sql = 'select * from ' . ABAP_DB_TABLE_SPRO::TNODEIMGT
-                . ' where `node_id` = :id and spras = :langu';
-        $paras = array(
-            'id' => $node_id,
-            'langu' => $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]
-        );
-        $records = ABAP_DB_TABLE::select($sql, $paras);
-        $record = current($records);
-        return $record['TEXT'];
     }
 
 }

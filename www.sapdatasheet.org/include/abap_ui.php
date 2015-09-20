@@ -49,11 +49,11 @@ class ABAP_Hierarchy {
 
 class ABAP_Navigation {
 
-    public static function GetURLAppComp($fctr_id, $posid, $desc, $newwin = FALSE) {
+    public static function GetURLAppComp($fctr_id, $posid, $desc, $newwin = TRUE) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::BMFR_NAME, $fctr_id, $posid, $desc, $newwin);
     }
 
-    public static function GetURLDomain($domain, $desc, $newwin = FALSE) {
+    public static function GetURLDomain($domain, $desc, $newwin = TRUE) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::DOMA_NAME, $domain, $domain, $desc, $newwin);
     }
 
@@ -68,42 +68,42 @@ class ABAP_Navigation {
                 . $domainValue . "</a>";
     }
 
-    public static function GetURLDtel($rollname, $desc, $newwin = FALSE) {
+    public static function GetURLDtel($rollname, $desc, $newwin = TRUE) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::DTEL_NAME, $rollname, $rollname, $desc, $newwin);
     }
 
-    public static function GetURLFuncModule($fm, $desc, $newwin = FALSE) {
+    public static function GetURLFuncModule($fm, $desc, $newwin = TRUE) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::FUNC_NAME, $fm, $fm, $desc, $newwin);
     }
 
-    public static function GetURLFuncGroup($fg, $desc, $newwin = FALSE) {
+    public static function GetURLFuncGroup($fg, $desc, $newwin = TRUE) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::FUGR_NAME, $fg, $fg, $desc, $newwin);
     }
 
-    public static function GetURLPackage($package, $desc, $newwin = FALSE) {
+    public static function GetURLPackage($package, $desc, $newwin = TRUE) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::DEVC_NAME, $package, $package, $desc, $newwin);
     }
 
-    public static function GetURLProgram($program, $desc, $value = "", $newwin = FALSE) {
+    public static function GetURLProgram($program, $desc, $value = "", $newwin = TRUE) {
         if ($value === "") {
             $value = $program;
         }
         return ABAP_Navigation::GetURL(ABAP_OTYPE::PROG_NAME, $program, $value, $desc, $newwin);
     }
 
-    public static function GetURLSoftComp($compName, $desc, $newwin = FALSE) {
+    public static function GetURLSoftComp($compName, $desc, $newwin = TRUE) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::CVERS_NAME, $compName, $compName, $desc, $newwin);
     }
 
-    public static function GetURLSproIMGActivity($img, $desc, $newwin = FALSE) {
-        return ABAP_Navigation::GetURL(ABAP_OTYPE::SPRO_NAME, $img, $img, $desc, $newwin);
+    public static function GetURLSproIMGActivity($img, $desc, $newwin = TRUE) {
+        return ABAP_Navigation::GetURL(ABAP_OTYPE::CUS0_NAME, $img, $img, $desc, $newwin);
     }
 
-    public static function GetURLSqltable($sqlTable, $desc, $newwin = FALSE) {
+    public static function GetURLSqltable($sqlTable, $desc, $newwin = TRUE) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::SQLT_NAME, $sqlTable, $sqlTable, $desc, $newwin);
     }
 
-    public static function GetURLTable($table, $desc, $newwin = FALSE) {
+    public static function GetURLTable($table, $desc, $newwin = TRUE) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::TABL_NAME, $table, $table, $desc, $newwin);
     }
 
@@ -119,11 +119,11 @@ class ABAP_Navigation {
                 . "\" target=\"_blank\"> " . htmlentities($field) . "</a>";
     }
 
-    public static function GetURLTransactionCode($tcode, $desc, $newwin = FALSE) {
+    public static function GetURLTransactionCode($tcode, $desc, $newwin = TRUE) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::TRAN_NAME, $tcode, $tcode, $desc, $newwin);
     }
 
-    public static function GetURLView($view, $desc, $newwin = FALSE) {
+    public static function GetURLView($view, $desc, $newwin = TRUE) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::VIEW_NAME, $view, $view, $desc, $newwin);
     }
 
@@ -134,7 +134,7 @@ class ABAP_Navigation {
             $newWindow = ($newwin === TRUE) ? 'target="_blank"' : '';
             $result = "<a href=\"/abap/" . strtolower($objtype)
                     . "/" . htmlentities(strtolower($objname)) . ".html\" title=\""
-                    . htmlentities($sTitle) . "\" . $newWindow> " . htmlentities($value) . "</a>";
+                    . htmlentities($sTitle) . "\" . $newWindow>" . htmlentities(trim($value)) . "</a>";
         }
         return $result;
     }
@@ -205,14 +205,14 @@ class ABAP_TFDIR_ProcessingType {
 
 }
 
-class ABAP_UI_SPRO {
+class ABAP_UI_CUS0 {
 
     public static function LoadImgNodes() {
-        $nodeimg_list = ABAP_DB_TABLE_SPRO::TNODEIMG_PARENT_ID('368DDFAC3AB96CCFE10000009B38F976');
+        $nodeimg_list = ABAP_DB_TABLE_CUS0::TNODEIMG_PARENT_ID('368DDFAC3AB96CCFE10000009B38F976');
         foreach ($nodeimg_list as $nodeimg) {
             // Check reftree_id
             if (empty($nodeimg['REFTREE_ID']) === FALSE) {
-                $check = ABAP_DB_TABLE_SPRO::TNODEIMG_TREE_ID($nodeimg['REFTREE_ID']);
+                $check = ABAP_DB_TABLE_CUS0::TNODEIMG_TREE_ID($nodeimg['REFTREE_ID']);
                 if (empty($check)) {
                     continue;
                 }
@@ -220,27 +220,27 @@ class ABAP_UI_SPRO {
 
             // Check refnode_id
             if (empty($nodeimg['REFNODE_ID']) === FALSE) {
-                $check = ABAP_DB_TABLE_SPRO::TNODEIMG_NODE_ID($nodeimg['REFNODE_ID']);
+                $check = ABAP_DB_TABLE_CUS0::TNODEIMG_NODE_ID($nodeimg['REFNODE_ID']);
                 if (empty($check)) {
                     continue;
                 }
             }
 
-            ABAP_UI_SPRO::echo_li($nodeimg);
+            ABAP_UI_CUS0::echo_li($nodeimg);
         }
     }
 
     private static function write_child_tree($tree_id, $node_id, $level) {
-        $child_list = ABAP_DB_TABLE_SPRO::TNODEIMG_TREE_NODE_ID($tree_id, $node_id);
+        $child_list = ABAP_DB_TABLE_CUS0::TNODEIMG_TREE_NODE_ID($tree_id, $node_id);
         foreach ($child_list as $child) {
-            ABAP_UI_SPRO::echo_li($child, $level);
+            ABAP_UI_CUS0::echo_li($child, $level);
         }
     }
 
     private static function write_child_node($node_id, $level) {
-        $child_list = ABAP_DB_TABLE_SPRO::TNODEIMG_PARENT_ID($node_id);
+        $child_list = ABAP_DB_TABLE_CUS0::TNODEIMG_PARENT_ID($node_id);
         foreach ($child_list as $child) {
-            ABAP_UI_SPRO::echo_li($child, $level);
+            ABAP_UI_CUS0::echo_li($child, $level);
         }
     }
 
@@ -254,39 +254,40 @@ class ABAP_UI_SPRO {
             $i--;
             $html_li = $html_li . '&nbsp;&nbsp;&nbsp;&nbsp;';
         }
-        $html_li = $html_li . $nodeimg['NODE_ID'] . ' - ' . $nodeimg['NODE_TYPE'];
+      //$html_li = $html_li . $nodeimg['NODE_ID'] . ' - ' . $nodeimg['NODE_TYPE'];
 
-        $text = ABAP_DB_TABLE_SPRO::TNODEIMGT($nodeimg['NODE_ID']);
+        $text = ABAP_DB_TABLE_CUS0::TNODEIMGT($nodeimg['NODE_ID']);
         if (empty($text) === FALSE) {
-            $html_li = $html_li . ' - ' . $text;
+            $html_li = $html_li . $text;
         }
 
         // Add Reference Node
-        if ($nodeimg['NODE_TYPE'] === ABAP_DB_TABLE_SPRO::TNODEIMG_NODE_TYPE_IMG || $nodeimg['NODE_TYPE'] === ABAP_DB_TABLE_SPRO::TNODEIMG_NODE_TYPE_IMG1) {
-            $imgr = ABAP_DB_TABLE_SPRO::TNODEIMGR($nodeimg['NODE_ID']);
+        if ($nodeimg['NODE_TYPE'] === ABAP_DB_TABLE_CUS0::TNODEIMG_NODE_TYPE_IMG || $nodeimg['NODE_TYPE'] === ABAP_DB_TABLE_CUS0::TNODEIMG_NODE_TYPE_IMG1) {
+            $imgr = ABAP_DB_TABLE_CUS0::TNODEIMGR($nodeimg['NODE_ID']);
             if (empty($imgr)) {
                 $html_li = $html_li . 'No Reference Found';
                 $skip = TRUE;
             } else {
-                $html_li = $html_li . ' - ' . $imgr['REF_TYPE'];
-                $imgr_t = ABAP_DB_TABLE_SPRO::CUS_IMGACT($imgr['REF_OBJECT']);
+                $imgr_t = ABAP_DB_TABLE_CUS0::CUS_IMGACT($imgr['REF_OBJECT']);
+                //$html_li = $html_li . ' - ' . $imgr['REF_TYPE'] . ' - ' . $imgr['REF_OBJECT'];
+                $html_li = $html_li . ABAP_Navigation::GetURLSproIMGActivity($imgr['REF_OBJECT'], $imgr_t, TRUE);
                 if (empty($imgr_t) == FALSE) {
                     $html_li = $html_li . ' - ' . $imgr_t;
                 }
             }
         }
 
-        $html_li = $html_li . '</li>';
+        $html_li = $html_li . "</li>\n";
         if ($skip === FALSE) {
             print_r($html_li);
         }
 
         // Load Lower Level Nodes
         $level++;
-        if ($nodeimg['NODE_TYPE'] === ABAP_DB_TABLE_SPRO::TNODEIMG_NODE_TYPE_REF && empty($nodeimg['REFTREE_ID']) === FALSE && empty($nodeimg['REFNODE_ID']) === FALSE) {
-            ABAP_UI_SPRO::write_child_tree($nodeimg['REFTREE_ID'], $nodeimg['REFNODE_ID'], $level);
-        } else if ($nodeimg['NODE_TYPE'] === ABAP_DB_TABLE_SPRO::TNODEIMG_NODE_TYPE_IMG0) {
-            ABAP_UI_SPRO::write_child_node($nodeimg['NODE_ID'], $level);
+        if ($nodeimg['NODE_TYPE'] === ABAP_DB_TABLE_CUS0::TNODEIMG_NODE_TYPE_REF && empty($nodeimg['REFTREE_ID']) === FALSE && empty($nodeimg['REFNODE_ID']) === FALSE) {
+            ABAP_UI_CUS0::write_child_tree($nodeimg['REFTREE_ID'], $nodeimg['REFNODE_ID'], $level);
+        } else if ($nodeimg['NODE_TYPE'] === ABAP_DB_TABLE_CUS0::TNODEIMG_NODE_TYPE_IMG0) {
+            ABAP_UI_CUS0::write_child_node($nodeimg['NODE_ID'], $level);
         }
     }
 

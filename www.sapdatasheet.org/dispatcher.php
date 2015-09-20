@@ -87,6 +87,7 @@ if ($requri === '/wp/wp-admin/'
 //    $target = 'abap/bmfr/bmfr.php';
 
 $abap_uris = array(
+    array("cus0", '/abap/cus0/index.html', '/abap/cus0/index-', '/abap/cus0/'),
     array("cvers", '/abap/cvers/index.html', '/abap/cvers/index-', '/abap/cvers/'),
     array("bmfr", '/abap/bmfr/index.html', '/abap/bmfr/index-', '/abap/bmfr/'),
     array("devc", '/abap/devc/index.html', '/abap/devc/index-', '/abap/devc/'),
@@ -95,7 +96,6 @@ $abap_uris = array(
     array("fugr", '/abap/fugr/index.html', '/abap/fugr/index-', '/abap/fugr/'),
     array("func", '/abap/func/index.html', '/abap/func/index-', '/abap/func/'),
     array("prog", '/abap/prog/index.html', '/abap/prog/index-', '/abap/prog/'),
-    array("spro", '/abap/spro/index.html', '/abap/spro/index-', '/abap/spro/'),
     array("sqlt", '/abap/sqlt/index.html', '/abap/sqlt/index-', '/abap/sqlt/'),
     array("tran", '/abap/tran/index.html', '/abap/tran/index-', '/abap/tran/'),
     array("view", '/abap/view/index.html', '/abap/view/index-', '/abap/view/'),
