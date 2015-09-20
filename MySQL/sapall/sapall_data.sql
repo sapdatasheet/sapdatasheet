@@ -685,6 +685,9 @@ insert ignore into sapall.tdevct select * from sapsolman71sr1.tdevct;
 create table if not exists sapall.cus_imgach like saperp6ehp7.cus_imgach;
 insert ignore into sapall.cus_imgach select * from saperp6ehp7.cus_imgach;
 
+create table if not exists sapall.cus_imgact like saperp6ehp7.cus_imgact;
+insert ignore into sapall.cus_imgact select * from saperp6ehp7.cus_imgact;
+
 create table if not exists sapall.cus_atrh like saperp6ehp7.cus_atrh;
 insert ignore into sapall.cus_atrh select * from saperp6ehp7.cus_atrh;
 

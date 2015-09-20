@@ -5,7 +5,9 @@ require_once($__ROOT__ . '/include/config.php');
 
 class ABAP_DB_CONST {
 
-    const INDEX_A = "A";
+    const INDEX_A = "A";                       // First page, start from 'A'
+    const INDEX_HIER = "HIERARCHY";            // Hierarchy view, example: SPRO
+    const INDEX_LIST = "LIST";                 // List all contents, no paging
     const INDEX_SLASH = "SLASH";
     const INDEX_TOP = "TOP";
     const LANGU_EN = "E";
@@ -99,10 +101,7 @@ class ABAP_DB_SCHEMA {
     public static function getConnection() {
         if (ABAP_DB_SCHEMA::$conn == null) {
             ABAP_DB_SCHEMA::$conn = new mysqli(
-                ABAP_DB_CONN::$host,
-                ABAP_DB_CONN::$user,
-                ABAP_DB_CONN::$pass,
-                ABAP_DB_SCHEMA::SCHEMA);
+                    ABAP_DB_CONN::$host, ABAP_DB_CONN::$user, ABAP_DB_CONN::$pass, ABAP_DB_SCHEMA::SCHEMA);
             ABAP_DB_SCHEMA::$conn->set_charset("utf8");
         }
         return ABAP_DB_SCHEMA::$conn;
@@ -234,7 +233,7 @@ class ABAP_DB_TABLE_DTEL {
      * Data Element List.
      * <pre>
      * SELECT * FROM dd04l where ROLLNAME LIKE 'A%' order by ROLLNAME
-     * SELECT ROLLNAME, DOMNAME, DATATYPE, LENG, AS4DATE FROM dd04l 
+     * SELECT ROLLNAME, DOMNAME, DATATYPE, LENG, AS4DATE FROM dd04l
      *     where ROLLNAME LIKE 'A%' order by ROLLNAME
      * </pre>
      */
@@ -509,7 +508,7 @@ class ABAP_DB_TABLE_FUNC {
     /**
      * List function modules in an program (function group).
      * <pre>
-     * SELECT INCLUDE, FUNCNAME, FMODE FROM abap.tfdir 
+     * SELECT INCLUDE, FUNCNAME, FMODE FROM abap.tfdir
      * WHERE PNAME = '/1BCDWBEN/SAPL/BDL/EN0000' ORDER BY INCLUDE;
      * </pre>
      */
@@ -707,17 +706,17 @@ class ABAP_DB_TABLE_HIER {
      * Get application component list for one software component.
      * <p>
      * Example SQL Statement:</p>
-     * a. with sub-query, low performance: 
+     * a. with sub-query, low performance:
      * <pre>
-     * select FCTR_ID, PS_POSID, (length(PS_POSID) - LENGTH(REPLACE(PS_POSID, '-', '')) + 1) AS LEVEL 
+     * select FCTR_ID, PS_POSID, (length(PS_POSID) - LENGTH(REPLACE(PS_POSID, '-', '')) + 1) AS LEVEL
      * from df14l where fctr_id in (
      *     select distinct COMPONENT from tdevc where dlvunit = 'SAP_BASIS'
      * ) AND trim(coalesce(PS_POSID, '')) <>'' order by PS_POSID
      * </pre>
      * b. without sub-query:
      * <pre>
-     * select FCTR_ID, PS_POSID, (length(PS_POSID) - LENGTH(REPLACE(PS_POSID, '-', '')) + 1) AS LEVEL 
-     * from df14l where fctr_id = '/ISDFPS/PD10000011' AND trim(coalesce(PS_POSID, '')) <>'' 
+     * select FCTR_ID, PS_POSID, (length(PS_POSID) - LENGTH(REPLACE(PS_POSID, '-', '')) + 1) AS LEVEL
+     * from df14l where fctr_id = '/ISDFPS/PD10000011' AND trim(coalesce(PS_POSID, '')) <>''
      * order by PS_POSID
      * </pre>
      */
@@ -753,8 +752,8 @@ class ABAP_DB_TABLE_HIER {
     /**
      * Child Application Component.
      * <pre>
-     * select FCTR_ID, PS_POSID from df14l 
-     * where PS_POSID LIKE 'BW-SYS%' and FCTR_ID <> 'ARS0000024' 
+     * select FCTR_ID, PS_POSID from df14l
+     * where PS_POSID LIKE 'BW-SYS%' and FCTR_ID <> 'ARS0000024'
      * order by PS_POSID
      * </pre>
      */
@@ -835,7 +834,7 @@ class ABAP_DB_TABLE_HIER {
                 . " AND DEVCLASS = '" . $Package . "'";
         return $con->query($sql);
     }
-    
+
     /**
      * Get function group list.
      */
@@ -848,7 +847,7 @@ class ABAP_DB_TABLE_HIER {
                 . " order by OBJ_NAME";
         return $con->query($sql);
     }
-    
+
     /**
      * Function Group Site Map.
      */
@@ -871,9 +870,9 @@ class ABAP_DB_TABLE_HIER {
     /**
      * Get program list.
      * <pre>
-     * SELECT OBJ_NAME, DEVCLASS, COMPONENT FROM abap.tadir 
-     *   where pgmid = 'R3TR' and object = 'PROG' 
-     *   and obj_name like 'A%' 
+     * SELECT OBJ_NAME, DEVCLASS, COMPONENT FROM abap.tadir
+     *   where pgmid = 'R3TR' and object = 'PROG'
+     *   and obj_name like 'A%'
      *   order by obj_name
      * </pre>
      */
@@ -890,7 +889,7 @@ class ABAP_DB_TABLE_HIER {
     /**
      * Program Site Map.
      * <pre>
-     * SELECT OBJ_NAME FROM abaphier.tadir 
+     * SELECT OBJ_NAME FROM abaphier.tadir
      *      WHERE pgmid = 'R3TR' and object = 'PROG'
      *      and OBJ_NAME <> ''
      *      and OBJ_NAME not like 'Y%'
@@ -976,7 +975,7 @@ class ABAP_DB_TABLE_HIER {
     /**
      * Package list for one application component.
      * <pre>
-     * select DEVCLASS from tdevc where COMPONENT = 'HLB0009110' 
+     * select DEVCLASS from tdevc where COMPONENT = 'HLB0009110'
      * and devclass not like 'Y%' and devclass not like 'Z%'
      * </pre>
      */
@@ -1097,7 +1096,7 @@ class ABAP_DB_TABLE_PROG {
      * Value from domain <code>PAPPL</code>, pointing to table TAPLP/TAPLT
      * (Pooled Table).
      * </p>
-     * 
+     *
      */
     const YTAPLT = "ytaplt";
 
@@ -1119,7 +1118,7 @@ class ABAP_DB_TABLE_PROG {
     /**
      * Screen number list.
      * <pre>
-     * SELECT DTXT FROM abapprog.d020t 
+     * SELECT DTXT FROM abapprog.d020t
      * where prog = '/1BCDWB/DB/ORM/ORMT_ACT' and dynr = '1000' and lang = 'E'
      * </pre>
      */
@@ -1185,9 +1184,9 @@ class ABAP_DB_TABLE_PROG {
      *   6. B - Pushbutton settings
      *   7. C - Status
      * </pre>
-     * 
+     *
      * <pre>
-     * SELECT * FROM abap.rsmptexts_e where progname = 'RDDM0001' and SPRSL = 'E' 
+     * SELECT * FROM abap.rsmptexts_e where progname = 'RDDM0001' and SPRSL = 'E'
      * order by obj_type, OBJ_CODE, SUB_CODE, TEXTTYPE
      * </pre>
      */
@@ -1261,7 +1260,7 @@ class ABAP_DB_TABLE_PROG {
         $sql = "select ATEXT from " . ABAP_DB_TABLE_PROG::YTAPLT
                 . " where APPL = ? and SPRSL = ?";
         $stmt = ABAP_DB_SCHEMA::getConnection()->prepare($sql);
-        $langu = $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU];  // ABAP_DB_CONST::LANGU_EN;
+        $langu = $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU];
         $stmt->bind_param('ss', $Appl, $langu);
         $stmt->execute();
         $stmt->bind_result($result);
@@ -1271,7 +1270,138 @@ class ABAP_DB_TABLE_PROG {
 
 }
 
-/** Database table names - table. */
+/** Database table access for - SPRO - Customizing - Edit Project. */
+class ABAP_DB_TABLE_SPRO {
+    
+    const TNODEIMG_NODE_TYPE_REF = 'REF';
+    const TNODEIMG_NODE_TYPE_IMG = 'IMG';
+    const TNODEIMG_NODE_TYPE_IMG0 = 'IMG0';
+    const TNODEIMG_NODE_TYPE_IMG1 = 'IMG1';
+
+    /**
+     * IMG Activities.
+     */
+    const CUS_IMGACH = "cus_imgach";
+
+    /**
+     * Text Table for IMG Activity.
+     */
+    const CUS_IMGACT = "cus_imgact";
+
+    /**
+     * Node table for the new IMG.
+     */
+    const TNODEIMG = "tnodeimg";
+
+    /**
+     * References for the new IMG.
+     */
+    const TNODEIMGR = "tnodeimgr";
+
+    /**
+     * General Structure Storage Node Names.
+     */
+    const TNODEIMGT = "tnodeimgt";
+
+    public static function CUS_IMGACH_List() {
+        $sql = 'select * from ' . ABAP_DB_TABLE_SPRO::CUS_IMGACH . ' order by activity ';
+        return ABAP_DB_TABLE::select($sql);
+    }
+
+    public static function CUS_IMGACT($activity) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_SPRO::CUS_IMGACT
+                . ' where `activity` = :activity and spras = :langu';
+        $paras = array(
+            'activity' => $activity,
+            'langu' => $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]
+        );
+        $records = ABAP_DB_TABLE::select($sql, $paras);
+        $record = current($records);
+        return $record['TEXT'];
+    }
+
+    /**
+     * Load TNODEIMG based on node_id.
+     *
+     * @return array Result list, could be empty
+     */
+    public static function TNODEIMG_NODE_ID($node_id) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_SPRO::TNODEIMG
+                . ' where `node_id` = :id';
+        $paras = array(
+            'id' => $node_id
+        );
+        return ABAP_DB_TABLE::select($sql, $paras);
+    }
+
+    /**
+     * Load TNODEIMG based on parent_id.
+     *
+     * @return array Result list, could be empty
+     */
+    public static function TNODEIMG_PARENT_ID($parent_id) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_SPRO::TNODEIMG
+                . ' where `parent_id` = :id order by node_type';
+        $paras = array(
+            'id' => $parent_id
+        );
+        return ABAP_DB_TABLE::select($sql, $paras);
+    }
+
+    /**
+     * Load TNODEIMG based on tree_id.
+     *
+     * @return array Result list, could be empty
+     */
+    public static function TNODEIMG_TREE_ID($tree_id) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_SPRO::TNODEIMG
+                . ' where `tree_id` = :id';
+        $paras = array(
+            'id' => $tree_id
+        );
+        return ABAP_DB_TABLE::select($sql, $paras);
+    }
+
+    /**
+     * Load TNODEIMG based on tree_id.
+     *
+     * @return array Result list, could be empty
+     */
+    public static function TNODEIMG_TREE_NODE_ID($tree_id, $node_id) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_SPRO::TNODEIMG
+                . ' where `tree_id` = :tid and `node_id` <> :nid order by node_type';
+        $paras = array(
+            'tid' => $tree_id,
+            'nid' => $node_id
+        );
+        return ABAP_DB_TABLE::select($sql, $paras);
+    }
+
+    public static function TNODEIMGR($node_id) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_SPRO::TNODEIMGR
+                . ' where `node_id` = :id';
+        $paras = array(
+            'id' => $node_id
+        );
+        $records = ABAP_DB_TABLE::select($sql, $paras);
+        return current($records);
+    }
+
+    public static function TNODEIMGT($node_id) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_SPRO::TNODEIMGT
+                . ' where `node_id` = :id and spras = :langu';
+        $paras = array(
+            'id' => $node_id,
+            'langu' => $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]
+        );
+        $records = ABAP_DB_TABLE::select($sql, $paras);
+        $record = current($records);
+        return $record['TEXT'];
+    }
+
+}
+
+/** Database table access for - tables. */
 class ABAP_DB_TABLE_TABL {
 
     /**
@@ -1402,7 +1532,7 @@ class ABAP_DB_TABLE_TABL {
     /**
      * DD02L Site Map.
      * <pre>
-     * SELECT TABNAME FROM abaptabl.dd02l WHERE TABNAME NOT LIKE 'Y%' AND TABNAME NOT LIKE 'Z%' 
+     * SELECT TABNAME FROM abaptabl.dd02l WHERE TABNAME NOT LIKE 'Y%' AND TABNAME NOT LIKE 'Z%'
      * </pre>
      */
     public static function DD02L_Sitemap() {
@@ -1479,7 +1609,7 @@ class ABAP_DB_TABLE_TABL {
     /**
      * Table Field Sitemap.
      * <pre>
-     * SELECT IF (CHAR_LENGTH(TRIM(PRECFIELD)) > 0, CONCAT(TABNAME, '-', POSITION), CONCAT(TABNAME, '-', FIELDNAME)) AS FIELD 
+     * SELECT IF (CHAR_LENGTH(TRIM(PRECFIELD)) > 0, CONCAT(TABNAME, '-', POSITION), CONCAT(TABNAME, '-', FIELDNAME)) AS FIELD
      * FROM abaptabl.dd03l WHERE TABNAME NOT LIKE 'Y%' AND TABNAME NOT LIKE 'Z%'
      * </pre>
      */
@@ -1607,7 +1737,7 @@ class ABAP_DB_TABLE_TABL {
 
 }
 
-/** Database table names - transaction code. */
+/** Database table access for - transaction code. */
 class ABAP_DB_TABLE_TRAN {
 
     /**
@@ -1804,7 +1934,6 @@ class ABAP_DB_TABLE_VIEW {
         return $con->query($sql);
     }
 
-
     /**
      * DD25L Site Map.
      * <pre>
@@ -1970,16 +2099,6 @@ class ABAP_DB_TABLE {
     const CUS_ACTT = "cus_actt";
 
     /**
-     * IMG Activities.
-     */
-    const CUS_IMGACH = "cus_imgach";
-
-    /**
-     * Text Table for IMG Activity.
-     */
-    const CUS_IMGACT = "cus_imgact";
-
-    /**
      * Table use in programs. Table for Use Report and Tables.
      */
     const D010TAB = "d010tab";
@@ -2033,21 +2152,6 @@ class ABAP_DB_TABLE {
     const TMENU01T = "tmenu01t";
 
     /**
-     * Node table for the new IMG.
-     */
-    const TNODEIMG = "tnodeimg";
-
-    /**
-     * References for the new IMG.
-     */
-    const TNODEIMGR = "tnodeimgr";
-
-    /**
-     * General Structure Storage Node Names.
-     */
-    const TNODEIMGT = "tnodeimgt";
-
-    /**
      * Assignment of SFW Switches to Hierarchy Tool Nodes.
      */
     const TTREE_SFW_NODES = "ttree_sfw_nodes";
@@ -2072,4 +2176,42 @@ class ABAP_DB_TABLE {
      * @see #REPOSRC
      */
     const YREPOSRCDATA = "yreposrcdata";
+
+    /** Database connection. */
+    private static $conn = null;
+
+    /**
+     * Get a new Database connection
+     *
+     * @return mixed PDO Database Connection
+     */
+    public static function get_conn() {
+        if (ABAP_DB_TABLE::$conn == null) {
+            $dsn = 'mysql:host=127.0.0.1;dbname=' . ABAP_DB_SCHEMA::SCHEMA;
+            ABAP_DB_TABLE::$conn = new PDO($dsn, ABAP_DB_CONN::$user, ABAP_DB_CONN::$pass);
+        }
+
+        return ABAP_DB_TABLE::$conn;
+    }
+
+    public static function close_conn() {
+        return ABAP_DB_TABLE::$conn = null;                    # close the connection
+    }
+
+    /**
+     * Run an Select statement.
+     */
+    public static function select($sql, $paras = null) {
+        $conn = ABAP_DB_TABLE::get_conn();
+        if ($paras === null) {
+            $res = $conn->query($sql);
+        } else {
+            $stmt = $conn->prepare($sql);
+            $stmt->execute($paras);
+            $res = $stmt->fetchAll();
+        }
+
+        return $res;
+    }
+
 }

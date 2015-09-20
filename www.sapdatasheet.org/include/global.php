@@ -47,6 +47,20 @@ class ABAP_OTYPE {
     const TRAN_DESC = 'Transaction Code';
     const VIEW_NAME = 'VIEW';
     const VIEW_DESC = 'View';
+    const SPRO_NAME = 'SPRO';
+    const SPRO_DESC = 'Implementation Guide (IMG)';
+    const MENU_NAME = 'MENU';
+    const MENU_DESC = 'SAP Menu';
+    const INTF_NAME = 'INTF';
+    const INTF_DESC = 'ABAP Interface';
+    const CLAS_NAME = 'CLAS';
+    const CLAS_DESC = 'ABAP Class';
+    const SU21_NAME = 'SU21';
+    const SU21_DESC = 'Authorization Object';
+    const PFCG_NAME = 'PFCG';
+    const PFCG_DESC = 'Role';
+    const RZ10_NAME = 'RZ10';
+    const RZ10_DESC = 'NetWeaver Profile';
 
 }
 

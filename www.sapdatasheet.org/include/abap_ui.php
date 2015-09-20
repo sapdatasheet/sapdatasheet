@@ -3,6 +3,50 @@
 $__ROOT__ = dirname(dirname(__FILE__));
 require_once($__ROOT__ . '/include/global.php');
 
+class ABAP_Hierarchy {
+
+    /**
+     * Package. <p> Database field: TADIR-DEVCLASS or TDEVC-DEVCLASS. </p>
+     */
+    public $DEVCLASS = '';
+
+    /**
+     * Text of {@link #DEVCLASS}.
+     */
+    public $DEVCLASS_T = '';
+
+    /**
+     * Software Component. <p> Database field: TDEVC-DLVUNIT. </p>
+     */
+    public $DLVUNIT = '';
+
+    /**
+     * Text of {@link #DLVUNIT}. <p> Database field: CVERS_REF-DESC_TEXT. </p>
+     */
+    public $DLVUNIT_T = '';
+
+    /**
+     * Application Component. <p> Database field: DF14L-FCTR_ID. </p>
+     */
+    public $FCTR_ID = '';
+
+    /**
+     * Application component ID. <p> Database field: DF14L-PS_POSID. </p>
+     */
+    public $POSID = '';
+
+    /**
+     * Text of {@link #POSID}.
+     */
+    public $POSID_T = '';
+
+    /**
+     * SAP Release. <p> Database field: TADIR-CRELEASE. </p>
+     */
+    public $CRELEASE = '';
+
+}
+
 class ABAP_Navigation {
 
     public static function GetURLAppComp($fctr_id, $posid, $desc, $newwin = FALSE) {
@@ -51,6 +95,10 @@ class ABAP_Navigation {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::CVERS_NAME, $compName, $compName, $desc, $newwin);
     }
 
+    public static function GetURLSproIMGActivity($img, $desc, $newwin = FALSE) {
+        return ABAP_Navigation::GetURL(ABAP_OTYPE::SPRO_NAME, $img, $img, $desc, $newwin);
+    }
+
     public static function GetURLSqltable($sqlTable, $desc, $newwin = FALSE) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::SQLT_NAME, $sqlTable, $sqlTable, $desc, $newwin);
     }
@@ -92,6 +140,159 @@ class ABAP_Navigation {
     }
 
 }
+
+/**
+ * Function module processing type.
+ */
+class ABAP_TFDIR_ProcessingType {
+
+    /**
+     * Radio button - Normal Function Module.
+     */
+    public $CHK_NORMAL = FALSE;
+
+    /**
+     * Radio button - JAVA Module Callable from ABAP.
+     */
+    public $CHK_ABAP2JAVA = FALSE;
+
+    /**
+     * Radio button - Module Callable from JAVA.
+     */
+    public $CHK_JAVA2ABAP = FALSE;
+
+    /**
+     * Radio button - Remote-Enabled Module.
+     */
+    public $CHK_REMOTE = FALSE;
+
+    /**
+     * Radio button - Remote-Enabled JAVA Module.
+     */
+    public $CHK_REMOTE_JAVA = FALSE;
+
+    /**
+     * Check box - BasXML supported.
+     */
+    public $CHK_BASXML_ENABLED = FALSE;
+
+    /**
+     * Radio button - Update Module.
+     */
+    public $CHK_VERBUCHER = FALSE;
+
+    /**
+     * Radio button - Update Module - Start update immediately.
+     */
+    public $CHK_UKIND1 = FALSE;
+
+    /**
+     * Radio button - Update Module - Update is started immediately, no
+     * restart possible.
+     */
+    public $CHK_UKIND3 = FALSE;
+
+    /**
+     * Radio button - Update Module - Start of update delayed.
+     */
+    public $CHK_UKIND2 = FALSE;
+
+    /**
+     * Radio button - Update Module - Update triggered by collector (For
+     * internal use only).
+     */
+    public $CHK_UKIND4 = FALSE;
+
+}
+
+class ABAP_UI_SPRO {
+
+    public static function LoadImgNodes() {
+        $nodeimg_list = ABAP_DB_TABLE_SPRO::TNODEIMG_PARENT_ID('368DDFAC3AB96CCFE10000009B38F976');
+        foreach ($nodeimg_list as $nodeimg) {
+            // Check reftree_id
+            if (empty($nodeimg['REFTREE_ID']) === FALSE) {
+                $check = ABAP_DB_TABLE_SPRO::TNODEIMG_TREE_ID($nodeimg['REFTREE_ID']);
+                if (empty($check)) {
+                    continue;
+                }
+            }
+
+            // Check refnode_id
+            if (empty($nodeimg['REFNODE_ID']) === FALSE) {
+                $check = ABAP_DB_TABLE_SPRO::TNODEIMG_NODE_ID($nodeimg['REFNODE_ID']);
+                if (empty($check)) {
+                    continue;
+                }
+            }
+
+            ABAP_UI_SPRO::echo_li($nodeimg);
+            ABAP_UI_SPRO::process_tnodeimg($nodeimg, 0);
+        }
+    }
+
+    private static function process_tnodeimg($nodeimg, $level) {
+        $level++;
+        if ($nodeimg['NODE_TYPE'] === ABAP_DB_TABLE_SPRO::TNODEIMG_NODE_TYPE_REF && empty($nodeimg['REFTREE_ID']) === FALSE && empty($nodeimg['REFNODE_ID']) === FALSE) {
+            ABAP_UI_SPRO::write_child_tree($nodeimg['REFTREE_ID'], $nodeimg['REFNODE_ID'], $level);
+        } else if ($nodeimg['NODE_TYPE'] === ABAP_DB_TABLE_SPRO::TNODEIMG_NODE_TYPE_IMG0) {
+            ABAP_UI_SPRO::write_child_node($nodeimg['NODE_ID'], $level);
+        } else if ($nodeimg['NODE_TYPE'] === ABAP_DB_TABLE_SPRO::TNODEIMG_NODE_TYPE_IMG || $nodeimg['NODE_TYPE'] === ABAP_DB_TABLE_SPRO::TNODEIMG_NODE_TYPE_IMG1) {
+            ABAP_UI_SPRO::write_img_activity($nodeimg, $level);
+        }
+    }
+
+    private static function write_child_tree($tree_id, $node_id, $level) {
+        $child_list = ABAP_DB_TABLE_SPRO::TNODEIMG_TREE_NODE_ID($tree_id, $node_id);
+        foreach ($child_list as $child) {
+            ABAP_UI_SPRO::echo_li($child, $level);
+            ABAP_UI_SPRO::process_tnodeimg($child, $level);
+        }
+    }
+
+    private static function write_child_node($node_id, $level) {
+        $child_list = ABAP_DB_TABLE_SPRO::TNODEIMG_PARENT_ID($node_id);
+        foreach ($child_list as $child) {
+            ABAP_UI_SPRO::echo_li($child, $level);
+            ABAP_UI_SPRO::process_tnodeimg($child, $level);
+        }
+    }
+    
+    private static function write_img_activity($nodeimg, $level){
+        $imgr = ABAP_DB_TABLE_SPRO::TNODEIMGR($nodeimg['NODE_ID']);
+        if (empty($imgr)) {
+            echo '!!! No Activity Found';
+        }
+        
+        $text = ABAP_DB_TABLE_SPRO::CUS_IMGACT($imgr['REF_OBJECT']);
+
+        $html_li = '<li>';
+        $i = $level;
+        while ($i > 0) {
+            $i--;
+            $html_li = $html_li . '&nbsp;&nbsp;&nbsp;&nbsp;';
+        }
+        $html_li = $html_li . $imgr['REF_OBJECT'] . ' - ' . $text;
+        $html_li = $html_li . '</li>';
+        print_r($html_li);
+    }
+
+    private static function echo_li($nodeimg, $level = 0) {
+        $text = ABAP_DB_TABLE_SPRO::TNODEIMGT($nodeimg['NODE_ID']);
+
+        $html_li = '<li>';
+        $i = $level;
+        while ($i > 0) {
+            $i--;
+            $html_li = $html_li . '&nbsp;&nbsp;&nbsp;&nbsp;';
+        }
+        $html_li = $html_li . $nodeimg['NODE_ID'] . ' - ' . $nodeimg['NODE_TYPE'] . ' - ' . $text;
+        $html_li = $html_li . '</li>';
+        print_r($html_li);
+    }
+
+}
+
 
 class ABAP_UI_TOOL {
 
@@ -142,7 +343,7 @@ class ABAP_UI_TOOL {
      * <p> Related table field FUPARAREF-REF_CLASS. </p>
      * <pre>
      *   Value 'X' - TYPE REF TO;
-     *   Value '' - TYPE. 
+     *   Value '' - TYPE.
      * </pre>
      * <p> Related table RSFBTYPEIN.</p>
      *
@@ -168,7 +369,7 @@ class ABAP_UI_TOOL {
      * <p> Related table field FUPARAREF-REF_CLASS. </p>
      * <pre>
      *   Value 'X' - TYPE REF TO;
-     *   Value '' - TYPE. 
+     *   Value '' - TYPE.
      * </pre>
      * <p> Related table RSFBTYPEIN.</p>
      *
@@ -254,7 +455,7 @@ class ABAP_UI_TOOL {
             $result = $Structure;
         } else if ($ParamType == ABAP_DB_CONST::FUPARAREF_PARAMTYPE_I || $ParamType == ABAP_DB_CONST::FUPARAREF_PARAMTYPE_E || $ParamType == ABAP_DB_CONST::FUPARAREF_PARAMTYPE_C) {
             if (strpos($Structure, '-') !== false) {
-                // We have checked the database, 
+                // We have checked the database,
                 //   the '-' is always in the middle
                 //   the '-' will not located at beginning or end
                 list($Table, $Field) = explode('-', $Structure, 2);
@@ -269,7 +470,7 @@ class ABAP_UI_TOOL {
 
     /**
      * Check if the desription string exsit or not
-     * 
+     *
      * @return (description) or emtpy string
      */
     public static function CheckDesc($desc) {
@@ -279,113 +480,5 @@ class ABAP_UI_TOOL {
             return '';
         }
     }
-
-}
-
-class ABAP_Hierarchy {
-
-    /**
-     * Package. <p> Database field: TADIR-DEVCLASS or TDEVC-DEVCLASS. </p>
-     */
-    public $DEVCLASS = '';
-
-    /**
-     * Text of {@link #DEVCLASS}.
-     */
-    public $DEVCLASS_T = '';
-
-    /**
-     * Software Component. <p> Database field: TDEVC-DLVUNIT. </p>
-     */
-    public $DLVUNIT = '';
-
-    /**
-     * Text of {@link #DLVUNIT}. <p> Database field: CVERS_REF-DESC_TEXT. </p>
-     */
-    public $DLVUNIT_T = '';
-
-    /**
-     * Application Component. <p> Database field: DF14L-FCTR_ID. </p>
-     */
-    public $FCTR_ID = '';
-
-    /**
-     * Application component ID. <p> Database field: DF14L-PS_POSID. </p>
-     */
-    public $POSID = '';
-
-    /**
-     * Text of {@link #POSID}.
-     */
-    public $POSID_T = '';
-
-    /**
-     * SAP Release. <p> Database field: TADIR-CRELEASE. </p>
-     */
-    public $CRELEASE = '';
-
-}
-
-/**
- * Function module processing type.
- */
-class ABAP_TFDIR_ProcessingType {
-
-    /**
-     * Radio button - Normal Function Module.
-     */
-    public $CHK_NORMAL = FALSE;
-
-    /**
-     * Radio button - JAVA Module Callable from ABAP.
-     */
-    public $CHK_ABAP2JAVA = FALSE;
-
-    /**
-     * Radio button - Module Callable from JAVA.
-     */
-    public $CHK_JAVA2ABAP = FALSE;
-
-    /**
-     * Radio button - Remote-Enabled Module.
-     */
-    public $CHK_REMOTE = FALSE;
-
-    /**
-     * Radio button - Remote-Enabled JAVA Module.
-     */
-    public $CHK_REMOTE_JAVA = FALSE;
-
-    /**
-     * Check box - BasXML supported.
-     */
-    public $CHK_BASXML_ENABLED = FALSE;
-
-    /**
-     * Radio button - Update Module.
-     */
-    public $CHK_VERBUCHER = FALSE;
-
-    /**
-     * Radio button - Update Module - Start update immediately.
-     */
-    public $CHK_UKIND1 = FALSE;
-
-    /**
-     * Radio button - Update Module - Update is started immediately, no
-     * restart possible.
-     */
-    public $CHK_UKIND3 = FALSE;
-
-    /**
-     * Radio button - Update Module - Start of update delayed.
-     */
-    public $CHK_UKIND2 = FALSE;
-
-    /**
-     * Radio button - Update Module - Update triggered by collector (For
-     * internal use only).
-     */
-    public $CHK_UKIND4 = FALSE;
 
 }

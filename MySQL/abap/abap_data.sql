@@ -217,6 +217,10 @@ insert into abap.tdevct select * from sapall.tdevct;
 create table if not exists abap.cus_imgach like sapall.cus_imgach;
 insert ignore into abap.cus_imgach select * from sapall.cus_imgach;
 
+create table if not exists abap.cus_imgact like sapall.cus_imgact;
+insert ignore into abap.cus_imgact select * from sapall.cus_imgact
+  where spras in ('N', 'E', 'F', 'D', 'I', 'J', '3', 'L', 'P', 'R', '1', 'S', 'M', 'T');
+
 create table if not exists abap.cus_atrh like sapall.cus_atrh;
 insert ignore into abap.cus_atrh select * from sapall.cus_atrh;
 
