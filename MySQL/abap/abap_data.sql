@@ -234,6 +234,10 @@ insert ignore into abap.cus_atrcou select * from sapall.cus_atrcou;
 create table if not exists abap.cus_actobj like sapall.cus_actobj;
 insert ignore into abap.cus_actobj select * from sapall.cus_actobj;
 
+create table if not exists abap.cus_actobt like sapall.cus_actobt;
+insert ignore into abap.cus_actobt select * from sapall.cus_actobt
+  where spras in ('N', 'E', 'F', 'D', 'I', 'J', '3', 'L', 'P', 'R', '1', 'S', 'M', 'T');
+
 create table if not exists abap.cus_actext like sapall.cus_actext;
 insert ignore into abap.cus_actext select * from sapall.cus_actext;
 
@@ -258,6 +262,26 @@ insert ignore into abap.tnodeh select * from sapall.tnodeh;
 create table if not exists abap.tnodet like sapall.tnodet;
 insert ignore into abap.tnodet select * from sapall.tnodet
   where spras in ('N', 'E', 'F', 'D', 'I', 'J', '3', 'L', 'P', 'R', '1', 'S', 'M', 'T');
+
+create table if not exists abap.tfm18 like sapall.tfm18;
+insert ignore into abap.tfm18 select * from sapall.tfm18;
+
+create table if not exists abap.troadmap like sapall.troadmap;
+insert ignore into abap.troadmap select * from sapall.troadmap;
+
+create table if not exists abap.troadmapt like sapall.troadmapt;
+insert ignore into abap.troadmapt select * from sapall.troadmapt;
+
+create table if not exists abap.t005 like sapall.t005;
+insert ignore into abap.t005 select * from sapall.t005;
+
+create table if not exists abap.t005t like sapall.t005t;
+insert ignore into abap.t005t select * from sapall.t005t;
+
+create table if not exists abap.cus_actt like sapall.cus_actt;
+insert ignore into abap.cus_actt select * from sapall.cus_actt
+  where spras in ('N', 'E', 'F', 'D', 'I', 'J', '3', 'L', 'P', 'R', '1', 'S', 'M', 'T');
+
 
 
 -- Database table for MENU

@@ -17,6 +17,10 @@ class ABAP_DB_CONST {
     /** Domain names OR Domain values */
     const DOMAIN_DATATYPE = "DATATYPE";
     const DOMAIN_INTTYPE = "INTTYPE";
+    const DOMAIN_CUS_ACTOBJ_OBJECTTYPE = 'OB_TYP';
+    const DOMAIN_CUS_ATRH_ACTIVITY = 'SIMG_ACT';
+    const DOMAIN_CUS_ATRH_COUNTRY = 'SIMG_C_OPT';
+    const DOMAIN_CUS_ATRH_CRITICAL = 'SIMG_CRIT';
     const DOMAIN_DD02L_TABCLASS = "TABCLASS";
     const DOMAIN_DD02L_CONTFLAG = "CONTFLAG";
     const DOMAIN_DD02L_MAINFLAG = "MAINTFLAG";
@@ -62,6 +66,9 @@ class ABAP_DB_CONST {
     const DOMAINVALUE_VIEWGRANT_SPACE_DESC = 'read, change, delete and insert';
 
     /* Table values */
+    const CUS_ACTH_ACT_TYPE_C = 'C';       // IMG Activity Type - Customizing Object
+    const CUS_ACTH_ACT_TYPE_E = 'E';       // IMG Activity Type - Business Add-In - Definition
+    const CUS_ACTH_ACT_TYPE_I = 'I';       // IMG Activity Type - Business Add-In - Implementation
     const DD02L_TABCLASS_TRANSP = "TRANSP";
     const DD02L_TABCLASS_CLUSTER = "CLUSTER";
     const DD02L_TABCLASS_POOL = "POOL";
@@ -111,11 +118,47 @@ class ABAP_DB_SCHEMA {
 
 /** Database table access for - SPRO - Customizing - Edit Project. */
 class ABAP_DB_TABLE_CUS0 {
-    
+
     const TNODEIMG_NODE_TYPE_REF = 'REF';
     const TNODEIMG_NODE_TYPE_IMG = 'IMG';
     const TNODEIMG_NODE_TYPE_IMG0 = 'IMG0';
     const TNODEIMG_NODE_TYPE_IMG1 = 'IMG1';
+
+
+    /**
+     * Customizing Activity - Object List.
+     */
+    const CUS_ACTOBJ = "cus_actobj";
+
+    /**
+     * Customizing Activity - Object List.
+     */
+    const CUS_ACTOBT = "cus_actobt";
+
+    /**
+     * Customizing Activity - Header Data.
+     */
+    const CUS_ACTH = "cus_acth";
+
+    /**
+     * Customizing Activity Text Table.
+     */
+    const CUS_ACTT = "cus_actt";
+
+    /**
+     * Country Assignment for Activities.
+     */
+    const CUS_ATRCOU = 'cus_atrcou';
+
+    /**
+     * Customizing Attributes - Header Data.
+     */
+    const CUS_ATRH = "cus_atrh";
+
+    /**
+     * Text Table for Customizing Attributes.
+     */
+    const CUS_ATRT = "cus_atrt";
 
     /**
      * IMG Activities.
@@ -126,6 +169,21 @@ class ABAP_DB_TABLE_CUS0 {
      * Text Table for IMG Activity.
      */
     const CUS_IMGACT = "cus_imgact";
+
+    /**
+     * Countries.
+     */
+    const T005 = "t005";
+
+    /**
+     * Country Names.
+     */
+    const T005T = "t005t";
+
+    /**
+     * Assignment of functions to IMG chapters.
+     */
+    const TFM18 = "tfm18";
 
     /**
      * Node table for the new IMG.
@@ -142,6 +200,103 @@ class ABAP_DB_TABLE_CUS0 {
      */
     const TNODEIMGT = "tnodeimgt";
 
+    /**
+     * Entity table for Roadmap nodes.
+     */
+    const TROADMAP = "troadmap";
+
+    /**
+     * Text table for Roadmap nodes.
+     */
+    const TROADMAPT = "troadmapt";
+
+    /**
+     * Customizing Activity - Header Data.
+     */
+    public static function CUS_ACTH($act_id) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::CUS_ACTH
+                . ' where `act_id` = :id';
+        $paras = array(
+            'id' => $act_id
+        );
+        return current(ABAP_DB_TABLE::select($sql, $paras));
+    }
+
+    /**
+     * Customizing Activity Text Table.
+     */
+    public static function CUS_ACTT($act_id) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::CUS_ACTT
+                . ' where `act_id` = :id and spras = :langu';
+        $paras = array(
+            'id' => $act_id,
+            'langu' => $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]
+        );
+        $record = current(ABAP_DB_TABLE::select($sql, $paras));
+        return $record['TEXT'];
+    }
+    
+    public static function CUS_ACTOBJ($act_id) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::CUS_ACTOBJ
+                . ' where `act_id` = :id order by IMG_POS';
+        $paras = array(
+            'id' => $act_id
+        );
+        return ABAP_DB_TABLE::select($sql, $paras);
+    }    
+    
+    public static function CUS_ACTOBT($actobj) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::CUS_ACTOBT
+                . ' where `act_id` = :id'
+                . ' and objecttype = :objtype'
+                . ' and objectname = :objname'
+                . ' and tcode = :tcode'
+                . ' and subobjname = :subobjname'
+                . ' and spras = :langu';
+        $paras = array(
+            'id' => $actobj['ACT_ID'],
+            'objtype' => $actobj['OBJECTTYPE'],
+            'objname' => $actobj['OBJECTNAME'],
+            'tcode' => $actobj['TCODE'],
+            'subobjname' => $actobj['SUBOBJNAME'],
+            'langu' => $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]
+        );
+        $record = current(ABAP_DB_TABLE::select($sql, $paras));
+        return $record['TEXT'];
+    }    
+
+    /**
+     * Country Assignment for Activities.
+     */
+    public static function CUS_ATRCOU($attr_id) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::CUS_ATRCOU
+                . ' where `attr_id` = :id';
+        $paras = array(
+            'id' => $attr_id
+        );
+        return ABAP_DB_TABLE::select($sql, $paras);
+    }
+
+    public static function CUS_ATRH($attr_id) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::CUS_ATRH
+                . ' where `attr_id` = :id';
+        $paras = array(
+            'id' => $attr_id
+        );
+        return current(ABAP_DB_TABLE::select($sql, $paras));
+    }
+
+    public static function CUS_ATRT($attr_id) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::CUS_ATRT
+                . ' where `attr_id` = :id and spras = :langu';
+        $paras = array(
+            'id' => $attr_id,
+            'langu' => $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]
+        );
+        $record = current(ABAP_DB_TABLE::select($sql, $paras));
+        return $record['TEXT'];
+    }
+
     public static function CUS_IMGACH_List() {
         $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::CUS_IMGACH . ' order by activity ';
         return ABAP_DB_TABLE::select($sql);
@@ -153,8 +308,7 @@ class ABAP_DB_TABLE_CUS0 {
         $paras = array(
             'id' => $activity
         );
-        $records = ABAP_DB_TABLE::select($sql, $paras);
-        return current($records);
+        return current(ABAP_DB_TABLE::select($sql, $paras));
     }
 
     public static function CUS_IMGACT($activity) {
@@ -164,9 +318,32 @@ class ABAP_DB_TABLE_CUS0 {
             'activity' => $activity,
             'langu' => $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]
         );
-        $records = ABAP_DB_TABLE::select($sql, $paras);
-        $record = current($records);
+        $record = current(ABAP_DB_TABLE::select($sql, $paras));
         return $record['TEXT'];
+    }
+
+    /**
+     * Get country name.
+     */
+    public static function T005T($land1) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::T005T
+                . ' where `land1` = :id and spras = :langu';
+        $paras = array(
+            'id' => $land1,
+            'langu' => $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]
+        );
+        $record = current(ABAP_DB_TABLE::select($sql, $paras));
+        return $record['LANDX'];
+    }
+
+    public static function TFM18($dok_class, $dok_name) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::TFM18
+                . ' where dokclass = :clas and dokname = :name';
+        $paras = array(
+            'clas' => $dok_class,
+            'name' => $dok_name
+        );
+        return ABAP_DB_TABLE::select($sql, $paras);
     }
 
     /**
@@ -245,6 +422,17 @@ class ABAP_DB_TABLE_CUS0 {
         );
         $records = ABAP_DB_TABLE::select($sql, $paras);
         $record = current($records);
+        return $record['TEXT'];
+    }
+
+    public static function TROADMAPT($roadmap_id) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::TROADMAPT
+                . ' where `roadmap_id` = :id and spras = :langu';
+        $paras = array(
+            'id' => $roadmap_id,
+            'langu' => $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]
+        );
+        $record = current(ABAP_DB_TABLE::select($sql, $paras));
         return $record['TEXT'];
     }
 
@@ -2087,26 +2275,6 @@ class ABAP_DB_TABLE {
      * Customizing Activity - Assigned Enhancement Object.
      */
     const CUS_ACTEXT = "cus_actext";
-
-    /**
-     * Customizing Activity - Header Data.
-     */
-    const CUS_ACTH = "cus_acth";
-
-    /**
-     * Customizing Activity - Object List.
-     */
-    const CUS_ACTOBJ = "cus_actobj";
-
-    /**
-     * Customizing Activity - Object List.
-     */
-    const CUS_ACTOBT = "cus_actobt";
-
-    /**
-     * Customizing Activity Text Table.
-     */
-    const CUS_ACTT = "cus_actt";
 
     /**
      * Table use in programs. Table for Use Report and Tables.

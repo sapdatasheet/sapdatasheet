@@ -127,6 +127,7 @@ FORM init.
   ls_tname-low = 'TDEVC'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'TDEVCT'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'TFDIR'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'TFM18'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'TFTIT'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'TLIBT'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'TMENU01'. APPEND ls_tname TO it_tname.
@@ -141,6 +142,8 @@ FORM init.
   ls_tname-low = 'TOBJT'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'TOBJVORFLG'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'TRDIRT'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'TROADMAP'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'TROADMAPT'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'TSTC'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'TSTCA'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'TSTCC'. APPEND ls_tname TO it_tname.

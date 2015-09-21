@@ -700,6 +700,9 @@ insert ignore into sapall.cus_atrcou select * from saperp6ehp7.cus_atrcou;
 create table if not exists sapall.cus_actobj like saperp6ehp7.cus_actobj;
 insert ignore into sapall.cus_actobj select * from saperp6ehp7.cus_actobj;
 
+create table if not exists sapall.cus_actobt like saperp6ehp7.cus_actobt;
+insert ignore into sapall.cus_actobt select * from saperp6ehp7.cus_actobt;
+
 create table if not exists sapall.cus_actext like saperp6ehp7.cus_actext;
 insert ignore into sapall.cus_actext select * from saperp6ehp7.cus_actext;
 
@@ -723,6 +726,24 @@ insert ignore into sapall.tnodeh select * from saperp6ehp7.tnodeh;
 
 create table if not exists sapall.tnodet like saperp6ehp7.tnodet;
 insert ignore into sapall.tnodet select * from saperp6ehp7.tnodet;
+
+create table if not exists sapall.tfm18 like saperp6ehp7.tfm18;
+insert ignore into sapall.tfm18 select * from saperp6ehp7.tfm18;
+
+create table if not exists sapall.troadmap like saperp6ehp7.troadmap;
+insert ignore into sapall.troadmap select * from saperp6ehp7.troadmap;
+
+create table if not exists sapall.troadmapt like saperp6ehp7.troadmapt;
+insert ignore into sapall.troadmapt select * from saperp6ehp7.troadmapt;
+
+create table if not exists sapall.t005 like saperp6ehp7.t005;
+insert ignore into sapall.t005 select * from saperp6ehp7.t005;
+
+create table if not exists sapall.t005t like saperp6ehp7.t005t;
+insert ignore into sapall.t005t select * from saperp6ehp7.t005t;
+
+create table if not exists sapall.cus_actt like saperp6ehp7.cus_actt;
+insert ignore into sapall.cus_actt select * from saperp6ehp7.cus_actt;
 
 
 -- Database table for MENU

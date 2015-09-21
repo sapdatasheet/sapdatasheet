@@ -20,6 +20,13 @@ if (empty($imgach['ACTIVITY'])) {
 }
 
 $imgach_t = ABAP_DB_TABLE_CUS0::CUS_IMGACT($imgach['ACTIVITY']);
+$atrh = ABAP_DB_TABLE_CUS0::CUS_ATRH($imgach['ATTRIBUTES']);
+$dok_clas = substr($imgach['DOCU_ID'], 0, 4);
+$dok_name = substr($imgach['DOCU_ID'], 4);
+$tfm18_list = ABAP_DB_TABLE_CUS0::TFM18($dok_clas, $dok_name);
+$atrcou_list = ABAP_DB_TABLE_CUS0::CUS_ATRCOU($imgach['ACTIVITY']);
+$acth = ABAP_DB_TABLE_CUS0::CUS_ACTH($imgach['C_ACTIVITY']);
+$actobj_list = ABAP_DB_TABLE_CUS0::CUS_ACTOBJ($imgach['C_ACTIVITY']);
 
 $hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_CONST::TADIR_PGMID_R3TR, ABAP_OTYPE::CUS0_NAME, $imgach['ACTIVITY']);
 $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::CUS0_DESC . ' ' . $imgach['ACTIVITY'];
@@ -97,16 +104,128 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::CUS0_DESC . ' ' . $imgach['AC
                             <td class="field"> <?php echo $imgach['FDATE'] ?> &nbsp;</td>
                             <td> &nbsp;</td>
                         </tr>
+                        <tr><td class="content_label"> Customizing Attributes </td>
+                            <td class="field"> <?php echo $imgach['ATTRIBUTES'] ?> &nbsp;</td>
+                            <td> <?php echo ABAP_DB_TABLE_CUS0::CUS_ATRT($imgach['ATTRIBUTES']) ?>&nbsp;</td>
+                        </tr>
+                        <tr><td class="content_label"> Customizing Activity </td>
+                            <td class="field"> <?php echo $imgach['C_ACTIVITY'] ?> &nbsp;</td>
+                            <td> <?php echo ABAP_DB_TABLE_CUS0::CUS_ACTT($imgach['C_ACTIVITY']) ?>&nbsp;</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4> Document </h4>
+                <table class="content_obj">
+                    <tbody>
                         <tr><td class="content_label"> Document Class </td>
-                            <td class="field"> SIMG &nbsp;</td>
+                            <td class="field"> <?php echo $dok_clas ?> &nbsp;</td>
                             <td> Hypertext: Object Class - Class to which a document belongs.</td>
                         </tr>
                         <tr><td class="content_label"> Document Name </td>
-                            <td class="field"> <?php echo $imgach['DOCU_ID'] ?> &nbsp;</td>
+                            <td class="field"> <?php echo $dok_name ?> &nbsp;</td>
                             <td> &nbsp;</td>
                         </tr>
                     </tbody>
                 </table>
+
+                <h4> Business Attributes </h4>
+                <table class="content_obj">
+                    <tbody>
+                        <tr><td class="content_label"> ASAP Roadmap ID </td>
+                            <td class="field"> <?php echo $atrh['ROADMAP_ID'] ?> &nbsp;</td>
+                            <td> <?php echo ABAP_DB_TABLE_CUS0::TROADMAPT($atrh['ROADMAP_ID']) ?>&nbsp;</td>
+                        </tr>
+                        <tr><td class="content_label"> Mandatory / Optional </td>
+                            <td class="field"> <?php echo $atrh['ACTIVITY'] ?> &nbsp;</td>
+                            <td> <?php echo ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_CUS_ATRH_ACTIVITY, $atrh['ACTIVITY']) ?>&nbsp;</td>
+                        </tr>
+                        <tr><td class="content_label"> Critical / Non-Critical </td>
+                            <td class="field"> <?php echo $atrh['CRITICAL'] ?> &nbsp;</td>
+                            <td> <?php echo ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_CUS_ATRH_CRITICAL, $atrh['CRITICAL']) ?>&nbsp;</td>
+                        </tr>
+                        <tr><td class="content_label"> Country-Dependency </td>
+                            <td class="field"> <?php echo $atrh['COUNTRY'] ?> &nbsp;</td>
+                            <td> <?php echo ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_CUS_ATRH_COUNTRY, $atrh['COUNTRY']) ?>&nbsp;</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <?php if (count($atrcou_list) > 0) { ?>
+                    <table class="alv">
+                        <tr>
+                            <th class="alv"> Customizing Attributes </th>
+                            <th class="alv"> Country Key </th>
+                            <th class="alv"> Country Name </th>
+                        </tr>
+                        <?php foreach ($atrcou_list as $atrcou) { ?>
+                            <tr><td class="alv"><?php echo $atrcou['ATTR_ID'] ?> </td>
+                                <td class="alv"><?php echo $atrcou['COUNTRY'] ?> </td>
+                                <td class="alv"><?php echo ABAP_DB_TABLE_CUS0::T005T($atrcou['COUNTRY']) ?> </td>
+                            </tr>
+                        <?php } ?>
+                    </table>
+                <?php } ?>
+
+
+                <?php if (count($tfm18_list) > 0) { ?>
+                    <h4> Assigned Application Components</h4>
+                    <table class="alv">
+                        <tr>
+                            <th class="alv"> Documentation Object Class </th>
+                            <th class="alv"> Documentation Object Name </th>
+                            <th class="alv"> Current line number </th>
+                            <th class="alv"> Application Component </th>
+                            <th class="alv"> Application Component Name </th>
+                        </tr>
+                        <?php
+                        foreach ($tfm18_list as $tfm18) {
+                            $tfm18_desc = ABAP_DB_TABLE_HIER::DF14T($tfm18['FUNCT']);
+                            ?>
+                            <tr><td class="alv"><?php echo $tfm18['DOKCLASS'] ?> </td>
+                                <td class="alv"><?php echo $tfm18['DOKNAME'] ?> </td>
+                                <td class="alv"><?php echo $tfm18['LINNO'] ?> </td>
+                                <td class="alv"><?php echo ABAP_Navigation::GetURLAppComp($tfm18['FUNCT'], $tfm18['FUNCT'], $tfm18_desc); ?> </td>
+                                <td class="alv"><?php echo htmlentities($tfm18_desc) ?>&nbsp;</td>
+                            </tr>
+                        <?php } ?>
+                    </table>
+                <?php } ?>
+
+                <h4> Maintenance Objects </h4>
+                <table class="content_obj">
+                    <tbody>
+                        <tr><td class="content_label"> Maintenance object type </td>
+                            <td class="field"> <?php echo $acth['ACT_TYPE'] ?> &nbsp;</td>
+                            <td> <?php echo ABAP_UI_CUS0::GetImgActivityTypeDesc($acth['ACT_TYPE']) ?>&nbsp;</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <?php if (count($actobj_list) > 0) { ?>
+                    <table class="alv">
+                        <th>Assigned objects</th>
+                        <tr>
+                            <th class="alv"> Customizing Object </th>
+                       <!-- <th class="alv"> Object Description </th> -->
+                            <th class="alv"> Object Type </th>
+                            <th class="alv"> Transaction Code </th>
+                            <th class="alv"> Sub-object </th>
+                            <th class="alv"> Do not Summarize </th>
+                            <th class="alv"> Skip Subset Dialog Box</th>
+                       <!-- <th class="alv"> Current Settings </th> -->
+                            <th class="alv"> Description for multiple selections </th>
+                        </tr>
+                        <?php foreach ($actobj_list as $actobj) { ?>
+                            <tr><td class="alv"><?php echo $actobj['OBJECTNAME'] ?> </td>
+                                <td class="alv"><?php echo $actobj['OBJECTTYPE'] ?> - <?php echo ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_CUS_ACTOBJ_OBJECTTYPE, $actobj['OBJECTTYPE']) ?></td>
+                                <td class="alv"><?php echo ABAP_Navigation::GetURLTransactionCode($actobj['TCODE'], null)  ?> </td>
+                                <td class="alv"><?php echo $actobj['SUBOBJNAME'] ?> </td>
+                                <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox("TXN_NO_CON", $actobj['TXN_NO_CON']) ?> </td>
+                                <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox("SUPRESS_FL", $actobj['SUPRESS_FL']) ?> </td>
+                                <td class="alv"><?php echo htmlentities(ABAP_DB_TABLE_CUS0::CUS_ACTOBT($actobj)) ?>&nbsp;</td>
+                            </tr>
+                        <?php } ?>
+                    </table>
+                <?php } ?>
 
                 <h4> Hierarchy </h4>
                 <table class="content_obj">

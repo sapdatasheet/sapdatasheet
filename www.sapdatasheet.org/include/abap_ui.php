@@ -291,6 +291,23 @@ class ABAP_UI_CUS0 {
         }
     }
 
+    
+    /**
+     * Get description text for CUS_ACTH-ACT_TYPE.
+     * 
+     * @return string IMG Activity Type Description
+     */
+    public static function GetImgActivityTypeDesc($act_type){
+        $desc = '';
+        if ($act_type === ABAP_DB_CONST::CUS_ACTH_ACT_TYPE_C) {
+            $desc = 'Customizing Object';
+        } else if ($act_type === ABAP_DB_CONST::CUS_ACTH_ACT_TYPE_E) {
+            $desc = 'Business Add-In - Definition';
+        } else if ($act_type === ABAP_DB_CONST::CUS_ACTH_ACT_TYPE_I) {
+            $desc = 'Business Add-In - Implementation';
+        }
+        return $desc;
+    }    
 }
 
 class ABAP_UI_TOOL {
