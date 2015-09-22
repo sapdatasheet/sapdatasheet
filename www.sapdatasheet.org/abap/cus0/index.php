@@ -57,7 +57,7 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::CUS0_DESC . " - Index " . $in
 
                 <div>
                     <a href="index-hierarchy.html">Hierarchy</a>&nbsp; - &nbsp;
-                    <a href="index-list.html">List</a>&nbsp; - &nbsp;
+                    <a href="index-list.html">List</a>&nbsp;
                     <!--<a href="index-roadmap.html">Road map</a>&nbsp;-->
                 </div>
 

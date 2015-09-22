@@ -1,0 +1,9 @@
+YDOK
+Extracted Document
+===========  ===========  ======  ===  ===  ====================================
+ID            DOKU_ID     CHAR     2    0    Document class
+OBJECT        DOKU_OBJ    CHAR    60    0    Documentation Object
+LANGU         DOKU_LANGU  LANG     1    0    Documentation language
+TYP           DOKU_TYP    CHAR     1    0    Documentation type
+DOKVERSION    DOKVERS     NUMC     4    0    Version of Documentation Module
+HTMLTEXT                  STRING   0    0                                                                
