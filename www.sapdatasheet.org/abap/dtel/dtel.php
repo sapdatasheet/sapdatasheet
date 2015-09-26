@@ -23,6 +23,8 @@ $dtel_label = ABAP_DB_TABLE_DTEL::DD04T_ALL($dtel['ROLLNAME']);
 $dtel_refkind_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_DD04L_REFKIND, $dtel['REFKIND']);
 $dtel_reftype_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_DD04L_REFTYPE, $dtel['REFTYPE']);
 $dtel_datatype_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_DATATYPE, $dtel['DATATYPE']);
+$dok_de = ABAP_DB_TABLE_DTEL::YDOK_DE($dtel['ROLLNAME']);
+$dok_dz = ABAP_DB_TABLE_DTEL::YDOK_DZ($dtel['ROLLNAME']);
 $hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_CONST::TADIR_PGMID_R3TR, ABAP_OTYPE::DTEL_NAME, $dtel['ROLLNAME']);
 $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DTEL_DESC . ' ' . $dtel['ROLLNAME'];
 ?>
@@ -71,9 +73,9 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DTEL_DESC . ' ' . $dtel['ROLL
         <div class="content">
             <!-- Content Navigator -->
             <div class="content_navi">
-                <a href="/">Home page</a> &gt; 
-                <a href="/abap/">ABAP Object</a> &gt; 
-                <a href="/abap/dtel/"><?php echo ABAP_OTYPE::DTEL_DESC ?></a> &gt; 
+                <a href="/">Home page</a> &gt;
+                <a href="/abap/">ABAP Object</a> &gt;
+                <a href="/abap/dtel/"><?php echo ABAP_OTYPE::DTEL_DESC ?></a> &gt;
                 <a href="#"><?php echo $dtel['ROLLNAME'] ?></a>
             </div>
 
@@ -146,6 +148,19 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DTEL_DESC . ' ' . $dtel['ROLL
                         <tr><td class="content_label"> Heading </td><td class="field_right"><?php echo intval($dtel['HEADLEN']) ?>&nbsp;</td><td class="field"><?php echo $dtel_label['REPTEXT'] ?>&nbsp;</td></tr>
                     </tbody>
                 </table>
+                <?php if (empty($dok_de) === FALSE) { ?>
+                    <h4> Documentation </h4>
+                    <div class="f1doc"><?php echo $dok_de ?></div>
+                <?php } ?>
+                <?php
+                if (empty(array_filter($dok_dz)) === FALSE) {
+                    foreach ($dok_dz as $dok_dz_item) {
+                        ?>
+                        <h4> Supplementary Documentation - <?php echo $dok_dz_item['OBJECT'] ?> </h4>
+                        <div class="f1doc"><?php echo $dok_dz_item['HTMLTEXT'] ?></div>
+                    <?php }
+                }
+                ?>
 
                 <h4> Hierarchy </h4>
                 <table class="content_obj">
@@ -161,7 +176,11 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DTEL_DESC . ' ' . $dtel['ROLL
         </div>
 
         <!-- Footer -->
-        <?php require $__ROOT__ . '/include/footer.php' ?>
+<?php require $__ROOT__ . '/include/footer.php' ?>
 
     </body>
 </html>
+<?php
+// Close PDO Database Connection
+ABAP_DB_TABLE::close_conn();
+?>

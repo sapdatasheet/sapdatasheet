@@ -23,6 +23,7 @@
     </sitemap>
     <?php
     $abap_type_count = array(
+        array("cus0", 2),
         array("doma", 3),
         array("dtel", 11),
         array("fugr", 2),

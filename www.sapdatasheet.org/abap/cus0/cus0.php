@@ -23,6 +23,7 @@ $imgach_t = ABAP_DB_TABLE_CUS0::CUS_IMGACT($imgach['ACTIVITY']);
 $atrh = ABAP_DB_TABLE_CUS0::CUS_ATRH($imgach['ATTRIBUTES']);
 $dok_clas = substr($imgach['DOCU_ID'], 0, 4);
 $dok_name = substr($imgach['DOCU_ID'], 4);
+$dok_html = ABAP_DB_TABLE_CUS0::YDOK_HY($imgach['DOCU_ID']);
 $tfm18_list = ABAP_DB_TABLE_CUS0::TFM18($dok_clas, $dok_name);
 $atrcou_list = ABAP_DB_TABLE_CUS0::CUS_ATRCOU($imgach['ACTIVITY']);
 $acth = ABAP_DB_TABLE_CUS0::CUS_ACTH($imgach['C_ACTIVITY']);
@@ -128,6 +129,9 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::CUS0_DESC . ' ' . $imgach['AC
                         </tr>
                     </tbody>
                 </table>
+                <?php if (empty($dok_html) === FALSE) { ?>
+                    <div class="f1doc"><?php echo $dok_html ?></div>
+                <?php } ?>
 
                 <h4> Business Attributes </h4>
                 <table class="content_obj">
@@ -217,7 +221,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::CUS0_DESC . ' ' . $imgach['AC
                         <?php foreach ($actobj_list as $actobj) { ?>
                             <tr><td class="alv"><?php echo $actobj['OBJECTNAME'] ?> </td>
                                 <td class="alv"><?php echo $actobj['OBJECTTYPE'] ?> - <?php echo ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_CUS_ACTOBJ_OBJECTTYPE, $actobj['OBJECTTYPE']) ?></td>
-                                <td class="alv"><?php echo ABAP_Navigation::GetURLTransactionCode($actobj['TCODE'], null)  ?> </td>
+                                <td class="alv"><?php echo ABAP_Navigation::GetURLTransactionCode($actobj['TCODE'], null) ?> </td>
                                 <td class="alv"><?php echo $actobj['SUBOBJNAME'] ?> </td>
                                 <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox("TXN_NO_CON", $actobj['TXN_NO_CON']) ?> </td>
                                 <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox("SUPRESS_FL", $actobj['SUPRESS_FL']) ?> </td>
@@ -245,3 +249,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::CUS0_DESC . ' ' . $imgach['AC
 
     </body>
 </html>
+<?php
+// Close PDO Database Connection
+ABAP_DB_TABLE::close_conn();
+?>

@@ -45,18 +45,19 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP";
                         <th class="alv"> Object Type </th>
                         <th class="alv"> Object Name </th>
                     </tr>
-                    <tr><td class="alv"><a href="/abap/cvers">CVERS</a></td><td class="alv"><?php echo ABAP_OTYPE::CVERS_DESC ?></td></tr>
-                    <tr><td class="alv"><a href="/abap/bmfr">BMFR</a></td><td class="alv"><?php echo ABAP_OTYPE::BMFR_DESC ?></td></tr>
-                    <tr><td class="alv"><a href="/abap/devc">DEVC</a></td><td class="alv"><?php echo ABAP_OTYPE::DEVC_DESC ?></td></tr>
-                    <tr><td class="alv"><a href="/abap/tran">TRAN</a></td><td class="alv"><?php echo ABAP_OTYPE::TRAN_DESC ?></td></tr>
-                    <tr><td class="alv"><a href="/abap/prog">PROG</a></td><td class="alv"><?php echo ABAP_OTYPE::PROG_DESC ?></td></tr>
-                    <tr><td class="alv"><a href="/abap/fugr"><?php echo ABAP_OTYPE::FUGR_NAME ?></a></td><td class="alv"><?php echo ABAP_OTYPE::FUGR_DESC ?></td></tr>
-                    <tr><td class="alv"><a href="/abap/func">FUNC</a></td><td class="alv"><?php echo ABAP_OTYPE::FUNC_DESC ?></td></tr>
-                    <tr><td class="alv"><a href="/abap/tabl">TABL</a></td><td class="alv"><?php echo ABAP_OTYPE::TABL_DESC ?></td></tr>
-                    <tr><td class="alv"><a href="/abap/sqlt">SQLT</a></td><td class="alv"><?php echo ABAP_OTYPE::SQLT_DESC ?></td></tr>
-                    <tr><td class="alv"><a href="/abap/view">VIEW</a></td><td class="alv"><?php echo ABAP_OTYPE::VIEW_DESC ?></td></tr>
-                    <tr><td class="alv"><a href="/abap/dtel">DTEL</a></td><td class="alv"><?php echo ABAP_OTYPE::DTEL_DESC ?></td></tr>
-                    <tr><td class="alv"><a href="/abap/doma">DOMA</a></td><td class="alv"><?php echo ABAP_OTYPE::DOMA_DESC ?></td></tr>
+                    <tr><td class="alv"><a href="/abap/cvers/"><?php echo ABAP_OTYPE::CVERS_NAME ?></a></td><td class="alv"><?php echo ABAP_OTYPE::CVERS_DESC ?></td></tr>
+                    <tr><td class="alv"><a href="/abap/bmfr/"><?php echo ABAP_OTYPE::BMFR_NAME ?></a></td><td class="alv"><?php echo ABAP_OTYPE::BMFR_DESC ?></td></tr>
+                    <tr><td class="alv"><a href="/abap/devc/"><?php echo ABAP_OTYPE::DEVC_NAME ?></a></td><td class="alv"><?php echo ABAP_OTYPE::DEVC_DESC ?></td></tr>
+                    <tr><td class="alv"><a href="/abap/cus0/"><?php echo ABAP_OTYPE::CUS0_NAME ?></a></td><td class="alv"><?php echo ABAP_OTYPE::CUS0_DESC ?></td></tr>
+                    <tr><td class="alv"><a href="/abap/tran/"><?php echo ABAP_OTYPE::TRAN_NAME ?></a></td><td class="alv"><?php echo ABAP_OTYPE::TRAN_DESC ?></td></tr>
+                    <tr><td class="alv"><a href="/abap/prog/"><?php echo ABAP_OTYPE::PROG_NAME ?></a></td><td class="alv"><?php echo ABAP_OTYPE::PROG_DESC ?></td></tr>
+                    <tr><td class="alv"><a href="/abap/fugr/"><?php echo ABAP_OTYPE::FUGR_NAME ?></a></td><td class="alv"><?php echo ABAP_OTYPE::FUGR_DESC ?></td></tr>
+                    <tr><td class="alv"><a href="/abap/func/"><?php echo ABAP_OTYPE::FUNC_NAME ?></a></td><td class="alv"><?php echo ABAP_OTYPE::FUNC_DESC ?></td></tr>
+                    <tr><td class="alv"><a href="/abap/tabl/"><?php echo ABAP_OTYPE::TABL_NAME ?></a></td><td class="alv"><?php echo ABAP_OTYPE::TABL_DESC ?></td></tr>
+                    <tr><td class="alv"><a href="/abap/sqlt/"><?php echo ABAP_OTYPE::SQLT_NAME ?></a></td><td class="alv"><?php echo ABAP_OTYPE::SQLT_DESC ?></td></tr>
+                    <tr><td class="alv"><a href="/abap/view/"><?php echo ABAP_OTYPE::VIEW_NAME ?></a></td><td class="alv"><?php echo ABAP_OTYPE::VIEW_DESC ?></td></tr>
+                    <tr><td class="alv"><a href="/abap/dtel/"><?php echo ABAP_OTYPE::DTEL_NAME ?></a></td><td class="alv"><?php echo ABAP_OTYPE::DTEL_DESC ?></td></tr>
+                    <tr><td class="alv"><a href="/abap/doma/"><?php echo ABAP_OTYPE::DOMA_NAME ?></a></td><td class="alv"><?php echo ABAP_OTYPE::DOMA_DESC ?></td></tr>
                 </table>
 
             </div>

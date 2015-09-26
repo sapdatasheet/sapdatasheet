@@ -1,6 +1,7 @@
 echo off
 
 call:BuffGenerateSitemap abap-bmfr.php
+call:BuffGenerateSitemap abap-cus0.php
 call:BuffGenerateSitemap abap-cvers.php
 call:BuffGenerateSitemap abap-devc.php
 call:BuffGenerateSitemap abap-doma.php

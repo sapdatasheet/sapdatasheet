@@ -24,6 +24,10 @@ create table if not exists abap.dd04t like sapall.dd04t;
 insert into abap.dd04t select * from sapall.dd04t 
   where DDLANGUAGE in ('N', 'E', 'F', 'D', 'I', 'J', '3', 'L', 'P', 'R', '1', 'S', 'M', 'T');
 
+create table if not exists abap.ydok_dedz like sapall.ydok_dedz;
+insert ignore into abap.ydok_dedz select * from sapall.ydok_dedz
+  where LANGU in ('N', 'E', 'F', 'D', 'I', 'J', '3', 'L', 'P', 'R', '1', 'S', 'M', 'T');
+
 -- Database table for VIEW
 
 create table if not exists abap.dd25l like sapall.dd25l;

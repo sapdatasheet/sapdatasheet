@@ -111,6 +111,15 @@ div.content_obj
     padding-left:0.5em;
     padding-bottom:1em;
 }
+div.f1doc
+{
+    background-color:#FEFEEE;
+    border-style:groove;
+    padding-top:0.5em;
+    padding-left:0.5em;
+    padding-right:0.5em;
+    padding-bottom:1em;
+}
 table.content_obj
 {
     font-size:small;

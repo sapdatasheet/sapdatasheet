@@ -4,6 +4,9 @@ cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
 FOR /F %%i IN (config-a-x.txt)       DO @call:BuffGenerate bmfr  %%i
 call:BuffGenerate                                          bmfr  TOP
 
+call:BuffGenerate                                          cus0  list
+call:BuffGenerate                                          cus0  hierarchy
+
 cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
 call:BuffGenerate                                          cvers ""
 

@@ -72,6 +72,9 @@ class ABAP_DB_CONST {
     const DD02L_TABCLASS_TRANSP = "TRANSP";
     const DD02L_TABCLASS_CLUSTER = "CLUSTER";
     const DD02L_TABCLASS_POOL = "POOL";
+    const DOKHL_ID_DE = 'DE';                  // Document class: Data element
+    const DOKHL_ID_DZ = 'DZ';                  // Document class: Data element supplement
+    const DOKHL_ID_HY = 'HY';                  // Document class: Implementation Guide chapter (SIMG)
     const FUNCT_KIND_P = "P";
     const FUPARAREF_PARAMTYPE_I = "I";         // Importing
     const FUPARAREF_PARAMTYPE_E = "E";         // Exporting
@@ -79,7 +82,7 @@ class ABAP_DB_CONST {
     const FUPARAREF_PARAMTYPE_T = "T";         // Tables
     const FUPARAREF_PARAMTYPE_X = "X";         // Exception
     const TADIR_PGMID_R3TR = "R3TR";
-    const TFDIR_FMODE_SPACE = " ";      // Type of function module - Normal Function Module.
+    const TFDIR_FMODE_SPACE = " ";     // Type of function module - Normal Function Module.
     const TFDIR_FMODE_AT = "@";
     const TFDIR_FMODE_J = "J";         // Type of function module - JAVA Module Callable from ABAP.
     const TFDIR_FMODE_K = "K";         // Type of function module - Remote-Enabled JAVA Module.
@@ -209,6 +212,11 @@ class ABAP_DB_TABLE_CUS0 {
      * Text table for Roadmap nodes.
      */
     const TROADMAPT = "troadmapt";
+
+    /**
+     * Parsed HTML document.
+     */
+    const YDOK_HY = "ydok_hy";
 
     /**
      * Customizing Activity - Header Data.
@@ -436,6 +444,18 @@ class ABAP_DB_TABLE_CUS0 {
         return $record['TEXT'];
     }
 
+    public static function YDOK_HY($object) {
+        $sql = "select * from " . ABAP_DB_TABLE_CUS0::YDOK_HY
+                . " where `id` = '" . ABAP_DB_CONST::DOKHL_ID_HY
+                . "' and object = :object and langu = :langu";
+        $paras = array(
+            'object' => $object,
+            'langu' => $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]
+        );
+        $record = current(ABAP_DB_TABLE::select($sql, $paras));
+        return $record['HTMLTEXT'];
+    }
+
 }
 
 /** Database table names - domain. */
@@ -559,6 +579,11 @@ class ABAP_DB_TABLE_DTEL {
     const DD04T = "dd04t";
 
     /**
+     * Extracted document.
+     */
+    const YDOK_DEDZ = "ydok_dedz";
+
+    /**
      * Data Element List.
      * <pre>
      * SELECT * FROM dd04l where ROLLNAME LIKE 'A%' order by ROLLNAME
@@ -633,6 +658,28 @@ class ABAP_DB_TABLE_DTEL {
         return $result;
     }
 
+    public static function YDOK_DE($object) {
+        $sql = "select * from " . ABAP_DB_TABLE_DTEL::YDOK_DEDZ
+                . " where `id` = '" . ABAP_DB_CONST::DOKHL_ID_DE
+                . "' and object = :object and langu = :langu";
+        $paras = array(
+            'object' => $object,
+            'langu' => $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]
+        );
+        $record = current(ABAP_DB_TABLE::select($sql, $paras));
+        return $record['HTMLTEXT'];
+    }
+
+    public static function YDOK_DZ($object) {
+        $sql = "select * from " . ABAP_DB_TABLE_DTEL::YDOK_DEDZ
+                . " where `id` = '" . ABAP_DB_CONST::DOKHL_ID_DZ
+                . "' and object like :object and langu = :langu";
+        $paras = array(
+            'object' => $object . '%',
+            'langu' => $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]
+        );
+        return ABAP_DB_TABLE::select($sql, $paras);
+    }
 }
 
 /** Database table names - function module. */
@@ -2287,16 +2334,6 @@ class ABAP_DB_TABLE {
     const D010INC = "d010inc";
 
     /**
-     * Documentation: Headers.
-     */
-    const DOKHL = "dokhl";
-
-    /**
-     * Index for Documentation Table DOKH.
-     */
-    const DOKIL = "dokil";
-
-    /**
      * Documentation - text lines.
      *
      * @deprecated Replaced by {@link #YDOKTL}
@@ -2373,7 +2410,7 @@ class ABAP_DB_TABLE {
     }
 
     public static function close_conn() {
-        return ABAP_DB_TABLE::$conn = null;                    # close the connection
+        ABAP_DB_TABLE::$conn = null;                    # close the connection
     }
 
     /**
