@@ -15,6 +15,8 @@ TYPES: BEGIN OF  ts_key,
          typ    TYPE doku_typ,
        END OF ts_key.
 
+TABLES dokhl.
+SELECT-OPTIONS i_clas FOR dokhl-id DEFAULT 'HY'.
 PARAMETERS i_size   TYPE i DEFAULT 5000.  " Package Size
 
 DATA: gt_db   TYPE STANDARD TABLE OF ydok.
@@ -32,7 +34,8 @@ FORM main.
 
   SELECT DISTINCT id object langu typ
     FROM dokil
-    INTO CORRESPONDING FIELDS OF TABLE lt_key.
+    INTO CORRESPONDING FIELDS OF TABLE lt_key
+    WHERE id IN i_clas.
 
   " Log Loaded the Record Count
   DESCRIBE TABLE lt_key LINES lv_lines.
@@ -68,7 +71,8 @@ FORM transform
   DATA: ls_dokil TYPE dokil,                       " Index for Documentation Table DOKH
         ls_head  TYPE thead,                       " Text Header
         lt_lines TYPE TABLE OF tline,              " Text Lines
-        lr_text  TYPE REF TO cl_wd_formatted_text. " Formatted Text
+        lr_text  TYPE REF TO cl_wd_formatted_text, " Formatted Text
+        lr_exp   TYPE REF TO cx_root.
   DATA: ls_db    TYPE ydok.
 
 * Get indx of customer defined documentation
@@ -96,13 +100,18 @@ FORM transform
 
 * Convert documentation into formatted style
   CLEAR lr_text.
-  cl_wd_formatted_text=>create_from_sapscript(
-    EXPORTING
-      sapscript_head  = ls_head
-      sapscript_lines = lt_lines
-    RECEIVING
-      formatted_text  = lr_text
-  ).
+  TRY .
+      cl_wd_formatted_text=>create_from_sapscript(
+        EXPORTING
+          sapscript_head  = ls_head
+          sapscript_lines = lt_lines
+        RECEIVING
+          formatted_text  = lr_text
+      ).
+    CATCH cx_root INTO lr_exp.
+      ls_db-htmltext = lr_exp->get_text( ).
+      CONCATENATE 'EXCEPTION: ' ls_db-htmltext INTO ls_db-htmltext.
+  ENDTRY.
 
   CLEAR ls_db.
   MOVE-CORRESPONDING is_key TO ls_db.

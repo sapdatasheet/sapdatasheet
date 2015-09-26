@@ -298,7 +298,7 @@ class ABAP_DB_TABLE_CUS0 {
     }
 
     public static function CUS_IMGACH_List() {
-        $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::CUS_IMGACH . ' order by activity ';
+        $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::CUS_IMGACH . ' order by activity';
         return ABAP_DB_TABLE::select($sql);
     }
 

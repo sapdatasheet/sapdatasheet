@@ -282,6 +282,9 @@ create table if not exists abap.cus_actt like sapall.cus_actt;
 insert ignore into abap.cus_actt select * from sapall.cus_actt
   where spras in ('N', 'E', 'F', 'D', 'I', 'J', '3', 'L', 'P', 'R', '1', 'S', 'M', 'T');
 
+create table if not exists abap.ydok_hy like sapall.ydok_hy;
+insert ignore into abap.ydok_hy select * from sapall.ydok_hy
+  where langu in ('N', 'E', 'F', 'D', 'I', 'J', '3', 'L', 'P', 'R', '1', 'S', 'M', 'T');
 
 
 -- Database table for MENU

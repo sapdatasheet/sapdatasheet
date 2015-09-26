@@ -44,6 +44,9 @@ insert ignore into sapall.dd04t select * from sapsrm7ehp3sr2.dd04t;
 insert ignore into sapall.dd04t select * from saperp6ehp7.dd04t;
 insert ignore into sapall.dd04t select * from sapsolman71sr1.dd04t;
 
+create table if not exists sapall.ydok_dedz like saperp6ehp7.ydok_dedz;
+insert ignore into sapall.ydok_dedz select * from saperp6ehp7.ydok_dedz;
+
 
 -- Database table for VIEW
 
@@ -506,6 +509,9 @@ insert ignore into sapall.tlibt select * from saperp6ehp7.tlibt as a
 insert ignore into sapall.tlibt select * from sapsolman71sr1.tlibt as a
   where not exists ( select AREA from sapall.tlibt where SPRAS = a.SPRAS and AREA = a.AREA );
 
+create table if not exists sapall.ydok_fu like saperp6ehp7.ydok_fu;
+insert ignore into sapall.ydok_fu select * from saperp6ehp7.ydok_fu;
+
 
 -- Database table for PROG
 
@@ -745,6 +751,9 @@ insert ignore into sapall.t005t select * from saperp6ehp7.t005t;
 create table if not exists sapall.cus_actt like saperp6ehp7.cus_actt;
 insert ignore into sapall.cus_actt select * from saperp6ehp7.cus_actt;
 
+create table if not exists sapall.ydok_hy like saperp6ehp7.ydok_hy;
+insert ignore into sapall.ydok_hy select * from saperp6ehp7.ydok_hy;
+
 
 -- Database table for MENU
 
@@ -796,6 +805,8 @@ insert ignore into sapall.seosubcodf select * from saperp6ehp7.seosubcodf;
 create table if not exists sapall.seotypepls like saperp6ehp7.seotypepls;
 insert ignore into sapall.seotypepls select * from saperp6ehp7.seotypepls;
 
+create table if not exists sapall.ydok_hy like saperp6ehp7.ydok_clif;
+insert ignore into sapall.ydok_hy select * from saperp6ehp7.ydok_clif;
 
 -- Database table for SU21
 

@@ -254,7 +254,7 @@ class ABAP_UI_CUS0 {
             $i--;
             $html_li = $html_li . '&nbsp;&nbsp;&nbsp;&nbsp;';
         }
-      //$html_li = $html_li . $nodeimg['NODE_ID'] . ' - ' . $nodeimg['NODE_TYPE'];
+        //$html_li = $html_li . $nodeimg['NODE_ID'] . ' - ' . $nodeimg['NODE_TYPE'];
 
         $text = ABAP_DB_TABLE_CUS0::TNODEIMGT($nodeimg['NODE_ID']);
         if (empty($text) === FALSE) {
@@ -291,13 +291,12 @@ class ABAP_UI_CUS0 {
         }
     }
 
-    
     /**
      * Get description text for CUS_ACTH-ACT_TYPE.
      * 
      * @return string IMG Activity Type Description
      */
-    public static function GetImgActivityTypeDesc($act_type){
+    public static function GetImgActivityTypeDesc($act_type) {
         $desc = '';
         if ($act_type === ABAP_DB_CONST::CUS_ACTH_ACT_TYPE_C) {
             $desc = 'Customizing Object';
@@ -307,7 +306,8 @@ class ABAP_UI_CUS0 {
             $desc = 'Business Add-In - Implementation';
         }
         return $desc;
-    }    
+    }
+
 }
 
 class ABAP_UI_TOOL {
