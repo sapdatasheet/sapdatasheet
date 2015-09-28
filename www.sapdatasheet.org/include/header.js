@@ -10,6 +10,7 @@ function langOnChnage(sapDescLangu) {
         // Reload the Content page or Jump to Language Specific Index Page
         var pathArray = window.location.pathname.split('/');
         if (window.location.pathname === "/abap/bmfr/"
+                || window.location.pathname === "/abap/cus0/"
                 || window.location.pathname === "/abap/cvers/"
                 || window.location.pathname === "/abap/devc/"
                 || window.location.pathname === "/abap/doma/"
