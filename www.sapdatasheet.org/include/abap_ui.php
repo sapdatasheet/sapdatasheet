@@ -207,6 +207,9 @@ class ABAP_TFDIR_ProcessingType {
 
 class ABAP_UI_CUS0 {
 
+    /**
+     * Generate IMG Tree.
+     */
     public static function LoadImgNodes() {
         $nodeimg_list = ABAP_DB_TABLE_CUS0::TNODEIMG_PARENT_ID('368DDFAC3AB96CCFE10000009B38F976');
         foreach ($nodeimg_list as $nodeimg) {
@@ -291,6 +294,16 @@ class ABAP_UI_CUS0 {
         }
     }
 
+    /**
+     * Get the IMG Paths for one activity.
+     * One activty could exist in several IMG tree nodes.
+     * 
+     * @return Array IMG Paths
+     */
+    public static function GetActivityPaths() {
+        
+    }
+    
     /**
      * Get description text for CUS_ACTH-ACT_TYPE.
      * 
