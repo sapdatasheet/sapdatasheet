@@ -781,6 +781,9 @@ insert ignore into sapall.seoclass select * from saperp6ehp7.seoclass;
 create table if not exists sapall.seoclassdf like saperp6ehp7.seoclassdf;
 insert ignore into sapall.seoclassdf select * from saperp6ehp7.seoclassdf;
 
+create table if not exists sapall.seoclasstx like saperp6ehp7.seoclasstx;
+insert ignore into sapall.seoclasstx select * from saperp6ehp7.seoclasstx;
+
 create table if not exists sapall.seocompo like saperp6ehp7.seocompo;
 insert ignore into sapall.seocompo select * from saperp6ehp7.seocompo;
 

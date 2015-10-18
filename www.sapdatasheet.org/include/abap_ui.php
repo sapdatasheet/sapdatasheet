@@ -53,6 +53,10 @@ class ABAP_Navigation {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::BMFR_NAME, $fctr_id, $posid, $desc, $newwin);
     }
 
+    public static function GetURLClass($class, $desc, $newwin = TRUE) {
+        return ABAP_Navigation::GetURL(ABAP_OTYPE::CLAS_NAME, $class, $class, $desc, $newwin);
+    }
+    
     public static function GetURLDomain($domain, $desc, $newwin = TRUE) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::DOMA_NAME, $domain, $domain, $desc, $newwin);
     }

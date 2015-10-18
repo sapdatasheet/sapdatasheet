@@ -58,6 +58,8 @@
         <li class="menu"><a class="menu" href="/abap/sqlt/"><?php echo ABAP_OTYPE::SQLT_DESC ?></a></li>
         <li class="menu"><a class="menu" href="/abap/view/"><?php echo ABAP_OTYPE::VIEW_DESC ?></a></li>
         <li class="menu"><a class="menu" href="/abap/func/"><?php echo ABAP_OTYPE::FUNC_DESC ?></a></li>
+        <li class="menu"><a class="menu" href="/abap/intf/"><?php echo ABAP_OTYPE::INTF_DESC ?></a></li>
+        <li class="menu"><a class="menu" href="/abap/clas/"><?php echo ABAP_OTYPE::CLAS_DESC ?></a></li>
         <li class="menu"><a class="menu" href="/abap/prog/"><?php echo ABAP_OTYPE::PROG_DESC ?></a></li>
         <li class="menu"><a class="menu" href="/abap/tran/"><?php echo ABAP_OTYPE::TRAN_DESC ?></a></li>
         <li class="menu"><a class="menu" href="/abap/cus0/"><?php echo ABAP_OTYPE::CUS0_DESC ?></a></li>

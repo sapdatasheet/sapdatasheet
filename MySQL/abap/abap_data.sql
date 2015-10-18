@@ -318,6 +318,9 @@ insert ignore into abap.seoclass select * from sapall.seoclass;
 create table if not exists abap.seoclassdf like sapall.seoclassdf;
 insert ignore into abap.seoclassdf select * from sapall.seoclassdf;
 
+create table if not exists abap.seoclasstx like sapall.seoclasstx;
+insert ignore into abap.seoclasstx select * from sapall.seoclasstx;
+
 create table if not exists abap.seocompo like sapall.seocompo;
 insert ignore into abap.seocompo select * from sapall.seocompo;
 

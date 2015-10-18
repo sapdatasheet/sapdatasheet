@@ -10,6 +10,8 @@ class ABAP_DB_CONST {
     const INDEX_LIST = "LIST";                 // List all contents, no paging
     const INDEX_SLASH = "SLASH";
     const INDEX_TOP = "TOP";
+    const INDEX_PAGE_1 = 1;                    // Page 1
+    const INDEX_PAGESIZE = 10000;              // Page size
     const LANGU_EN = "E";
     const FLAG_TRUE = "X";
     const FLAG_FALSE = "";
@@ -127,7 +129,6 @@ class ABAP_DB_TABLE_CUS0 {
     const TNODEIMG_NODE_TYPE_IMG0 = 'IMG0';
     const TNODEIMG_NODE_TYPE_IMG1 = 'IMG1';
 
-
     /**
      * Customizing Activity - Object List.
      */
@@ -243,7 +244,7 @@ class ABAP_DB_TABLE_CUS0 {
         $record = current(ABAP_DB_TABLE::select($sql, $paras));
         return $record['TEXT'];
     }
-    
+
     public static function CUS_ACTOBJ($act_id) {
         $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::CUS_ACTOBJ
                 . ' where `act_id` = :id order by IMG_POS';
@@ -251,8 +252,8 @@ class ABAP_DB_TABLE_CUS0 {
             'id' => $act_id
         );
         return ABAP_DB_TABLE::select($sql, $paras);
-    }    
-    
+    }
+
     public static function CUS_ACTOBT($actobj) {
         $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::CUS_ACTOBT
                 . ' where `act_id` = :id'
@@ -271,7 +272,7 @@ class ABAP_DB_TABLE_CUS0 {
         );
         $record = current(ABAP_DB_TABLE::select($sql, $paras));
         return $record['TEXT'];
-    }    
+    }
 
     /**
      * Country Assignment for Activities.
@@ -680,6 +681,7 @@ class ABAP_DB_TABLE_DTEL {
         );
         return ABAP_DB_TABLE::select($sql, $paras);
     }
+
 }
 
 /** Database table names - function module. */
@@ -980,6 +982,7 @@ class ABAP_DB_TABLE_HIER {
      * Directory of Repository Objects.
      */
     const TADIR = "tadir";
+    const TADIR_PGMID_R3TR = "R3TR";
 
     /**
      * Packages.
@@ -1643,6 +1646,55 @@ class ABAP_DB_TABLE_PROG {
         $stmt->fetch();
         return $result;
     }
+
+}
+
+/** Database table access for - CLAS & INTF. */
+class ABAP_DB_TABLE_SEO {
+
+    const SEOCLASS_INDEX_MAX = 13;
+    const SEOCLASS_CLSTYPE_CLAS = 0;
+    const SEOCLASS_CLSTYPE_INTF = 1;
+    const SEOCLASS = 'seoclass';            // Class/Interface
+    const SEOCLASSDF = 'seoclassdf';        // Definition of class/interface
+    const SEOCLASSTX = 'seoclasstx';        // Short description class/interface
+    const SEOCOMPO = 'seocompo';
+    const SEOCOMPOTX = 'seocompotx';
+
+    public static function SEOCLASS_List($clstype, $page) {
+        $offset = ($page - 1) * ABAP_DB_CONST::INDEX_PAGESIZE;
+        $sql = 'select * from ' . ABAP_DB_TABLE_SEO::SEOCLASS
+                . ' where `CLSTYPE` = :clstype'
+                . ' ORDER BY CLSNAME'
+                . ' LIMIT ' . ABAP_DB_CONST::INDEX_PAGESIZE 
+                . ' OFFSET ' . $offset;
+        $paras = array(
+            'clstype' => $clstype
+        );
+        return ABAP_DB_TABLE::select($sql, $paras);
+    }
+    
+    
+    public static function SEOCLASSDF($clsname) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_SEO::SEOCLASSDF
+                . ' where `CLSNAME` = :id and VERSION = 1';
+        $paras = array(
+            'id' => $clsname,
+        );
+        return current(ABAP_DB_TABLE::select($sql, $paras));
+    }    
+    
+    public static function SEOCLASSTX($clsname) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_SEO::SEOCLASSTX
+                . ' where `CLSNAME` = :id and LANGU = :langu';
+        $paras = array(
+            'id' => $clsname,
+            'langu' => $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]
+        );
+        $record = current(ABAP_DB_TABLE::select($sql, $paras));
+        return $record['DESCRIPT'];
+    }    
+    
 
 }
 

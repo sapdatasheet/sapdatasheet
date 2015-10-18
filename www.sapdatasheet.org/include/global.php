@@ -25,6 +25,10 @@ class ABAP_OTYPE {
 
     const BMFR_NAME = 'BMFR';
     const BMFR_DESC = 'Application Component';
+    const CLAS_NAME = 'CLAS';
+    const CLAS_DESC = 'Class';
+    const CUS0_NAME = 'CUS0';
+    const CUS0_DESC = 'Customizing IMG Activity';
     const CVERS_NAME = 'CVERS';
     const CVERS_DESC = 'Software Component';
     const DEVC_NAME = 'DEVC';
@@ -37,6 +41,8 @@ class ABAP_OTYPE {
     const FUNC_DESC = 'Function Module';
     const FUGR_NAME = 'FUGR';
     const FUGR_DESC = 'Function Group';
+    const INTF_NAME = 'INTF';
+    const INTF_DESC = 'Interface';
     const PROG_NAME = 'PROG';
     const PROG_DESC = 'Program';
     const SQLT_NAME = 'SQLT';
@@ -47,14 +53,8 @@ class ABAP_OTYPE {
     const TRAN_DESC = 'Transaction Code';
     const VIEW_NAME = 'VIEW';
     const VIEW_DESC = 'View';
-    const CUS0_NAME = 'CUS0';
-    const CUS0_DESC = 'Customizing IMG Activity';
     const MENU_NAME = 'MENU';
     const MENU_DESC = 'SAP Menu';
-    const INTF_NAME = 'INTF';
-    const INTF_DESC = 'ABAP Interface';
-    const CLAS_NAME = 'CLAS';
-    const CLAS_DESC = 'ABAP Class';
     const SU21_NAME = 'SU21';
     const SU21_DESC = 'Authorization Object';
     const PFCG_NAME = 'PFCG';
