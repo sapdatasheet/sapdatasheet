@@ -336,6 +336,9 @@ insert ignore into abap.seofriends select * from sapall.seofriends;
 create table if not exists abap.seoimplrel like sapall.seoimplrel;
 insert ignore into abap.seoimplrel select * from sapall.seoimplrel;
 
+create table if not exists abap.seometarel like sapall.seometarel;
+insert ignore into abap.seometarel select * from sapall.seometarel;
+
 create table if not exists abap.seosubco like sapall.seosubco;
 insert ignore into abap.seosubco select * from sapall.seosubco;
 

@@ -9,7 +9,7 @@ class WEBSITE {
     const NAME = 'SAP Datasheet';
     const DESC = 'The Best Run SAP Run SAPDatasheet';
     const TITLE = ' - SAP Datasheet - The Best Run SAP Run SAPDatasheet';
-    const META_DESC = 'Datasheet for all SAP objects: domain, data element, table, transaction code, etc';
+    const META_DESC = 'Datasheet for all SAP objects: domain, data element, table, view, class, function module, report, transaction code, IMG nodes, SAP Menu, etc';
 
 }
 
@@ -28,7 +28,7 @@ class ABAP_OTYPE {
     const CLAS_NAME = 'CLAS';
     const CLAS_DESC = 'Class';
     const CUS0_NAME = 'CUS0';
-    const CUS0_DESC = 'Customizing IMG Activity';
+    const CUS0_DESC = 'IMG Activity';
     const CVERS_NAME = 'CVERS';
     const CVERS_DESC = 'Software Component';
     const DEVC_NAME = 'DEVC';

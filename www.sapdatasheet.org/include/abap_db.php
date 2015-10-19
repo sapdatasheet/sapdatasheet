@@ -83,8 +83,7 @@ class ABAP_DB_CONST {
     const FUPARAREF_PARAMTYPE_C = "C";         // Changing
     const FUPARAREF_PARAMTYPE_T = "T";         // Tables
     const FUPARAREF_PARAMTYPE_X = "X";         // Exception
-    const TADIR_PGMID_R3TR = "R3TR";
-    const TFDIR_FMODE_SPACE = " ";     // Type of function module - Normal Function Module.
+    const TFDIR_FMODE_SPACE = " ";             // Type of function module - Normal Function Module.
     const TFDIR_FMODE_AT = "@";
     const TFDIR_FMODE_J = "J";         // Type of function module - JAVA Module Callable from ABAP.
     const TFDIR_FMODE_K = "K";         // Type of function module - Remote-Enabled JAVA Module.
@@ -1652,29 +1651,38 @@ class ABAP_DB_TABLE_PROG {
 /** Database table access for - CLAS & INTF. */
 class ABAP_DB_TABLE_SEO {
 
+    const SEOCLASS = 'seoclass';                         // Class/Interface
     const SEOCLASS_INDEX_MAX = 13;
     const SEOCLASS_CLSTYPE_CLAS = 0;
     const SEOCLASS_CLSTYPE_INTF = 1;
-    const SEOCLASS = 'seoclass';            // Class/Interface
-    const SEOCLASSDF = 'seoclassdf';        // Definition of class/interface
-    const SEOCLASSTX = 'seoclasstx';        // Short description class/interface
+
+    const SEOCLASSDF = 'seoclassdf';                     // Definition of class/interface
+    const SEOCLASSDF_EXPOSURE_DOMAIN = 'SEOCREATE';
+    const SEOCLASSDF_RSTAT_DOMAIN = 'RSTAT';
+    const SEOCLASSDF_CATEGORY_DOMAIN = 'SEOCATEGRY';
+
+    const SEOCLASSTX = 'seoclasstx';                     // Short description class/interface
     const SEOCOMPO = 'seocompo';
     const SEOCOMPOTX = 'seocompotx';
+
+    const SEOMETAREL = 'seometarel';
+    const SEOMETAREL_RELTYPE_0 = 0;                      // Interface composition    (i COMPRISING i_ref)
+    const SEOMETAREL_RELTYPE_1 = 1;                      // Interface implementation (CLASS c. INTERFACES i_ref)
+    const SEOMETAREL_RELTYPE_2 = 2;                      // Inheritance              (c INHERITING FROM c_ref)
 
     public static function SEOCLASS_List($clstype, $page) {
         $offset = ($page - 1) * ABAP_DB_CONST::INDEX_PAGESIZE;
         $sql = 'select * from ' . ABAP_DB_TABLE_SEO::SEOCLASS
                 . ' where `CLSTYPE` = :clstype'
                 . ' ORDER BY CLSNAME'
-                . ' LIMIT ' . ABAP_DB_CONST::INDEX_PAGESIZE 
+                . ' LIMIT ' . ABAP_DB_CONST::INDEX_PAGESIZE
                 . ' OFFSET ' . $offset;
         $paras = array(
             'clstype' => $clstype
         );
         return ABAP_DB_TABLE::select($sql, $paras);
     }
-    
-    
+
     public static function SEOCLASSDF($clsname) {
         $sql = 'select * from ' . ABAP_DB_TABLE_SEO::SEOCLASSDF
                 . ' where `CLSNAME` = :id and VERSION = 1';
@@ -1682,8 +1690,8 @@ class ABAP_DB_TABLE_SEO {
             'id' => $clsname,
         );
         return current(ABAP_DB_TABLE::select($sql, $paras));
-    }    
-    
+    }
+
     public static function SEOCLASSTX($clsname) {
         $sql = 'select * from ' . ABAP_DB_TABLE_SEO::SEOCLASSTX
                 . ' where `CLSNAME` = :id and LANGU = :langu';
@@ -1693,9 +1701,27 @@ class ABAP_DB_TABLE_SEO {
         );
         $record = current(ABAP_DB_TABLE::select($sql, $paras));
         return $record['DESCRIPT'];
-    }    
-    
+    }
 
+    public static function SEOMETAREL($clsname, $relatype) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_SEO::SEOMETAREL
+                . ' where `CLSNAME` = :id and RELTYPE = :rt';
+        $paras = array(
+            'id' => $clsname,
+            'rt' => $relatype
+        );
+        return ABAP_DB_TABLE::select($sql, $paras);
+    }
+
+    public static function SEOMETAREL_GetSuperClass($clsname) {
+        $super_array = ABAP_DB_TABLE_SEO::SEOMETAREL($clsname, ABAP_DB_TABLE_SEO::SEOMETAREL_RELTYPE_2);
+        if (empty($super_array)) {
+            return '';
+        } else {
+            $super = current($super_array);
+            return $super['REFCLSNAME'] ;
+        }
+    }
 }
 
 /** Database table access for - tables. */

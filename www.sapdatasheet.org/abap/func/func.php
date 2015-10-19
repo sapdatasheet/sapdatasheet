@@ -28,7 +28,7 @@ $funcgrp_desc = ABAP_DB_TABLE_FUNC::TLIBT($enlfdir['AREA']);
 $include = ABAP_DB_TABLE_FUNC::GET_INCLUDE($enlfdir['AREA'], $func['INCLUDE']);
 $progmeta = ABAP_DB_TABLE_PROG::YREPOSRCMETA($include);
 
-$hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_CONST::TADIR_PGMID_R3TR, ABAP_OTYPE::FUGR_NAME, $enlfdir['AREA']);
+$hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::FUGR_NAME, $enlfdir['AREA']);
 $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::FUNC_DESC . ' ' . $func['FUNCNAME'];
 ?>
 <html>

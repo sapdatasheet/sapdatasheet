@@ -21,7 +21,7 @@ if (empty($sqlt['SQLTAB'])) {
 $sqlt_desc = ABAP_DB_TABLE_TABL::DD06T($sqlt['SQLTAB']);
 $sqlt_sqlcalss_desc = ABAP_UI_TOOL::GetSqltDesc($sqlt['SQLCLASS']);
 $dd16s = ABAP_DB_TABLE_TABL::DD16S($sqlt['SQLTAB']);
-$hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_CONST::TADIR_PGMID_R3TR, ABAP_OTYPE::SQLT_NAME, $sqlt['SQLTAB']);
+$hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::SQLT_NAME, $sqlt['SQLTAB']);
 $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $sqlt_sqlcalss_desc . ' ' . $sqlt['SQLTAB'];
 ?>
 <html>

@@ -61,14 +61,16 @@ class ABAP_Navigation {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::DOMA_NAME, $domain, $domain, $desc, $newwin);
     }
 
-    public static function GetURLDomainValue($domain, $domainValue, $desc) {
+    public static function GetURLDomainValue($domain, $domainValue, $desc, $newwin = TRUE) {
         if (strlen(trim($domainValue)) < 1) {
             $domainValue = '&nbsp;';
         }
-
+        
+        $newWindow = ($newwin === TRUE) ? 'target="_blank"' : '';
         return "<a href=\"/abap/" . strtolower(ABAP_OTYPE::DOMA_NAME)
                 . "/" . strtolower($domain)
-                . ".html#" . ABAP_UI_TOOL::ANCHOR_VALUES . "\" title=\"" . htmlentities($desc) . "\"> "
+                . ".html#" . ABAP_UI_TOOL::ANCHOR_VALUES . "\" title=\"" . htmlentities($desc) . "\" "
+                . $newWindow . "> "
                 . $domainValue . "</a>";
     }
 

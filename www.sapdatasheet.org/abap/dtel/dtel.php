@@ -25,7 +25,7 @@ $dtel_reftype_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_DD04L_REFTY
 $dtel_datatype_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_DATATYPE, $dtel['DATATYPE']);
 $dok_de = ABAP_DB_TABLE_DTEL::YDOK_DE($dtel['ROLLNAME']);
 $dok_dz = ABAP_DB_TABLE_DTEL::YDOK_DZ($dtel['ROLLNAME']);
-$hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_CONST::TADIR_PGMID_R3TR, ABAP_OTYPE::DTEL_NAME, $dtel['ROLLNAME']);
+$hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::DTEL_NAME, $dtel['ROLLNAME']);
 $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DTEL_DESC . ' ' . $dtel['ROLLNAME'];
 ?>
 <html>
@@ -127,14 +127,28 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DTEL_DESC . ' ' . $dtel['ROLL
                 <h4> Further Characteristics </h4>
                 <table class="content_obj">
                     <tbody>
-                        <tr><td class="content_label"> Search Help: Name       </td><td class="field"> <?php echo $dtel['SHLPNAME'] ?> &nbsp;</td><td>&nbsp;</td></tr>
-                        <tr><td class="content_label"> Search Help: Parameters </td><td class="field"> <?php echo $dtel['SHLPFIELD'] ?>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td class="content_label"> Search Help: Name       </td>
+                            <td class="field"> <?php echo $dtel['SHLPNAME'] ?> &nbsp;</td>
+                            <td>&nbsp;</td></tr>
+                        <tr><td class="content_label"> Search Help: Parameters </td>
+                            <td class="field"> <?php echo $dtel['SHLPFIELD'] ?>&nbsp;</td>
+                            <td>&nbsp;</td></tr>
                         <tr><td class="content_label"> Parameter ID </td><td class="field"> <?php echo $dtel['MEMORYID'] ?>&nbsp;</td><td>&nbsp;</td></tr>
-                        <tr><td class="content_label"> Default Component name </td><td class="field"> <?php echo $dtel['DEFFDNAME'] ?>&nbsp;</td><td>&nbsp;</td></tr>
-                        <tr><td class="content_label"> Change document  </td><td> <?php echo ABAP_UI_TOOL::GetCheckBox('LOGFLAG', $dtel['LOGFLAG']) ?>&nbsp;</td><td>&nbsp;</td></tr>
-                        <tr><td class="content_label"> No Input History </td><td> <?php echo ABAP_UI_TOOL::GetCheckBox("NOHISTORY", $dtel['NOHISTORY']) ?>&nbsp;</td><td>&nbsp;</td></tr>
-                        <tr><td class="content_label"> Basic direction is set to LTR  </td><td> <?php echo ABAP_UI_TOOL::GetCheckBox("LTR", $dtel['LTRFLDDIS']) ?>&nbsp;</td><td>&nbsp;</td></tr>
-                        <tr><td class="content_label"> No BIDI Filtering </td><td> <?php echo ABAP_UI_TOOL::GetCheckBox("BI", $dtel['BIDICTRLC']) ?>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td class="content_label"> Default Component name </td>
+                            <td class="field"> <?php echo $dtel['DEFFDNAME'] ?>&nbsp;</td>
+                            <td>&nbsp;</td></tr>
+                        <tr><td class="content_label"> Change document  </td>
+                            <td><?php echo ABAP_UI_TOOL::GetCheckBox('LOGFLAG', $dtel['LOGFLAG']) ?>&nbsp;</td>
+                            <td>&nbsp;</td></tr>
+                        <tr><td class="content_label"> No Input History </td>
+                            <td><?php echo ABAP_UI_TOOL::GetCheckBox("NOHISTORY", $dtel['NOHISTORY']) ?>&nbsp;</td>
+                            <td>&nbsp;</td></tr>
+                        <tr><td class="content_label"> Basic direction is set to LTR  </td>
+                            <td><?php echo ABAP_UI_TOOL::GetCheckBox("LTR", $dtel['LTRFLDDIS']) ?>&nbsp;</td>
+                            <td>&nbsp;</td></tr>
+                        <tr><td class="content_label"> No BIDI Filtering </td>
+                            <td><?php echo ABAP_UI_TOOL::GetCheckBox("BI", $dtel['BIDICTRLC']) ?>&nbsp;</td>
+                            <td>&nbsp;</td></tr>
                     </tbody>
                 </table>
 

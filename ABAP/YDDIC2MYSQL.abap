@@ -11,6 +11,7 @@ TABLES dd03l.
 
 SELECT-OPTIONS it_tname FOR dd03l-tabname OBLIGATORY.
 PARAMETER iv_drop TYPE flag AS CHECKBOX DEFAULT 'X'.
+PARAMETER iv_mtxt TYPE flag AS CHECKBOX DEFAULT ' '. " Convert String as Medium Text (<=16MB text)
 
 
 TYPES: BEGIN OF ts_ddic2mysql,
@@ -108,17 +109,21 @@ FORM init.
   ls_tname-low = 'SCUS_HIER'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'SEOCLASS'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'SEOCLASSDF'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'SEOCLASSTX'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'SEOCOMPO'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'SEOCOMPODF'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'SEOCOMPOTX'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'SEOFRIENDS'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'SEOIMPLREL'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'SEOMETAREL'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'SEOSUBCO'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'SEOSUBCODF'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'SEOTYPEPLS'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'SFW_SWITCH'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'SFW_SWITCHT'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'T002T'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'T005'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'T005T'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'TACT'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'TACTT'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'TACTZ'. APPEND ls_tname TO it_tname.
@@ -435,6 +440,9 @@ FORM ddictype2mysqltype
       MOVE i_leng TO e_mysqltype.
       CONCATENATE '(' e_mysqltype ')' INTO e_mysqltype.
       CONCATENATE lv_mysqltype e_mysqltype INTO e_mysqltype.
+      IF iv_mtxt eq 'X' and i_datatype EQ 'STRG'.
+        MOVE ' MEDIUMTEXT' to e_mysqltype.
+      ENDIF.
     WHEN mysql_int.
       e_mysqltype = 'int(11)'.
     WHEN mysql_decimal.

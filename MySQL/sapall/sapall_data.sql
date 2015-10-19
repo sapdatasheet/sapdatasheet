@@ -799,6 +799,9 @@ insert ignore into sapall.seofriends select * from saperp6ehp7.seofriends;
 create table if not exists sapall.seoimplrel like saperp6ehp7.seoimplrel;
 insert ignore into sapall.seoimplrel select * from saperp6ehp7.seoimplrel;
 
+create table if not exists sapall.seometarel like saperp6ehp7.seometarel;
+insert ignore into sapall.seometarel select * from saperp6ehp7.seometarel;
+
 create table if not exists sapall.seosubco like saperp6ehp7.seosubco;
 insert ignore into sapall.seosubco select * from saperp6ehp7.seosubco;
 

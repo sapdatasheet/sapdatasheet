@@ -21,7 +21,7 @@ if (empty($df14l['FCTR_ID'])) {
 
 $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::BMFR_DESC . ' ' . $df14l['PS_POSID'] . ' (' . $df14l['FCTR_ID'] . ')';
 $df14l_desc = ABAP_DB_TABLE_HIER::DF14T($ObjID);
-$hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_CONST::TADIR_PGMID_R3TR, ABAP_OTYPE::BMFR_NAME, $df14l['FCTR_ID']);
+$hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::BMFR_NAME, $df14l['FCTR_ID']);
 $child_bmfr = ABAP_DB_TABLE_HIER::DF14L_Child($df14l['PS_POSID'], $df14l['FCTR_ID']);
 $child_tdevc = ABAP_DB_TABLE_HIER::TDEVC_DEVCLASS($df14l['FCTR_ID']);
 ?>
