@@ -27,10 +27,16 @@ $package_tx = ABAP_DB_TABLE_HIER::TDEVCT($classdef['CATEGORY']);
 
 $class_tx = htmlentities(ABAP_DB_TABLE_SEO::SEOCLASSTX($ObjID));
 $class_super = ABAP_DB_TABLE_SEO::SEOMETAREL_GetSuperClass($ObjID);
-$class_super_tx = '';
 if (empty($class_super) === FALSE) {
     $class_super_tx = htmlentities(ABAP_DB_TABLE_SEO::SEOCLASSTX($class_super));
+} else {
+    $class_super_tx = '';
 }
+
+$typepls = ABAP_DB_TABLE_SEO::SEOTYPEPLS($ObjID);
+$interfaces = ABAP_DB_TABLE_SEO::SEOMETAREL($ObjID, ABAP_DB_TABLE_SEO::SEOMETAREL_RELTYPE_1);
+$friends = ABAP_DB_TABLE_SEO::SEOFRIENDS($ObjID);
+$attributes = ABAP_DB_TABLE_SEO::SEOCOMPO($ObjID, ABAP_DB_TABLE_SEO::SEOCOMPO_CMPTYPE_0);
 
 $hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::CLAS_NAME, $ObjID);
 $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::CLAS_DESC . ' ' . $ObjID . ' - ' . $class_tx;
@@ -170,7 +176,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::CLAS_DESC . ' ' . $ObjID . ' 
                             <td> &nbsp;</td>
                             <td>&nbsp; </td>
                         </tr>
-                         -->
+                        -->
                         <tr><td class="content_label"> Fixed point arithmetic </td>
                             <td><?php echo ABAP_UI_TOOL::GetCheckBox("FIXPT", $classdef['FIXPT']) ?> &nbsp;</td>
                             <td>&nbsp; </td>
@@ -182,10 +188,97 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::CLAS_DESC . ' ' . $ObjID . ' 
                     </tbody>
                 </table>
 
-                <h4> Type group / Object type </h4>
+                <h4> Forward declarations </h4>
+                <?php if (empty($typepls) === FALSE) { ?>
+                    <table class="alv">
+                        <tr>
+                            <th class="alv"> # </th>
+                            <th class="alv"> Type group / Object type </th>
+                            <th class="alv"> Type </th>
+                            <th class="alv"> Type Description</th>
+                        </tr>
+                        <?php
+                        $count = 0;
+                        foreach ($typepls as $typepl) {
+                            $count++;
+                            $typepl_type_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SEO::SEOTYPEPLS_TPUTYPE_DOMAIN, $typepl['TPUTYPE']);
+                            if ($typepl['TPUTYPE'] == ABAP_DB_TABLE_SEO::SEOTYPEPLS_TPUTYPE_1 || $typepl['TPUTYPE'] == ABAP_DB_TABLE_SEO::SEOTYPEPLS_TPUTYPE_2) {
+                                $typepl_type = ABAP_Navigation::GetURLClass($typepl['TYPEGROUP'], NULL);
+                            } else {
+                                $typepl_type = $typepl['TYPEGROUP'];
+                            }
+                            ?>
+                            <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                                <td class="alv"><?php echo $typepl_type ?></td>
+                                <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOTYPEPLS_TPUTYPE_DOMAIN, $typepl['TPUTYPE'], $typepl_type_desc) ?>&nbsp;</td>
+                                <td class="alv"><?php echo $typepl_type_desc ?></td>
+                            </tr>
+                        <?php } ?>
+                    </table>                
+                <?php } else { ?>
+                    <code>Class <?php echo $ObjID ?> has no forward declaration.</code>
+                <?php } ?>
+
                 <h4> Interfaces </h4>
+                <?php if (empty($interfaces) === FALSE) { ?>
+                    <table class="alv">
+                        <tr>
+                            <th class="alv"> # </th>
+                            <th class="alv"> Interface </th>
+                            <th class="alv"> Abstract </th>
+                            <th class="alv"> Final </th>
+                            <th class="alv"> Description</th>
+                        </tr>
+                        <?php
+                        $count = 0;
+                        foreach ($interfaces as $interface) {
+                            $count++;
+                            $interface_tx = ABAP_DB_TABLE_SEO::SEOCLASSTX($interface['REFCLSNAME']);
+                            ?>
+                            <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                                <td class="alv"><?php echo ABAP_Navigation::GetURLInterface($interface['REFCLSNAME'], $interface_tx) ?></td>
+                                <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox("IMPABSTRCT", $interface['IMPABSTRCT']) ?></td>
+                                <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox("IMPFINAL", $interface['IMPFINAL']) ?></td>
+                                <td class="alv"><?php echo $interface_tx ?></td>
+                            </tr>
+                        <?php } ?>
+                    </table>                
+                <?php } else { ?>
+                    <code>Class <?php echo $ObjID ?> has interface implemented.</code>
+                <?php } ?>
+                
                 <h4> Friends </h4>
+                <?php if (empty($friends) === FALSE) { ?>
+                    <table class="alv">
+                        <tr>
+                            <th class="alv"> # </th>
+                            <th class="alv"> Friend </th>
+                            <th class="alv"> Modeled only </th>
+                            <th class="alv"> Created on </th>
+                            <th class="alv"> Description</th>
+                        </tr>
+                        <?php
+                        $count = 0;
+                        foreach ($friends as $friend) {
+                            $count++;
+                            $friend_tx = ABAP_DB_TABLE_SEO::SEOCLASSTX($friend['REFCLSNAME']);
+                            $friend_state = ($friend['STATE'] == 1) ? '' : 'X';
+                            ?>
+                            <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                                <td class="alv"><?php echo ABAP_Navigation::GetURLClass($friend['REFCLSNAME'], $friend_tx) ?></td>
+                                <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox("IMPABSTRCT", $friend_state) ?></td>
+                                <td class="alv"><?php echo $friend['CREATEDON'] ?></td>
+                                <td class="alv"><?php echo $friend_tx ?></td>
+                            </tr>
+                        <?php } ?>
+                    </table>                
+                <?php } else { ?>
+                    <code>Class <?php echo $ObjID ?> has no friend class.</code>
+                <?php } ?>
+                
                 <h4> Attributes </h4>
+
+
                 <h4> Methods </h4>
                 <h4> Events </h4>
                 <h4> Types </h4>
@@ -214,3 +307,4 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::CLAS_DESC . ' ' . $ObjID . ' 
 // Close PDO Database Connection
 ABAP_DB_TABLE::close_conn();
 ?>
+<?php ?>

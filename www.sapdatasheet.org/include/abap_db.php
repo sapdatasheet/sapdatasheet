@@ -1655,20 +1655,32 @@ class ABAP_DB_TABLE_SEO {
     const SEOCLASS_INDEX_MAX = 13;
     const SEOCLASS_CLSTYPE_CLAS = 0;
     const SEOCLASS_CLSTYPE_INTF = 1;
-
     const SEOCLASSDF = 'seoclassdf';                     // Definition of class/interface
     const SEOCLASSDF_EXPOSURE_DOMAIN = 'SEOCREATE';
     const SEOCLASSDF_RSTAT_DOMAIN = 'RSTAT';
     const SEOCLASSDF_CATEGORY_DOMAIN = 'SEOCATEGRY';
-
     const SEOCLASSTX = 'seoclasstx';                     // Short description class/interface
     const SEOCOMPO = 'seocompo';
+    const SEOCOMPO_CMPTYPE_0 = 0;                        // Attribute
+    const SEOCOMPO_CMPTYPE_1 = 1;                        // Method
+    const SEOCOMPO_CMPTYPE_2 = 2;                        // Event
+    const SEOCOMPO_CMPTYPE_3 = 3;                        // Type
+    const SEOCOMPODF = 'seocompodf';
     const SEOCOMPOTX = 'seocompotx';
-
+    const SEOFRIENDS = 'seofriends';
     const SEOMETAREL = 'seometarel';
     const SEOMETAREL_RELTYPE_0 = 0;                      // Interface composition    (i COMPRISING i_ref)
     const SEOMETAREL_RELTYPE_1 = 1;                      // Interface implementation (CLASS c. INTERFACES i_ref)
     const SEOMETAREL_RELTYPE_2 = 2;                      // Inheritance              (c INHERITING FROM c_ref)
+    const SEOTYPEPLS = 'seotypepls';
+    const SEOTYPEPLS_TPUTYPE_DOMAIN = 'SEOTPUTYPE';
+    const SEOTYPEPLS_TPUTYPE_0 = 0;                      // Type group use                (TYPE-POOLS tp)
+    const SEOTYPEPLS_TPUTYPE_1 = 1;                      // Forward declaration class     (CLASS c DEFINITION DEFERRED)
+    const SEOTYPEPLS_TPUTYPE_2 = 2;                      // Forward declaration interface (INTERFACE i DEFINITION DEF...
+
+    /**
+     * List the classes/interfaces.
+     */
 
     public static function SEOCLASS_List($clstype, $page) {
         $offset = ($page - 1) * ABAP_DB_CONST::INDEX_PAGESIZE;
@@ -1683,6 +1695,9 @@ class ABAP_DB_TABLE_SEO {
         return ABAP_DB_TABLE::select($sql, $paras);
     }
 
+    /**
+     * Classes/Interfaces definition.
+     */
     public static function SEOCLASSDF($clsname) {
         $sql = 'select * from ' . ABAP_DB_TABLE_SEO::SEOCLASSDF
                 . ' where `CLSNAME` = :id and VERSION = 1';
@@ -1692,6 +1707,9 @@ class ABAP_DB_TABLE_SEO {
         return current(ABAP_DB_TABLE::select($sql, $paras));
     }
 
+    /**
+     * Classes/Interfaces description.
+     */
     public static function SEOCLASSTX($clsname) {
         $sql = 'select * from ' . ABAP_DB_TABLE_SEO::SEOCLASSTX
                 . ' where `CLSNAME` = :id and LANGU = :langu';
@@ -1703,6 +1721,62 @@ class ABAP_DB_TABLE_SEO {
         return $record['DESCRIPT'];
     }
 
+    /**
+     * Class/Interface component.
+     */
+    public static function SEOCOMPO($clsname, $cmptype) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_SEO::SEOCOMPO
+                . ' where `CLSNAME` = :id and CMPTYPE = :ct order by CMPNAME';
+        $paras = array(
+            'id' => $clsname,
+            'ct' => $cmptype,
+        );
+        return ABAP_DB_TABLE::select($sql, $paras);
+    }
+    
+    /**
+     * Definition class/interface component.
+     */
+    public static function SEOCOMPODF($clsname, $cmpname) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_SEO::SEOCOMPO
+                . ' where `CLSNAME` = :id and `CMPNAME` = :cn';
+        $paras = array(
+            'id' => $clsname,
+            'cn' => $cmpname,
+        );
+        return current(ABAP_DB_TABLE::select($sql, $paras));
+    }
+    
+    /**
+     * Short description class/interface component.
+     */
+    public static function SEOCOMPOTX($clsname, $cmpname) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_SEO::SEOCOMPOTX
+                . ' where `CLSNAME` = :id and CMPNAME = :cn and LANGU = :lg';
+        $paras = array(
+            'id' => $clsname,
+            'cn' => $cmpname,
+            'lg' => $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]
+        );
+        $record = current(ABAP_DB_TABLE::select($sql, $paras));
+        return $record['DESCRIPT'];
+    }    
+
+    /**
+     * Friend relationship.
+     */
+    public static function SEOFRIENDS($clsname) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_SEO::SEOFRIENDS
+                . ' where `CLSNAME` = :id';
+        $paras = array(
+            'id' => $clsname,
+        );
+        return ABAP_DB_TABLE::select($sql, $paras);
+    }
+
+    /**
+     * Classes/Interfaces relationship: interfaces, super classes.
+     */
     public static function SEOMETAREL($clsname, $relatype) {
         $sql = 'select * from ' . ABAP_DB_TABLE_SEO::SEOMETAREL
                 . ' where `CLSNAME` = :id and RELTYPE = :rt';
@@ -1713,15 +1787,31 @@ class ABAP_DB_TABLE_SEO {
         return ABAP_DB_TABLE::select($sql, $paras);
     }
 
+    /**
+     * Get super class of a class.
+     */
     public static function SEOMETAREL_GetSuperClass($clsname) {
         $super_array = ABAP_DB_TABLE_SEO::SEOMETAREL($clsname, ABAP_DB_TABLE_SEO::SEOMETAREL_RELTYPE_2);
         if (empty($super_array)) {
             return '';
         } else {
             $super = current($super_array);
-            return $super['REFCLSNAME'] ;
+            return $super['REFCLSNAME'];
         }
     }
+
+    /**
+     * Load forward declarations.
+     */
+    public static function SEOTYPEPLS($clsname) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_SEO::SEOTYPEPLS
+                . ' where `CLSNAME` = :id';
+        $paras = array(
+            'id' => $clsname,
+        );
+        return ABAP_DB_TABLE::select($sql, $paras);
+    }
+
 }
 
 /** Database table access for - tables. */

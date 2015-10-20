@@ -82,6 +82,10 @@ class ABAP_Navigation {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::FUNC_NAME, $fm, $fm, $desc, $newwin);
     }
 
+    public static function GetURLInterface($intf, $desc, $newwin = TRUE) {
+        return ABAP_Navigation::GetURL(ABAP_OTYPE::INTF_NAME, $intf, $intf, $desc, $newwin);
+    }
+
     public static function GetURLFuncGroup($fg, $desc, $newwin = TRUE) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::FUGR_NAME, $fg, $fg, $desc, $newwin);
     }
