@@ -1653,8 +1653,8 @@ class ABAP_DB_TABLE_SEO {
 
     const SEOCLASS = 'seoclass';                         // Class/Interface
     const SEOCLASS_INDEX_MAX = 13;
-    const SEOCLASS_CLSTYPE_CLAS = 0;
-    const SEOCLASS_CLSTYPE_INTF = 1;
+    const SEOCLASS_CLSTYPE_CLAS = 0;                     // Class
+    const SEOCLASS_CLSTYPE_INTF = 1;                     // Interface
     const SEOCLASSDF = 'seoclassdf';                     // Definition of class/interface
     const SEOCLASSDF_EXPOSURE_DOMAIN = 'SEOCREATE';
     const SEOCLASSDF_RSTAT_DOMAIN = 'RSTAT';
@@ -1665,7 +1665,17 @@ class ABAP_DB_TABLE_SEO {
     const SEOCOMPO_CMPTYPE_1 = 1;                        // Method
     const SEOCOMPO_CMPTYPE_2 = 2;                        // Event
     const SEOCOMPO_CMPTYPE_3 = 3;                        // Type
+    const SEOCOMPO_MTDTYPE_DOMAIN = 'SEOMTDTYPE';
     const SEOCOMPODF = 'seocompodf';
+    const SEOCOMPODF_ATTDECLTYP_0 = 0;                   // Instance attribute
+    const SEOCOMPODF_ATTDECLTYP_1 = 1;                   // Static Attribute
+    const SEOCOMPODF_ATTDECLTYP_2 = 2;                   // Constant
+    const SEOCOMPODF_ATTDECLTYP_DOMAIN = 'SEOATTDECL';
+    const SEOCOMPODF_EXPOSURE_DOMAIN = 'SEOEXPOSE';
+    const SEOCOMPODF_TYPTYPE_DOMAIN = 'SEOTYPTYPE';
+    const SEOCOMPODF_MTDDECLTYP_DOMAIN = 'SEOMTDDECL';
+    
+    const SEOCOMPODF_TYPTYPE_3 = 3;                      // Object reference (TYPE REF TO)
     const SEOCOMPOTX = 'seocompotx';
     const SEOFRIENDS = 'seofriends';
     const SEOMETAREL = 'seometarel';
@@ -1695,6 +1705,18 @@ class ABAP_DB_TABLE_SEO {
         return ABAP_DB_TABLE::select($sql, $paras);
     }
 
+    /**
+     * Classes/Interfaces.
+     */
+    public static function SEOCLASS($clsname) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_SEO::SEOCLASS
+                . ' where `CLSNAME` = :id';
+        $paras = array(
+            'id' => $clsname,
+        );
+        return current(ABAP_DB_TABLE::select($sql, $paras));
+    }
+    
     /**
      * Classes/Interfaces definition.
      */
@@ -1738,7 +1760,7 @@ class ABAP_DB_TABLE_SEO {
      * Definition class/interface component.
      */
     public static function SEOCOMPODF($clsname, $cmpname) {
-        $sql = 'select * from ' . ABAP_DB_TABLE_SEO::SEOCOMPO
+        $sql = 'select * from ' . ABAP_DB_TABLE_SEO::SEOCOMPODF
                 . ' where `CLSNAME` = :id and `CMPNAME` = :cn';
         $paras = array(
             'id' => $clsname,

@@ -37,6 +37,9 @@ $typepls = ABAP_DB_TABLE_SEO::SEOTYPEPLS($ObjID);
 $interfaces = ABAP_DB_TABLE_SEO::SEOMETAREL($ObjID, ABAP_DB_TABLE_SEO::SEOMETAREL_RELTYPE_1);
 $friends = ABAP_DB_TABLE_SEO::SEOFRIENDS($ObjID);
 $attributes = ABAP_DB_TABLE_SEO::SEOCOMPO($ObjID, ABAP_DB_TABLE_SEO::SEOCOMPO_CMPTYPE_0);
+$methods = ABAP_DB_TABLE_SEO::SEOCOMPO($ObjID, ABAP_DB_TABLE_SEO::SEOCOMPO_CMPTYPE_1);
+$events = ABAP_DB_TABLE_SEO::SEOCOMPO($ObjID, ABAP_DB_TABLE_SEO::SEOCOMPO_CMPTYPE_2);
+$types = ABAP_DB_TABLE_SEO::SEOCOMPO($ObjID, ABAP_DB_TABLE_SEO::SEOCOMPO_CMPTYPE_3);
 
 $hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::CLAS_NAME, $ObjID);
 $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::CLAS_DESC . ' ' . $ObjID . ' - ' . $class_tx;
@@ -246,7 +249,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::CLAS_DESC . ' ' . $ObjID . ' 
                 <?php } else { ?>
                     <code>Class <?php echo $ObjID ?> has interface implemented.</code>
                 <?php } ?>
-                
+
                 <h4> Friends </h4>
                 <?php if (empty($friends) === FALSE) { ?>
                     <table class="alv">
@@ -275,11 +278,110 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::CLAS_DESC . ' ' . $ObjID . ' 
                 <?php } else { ?>
                     <code>Class <?php echo $ObjID ?> has no friend class.</code>
                 <?php } ?>
-                
-                <h4> Attributes </h4>
 
+                <h4> Attributes </h4>
+                <?php if (empty($attributes) === FALSE) { ?>
+                    <table class="alv">
+                        <tr>
+                            <th class="alv"> # </th>
+                            <th class="alv"> Attribute </th>
+                            <th class="alv"> Level </th>
+                            <th class="alv"> Visibility </th>
+                            <th class="alv"> Read only</th>
+                            <th class="alv"> Typing </th>
+                            <th class="alv"> Associated Type </th>
+                            <th class="alv"> Initial Value </th>
+                            <th class="alv"> Description </th>
+                            <th class="alv"> Created on </th>
+                        </tr>
+                        <?php
+                        $count = 0;
+                        foreach ($attributes as $attribute) {
+                            $count++;
+                            $seocomp_tx = ABAP_DB_TABLE_SEO::SEOCOMPOTX($ObjID, $attribute['CMPNAME']);
+                            $seocomp_df = ABAP_DB_TABLE_SEO::SEOCOMPODF($ObjID, $attribute['CMPNAME']);
+                            $attribute_level_tx = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SEO::SEOCOMPODF_ATTDECLTYP_DOMAIN, $seocomp_df['ATTDECLTYP']);
+                            $seocomp_visibility_tx = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SEO::SEOCOMPODF_EXPOSURE_DOMAIN, $seocomp_df['EXPOSURE']);
+                            $seocomp_typing_tx = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SEO::SEOCOMPODF_TYPTYPE_DOMAIN, $seocomp_df['TYPTYPE']);
+                            ?>
+                            <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                                <td class="alv"><?php echo $seocomp_df['CMPNAME'] ?></td>
+                                <td class="alv"><?php echo $attribute_level_tx ?>
+                                    <br/>(<?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_ATTDECLTYP_DOMAIN, $seocomp_df['ATTDECLTYP'], $attribute_level_tx) ?>) 
+                                </td>
+                                <td class="alv"><?php echo $seocomp_visibility_tx ?>
+                                    <br/>(<?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_EXPOSURE_DOMAIN, $seocomp_df['EXPOSURE'], $seocomp_visibility_tx) ?>) 
+                                </td>
+                                <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox('ATTRDONLY', $seocomp_df['ATTRDONLY']) ?></td>
+                                <td class="alv"><?php echo $seocomp_typing_tx ?>
+                                    <br/>(<?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_TYPTYPE_DOMAIN, $seocomp_df['TYPTYPE'], $seocomp_typing_tx) ?>) 
+                                </td>
+                                <td class="alv"><?php
+                                    if ($seocomp_df['TYPTYPE'] == ABAP_DB_TABLE_SEO::SEOCOMPODF_TYPTYPE_3) {
+                                        $clstype = ABAP_DB_TABLE_SEO::SEOCLASS($seocomp_df['TYPE']);
+                                        if ($clstype['CLSTYPE'] == ABAP_DB_TABLE_SEO::SEOCLASS_CLSTYPE_CLAS) {
+                                            echo ABAP_Navigation::GetURLClass($seocomp_df['TYPE'], NULL);
+                                        } else {
+                                            echo ABAP_Navigation::GetURLInterface($seocomp_df['TYPE'], NULL);
+                                        }
+                                    } else {
+                                        echo $seocomp_df['TYPE'];
+                                    }
+                                    ?></td>
+                                <td class="alv"><?php echo $seocomp_df['ATTVALUE'] ?></td>
+                                <td class="alv"><?php echo $seocomp_tx ?></td>
+                                <td class="alv"><?php echo $seocomp_df['CREATEDON'] ?></td>
+                            </tr>
+                        <?php } ?>
+                    </table>                
+                <?php } else { ?>
+                    <code>Class <?php echo $ObjID ?> has no attribute.</code>
+                <?php } ?>
 
                 <h4> Methods </h4>
+                <?php if (empty($methods) === FALSE) { ?>
+                    <table class="alv">
+                        <tr>
+                            <th class="alv"> # </th>
+                            <th class="alv"> Method </th>
+                            <th class="alv"> Level </th>
+                            <th class="alv"> Visibility </th>
+                            <th class="alv"> Method type </th>
+                            <th class="alv"> Description </th>
+                            <th class="alv"> Created on </th>
+                        </tr>
+                        <?php
+                        $count = 0;
+                        foreach ($methods as $method) {
+                            $count++;
+                            $seocomp_tx = ABAP_DB_TABLE_SEO::SEOCOMPOTX($ObjID, $method['CMPNAME']);
+                            $seocomp_df = ABAP_DB_TABLE_SEO::SEOCOMPODF($ObjID, $method['CMPNAME']);
+                            $method_level_tx = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SEO::SEOCOMPODF_MTDDECLTYP_DOMAIN, $seocomp_df['MTDDECLTYP']);
+                            $seocomp_visibility_tx = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SEO::SEOCOMPODF_EXPOSURE_DOMAIN, $seocomp_df['EXPOSURE']);
+                            $seocomp_typing_tx = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SEO::SEOCOMPODF_TYPTYPE_DOMAIN, $seocomp_df['TYPTYPE']);
+                            $method_type_tx = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SEO::SEOCOMPO_MTDTYPE_DOMAIN, $method['MTDTYPE']);
+                            ?>
+                            <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                                <td class="alv"><?php echo $seocomp_df['CMPNAME'] ?></td>
+                                <td class="alv"><?php echo $method_level_tx ?>
+                                    <br/>(<?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_MTDDECLTYP_DOMAIN, $seocomp_df['MTDDECLTYP'], $method_level_tx) ?>) 
+                                </td>
+                                <td class="alv"><?php echo $seocomp_visibility_tx ?>
+                                    <br/>(<?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_EXPOSURE_DOMAIN, $seocomp_df['EXPOSURE'], $seocomp_visibility_tx) ?>) 
+                                </td>
+                                <td class="alv"><?php echo $method_type_tx ?>
+                                    <br/>(<?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_MTDDECLTYP_DOMAIN, $method['MTDTYPE'], $method_type_tx) ?>) 
+                                </td>
+                                <td class="alv"><?php echo $seocomp_tx ?></td>
+                                <td class="alv"><?php echo $seocomp_df['CREATEDON'] ?></td>
+                            </tr>
+                        <?php } ?>
+                    </table>                
+                <?php } else { ?>
+                    <code>Class <?php echo $ObjID ?> has no attribute.</code>
+                <?php } ?>
+                
+                
                 <h4> Events </h4>
                 <h4> Types </h4>
                 <h4> Texts </h4>
