@@ -1674,7 +1674,7 @@ class ABAP_DB_TABLE_SEO {
     const SEOCOMPODF_EXPOSURE_DOMAIN = 'SEOEXPOSE';
     const SEOCOMPODF_TYPTYPE_DOMAIN = 'SEOTYPTYPE';
     const SEOCOMPODF_MTDDECLTYP_DOMAIN = 'SEOMTDDECL';
-    
+    const SEOCOMPODF_EVTDECLTYP_DOMAIN = 'SEOEVTDECL';
     const SEOCOMPODF_TYPTYPE_3 = 3;                      // Object reference (TYPE REF TO)
     const SEOCOMPOTX = 'seocompotx';
     const SEOFRIENDS = 'seofriends';
@@ -1682,6 +1682,11 @@ class ABAP_DB_TABLE_SEO {
     const SEOMETAREL_RELTYPE_0 = 0;                      // Interface composition    (i COMPRISING i_ref)
     const SEOMETAREL_RELTYPE_1 = 1;                      // Interface implementation (CLASS c. INTERFACES i_ref)
     const SEOMETAREL_RELTYPE_2 = 2;                      // Inheritance              (c INHERITING FROM c_ref)
+    const SEOSUBCO = 'seosubco';
+    const SEOSUBCODF = 'seosubcodf';
+    const SEOSUBCODF_SCOTYPE_0 = 0;                      // Parameters
+    const SEOSUBCODF_SCOTYPE_1 = 1;                      // Exception
+    const SEOSUBCOTX = 'seosubcotx';
     const SEOTYPEPLS = 'seotypepls';
     const SEOTYPEPLS_TPUTYPE_DOMAIN = 'SEOTPUTYPE';
     const SEOTYPEPLS_TPUTYPE_0 = 0;                      // Type group use                (TYPE-POOLS tp)
@@ -1755,7 +1760,7 @@ class ABAP_DB_TABLE_SEO {
         );
         return ABAP_DB_TABLE::select($sql, $paras);
     }
-    
+        
     /**
      * Definition class/interface component.
      */
@@ -1821,7 +1826,51 @@ class ABAP_DB_TABLE_SEO {
             return $super['REFCLSNAME'];
         }
     }
+    
+    /**
+     * Class/interface subcomponent.
+     */
+    public static function SEOSUBCO($clsname, $cmpname) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_SEO::SEOSUBCO
+                . ' where `CLSNAME` = :cls and CMPNAME = :cmp'
+                . ' order by SCONAME';
+        $paras = array(
+            'cls' => $clsname,
+            'cmp' => $cmpname,
+        );
+        return ABAP_DB_TABLE::select($sql, $paras);
+    }
+    
+    /**
+     * Definition class/interface subcomponent.
+     */
+    public static function SEOSUBCODF($clsname, $cmpname, $sconame) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_SEO::SEOSUBCODF
+                . ' where `CLSNAME` = :cls and `CMPNAME` = :cmp and SCONAME = :sco';
+        $paras = array(
+            'cls' => $clsname,
+            'cmp' => $cmpname,
+            'sco' => $sconame,
+        );
+        return current(ABAP_DB_TABLE::select($sql, $paras));
+    }    
 
+    /**
+     * Class/interface subcomponent short description.
+     */
+    public static function SEOSUBCOTX($clsname, $cmpname, $sconame) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_SEO::SEOSUBCOTX
+                . ' where `CLSNAME` = :cls and `CMPNAME` = :cmp and SCONAME = :sco';
+        $paras = array(
+            'cls' => $clsname,
+            'cmp' => $cmpname,
+            'sco' => $sconame,
+        );
+        $record = current(ABAP_DB_TABLE::select($sql, $paras));
+        return $record['DESCRIPT'];
+    }
+    
+    
     /**
      * Load forward declarations.
      */

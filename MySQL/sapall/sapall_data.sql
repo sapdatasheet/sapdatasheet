@@ -808,6 +808,9 @@ insert ignore into sapall.seosubco select * from saperp6ehp7.seosubco;
 create table if not exists sapall.seosubcodf like saperp6ehp7.seosubcodf;
 insert ignore into sapall.seosubcodf select * from saperp6ehp7.seosubcodf;
 
+create table if not exists sapall.seosubcotx like saperp6ehp7.seosubcotx;
+insert ignore into sapall.seosubcotx select * from saperp6ehp7.seosubcotx;
+
 create table if not exists sapall.seotypepls like saperp6ehp7.seotypepls;
 insert ignore into sapall.seotypepls select * from saperp6ehp7.seotypepls;
 

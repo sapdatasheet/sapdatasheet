@@ -365,6 +365,13 @@ class ABAP_UI_TOOL {
             return "<input type=\"checkbox\" name=\"" . $Name . "\"  disabled=\"disabled\" />";
         }
     }
+    
+    /**
+     * Get Class Method Anchor name.
+     */
+    public static function GetClassMethodAnchorName($method){
+        return strtolower(ABAP_DB_TABLE_SEO::SEOCOMPO . '-' . $method);
+    }
 
     /**
      * Get radio box UI control.

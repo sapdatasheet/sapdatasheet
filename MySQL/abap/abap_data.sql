@@ -345,6 +345,9 @@ insert ignore into abap.seosubco select * from sapall.seosubco;
 create table if not exists abap.seosubcodf like sapall.seosubcodf;
 insert ignore into abap.seosubcodf select * from sapall.seosubcodf;
 
+create table if not exists abap.seosubcotx like sapall.seosubcotx;
+insert ignore into abap.seosubcotx select * from sapall.seosubcotx;  -- Mainly EN, DE language
+
 create table if not exists abap.seotypepls like sapall.seotypepls;
 insert ignore into abap.seotypepls select * from sapall.seotypepls;
 
