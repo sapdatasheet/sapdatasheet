@@ -213,7 +213,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::CLAS_DESC . ' ' . $ObjID . ' 
                             ?>
                             <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
                                 <td class="alv"><?php echo $typepl_type ?></td>
-                                <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOTYPEPLS_TPUTYPE_DOMAIN, $typepl['TPUTYPE'], $typepl_type_desc) ?>&nbsp;</td>
+                                <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOTYPEPLS_TPUTYPE_DOMAIN, $typepl_type_desc, $typepl['TPUTYPE']) ?>&nbsp;</td>
                                 <td class="alv"><?php echo $typepl_type_desc ?></td>
                             </tr>
                         <?php } ?>
@@ -306,16 +306,10 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::CLAS_DESC . ' ' . $ObjID . ' 
                             ?>
                             <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
                                 <td class="alv"><?php echo $seocomp_df['CMPNAME'] ?></td>
-                                <td class="alv"><?php echo $attribute_level_tx ?>
-                                    <br/>(<?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_ATTDECLTYP_DOMAIN, $seocomp_df['ATTDECLTYP'], $attribute_level_tx) ?>)
-                                </td>
-                                <td class="alv"><?php echo $seocomp_visibility_tx ?>
-                                    <br/>(<?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_EXPOSURE_DOMAIN, $seocomp_df['EXPOSURE'], $seocomp_visibility_tx) ?>)
-                                </td>
+                                <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_ATTDECLTYP_DOMAIN, $attribute_level_tx, $seocomp_df['ATTDECLTYP']) ?></td>
+                                <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_EXPOSURE_DOMAIN, $seocomp_visibility_tx, $seocomp_df['EXPOSURE']) ?></td>
                                 <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox('ATTRDONLY', $seocomp_df['ATTRDONLY']) ?></td>
-                                <td class="alv"><?php echo $seocomp_typing_tx ?>
-                                    <br/>(<?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_TYPTYPE_DOMAIN, $seocomp_df['TYPTYPE'], $seocomp_typing_tx) ?>)
-                                </td>
+                                <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_TYPTYPE_DOMAIN, $seocomp_typing_tx, $seocomp_df['TYPTYPE']) ?></td>
                                 <td class="alv"><?php
                                     if ($seocomp_df['TYPTYPE'] == ABAP_DB_TABLE_SEO::SEOCOMPODF_TYPTYPE_3) {
                                         $clstype = ABAP_DB_TABLE_SEO::SEOCLASS($seocomp_df['TYPE']);
@@ -362,15 +356,9 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::CLAS_DESC . ' ' . $ObjID . ' 
                             ?>
                             <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
                                 <td class="alv"><a href="#<?php echo ABAP_UI_TOOL::GetClassMethodAnchorName($seocomp_df['CMPNAME']) ?>"><?php echo $seocomp_df['CMPNAME'] ?></a></td>
-                                <td class="alv"><?php echo $method_level_tx ?>
-                                    <br/>(<?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_MTDDECLTYP_DOMAIN, $seocomp_df['MTDDECLTYP'], $method_level_tx) ?>)
-                                </td>
-                                <td class="alv"><?php echo $seocomp_visibility_tx ?>
-                                    <br/>(<?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_EXPOSURE_DOMAIN, $seocomp_df['EXPOSURE'], $seocomp_visibility_tx) ?>)
-                                </td>
-                                <td class="alv"><?php echo $method_type_tx ?>
-                                    <br/>(<?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOCOMPO_MTDTYPE_DOMAIN, $method['MTDTYPE'], $method_type_tx) ?>)
-                                </td>
+                                <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_MTDDECLTYP_DOMAIN, $method_level_tx, $seocomp_df['MTDDECLTYP']) ?></td>
+                                <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_EXPOSURE_DOMAIN, $seocomp_visibility_tx, $seocomp_df['EXPOSURE']) ?></td>
+                                <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOCOMPO_MTDTYPE_DOMAIN, $method_type_tx, $method['MTDTYPE']) ?></td>
                                 <td class="alv"><?php echo $seocomp_tx ?></td>
                                 <td class="alv"><?php echo $seocomp_df['CREATEDON'] ?></td>
                             </tr>
@@ -443,12 +431,8 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::CLAS_DESC . ' ' . $ObjID . ' 
                             ?>
                             <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
                                 <td class="alv"><?php echo $seocomp_df['CMPNAME'] ?></td>
-                                <td class="alv"><?php echo $seocomp_visibility_tx ?>
-                                    <br/>(<?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_EXPOSURE_DOMAIN, $seocomp_df['EXPOSURE'], $seocomp_visibility_tx) ?>)
-                                </td>
-                                <td class="alv"><?php echo $seocomp_typing_tx ?>
-                                    <br/>(<?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_TYPTYPE_DOMAIN, $seocomp_df['TYPTYPE'], $seocomp_typing_tx) ?>)
-                                </td>
+                                <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_EXPOSURE_DOMAIN, $seocomp_visibility_tx, $seocomp_df['EXPOSURE']) ?></td>
+                                <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_TYPTYPE_DOMAIN, $seocomp_typing_tx, $seocomp_df['TYPTYPE']) ?></td>
                                 <td class="alv"><?php echo $seocomp_df['TYPE']; ?></td>
                                 <td class="alv"><?php echo $seocomp_tx ?></td>
                                 <td class="alv"><?php echo $seocomp_df['CREATEDON'] ?></td>
@@ -465,9 +449,10 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::CLAS_DESC . ' ' . $ObjID . ' 
                 <?php
                 if (empty($methods) === FALSE) {
                     foreach ($methods as $method) {
-                        $method_paras = ABAP_DB_TABLE_SEO::SEOSUBCO($ObjID, $method['CMPNAME']);
+                        $method_paras = ABAP_DB_TABLE_SEO::SEOSUBCO($ObjID, $method['CMPNAME'], ABAP_DB_TABLE_SEO::SEOSUBCO_SCOTYPE_0);
+                        $method_excps = ABAP_DB_TABLE_SEO::SEOSUBCO($ObjID, $method['CMPNAME'], ABAP_DB_TABLE_SEO::SEOSUBCO_SCOTYPE_1);
                         ?>
-                        <strong id="<?php echo ABAP_UI_TOOL::GetClassMethodAnchorName($method['CMPNAME']) ?>"><code>Method <?php echo $method['CMPNAME'] ?> Parameter(s)</code></strong>
+                        <p><strong id="<?php echo ABAP_UI_TOOL::GetClassMethodAnchorName($method['CMPNAME']) ?>"><code>Method <?php echo $method['CMPNAME'] ?> Signature</code></strong></p>
                         <?php if (empty($method_paras) === FALSE) { ?>
                             <table class="alv">
                                 <tr>
@@ -486,28 +471,65 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::CLAS_DESC . ' ' . $ObjID . ' 
                                 $count = 0;
                                 foreach ($method_paras as $method_para) {
                                     $count++;
+                                    $subco_tx = ABAP_DB_TABLE_SEO::SEOSUBCOTX($ObjID, $method_para['CMPNAME'], $method_para['SCONAME']);
+                                    $subco_df = ABAP_DB_TABLE_SEO::SEOSUBCODF($ObjID, $method_para['CMPNAME'], $method_para['SCONAME']);
+                                    $subco_decltype_tx = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SEO::SEOSUBCODF_PARDECLTYP_DOMAIN, $subco_df['PARDECLTYP']);
+                                    $subco_passvalue_tx = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SEO::SEOSUBCODF_PARPASSTYP_DOMAIN, $subco_df['PARPASSTYP']);
+                                    $subco_typing_tx = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SEO::SEOSUBCODF_TYPTYPE_DOMAIN, $subco_df['TYPTYPE']);
                                     ?>
                                     <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
                                         <td class="alv"><?php echo $method_para['SCONAME'] ?></td>
-                                        <td class="alv"><?php echo $method_para['SCONAME'] ?></td>
-                                        <td class="alv"><?php echo $method_para['SCONAME'] ?></td>
-                                        <td class="alv"><?php echo $method_para['SCONAME'] ?></td>
-                                        <td class="alv"><?php echo $method_para['SCONAME'] ?></td>
-                                        <td class="alv"><?php echo $method_para['SCONAME'] ?></td>
-                                        <td class="alv"><?php echo $method_para['SCONAME'] ?></td>
-                                        <td class="alv"><?php echo $method_para['SCONAME'] ?></td>
-                                        <td class="alv"><?php echo $method_para['SCONAME'] ?></td>
+                                        <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOSUBCODF_PARDECLTYP_DOMAIN, $subco_decltype_tx, $subco_df['PARDECLTYP']) ?></td>
+                                        <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOSUBCODF_PARPASSTYP_DOMAIN, $subco_passvalue_tx, $subco_df['PARPASSTYP']) ?></td>
+                                        <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox('PAROPTIONL', $subco_df['PAROPTIONL']) ?></td>
+                                        <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOSUBCODF_TYPTYPE_DOMAIN, $subco_typing_tx, $subco_df['TYPTYPE']) ?></td>
+                                        <td class="alv"><?php echo $subco_df['TYPE'] ?></td>
+                                        <td class="alv"><?php echo $subco_df['PARVALUE'] ?></td>
+                                        <td class="alv"><?php echo $subco_tx ?></td>
+                                        <td class="alv"><?php echo $subco_df['CREATEDON'] ?></td>
                                     </tr>
                                 <?php } ?>
                             </table>
                         <?php } else { ?>
-                            <code>Method <?php echo $method['CMPNAME'] ?> on class <?php echo $ObjID ?> has no parameter.</code>
-                            <?php
-                        }
-                    }
-                } else {
-                    ?>
-                    <code>Class <?php echo $ObjID ?> has no method parameters.</code>
+                            <p><code>Method <?php echo $method['CMPNAME'] ?> on class <?php echo $ObjID ?> has no parameter.</code></p>
+                        <?php } ?>
+
+
+                        <?php if (empty($method_excps) === FALSE) { ?>
+                            <table class="alv">
+                                <tr>
+                                    <th class="alv"> # </th>
+                                    <th class="alv"> Exception </th>
+                                    <th class="alv"> Resumable </th>
+                                    <th class="alv"> Description </th>
+                                    <th class="alv"> Created on </th>
+                                </tr>
+                                <?php
+                                $count = 0;
+                                foreach ($method_excps as $method_para) {
+                                    $count++;
+                                    $subco_tx = ABAP_DB_TABLE_SEO::SEOSUBCOTX($ObjID, $method_para['CMPNAME'], $method_para['SCONAME']);
+                                    $subco_df = ABAP_DB_TABLE_SEO::SEOSUBCODF($ObjID, $method_para['CMPNAME'], $method_para['SCONAME']);
+                                    $subco_decltype_tx = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SEO::SEOSUBCODF_PARDECLTYP_DOMAIN, $subco_df['PARDECLTYP']);
+                                    $subco_passvalue_tx = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SEO::SEOSUBCODF_PARPASSTYP_DOMAIN, $subco_df['PARPASSTYP']);
+                                    $subco_typing_tx = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SEO::SEOSUBCODF_TYPTYPE_DOMAIN, $subco_df['TYPTYPE']);
+                                    ?>
+                                    <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                                        <td class="alv"><?php echo ABAP_Navigation::GetURLClass($method_para['SCONAME'], $subco_tx) ?></td>
+                                        <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox('IS_RESUMABLE', $subco_df['IS_RESUMABLE']) ?></td>
+                                        <td class="alv"><?php echo $subco_tx ?></td>
+                                        <td class="alv"><?php echo $subco_df['CREATEDON'] ?></td>
+                                    </tr>
+                                <?php } ?>
+                            </table>
+                        <?php } else { ?>
+                            <p><code>Method <?php echo $method['CMPNAME'] ?> on class <?php echo $ObjID ?> has no exception.</code></p>
+                        <?php } ?>
+
+
+                    <?php } ?>
+                <?php } else { ?>
+                    <code>Class <?php echo $ObjID ?> has no method.</code>
                 <?php } ?>
 
 

@@ -1683,9 +1683,12 @@ class ABAP_DB_TABLE_SEO {
     const SEOMETAREL_RELTYPE_1 = 1;                      // Interface implementation (CLASS c. INTERFACES i_ref)
     const SEOMETAREL_RELTYPE_2 = 2;                      // Inheritance              (c INHERITING FROM c_ref)
     const SEOSUBCO = 'seosubco';
+    const SEOSUBCO_SCOTYPE_0 = 0;                      // Parameters
+    const SEOSUBCO_SCOTYPE_1 = 1;                      // Exception
     const SEOSUBCODF = 'seosubcodf';
-    const SEOSUBCODF_SCOTYPE_0 = 0;                      // Parameters
-    const SEOSUBCODF_SCOTYPE_1 = 1;                      // Exception
+    const SEOSUBCODF_PARDECLTYP_DOMAIN = 'SEOPARDECL';
+    const SEOSUBCODF_PARPASSTYP_DOMAIN = 'SEOPARPASS';
+    const SEOSUBCODF_TYPTYPE_DOMAIN = 'SEOTYPTYPE';
     const SEOSUBCOTX = 'seosubcotx';
     const SEOTYPEPLS = 'seotypepls';
     const SEOTYPEPLS_TPUTYPE_DOMAIN = 'SEOTPUTYPE';
@@ -1830,13 +1833,14 @@ class ABAP_DB_TABLE_SEO {
     /**
      * Class/interface subcomponent.
      */
-    public static function SEOSUBCO($clsname, $cmpname) {
+    public static function SEOSUBCO($clsname, $cmpname, $scotype) {
         $sql = 'select * from ' . ABAP_DB_TABLE_SEO::SEOSUBCO
-                . ' where `CLSNAME` = :cls and CMPNAME = :cmp'
+                . ' where `CLSNAME` = :cls and CMPNAME = :cmp and SCOTYPE = :sco'
                 . ' order by SCONAME';
         $paras = array(
             'cls' => $clsname,
             'cmp' => $cmpname,
+            'sco' => $scotype,
         );
         return ABAP_DB_TABLE::select($sql, $paras);
     }
