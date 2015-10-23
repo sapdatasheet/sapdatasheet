@@ -118,6 +118,7 @@ FORM init.
   ls_tname-low = 'SEOMETAREL'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'SEOSUBCO'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'SEOSUBCODF'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'SEOSUBCOTX'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'SEOTYPEPLS'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'SFW_SWITCH'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'SFW_SWITCHT'. APPEND ls_tname TO it_tname.

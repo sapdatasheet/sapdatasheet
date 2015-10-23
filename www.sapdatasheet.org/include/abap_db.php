@@ -1652,7 +1652,8 @@ class ABAP_DB_TABLE_PROG {
 class ABAP_DB_TABLE_SEO {
 
     const SEOCLASS = 'seoclass';                         // Class/Interface
-    const SEOCLASS_INDEX_MAX = 13;
+    const SEOCLASS_CLAS_INDEX_MAX = 13;
+    const SEOCLASS_INTF_INDEX_MAX = 4;
     const SEOCLASS_CLSTYPE_CLAS = 0;                     // Class
     const SEOCLASS_CLSTYPE_INTF = 1;                     // Interface
     const SEOCLASSDF = 'seoclassdf';                     // Definition of class/interface
@@ -1679,6 +1680,7 @@ class ABAP_DB_TABLE_SEO {
     const SEOCOMPOTX = 'seocompotx';
     const SEOFRIENDS = 'seofriends';
     const SEOMETAREL = 'seometarel';
+    const SEOMETAREL_RELTYPE_ALL = -1;                      // All types
     const SEOMETAREL_RELTYPE_0 = 0;                      // Interface composition    (i COMPRISING i_ref)
     const SEOMETAREL_RELTYPE_1 = 1;                      // Interface implementation (CLASS c. INTERFACES i_ref)
     const SEOMETAREL_RELTYPE_2 = 2;                      // Inheritance              (c INHERITING FROM c_ref)
@@ -1724,7 +1726,7 @@ class ABAP_DB_TABLE_SEO {
         );
         return current(ABAP_DB_TABLE::select($sql, $paras));
     }
-    
+
     /**
      * Classes/Interfaces definition.
      */
@@ -1763,7 +1765,7 @@ class ABAP_DB_TABLE_SEO {
         );
         return ABAP_DB_TABLE::select($sql, $paras);
     }
-        
+
     /**
      * Definition class/interface component.
      */
@@ -1776,7 +1778,7 @@ class ABAP_DB_TABLE_SEO {
         );
         return current(ABAP_DB_TABLE::select($sql, $paras));
     }
-    
+
     /**
      * Short description class/interface component.
      */
@@ -1790,7 +1792,7 @@ class ABAP_DB_TABLE_SEO {
         );
         $record = current(ABAP_DB_TABLE::select($sql, $paras));
         return $record['DESCRIPT'];
-    }    
+    }
 
     /**
      * Friend relationship.
@@ -1808,12 +1810,20 @@ class ABAP_DB_TABLE_SEO {
      * Classes/Interfaces relationship: interfaces, super classes.
      */
     public static function SEOMETAREL($clsname, $relatype) {
-        $sql = 'select * from ' . ABAP_DB_TABLE_SEO::SEOMETAREL
-                . ' where `CLSNAME` = :id and RELTYPE = :rt';
-        $paras = array(
-            'id' => $clsname,
-            'rt' => $relatype
-        );
+        if ($relatype === ABAP_DB_TABLE_SEO::SEOMETAREL_RELTYPE_ALL) {
+            $sql = 'select * from ' . ABAP_DB_TABLE_SEO::SEOMETAREL
+                    . ' where `CLSNAME` = :id';
+            $paras = array(
+                'id' => $clsname,
+            );
+        } else {
+            $sql = 'select * from ' . ABAP_DB_TABLE_SEO::SEOMETAREL
+                    . ' where `CLSNAME` = :id and RELTYPE = :rt';
+            $paras = array(
+                'id' => $clsname,
+                'rt' => $relatype
+            );
+        }
         return ABAP_DB_TABLE::select($sql, $paras);
     }
 
@@ -1829,7 +1839,7 @@ class ABAP_DB_TABLE_SEO {
             return $super['REFCLSNAME'];
         }
     }
-    
+
     /**
      * Class/interface subcomponent.
      */
@@ -1844,7 +1854,7 @@ class ABAP_DB_TABLE_SEO {
         );
         return ABAP_DB_TABLE::select($sql, $paras);
     }
-    
+
     /**
      * Definition class/interface subcomponent.
      */
@@ -1857,7 +1867,7 @@ class ABAP_DB_TABLE_SEO {
             'sco' => $sconame,
         );
         return current(ABAP_DB_TABLE::select($sql, $paras));
-    }    
+    }
 
     /**
      * Class/interface subcomponent short description.
@@ -1873,8 +1883,7 @@ class ABAP_DB_TABLE_SEO {
         $record = current(ABAP_DB_TABLE::select($sql, $paras));
         return $record['DESCRIPT'];
     }
-    
-    
+
     /**
      * Load forward declarations.
      */

@@ -231,6 +231,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::CLAS_DESC . ' ' . $ObjID . ' 
                             <th class="alv"> Abstract </th>
                             <th class="alv"> Final </th>
                             <th class="alv"> Description</th>
+                            <th class="alv"> Created on</th>
                         </tr>
                         <?php
                         $count = 0;
@@ -243,11 +244,12 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::CLAS_DESC . ' ' . $ObjID . ' 
                                 <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox("IMPABSTRCT", $interface['IMPABSTRCT']) ?></td>
                                 <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox("IMPFINAL", $interface['IMPFINAL']) ?></td>
                                 <td class="alv"><?php echo $interface_tx ?></td>
+                                <td class="alv"><?php echo $interface['CREATEDON'] ?></td>
                             </tr>
                         <?php } ?>
                     </table>
                 <?php } else { ?>
-                    <code>Class <?php echo $ObjID ?> has interface implemented.</code>
+                    <code>Class <?php echo $ObjID ?> has no interface implemented.</code>
                 <?php } ?>
 
                 <h4> Friends </h4>

@@ -34,7 +34,7 @@ if (empty($class_super) === FALSE) {
 }
 
 $typepls = ABAP_DB_TABLE_SEO::SEOTYPEPLS($ObjID);
-$interfaces = ABAP_DB_TABLE_SEO::SEOMETAREL($ObjID, ABAP_DB_TABLE_SEO::SEOMETAREL_RELTYPE_1);
+$interfaces = ABAP_DB_TABLE_SEO::SEOMETAREL($ObjID, ABAP_DB_TABLE_SEO::SEOMETAREL_RELTYPE_ALL);
 $friends = ABAP_DB_TABLE_SEO::SEOFRIENDS($ObjID);
 $attributes = ABAP_DB_TABLE_SEO::SEOCOMPO($ObjID, ABAP_DB_TABLE_SEO::SEOCOMPO_CMPTYPE_0);
 $methods = ABAP_DB_TABLE_SEO::SEOCOMPO($ObjID, ABAP_DB_TABLE_SEO::SEOCOMPO_CMPTYPE_1);
@@ -140,20 +140,6 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::CLAS_DESC . ' ' . $ObjID . ' 
                             <td class="field"> <?php echo $classdef['CHANGEDON'] ?> &nbsp;</td>
                             <td> <?php echo $classdef['CHANGEDBY'] ?>&nbsp; </td>
                         </tr>
-                        <tr><td class="content_label"> Shared Memory-enabled </td>
-                            <td><?php echo ABAP_UI_TOOL::GetCheckBox("CLSSHAREDMEMORY", $classdef['CLSSHAREDMEMORY']) ?> &nbsp;</td>
-                            <td>&nbsp; </td>
-                        </tr>
-                        <!-- Example: CX_WD_GENERAL
-                        <tr><td class="content_label"> Constructor generated </td>
-                            <td> &nbsp;</td>
-                            <td>&nbsp; </td>
-                        </tr>
-                        -->
-                        <tr><td class="content_label"> Fixed point arithmetic </td>
-                            <td><?php echo ABAP_UI_TOOL::GetCheckBox("FIXPT", $classdef['FIXPT']) ?> &nbsp;</td>
-                            <td>&nbsp; </td>
-                        </tr>
                         <tr><td class="content_label"> Unicode checks active </td>
                             <td><?php echo ABAP_UI_TOOL::GetCheckBox("UNICODE", $classdef['UNICODE']) ?> &nbsp;</td>
                             <td>&nbsp; </td>
@@ -189,7 +175,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::CLAS_DESC . ' ' . $ObjID . ' 
                         <?php } ?>
                     </table>
                 <?php } else { ?>
-                    <code>Class <?php echo $ObjID ?> has no forward declaration.</code>
+                    <code>Interface <?php echo $ObjID ?> has no forward declaration.</code>
                 <?php } ?>
 
                 <h4> Interfaces </h4>
@@ -201,6 +187,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::CLAS_DESC . ' ' . $ObjID . ' 
                             <th class="alv"> Abstract </th>
                             <th class="alv"> Final </th>
                             <th class="alv"> Description</th>
+                            <th class="alv"> Created on</th>
                         </tr>
                         <?php
                         $count = 0;
@@ -213,11 +200,12 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::CLAS_DESC . ' ' . $ObjID . ' 
                                 <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox("IMPABSTRCT", $interface['IMPABSTRCT']) ?></td>
                                 <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox("IMPFINAL", $interface['IMPFINAL']) ?></td>
                                 <td class="alv"><?php echo $interface_tx ?></td>
+                                <td class="alv"><?php echo $interface['CREATEDON'] ?></td>
                             </tr>
                         <?php } ?>
                     </table>
                 <?php } else { ?>
-                    <code>Class <?php echo $ObjID ?> has interface implemented.</code>
+                    <code>Interface <?php echo $ObjID ?> has no interface.</code>
                 <?php } ?>
 
                 <h4> Friends </h4>
@@ -239,14 +227,14 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::CLAS_DESC . ' ' . $ObjID . ' 
                             ?>
                             <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
                                 <td class="alv"><?php echo ABAP_Navigation::GetURLClass($friend['REFCLSNAME'], $friend_tx) ?></td>
-                                <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox("IMPABSTRCT", $friend_state) ?></td>
+                                <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox("FRIEND_STATE", $friend_state) ?></td>
                                 <td class="alv"><?php echo $friend['CREATEDON'] ?></td>
                                 <td class="alv"><?php echo $friend_tx ?></td>
                             </tr>
                         <?php } ?>
                     </table>
                 <?php } else { ?>
-                    <code>Class <?php echo $ObjID ?> has no friend class.</code>
+                    <code>Interface <?php echo $ObjID ?> has no friend.</code>
                 <?php } ?>
 
                 <h4> Attributes </h4>
@@ -299,7 +287,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::CLAS_DESC . ' ' . $ObjID . ' 
                         <?php } ?>
                     </table>
                 <?php } else { ?>
-                    <code>Class <?php echo $ObjID ?> has no attribute.</code>
+                    <code>Interface <?php echo $ObjID ?> has no attribute.</code>
                 <?php } ?>
 
                 <h4> Methods </h4>
@@ -335,7 +323,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::CLAS_DESC . ' ' . $ObjID . ' 
                         <?php } ?>
                     </table>
                 <?php } else { ?>
-                    <code>Class <?php echo $ObjID ?> has no method.</code>
+                    <code>Interface <?php echo $ObjID ?> has no method.</code>
                 <?php } ?>
 
                 <h4> Events </h4>
@@ -373,7 +361,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::CLAS_DESC . ' ' . $ObjID . ' 
                         <?php } ?>
                     </table>
                 <?php } else { ?>
-                    <code>Class <?php echo $ObjID ?> has no event.</code>
+                    <code>Interface <?php echo $ObjID ?> has no event.</code>
                 <?php } ?>
 
 
@@ -411,7 +399,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::CLAS_DESC . ' ' . $ObjID . ' 
                         <?php } ?>
                     </table>
                 <?php } else { ?>
-                    <code>Class <?php echo $ObjID ?> has no local type.</code>
+                    <code>Interface <?php echo $ObjID ?> has no local type.</code>
                 <?php } ?>
 
                 <!-- <h4> Alias </h4> -->
@@ -462,7 +450,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::CLAS_DESC . ' ' . $ObjID . ' 
                                 <?php } ?>
                             </table>
                         <?php } else { ?>
-                            <code>Method <?php echo $method['CMPNAME'] ?> on class <?php echo $ObjID ?> has no parameter.</code>
+                            <code>Method <?php echo $method['CMPNAME'] ?> on Interface <?php echo $ObjID ?> has no parameter.</code>
                         <?php } ?>
 
 
@@ -494,7 +482,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::CLAS_DESC . ' ' . $ObjID . ' 
                                 <?php } ?>
                             </table>
                         <?php } else { ?>
-                            <br /><code>Method <?php echo $method['CMPNAME'] ?> on class <?php echo $ObjID ?> has no exception.</code>
+                            <br /><code>Method <?php echo $method['CMPNAME'] ?> on Interface <?php echo $ObjID ?> has no exception.</code>
                         <?php } ?>
 
                     <?php } ?>
@@ -545,7 +533,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::CLAS_DESC . ' ' . $ObjID . ' 
                                 <?php } ?>
                             </table>
                         <?php } else { ?>
-                            <br /><code>Event <?php echo $event['CMPNAME'] ?> on class <?php echo $ObjID ?> has no parameter.</code>
+                            <br /><code>Event <?php echo $event['CMPNAME'] ?> on Interface <?php echo $ObjID ?> has no parameter.</code>
                         <?php } ?>
 
                     <?php } ?>
