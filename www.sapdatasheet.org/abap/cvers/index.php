@@ -60,19 +60,23 @@ ob_start();
                 <h4> <?php echo ABAP_OTYPE::CVERS_DESC ?> </h4>
                 <table class="alv">
                     <tr>
+                        <th class="alv"> # </th>
                         <th class="alv"> Software Component </th>
                         <th class="alv"> Short Description </th>
                         <th class="alv"> Component Type </th>
                         <th class="alv"> Component Type Text </th></tr>
                     <?php
                     $table = ABAP_DB_TABLE_HIER::CVERS_List();
+                    $count = 0;
                     while ($row = mysqli_fetch_array($table)) {
+                        $count++;
                         $cvers_component = $row['COMPONENT'];
                         $cvers_desc = ABAP_DB_TABLE_HIER::CVERS_REF($row['COMPONENT']);
                         $cvers_comp_type = $row['COMP_TYPE'];
                         $cvers_comp_type_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_TADIR_COMP_TYPE, $row['COMP_TYPE']);
                         ?>
-                        <tr><td class="alv"><?php echo ABAP_Navigation::GetURLSoftComp($cvers_component, $cvers_desc) ?></td>
+                        <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                            <td class="alv"><?php echo ABAP_Navigation::GetURLSoftComp($cvers_component, $cvers_desc) ?></td>
                             <td class="alv"><?php echo htmlentities($cvers_desc) ?></td>
                             <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_TADIR_COMP_TYPE, $cvers_comp_type, $cvers_comp_type_desc) ?></td>
                             <td class="alv"><?php echo htmlentities($cvers_comp_type_desc) ?></td></tr>

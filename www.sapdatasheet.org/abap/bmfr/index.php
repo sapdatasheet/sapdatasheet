@@ -104,16 +104,20 @@ $bmfr = ABAP_DB_TABLE_HIER::DF14L_List($index);
                 <h4> <?php echo ABAP_OTYPE::BMFR_DESC ?> - <?php echo $index ?></h4>
                 <table class="alv">
                     <tr>
+                        <th class="alv"> # </th>
                         <th class="alv"> Application Component ID </th>
                         <th class="alv"> Short Description </th>
                         <th class="alv"> First Release Date </th>
                         <th class="alv"> First Release </th>
                         <th class="alv"> Application Component </th></tr>
                     <?php
+                    $count = 0;
                     while ($row = mysqli_fetch_array($bmfr)) {
+                        $count++;
                         $bmfr_desc = ABAP_DB_TABLE_HIER::DF14T($row['FCTR_ID']);
                         ?>
-                        <tr><td class="alv"><?php echo ABAP_Navigation::GetURLAppComp($row['FCTR_ID'], $row['PS_POSID'], $bmfr_desc); ?> </td>
+                        <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                            <td class="alv"><?php echo ABAP_Navigation::GetURLAppComp($row['FCTR_ID'], $row['PS_POSID'], $bmfr_desc); ?> </td>
                             <td class="alv"><?php echo htmlentities($bmfr_desc) ?></td>
                             <td class="alv"><?php echo $row['FSTDATE'] ?></td>
                             <td class="alv"><?php echo $row['RELE'] ?></td>

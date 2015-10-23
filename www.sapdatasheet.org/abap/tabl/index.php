@@ -110,15 +110,19 @@ $dd02l = ABAP_DB_TABLE_TABL::DD02L_List($index);
                 <h4> <?php echo ABAP_OTYPE::TABL_DESC ?> - <?php echo $index ?></h4>
                 <table class="alv">
                     <tr>
+                        <th class="alv"> # </th>
                         <th class="alv"> Table name </th>
                         <th class="alv"> Short Description </th>
                         <th class="alv"> Table Category </th>
                         <th class="alv"> Delivery Class </th></tr>
                     <?php
+                    $count = 0;
                     while ($dd02l_item = mysqli_fetch_array($dd02l)) {
+                        $count++;
                         $dd02l_item_desc = ABAP_DB_TABLE_TABL::DD02T($dd02l_item['TABNAME']);
                         ?>
-                        <tr><td class="alv"><?php echo ABAP_Navigation::GetURLTable($dd02l_item['TABNAME'], $dd02l_item_desc); ?> </td>
+                        <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                            <td class="alv"><?php echo ABAP_Navigation::GetURLTable($dd02l_item['TABNAME'], $dd02l_item_desc); ?> </td>
                             <td class="alv"><?php echo htmlentities($dd02l_item_desc) ?></td>
                             <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DD02L_TABCLASS, $dd02l_item['TABCLASS'], '') ?></td>
                             <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DD02L_CONTFLAG, $dd02l_item['CONTFLAG'], '') ?></td></tr>

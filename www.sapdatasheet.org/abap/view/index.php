@@ -110,15 +110,19 @@ $dd25l_list = ABAP_DB_TABLE_VIEW::DD25L_List($index);
                 <h4> <?php echo ABAP_OTYPE::VIEW_DESC ?> - <?php echo $index ?></h4>
                 <table class="alv">
                     <tr>
+                        <th class="alv"> # </th>
                         <th class="alv"> View Name </th>
                         <th class="alv"> Short Description </th>
                         <th class="alv"> View Type </th>
                         <th class="alv"> Basis Table </th></tr>
                     <?php
+                    $count = 0;
                     while ($dd25l = mysqli_fetch_array($dd25l_list)) {
+                        $count++;
                         $dd25l_desc = ABAP_DB_TABLE_VIEW::DD25T($dd25l['VIEWNAME']);
                         ?>
-                        <tr><td class="alv"><?php echo ABAP_Navigation::GetURLView($dd25l['VIEWNAME'], $dd25l_desc) ?> </td>
+                        <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                            <td class="alv"><?php echo ABAP_Navigation::GetURLView($dd25l['VIEWNAME'], $dd25l_desc) ?> </td>
                             <td class="alv"><?php echo htmlentities($dd25l_desc) ?></td>
                             <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DD25L_VIEWCLASS, $dd25l['VIEWCLASS'], '') ?> </td>
                             <td class="alv"><?php echo ABAP_Navigation::GetURLTable($dd25l['ROOTTAB'], '') ?>&nbsp;</td></tr>

@@ -118,17 +118,21 @@ $fugr_list = ABAP_DB_TABLE_HIER::TADIR_FUGR_List($index);
                 <h4> <?php echo ABAP_OTYPE::FUGR_DESC ?> - <?php echo $index ?></h4>
                 <table class="alv">
                     <tr>
+                        <th class="alv"> # </th>
                         <th class="alv"> <?php echo ABAP_OTYPE::FUGR_DESC ?> </th>
                         <th class="alv"> <?php echo ABAP_OTYPE::DEVC_DESC ?> </th>
                         <th class="alv"> <?php echo ABAP_OTYPE::CVERS_DESC ?> </th>
                         <th class="alv"> Short Description </th>
                     </tr>
                     <?php
+                    $count = 0;
                     while ($fugr = mysqli_fetch_array($fugr_list)) {
+                        $count++;
                         $prog = ABAP_DB_TABLE_PROG::GET_PROG_FUGR($fugr['OBJ_NAME']);
                         $prog_desc = ABAP_DB_TABLE_PROG::TRDIRT($prog);
                         ?>
-                        <tr><td class="alv"><?php echo ABAP_Navigation::GetURLProgram($prog, '', $fugr['OBJ_NAME']) ?> </td>
+                        <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                            <td class="alv"><?php echo ABAP_Navigation::GetURLProgram($prog, '', $fugr['OBJ_NAME']) ?> </td>
                             <td class="alv"><?php echo ABAP_Navigation::GetURLPackage($fugr['DEVCLASS'], '') ?> </td>
                             <td class="alv"><?php echo ABAP_Navigation::GetURLSoftComp($fugr['COMPONENT'], '') ?>&nbsp;</td>
                             <td class="alv"><?php echo htmlspecialchars($prog_desc) ?> &nbsp; </td>

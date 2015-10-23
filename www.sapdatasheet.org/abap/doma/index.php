@@ -108,6 +108,7 @@ $dd01l = ABAP_DB_TABLE_DOMA::DD01L_List($index);
                 <h4> <?php echo ABAP_OTYPE::DOMA_DESC ?> - <?php echo $index ?></h4>
                 <table class="alv">
                     <tr>
+                        <th class="alv"> # </th>
                         <th class="alv"> Domain Name </th>
                         <th class="alv"> Short Description </th>
                         <th class="alv"> Data type </th>
@@ -115,10 +116,13 @@ $dd01l = ABAP_DB_TABLE_DOMA::DD01L_List($index);
                         <th class="alv"> Decimals </th>
                     </tr>
                     <?php
+                    $count = 0;
                     while ($dd01l_item = mysqli_fetch_array($dd01l)) {
+                        $count++;
                         $dd01l_item_t = ABAP_DB_TABLE_DOMA::DD01T($dd01l_item['DOMNAME'])
                         ?>
-                        <tr><td class="alv"><?php echo ABAP_Navigation::GetURLDomain($dd01l_item['DOMNAME'], $dd01l_item_t) ?> </td>
+                        <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                            <td class="alv"><?php echo ABAP_Navigation::GetURLDomain($dd01l_item['DOMNAME'], $dd01l_item_t) ?> </td>
                             <td class="alv"><?php echo htmlentities($dd01l_item_t) ?></td>
                             <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DATATYPE, $dd01l_item['DATATYPE'], '') ?></td>
                             <td class="alv" style="text-align: right;"><?php echo intval($dd01l_item['LENG']) ?>&nbsp;</td>

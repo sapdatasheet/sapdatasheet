@@ -85,16 +85,20 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::CUS0_DESC . " - Index " . $in
                 <?php if ($index === ABAP_DB_CONST::INDEX_LIST) { ?>
                     <table class="alv">
                         <tr>
+                            <th class="alv"> # </th>
                             <th class="alv"> IMG Activity </th>
                             <th class="alv"> Transaction Code </th>
                             <th class="alv"> Short Description </th>
                         </tr>
                         <?php
                         $img_list = ABAP_DB_TABLE_CUS0::CUS_IMGACH_List();
+                        $count = 0;
                         foreach ($img_list as $img) {
+                            $count ++;
                             $img_desc = ABAP_DB_TABLE_CUS0::CUS_IMGACT($img['ACTIVITY']);
                             ?>
-                            <tr><td class="alv"><?php echo ABAP_Navigation::GetURLSproIMGActivity($img['ACTIVITY'], $img_desc, TRUE) ?> </td>
+                            <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                                <td class="alv"><?php echo ABAP_Navigation::GetURLSproIMGActivity($img['ACTIVITY'], $img_desc, TRUE) ?> </td>
                                 <td class="alv"><?php echo ABAP_Navigation::GetURLTransactionCode($img['TCODE'], '', TRUE) ?> </td>
                                 <td class="alv"><?php echo htmlentities($img_desc) ?>&nbsp;</td>
                             </tr>

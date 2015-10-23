@@ -109,6 +109,7 @@ $devc = ABAP_DB_TABLE_HIER::TDEVC_List($index);
                 <h4> <?php echo ABAP_OTYPE::DEVC_DESC ?> - <?php echo $index ?></h4>
                 <table class="alv">
                     <tr>
+                        <th class="alv"> # </th>
                         <th class="alv"> <?php echo ABAP_OTYPE::DEVC_DESC ?> </th>
                         <th class="alv"> Short Description </th>
                         <th class="alv"> Super package </th>
@@ -116,11 +117,14 @@ $devc = ABAP_DB_TABLE_HIER::TDEVC_List($index);
                         <th class="alv"> <?php echo ABAP_OTYPE::BMFR_DESC ?> </th>
                     </tr>
                     <?php
+                    $count = 0;
                     while ($row = mysqli_fetch_array($devc)) {
+                        $count++;
                         $devc_desc = ABAP_DB_TABLE_HIER::TDEVCT($row['DEVCLASS']);
                         $devc_ps_posid = ABAP_DB_TABLE_HIER::DF14L_PS_POSID($row['COMPONENT']);
                         ?>
-                        <tr><td class="alv"><?php echo ABAP_Navigation::GetURLPackage($row['DEVCLASS'], $devc_desc) ?> </td>
+                        <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                            <td class="alv"><?php echo ABAP_Navigation::GetURLPackage($row['DEVCLASS'], $devc_desc) ?> </td>
                             <td class="alv"><?php echo htmlentities($devc_desc) ?></td>
                             <td class="alv"><?php echo ABAP_Navigation::GetURLPackage($row['PARENTCL'], '') ?></td>
                             <td class="alv"><?php echo ABAP_Navigation::GetURLSoftComp($row['DLVUNIT'], '') ?></td>

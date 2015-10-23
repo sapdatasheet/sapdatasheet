@@ -119,15 +119,19 @@ $fm_list = ABAP_DB_TABLE_FUNC::TFDIR_List($index);
                 <h4> <?php echo ABAP_OTYPE::FUNC_DESC ?> - <?php echo $index ?></h4>
                 <table class="alv">
                     <tr>
+                        <th class="alv"> # </th>
                         <th class="alv"> Function Module </th>
                         <th class="alv"> Mode </th>
                         <th class="alv"> Short Description </th>
                     </tr>
                     <?php
+                    $count = 0;
                     while ($fm = mysqli_fetch_array($fm_list)) {
+                        $count++;
                         $fm_desc = ABAP_DB_TABLE_FUNC::TFTIT($fm['FUNCNAME']);
                         ?>
-                        <tr><td class="alv"><?php echo ABAP_Navigation::GetURLFuncModule($fm['FUNCNAME'], $fm_desc) ?> </td>
+                        <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                            <td class="alv"><?php echo ABAP_Navigation::GetURLFuncModule($fm['FUNCNAME'], $fm_desc) ?> </td>
                             <td class="alv"><?php echo $fm['FMODE'] ?> </td>
                             <td class="alv"><?php echo htmlentities($fm_desc) ?>&nbsp;</td>
                         </tr>

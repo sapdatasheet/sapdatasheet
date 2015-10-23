@@ -108,16 +108,20 @@ $prog_list = ABAP_DB_TABLE_HIER::TADIR_PROG_List($index);
                 <h4> <?php echo ABAP_OTYPE::PROG_DESC ?> - <?php echo $index ?></h4>
                 <table class="alv">
                     <tr>
+                        <th class="alv"> # </th>
                         <th class="alv"> Program </th>
                         <th class="alv"> Package </th>
                         <th class="alv"> Software Component </th>
                         <th class="alv"> Short Description </th>
                     </tr>
                     <?php
+                    $count = 0;
                     while ($prog = mysqli_fetch_array($prog_list)) {
+                        $count++;
                         $prog_desc = ABAP_DB_TABLE_PROG::TRDIRT($prog['OBJ_NAME']);
                         ?>
-                        <tr><td class="alv"><?php echo ABAP_Navigation::GetURLProgram($prog['OBJ_NAME'], '') ?> </td>
+                        <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                            <td class="alv"><?php echo ABAP_Navigation::GetURLProgram($prog['OBJ_NAME'], '') ?> </td>
                             <td class="alv"><?php echo ABAP_Navigation::GetURLPackage($prog['DEVCLASS'], '') ?> </td>
                             <td class="alv"><?php echo ABAP_Navigation::GetURLSoftComp($prog['COMPONENT'], '') ?>&nbsp;</td>
                             <td class="alv"><?php echo htmlspecialchars($prog_desc) ?> &nbsp; </td>

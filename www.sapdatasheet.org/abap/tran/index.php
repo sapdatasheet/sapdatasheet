@@ -119,14 +119,18 @@ $tstc_list = ABAP_DB_TABLE_TRAN::TSTC_List($index);
                 <h4> <?php echo ABAP_OTYPE::TRAN_DESC ?> - <?php echo $index ?></h4>
                 <table class="alv">
                     <tr>
+                        <th class="alv"> # </th>
                         <th class="alv"> Transaction code </th>
                         <th class="alv"> Short Description </th>
                         <th class="alv"> Corresponding Report (if exist) </th></tr>
                     <?php
+                    $count = 0;
                     while ($tstc = mysqli_fetch_array($tstc_list)) {
+                        $count++;
                         $tstc_desc = ABAP_DB_TABLE_TRAN::TSTCT($tstc['TCODE']);
                         ?>
-                        <tr><td class="alv"><?php echo ABAP_Navigation::GetURLTransactionCode($tstc['TCODE'], $tstc_desc) ?> </td>
+                        <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                            <td class="alv"><?php echo ABAP_Navigation::GetURLTransactionCode($tstc['TCODE'], $tstc_desc) ?> </td>
                             <td class="alv"><?php echo htmlentities($tstc_desc) ?></td>
                             <td class="alv"><?php echo ABAP_Navigation::GetURLProgram($tstc['PGMNA'], '') ?></td></tr>
                         <?php } ?>

@@ -108,15 +108,19 @@ $dd04l = ABAP_DB_TABLE_DTEL::DD04L_List($index);
                 <h4> <?php echo ABAP_OTYPE::DTEL_DESC ?> - <?php echo $index ?></h4>
                 <table class="alv">
                     <tr>
+                        <th class="alv"> # </th>
                         <th class="alv"> Data Element </th>
                         <th class="alv"> Short Description </th>
                         <th class="alv"> Domain </th>
                         <th class="alv"> Data Type </th></tr>
                     <?php
+                    $count = 0;
                     while ($dd04l_item = mysqli_fetch_array($dd04l)) {
+                        $count++;
                         $dd04l_item_t = ABAP_DB_TABLE_DTEL::DD04T($dd04l_item['ROLLNAME']);
                         ?>
-                        <tr><td class="alv"><?php echo ABAP_Navigation::GetURLDtel($dd04l_item['ROLLNAME'], $dd04l_item_t) ?> </td>
+                        <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                            <td class="alv"><?php echo ABAP_Navigation::GetURLDtel($dd04l_item['ROLLNAME'], $dd04l_item_t) ?> </td>
                             <td class="alv"><?php echo htmlentities($dd04l_item_t) ?></td>
                             <td class="alv"><?php echo ABAP_Navigation::GetURLDomain($dd04l_item['DOMNAME'], '') ?> </td>
                             <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DATATYPE, $dd04l_item['DATATYPE'], '') ?>&nbsp;</td>
