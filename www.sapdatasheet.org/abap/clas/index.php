@@ -32,9 +32,9 @@ if (file_exists($ob_fname)) {
 ob_start();
 ?>
 <!DOCTYPE html>
-<!-- DDIC Domain index. -->
+<!-- ABAP OO Class index. -->
 <?php
-$page_label = "Page " . $index . " of " . ABAP_DB_TABLE_SEO::SEOCLASS_INDEX_MAX;
+$page_label = "Page " . $index . " of " . ABAP_DB_TABLE_SEO::SEOCLASS_CLAS_INDEX_MAX;
 $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::CLAS_DESC . " - Index " . $page_label;
 $clas_list = ABAP_DB_TABLE_SEO::SEOCLASS_List(ABAP_DB_TABLE_SEO::SEOCLASS_CLSTYPE_CLAS, $index);
 ?>
@@ -73,7 +73,7 @@ $clas_list = ABAP_DB_TABLE_SEO::SEOCLASS_List(ABAP_DB_TABLE_SEO::SEOCLASS_CLSTYP
                 </div>
 
                 <div>
-                    <?php for ($count = 1; $count <= ABAP_DB_TABLE_SEO::SEOCLASS_INDEX_MAX; $count++) { ?>
+                    <?php for ($count = 1; $count <= ABAP_DB_TABLE_SEO::SEOCLASS_CLAS_INDEX_MAX; $count++) { ?>
                         <a href="index-<?php echo $count ?>.html"><?php echo $count ?></a>&nbsp;
                     <?php } ?>
                 </div>
