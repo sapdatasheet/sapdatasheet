@@ -16,14 +16,14 @@ if (!isset($index)) {
 }
 
 if (strlen(trim($index)) == 0) {
-    $index = ABAP_DB_CONST::INDEX_HIER;
+    $index = ABAP_DB_CONST::INDEX_PAGE_1;
 } else {
     $index = strtoupper($index);
 }
 
 // Check Buffer
 $ob_folder = GLOBAL_UTIL::GetObFolder(dirname(__FILE__));
-if (file_exists($ob_folder) == FALSE) {    
+if (file_exists($ob_folder) == FALSE) {
     mkdir($ob_folder);
 }
 $ob_fname = $ob_folder . "/index-" . strtolower($index) . ".html";
@@ -77,12 +77,18 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::CUS0_DESC . " - Index " . $in
 
                 <div>
                     <a href="index-<?php echo strtolower(ABAP_DB_CONST::INDEX_HIER) ?>.html">Hierarchy</a>&nbsp; - &nbsp;
-                    <a href="index-<?php echo strtolower(ABAP_DB_CONST::INDEX_LIST) ?>.html">List</a>&nbsp;
+                    <?php for ($count = 1; $count <= ABAP_DB_TABLE_CUS0::CUS_IMGACT_INDEX_MAX; $count++) { ?>
+                        <a href="index-<?php echo $count ?>.html"><?php echo $count ?></a>&nbsp;
+                    <?php } ?>
                     <!--<a href="index-roadmap.html">Road map</a>&nbsp;-->
                 </div>
 
                 <h4> <?php echo ABAP_OTYPE::CUS0_DESC ?> - <?php echo $index ?></h4>
-                <?php if ($index === ABAP_DB_CONST::INDEX_LIST) { ?>
+                <?php if ($index === ABAP_DB_CONST::INDEX_HIER) { ?>
+                    <ol type="1">
+                        <?php ABAP_UI_CUS0::LoadImgNodes(); ?>
+                    </ol>
+                <?php } else { ?>
                     <table class="alv">
                         <tr>
                             <th class="alv"> # </th>
@@ -91,7 +97,7 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::CUS0_DESC . " - Index " . $in
                             <th class="alv"> Short Description </th>
                         </tr>
                         <?php
-                        $img_list = ABAP_DB_TABLE_CUS0::CUS_IMGACH_List();
+                        $img_list = ABAP_DB_TABLE_CUS0::CUS_IMGACH_List($index);
                         $count = 0;
                         foreach ($img_list as $img) {
                             $count ++;
@@ -104,10 +110,6 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::CUS0_DESC . " - Index " . $in
                             </tr>
                         <?php } ?>
                     </table>
-                <?php } else if ($index === ABAP_DB_CONST::INDEX_HIER) { ?>
-                    <ol type="1">
-                        <?php ABAP_UI_CUS0::LoadImgNodes(); ?>
-                    </ol>
                 <?php } ?>
 
             </div>

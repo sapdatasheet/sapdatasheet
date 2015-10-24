@@ -127,6 +127,7 @@ class ABAP_DB_TABLE_CUS0 {
     const TNODEIMG_NODE_TYPE_IMG = 'IMG';
     const TNODEIMG_NODE_TYPE_IMG0 = 'IMG0';
     const TNODEIMG_NODE_TYPE_IMG1 = 'IMG1';
+    const CUS_IMGACT_INDEX_MAX = 7;
 
     /**
      * Customizing Activity - Object List.
@@ -305,8 +306,12 @@ class ABAP_DB_TABLE_CUS0 {
         return $record['TEXT'];
     }
 
-    public static function CUS_IMGACH_List() {
-        $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::CUS_IMGACH . ' order by activity';
+    public static function CUS_IMGACH_List($page) {
+        $offset = ($page - 1) * ABAP_DB_CONST::INDEX_PAGESIZE;
+        $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::CUS_IMGACH 
+                . ' order by activity'
+                . ' LIMIT ' . ABAP_DB_CONST::INDEX_PAGESIZE
+                . ' OFFSET ' . $offset;
         return ABAP_DB_TABLE::select($sql);
     }
 

@@ -4,8 +4,29 @@ cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
 FOR /F %%i IN (config-a-x.txt)       DO @call:BuffGenerate bmfr  %%i
 call:BuffGenerate                                          bmfr  TOP
 
-call:BuffGenerate                                          cus0  list
+call:BuffGenerate                                          clas  1
+call:BuffGenerate                                          clas  2
+call:BuffGenerate                                          clas  3
+call:BuffGenerate                                          clas  4
+call:BuffGenerate                                          clas  5
+call:BuffGenerate                                          clas  6
+call:BuffGenerate                                          clas  7
+call:BuffGenerate                                          clas  8
+call:BuffGenerate                                          clas  9
+call:BuffGenerate                                          clas  10
+call:BuffGenerate                                          clas  11
+call:BuffGenerate                                          clas  12
+call:BuffGenerate                                          clas  13
+
 call:BuffGenerate                                          cus0  hierarchy
+call:BuffGenerate                                          cus0  1
+call:BuffGenerate                                          cus0  2
+call:BuffGenerate                                          cus0  3
+call:BuffGenerate                                          cus0  4
+call:BuffGenerate                                          cus0  5
+call:BuffGenerate                                          cus0  6
+call:BuffGenerate                                          cus0  7
+
 
 cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
 call:BuffGenerate                                          cvers ""
@@ -25,6 +46,11 @@ FOR /F %%i IN (config-a-0-slash.txt) DO @call:BuffGenerate fugr  %%i
 cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
 FOR /F %%i IN (config-a-0-slash.txt) DO @call:BuffGenerate func  %%i
 call:BuffGenerate                                          func  rfc
+
+call:BuffGenerate                                          intf  1
+call:BuffGenerate                                          intf  2
+call:BuffGenerate                                          intf  3
+call:BuffGenerate                                          intf  4
 
 cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
 FOR /F %%i IN (config-a-x-slash.txt) DO @call:BuffGenerate prog  %%i
