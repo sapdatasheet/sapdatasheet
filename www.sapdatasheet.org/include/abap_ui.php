@@ -56,7 +56,7 @@ class ABAP_Navigation {
     public static function GetURLClass($class, $desc, $newwin = TRUE) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::CLAS_NAME, $class, $class, $desc, $newwin);
     }
-    
+
     public static function GetURLDomain($domain, $desc, $newwin = TRUE) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::DOMA_NAME, $domain, $domain, $desc, $newwin);
     }
@@ -65,7 +65,7 @@ class ABAP_Navigation {
         if (strlen(trim($domainValue)) < 1) {
             $domainValue = '&nbsp;';
         }
-        
+
         $newWindow = ($newwin === TRUE) ? 'target="_blank"' : '';
         return "<a href=\"/abap/" . strtolower(ABAP_OTYPE::DOMA_NAME)
                 . "/" . strtolower($domain)
@@ -89,6 +89,16 @@ class ABAP_Navigation {
     public static function GetURLFuncGroup($fg, $desc, $newwin = TRUE) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::FUGR_NAME, $fg, $fg, $desc, $newwin);
     }
+
+    public static function GetURLMessageClass($msgcls, $desc, $newwin = TRUE) {
+        return ABAP_Navigation::GetURL(ABAP_OTYPE::MSAG_NAME, $msgcls, $msgcls, $desc, $newwin);
+    }
+    
+    public static function GetURLMessageNumber($msgcls, $msgnr) {
+        return "<a href=\"/abap/msag/" . htmlentities(strtolower($msgcls)) . "-" . htmlentities(strtolower($msgnr))
+                . ".html\" title=\"" . htmlentities($msgcls . ' - ' . $msgnr)
+                . "\" target=\"_blank\"> " . htmlentities($msgnr) . "</a>";
+    }    
 
     public static function GetURLPackage($package, $desc, $newwin = TRUE) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::DEVC_NAME, $package, $package, $desc, $newwin);
@@ -307,16 +317,16 @@ class ABAP_UI_CUS0 {
     /**
      * Get the IMG Paths for one activity.
      * One activty could exist in several IMG tree nodes.
-     * 
+     *
      * @return Array IMG Paths
      */
     public static function GetActivityPaths() {
-        
+
     }
-    
+
     /**
      * Get description text for CUS_ACTH-ACT_TYPE.
-     * 
+     *
      * @return string IMG Activity Type Description
      */
     public static function GetImgActivityTypeDesc($act_type) {
@@ -365,7 +375,7 @@ class ABAP_UI_TOOL {
             return "<input type=\"checkbox\" name=\"" . $Name . "\"  disabled=\"disabled\" />";
         }
     }
-    
+
     /**
      * Get Class Method Anchor name.
      */
@@ -456,37 +466,37 @@ class ABAP_UI_TOOL {
     public static function GetTCodeTypeDesc($TCodeType) {
         $desc = 'Transaction Code Type';
         if ($TCodeType == '00') {
-            
+
         } else if ($TCodeType == '01') {
-            
+
         } else if ($TCodeType == '02') {
-            
+
         } else if ($TCodeType == '04') {
-            
+
         } else if ($TCodeType == '05') {
-            
+
         } else if ($TCodeType == '06') {
-            
+
         } else if ($TCodeType == '08') {
-            
+
         } else if ($TCodeType == '0c') {
-            
+
         } else if ($TCodeType == '21') {
-            
+
         } else if ($TCodeType == '22') {
-            
+
         } else if ($TCodeType == '44') {
-            
+
         } else if ($TCodeType == '80') {
-            
+
         } else if ($TCodeType == '84') {
-            
+
         } else if ($TCodeType == '90') {
-            
+
         } else if ($TCodeType == '94') {
-            
+
         } else if ($TCodeType == 'a0') {
-            
+
         }
 
         return $desc;

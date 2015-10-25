@@ -513,6 +513,28 @@ create table if not exists sapall.ydok_fu like saperp6ehp7.ydok_fu;
 insert ignore into sapall.ydok_fu select * from saperp6ehp7.ydok_fu;
 
 
+-- Database table for MSAG
+
+create table if not exists sapall.t100 like saperp6ehp7.t100;
+insert ignore into sapall.t100 select * from saperp6ehp7.t100;
+
+create table if not exists sapall.t100a like saperp6ehp7.t100a;
+insert ignore into sapall.t100a select * from saperp6ehp7.t100a;
+
+create table if not exists sapall.t100t like saperp6ehp7.t100t;
+insert ignore into sapall.t100t select * from saperp6ehp7.t100t;
+
+create table if not exists sapall.t100u like saperp6ehp7.t100u;
+insert ignore into sapall.t100u select * from saperp6ehp7.t100u;
+
+create table if not exists sapall.t100x like saperp6ehp7.t100x;
+insert ignore into sapall.t100x select * from saperp6ehp7.t100x;
+
+create table if not exists sapall.ydok_na like saperp6ehp7.ydok_na;
+insert ignore into sapall.ydok_na select * from saperp6ehp7.ydok_na;
+
+
+
 -- Database table for PROG
 
 insert into sapall.d020s select * from sapcrm7ehp3sr2.d020s;

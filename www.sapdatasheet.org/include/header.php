@@ -63,6 +63,7 @@
         <li class="menu"><a class="menu" href="/abap/prog/"><?php echo ABAP_OTYPE::PROG_DESC ?></a></li>
         <li class="menu"><a class="menu" href="/abap/tran/"><?php echo ABAP_OTYPE::TRAN_DESC ?></a></li>
         <li class="menu"><a class="menu" href="/abap/cus0/"><?php echo ABAP_OTYPE::CUS0_DESC ?></a></li>
+        <li class="menu"><a class="menu" href="/abap/msag/"><?php echo ABAP_OTYPE::MSAG_DESC ?></a></li>
     </ul>
     <br/>
 </div> <!-- End of Menu -->

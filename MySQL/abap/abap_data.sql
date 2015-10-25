@@ -137,6 +137,28 @@ insert into abap.tftit select * from sapall.tftit;
 create table if not exists abap.tlibt like sapall.tlibt;
 insert into abap.tlibt select * from sapall.tlibt;
 
+-- Database table for MSAG
+
+create table if not exists abap.t100 like sapall.t100;
+alter table abap.t100 partition by key() partitions 8;
+insert ignore into abap.t100 select * from sapall.t100;
+
+create table if not exists abap.t100a like sapall.t100a;
+insert ignore into abap.t100a select * from sapall.t100a;
+
+create table if not exists abap.t100t like sapall.t100t;
+insert ignore into abap.t100t select * from sapall.t100t;
+
+create table if not exists abap.t100u like sapall.t100u;
+insert ignore into abap.t100u select * from sapall.t100u;
+
+create table if not exists abap.t100x like sapall.t100x;
+insert ignore into abap.t100x select * from sapall.t100x;
+
+create table if not exists abap.ydok_na like sapall.ydok_na;
+insert ignore into abap.ydok_na select * from sapall.ydok_na;
+
+
 -- Database table for PROG
 
 create table if not exists abap.d020s like sapall.d020s;

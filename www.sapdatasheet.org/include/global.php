@@ -55,6 +55,8 @@ class ABAP_OTYPE {
     const VIEW_DESC = 'View';
     const MENU_NAME = 'MENU';
     const MENU_DESC = 'SAP Menu';
+    const MSAG_NAME = 'MSAG';
+    const MSAG_DESC = 'Message Class';
     const SU21_NAME = 'SU21';
     const SU21_DESC = 'Authorization Object';
     const PFCG_NAME = 'PFCG';

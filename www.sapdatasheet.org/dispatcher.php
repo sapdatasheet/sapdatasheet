@@ -74,6 +74,23 @@ if ($requri === '/wp/wp-admin/'
         $ObjID = $TablURI;
         $target = 'abap/tabl/tabl.php';
     }
+
+// - MSAG - Messages (T100 Messages)
+//   http://localhost/abap/msag/index.html
+//   http://localhost/abap/msag/a3.html
+//   http://localhost/abap/msag/a3-001.html
+//   http://localhost/abap/msag/a3-012.html
+} else if ($requri === '/abap/msag/index.html') {
+    $target = 'abap/msag/index.php';
+} else if (GLOBAL_UTIL::StartsWith($requri, '/abap/msag/') && GLOBAL_UTIL::EndsWith($requri, '.html')) {
+    $MsagURI = substr($requri, 11, -5);
+    if (strpos($MsagURI, '-') !== false) {
+        list($ObjID, $MsgNr) = explode('-', $MsagURI, 2);
+        $target = 'abap/msag/msgnr.php';
+    } else {
+        $ObjID = $MsagURI;
+        $target = 'abap/msag/msag.php';
+    }
 }
 
 // - BMFR - Application Component
@@ -107,12 +124,15 @@ if (!isset($target)) {
     foreach ($abap_uris as $abap_uri) {
         if ($requri === $abap_uri[1]) {
             $target = 'abap/' . $abap_uri[0] . '/index.php';
+            break;
         } else if (GLOBAL_UTIL::StartsWith($requri, $abap_uri[2]) && GLOBAL_UTIL::EndsWith($requri, '.html')) {
             $index = substr($requri, strlen($abap_uri[2]), -5);
             $target = 'abap/' . $abap_uri[0] . '/index.php';
+            break;
         } else if (GLOBAL_UTIL::StartsWith($requri, $abap_uri[3]) && GLOBAL_UTIL::EndsWith($requri, '.html')) {
             $ObjID = substr($requri, strlen($abap_uri[3]), -5);
             $target = 'abap/' . $abap_uri[0] . '/' . $abap_uri[0] . '.php';
+            break;
         }
     }
 }

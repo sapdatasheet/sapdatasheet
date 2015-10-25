@@ -13,6 +13,8 @@ class ABAP_DB_CONST {
     const INDEX_PAGE_1 = 1;                    // Page 1
     const INDEX_PAGESIZE = 10000;              // Page size
     const LANGU_EN = "E";
+    const LANGU_DE = "D";
+    const LANGU_DEFAULT = "DEFAULT";
     const FLAG_TRUE = "X";
     const FLAG_FALSE = "";
 
@@ -77,6 +79,7 @@ class ABAP_DB_CONST {
     const DOKHL_ID_DE = 'DE';                  // Document class: Data element
     const DOKHL_ID_DZ = 'DZ';                  // Document class: Data element supplement
     const DOKHL_ID_HY = 'HY';                  // Document class: Implementation Guide chapter (SIMG)
+    const DOKHL_ID_NA = 'NA';                  // Document class: T100 Message
     const FUNCT_KIND_P = "P";
     const FUPARAREF_PARAMTYPE_I = "I";         // Importing
     const FUPARAREF_PARAMTYPE_E = "E";         // Exporting
@@ -308,7 +311,7 @@ class ABAP_DB_TABLE_CUS0 {
 
     public static function CUS_IMGACH_List($page) {
         $offset = ($page - 1) * ABAP_DB_CONST::INDEX_PAGESIZE;
-        $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::CUS_IMGACH 
+        $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::CUS_IMGACH
                 . ' order by activity'
                 . ' LIMIT ' . ABAP_DB_CONST::INDEX_PAGESIZE
                 . ' OFFSET ' . $offset;
@@ -1390,7 +1393,133 @@ class ABAP_DB_TABLE_HIER {
 
 }
 
-/** Database table names - program. */
+/** Database table access - Message Class. */
+class ABAP_DB_TABLE_MSAG {
+
+    const T100 = "t100";       // Messages
+    const T100A = 't100a';     // Message IDs for T100
+    const T100T = 't100t';     // Table T100A text
+    const T100U = 't100u';     // Last person to change messages
+    const T100U_SELFDEF_DOMAIN = 'DOKU_SELFD';
+    const T100X = 't100x';     // Error Messages: Supplements
+    const YDOK_NA = 'ydok_na'; // Messages
+
+    /**
+     * Messages.
+     */
+    public static function T100($msgcls) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_MSAG::T100
+                . ' where `ARBGB` = :id and SPRSL = :lg'
+                . ' order by MSGNR';
+        $paras = array(
+            'id' => $msgcls,
+            'lg' => $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]
+        );
+        return ABAP_DB_TABLE::select($sql, $paras);
+    }
+
+    /**
+     * Message.
+     */
+    public static function T100_NR($msgcls, $msgnr, $langu = ABAP_DB_CONST::LANGU_DEFAULT) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_MSAG::T100
+                . ' where `ARBGB` = :id and SPRSL = :lg and MSGNR = :nr';
+        if ($langu === ABAP_DB_CONST::LANGU_DEFAULT) {
+            $sql_langu = $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU];
+        } else {
+            $sql_langu = $langu;
+        }
+
+        $paras = array(
+            'id' => $msgcls,
+            'lg' => $sql_langu,
+            'nr' => $msgnr,
+        );
+        return current(ABAP_DB_TABLE::select($sql, $paras));
+    }
+
+    /**
+     * Message classes.
+     */
+    public static function T100A_List() {
+        $con = ABAP_DB_SCHEMA::getConnection();
+        $sql = "select * from " . ABAP_DB_TABLE_MSAG::T100A
+                . " order by ARBGB";
+        return ABAP_DB_TABLE::select($sql);
+    }
+
+    /**
+     * Message IDs for T100.
+     */
+    public static function T100A($msgcls) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_MSAG::T100A
+                . ' where `ARBGB` = :id';
+        $paras = array(
+            'id' => $msgcls
+        );
+        return current(ABAP_DB_TABLE::select($sql, $paras));
+    }
+
+    /**
+     * Table T100A text.
+     */
+    public static function T100T($msgcls) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_MSAG::T100T
+                . ' where `ARBGB` = :id and SPRSL = :lg';
+        $paras = array(
+            'id' => $msgcls,
+            'lg' => $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]
+        );
+        $record = current(ABAP_DB_TABLE::select($sql, $paras));
+        return $record['STEXT'];
+    }
+
+    /**
+     * Object documentation status.
+     */
+    public static function T100U($msgcls, $msgnr) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_MSAG::T100U
+                . ' where `ARBGB` = :id and `MSGNR` = :mr';
+        $paras = array(
+            'id' => $msgcls,
+            'mr' => $msgnr,
+        );
+        return current(ABAP_DB_TABLE::select($sql, $paras));
+    }
+
+    /**
+     * Error Messages: Supplements.
+     */
+    public static function T100X($msgcls, $msgnr) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_MSAG::T100X
+                . ' where `ARBGB` = :id and `MSGNR` = :mr';
+        $paras = array(
+            'id' => $msgcls,
+            'mr' => $msgnr,
+        );
+        return current(ABAP_DB_TABLE::select($sql, $paras));
+    }
+
+    public static function YDOK_NA($msgcls, $msgnr, $langu = ABAP_DB_CONST::LANGU_DEFAULT) {
+        $sql = "select * from " . ABAP_DB_TABLE_MSAG::YDOK_NA
+                . " where `id` = '" . ABAP_DB_CONST::DOKHL_ID_NA
+                . "' and object = :object and langu = :langu";
+        if ($langu === ABAP_DB_CONST::LANGU_DEFAULT) {
+            $sql_langu = $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU];
+        } else {
+            $sql_langu = $langu;
+        }
+        
+        $paras = array(
+            'object' => $msgcls . $msgnr,
+            'langu' => $sql_langu
+        );
+        $record = current(ABAP_DB_TABLE::select($sql, $paras));
+        return $record['HTMLTEXT'];
+    }
+}
+
+/** Database table access - program. */
 class ABAP_DB_TABLE_PROG {
 
     /**
