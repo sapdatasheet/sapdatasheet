@@ -115,6 +115,7 @@ $abap_uris = array(
     array("func", '/abap/func/index.html', '/abap/func/index-', '/abap/func/'),
     array("intf", '/abap/intf/index.html', '/abap/intf/index-', '/abap/intf/'),
     array("prog", '/abap/prog/index.html', '/abap/prog/index-', '/abap/prog/'),
+    array("shlp", '/abap/shlp/index.html', '/abap/shlp/index-', '/abap/shlp/'),
     array("sqlt", '/abap/sqlt/index.html', '/abap/sqlt/index-', '/abap/sqlt/'),
     array("tran", '/abap/tran/index.html', '/abap/tran/index-', '/abap/tran/'),
     array("view", '/abap/view/index.html', '/abap/view/index-', '/abap/view/'),

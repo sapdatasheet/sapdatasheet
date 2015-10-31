@@ -62,20 +62,15 @@ class ABAP_Navigation {
     }
 
     public static function GetURLDomainValue($domain, $domainValue, $desc, $newwin = TRUE) {
-        if (strlen(trim($domainValue)) < 1) {
-            $domainValue = '&nbsp;';
-        }
-
-        $newWindow = ($newwin === TRUE) ? 'target="_blank"' : '';
-        return "<a href=\"/abap/" . strtolower(ABAP_OTYPE::DOMA_NAME)
-                . "/" . strtolower($domain)
-                . ".html#" . ABAP_UI_TOOL::ANCHOR_VALUES . "\" title=\"" . htmlentities($desc) . "\" "
-                . $newWindow . "> "
-                . $domainValue . "</a>";
+        return ABAP_Navigation::GetURL(ABAP_OTYPE::DOMA_NAME, $domain, $domainValue, $desc, $newwin, ABAP_UI_TOOL::ANCHOR_VALUES);
     }
 
     public static function GetURLDtel($rollname, $desc, $newwin = TRUE) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::DTEL_NAME, $rollname, $rollname, $desc, $newwin);
+    }
+
+    public static function GetURLDtelDocument($rollname, $label, $newwin = TRUE) {
+        return ABAP_Navigation::GetURL(ABAP_OTYPE::DTEL_NAME, $rollname, $label, $label, $newwin, ABAP_UI_TOOL::ANCHOR_DOCUMENT);
     }
 
     public static function GetURLFuncModule($fm, $desc, $newwin = TRUE) {
@@ -93,12 +88,15 @@ class ABAP_Navigation {
     public static function GetURLMessageClass($msgcls, $desc, $newwin = TRUE) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::MSAG_NAME, $msgcls, $msgcls, $desc, $newwin);
     }
-    
-    public static function GetURLMessageNumber($msgcls, $msgnr) {
-        return "<a href=\"/abap/msag/" . htmlentities(strtolower($msgcls)) . "-" . htmlentities(strtolower($msgnr))
-                . ".html\" title=\"" . htmlentities($msgcls . ' - ' . $msgnr)
-                . "\" target=\"_blank\"> " . htmlentities($msgnr) . "</a>";
-    }    
+
+    public static function GetURLMessageNumber($msgcls, $msgnr, $newwin = TRUE) {
+        if (strlen(trim($msgcls)) < 1 || strlen(trim($msgnr)) < 1) {
+            return '&nbsp;';
+        }
+        $objname = htmlentities(strtolower($msgcls)) . "-" . htmlentities(strtolower($msgnr));
+        $title = htmlentities($msgcls . ' - ' . $msgnr);
+        return ABAP_Navigation::GetURL(ABAP_OTYPE::MSAG_NAME, $objname, $msgnr, $title, $newwin);
+    }
 
     public static function GetURLPackage($package, $desc, $newwin = TRUE) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::DEVC_NAME, $package, $package, $desc, $newwin);
@@ -109,6 +107,10 @@ class ABAP_Navigation {
             $value = $program;
         }
         return ABAP_Navigation::GetURL(ABAP_OTYPE::PROG_NAME, $program, $value, $desc, $newwin);
+    }
+
+    public static function GetURLSearchHelp($shlp, $desc, $newwin = TRUE) {
+        return ABAP_Navigation::GetURL(ABAP_OTYPE::SHLP_NAME, $shlp, $shlp, $desc, $newwin);
     }
 
     public static function GetURLSoftComp($compName, $desc, $newwin = TRUE) {
@@ -127,16 +129,20 @@ class ABAP_Navigation {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::TABL_NAME, $table, $table, $desc, $newwin);
     }
 
-    public static function GetURLTableField($table, $field) {
-        return "<a href=\"/abap/tabl/" . htmlentities(strtolower($table)) . "-" . htmlentities(strtolower($field))
-                . ".html\" title=\"" . htmlentities($field)
-                . "\" target=\"_blank\"> " . htmlentities($field) . "</a>";
+    public static function GetURLTableField($table, $field, $newwin = TRUE) {
+        if (strlen(trim($table)) < 1 || strlen(trim($field)) < 1) {
+            return '&nbsp;';
+        }
+        $objname = htmlentities(strtolower($table)) . "-" . htmlentities(strtolower($field));
+        return ABAP_Navigation::GetURL(ABAP_OTYPE::TABL_NAME, $objname, $field, $field, $newwin);
     }
 
-    public static function GetURLTableInclude($table, $field, $position) {
-        return "<a href=\"/abap/tabl/" . htmlentities(strtolower($table)) . "-" . htmlentities($position)
-                . ".html\" title=\"" . htmlentities($position)
-                . "\" target=\"_blank\"> " . htmlentities($field) . "</a>";
+    public static function GetURLTableInclude($table, $field, $position, $newwin = TRUE) {
+        if (strlen(trim($table)) < 1 || strlen(trim($field)) < 1) {
+            return '&nbsp;';
+        }
+        $objname = htmlentities(strtolower($table)) . "-" . htmlentities($position);
+        return ABAP_Navigation::GetURL(ABAP_OTYPE::TABL_NAME, $objname, $field, $position, $newwin);
     }
 
     public static function GetURLTransactionCode($tcode, $desc, $newwin = TRUE) {
@@ -147,15 +153,19 @@ class ABAP_Navigation {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::VIEW_NAME, $view, $view, $desc, $newwin);
     }
 
-    private static function GetURL($objtype, $objname, $value, $title, $newwin = FALSE) {
-        $result = "";
-        if (strlen(trim($objname)) > 0) {
-            $sTitle = (empty($title)) ? $value : $title;
-            $newWindow = ($newwin === TRUE) ? 'target="_blank"' : '';
-            $result = "<a href=\"/abap/" . strtolower($objtype)
-                    . "/" . htmlentities(strtolower($objname)) . ".html\" title=\""
-                    . htmlentities($sTitle) . "\" . $newWindow>" . htmlentities(trim($value)) . "</a>";
+    private static function GetURL($objtype, $objname, $value, $title, $newwin = FALSE, $anchor = '') {
+        if (strlen(trim($objname)) < 1 || strlen(trim($value)) < 1) {
+            return '&nbsp;';
         }
+
+        $sTitle = (empty($title)) ? $value : $title;
+        $newWindow = ($newwin === TRUE) ? 'target="_blank"' : '';
+        $anchorTag = (strlen(trim($anchor)) > 0) ? '#' . $anchor : '';
+        $result = "<a href=\"/abap/" . strtolower($objtype)
+                . "/" . htmlentities(strtolower($objname)) . ".html" . $anchorTag 
+                . "\" title=\"" . htmlentities($sTitle) . "\" "
+                .  $newWindow . ">" 
+                . htmlentities(trim($value)) . "</a>";
         return $result;
     }
 
@@ -321,7 +331,7 @@ class ABAP_UI_CUS0 {
      * @return Array IMG Paths
      */
     public static function GetActivityPaths() {
-
+        
     }
 
     /**
@@ -346,6 +356,7 @@ class ABAP_UI_CUS0 {
 class ABAP_UI_TOOL {
 
     const ANCHOR_VALUES = "values";
+    const ANCHOR_DOCUMENT = "document";
 
     public static function Redirect404() {
         header(HTTP_STATUS::STATUS_404);
@@ -379,7 +390,7 @@ class ABAP_UI_TOOL {
     /**
      * Get Class Method Anchor name.
      */
-    public static function GetClassMethodAnchorName($method){
+    public static function GetClassMethodAnchorName($method) {
         return strtolower(ABAP_DB_TABLE_SEO::SEOCOMPO . '-' . $method);
     }
 
@@ -466,37 +477,37 @@ class ABAP_UI_TOOL {
     public static function GetTCodeTypeDesc($TCodeType) {
         $desc = 'Transaction Code Type';
         if ($TCodeType == '00') {
-
+            
         } else if ($TCodeType == '01') {
-
+            
         } else if ($TCodeType == '02') {
-
+            
         } else if ($TCodeType == '04') {
-
+            
         } else if ($TCodeType == '05') {
-
+            
         } else if ($TCodeType == '06') {
-
+            
         } else if ($TCodeType == '08') {
-
+            
         } else if ($TCodeType == '0c') {
-
+            
         } else if ($TCodeType == '21') {
-
+            
         } else if ($TCodeType == '22') {
-
+            
         } else if ($TCodeType == '44') {
-
+            
         } else if ($TCodeType == '80') {
-
+            
         } else if ($TCodeType == '84') {
-
+            
         } else if ($TCodeType == '90') {
-
+            
         } else if ($TCodeType == '94') {
-
+            
         } else if ($TCodeType == 'a0') {
-
+            
         }
 
         return $desc;

@@ -561,14 +561,29 @@ class ABAP_DB_TABLE_DOMA {
      * Get Domain Value Text.
      */
     public static function DD07T($Domain, $ValueL) {
-        $sql = "select DDTEXT from " . ABAP_DB_TABLE_DOMA::DD07T . " where DOMNAME = ? and DDLANGUAGE = ? and DOMVALUE_L = ?";
-        $stmt = ABAP_DB_SCHEMA::getConnection()->prepare($sql);
-        $langu = $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU];  // ABAP_DB_CONST::LANGU_EN;
-        $stmt->bind_param("sss", $Domain, $langu, $ValueL);
-        $stmt->execute();
-        $stmt->bind_result($result);
-        $stmt->fetch();
-        return $result;
+
+        $sql = "select DDTEXT from " . ABAP_DB_TABLE_DOMA::DD07T
+                . " where DOMNAME = :domain and DDLANGUAGE = :langu and DOMVALUE_L = :domval";
+        $paras = array(
+            'domain' => $Domain,
+            'domval' => $ValueL,
+            'langu' => $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU],
+        );
+        $record = current(ABAP_DB_TABLE::select($sql, $paras));
+        $text = $record['DDTEXT'];
+
+        if (empty($text)) {
+            unset($paras);
+            $paras = array(
+                'domain' => $Domain,
+                'domval' => $ValueL,
+                'langu' => ABAP_DB_CONST::LANGU_EN,
+            );
+            $record = current(ABAP_DB_TABLE::select($sql, $paras));
+            $text = $record['DDTEXT'];
+        }
+
+        return $text;
     }
 
 }
@@ -760,15 +775,29 @@ class ABAP_DB_TABLE_FUNC {
      * Function Module text.
      */
     public static function TFTIT($fm) {
+        if (strlen(trim($fm)) < 1) {
+            return '';
+        }
+        
         $sql = "select STEXT from " . ABAP_DB_TABLE_FUNC::TFTIT
-                . " where FUNCNAME = ? and SPRAS = ?";
-        $stmt = ABAP_DB_SCHEMA::getConnection()->prepare($sql);
-        $langu = $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]; // ABAP_DB_CONST::LANGU_EN;
-        $stmt->bind_param('ss', $fm, $langu);
-        $stmt->execute();
-        $stmt->bind_result($result);
-        $stmt->fetch();
-        return $result;
+                . " where FUNCNAME = :id and SPRAS = :lg";
+        $paras = array(
+            'id' => $fm,
+            'lg' => $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]
+        );
+        $record = current(ABAP_DB_TABLE::select($sql, $paras));
+        $text = $record['STEXT'];
+        if (empty($text)) {
+            unset($paras);
+            $paras = array(
+                'id' => $fm,
+                'lg' => ABAP_DB_CONST::LANGU_EN
+            );
+            $record = current(ABAP_DB_TABLE::select($sql, $paras));
+            $text = $record['STEXT'];
+        }
+
+        return $text;        
     }
 
     /**
@@ -1407,6 +1436,7 @@ class ABAP_DB_TABLE_MSAG {
     /**
      * Messages.
      */
+
     public static function T100($msgcls) {
         $sql = 'select * from ' . ABAP_DB_TABLE_MSAG::T100
                 . ' where `ARBGB` = :id and SPRSL = :lg'
@@ -1509,7 +1539,7 @@ class ABAP_DB_TABLE_MSAG {
         } else {
             $sql_langu = $langu;
         }
-        
+
         $paras = array(
             'object' => $msgcls . $msgnr,
             'langu' => $sql_langu
@@ -1517,6 +1547,7 @@ class ABAP_DB_TABLE_MSAG {
         $record = current(ABAP_DB_TABLE::select($sql, $paras));
         return $record['HTMLTEXT'];
     }
+
 }
 
 /** Database table access - program. */
@@ -1778,6 +1809,102 @@ class ABAP_DB_TABLE_PROG {
         $stmt->bind_result($result);
         $stmt->fetch();
         return $result;
+    }
+
+}
+
+/** Database table access for - Search Help. */
+class ABAP_DB_TABLE_SHLP {
+
+    const DD30L = 'dd30l';                        // Search helps
+    const DD30L_INDEX_MAX = 3;
+    const DD30L_SELMTYPE_DOMAIN = 'SELMTYPE';
+    const DD30L_SELMTYPE_T = 'T';                 // Selection from table
+    const DD30L_SELMTYPE_X = 'X';                 // Selection from table with text table
+    const DD30L_SELMTYPE_V = 'V';                 // Selection from DB view or projection view
+    const DD30L_SELMTYPE_H = 'H';                 // Selection with a help view
+    const DD30L_SELMTYPE_F = 'F';                 // Selection by function module
+    const DD30T = 'dd30t';                        // Search help texts
+    const DD31S = 'dd31s';                        // Assignment of search helps to collective search helps
+    const DD32S = 'dd32s';                        // Search Help Parameter
+    const DD33S = 'dd33s';                        // Assignment of search help fields
+
+    /**
+     * List the search helps.
+     */
+
+    public static function DD30L_List($page) {
+        $offset = ($page - 1) * ABAP_DB_CONST::INDEX_PAGESIZE;
+        $sql = 'select * from ' . ABAP_DB_TABLE_SHLP::DD30L
+                . ' ORDER BY SHLPNAME'
+                . ' LIMIT ' . ABAP_DB_CONST::INDEX_PAGESIZE
+                . ' OFFSET ' . $offset;
+        return ABAP_DB_TABLE::select($sql);
+    }
+
+    /**
+     * Search help.
+     */
+    public static function DD30L($name) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_SHLP::DD30L
+                . ' where `SHLPNAME` = :id';
+        $paras = array(
+            'id' => $name,
+        );
+        return current(ABAP_DB_TABLE::select($sql, $paras));
+    }
+
+    /**
+     * Search help description.
+     */
+    public static function DD30T($name) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_SHLP::DD30T
+                . ' where `SHLPNAME` = :id and DDLANGUAGE = :lg';
+        $paras = array(
+            'id' => $name,
+            'lg' => $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]
+        );
+        $record = current(ABAP_DB_TABLE::select($sql, $paras));
+        $text = $record['DDTEXT'];
+        if (empty($text)) {
+            unset($paras);
+            $paras = array(
+                'id' => $name,
+                'lg' => ABAP_DB_CONST::LANGU_EN
+            );
+            $record = current(ABAP_DB_TABLE::select($sql, $paras));
+            $text = $record['DDTEXT'];
+        }
+
+        return $text;
+    }
+
+    public static function DD31S($name) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_SHLP::DD31S
+                . ' where `SHLPNAME` = :id';
+        $paras = array(
+            'id' => $name,
+        );
+        return ABAP_DB_TABLE::select($sql, $paras);
+    }
+
+    public static function DD32S($name) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_SHLP::DD32S
+                . ' where `SHLPNAME` = :id'
+                . ' order by FLPOSITION';
+        $paras = array(
+            'id' => $name,
+        );
+        return ABAP_DB_TABLE::select($sql, $paras);
+    }
+
+    public static function DD33S($name) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_SHLP::DD33S
+                . ' where `SHLPNAME` = :id';
+        $paras = array(
+            'id' => $name,
+        );
+        return ABAP_DB_TABLE::select($sql, $paras);
     }
 
 }
@@ -2211,16 +2338,26 @@ class ABAP_DB_TABLE_TABL {
         if (strlen(trim($TableName)) < 1) {
             return '';
         }
-
+        
         $sql = "select DDTEXT from " . ABAP_DB_TABLE_TABL::DD02T
-                . " where tabname = ? and DDLANGUAGE = ?";
-        $stmt = ABAP_DB_SCHEMA::getConnection()->prepare($sql);
-        $langu = $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU];  // ABAP_DB_CONST::LANGU_EN;
-        $stmt->bind_param('ss', $TableName, $langu);
-        $stmt->execute();
-        $stmt->bind_result($result);
-        $stmt->fetch();
-        return $result;
+                . " where tabname = :id and DDLANGUAGE = :lg";
+        $paras = array(
+            'id' => $TableName,
+            'lg' => $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]
+        );
+        $record = current(ABAP_DB_TABLE::select($sql, $paras));
+        $text = $record['DDTEXT'];
+        if (empty($text)) {
+            unset($paras);
+            $paras = array(
+                'id' => $TableName,
+                'lg' => ABAP_DB_CONST::LANGU_EN
+            );
+            $record = current(ABAP_DB_TABLE::select($sql, $paras));
+            $text = $record['DDTEXT'];
+        }
+
+        return $text;        
     }
 
     /**

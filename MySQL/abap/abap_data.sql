@@ -428,6 +428,24 @@ insert ignore into abap.agr_1251 select * from sapall.agr_1251;
 create table if not exists abap.usr12 like sapall.usr12;
 insert ignore into abap.usr12 select * from sapall.usr12;
 
+-- Database table for SHLP (Search Help)
+
+create table if not exists abap.dd30l like sapall.dd30l;
+insert ignore into abap.dd30l select * from sapall.dd30l;
+
+create table if not exists abap.dd30t like sapall.dd30t;
+insert ignore into abap.dd30t select * from sapall.dd30t;
+
+create table if not exists abap.dd31s like sapall.dd31s;
+insert ignore into abap.dd31s select * from sapall.dd31s;
+
+create table if not exists abap.dd32s like sapall.dd32s;
+insert ignore into abap.dd32s select * from sapall.dd32s;
+
+create table if not exists abap.dd33s like sapall.dd33s;
+insert ignore into abap.dd33s select * from sapall.dd33s;
+
+
 
 -- Database table for RZ10
 

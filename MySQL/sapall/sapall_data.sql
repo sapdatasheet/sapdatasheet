@@ -895,6 +895,24 @@ create table if not exists sapall.usr12 like saperp6ehp7.usr12;
 insert ignore into sapall.usr12 select * from saperp6ehp7.usr12;
 
 
+-- Database table for SHLP (Search Help)
+
+create table if not exists sapall.dd30l like saperp6ehp7.dd30l;
+insert ignore into sapall.dd30l select * from saperp6ehp7.dd30l;
+
+create table if not exists sapall.dd30t like saperp6ehp7.dd30t;
+insert ignore into sapall.dd30t select * from saperp6ehp7.dd30t;
+
+create table if not exists sapall.dd31s like saperp6ehp7.dd31s;
+insert ignore into sapall.dd31s select * from saperp6ehp7.dd31s;
+
+create table if not exists sapall.dd32s like saperp6ehp7.dd32s;
+insert ignore into sapall.dd32s select * from saperp6ehp7.dd32s;
+
+create table if not exists sapall.dd33s like saperp6ehp7.dd33s;
+insert ignore into sapall.dd33s select * from saperp6ehp7.dd33s;
+
+
 -- Database table for RZ10
 
 create table if not exists sapall.yspflmetadata like saperp6ehp7.yspflmetadata;

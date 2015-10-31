@@ -91,6 +91,11 @@ FORM init.
   ls_tname-low = 'DD26S'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'DD27S'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'DD28S'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'DD30L'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'DD30T'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'DD31S'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'DD32S'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'DD33S'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'DD35L'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'DD36S'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'DF14L'. APPEND ls_tname TO it_tname.
@@ -122,6 +127,11 @@ FORM init.
   ls_tname-low = 'SEOTYPEPLS'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'SFW_SWITCH'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'SFW_SWITCHT'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'T100'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'T100A'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'T100T'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'T100U'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'T100X'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'T002T'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'T005'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'T005T'. APPEND ls_tname TO it_tname.
