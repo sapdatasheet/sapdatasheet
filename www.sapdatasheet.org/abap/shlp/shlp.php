@@ -33,6 +33,9 @@ if ($dd30l['SELMTYPE'] == ABAP_DB_TABLE_SHLP::DD30L_SELMTYPE_T || $dd30l['SELMTY
 }
 $dd30l_texttab_t = ABAP_DB_TABLE_TABL::DD02T($dd30l['TEXTTAB']);
 $dd30l_selmexit_t = ABAP_DB_TABLE_FUNC::TFTIT($dd30l['SELMEXIT']);
+$dd30l_DDSHDIATYP_t = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SHLP::DD30L_DIALOGTYPE_DOMAIN, $dd30l['DIALOGTYPE']);
+$dd30l_AUTOSUGGEST_t = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SHLP::DD30L_AUTOSUGGEST_DOMAIN, $dd30l['AUTOSUGGEST']);
+$dd30l_FUZZY_SEARCH_t = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SHLP::DD30L_FUZZY_SEARCH_DOMAIN, $dd30l['FUZZY_SEARCH']);
 
 $dd31s = ABAP_DB_TABLE_SHLP::DD31S($dd30l['SHLPNAME']);
 $dd32s = ABAP_DB_TABLE_SHLP::DD32S($dd30l['SHLPNAME']);
@@ -154,23 +157,52 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::SHLP_DESC . ' ' . $ObjID . ' 
                         </tr>
                         <tr><td class="content_label"> Selection Method</td>
                             <td class="field"><?php echo $dd30l_selmethod_url ?>&nbsp;</td>
-                            <td><?php echo $dd30l_selmethod_t ?>&nbsp; </td>
+                            <td><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_SHLP::DD30L_SELMETHOD_DTEL, '?') ?> &nbsp;
+                                <?php echo $dd30l_selmethod_t ?>&nbsp; 
+                            </td>
                         </tr>
                         <tr><td class="content_label"> Text Table</td>
                             <td class="field"><?php echo ABAP_Navigation::GetURLTable($dd30l['TEXTTAB'], $dd30l_texttab_t) ?>&nbsp;</td>
-                            <td><?php echo $dd30l_texttab_t ?>&nbsp; </td>
+                            <td><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_SHLP::DD30L_TEXTTAB_DTEL, '?') ?> &nbsp;
+                                <?php echo $dd30l_texttab_t ?>&nbsp; 
+                            </td>
                         </tr>
-                        <tr><td class="content_label"> Search Help Exit</td>
-                            <td class="field"><?php echo ABAP_Navigation::GetURLFuncModule($dd30l['SELMEXIT'], $dd30l_selmexit_t) ?>&nbsp;</td>
-                            <td><?php echo $dd30l_selmexit_t ?>&nbsp; </td>
+                        <tr><td class="content_label"> Dialog Type </td>
+                            <td class="field"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SHLP::DD30L_DIALOGTYPE_DOMAIN, $dd30l['DIALOGTYPE'], $dd30l_DDSHDIATYP_t) ?>&nbsp;</td>
+                            <td><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_SHLP::DD30L_DIALOGTYPE_DTEL, '?') ?> &nbsp;
+                                <?php echo $dd30l_DDSHDIATYP_t ?> 
+                            </td>
                         </tr>
                         <tr><td class="content_label"> Hot Key</td>
                             <td class="field"><?php echo $dd30l['AS4USER'] ?>&nbsp;</td>
-                            <td>&nbsp; </td>
+                            <td><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_SHLP::DD30L_HOTKEY_DTEL, '?') ?>&nbsp; </td>
+                        </tr>
+                        <tr><td class="content_label"> Proposal Search for Input Fields </td>
+                            <td class="field"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SHLP::DD30L_AUTOSUGGEST_DOMAIN, $dd30l['AUTOSUGGEST'], $dd30l_AUTOSUGGEST_t)  ?>&nbsp;</td>
+                            <td><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_SHLP::DD30L_AUTOSUGGEST_DTEL, '?') ?>&nbsp; 
+                                <?php echo $dd30l_AUTOSUGGEST_t ?>
+                            </td>
+                        </tr>
+                        <tr><td class="content_label"> Full Text Fuzzy Search (Database-Specific) </td>
+                            <td class="field"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SHLP::DD30L_FUZZY_SEARCH_DOMAIN, $dd30l['FUZZY_SEARCH'], $dd30l_FUZZY_SEARCH_t)  ?>&nbsp;</td>
+                            <td><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_SHLP::DD30L_FUZZY_SEARCH_DTEL, '?') ?>&nbsp; 
+                                <?php echo $dd30l_FUZZY_SEARCH_t ?>
+                            </td>
+                        </tr>
+                        <tr><td class="content_label"> Accuracy Value for Error-Tolerant Full Text Search </td>
+                            <td class="field"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SHLP::DD30L_FUZZY_SIMILARITY_DOMAIN, $dd30l['FUZZY_SIMILARITY'], $dd30l['FUZZY_SIMILARITY'])  ?>&nbsp;</td>
+                            <td><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_SHLP::DD30L_FUZZY_SIMILARITY_DTEL, '?') ?>&nbsp; </td>
+                        </tr>
+                        <tr><td class="content_label"> Search Help Exit </td>
+                            <td class="field"><?php echo ABAP_Navigation::GetURLFuncModule($dd30l['SELMEXIT'], $dd30l_selmexit_t) ?>&nbsp;</td>
+                            <td><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_SHLP::DD30L_SELMEXIT_DTEL, '?') ?> &nbsp; 
+                                <?php echo $dd30l_selmexit_t ?>&nbsp; 
+                            </td>
                         </tr>
                     </tbody>
                 </table>
 
+                <h4> Parameter </h4>
 
 
                 <h4> Hierarchy </h4>

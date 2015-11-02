@@ -1824,9 +1824,29 @@ class ABAP_DB_TABLE_SHLP {
     const DD30L_SELMTYPE_V = 'V';                 // Selection from DB view or projection view
     const DD30L_SELMTYPE_H = 'H';                 // Selection with a help view
     const DD30L_SELMTYPE_F = 'F';                 // Selection by function module
+    const DD30L_SELMETHOD_DTEL = 'SELMETHOD';
+    const DD30L_TEXTTAB_DTEL = 'SELMETHTXT';
+    const DD30L_DIALOGTYPE_DTEL = 'DDSHDIATYP';
+    const DD30L_DIALOGTYPE_DOMAIN = 'DDSHDIATYP';
+    const DD30L_AUTOSUGGEST_DTEL = 'DDAUTOSUGGEST';
+    const DD30L_AUTOSUGGEST_DOMAIN = 'DDAUTOSUGGEST';
+    const DD30L_FUZZY_SEARCH_DTEL = 'DDFUZZY_SEARCH';
+    const DD30L_FUZZY_SEARCH_DOMAIN = 'DDFUZZY_SEARCH';
+    const DD30L_FUZZY_SIMILARITY_DTEL = 'DDFUZZY_SIMILARITY';
+    const DD30L_FUZZY_SIMILARITY_DOMAIN = 'DDFUZZY_SIMILARITY';
+    const DD30L_SELMEXIT_DTEL = 'DDSHSELEXT';
+    const DD30L_HOTKEY_DTEL = 'DDSHHOTKEY';
     const DD30T = 'dd30t';                        // Search help texts
+
+    /**
+     * Not Used.
+     */
     const DD31S = 'dd31s';                        // Assignment of search helps to collective search helps
     const DD32S = 'dd32s';                        // Search Help Parameter
+
+    /**
+     * Not Used.
+     */
     const DD33S = 'dd33s';                        // Assignment of search help fields
 
     /**

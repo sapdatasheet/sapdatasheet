@@ -1,5 +1,4 @@
 /* -------- Page Layout -------- */
-
 body 
 {
     background-color:#FBFCFD;
@@ -50,29 +49,64 @@ td.search
     vertical-align:bottom;
 }
 
-/* Menu */
-ul.menu {
+/* Menu - version 2 */
+.menu ul {
     float: left;
-    width: 100%;
     padding: 0;
     margin: 0;
-    list-style-type: none;
 }
-a.menu {
-    background-color: #F2AA00;
+.menu li {
+    background-color: #F2AA00;                   /* Background Color of Menu */
+}
+.menu a {
     border-right: 1px solid white;
-    color: white;
-    float: left;
     font-size: small;
-    padding: 0.2em 0.6em;
+    color:white;                                 /* Text Color by default */
+    float: left;
     text-decoration: none;
 }
-a.menu:hover {
-    background-color: #ED8001;
+.menu li:hover > a, .menu .current-item > a {
+    color:#be5b70;                               /* Text Color when mouse over */
 }
-li.menu {
-    display: inline;
+.menu > ul > li {                                /*----- Menu Top Level -----*/
+    float:left;
+    display:inline;
+    position:relative;
 }
+.menu > ul > li > a {
+    padding: 0.1em 0.6em;
+    display: inline; 
+}
+.menu > ul > li:hover > a, .menu > ul > .current-item > a {
+    background:#ED8001;                          /* Hover Background Color of Menu */
+}
+.menu li:hover .sub-menu {                       /*----- Menu Bottom Level -----*/
+    z-index:1;
+    opacity:1;
+}
+.sub-menu {
+    width:190%;
+    padding:0.1em 0.6em;
+    position:absolute;
+    top:100%;
+    z-index:-1;
+    opacity:0;
+    transition:opacity linear 0.2s;
+    background:#F2AA00;                          /* Background Color of Sub-Menu */
+}
+.sub-menu li {
+    display:block;
+}
+.sub-menu li a {                                 /* Sub-Menu Item */
+    padding:0.1em 0.6em;
+    border-right: none;
+    float: left;
+    white-space: nowrap;	
+}
+.sub-menu li a:hover, .current-item a {
+    background:#ED8001;                          /* Hover Background Color of Sub-Menu  */
+}
+
 
 /* Content */
 div.content
@@ -247,7 +281,7 @@ div.footer_note
     margin-top:1em;
     text-align:left;
     font-size:x-small;
-	color: Gray;
+    color: Gray;
 }
 
 /* -------- ABAP Object content -------- */

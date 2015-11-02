@@ -62,7 +62,7 @@ class ABAP_Navigation {
     }
 
     public static function GetURLDomainValue($domain, $domainValue, $desc, $newwin = TRUE) {
-        return ABAP_Navigation::GetURL(ABAP_OTYPE::DOMA_NAME, $domain, $domainValue, $desc, $newwin, ABAP_UI_TOOL::ANCHOR_VALUES);
+        return ABAP_Navigation::GetURL(ABAP_OTYPE::DOMA_NAME, $domain, $domainValue, $desc, $newwin, ABAP_UI_CONST::ANCHOR_VALUES);
     }
 
     public static function GetURLDtel($rollname, $desc, $newwin = TRUE) {
@@ -70,7 +70,7 @@ class ABAP_Navigation {
     }
 
     public static function GetURLDtelDocument($rollname, $label, $newwin = TRUE) {
-        return ABAP_Navigation::GetURL(ABAP_OTYPE::DTEL_NAME, $rollname, $label, $label, $newwin, ABAP_UI_TOOL::ANCHOR_DOCUMENT);
+        return ABAP_Navigation::GetURL(ABAP_OTYPE::DTEL_NAME, $rollname, $label, ABAP_UI_CONST::LABEL_F1Help, $newwin, ABAP_UI_CONST::ANCHOR_DOCUMENT);
     }
 
     public static function GetURLFuncModule($fm, $desc, $newwin = TRUE) {
@@ -153,19 +153,20 @@ class ABAP_Navigation {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::VIEW_NAME, $view, $view, $desc, $newwin);
     }
 
-    private static function GetURL($objtype, $objname, $value, $title, $newwin = FALSE, $anchor = '') {
-        if (strlen(trim($objname)) < 1 || strlen(trim($value)) < 1) {
+    private static function GetURL($objtype, $objname, $linkLabel, $linkTitle, $newwin = FALSE, $anchor = '') {
+        $linkLabel = trim($linkLabel);
+        if (strlen(trim($objname)) < 1 || strlen($linkLabel) < 1) {
             return '&nbsp;';
         }
 
-        $sTitle = (empty($title)) ? $value : $title;
+        $sTitle = (empty($linkTitle)) ? $linkLabel : $linkTitle;
         $newWindow = ($newwin === TRUE) ? 'target="_blank"' : '';
         $anchorTag = (strlen(trim($anchor)) > 0) ? '#' . $anchor : '';
         $result = "<a href=\"/abap/" . strtolower($objtype)
                 . "/" . htmlentities(strtolower($objname)) . ".html" . $anchorTag 
                 . "\" title=\"" . htmlentities($sTitle) . "\" "
                 .  $newWindow . ">" 
-                . htmlentities(trim($value)) . "</a>";
+                . htmlentities($linkLabel) . "</a>";
         return $result;
     }
 
@@ -233,6 +234,13 @@ class ABAP_TFDIR_ProcessingType {
      */
     public $CHK_UKIND4 = FALSE;
 
+}
+
+class ABAP_UI_CONST {
+    const ANCHOR_VALUES = "values";
+    const ANCHOR_DOCUMENT = "document";
+    
+    const LABEL_F1Help = 'Help Document on this Field';
 }
 
 class ABAP_UI_CUS0 {
@@ -354,9 +362,6 @@ class ABAP_UI_CUS0 {
 }
 
 class ABAP_UI_TOOL {
-
-    const ANCHOR_VALUES = "values";
-    const ANCHOR_DOCUMENT = "document";
 
     public static function Redirect404() {
         header(HTTP_STATUS::STATUS_404);

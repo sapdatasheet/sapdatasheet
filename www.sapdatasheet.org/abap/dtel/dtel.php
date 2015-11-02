@@ -163,7 +163,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DTEL_DESC . ' ' . $dtel['ROLL
                     </tbody>
                 </table>
                 <?php if (empty($dok_de) === FALSE) { ?>
-                <h4 id="<?php echo ABAP_UI_TOOL::ANCHOR_DOCUMENT ?>"> Documentation </h4>
+                <h4 id="<?php echo ABAP_UI_CONST::ANCHOR_DOCUMENT ?>"> Documentation </h4>
                     <div class="f1doc"><?php echo $dok_de ?></div>
                 <?php } ?>
                 <?php

@@ -129,7 +129,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DOMA_DESC . ' ' . $doma['DOMN
 
                 <?php if (mysqli_num_rows($doma_vall) > 0) { ?>
                     <h4>Value Range</h4>
-                    <a id="<?php echo ABAP_UI_TOOL::ANCHOR_VALUES ?>"></a>
+                    <a id="<?php echo ABAP_UI_CONST::ANCHOR_VALUES ?>"></a>
                     <table class="alv">
                         <tbody>
                             <tr><th class="alv">#</th>

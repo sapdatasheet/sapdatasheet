@@ -1,6 +1,5 @@
 <script src="/include/header.js"></script>
 <div class="header">
-
     <!-- Header Links -->
     <div class="headerlink">
         Description language: 
@@ -33,7 +32,7 @@
             <td>
                 <div class="headertxt"><a class="headertxt" href="/">
                         <img src="/sapdatasheet-middle.png"  alt="SAP Datasheet logo - Middle" />
-                        <span><?php // echo  WEBSITE::NAME            ?></span>
+                        <span><?php // echo  WEBSITE::NAME               ?></span>
                     </a></div>
                 <div class="headertxtsub"><span><?php echo WEBSITE::DESC ?></span></div>
             </td>
@@ -50,21 +49,36 @@
     </table>
 </div> <!-- End of Header -->
 <div>
-    <ul class="menu">
-        <li class="menu"><a class="menu" href="/abap/">ABAP Types</a></li>
-        <li class="menu"><a class="menu" href="/abap/doma/"><?php echo ABAP_OTYPE::DOMA_DESC ?></a></li>
-        <li class="menu"><a class="menu" href="/abap/dtel/"><?php echo ABAP_OTYPE::DTEL_DESC ?></a></li>
-        <li class="menu"><a class="menu" href="/abap/tabl/"><?php echo ABAP_OTYPE::TABL_DESC ?></a></li>
-        <li class="menu"><a class="menu" href="/abap/sqlt/"><?php echo ABAP_OTYPE::SQLT_DESC ?></a></li>
-        <li class="menu"><a class="menu" href="/abap/view/"><?php echo ABAP_OTYPE::VIEW_DESC ?></a></li>
-        <li class="menu"><a class="menu" href="/abap/func/"><?php echo ABAP_OTYPE::FUNC_DESC ?></a></li>
-        <li class="menu"><a class="menu" href="/abap/shlp/"><?php echo ABAP_OTYPE::SHLP_DESC ?></a></li>
-        <li class="menu"><a class="menu" href="/abap/intf/"><?php echo ABAP_OTYPE::INTF_DESC ?></a></li>
-        <li class="menu"><a class="menu" href="/abap/clas/"><?php echo ABAP_OTYPE::CLAS_DESC ?></a></li>
-        <li class="menu"><a class="menu" href="/abap/prog/"><?php echo ABAP_OTYPE::PROG_DESC ?></a></li>
-        <li class="menu"><a class="menu" href="/abap/tran/"><?php echo ABAP_OTYPE::TRAN_DESC ?></a></li>
-        <li class="menu"><a class="menu" href="/abap/cus0/"><?php echo ABAP_OTYPE::CUS0_DESC ?></a></li>
-        <li class="menu"><a class="menu" href="/abap/msag/"><?php echo ABAP_OTYPE::MSAG_DESC ?></a></li>
-    </ul>
-    <br/>
-</div> <!-- End of Menu -->
+    <nav class="menu">
+        <ul class="menu">
+            <li><a href="/abap/">ABAP Types</a></li>
+            <li>
+                <a href="#">DDIC <span class="arrow">&#9660;</span></a>
+                <ul class="sub-menu">
+                    <li><a href="/abap/doma/">Domain</a></li>
+                    <li><a href="/abap/dtel/">Data Element</a></li>
+                    <li><a href="/abap/tabl/">Table</a></li>
+                    <li><a href="/abap/sqlt/">Table Cluster/Pool</a></li>
+                    <li><a href="/abap/view/">View</a></li>
+                    <li><a href="/abap/shlp/">Search Help</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Code <span class="arrow">&#9660;</span></a>
+                <ul class="sub-menu">
+                    <li><a href="/abap/intf/">ABAP Interface</a></li>
+                    <li><a href="/abap/clas/">ABAP Class</a></li>
+                    <li><a href="/abap/fugr/">Function Group</a></li>
+                    <li><a href="/abap/func/">Function Module</a></li>
+                    <li><a href="/abap/prog/">Program</a></li>
+                </ul>
+            </li>
+            <li><a href="/abap/tran/">Transaction Code</a></li>
+            <li><a href="/abap/cus0/">IMG Activity</a></li>
+            <li><a href="/abap/msag/">Message Class</a></li>
+        </ul>
+    </nav>
+</div>
+<br />
+
+<!-- End of Menu -->
