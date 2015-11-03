@@ -37,9 +37,9 @@ $dd30l_DDSHDIATYP_t = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SHLP::DD30L_DIALOG
 $dd30l_AUTOSUGGEST_t = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SHLP::DD30L_AUTOSUGGEST_DOMAIN, $dd30l['AUTOSUGGEST']);
 $dd30l_FUZZY_SEARCH_t = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SHLP::DD30L_FUZZY_SEARCH_DOMAIN, $dd30l['FUZZY_SEARCH']);
 
-$dd31s = ABAP_DB_TABLE_SHLP::DD31S($dd30l['SHLPNAME']);
-$dd32s = ABAP_DB_TABLE_SHLP::DD32S($dd30l['SHLPNAME']);
-$dd33s = ABAP_DB_TABLE_SHLP::DD33S($dd30l['SHLPNAME']);
+$dd31s_list = ABAP_DB_TABLE_SHLP::DD31S($dd30l['SHLPNAME']);
+$dd32s_list = ABAP_DB_TABLE_SHLP::DD32S($dd30l['SHLPNAME']);
+$dd33s_list = ABAP_DB_TABLE_SHLP::DD33S($dd30l['SHLPNAME']);
 
 $hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::SHLP_NAME, $ObjID);
 $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::SHLP_DESC . ' ' . $ObjID . ' - ' . $dd30t;
@@ -78,11 +78,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::SHLP_DESC . ' ' . $ObjID . ' 
                 </tbody>
             </table>
 
-            <!-- Google Adsense: left -->
             <h5>&nbsp;</h5>
-            <div>
-                <?php include $__ROOT__ . '/include/google/adsense-left.html' ?>
-            </div>
         </div>
 
         <!-- Content -->
@@ -203,6 +199,55 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::SHLP_DESC . ' ' . $ObjID . ' 
                 </table>
 
                 <h4> Parameter </h4>
+                <?php if (empty($dd32s_list) === FALSE) { ?>
+                <table class="alv">
+                    <tr>
+                        <th class="alv"> # </th>
+                        <th class="alv"> Search Help Parameter </th>
+                        <th class="alv"> IMPORT Parameter </th>
+                        <th class="alv"> EXPORT Parameter </th>
+                        <th class="alv"> List Position </th>
+                        <th class="alv"> Selection Position </th>
+                        <th class="alv"> Selection Display </th>
+                        <th class="alv"> Case Sensitive </th>
+                        <th class="alv"> Data Element </th>
+                        <th class="alv"> Default Type </th>
+                        <th class="alv"> Default Value </th>
+                    </tr>
+                    <tr>
+                        <th class="alv"> &nbsp; </th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument('SHLPFIELD', '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument('SHLPINPUT', '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument('SHLPOUTPUT', '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument('SHLPLISPOS', '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument('SHLPSELPOS', '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument('SHLPSELDIS', '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument('MCNOUPPER', '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument('SHLPSPARDE', '?') ?></th>
+                        <th class="alv"> &nbsp; </th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument('DDSHDEFVAL', '?') ?></th>
+                    </tr>
+                    <?php
+                    foreach ($dd32s_list as $dd32s) {
+                        $dd32s_DEFAULTTYP_t = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SHLP::DD32S_DEFAULTTYP_DOMAIN, $dd32s['DEFAULTTYP']);
+                        ?>
+                        <tr><td class="alv" style="text-align: right;"><?php echo number_format($dd32s['FLPOSITION']) ?> </td>
+                            <td class="alv"><?php echo $dd32s['FIELDNAME'] ?></td>
+                            <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox('SHLPINPUT', $dd32s['SHLPINPUT']) ?></td>
+                            <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox('SHLPOUTPUT', $dd32s['SHLPOUTPUT']) ?></td>
+                            <td class="alv"><?php echo $dd32s['SHLPLISPOS'] ?></td>
+                            <td class="alv"><?php echo $dd32s['SHLPSELPOS'] ?></td>
+                            <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox('SHLPSELDIS', $dd32s['SHLPSELDIS']) ?></td>
+                            <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox('SHLPUPPER', $dd32s['SHLPUPPER']) ?></td>
+                            <td class="alv"><?php echo ABAP_Navigation::GetURLDtel($dd32s['ROLLNAME'], '') ?></td>
+                            <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SHLP::DD32S_DEFAULTTYP_DOMAIN, $dd32s['DEFAULTTYP'], $dd32s_DEFAULTTYP_t) ?></td>
+                            <td class="alv"><?php echo $dd32s['DEFAULTVAL'] ?></td>
+                        </tr>
+                    <?php } ?>
+                </table>
+                <?php } else { ?>
+                    <code>Search help <?php echo $ObjID ?> has no parameter.</code>
+                <?php } ?>
 
 
                 <h4> Hierarchy </h4>

@@ -171,6 +171,7 @@ class ABAP_DB_TABLE_CUS0 {
      * IMG Activities.
      */
     const CUS_IMGACH = "cus_imgach";
+    const CUS_IMGACH_TCODE_DTEL = "TCODE";
 
     /**
      * Text Table for IMG Activity.
@@ -473,11 +474,16 @@ class ABAP_DB_TABLE_DOMA {
      * Domains.
      */
     const DD01L = "dd01l";
+    const DD01L_DOMNAME_DTEL = "DOMNAME";
+    const DD01L_DATATYPE_DTEL = "DATATYPE_D";
+    const DD01L_LENG_DTEL = "DDLENG";
+    const DD01L_DECIMALS_DTEL = "DECIMALS";
 
     /**
      * R/3 DD: domain texts.
      */
     const DD01T = "dd01t";
+    const DD01T_DDTEXT_DTEL = "AS4TEXT";
 
     /**
      * R/3 DD: values for the domains.
@@ -488,6 +494,7 @@ class ABAP_DB_TABLE_DOMA {
      * DD: Texts for Domain Fixed Values (Language-Dependent).
      */
     const DD07T = "dd07t";
+    const DD07T_DDTEXT_DTEL = "VAL_TEXT";
 
     /**
      * Domain List.
@@ -595,11 +602,15 @@ class ABAP_DB_TABLE_DTEL {
      * Data elements.
      */
     const DD04L = "dd04l";
+    const DD04L_ROLLNAME_DTEL = "ROLLNAME";
+    const DD04L_DOMNAME_DTEL = "DOMNAME";
+    const DD04L_DATATYPE_DTEL = "DATATYPE_D";
 
     /**
      * R/3 DD: Data element texts.
      */
     const DD04T = "dd04t";
+    const DD04T_DDTEXT_DTEL = "AS4TEXT";
 
     /**
      * Extracted document.
@@ -778,7 +789,7 @@ class ABAP_DB_TABLE_FUNC {
         if (strlen(trim($fm)) < 1) {
             return '';
         }
-        
+
         $sql = "select STEXT from " . ABAP_DB_TABLE_FUNC::TFTIT
                 . " where FUNCNAME = :id and SPRAS = :lg";
         $paras = array(
@@ -797,7 +808,7 @@ class ABAP_DB_TABLE_FUNC {
             $text = $record['STEXT'];
         }
 
-        return $text;        
+        return $text;
     }
 
     /**
@@ -993,16 +1004,22 @@ class ABAP_DB_TABLE_HIER {
      * Release Status of Software Components in System.
      */
     const CVERS = "cvers";
+    const CVERS_COMPONENT_DTEL = "DLVUNIT";
+    const CVERS_COMP_TYPE_DTEL = "RELC_TYPE";
 
     /**
      * Reference Table for CVERS Entries.
      */
     const CVERS_REF = "cvers_ref";
+    const CVERS_REF_DESC_TEXT_DTEL = "COMP_DESC";
 
     /**
      * Application Components.
      */
     const DF14L = "df14l";
+    const DF14L_FCTR_ID_DTEL = "UFFCTR";
+    const DF14L_PS_POSID_DTEL = "UFPS_POSID";
+    const DF14L_FSTDATE_DTEL = "UDFDATE";
 
     /**
      * Business Application Component Names.
@@ -1018,17 +1035,20 @@ class ABAP_DB_TABLE_HIER {
      * Directory of Repository Objects.
      */
     const TADIR = "tadir";
+    const TADIR_DEVCLASS_DTEL = "DEVCLASS";
     const TADIR_PGMID_R3TR = "R3TR";
 
     /**
      * Packages.
      */
     const TDEVC = "tdevc";
+    const TDEVC_DEVCLASS_DTEL = "DEVCLASS";
 
     /**
      * Texts for Packages.
      */
     const TDEVCT = "tdevct";
+    const TDEVCT_CTEXT_DTEL = "AS4TEXT";
 
     /**
      * Software Component list.
@@ -1836,18 +1856,19 @@ class ABAP_DB_TABLE_SHLP {
     const DD30L_FUZZY_SIMILARITY_DOMAIN = 'DDFUZZY_SIMILARITY';
     const DD30L_SELMEXIT_DTEL = 'DDSHSELEXT';
     const DD30L_HOTKEY_DTEL = 'DDSHHOTKEY';
-    const DD30T = 'dd30t';                        // Search help texts
+    const DD30T = 'dd30t';                            // Search help texts
 
     /**
      * Not Used.
      */
-    const DD31S = 'dd31s';                        // Assignment of search helps to collective search helps
-    const DD32S = 'dd32s';                        // Search Help Parameter
+    const DD31S = 'dd31s';                            // Assignment of search helps to collective search helps
+    const DD32S = 'dd32s';                            // Search Help Parameter
+    const DD32S_DEFAULTTYP_DOMAIN = 'DDSHDEFTYP';
 
     /**
      * Not Used.
      */
-    const DD33S = 'dd33s';                        // Assignment of search help fields
+    const DD33S = 'dd33s';                            // Assignment of search help fields
 
     /**
      * List the search helps.
@@ -1932,16 +1953,33 @@ class ABAP_DB_TABLE_SHLP {
 /** Database table access for - CLAS & INTF. */
 class ABAP_DB_TABLE_SEO {
 
-    const SEOCLASS = 'seoclass';                         // Class/Interface
+    /**
+     * Class/Interface.
+     */
+    const SEOCLASS = 'seoclass';
+    const SEOCLASS_CLSNAME_DTEL = 'SEOCLSNAME';
     const SEOCLASS_CLAS_INDEX_MAX = 13;
     const SEOCLASS_INTF_INDEX_MAX = 4;
     const SEOCLASS_CLSTYPE_CLAS = 0;                     // Class
     const SEOCLASS_CLSTYPE_INTF = 1;                     // Interface
-    const SEOCLASSDF = 'seoclassdf';                     // Definition of class/interface
+
+    /**
+     * Definition of class/interface.
+     */
+    const SEOCLASSDF = 'seoclassdf';
     const SEOCLASSDF_EXPOSURE_DOMAIN = 'SEOCREATE';
     const SEOCLASSDF_RSTAT_DOMAIN = 'RSTAT';
     const SEOCLASSDF_CATEGORY_DOMAIN = 'SEOCATEGRY';
-    const SEOCLASSTX = 'seoclasstx';                     // Short description class/interface
+
+    /**
+     * Short description class/interface.
+     */
+    const SEOCLASSTX = 'seoclasstx';
+    const SEOCLASSTX_DESCRIPT_DTEL = 'SEODESCR';
+
+    /**
+     * Class/Interface component.
+     */
     const SEOCOMPO = 'seocompo';
     const SEOCOMPO_CMPTYPE_0 = 0;                        // Attribute
     const SEOCOMPO_CMPTYPE_1 = 1;                        // Method
@@ -2358,7 +2396,7 @@ class ABAP_DB_TABLE_TABL {
         if (strlen(trim($TableName)) < 1) {
             return '';
         }
-        
+
         $sql = "select DDTEXT from " . ABAP_DB_TABLE_TABL::DD02T
                 . " where tabname = :id and DDLANGUAGE = :lg";
         $paras = array(
@@ -2377,7 +2415,7 @@ class ABAP_DB_TABLE_TABL {
             $text = $record['DDTEXT'];
         }
 
-        return $text;        
+        return $text;
     }
 
     /**

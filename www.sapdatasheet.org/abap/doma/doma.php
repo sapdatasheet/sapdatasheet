@@ -68,11 +68,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DOMA_DESC . ' ' . $doma['DOMN
                 </table>
             <?php } ?>
 
-            <!-- Google Adsense: left -->
             <h5>&nbsp;</h5>
-            <div>
-                <?php include $__ROOT__ . '/include/google/adsense-left.html' ?>
-            </div>
         </div>
 
         <!-- Content -->

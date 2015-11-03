@@ -58,11 +58,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $sqlt_sqlcalss_desc . ' ' . $sqlt['SQLTAB
                 </tbody>
             </table>
 
-            <!-- Google Adsense: left -->
             <h5>&nbsp;</h5>
-            <div>
-                <?php include $__ROOT__ . '/include/google/adsense-left.html' ?>
-            </div>
         </div>
 
         <!-- Content -->

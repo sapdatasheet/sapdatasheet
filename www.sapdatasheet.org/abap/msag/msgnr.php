@@ -89,11 +89,7 @@ $GLOBALS['TITLE_TEXT'] = $t100_nr['TEXT'] . ' - ' . 'SAP ABAP ' . ABAP_OTYPE::MS
                 </tbody>
             </table>
 
-            <!-- Google Adsense: left -->
             <h5>&nbsp;</h5>
-            <div>
-                <?php include $__ROOT__ . '/include/google/adsense-left.html' ?>
-            </div>
         </div>
 
         <!-- Content -->

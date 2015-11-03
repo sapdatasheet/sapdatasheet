@@ -64,11 +64,7 @@ $child_bmfr = ABAP_DB_TABLE_HIER::TDEVC_COMPONENT($cvers['COMPONENT']);
                 </tbody>
             </table>
 
-            <!-- Google Adsense: left -->
             <h5>&nbsp;</h5>
-            <div>
-                <?php include $__ROOT__ . '/include/google/adsense-left.html' ?>
-            </div>
         </div>
 
         <!-- Content -->

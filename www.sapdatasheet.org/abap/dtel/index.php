@@ -112,7 +112,15 @@ $dd04l = ABAP_DB_TABLE_DTEL::DD04L_List($index);
                         <th class="alv"> Data Element </th>
                         <th class="alv"> Short Description </th>
                         <th class="alv"> Domain </th>
-                        <th class="alv"> Data Type </th></tr>
+                        <th class="alv"> Data Type </th>
+                    </tr>
+                    <tr>
+                        <th class="alv"> &nbsp; </th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_DTEL::DD04L_ROLLNAME_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_DTEL::DD04T_DDTEXT_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_DTEL::DD04L_DOMNAME_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_DTEL::DD04L_DATATYPE_DTEL, '?') ?></th>
+                    </tr>
                     <?php
                     $count = 0;
                     while ($dd04l_item = mysqli_fetch_array($dd04l)) {

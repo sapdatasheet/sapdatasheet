@@ -86,15 +86,21 @@ $clas_list = ABAP_DB_TABLE_SEO::SEOCLASS_List(ABAP_DB_TABLE_SEO::SEOCLASS_CLSTYP
                         <th class="alv"> Short Description </th>
                         <th class="alv"> Package </th>
                     </tr>
+                    <tr>
+                        <th class="alv"> &nbsp; </th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_SEO::SEOCLASS_CLSNAME_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_SEO::SEOCLASSTX_DESCRIPT_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_HIER::TADIR_DEVCLASS_DTEL, '?') ?></th>
+                    </tr>
                     <?php
                     $count = 0;
-                    foreach ($clas_list as $msag) {
+                    foreach ($clas_list as $clas) {
                         $count++;
-                        $clas_tx = ABAP_DB_TABLE_SEO::SEOCLASSTX($msag['CLSNAME']);
-                        $tadir = ABAP_DB_TABLE_HIER::TADIR(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::CLAS_NAME, $msag['CLSNAME']);
+                        $clas_tx = ABAP_DB_TABLE_SEO::SEOCLASSTX($clas['CLSNAME']);
+                        $tadir = ABAP_DB_TABLE_HIER::TADIR(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::CLAS_NAME, $clas['CLSNAME']);
                         ?>
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                            <td class="alv"><?php echo ABAP_Navigation::GetURLClass($msag['CLSNAME'], $clas_tx) ?></td>
+                            <td class="alv"><?php echo ABAP_Navigation::GetURLClass($clas['CLSNAME'], $clas_tx) ?></td>
                             <td class="alv"><?php echo $clas_tx ?></td>
                             <td class="alv"><?php echo ABAP_Navigation::GetURLPackage($tadir['DEVCLASS'], NULL) ?>&nbsp;</td>
                         </tr>

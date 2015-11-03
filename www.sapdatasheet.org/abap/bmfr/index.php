@@ -109,7 +109,16 @@ $bmfr = ABAP_DB_TABLE_HIER::DF14L_List($index);
                         <th class="alv"> Short Description </th>
                         <th class="alv"> First Release Date </th>
                         <th class="alv"> First Release </th>
-                        <th class="alv"> Application Component </th></tr>
+                        <th class="alv"> Application Component </th>
+                    </tr>
+                    <tr>
+                        <th class="alv"> &nbsp; </th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_HIER::DF14L_PS_POSID_DTEL, '?') ?></th>
+                        <th class="alv"> &nbsp; </th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_HIER::DF14L_FSTDATE_DTEL, '?') ?></th>
+                        <th class="alv"> &nbsp; </th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_HIER::DF14L_FCTR_ID_DTEL, '?') ?></th>
+                    </tr>
                     <?php
                     $count = 0;
                     while ($row = mysqli_fetch_array($bmfr)) {

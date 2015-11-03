@@ -60,11 +60,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $dd02l_tabclass_desc . ' ' . $dd02l['TABN
                 </tbody>
             </table>
 
-            <!-- Google Adsense: left -->
             <h5>&nbsp;</h5>
-            <div>
-                <?php include $__ROOT__ . '/include/google/adsense-left.html' ?>
-            </div>
         </div>
 
         <!-- Content -->

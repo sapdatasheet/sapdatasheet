@@ -64,7 +64,15 @@ ob_start();
                         <th class="alv"> Software Component </th>
                         <th class="alv"> Short Description </th>
                         <th class="alv"> Component Type </th>
-                        <th class="alv"> Component Type Text </th></tr>
+                        <th class="alv"> Component Type Text </th>
+                    </tr>
+                    <tr>
+                        <th class="alv"> &nbsp; </th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_HIER::CVERS_COMPONENT_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_HIER::CVERS_REF_DESC_TEXT_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_HIER::CVERS_COMP_TYPE_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_DOMA::DD07T_DDTEXT_DTEL, '?') ?></th>
+                    </tr>
                     <?php
                     $table = ABAP_DB_TABLE_HIER::CVERS_List();
                     $count = 0;
