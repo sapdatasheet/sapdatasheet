@@ -114,7 +114,15 @@ $dd25l_list = ABAP_DB_TABLE_VIEW::DD25L_List($index);
                         <th class="alv"> View Name </th>
                         <th class="alv"> Short Description </th>
                         <th class="alv"> View Type </th>
-                        <th class="alv"> Basis Table </th></tr>
+                        <th class="alv"> Basis Table </th>
+                    </tr>
+                    <tr>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_VIEW::DD25L_VIEWNAME_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_VIEW::DD25T_DDTEXT_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_VIEW::DD25L_VIEWCLASS_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_VIEW::DD25L_ROOTTAB_DTEL, '?') ?></th>
+                    </tr>
                     <?php
                     $count = 0;
                     while ($dd25l = mysqli_fetch_array($dd25l_list)) {

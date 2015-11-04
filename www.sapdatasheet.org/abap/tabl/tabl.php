@@ -19,9 +19,9 @@ if (empty($dd02l['TABNAME'])) {
     ABAP_UI_TOOL::Redirect404();
 }
 $dd02l_desc = ABAP_DB_TABLE_TABL::DD02T($dd02l['TABNAME']);
-$dd02l_tabclass_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_DD02L_TABCLASS, $dd02l['TABCLASS']);
-$dd02l_contflag_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_DD02L_CONTFLAG, $dd02l['CONTFLAG']);
-$dd02l_mainflag_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_DD02L_MAINFLAG, $dd02l['MAINFLAG']);
+$dd02l_tabclass_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_TABL::DD02L_TABCLASS_DOMAIN, $dd02l['TABCLASS']);
+$dd02l_contflag_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_TABL::DD02L_CONTFLAG_DOMAIN, $dd02l['CONTFLAG']);
+$dd02l_mainflag_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_TABL::DD02L_MAINFLAG_DOMAIN, $dd02l['MAINFLAG']);
 $dd03l = ABAP_DB_TABLE_TABL::DD03L_List($dd02l['TABNAME']);
 $hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::TABL_NAME, $dd02l['TABNAME']);
 $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $dd02l_tabclass_desc . ' ' . $dd02l['TABNAME'];
@@ -84,7 +84,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $dd02l_tabclass_desc . ' ' . $dd02l['TABN
                 <table class="content_obj">
                     <tbody>
                         <tr><td class="content_label"> Table Category        </td>
-                            <td class="field"> <?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DD02L_TABCLASS, $dd02l['TABCLASS'], $dd02l_tabclass_desc) ?> &nbsp;</td>
+                            <td class="field"> <?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_TABL::DD02L_TABCLASS_DOMAIN, $dd02l['TABCLASS'], $dd02l_tabclass_desc) ?> &nbsp;</td>
                             <td><?php echo htmlentities($dd02l_tabclass_desc) ?>&nbsp;</td></tr>
                         <tr><td class="content_label"> <?php echo htmlentities($dd02l_tabclass_desc) ?> </td>
                             <td class="field"><a href="#"><?php echo $dd02l['TABNAME'] ?></a></td>
@@ -103,10 +103,10 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $dd02l_tabclass_desc . ' ' . $dd02l['TABN
                             <td class="field"> <?php echo ABAP_Navigation::GetURLSqltable($dd02l['SQLTAB'], '') ?> &nbsp;</td>
                             <td>&nbsp;</td></tr>
                         <tr><td class="content_label"> Delivery Class </td>
-                            <td class="field"> <?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DD02L_CONTFLAG, $dd02l['CONTFLAG'], $dd02l_contflag_desc) ?> &nbsp;</td>
+                            <td class="field"> <?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_TABL::DD02L_CONTFLAG_DOMAIN, $dd02l['CONTFLAG'], $dd02l_contflag_desc) ?> &nbsp;</td>
                             <td><?php echo htmlentities($dd02l_contflag_desc) ?>&nbsp;</td></tr>
                         <tr><td class="content_label"> Data Browser/Table View Maintenance </td>
-                            <td class="field"> <?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DD02L_MAINFLAG, $dd02l['MAINFLAG'], $dd02l_mainflag_desc) ?> &nbsp;</td>
+                            <td class="field"> <?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_TABL::DD02L_MAINFLAG_DOMAIN, $dd02l['MAINFLAG'], $dd02l_mainflag_desc) ?> &nbsp;</td>
                             <td><?php echo htmlentities($dd02l_mainflag_desc) ?>&nbsp;</td></tr>
                     </tbody>
                 </table>

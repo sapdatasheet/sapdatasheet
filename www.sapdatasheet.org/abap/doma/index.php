@@ -116,7 +116,7 @@ $dd01l = ABAP_DB_TABLE_DOMA::DD01L_List($index);
                         <th class="alv"> Decimals </th>
                     </tr>
                     <tr>
-                        <th class="alv"> &nbsp; </th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
                         <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_DOMA::DD01L_DOMNAME_DTEL, '?') ?></th>
                         <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_DOMA::DD01T_DDTEXT_DTEL, '?') ?></th>
                         <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_DOMA::DD01L_DATATYPE_DTEL, '?') ?></th>

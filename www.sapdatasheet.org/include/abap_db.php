@@ -12,6 +12,7 @@ class ABAP_DB_CONST {
     const INDEX_TOP = "TOP";
     const INDEX_PAGE_1 = 1;                    // Page 1
     const INDEX_PAGESIZE = 10000;              // Page size
+    const INDEX_SEQNO_DTEL = 'SEQNZ';          // Data Element for Sequence Number
     const LANGU_EN = "E";
     const LANGU_DE = "D";
     const LANGU_DEFAULT = "DEFAULT";
@@ -25,9 +26,6 @@ class ABAP_DB_CONST {
     const DOMAIN_CUS_ATRH_ACTIVITY = 'SIMG_ACT';
     const DOMAIN_CUS_ATRH_COUNTRY = 'SIMG_C_OPT';
     const DOMAIN_CUS_ATRH_CRITICAL = 'SIMG_CRIT';
-    const DOMAIN_DD02L_TABCLASS = "TABCLASS";
-    const DOMAIN_DD02L_CONTFLAG = "CONTFLAG";
-    const DOMAIN_DD02L_MAINFLAG = "MAINTFLAG";
     const DOMAIN_DD03L_COMPTYPE_E = "E";         // E - Data Element
     const DOMAIN_DD03L_COMPTYPE_S = "S";         // S - Structure (Table)
     const DOMAIN_DD03L_COMPTYPE = "COMPTYPE";
@@ -38,7 +36,6 @@ class ABAP_DB_CONST {
     const DOMAIN_DD03L_REFTYPE = "DDREFTYPE";
     const DOMAIN_DD04L_REFKIND = "TYPEKIND";
     const DOMAIN_DD04L_REFTYPE = "DDREFTYPE";
-    const DOMAIN_DD06L_SQLCLASS = "SQLCLASS";
     const DOMAIN_DD25L_CUSTOMAUTH = "CONTFLAG";
     const DOMAIN_DD25L_GLOBALFLAG = "MAINTFLAG";
     const DOMAIN_DD25L_VIEWCLASS = "VIEWCLASS";
@@ -739,11 +736,19 @@ class ABAP_DB_TABLE_FUNC {
      * Function Module.
      */
     const TFDIR = "tfdir";
+    const TFDIR_FUNCNAME_DTEL = "RS38L_FNAM";
 
     /**
      * Function Module Short Text.
      */
     const TFTIT = "tftit";
+    const TFTIT_STEXT_DTEL = "RS38L_FTXT";
+
+    /**
+     * Function Groups.
+     */
+    const TLIBG = "TLIBG";
+    const TLIBG_AREA_DTEL = "RS38L_AREA";
 
     /**
      * Function Group Short Texts.
@@ -1445,13 +1450,15 @@ class ABAP_DB_TABLE_HIER {
 /** Database table access - Message Class. */
 class ABAP_DB_TABLE_MSAG {
 
-    const T100 = "t100";       // Messages
-    const T100A = 't100a';     // Message IDs for T100
-    const T100T = 't100t';     // Table T100A text
-    const T100U = 't100u';     // Last person to change messages
+    const T100 = "t100";                    // Messages
+    const T100A = 't100a';                  // Message IDs for T100
+    const T100A_ARBGB_DTEL = 'ARBGB';
+    const T100T = 't100t';                  // Table T100A text
+    const T100T_STEXT_DTEL = 'AS4TEXT';
+    const T100U = 't100u';                  // Last person to change messages
     const T100U_SELFDEF_DOMAIN = 'DOKU_SELFD';
-    const T100X = 't100x';     // Error Messages: Supplements
-    const YDOK_NA = 'ydok_na'; // Messages
+    const T100X = 't100x';                  // Error Messages: Supplements
+    const YDOK_NA = 'ydok_na';              // Messages
 
     /**
      * Messages.
@@ -1608,6 +1615,7 @@ class ABAP_DB_TABLE_PROG {
      */
     const REPOSRC = "reposrc";
     const YREPOSRCMETA = 'yreposrcmeta';
+    const REPOSRC_PROGNAME_DTEL = "PROGNAME";
 
     /**
      * Menu Painter: Texts.
@@ -1627,6 +1635,7 @@ class ABAP_DB_TABLE_PROG {
      * Title texts for programs in TRDIR.
      */
     const TRDIRT = "trdirt";
+    const TRDIRT_TEXT_DTEL = "REPTI";
 
     /**
      * Contains Screen Source Information - Field Information. Parsed data of
@@ -1838,6 +1847,7 @@ class ABAP_DB_TABLE_SHLP {
 
     const DD30L = 'dd30l';                        // Search helps
     const DD30L_INDEX_MAX = 3;
+    const DD30L_SHLPNAME_DTEL = 'SHLPNAME';
     const DD30L_SELMTYPE_DOMAIN = 'SELMTYPE';
     const DD30L_SELMTYPE_T = 'T';                 // Selection from table
     const DD30L_SELMTYPE_X = 'X';                 // Selection from table with text table
@@ -1857,6 +1867,7 @@ class ABAP_DB_TABLE_SHLP {
     const DD30L_SELMEXIT_DTEL = 'DDSHSELEXT';
     const DD30L_HOTKEY_DTEL = 'DDSHHOTKEY';
     const DD30T = 'dd30t';                            // Search help texts
+    const DD30T_DDTEXT_DTEL = 'DDTEXT';
 
     /**
      * Not Used.
@@ -2229,11 +2240,18 @@ class ABAP_DB_TABLE_TABL {
      * SAP Tables.
      */
     const DD02L = "dd02l";
+    const DD02L_TABNAME_DTEL = "TABNAME";
+    const DD02L_TABCLASS_DOMAIN = "TABCLASS";
+    const DD02L_TABCLASS_DTEL = "TABCLASS";
+    const DD02L_CONTFLAG_DOMAIN = "CONTFLAG";
+    const DD02L_CONTFLAG_DTEL = "CONTFLAG";
+    const DD02L_MAINFLAG_DOMAIN = "MAINTFLAG";
 
     /**
      * SAP DD: SAP Table Texts.
      */
     const DD02T = "dd02t";
+    const DD02T_DDTEXT_DTEL = "AS4TEXT";
 
     /**
      * Table Fields.
@@ -2249,11 +2267,16 @@ class ABAP_DB_TABLE_TABL {
      * Pool/cluster structures.
      */
     const DD06L = "dd06l";
+    const DD06L_SQLTAB_DTEL = "SQLTABLE";
+    const DD06L_SQLCLASS_DOMAIN = "SQLCLASS";
+    const DD06L_SQLCLASS_DTEL = "SQLCLASS";
+    const DD06L_AS4DATE_DTEL = "AS4DATE";
 
     /**
      * R/3 DD: texts on SQL tables.
      */
     const DD06T = "dd06t";
+    const DD06T_DDTEXT_DTEL = "DDTEXT";
 
     /**
      * R/3 DD: relationship definitions.
@@ -2570,6 +2593,7 @@ class ABAP_DB_TABLE_TRAN {
      * SAP Transaction Codes.
      */
     const TSTC = "tstc";
+    const TSTC_TCODE_DTEL = "TCODE";
 
     /**
      * Values for transaction code authorizations.
@@ -2715,11 +2739,15 @@ class ABAP_DB_TABLE_VIEW {
      * Aggregate Header (Views, MC Objects, Lock Objects).
      */
     const DD25L = "dd25l";
+    const DD25L_VIEWNAME_DTEL = "VIEWNAME";
+    const DD25L_VIEWCLASS_DTEL = "VIEWCLASS";
+    const DD25L_ROOTTAB_DTEL = "ROOTTAB";
 
     /**
      * Short Texts for Views and Lock Objects.
      */
     const DD25T = "dd25t";
+    const DD25T_DDTEXT_DTEL = "DDTEXT";
 
     /**
      * Base tables and foreign key relationships for a view.
@@ -2958,13 +2986,6 @@ class ABAP_DB_TABLE {
      * @see #DOKTL
      */
     const YDOKTL = "ydoktl";
-
-    /**
-     * Left part of the database table {@link #REPOSRC}.
-     *
-     * @see #REPOSRC
-     */
-    const YREPOSRCMETA = "yreposrcmeta";
 
     /**
      * Extracted string of the source code of database table {@link #REPOSRC}.

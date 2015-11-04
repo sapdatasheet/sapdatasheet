@@ -86,6 +86,12 @@ $shlp_list = ABAP_DB_TABLE_SHLP::DD30L_List($index);
                         <th class="alv"> Short Description </th>
                         <th class="alv"> Package </th>
                     </tr>
+                    <tr>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_SHLP::DD30L_SHLPNAME_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_SHLP::DD30T_DDTEXT_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_HIER::TADIR_DEVCLASS_DTEL, '?') ?></th>
+                    </tr>
                     <?php
                     $count = 0;
                     foreach ($shlp_list as $dd30l) {

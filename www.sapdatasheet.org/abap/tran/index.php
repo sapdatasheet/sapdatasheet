@@ -122,7 +122,14 @@ $tstc_list = ABAP_DB_TABLE_TRAN::TSTC_List($index);
                         <th class="alv"> # </th>
                         <th class="alv"> Transaction code </th>
                         <th class="alv"> Short Description </th>
-                        <th class="alv"> Corresponding Report (if exist) </th></tr>
+                        <th class="alv"> Corresponding Report (if exist) </th>
+                    </tr>
+                    <tr>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_TRAN::TSTC_TCODE_DTEL, '?') ?></th>
+                        <th class="alv">&nbsp;</th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_PROG::REPOSRC_PROGNAME_DTEL, '?') ?></th>
+                    </tr>
                     <?php
                     $count = 0;
                     while ($tstc = mysqli_fetch_array($tstc_list)) {

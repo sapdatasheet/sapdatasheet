@@ -114,6 +114,13 @@ $prog_list = ABAP_DB_TABLE_HIER::TADIR_PROG_List($index);
                         <th class="alv"> Software Component </th>
                         <th class="alv"> Short Description </th>
                     </tr>
+                    <tr>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_PROG::REPOSRC_PROGNAME_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_HIER::TADIR_DEVCLASS_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_HIER::CVERS_COMPONENT_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_PROG::TRDIRT_TEXT_DTEL, '?') ?></th>
+                    </tr>
                     <?php
                     $count = 0;
                     while ($prog = mysqli_fetch_array($prog_list)) {

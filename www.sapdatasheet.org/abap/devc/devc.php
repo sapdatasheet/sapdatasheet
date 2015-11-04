@@ -115,8 +115,8 @@ $child_tran = ABAP_DB_TABLE_HIER::TADIR_Child($tdevc['DEVCLASS'], ABAP_DB_TABLE_
                                 ?>
                                 <tr><td class="alv"><?php echo ABAP_Navigation::GetURLTable($child_tabl_item['OBJ_NAME'], $child_tabl_item_t) ?></td>
                                     <td class="alv"><?php echo htmlentities($child_tabl_item_t) ?>&nbsp;</td>
-                                    <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DD02L_TABCLASS, $table_dd02l['TABCLASS'], '') ?> &nbsp;</td>
-                                    <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DD02L_CONTFLAG, $table_dd02l['CONTFLAG'], '') ?> &nbsp;</td>
+                                    <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_TABL::DD02L_TABCLASS_DOMAIN, $table_dd02l['TABCLASS'], '') ?> &nbsp;</td>
+                                    <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_TABL::DD02L_CONTFLAG_DOMAIN, $table_dd02l['CONTFLAG'], '') ?> &nbsp;</td>
                                 </tr>
                             <?php } ?>
                         <?php } ?>

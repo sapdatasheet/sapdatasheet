@@ -81,7 +81,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $sqlt_sqlcalss_desc . ' ' . $sqlt['SQLTAB
                 <h4> Basic Data </h4>
                 <table class="content_obj">
                     <tbody>
-                        <tr><td class="content_label"> Category              </td><td class="field"> <?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DD06L_SQLCLASS, $sqlt['SQLCLASS'], $sqlt_sqlcalss_desc) ?> &nbsp;</td><td><?php echo $sqlt_sqlcalss_desc ?>&nbsp;</td></tr>
+                        <tr><td class="content_label"> Category              </td><td class="field"> <?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_TABL::DD06L_SQLCLASS_DOMAIN, $sqlt['SQLCLASS'], $sqlt_sqlcalss_desc) ?> &nbsp;</td><td><?php echo $sqlt_sqlcalss_desc ?>&nbsp;</td></tr>
                         <tr><td class="content_label"> <?php echo $sqlt_sqlcalss_desc; ?> </td><td class="field"> <?php echo ABAP_Navigation::GetURLSqltable($sqlt['SQLTAB'], $sqlt_desc) ?> &nbsp;</td><td>&nbsp;</td></tr>
                         <tr><td class="content_label"> Short Description     </td><td class="field"> <?php echo htmlentities($sqlt_desc) ?> &nbsp;</td><td>&nbsp;</td></tr>
                     </tbody>

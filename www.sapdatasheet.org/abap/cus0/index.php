@@ -97,9 +97,9 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::CUS0_DESC . " - Index " . $in
                             <th class="alv"> Short Description </th>
                         </tr>
                         <tr>
+                            <th class="alv"> <?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
                             <th class="alv"> &nbsp; </th>
-                            <th class="alv"> &nbsp; </th>
-                            <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_CUS0::CUS_IMGACH_TCODE_DTEL, '?') ?></th>
+                            <th class="alv"> <?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_CUS0::CUS_IMGACH_TCODE_DTEL, '?') ?></th>
                             <th class="alv"> &nbsp; </th>
                         </tr>
                         <?php

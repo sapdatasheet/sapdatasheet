@@ -114,7 +114,15 @@ $dd02l = ABAP_DB_TABLE_TABL::DD02L_List($index);
                         <th class="alv"> Table name </th>
                         <th class="alv"> Short Description </th>
                         <th class="alv"> Table Category </th>
-                        <th class="alv"> Delivery Class </th></tr>
+                        <th class="alv"> Delivery Class </th>
+                    </tr>
+                    <tr>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_TABL::DD02L_TABNAME_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_TABL::DD02T_DDTEXT_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_TABL::DD02L_TABCLASS_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_TABL::DD02L_CONTFLAG_DTEL, '?') ?></th>
+                    </tr>
                     <?php
                     $count = 0;
                     while ($dd02l_item = mysqli_fetch_array($dd02l)) {
@@ -124,8 +132,8 @@ $dd02l = ABAP_DB_TABLE_TABL::DD02L_List($index);
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
                             <td class="alv"><?php echo ABAP_Navigation::GetURLTable($dd02l_item['TABNAME'], $dd02l_item_desc); ?> </td>
                             <td class="alv"><?php echo htmlentities($dd02l_item_desc) ?></td>
-                            <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DD02L_TABCLASS, $dd02l_item['TABCLASS'], '') ?></td>
-                            <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DD02L_CONTFLAG, $dd02l_item['CONTFLAG'], '') ?></td></tr>
+                            <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_TABL::DD02L_TABCLASS_DOMAIN, $dd02l_item['TABCLASS'], '') ?></td>
+                            <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_TABL::DD02L_CONTFLAG_DOMAIN, $dd02l_item['CONTFLAG'], '') ?></td></tr>
                         <?php } ?>
                 </table>
 

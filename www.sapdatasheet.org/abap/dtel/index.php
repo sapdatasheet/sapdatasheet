@@ -115,7 +115,7 @@ $dd04l = ABAP_DB_TABLE_DTEL::DD04L_List($index);
                         <th class="alv"> Data Type </th>
                     </tr>
                     <tr>
-                        <th class="alv"> &nbsp; </th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
                         <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_DTEL::DD04L_ROLLNAME_DTEL, '?') ?></th>
                         <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_DTEL::DD04T_DDTEXT_DTEL, '?') ?></th>
                         <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_DTEL::DD04L_DOMNAME_DTEL, '?') ?></th>

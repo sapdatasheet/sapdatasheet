@@ -32,7 +32,7 @@ if (empty($dd03l['FIELDNAME'])) {
 
 $dd02l = ABAP_DB_TABLE_TABL::DD02L(strtoupper($Table));
 $dd02l_desc = ABAP_DB_TABLE_TABL::DD02T($dd02l['TABNAME']);
-$dd02l_tabclass_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_DD02L_TABCLASS, $dd02l['TABCLASS']);
+$dd02l_tabclass_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_TABL::DD02L_TABCLASS_DOMAIN, $dd02l['TABCLASS']);
 
 $dd03l_fieldname_desc = ABAP_UI_TOOL::GetTablFieldDesc($dd03l['PRECFIELD'], $dd03l['ROLLNAME']);
 $dd03l_checktable_desc = ABAP_DB_TABLE_TABL::DD02T($dd03l['CHECKTABLE']);

@@ -124,12 +124,19 @@ $fugr_list = ABAP_DB_TABLE_HIER::TADIR_FUGR_List($index);
                         <th class="alv"> <?php echo ABAP_OTYPE::CVERS_DESC ?> </th>
                         <th class="alv"> Short Description </th>
                     </tr>
+                    <tr>
+                        <th class="alv"> <?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
+                        <th class="alv"> <?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_FUNC::TLIBG_AREA_DTEL, '?') ?></th>
+                        <th class="alv"> <?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_HIER::TDEVC_DEVCLASS_DTEL, '?') ?></th>
+                        <th class="alv"> <?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_HIER::CVERS_REF_DESC_TEXT_DTEL, '?') ?></th>
+                        <th class="alv"> &nbsp; </th>
+                    </tr>
                     <?php
                     $count = 0;
                     while ($fugr = mysqli_fetch_array($fugr_list)) {
                         $count++;
                         $prog = ABAP_DB_TABLE_PROG::GET_PROG_FUGR($fugr['OBJ_NAME']);
-                        $prog_desc = ABAP_DB_TABLE_PROG::TRDIRT($prog);
+                        $prog_desc = ABAP_DB_TABLE_FUNC::TLIBT($fugr['OBJ_NAME']);
                         ?>
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
                             <td class="alv"><?php echo ABAP_Navigation::GetURLProgram($prog, '', $fugr['OBJ_NAME']) ?> </td>
@@ -158,4 +165,7 @@ if ($index === ABAP_DB_CONST::INDEX_A) {
     $ob_fname = $ob_folder . "/index.html";
     file_put_contents($ob_fname, $ob_content);
 }       
+
+// Close PDO Database Connection
+ABAP_DB_TABLE::close_conn();
 ?>

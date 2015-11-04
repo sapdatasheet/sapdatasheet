@@ -124,6 +124,12 @@ $fm_list = ABAP_DB_TABLE_FUNC::TFDIR_List($index);
                         <th class="alv"> Mode </th>
                         <th class="alv"> Short Description </th>
                     </tr>
+                    <tr>
+                        <th class="alv"> <?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
+                        <th class="alv"> <?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_FUNC::TFDIR_FUNCNAME_DTEL, '?') ?></th>
+                        <th class="alv"> &nbsp; </th>
+                        <th class="alv"> <?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_FUNC::TFTIT_STEXT_DTEL, '?') ?></th>
+                    </tr>
                     <?php
                     $count = 0;
                     while ($fm = mysqli_fetch_array($fm_list)) {

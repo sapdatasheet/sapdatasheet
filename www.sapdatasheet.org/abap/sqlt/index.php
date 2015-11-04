@@ -68,17 +68,24 @@ $dd06l = ABAP_DB_TABLE_TABL::DD06L_List();
                         <th class="alv"> Table Category </th>
                         <th class="alv"> Created on </th>
                     </tr>
+                    <tr>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_TABL::DD06L_SQLTAB_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_TABL::DD06T_DDTEXT_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_TABL::DD06L_SQLCLASS_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_TABL::DD06L_AS4DATE_DTEL, '?') ?></th>
+                    </tr>
                     <?php
                     $count = 0;
                     while ($dd06l_item = mysqli_fetch_array($dd06l)) {
                         $count++;
                         $dd06l_item_t = ABAP_DB_TABLE_TABL::DD06T($dd06l_item['SQLTAB']);
-                        $dd06l_sqlclass_t = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_DD06L_SQLCLASS, $dd06l_item['SQLCLASS']);
+                        $dd06l_sqlclass_t = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_TABL::DD06L_SQLCLASS_DOMAIN, $dd06l_item['SQLCLASS']);
                         ?>
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
                             <td class="alv"><?php echo ABAP_Navigation::GetURLSqltable($dd06l_item['SQLTAB'], $dd06l_item_t) ?> </td>
                             <td class="alv"><?php echo htmlentities($dd06l_item_t) ?></td>
-                            <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DD06L_SQLCLASS, $dd06l_item['SQLCLASS'], $dd06l_sqlclass_t) ?></td>
+                            <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_TABL::DD06L_SQLCLASS_DOMAIN, $dd06l_item['SQLCLASS'], $dd06l_sqlclass_t) ?></td>
                             <td class="alv"><?php echo $dd06l_item['AS4DATE'] ?></td>
                         </tr>
                         <?php } ?>

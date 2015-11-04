@@ -117,7 +117,7 @@ $devc = ABAP_DB_TABLE_HIER::TDEVC_List($index);
                         <th class="alv"> <?php echo ABAP_OTYPE::BMFR_DESC ?> </th>
                     </tr>
                     <tr>
-                        <th class="alv"> &nbsp; </th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
                         <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_HIER::TDEVC_DEVCLASS_DTEL, '?') ?></th>
                         <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_HIER::TDEVCT_CTEXT_DTEL, '?') ?></th>
                         <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_HIER::TDEVC_DEVCLASS_DTEL, '?') ?></th>

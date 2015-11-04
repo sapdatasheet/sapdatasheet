@@ -112,7 +112,7 @@ $bmfr = ABAP_DB_TABLE_HIER::DF14L_List($index);
                         <th class="alv"> Application Component </th>
                     </tr>
                     <tr>
-                        <th class="alv"> &nbsp; </th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
                         <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_HIER::DF14L_PS_POSID_DTEL, '?') ?></th>
                         <th class="alv"> &nbsp; </th>
                         <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_HIER::DF14L_FSTDATE_DTEL, '?') ?></th>

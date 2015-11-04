@@ -68,6 +68,12 @@ $msag_list = ABAP_DB_TABLE_MSAG::T100A_List();
                         <th class="alv"> Short Description </th>
                         <th class="alv"> Package </th>
                     </tr>
+                    <tr>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_MSAG::T100A_ARBGB_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_MSAG::T100T_STEXT_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_HIER::TADIR_DEVCLASS_DTEL, '?') ?></th>
+                    </tr>
                     <?php
                     $count = 0;
                     foreach ($msag_list as $msag) {

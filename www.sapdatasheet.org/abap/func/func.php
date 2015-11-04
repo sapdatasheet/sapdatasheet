@@ -211,3 +211,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::FUNC_DESC . ' ' . $func['FUNC
 
     </body>
 </html>
+<?php
+// Close PDO Database Connection
+ABAP_DB_TABLE::close_conn();
+?>
