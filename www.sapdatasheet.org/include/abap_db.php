@@ -316,6 +316,12 @@ class ABAP_DB_TABLE_CUS0 {
         return ABAP_DB_TABLE::select($sql);
     }
 
+    public static function CUS_IMGACH_Sitemap() {
+        $sql = 'select ACTIVITY from ' . ABAP_DB_TABLE_CUS0::CUS_IMGACH
+                . ' order by activity';
+        return ABAP_DB_TABLE::select($sql);
+    }
+
     public static function CUS_IMGACH($activity) {
         $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::CUS_IMGACH
                 . ' where `activity` = :id';
@@ -1474,6 +1480,14 @@ class ABAP_DB_TABLE_MSAG {
         );
         return ABAP_DB_TABLE::select($sql, $paras);
     }
+    
+    public static function T100_Sitemap() {
+        $con = ABAP_DB_SCHEMA::getConnection();
+        $sql = "select ARBGB, MSGNR from " . ABAP_DB_TABLE_MSAG::T100
+                . " where sprsl = '" . ABAP_DB_CONST::LANGU_EN . "'"
+                . " order by ARBGB, MSGNR";
+        return ABAP_DB_TABLE::select($sql);
+    }    
 
     /**
      * Message.
@@ -1884,13 +1898,18 @@ class ABAP_DB_TABLE_SHLP {
     /**
      * List the search helps.
      */
-
     public static function DD30L_List($page) {
         $offset = ($page - 1) * ABAP_DB_CONST::INDEX_PAGESIZE;
         $sql = 'select * from ' . ABAP_DB_TABLE_SHLP::DD30L
                 . ' ORDER BY SHLPNAME'
                 . ' LIMIT ' . ABAP_DB_CONST::INDEX_PAGESIZE
                 . ' OFFSET ' . $offset;
+        return ABAP_DB_TABLE::select($sql);
+    }
+
+    public static function DD30L_Sitemap() {
+        $sql = 'select SHLPNAME from ' . ABAP_DB_TABLE_SHLP::DD30L
+                . ' ORDER BY SHLPNAME';
         return ABAP_DB_TABLE::select($sql);
     }
 
@@ -2039,6 +2058,16 @@ class ABAP_DB_TABLE_SEO {
                 . ' ORDER BY CLSNAME'
                 . ' LIMIT ' . ABAP_DB_CONST::INDEX_PAGESIZE
                 . ' OFFSET ' . $offset;
+        $paras = array(
+            'clstype' => $clstype
+        );
+        return ABAP_DB_TABLE::select($sql, $paras);
+    }
+
+    public static function SEOCLASS_Sitemap($clstype) {
+        $sql = 'select CLSNAME from ' . ABAP_DB_TABLE_SEO::SEOCLASS
+                . ' where `CLSTYPE` = :clstype'
+                . ' ORDER BY CLSNAME';
         $paras = array(
             'clstype' => $clstype
         );

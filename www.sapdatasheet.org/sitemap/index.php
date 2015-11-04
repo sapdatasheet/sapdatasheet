@@ -45,8 +45,8 @@ for ($count = 1; $count <= ABAP_DB_TABLE_CUS0::CUS_IMGACT_INDEX_MAX; $count++) {
         <priority>1.0</priority>
     </url>
 
-    <!-- SEO - CLAS, INTF -->
     <?php foreach ($sap_langus as $sap_langu) { ?>
+        <!-- CLAS -->
         <url>
             <loc>http://www.sapdatasheet.org/abap/clas<?php echo $sap_langu ?>/index.html</loc>
             <changefreq>monthly</changefreq>
@@ -55,6 +55,32 @@ for ($count = 1; $count <= ABAP_DB_TABLE_CUS0::CUS_IMGACT_INDEX_MAX; $count++) {
         <?php for ($abap_index = 1; $abap_index <= ABAP_DB_TABLE_SEO::SEOCLASS_CLAS_INDEX_MAX; $abap_index++) { ?>
             <url>
                 <loc>http://www.sapdatasheet.org/abap/clas<?php echo $sap_langu ?>/index-<?php echo $abap_index ?>.html</loc>
+                <changefreq>monthly</changefreq>
+                <priority>1.0</priority>
+            </url>
+        <?php } ?>
+        <!-- INTF -->
+        <url>
+            <loc>http://www.sapdatasheet.org/abap/intf<?php echo $sap_langu ?>/index.html</loc>
+            <changefreq>monthly</changefreq>
+            <priority>1.0</priority>
+        </url>
+        <?php for ($abap_index = 1; $abap_index <= ABAP_DB_TABLE_SEO::SEOCLASS_INTF_INDEX_MAX; $abap_index++) { ?>
+            <url>
+                <loc>http://www.sapdatasheet.org/abap/intf<?php echo $sap_langu ?>/index-<?php echo $abap_index ?>.html</loc>
+                <changefreq>monthly</changefreq>
+                <priority>1.0</priority>
+            </url>
+        <?php } ?>
+        <!-- SHLP -->
+        <url>
+            <loc>http://www.sapdatasheet.org/abap/shlp<?php echo $sap_langu ?>/index.html</loc>
+            <changefreq>monthly</changefreq>
+            <priority>1.0</priority>
+        </url>
+        <?php for ($abap_index = 1; $abap_index <= ABAP_DB_TABLE_SHLP::DD30L_INDEX_MAX; $abap_index++) { ?>
+            <url>
+                <loc>http://www.sapdatasheet.org/abap/shlp<?php echo $sap_langu ?>/index-<?php echo $abap_index ?>.html</loc>
                 <changefreq>monthly</changefreq>
                 <priority>1.0</priority>
             </url>
@@ -90,16 +116,20 @@ for ($count = 1; $count <= ABAP_DB_TABLE_CUS0::CUS_IMGACT_INDEX_MAX; $count++) {
             </url>
         <?php } ?>
     <?php } ?>
-    <!-- CVERS -->
     <?php foreach ($sap_langus as $sap_langu) { ?>
+        <!-- CVERS -->
         <url>
             <loc>http://www.sapdatasheet.org/abap/cvers<?php echo $sap_langu ?>/index.html</loc> 
             <changefreq>monthly</changefreq>
             <priority>1.0</priority>
         </url>
-    <?php } ?>
-    <!-- SQLT -->
-    <?php foreach ($sap_langus as $sap_langu) { ?>
+        <!-- MSAG -->
+        <url>
+            <loc>http://www.sapdatasheet.org/abap/msag<?php echo $sap_langu ?>/index.html</loc> 
+            <changefreq>monthly</changefreq>
+            <priority>1.0</priority>
+        </url>
+        <!-- SQLT -->
         <url>
             <loc>http://www.sapdatasheet.org/abap/sqlt<?php echo $sap_langu ?>/index.html</loc> 
             <changefreq>monthly</changefreq>

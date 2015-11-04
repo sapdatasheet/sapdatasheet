@@ -23,12 +23,17 @@
     </sitemap>
     <?php
     $abap_type_count = array(
+        array("clas", 3),
         array("cus0", 2),
         array("doma", 3),
         array("dtel", 11),
         array("fugr", 2),
         array("func", 11),
+        array("intf", 1),
+        array("msag", 1),
+        array("msag-msgnr", 14),
         array("prog", 7),
+        array("shlp", 1),
         array("tabl", 12),
         array("table-field", 199),
         array("tran", 3),
