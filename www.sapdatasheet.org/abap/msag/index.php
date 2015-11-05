@@ -10,6 +10,9 @@ if (php_sapi_name() == 'cli') {
 }
 // Check Buffer
 $ob_folder = GLOBAL_UTIL::GetObFolder(dirname(__FILE__));
+if (file_exists($ob_folder) == FALSE) {
+    mkdir($ob_folder);
+}
 $ob_fname = $ob_folder . "/index.html";
 if (file_exists($ob_fname)) {
     $ob_file_content = file_get_contents($ob_fname);

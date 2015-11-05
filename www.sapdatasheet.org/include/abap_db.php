@@ -1480,14 +1480,14 @@ class ABAP_DB_TABLE_MSAG {
         );
         return ABAP_DB_TABLE::select($sql, $paras);
     }
-    
+
     public static function T100_Sitemap() {
         $con = ABAP_DB_SCHEMA::getConnection();
         $sql = "select ARBGB, MSGNR from " . ABAP_DB_TABLE_MSAG::T100
                 . " where sprsl = '" . ABAP_DB_CONST::LANGU_EN . "'"
                 . " order by ARBGB, MSGNR";
         return ABAP_DB_TABLE::select($sql);
-    }    
+    }
 
     /**
      * Message.
@@ -2066,12 +2066,9 @@ class ABAP_DB_TABLE_SEO {
 
     public static function SEOCLASS_Sitemap($clstype) {
         $sql = 'select CLSNAME from ' . ABAP_DB_TABLE_SEO::SEOCLASS
-                . ' where `CLSTYPE` = :clstype'
+                . " where `CLSTYPE` = " . $clstype
                 . ' ORDER BY CLSNAME';
-        $paras = array(
-            'clstype' => $clstype
-        );
-        return ABAP_DB_TABLE::select($sql, $paras);
+        return ABAP_DB_TABLE::select($sql);
     }
 
     /**

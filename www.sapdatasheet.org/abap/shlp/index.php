@@ -21,6 +21,9 @@ if (strlen(trim($index)) == 0) {
 
 // Check Buffer
 $ob_folder = GLOBAL_UTIL::GetObFolder(dirname(__FILE__));
+if (file_exists($ob_folder) == FALSE) {
+    mkdir($ob_folder);
+}
 $ob_fname = $ob_folder . "/index-" . strtolower($index) . ".html";
 if (file_exists($ob_fname)) {
     $ob_file_content = file_get_contents($ob_fname);
@@ -121,7 +124,7 @@ ob_end_flush();
 file_put_contents($ob_fname, $ob_content);
 
 // Make default index file
-if ($index === ABAP_DB_CONST::INDEX_PAGE_1) {
+if ($index == ABAP_DB_CONST::INDEX_PAGE_1) {
     $ob_fname = $ob_folder . "/index.html";
     file_put_contents($ob_fname, $ob_content);
 }

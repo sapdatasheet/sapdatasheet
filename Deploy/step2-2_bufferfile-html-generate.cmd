@@ -4,6 +4,7 @@ cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
 FOR /F %%i IN (config-a-x.txt)       DO @call:BuffGenerate bmfr  %%i
 call:BuffGenerate                                          bmfr  TOP
 
+cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
 call:BuffGenerate                                          clas  1
 call:BuffGenerate                                          clas  2
 call:BuffGenerate                                          clas  3
@@ -18,6 +19,7 @@ call:BuffGenerate                                          clas  11
 call:BuffGenerate                                          clas  12
 call:BuffGenerate                                          clas  13
 
+cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
 call:BuffGenerate                                          cus0  hierarchy
 call:BuffGenerate                                          cus0  1
 call:BuffGenerate                                          cus0  2
@@ -47,13 +49,22 @@ cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
 FOR /F %%i IN (config-a-0-slash.txt) DO @call:BuffGenerate func  %%i
 call:BuffGenerate                                          func  rfc
 
+cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
 call:BuffGenerate                                          intf  1
 call:BuffGenerate                                          intf  2
 call:BuffGenerate                                          intf  3
 call:BuffGenerate                                          intf  4
 
 cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
+call:BuffGenerate                                          msag  ""
+
+cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
 FOR /F %%i IN (config-a-x-slash.txt) DO @call:BuffGenerate prog  %%i
+
+cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
+call:BuffGenerate                                          shlp  1
+call:BuffGenerate                                          shlp  2
+call:BuffGenerate                                          shlp  3
 
 cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
 call:BuffGenerate                                          sqlt  ""

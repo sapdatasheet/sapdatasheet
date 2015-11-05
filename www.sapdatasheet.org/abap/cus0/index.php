@@ -132,7 +132,7 @@ ob_end_flush();
 file_put_contents($ob_fname, $ob_content);
 
 // Make default index file
-if ($index === ABAP_DB_CONST::INDEX_HIER) {
+if ($index == ABAP_DB_CONST::INDEX_HIER) {
     $ob_fname = $ob_folder . "/index.html";
     file_put_contents($ob_fname, $ob_content);
 }
