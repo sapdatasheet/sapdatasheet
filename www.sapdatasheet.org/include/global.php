@@ -7,8 +7,8 @@ error_reporting(-1);
 class WEBSITE {
 
     const NAME = 'SAP Datasheet';
-    const DESC = 'The Best Run SAP Run SAPDatasheet';
-    const TITLE = ' - SAP Datasheet - The Best Run SAP Run SAPDatasheet';
+    const DESC = 'The Best Online SAP Object Repository';
+    const TITLE = ' - SAP Datasheet - The Best Online SAP Object Repository';
     const META_DESC = 'Datasheet for all SAP objects: domain, data element, table, view, class, function module, report, transaction code, IMG nodes, SAP Menu, etc';
 
 }

@@ -13,6 +13,8 @@ class ABAP_DB_CONST {
     const INDEX_PAGE_1 = 1;                    // Page 1
     const INDEX_PAGESIZE = 10000;              // Page size
     const INDEX_SEQNO_DTEL = 'SEQNZ';          // Data Element for Sequence Number
+    const USED_BY_LIMIT_DOMA = 15;
+    const USED_BY_LIMIT_DTEL = 40;
     const LANGU_EN = "E";
     const LANGU_DE = "D";
     const LANGU_DEFAULT = "DEFAULT";
@@ -662,6 +664,20 @@ class ABAP_DB_TABLE_DTEL {
     }
 
     /**
+     * Where Used List for Domain.
+     */
+    public static function DD04L_DOMNAME($domain) {
+        // No Order By - for performance issue
+        $sql = "select ROLLNAME FROM " . ABAP_DB_TABLE_DTEL::DD04L 
+                . " where DOMNAME = :domain limit "
+                . ABAP_DB_CONST::USED_BY_LIMIT_DOMA;
+        $paras = array(
+            'domain' => strtoupper($domain),
+        );
+        return ABAP_DB_TABLE::select($sql, $paras);
+    }
+
+    /**
      * Data Element text.
      * <pre>
      * SELECT DDTEXT FROM dd04t where ROLLNAME = 'BUKRS' and DDLANGUAGE = 'E';
@@ -669,14 +685,23 @@ class ABAP_DB_TABLE_DTEL {
      */
     public static function DD04T($Rollname) {
         $sql = "select DDTEXT from " . ABAP_DB_TABLE_DTEL::DD04T
-                . " where ROLLNAME = ? and DDLANGUAGE = ?";
-        $stmt = ABAP_DB_SCHEMA::getConnection()->prepare($sql);
-        $langu = $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]; // ABAP_DB_CONST::LANGU_EN;
-        $stmt->bind_param('ss', $Rollname, $langu);
-        $stmt->execute();
-        $stmt->bind_result($result);
-        $stmt->fetch();
-        return $result;
+                . " where ROLLNAME = :id and DDLANGUAGE = :lg";
+        $paras = array(
+            'id' => $Rollname,
+            'lg' => $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]
+        );
+        $record = current(ABAP_DB_TABLE::select($sql, $paras));
+        $text = $record['DDTEXT'];
+        if (empty($text)) {
+            unset($paras);
+            $paras = array(
+                'id' => $Rollname,
+                'lg' => ABAP_DB_CONST::LANGU_EN
+            );
+            $record = current(ABAP_DB_TABLE::select($sql, $paras));
+            $text = $record['DDTEXT'];
+        }
+        return $text;
     }
 
     /**
@@ -704,7 +729,18 @@ class ABAP_DB_TABLE_DTEL {
             'langu' => $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]
         );
         $record = current(ABAP_DB_TABLE::select($sql, $paras));
-        return $record['HTMLTEXT'];
+        $text = $record['HTMLTEXT'];
+        if (empty($text)) {
+            unset($paras);
+            $paras = array(
+                'object' => $object,
+                'langu' => ABAP_DB_CONST::LANGU_EN
+            );
+            $record = current(ABAP_DB_TABLE::select($sql, $paras));
+            $text = $record['HTMLTEXT'];
+        }
+
+        return $text;
     }
 
     public static function YDOK_DZ($object) {
@@ -715,7 +751,17 @@ class ABAP_DB_TABLE_DTEL {
             'object' => $object . '%',
             'langu' => $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]
         );
-        return ABAP_DB_TABLE::select($sql, $paras);
+        $result = ABAP_DB_TABLE::select($sql, $paras);
+        if (empty(array_filter($result))) {
+            unset($paras);
+            $paras = array(
+                'object' => $object . '%',
+                'langu' => ABAP_DB_CONST::LANGU_EN
+            );
+            $result = ABAP_DB_TABLE::select($sql, $paras);
+        }
+
+        return $result;
     }
 
 }
@@ -1898,6 +1944,7 @@ class ABAP_DB_TABLE_SHLP {
     /**
      * List the search helps.
      */
+
     public static function DD30L_List($page) {
         $offset = ($page - 1) * ABAP_DB_CONST::INDEX_PAGESIZE;
         $sql = 'select * from ' . ABAP_DB_TABLE_SHLP::DD30L
@@ -2528,7 +2575,21 @@ class ABAP_DB_TABLE_TABL {
         $qry = $con->query($sql);
         return mysqli_fetch_array($qry);
     }
-
+    
+    /**
+     * Where Used List for data element.
+     */
+    public static function DD03L_ROLLNAME($rollname) {
+    /*  No distinct, No order by  */
+        $sql = "SELECT TABNAME FROM " . ABAP_DB_TABLE_TABL::DD03L 
+                . " where ROLLNAME = :rollname limit "
+                . ABAP_DB_CONST::USED_BY_LIMIT_DTEL;
+        $paras = array(
+            'rollname' => strtoupper($rollname),
+        );
+        return ABAP_DB_TABLE::select($sql, $paras);
+    }
+ 
     /**
      * Foreign Key Fields.
      * <pre>

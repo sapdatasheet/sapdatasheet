@@ -160,7 +160,6 @@ table.content_obj
     margin:0px 0px 10px 0px;
     padding:0px;
 }
-
 /* ALV Table */
 table.alv
 {
@@ -262,8 +261,10 @@ div.left
 {
     float:left;
     width:11em;
-    /* margin:0;
-      padding:1em; */
+}
+div.whereusedlist
+{
+    overflow-x:auto;
 }
 
 /* Footer */

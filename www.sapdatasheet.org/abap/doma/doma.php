@@ -68,16 +68,30 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DOMA_DESC . ' ' . $doma['DOMN
                 </table>
             <?php } ?>
 
-            <h5>&nbsp;</h5>
+            <h5>Used by Data Element</h5>
+            <?php $wul_list = ABAP_DB_TABLE_DTEL::DD04L_DOMNAME($ObjID); ?>
+            <div class="whereusedlist">
+                <table class="content_obj">
+                    <tbody>
+                        <?php if (empty($wul_list) === FALSE) { ?>
+                            <?php foreach ($wul_list as $wul_item) { ?>
+                                <tr><td><?php echo ABAP_Navigation::GetURLDtel($wul_item['ROLLNAME'], ABAP_DB_TABLE_DTEL::DD04T($wul_item['ROLLNAME'])) ?>&nbsp;</td></tr>
+                            <?php } ?>
+                        <?php } else { ?>
+                            <tr><td>Not Used by Anyone</td></tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <!-- Content -->
         <div class="content">
             <!-- Content Navigator -->
             <div class="content_navi">
-                <a href="/">Home page</a> &gt; 
-                <a href="/abap/">ABAP Object</a> &gt; 
-                <a href="/abap/doma/">Domain</a> &gt; 
+                <a href="/">Home page</a> &gt;
+                <a href="/abap/">ABAP Object</a> &gt;
+                <a href="/abap/doma/">Domain</a> &gt;
                 <a href="#"><?php echo $doma['DOMNAME'] ?></a>
             </div>
 
@@ -129,8 +143,8 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DOMA_DESC . ' ' . $doma['DOMN
                     <table class="alv">
                         <tbody>
                             <tr><th class="alv">#</th>
-                                <th class="alv">Lower Limit</th> 
-                                <th class="alv">Upper Limit</th> 
+                                <th class="alv">Lower Limit</th>
+                                <th class="alv">Upper Limit</th>
                                 <th class="alv">Short Description</th> </tr>
                             <?php
                             while ($doma_vall_item = mysqli_fetch_array($doma_vall)) {
@@ -168,3 +182,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DOMA_DESC . ' ' . $doma['DOMN
 
     </body>
 </html>
+<?php
+// Close PDO Database Connection
+ABAP_DB_TABLE::close_conn();
+?>
