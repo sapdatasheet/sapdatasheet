@@ -62,7 +62,21 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DTEL_DESC . ' ' . $dtel['ROLL
                 </tbody>
             </table>
 
-            <h5>&nbsp;</h5>
+            <h5>Used by Table/Structure</h5>
+            <?php $wul_list = ABAP_DB_TABLE_TABL::DD03L_ROLLNAME($ObjID); ?>
+            <div class="whereusedlist">
+                <table class="content_obj">
+                    <tbody>
+                        <?php if (empty($wul_list) === FALSE) { ?>
+                            <?php foreach ($wul_list as $wul_item) { ?>
+                        <tr><td><?php echo ABAP_Navigation::GetURLTable($wul_item['TABNAME'], ABAP_DB_TABLE_TABL::DD02T($wul_item['TABNAME'])) ?>&nbsp;</td></tr>
+                            <?php } ?>
+                        <?php } else { ?>
+                            <tr><td>Not Used by Anyone</td></tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <!-- Content -->
