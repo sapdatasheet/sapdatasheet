@@ -508,11 +508,13 @@ class ABAP_DB_TABLE_DOMA {
      * </pre>
      */
     public static function DD01L_List($index) {
-        $con = ABAP_DB_SCHEMA::getConnection();
-        $index = $con->real_escape_string($index . '%');
-        $sql = "SELECT DOMNAME, DATATYPE, LENG, DECIMALS, AS4DATE FROM " . ABAP_DB_TABLE_DOMA::DD01L
-                . " where DOMNAME LIKE '" . $index . "' order by DOMNAME";
-        return $con->query($sql);
+        $sql = "SELECT DOMNAME, DATATYPE, LENG, DECIMALS, AS4DATE FROM "
+                . ABAP_DB_TABLE_DOMA::DD01L
+                . " where DOMNAME LIKE :idx order by DOMNAME";
+        $paras = array(
+            'idx' => $index . '%',
+        );
+        return ABAP_DB_TABLE::select($sql, $paras);
     }
 
     /**
@@ -522,22 +524,21 @@ class ABAP_DB_TABLE_DOMA {
      * </pre>
      */
     public static function DD01L_Sitemap() {
-        $con = ABAP_DB_SCHEMA::getConnection();
         $sql = "select DOMNAME from " . ABAP_DB_TABLE_DOMA::DD01L
                 . " where DOMNAME not like 'Y%' and DOMNAME not like 'Z%'";
-        return $con->query($sql);
+        return ABAP_DB_TABLE::select($sql);
     }
 
     /**
      * Domain.
      */
     public static function DD01L($DomName) {
-        $con = ABAP_DB_SCHEMA::getConnection();
-        $DomName = $con->real_escape_string($DomName);
-        $sql = "SELECT * FROM " . ABAP_DB_TABLE_DOMA::DD01L . " where DOMNAME = '" . $DomName . "'";
-        $qry = $con->query($sql);
-        $result = mysqli_fetch_array($qry);
-        return $result;
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_DOMA::DD01L
+                . " where DOMNAME = :id";
+        $paras = array(
+            'id' => $DomName,
+        );
+        return current(ABAP_DB_TABLE::select($sql, $paras));
     }
 
     /**
@@ -668,7 +669,7 @@ class ABAP_DB_TABLE_DTEL {
      */
     public static function DD04L_DOMNAME($domain) {
         // No Order By - for performance issue
-        $sql = "select ROLLNAME FROM " . ABAP_DB_TABLE_DTEL::DD04L 
+        $sql = "select ROLLNAME FROM " . ABAP_DB_TABLE_DTEL::DD04L
                 . " where DOMNAME = :domain limit "
                 . ABAP_DB_CONST::USED_BY_LIMIT_DOMA;
         $paras = array(
@@ -2575,13 +2576,13 @@ class ABAP_DB_TABLE_TABL {
         $qry = $con->query($sql);
         return mysqli_fetch_array($qry);
     }
-    
+
     /**
      * Where Used List for data element.
      */
     public static function DD03L_ROLLNAME($rollname) {
-    /*  No distinct, No order by  */
-        $sql = "SELECT TABNAME FROM " . ABAP_DB_TABLE_TABL::DD03L 
+        /*  No distinct, No order by  */
+        $sql = "SELECT TABNAME FROM " . ABAP_DB_TABLE_TABL::DD03L
                 . " where ROLLNAME = :rollname limit "
                 . ABAP_DB_CONST::USED_BY_LIMIT_DTEL;
         $paras = array(
@@ -2589,7 +2590,7 @@ class ABAP_DB_TABLE_TABL {
         );
         return ABAP_DB_TABLE::select($sql, $paras);
     }
- 
+
     /**
      * Foreign Key Fields.
      * <pre>

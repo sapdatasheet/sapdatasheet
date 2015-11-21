@@ -125,7 +125,7 @@ $dd01l = ABAP_DB_TABLE_DOMA::DD01L_List($index);
                     </tr>
                     <?php
                     $count = 0;
-                    while ($dd01l_item = mysqli_fetch_array($dd01l)) {
+                    foreach ($dd01l as $dd01l_item) {
                         $count++;
                         $dd01l_item_t = ABAP_DB_TABLE_DOMA::DD01T($dd01l_item['DOMNAME'])
                         ?>
