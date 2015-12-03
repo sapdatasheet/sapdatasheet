@@ -1,0 +1,8 @@
+Transparent Table:  YSEOPROG
+Short Description:  Class Interface / Program - SEO_CLASS_GET_METHOD_INCLUDES
+
+-------  -  -  ------------     -----       ---      ---        ----------------------
+CLSNAME  X  X  SEOCLSNAME        CHAR        30        0        Object Type Name
+SEQ      X  X  INT4              INT4        10        0        Natural Number
+CPDNAME        SEOCPDNAME        CHAR        61        0        Full Component Name
+INCLUDE        PROGRAMM          CHAR        40        0        ABAP Program Name

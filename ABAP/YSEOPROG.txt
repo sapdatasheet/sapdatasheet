@@ -1,0 +1,73 @@
+*&---------------------------------------------------------------------*
+*& Report  YSEOPROG
+*&
+*&---------------------------------------------------------------------*
+*& Generate Class Interface / Program Mapping.
+*& This program is designed to run in Background.
+*&---------------------------------------------------------------------*
+
+REPORT yseoprog.
+
+* CALL FUNCTION 'SEO_CLASS_GET_METHOD_INCLUDES'
+
+CLASS cl_oo_include_naming DEFINITION LOAD.
+DATA: lt_seo     TYPE STANDARD TABLE OF seoclass,
+      ls_seo     TYPE seoclass,
+      ls_clskey  TYPE seoclskey,
+      lr_naming  TYPE REF TO if_oo_class_incl_naming,
+      lt_include TYPE seop_methods_w_include,
+      ls_include TYPE LINE OF seop_methods_w_include,
+      lv_lines   TYPE i,
+      ls_seoprog TYPE yseoprog,
+      lt_seoprog TYPE STANDARD TABLE OF yseoprog.
+DATA: lv_index_s TYPE string,
+      lv_lines_s TYPE string,
+      lv_message TYPE string.
+
+SELECT clsname FROM seoclass INTO CORRESPONDING FIELDS OF TABLE lt_seo.
+
+" Job Log
+DESCRIBE TABLE lt_seo LINES lv_lines.
+MOVE lv_lines TO lv_lines_s.
+CONCATENATE 'Loaded from table SEOCLASS, records ' lv_lines_s
+  INTO lv_message RESPECTING BLANKS.
+MESSAGE lv_message TYPE 'I'.
+
+LOOP AT lt_seo INTO ls_seo.
+  MOVE sy-tabix TO lv_index_s.
+  CLEAR: ls_clskey, lt_include, lv_lines, lt_seoprog.
+
+  " Load Data
+  ls_clskey-clsname = ls_seo-clsname.
+  lr_naming ?= cl_oo_include_naming=>get_instance_by_cifkey( ls_clskey ).
+  lt_include = lr_naming->get_all_method_includes( ).
+  DESCRIBE TABLE lt_include LINES lv_lines.
+
+  IF lv_lines > 0.
+    " Prepare Data
+    LOOP AT lt_include INTO ls_include.
+      ls_seoprog-seq = sy-tabix.
+      ls_seoprog-clsname = ls_include-cpdkey-clsname.
+      ls_seoprog-cpdname = ls_include-cpdkey-cpdname.
+      ls_seoprog-include = ls_include-incname.
+      MOVE-CORRESPONDING ls_include TO ls_seoprog.
+      APPEND ls_seoprog TO lt_seoprog.
+    ENDLOOP.
+
+    " Save to DB
+    INSERT yseoprog FROM TABLE lt_seoprog ACCEPTING DUPLICATE KEYS.
+    COMMIT WORK.
+
+    " Job Log
+    MOVE lv_lines TO lv_lines_s.
+    CONCATENATE 'Item ' lv_index_s ' (' ls_seo-clsname
+      ') saved to db ' lv_lines_s ' records'
+      INTO lv_message RESPECTING BLANKS.
+    MESSAGE lv_message TYPE 'I'.
+  ELSE.
+    CONTINUE.
+  ENDIF.
+ENDLOOP.
+
+NEW-LINE.
+MESSAGE 'Done' TYPE 'I'.
