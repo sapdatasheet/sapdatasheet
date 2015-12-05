@@ -9,9 +9,9 @@ REPORT ywul_job.
 
 TABLES akb_relobjs.
 
-PARAMETERS     p_otype  TYPE tadir-object.
-SELECT-OPTIONS p_oname   FOR akb_relobjs-obj_name OBLIGATORY.
-PARAMETERS     p_last   TYPE i.
+PARAMETERS     p_otype  TYPE tadir-object OBLIGATORY.         " Object Type
+SELECT-OPTIONS p_oname  FOR akb_relobjs-obj_name OBLIGATORY.  " Object Name
+PARAMETERS     p_last   TYPE i OBLIGATORY.                    " Last Record Index of current Job
 
 START-OF-SELECTION.
 

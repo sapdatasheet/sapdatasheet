@@ -1,73 +1,62 @@
 *&---------------------------------------------------------------------*
-*& Report  YWUL
+*& Report  YCROSSREF
 *&
 *&---------------------------------------------------------------------*
-*& Generate Where-Used-List data.
+*& Corss Reference via RS_EU_CROSSREF
 *&---------------------------------------------------------------------*
 
-REPORT ywul.
+REPORT ycrossref.
 
-PARAMETERS p_otype   TYPE tadir-object.        " Object Type
-PARAMETERS p_maxjob  TYPE i DEFAULT 5.         " Max Job Count
-PARAMETERS p_batch   TYPE i DEFAULT 20000.     " Batch Size
+PARAMETERS p_ocls   TYPE euobj-id OBLIGATORY.         " Object Class
+PARAMETERS p_maxjob  TYPE i DEFAULT 5 OBLIGATORY.     " Max Job Count
+PARAMETERS p_batch   TYPE i DEFAULT 10000 OBLIGATORY. " Batch Size
+PARAMETERS p_src    TYPE xflag DEFAULT ' '.           " Load Source Code lines or Not
+
+TYPES: BEGIN OF ts_item,
+         eobj TYPE ycrossref-encl_objec,
+         obj  TYPE ycrossref-object,
+       END OF ts_item,
+       tt_list TYPE STANDARD TABLE OF ts_item.
+
 
 START-OF-SELECTION.
 
   PERFORM main.
 
 FORM main.
-  DATA: lt_list     TYPE fdt_tab_sobj_name,
-        lv_fullname TYPE string.
 
-  CASE p_otype.
-    WHEN 'DOMA'.
-      lv_fullname = 'DOMA (Domain) loaded records '.
-      SELECT domname FROM dd01l INTO TABLE lt_list.
-    WHEN 'DTEL'.
-      lv_fullname = 'DTEL (Data Element) loaded records'.
-      SELECT rollname FROM dd04l INTO TABLE lt_list.
-    WHEN 'TABL'.
-      lv_fullname = 'TABL (Transparent/Cluster/Pooled/etc Table) loaded records'.
-      SELECT tabname FROM dd02l INTO TABLE lt_list.
-    WHEN 'SQLT'.
-      lv_fullname = 'SQLT (Table Cluster/Pool) loaded records '.
-      SELECT sqltab FROM dd06l INTO TABLE lt_list.
-    WHEN 'VIEW'.
-      lv_fullname = 'VIEW (View) loaded records '.
-      SELECT viewname FROM dd25l INTO TABLE lt_list WHERE aggtype = 'V'.
-    WHEN 'SHLP'.
-      lv_fullname = 'SHLP (Search Help) loaded records '.
-      SELECT shlpname FROM dd30l INTO TABLE lt_list.
-    WHEN 'INTF'.
-      lv_fullname = 'INTF (ABAP OO Interface) loaded records '.
-      SELECT clsname FROM seoclass INTO TABLE lt_list WHERE clstype = 1.
-    WHEN 'CLAS'.
-      lv_fullname = 'CLAS (ABAP OO Class) loaded records '.
-      SELECT clsname FROM seoclass INTO TABLE lt_list WHERE clstype = 0.
-    WHEN 'FUNC'.
-      lv_fullname = 'FUNC (Function Group) loaded records '.
-      SELECT funcname FROM tfdir INTO TABLE lt_list.
-    WHEN 'PROG'.
-      lv_fullname = 'PROG (Program) loaded records '.
-      SELECT obj_name FROM tadir INTO TABLE lt_list
-        WHERE pgmid = 'R3TR' AND object = 'PROG'.
-    WHEN 'TRAN'.
-      lv_fullname = 'TRAN (Transaction Codes) loaded records '.
-      SELECT tcode FROM tstc INTO TABLE lt_list.
+  DATA: lt_list     TYPE tt_list,
+        lv_log_text TYPE string.
+
+  CASE p_ocls.
+*   Class/Interface Methods, http://scn.sap.com/thread/701737
+    WHEN 'OM'.
+      lv_log_text = 'Class/Interface Method (SEOCOMPO) loaded records'.
+      SELECT clsname AS eobj cmpname AS obj
+        FROM seocompo
+        INTO CORRESPONDING FIELDS OF TABLE lt_list
+        WHERE cmptype = 1.
+
+*   Message Number
+    WHEN 'NN'.
+      lv_log_text = 'Message Number (T100) loaded records'.
+      SELECT arbgb AS eobj msgnr AS obj
+        FROM t100
+        INTO CORRESPONDING FIELDS OF TABLE lt_list
+        WHERE sprsl = 'E'.
+
     WHEN OTHERS.
       MESSAGE 'The object type is not supported' TYPE 'I'.
-      MESSAGE p_otype TYPE 'I'.
-      RETURN.
+      MESSAGE p_ocls TYPE 'I'.
   ENDCASE.
 
-  PERFORM wul_jobs USING lv_fullname lt_list.
+  PERFORM crossref_jobs USING lv_log_text lt_list.
   MESSAGE 'Done' TYPE 'I'.
 ENDFORM.
 
-FORM wul_jobs
-  USING
-    iv_prefix  TYPE string
-    it_list    TYPE fdt_tab_sobj_name.
+FORM crossref_jobs
+  USING iv_log_text  TYPE string
+        it_list      TYPE tt_list.
 
 * Logging
   DATA: lv_lines   TYPE i,
@@ -76,32 +65,42 @@ FORM wul_jobs
 
   DESCRIBE TABLE it_list LINES lv_lines.
   MOVE lv_lines TO lv_lines_s.
-  CONCATENATE iv_prefix ' ' lv_lines_s
+  CONCATENATE iv_log_text ' ' lv_lines_s
     INTO lv_message RESPECTING BLANKS.
   MESSAGE lv_message TYPE 'I'.
 
 * Process
-  DATA: lv_item    TYPE LINE OF fdt_tab_sobj_name,
+  DATA: ls_item    TYPE ts_item,
         lv_index   TYPE i,
         lv_counter TYPE i.
-  DATA: lt_rsparam TYPE rsparams_tt,
-        ls_rsparam TYPE LINE OF rsparams_tt.
+  DATA: ls_param_eobj TYPE LINE OF rsparams_tt,
+        ls_param_obj  TYPE LINE OF rsparams_tt,
+        lt_rsparam    TYPE rsparams_tt.
 
   lv_index = 0.
-  LOOP AT it_list INTO lv_item.
+  LOOP AT it_list INTO ls_item.
     lv_index = lv_index + 1.
 
     " Prepare Paramters
-    CLEAR ls_rsparam.
-    ls_rsparam-selname = 'P_ONAME'.
-    ls_rsparam-kind    = 'S'.
-    ls_rsparam-sign    = 'I'.
-    ls_rsparam-option  = 'EQ'.
-    ls_rsparam-low     = lv_item.
-    APPEND ls_rsparam TO lt_rsparam.
+    CLEAR ls_param_eobj.
+    ls_param_eobj-selname = 'P_EOBJ'.
+    ls_param_eobj-kind    = 'S'.
+    ls_param_eobj-sign    = 'I'.
+    ls_param_eobj-option  = 'EQ'.
+    ls_param_eobj-low     = ls_item-eobj.
+    APPEND ls_param_eobj TO lt_rsparam.
+
+    CLEAR ls_param_obj.
+    ls_param_obj-selname = 'P_OBJ'.
+    ls_param_obj-kind    = 'S'.
+    ls_param_obj-sign    = 'I'.
+    ls_param_obj-option  = 'EQ'.
+    ls_param_obj-low     = ls_item-obj.
+    APPEND ls_param_obj TO lt_rsparam.
 
     " Submit job
     DESCRIBE TABLE lt_rsparam LINES lv_counter.
+    lv_counter = lv_counter / 2.
     IF lv_counter >= p_batch.
       PERFORM submit_job USING lt_rsparam lv_index.
       CLEAR lt_rsparam.
@@ -115,6 +114,7 @@ FORM wul_jobs
     CLEAR lt_rsparam.
   ENDIF.
 ENDFORM.
+
 
 FORM submit_job
   USING it_list  TYPE rsparams_tt
@@ -138,25 +138,33 @@ FORM submit_job
   MOVE iv_last TO lv_last_s.
   CONDENSE lv_last_s.
   UNPACK lv_last_s TO lv_last_s.       " Add leading zero (0)
-  CONCATENATE 'YWUL_' p_otype '_' lv_last_s INTO lv_job_name.
+  CONCATENATE 'YCROSSREF_' p_ocls '_' lv_last_s INTO lv_job_name.
 
   MESSAGE lv_job_name TYPE 'I'.
 
-* Add Paratmer
+* Add additional Paratmer
+  CLEAR ls_rsparam.
+  ls_rsparam-selname = 'P_OCLS'.
+  ls_rsparam-kind    = 'P'.
+  ls_rsparam-sign    = 'I'.
+  ls_rsparam-option  = 'EQ'.
+  ls_rsparam-low     = p_ocls.
+  APPEND ls_rsparam TO it_list.
+
+  CLEAR ls_rsparam.
+  ls_rsparam-selname = 'P_SRC'.
+  ls_rsparam-kind    = 'P'.
+  ls_rsparam-sign    = 'I'.
+  ls_rsparam-option  = 'EQ'.
+  ls_rsparam-low     = p_src.
+  APPEND ls_rsparam TO it_list.
+
   CLEAR ls_rsparam.
   ls_rsparam-selname = 'P_LAST'.
   ls_rsparam-kind    = 'P'.
   ls_rsparam-sign    = 'I'.
   ls_rsparam-option  = 'EQ'.
   ls_rsparam-low     = iv_last.
-  APPEND ls_rsparam TO it_list.
-
-  CLEAR ls_rsparam.
-  ls_rsparam-selname = 'P_OTYPE'.
-  ls_rsparam-kind    = 'P'.
-  ls_rsparam-sign    = 'I'.
-  ls_rsparam-option  = 'EQ'.
-  ls_rsparam-low     = p_otype.
   APPEND ls_rsparam TO it_list.
 
 * Submit Job Now
@@ -175,7 +183,7 @@ FORM submit_job
             WITH sy-msgv1 sy-msgv2 sy-msgv3 sy-msgv4.
   ENDIF.
 
-  SUBMIT ywul_job
+  SUBMIT ycrossref_job
           WITH SELECTION-TABLE it_list
           VIA JOB lv_job_name
           NUMBER lv_job_count
