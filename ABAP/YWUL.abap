@@ -8,8 +8,8 @@
 REPORT ywul.
 
 PARAMETERS p_otype   TYPE tadir-object.        " Object Type
-PARAMETERS p_maxjob  TYPE i DEFAULT 5.         " Max Job Count
-PARAMETERS p_batch   TYPE i DEFAULT 20000.     " Batch Size
+PARAMETERS p_maxjob  TYPE i DEFAULT 4.         " Max Job Count
+PARAMETERS p_batch   TYPE i DEFAULT 10000.     " Batch Size
 
 START-OF-SELECTION.
 
@@ -90,6 +90,12 @@ FORM wul_jobs
   lv_index = 0.
   LOOP AT it_list INTO lv_item.
     lv_index = lv_index + 1.
+
+*   Skip the Empty Items
+    CONDENSE lv_item.
+    IF lv_item is INITIAL.
+      CONTINUE.
+    ENDIF.
 
     " Prepare Paramters
     CLEAR ls_rsparam.

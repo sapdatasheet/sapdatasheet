@@ -9,7 +9,6 @@ REPORT ycrossref.
 
 PARAMETERS p_ocls   TYPE euobj-id OBLIGATORY.         " Object Class
 PARAMETERS p_maxjob  TYPE i DEFAULT 5 OBLIGATORY.     " Max Job Count
-PARAMETERS p_batch   TYPE i DEFAULT 10000 OBLIGATORY. " Batch Size
 PARAMETERS p_src    TYPE xflag DEFAULT ' '.           " Load Source Code lines or Not
 
 TYPES: BEGIN OF ts_item,
@@ -70,49 +69,78 @@ FORM crossref_jobs
   MESSAGE lv_message TYPE 'I'.
 
 * Process
-  DATA: ls_item    TYPE ts_item,
-        lv_index   TYPE i,
-        lv_counter TYPE i.
-  DATA: ls_param_eobj TYPE LINE OF rsparams_tt,
-        ls_param_obj  TYPE LINE OF rsparams_tt,
-        lt_rsparam    TYPE rsparams_tt.
+  DATA: ls_item  TYPE ts_item,
+        lv_index TYPE i.
+  DATA: lv_active_cnt TYPE i.
+  DATA: ls_rsparam TYPE LINE OF rsparams_tt,
+        lt_rsparam TYPE rsparams_tt.
 
   lv_index = 0.
   LOOP AT it_list INTO ls_item.
     lv_index = lv_index + 1.
 
-    " Prepare Paramters
-    CLEAR ls_param_eobj.
-    ls_param_eobj-selname = 'P_EOBJ'.
-    ls_param_eobj-kind    = 'S'.
-    ls_param_eobj-sign    = 'I'.
-    ls_param_eobj-option  = 'EQ'.
-    ls_param_eobj-low     = ls_item-eobj.
-    APPEND ls_param_eobj TO lt_rsparam.
+    IF ls_item-eobj IS INITIAL OR ls_item-obj IS INITIAL.
+      CONTINUE.
+    ENDIF.
 
-    CLEAR ls_param_obj.
-    ls_param_obj-selname = 'P_OBJ'.
-    ls_param_obj-kind    = 'S'.
-    ls_param_obj-sign    = 'I'.
-    ls_param_obj-option  = 'EQ'.
-    ls_param_obj-low     = ls_item-obj.
-    APPEND ls_param_obj TO lt_rsparam.
+*   Wait until there is not Much Jobs
+    IF lv_index MOD 50 EQ 0.
+      SELECT COUNT( * ) INTO lv_active_cnt
+        FROM tbtco WHERE status = 'R'.
+      WHILE lv_active_cnt >= p_maxjob.
+        WAIT UP TO 1 SECONDS.
+        MESSAGE 'Wait 1 second...' TYPE 'I'.
+        SELECT COUNT( * ) INTO lv_active_cnt
+          FROM tbtco WHERE status = 'R'.
+      ENDWHILE.
+    ENDIF.
+
+    " Prepare Paramters
+    CLEAR lt_rsparam.
+    CLEAR ls_rsparam.
+    ls_rsparam-selname = 'P_OCLS'.
+    ls_rsparam-kind    = 'P'.
+    ls_rsparam-sign    = 'I'.
+    ls_rsparam-option  = 'EQ'.
+    ls_rsparam-low     = p_ocls.
+    APPEND ls_rsparam TO lt_rsparam.
+
+    CLEAR ls_rsparam.
+    ls_rsparam-selname = 'P_EOBJ'.
+    ls_rsparam-kind    = 'P'.
+    ls_rsparam-sign    = 'I'.
+    ls_rsparam-option  = 'EQ'.
+    ls_rsparam-low     = ls_item-eobj.
+    APPEND ls_rsparam TO lt_rsparam.
+
+    CLEAR ls_rsparam.
+    ls_rsparam-selname = 'P_OBJ'.
+    ls_rsparam-kind    = 'P'.
+    ls_rsparam-sign    = 'I'.
+    ls_rsparam-option  = 'EQ'.
+    ls_rsparam-low     = ls_item-obj.
+    APPEND ls_rsparam TO lt_rsparam.
+
+    CLEAR ls_rsparam.
+    ls_rsparam-selname = 'P_IDX'.
+    ls_rsparam-kind    = 'P'.
+    ls_rsparam-sign    = 'I'.
+    ls_rsparam-option  = 'EQ'.
+    ls_rsparam-low     = lv_index.
+    APPEND ls_rsparam TO lt_rsparam.
+
+    CLEAR ls_rsparam.
+    ls_rsparam-selname = 'P_SRC'.
+    ls_rsparam-kind    = 'P'.
+    ls_rsparam-sign    = 'I'.
+    ls_rsparam-option  = 'EQ'.
+    ls_rsparam-low     = p_src.
+    APPEND ls_rsparam TO lt_rsparam.
 
     " Submit job
-    DESCRIBE TABLE lt_rsparam LINES lv_counter.
-    lv_counter = lv_counter / 2.
-    IF lv_counter >= p_batch.
-      PERFORM submit_job USING lt_rsparam lv_index.
-      CLEAR lt_rsparam.
-    ENDIF.
+    PERFORM submit_job USING lt_rsparam lv_index.
   ENDLOOP.
 
-  " Submit for the last portion
-  DESCRIBE TABLE lt_rsparam LINES lv_counter.
-  IF lv_counter > 0.
-    PERFORM submit_job USING lt_rsparam lv_index.
-    CLEAR lt_rsparam.
-  ENDIF.
 ENDFORM.
 
 
@@ -120,19 +148,9 @@ FORM submit_job
   USING it_list  TYPE rsparams_tt
         iv_last  TYPE i.
 
-  DATA: lv_active_cnt TYPE i,
-        ls_rsparam    TYPE LINE OF rsparams_tt.
   DATA: lv_last_s    TYPE char12,
         lv_job_name  TYPE btcjob,
         lv_job_count TYPE btcjobcnt.
-
-* Wait until there is not Much Jobs
-  lv_active_cnt = p_maxjob + 1.      " Make sure come to WHILE loop
-  WHILE lv_active_cnt >= p_maxjob.
-    WAIT UP TO 2 SECONDS.
-    SELECT COUNT( * ) INTO lv_active_cnt
-      FROM tbtco WHERE status = 'R'.
-  ENDWHILE.
 
 * Format Job Name
   MOVE iv_last TO lv_last_s.
@@ -141,31 +159,6 @@ FORM submit_job
   CONCATENATE 'YCROSSREF_' p_ocls '_' lv_last_s INTO lv_job_name.
 
   MESSAGE lv_job_name TYPE 'I'.
-
-* Add additional Paratmer
-  CLEAR ls_rsparam.
-  ls_rsparam-selname = 'P_OCLS'.
-  ls_rsparam-kind    = 'P'.
-  ls_rsparam-sign    = 'I'.
-  ls_rsparam-option  = 'EQ'.
-  ls_rsparam-low     = p_ocls.
-  APPEND ls_rsparam TO it_list.
-
-  CLEAR ls_rsparam.
-  ls_rsparam-selname = 'P_SRC'.
-  ls_rsparam-kind    = 'P'.
-  ls_rsparam-sign    = 'I'.
-  ls_rsparam-option  = 'EQ'.
-  ls_rsparam-low     = p_src.
-  APPEND ls_rsparam TO it_list.
-
-  CLEAR ls_rsparam.
-  ls_rsparam-selname = 'P_LAST'.
-  ls_rsparam-kind    = 'P'.
-  ls_rsparam-sign    = 'I'.
-  ls_rsparam-option  = 'EQ'.
-  ls_rsparam-low     = iv_last.
-  APPEND ls_rsparam TO it_list.
 
 * Submit Job Now
   CALL FUNCTION 'JOB_OPEN'

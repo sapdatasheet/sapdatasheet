@@ -170,6 +170,7 @@ FORM init.
   ls_tname-low = 'TTREE_SFW_NODES'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'TVDIR'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'USR12'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'YCROSSREF'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'YDOKTL'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'YDYNPSOURCED021S'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'YDYNPSOURCED022S'. APPEND ls_tname TO it_tname.
@@ -183,6 +184,7 @@ FORM init.
   ls_tname-low = 'YTDDAT'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'YTOBC'. APPEND ls_tname TO it_tname.
   ls_tname-low = 'YTOBCT'. APPEND ls_tname TO it_tname.
+  ls_tname-low = 'YWUL'. APPEND ls_tname TO it_tname.
 
 * Datatype mapping from DDIC type to MySQL type
 

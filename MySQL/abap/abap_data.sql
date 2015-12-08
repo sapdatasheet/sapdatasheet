@@ -446,7 +446,6 @@ create table if not exists abap.dd33s like sapall.dd33s;
 insert ignore into abap.dd33s select * from sapall.dd33s;
 
 
-
 -- Database table for RZ10
 
 create table if not exists abap.yspflmetadata like sapall.yspflmetadata;
@@ -458,3 +457,11 @@ insert ignore into abap.yspflparasub select * from sapall.yspflparasub;
 create table if not exists abap.yspflparausub like sapall.yspflparausub;
 insert ignore into abap.yspflparausub select * from sapall.yspflparausub;
 
+
+-- Database table for Where-Used-List
+
+create table if not exists abap.ycrossref like sapall.ycrossref;
+insert ignore into abap.ycrossref select * from sapall.ycrossref;
+
+create table if not exists abap.ywul like sapall.ywul;
+insert ignore into abap.ywul select * from sapall.ywul;
