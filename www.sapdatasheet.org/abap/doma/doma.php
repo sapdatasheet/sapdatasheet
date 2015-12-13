@@ -137,7 +137,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DOMA_DESC . ' ' . $doma['DOMN
                     </table>
                 <?php } ?>
 
-                <?php if (mysqli_num_rows($doma_vall) > 0) { ?>
+                <?php if (empty($doma_vall) === FALSE) { ?>
                     <h4>Value Range</h4>
                     <a id="<?php echo ABAP_UI_CONST::ANCHOR_VALUES ?>"></a>
                     <table class="alv">
@@ -147,7 +147,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DOMA_DESC . ' ' . $doma['DOMN
                                 <th class="alv">Upper Limit</th>
                                 <th class="alv">Short Description</th> </tr>
                             <?php
-                            while ($doma_vall_item = mysqli_fetch_array($doma_vall)) {
+                            foreach ($doma_vall as $doma_vall_item) {
                                 $doma_vall_item_text = ABAP_DB_TABLE_DOMA::DD07T($doma['DOMNAME'], $doma_vall_item['DOMVALUE_L']);
                                 ?>
                                 <tr><td class="alv_center"> <?php echo intval($doma_vall_item['VALPOS']) ?> </td>

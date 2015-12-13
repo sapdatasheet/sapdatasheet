@@ -465,3 +465,6 @@ insert ignore into abap.ycrossref select * from sapall.ycrossref;
 
 create table if not exists abap.ywul like sapall.ywul;
 insert ignore into abap.ywul select * from sapall.ywul;
+
+create table if not exists abap.yseoprog like sapall.yseoprog;
+insert ignore into abap.yseoprog select * from sapall.yseoprog;

@@ -228,33 +228,22 @@ class ABAP_DB_TABLE_CUS0 {
     public static function CUS_ACTH($act_id) {
         $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::CUS_ACTH
                 . ' where `act_id` = :id';
-        $paras = array(
-            'id' => $act_id
-        );
-        return current(ABAP_DB_TABLE::select($sql, $paras));
+        return ABAP_DB_TABLE::select_single($sql, $act_id);
     }
 
     /**
      * Customizing Activity Text Table.
      */
     public static function CUS_ACTT($act_id) {
-        $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::CUS_ACTT
-                . ' where `act_id` = :id and spras = :langu';
-        $paras = array(
-            'id' => $act_id,
-            'langu' => $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]
-        );
-        $record = current(ABAP_DB_TABLE::select($sql, $paras));
-        return $record['TEXT'];
+        $sql = 'select TEXT as DESCR from ' . ABAP_DB_TABLE_CUS0::CUS_ACTT
+                . ' where `act_id` = :id and spras = :lg';
+        return ABAP_DB_TABLE::descr($sql, $act_id);
     }
 
     public static function CUS_ACTOBJ($act_id) {
         $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::CUS_ACTOBJ
                 . ' where `act_id` = :id order by IMG_POS';
-        $paras = array(
-            'id' => $act_id
-        );
-        return ABAP_DB_TABLE::select($sql, $paras);
+        return ABAP_DB_TABLE::select_single($sql, $act_id);
     }
 
     public static function CUS_ACTOBT($actobj) {
@@ -283,30 +272,19 @@ class ABAP_DB_TABLE_CUS0 {
     public static function CUS_ATRCOU($attr_id) {
         $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::CUS_ATRCOU
                 . ' where `attr_id` = :id';
-        $paras = array(
-            'id' => $attr_id
-        );
-        return ABAP_DB_TABLE::select($sql, $paras);
+        return ABAP_DB_TABLE::select_single($sql, $attr_id);
     }
 
     public static function CUS_ATRH($attr_id) {
         $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::CUS_ATRH
                 . ' where `attr_id` = :id';
-        $paras = array(
-            'id' => $attr_id
-        );
-        return current(ABAP_DB_TABLE::select($sql, $paras));
+        return ABAP_DB_TABLE::select_single($sql, $attr_id);
     }
 
     public static function CUS_ATRT($attr_id) {
-        $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::CUS_ATRT
-                . ' where `attr_id` = :id and spras = :langu';
-        $paras = array(
-            'id' => $attr_id,
-            'langu' => $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]
-        );
-        $record = current(ABAP_DB_TABLE::select($sql, $paras));
-        return $record['TEXT'];
+        $sql = 'select TEXT as DESCR from ' . ABAP_DB_TABLE_CUS0::CUS_ATRT
+                . ' where `attr_id` = :id and spras = :lg';
+        return ABAP_DB_TABLE::descr($sql, $attr_id);
     }
 
     public static function CUS_IMGACH_List($page) {
@@ -327,35 +305,22 @@ class ABAP_DB_TABLE_CUS0 {
     public static function CUS_IMGACH($activity) {
         $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::CUS_IMGACH
                 . ' where `activity` = :id';
-        $paras = array(
-            'id' => $activity
-        );
-        return current(ABAP_DB_TABLE::select($sql, $paras));
+        return ABAP_DB_TABLE::select_single($sql, $activity);
     }
 
     public static function CUS_IMGACT($activity) {
-        $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::CUS_IMGACT
-                . ' where `activity` = :activity and spras = :langu';
-        $paras = array(
-            'activity' => $activity,
-            'langu' => $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]
-        );
-        $record = current(ABAP_DB_TABLE::select($sql, $paras));
-        return $record['TEXT'];
+        $sql = 'select TEXT as DESCR from ' . ABAP_DB_TABLE_CUS0::CUS_IMGACT
+                . ' where `activity` = :id and spras = :lg';
+        return ABAP_DB_TABLE::descr($sql, $activity);
     }
 
     /**
      * Get country name.
      */
     public static function T005T($land1) {
-        $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::T005T
-                . ' where `land1` = :id and spras = :langu';
-        $paras = array(
-            'id' => $land1,
-            'langu' => $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]
-        );
-        $record = current(ABAP_DB_TABLE::select($sql, $paras));
-        return $record['LANDX'];
+        $sql = 'select LANDX as DESCR from ' . ABAP_DB_TABLE_CUS0::T005T
+                . ' where `land1` = :id and spras = :lg';
+        return ABAP_DB_TABLE::descr($sql, $land1);
     }
 
     public static function TFM18($dok_class, $dok_name) {
@@ -376,10 +341,7 @@ class ABAP_DB_TABLE_CUS0 {
     public static function TNODEIMG_NODE_ID($node_id) {
         $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::TNODEIMG
                 . ' where `node_id` = :id';
-        $paras = array(
-            'id' => $node_id
-        );
-        return ABAP_DB_TABLE::select($sql, $paras);
+        return ABAP_DB_TABLE::select_single($sql, $node_id);
     }
 
     /**
@@ -390,10 +352,7 @@ class ABAP_DB_TABLE_CUS0 {
     public static function TNODEIMG_PARENT_ID($parent_id) {
         $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::TNODEIMG
                 . ' where `parent_id` = :id order by node_type';
-        $paras = array(
-            'id' => $parent_id
-        );
-        return ABAP_DB_TABLE::select($sql, $paras);
+        return ABAP_DB_TABLE::select_single($sql, $parent_id);
     }
 
     /**
@@ -404,10 +363,7 @@ class ABAP_DB_TABLE_CUS0 {
     public static function TNODEIMG_TREE_ID($tree_id) {
         $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::TNODEIMG
                 . ' where `tree_id` = :id';
-        $paras = array(
-            'id' => $tree_id
-        );
-        return ABAP_DB_TABLE::select($sql, $paras);
+        return ABAP_DB_TABLE::select_single($sql, $tree_id);
     }
 
     /**
@@ -428,48 +384,27 @@ class ABAP_DB_TABLE_CUS0 {
     public static function TNODEIMGR($node_id) {
         $sql = "select * from " . ABAP_DB_TABLE_CUS0::TNODEIMGR
                 . " where `node_id` = :id and ref_type = 'COBJ'";
-        $paras = array(
-            'id' => $node_id
-        );
-        $records = ABAP_DB_TABLE::select($sql, $paras);
-        return current($records);
+        return ABAP_DB_TABLE::select_single($sql, $node_id);
     }
 
     public static function TNODEIMGT($node_id) {
-        $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::TNODEIMGT
-                . ' where `node_id` = :id and spras = :langu';
-        $paras = array(
-            'id' => $node_id,
-            'langu' => $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]
-        );
-        $records = ABAP_DB_TABLE::select($sql, $paras);
-        $record = current($records);
-        return $record['TEXT'];
+        $sql = 'select TEXT as DESCR from ' . ABAP_DB_TABLE_CUS0::TNODEIMGT
+                . ' where `node_id` = :id and spras = :lg';
+        return ABAP_DB_TABLE::descr($sql, $node_id);
     }
 
     public static function TROADMAPT($roadmap_id) {
-        $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::TROADMAPT
-                . ' where `roadmap_id` = :id and spras = :langu';
-        $paras = array(
-            'id' => $roadmap_id,
-            'langu' => $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]
-        );
-        $record = current(ABAP_DB_TABLE::select($sql, $paras));
-        return $record['TEXT'];
+        $sql = 'select TEXT as DESCR from ' . ABAP_DB_TABLE_CUS0::TROADMAPT
+                . ' where `roadmap_id` = :id and spras = :lg';
+        return ABAP_DB_TABLE::descr($sql, $roadmap_id);
     }
 
     public static function YDOK_HY($object) {
-        $sql = "select * from " . ABAP_DB_TABLE_CUS0::YDOK_HY
+        $sql = "select HTMLTEXT as DESCR from " . ABAP_DB_TABLE_CUS0::YDOK_HY
                 . " where `id` = '" . ABAP_DB_CONST::DOKHL_ID_HY
-                . "' and object = :object and langu = :langu";
-        $paras = array(
-            'object' => $object,
-            'langu' => $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]
-        );
-        $record = current(ABAP_DB_TABLE::select($sql, $paras));
-        return $record['HTMLTEXT'];
+                . "' and object = :id and langu = :lg";
+        return ABAP_DB_TABLE::descr($sql, $object);
     }
-
 }
 
 /** Database table names - domain. */
@@ -510,11 +445,8 @@ class ABAP_DB_TABLE_DOMA {
     public static function DD01L_List($index) {
         $sql = "SELECT DOMNAME, DATATYPE, LENG, DECIMALS, AS4DATE FROM "
                 . ABAP_DB_TABLE_DOMA::DD01L
-                . " where DOMNAME LIKE :idx order by DOMNAME";
-        $paras = array(
-            'idx' => $index . '%',
-        );
-        return ABAP_DB_TABLE::select($sql, $paras);
+                . " where DOMNAME LIKE :id order by DOMNAME";
+        return ABAP_DB_TABLE::select_1filter($sql, $index . '%');
     }
 
     /**
@@ -535,25 +467,16 @@ class ABAP_DB_TABLE_DOMA {
     public static function DD01L($DomName) {
         $sql = "SELECT * FROM " . ABAP_DB_TABLE_DOMA::DD01L
                 . " where DOMNAME = :id";
-        $paras = array(
-            'id' => $DomName,
-        );
-        return current(ABAP_DB_TABLE::select($sql, $paras));
+        return ABAP_DB_TABLE::select_single($sql, $DomName);
     }
 
     /**
      * Domain text.
      */
     public static function DD01T($Domain) {
-        $sql = "select DDTEXT from " . ABAP_DB_TABLE_DOMA::DD01T
-                . " where DOMNAME = ? and DDLANGUAGE = ?";
-        $stmt = ABAP_DB_SCHEMA::getConnection()->prepare($sql);
-        $langu = $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU];  // ABAP_DB_CONST::LANGU_EN;
-        $stmt->bind_param('ss', $Domain, $langu);
-        $stmt->execute();
-        $stmt->bind_result($result);
-        $stmt->fetch();
-        return $result;
+        $sql = "select DDTEXT as DESCR from " . ABAP_DB_TABLE_DOMA::DD01T
+                . " where DOMNAME = :id and DDLANGUAGE = :lg";
+        return ABAP_DB_TABLE::descr($sql, $Domain);
     }
 
     /**
@@ -563,18 +486,15 @@ class ABAP_DB_TABLE_DOMA {
      * </pre>
      */
     public static function DD07L($Domain) {
-        $con = ABAP_DB_SCHEMA::getConnection();
-        $Domain = $con->real_escape_string($Domain);
         $sql = "SELECT * FROM " . ABAP_DB_TABLE_DOMA::DD07L
-                . " where DOMNAME = '" . $Domain . "' order by valpos";
-        return $con->query($sql);
+                . " where DOMNAME = :id order by valpos";
+        return ABAP_DB_TABLE::select_1filter($sql, $Domain);
     }
 
     /**
      * Get Domain Value Text.
      */
     public static function DD07T($Domain, $ValueL) {
-
         $sql = "select DDTEXT from " . ABAP_DB_TABLE_DOMA::DD07T
                 . " where DOMNAME = :domain and DDLANGUAGE = :langu and DOMVALUE_L = :domval";
         $paras = array(
@@ -584,7 +504,6 @@ class ABAP_DB_TABLE_DOMA {
         );
         $record = current(ABAP_DB_TABLE::select($sql, $paras));
         $text = $record['DDTEXT'];
-
         if (empty($text)) {
             unset($paras);
             $paras = array(
@@ -595,7 +514,6 @@ class ABAP_DB_TABLE_DOMA {
             $record = current(ABAP_DB_TABLE::select($sql, $paras));
             $text = $record['DDTEXT'];
         }
-
         return $text;
     }
 
@@ -632,11 +550,9 @@ class ABAP_DB_TABLE_DTEL {
      * </pre>
      */
     public static function DD04L_List($index) {
-        $con = ABAP_DB_SCHEMA::getConnection();
-        $index = $con->real_escape_string($index . '%');
         $sql = "SELECT ROLLNAME, DOMNAME, DATATYPE, LENG, AS4DATE FROM " . ABAP_DB_TABLE_DTEL::DD04L
-                . " where ROLLNAME LIKE '" . $index . "' order by ROLLNAME";
-        return $con->query($sql);
+                . " where ROLLNAME LIKE :id order by ROLLNAME";
+        return ABAP_DB_TABLE::select_1filter($sql, $index  . '%');    
     }
 
     /**
@@ -656,12 +572,9 @@ class ABAP_DB_TABLE_DTEL {
      * Data Element.
      */
     public static function DD04L($Rollname) {
-        $con = ABAP_DB_SCHEMA::getConnection();
-        $Rollname = $con->real_escape_string($Rollname);
-        $sql = "SELECT * FROM " . ABAP_DB_TABLE_DTEL::DD04L . " where ROLLNAME = '" . $Rollname . "'";
-        $qry = $con->query($sql);
-        $result = mysqli_fetch_array($qry);
-        return $result;
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_DTEL::DD04L
+                . " where ROLLNAME = :id";
+        return ABAP_DB_TABLE::select_single($sql, $Rollname);
     }
 
     /**
@@ -670,12 +583,9 @@ class ABAP_DB_TABLE_DTEL {
     public static function DD04L_DOMNAME($domain) {
         // No Order By - for performance issue
         $sql = "select ROLLNAME FROM " . ABAP_DB_TABLE_DTEL::DD04L
-                . " where DOMNAME = :domain limit "
+                . " where DOMNAME = :id limit "
                 . ABAP_DB_CONST::USED_BY_LIMIT_DOMA;
-        $paras = array(
-            'domain' => strtoupper($domain),
-        );
-        return ABAP_DB_TABLE::select($sql, $paras);
+        return ABAP_DB_TABLE::select_1filter($sql, strtoupper($domain));
     }
 
     /**
@@ -685,24 +595,9 @@ class ABAP_DB_TABLE_DTEL {
      * </pre>
      */
     public static function DD04T($Rollname) {
-        $sql = "select DDTEXT from " . ABAP_DB_TABLE_DTEL::DD04T
+        $sql = "select DDTEXT as DESCR from " . ABAP_DB_TABLE_DTEL::DD04T
                 . " where ROLLNAME = :id and DDLANGUAGE = :lg";
-        $paras = array(
-            'id' => $Rollname,
-            'lg' => $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]
-        );
-        $record = current(ABAP_DB_TABLE::select($sql, $paras));
-        $text = $record['DDTEXT'];
-        if (empty($text)) {
-            unset($paras);
-            $paras = array(
-                'id' => $Rollname,
-                'lg' => ABAP_DB_CONST::LANGU_EN
-            );
-            $record = current(ABAP_DB_TABLE::select($sql, $paras));
-            $text = $record['DDTEXT'];
-        }
-        return $text;
+        return ABAP_DB_TABLE::descr($sql, $Rollname);
     }
 
     /**
@@ -712,36 +607,16 @@ class ABAP_DB_TABLE_DTEL {
      * </pre>
      */
     public static function DD04T_ALL($Rollname) {
-        $con = ABAP_DB_SCHEMA::getConnection();
-        $Rollname = $con->real_escape_string($Rollname);
         $sql = "SELECT * FROM " . ABAP_DB_TABLE_DTEL::DD04T
-                . " where ROLLNAME = '" . $Rollname . "' and DDLANGUAGE = 'E'";
-        $qry = $con->query($sql);
-        $result = mysqli_fetch_array($qry);
-        return $result;
+                . " where ROLLNAME = :id and DDLANGUAGE = 'E'";
+        return ABAP_DB_TABLE::select_single($sql, $Rollname);
     }
 
     public static function YDOK_DE($object) {
-        $sql = "select * from " . ABAP_DB_TABLE_DTEL::YDOK_DEDZ
+        $sql = "select HTMLTEXT as DESCR from " . ABAP_DB_TABLE_DTEL::YDOK_DEDZ
                 . " where `id` = '" . ABAP_DB_CONST::DOKHL_ID_DE
-                . "' and object = :object and langu = :langu";
-        $paras = array(
-            'object' => $object,
-            'langu' => $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]
-        );
-        $record = current(ABAP_DB_TABLE::select($sql, $paras));
-        $text = $record['HTMLTEXT'];
-        if (empty($text)) {
-            unset($paras);
-            $paras = array(
-                'object' => $object,
-                'langu' => ABAP_DB_CONST::LANGU_EN
-            );
-            $record = current(ABAP_DB_TABLE::select($sql, $paras));
-            $text = $record['HTMLTEXT'];
-        }
-
-        return $text;
+                . "' and object = :id and langu = :lg";
+        return ABAP_DB_TABLE::descr($sql, $object);
     }
 
     public static function YDOK_DZ($object) {
@@ -761,7 +636,6 @@ class ABAP_DB_TABLE_DTEL {
             );
             $result = ABAP_DB_TABLE::select($sql, $paras);
         }
-
         return $result;
     }
 
@@ -844,29 +718,9 @@ class ABAP_DB_TABLE_FUNC {
      * Function Module text.
      */
     public static function TFTIT($fm) {
-        if (strlen(trim($fm)) < 1) {
-            return '';
-        }
-
-        $sql = "select STEXT from " . ABAP_DB_TABLE_FUNC::TFTIT
+        $sql = "select STEXT as DESCR from " . ABAP_DB_TABLE_FUNC::TFTIT
                 . " where FUNCNAME = :id and SPRAS = :lg";
-        $paras = array(
-            'id' => $fm,
-            'lg' => $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]
-        );
-        $record = current(ABAP_DB_TABLE::select($sql, $paras));
-        $text = $record['STEXT'];
-        if (empty($text)) {
-            unset($paras);
-            $paras = array(
-                'id' => $fm,
-                'lg' => ABAP_DB_CONST::LANGU_EN
-            );
-            $record = current(ABAP_DB_TABLE::select($sql, $paras));
-            $text = $record['STEXT'];
-        }
-
-        return $text;
+        return ABAP_DB_TABLE::descr($sql, $fm);
     }
 
     /**
@@ -876,15 +730,9 @@ class ABAP_DB_TABLE_FUNC {
      * </pre>
      */
     public static function TLIBT($fg) {
-        $sql = "select AREAT from " . ABAP_DB_TABLE_FUNC::TLIBT
-                . " where area = ? and SPRAS = ?";
-        $stmt = ABAP_DB_SCHEMA::getConnection()->prepare($sql);
-        $langu = $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]; // ABAP_DB_CONST::LANGU_EN;
-        $stmt->bind_param('ss', $fg, $langu);
-        $stmt->execute();
-        $stmt->bind_result($result);
-        $stmt->fetch();
-        return $result;
+        $sql = "select AREAT as DESCR from " . ABAP_DB_TABLE_FUNC::TLIBT
+                . " where area = :id and SPRAS = :lg";
+        return ABAP_DB_TABLE::descr($sql, $fg);
     }
 
     /**
@@ -929,11 +777,8 @@ class ABAP_DB_TABLE_FUNC {
      * </pre>
      */
     public static function TFDIR($fm) {
-        $con = ABAP_DB_SCHEMA::getConnection();
-        $fm = $con->real_escape_string($fm);
-        $sql = "SELECT * FROM " . ABAP_DB_TABLE_FUNC::TFDIR . " WHERE funcname = '" . $fm . "'";
-        $qry = $con->query($sql);
-        return mysqli_fetch_array($qry);
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_FUNC::TFDIR . " WHERE funcname = :id";
+        return ABAP_DB_TABLE::select_single($sql, $fm);
     }
 
     /**
@@ -1010,11 +855,8 @@ class ABAP_DB_TABLE_FUNC {
      * </pre>
      */
     public static function ENLFDIR($fm) {
-        $con = ABAP_DB_SCHEMA::getConnection();
-        $fm = $con->real_escape_string($fm);
-        $sql = "SELECT * FROM " . ABAP_DB_TABLE_FUNC::ENLFDIR . " WHERE funcname = '" . $fm . "'";
-        $qry = $con->query($sql);
-        return mysqli_fetch_array($qry);
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_FUNC::ENLFDIR . " WHERE funcname = :id";
+        return ABAP_DB_TABLE::select_single($sql, $fm);
     }
 
     /**
@@ -1122,30 +964,17 @@ class ABAP_DB_TABLE_HIER {
      * Software Component.
      */
     public static function CVERS($SoftComp) {
-        $con = ABAP_DB_SCHEMA::getConnection();
-        $SoftComp = $con->real_escape_string($SoftComp);
-        $sql = "select * from " . ABAP_DB_TABLE_HIER::CVERS . " where COMPONENT = '" . $SoftComp . "'";
-        $qry = $con->query($sql);
-        $result = mysqli_fetch_array($qry);
-        return $result;
+        $sql = "select * from " . ABAP_DB_TABLE_HIER::CVERS . " where COMPONENT = :id";
+        return ABAP_DB_TABLE::select_single($sql, $SoftComp);
     }
 
     /**
      * Software Component text.
      */
     public static function CVERS_REF($SoftComp) {
-        if (empty($SoftComp)) {
-            return '';
-        }
-        $dbc = ABAP_DB_SCHEMA::getConnection();
-        $sql = "select desc_text from " . ABAP_DB_TABLE_HIER::CVERS_REF . " where COMPONENT = ? and LANGU = ?";
-        $stmt = $dbc->prepare($sql);
-        $langu = $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]; // ABAP_DB_CONST::LANGU_EN;
-        $stmt->bind_param('ss', $SoftComp, $langu);
-        $stmt->execute();
-        $stmt->bind_result($result);
-        $stmt->fetch();
-        return $result;
+        $sql = "select desc_text as DESCR from " . ABAP_DB_TABLE_HIER::CVERS_REF
+                . " where COMPONENT = :id and LANGU = :lg";
+        return ABAP_DB_TABLE::descr($sql, $SoftComp);
     }
 
     /**
@@ -1187,12 +1016,8 @@ class ABAP_DB_TABLE_HIER {
      * Application Component.
      */
     public static function DF14L($AppComp) {
-        $con = ABAP_DB_SCHEMA::getConnection();
-        $AppComp = $con->real_escape_string($AppComp);
-        $sql = "select * from " . ABAP_DB_TABLE_HIER::DF14L . " where FCTR_ID = '" . $AppComp . "'";
-        $qry = $con->query($sql);
-        $result = mysqli_fetch_array($qry);
-        return $result;
+        $sql = "select * from " . ABAP_DB_TABLE_HIER::DF14L . " where FCTR_ID = :id";
+        return ABAP_DB_TABLE::select_single($sql, $AppComp);
     }
 
     /**
@@ -1233,13 +1058,9 @@ class ABAP_DB_TABLE_HIER {
      * Application Component PS_POSID.
      */
     public static function DF14L_PS_POSID($fctr_id) {
-        $sql = "select PS_POSID from " . ABAP_DB_TABLE_HIER::DF14L . " where FCTR_ID = ? ";
-        $stmt = ABAP_DB_SCHEMA::getConnection()->prepare($sql);
-        $stmt->bind_param('s', $fctr_id);
-        $stmt->execute();
-        $stmt->bind_result($result);
-        $stmt->fetch();
-        return $result;
+        $sql = "select PS_POSID from " . ABAP_DB_TABLE_HIER::DF14L . " where FCTR_ID = :id";
+        $rec = ABAP_DB_TABLE::select_single($sql, $fctr_id);
+        return $rec['PS_POSID'];
     }
 
     /**
@@ -1264,17 +1085,9 @@ class ABAP_DB_TABLE_HIER {
      * Application Component text.
      */
     public static function DF14T($AppComp) {
-        if (empty($AppComp)) {
-            return '';
-        }
-        $sql = "select name from " . ABAP_DB_TABLE_HIER::DF14T . " where FCTR_ID = ? and LANGU = ?";
-        $stmt = ABAP_DB_SCHEMA::getConnection()->prepare($sql);
-        $langu = $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU];  // ABAP_DB_CONST::LANGU_EN;
-        $stmt->bind_param('ss', $AppComp, $langu);
-        $stmt->execute();
-        $stmt->bind_result($result);
-        $stmt->fetch();
-        return $result;
+        $sql = "select name as DESCR from " . ABAP_DB_TABLE_HIER::DF14T 
+                . " where FCTR_ID = :id and LANGU = :lg";
+        return ABAP_DB_TABLE::descr($sql, strtoupper($AppComp));
     }
 
     public static function Hier($Pgmid, $ObjType, $ObjName) {
@@ -1442,13 +1255,9 @@ class ABAP_DB_TABLE_HIER {
      * Package.
      */
     public static function TDEVC($Package) {
-        $con = ABAP_DB_SCHEMA::getConnection();
-        $Package = $con->real_escape_string($Package);
         $sql = "select * from " . ABAP_DB_TABLE_HIER::TDEVC
-                . " where devclass = '" . $Package . "'";
-        $qry = $con->query($sql);
-        $result = mysqli_fetch_array($qry);
-        return $result;
+                . " where devclass = :id";
+        return ABAP_DB_TABLE::select_single($sql, $Package);
     }
 
     /**
@@ -1485,19 +1294,10 @@ class ABAP_DB_TABLE_HIER {
      * Package text.
      */
     public static function TDEVCT($Package) {
-        if (empty($Package)) {
-            return '';
-        }
-        $sql = "select ctext from " . ABAP_DB_TABLE_HIER::TDEVCT . " where devclass = ? and spras = ?";
-        $stmt = ABAP_DB_SCHEMA::getConnection()->prepare($sql);
-        $langu = $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]; // ABAP_DB_CONST::LANGU_EN;
-        $stmt->bind_param('ss', $Package, $langu);
-        $stmt->execute();
-        $stmt->bind_result($result);
-        $stmt->fetch();
-        return $result;
+        $sql = "select ctext as DESCR from " . ABAP_DB_TABLE_HIER::TDEVCT
+                . " where devclass = :id and spras = :lg";
+        return ABAP_DB_TABLE::descr($sql, strtoupper($Package));
     }
-
 }
 
 /** Database table access - Message Class. */
@@ -1529,7 +1329,6 @@ class ABAP_DB_TABLE_MSAG {
     }
 
     public static function T100_Sitemap() {
-        $con = ABAP_DB_SCHEMA::getConnection();
         $sql = "select ARBGB, MSGNR from " . ABAP_DB_TABLE_MSAG::T100
                 . " where sprsl = '" . ABAP_DB_CONST::LANGU_EN . "'"
                 . " order by ARBGB, MSGNR";
@@ -1560,7 +1359,6 @@ class ABAP_DB_TABLE_MSAG {
      * Message classes.
      */
     public static function T100A_List() {
-        $con = ABAP_DB_SCHEMA::getConnection();
         $sql = "select * from " . ABAP_DB_TABLE_MSAG::T100A
                 . " order by ARBGB";
         return ABAP_DB_TABLE::select($sql);
@@ -1572,24 +1370,16 @@ class ABAP_DB_TABLE_MSAG {
     public static function T100A($msgcls) {
         $sql = 'select * from ' . ABAP_DB_TABLE_MSAG::T100A
                 . ' where `ARBGB` = :id';
-        $paras = array(
-            'id' => $msgcls
-        );
-        return current(ABAP_DB_TABLE::select($sql, $paras));
+        return ABAP_DB_TABLE::select_single($sql, $msgcls);
     }
 
     /**
      * Table T100A text.
      */
     public static function T100T($msgcls) {
-        $sql = 'select * from ' . ABAP_DB_TABLE_MSAG::T100T
+        $sql = 'select STEXT as DESCR from ' . ABAP_DB_TABLE_MSAG::T100T
                 . ' where `ARBGB` = :id and SPRSL = :lg';
-        $paras = array(
-            'id' => $msgcls,
-            'lg' => $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]
-        );
-        $record = current(ABAP_DB_TABLE::select($sql, $paras));
-        return $record['STEXT'];
+        return ABAP_DB_TABLE::descr($sql, strtoupper($msgcls));
     }
 
     /**
@@ -1619,21 +1409,10 @@ class ABAP_DB_TABLE_MSAG {
     }
 
     public static function YDOK_NA($msgcls, $msgnr, $langu = ABAP_DB_CONST::LANGU_DEFAULT) {
-        $sql = "select * from " . ABAP_DB_TABLE_MSAG::YDOK_NA
+        $sql = "select HTMLTEXT as DESCR from " . ABAP_DB_TABLE_MSAG::YDOK_NA
                 . " where `id` = '" . ABAP_DB_CONST::DOKHL_ID_NA
-                . "' and object = :object and langu = :langu";
-        if ($langu === ABAP_DB_CONST::LANGU_DEFAULT) {
-            $sql_langu = $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU];
-        } else {
-            $sql_langu = $langu;
-        }
-
-        $paras = array(
-            'object' => $msgcls . $msgnr,
-            'langu' => $sql_langu
-        );
-        $record = current(ABAP_DB_TABLE::select($sql, $paras));
-        return $record['HTMLTEXT'];
+                . "' and object = :id and langu = :lg";
+        return ABAP_DB_TABLE::descr($sql, strtoupper($msgnr));
     }
 
 }
@@ -1837,18 +1616,9 @@ class ABAP_DB_TABLE_PROG {
      * Report title text.
      */
     public static function TRDIRT($Progname) {
-        if (empty($Progname)) {
-            return '';
-        }
-        $sql = "select TEXT from " . ABAP_DB_TABLE_PROG::TRDIRT
-                . " where NAME = ? and SPRSL = ?";
-        $stmt = ABAP_DB_SCHEMA::getConnection()->prepare($sql);
-        $langu = $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU];  // ABAP_DB_CONST::LANGU_EN;
-        $stmt->bind_param('ss', $Progname, $langu);
-        $stmt->execute();
-        $stmt->bind_result($result);
-        $stmt->fetch();
-        return $result;
+        $sql = "select TEXT as DESCR from " . ABAP_DB_TABLE_PROG::TRDIRT
+                . " where NAME = :id and SPRSL = :lg";
+        return ABAP_DB_TABLE::descr($sql, strtoupper($Progname));
     }
 
     /**
@@ -1858,15 +1628,9 @@ class ABAP_DB_TABLE_PROG {
      * </pre>
      */
     public static function LDBT($LdbName) {
-        $sql = "select LDBTEXT from " . ABAP_DB_TABLE_PROG::LDBT
-                . " where LDBNAME = ? and spras = ?";
-        $stmt = ABAP_DB_SCHEMA::getConnection()->prepare($sql);
-        $langu = $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU];  // ABAP_DB_CONST::LANGU_EN;
-        $stmt->bind_param('ss', $LdbName, $langu);
-        $stmt->execute();
-        $stmt->bind_result($result);
-        $stmt->fetch();
-        return $result;
+        $sql = "select LDBTEXT as DESCR from " . ABAP_DB_TABLE_PROG::LDBT
+                . " where LDBNAME = :id and spras = :lg";
+        return ABAP_DB_TABLE::descr($sql, strtoupper($LdbName));
     }
 
     /**
@@ -1876,11 +1640,8 @@ class ABAP_DB_TABLE_PROG {
      * </pre>
      */
     public static function YREPOSRCMETA($ProgName) {
-        $con = ABAP_DB_SCHEMA::getConnection();
-        $ProgName = $con->real_escape_string($ProgName);
-        $sql = "SELECT * FROM " . ABAP_DB_TABLE_PROG::YREPOSRCMETA . " WHERE PROGNAME = '" . $ProgName . "'";
-        $qry = $con->query($sql);
-        return mysqli_fetch_array($qry);
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_PROG::YREPOSRCMETA . " WHERE PROGNAME = :id";
+        return ABAP_DB_TABLE::select_single($sql, $ProgName);
     }
 
     /**
@@ -1890,17 +1651,10 @@ class ABAP_DB_TABLE_PROG {
      * </pre>
      */
     public static function YTAPLT($Appl) {
-        $sql = "select ATEXT from " . ABAP_DB_TABLE_PROG::YTAPLT
-                . " where APPL = ? and SPRSL = ?";
-        $stmt = ABAP_DB_SCHEMA::getConnection()->prepare($sql);
-        $langu = $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU];
-        $stmt->bind_param('ss', $Appl, $langu);
-        $stmt->execute();
-        $stmt->bind_result($result);
-        $stmt->fetch();
-        return $result;
+        $sql = "select ATEXT as DESCR from " . ABAP_DB_TABLE_PROG::YTAPLT
+                . " where APPL = :id and SPRSL = :lg";
+        return ABAP_DB_TABLE::descr($sql, strtoupper($Appl));
     }
-
 }
 
 /** Database table access for - Search Help. */
@@ -1967,37 +1721,21 @@ class ABAP_DB_TABLE_SHLP {
     public static function DD30L($name) {
         $sql = 'select * from ' . ABAP_DB_TABLE_SHLP::DD30L
                 . ' where `SHLPNAME` = :id';
-        $paras = array(
-            'id' => $name,
-        );
-        return current(ABAP_DB_TABLE::select($sql, $paras));
+        return ABAP_DB_TABLE::select_single($sql, $name);
     }
 
     /**
      * Search help description.
      */
     public static function DD30T($name) {
-        $sql = 'select * from ' . ABAP_DB_TABLE_SHLP::DD30T
+        $sql = 'select DDTEXT as DESCR from ' . ABAP_DB_TABLE_SHLP::DD30T
                 . ' where `SHLPNAME` = :id and DDLANGUAGE = :lg';
-        $paras = array(
-            'id' => $name,
-            'lg' => $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]
-        );
-        $record = current(ABAP_DB_TABLE::select($sql, $paras));
-        $text = $record['DDTEXT'];
-        if (empty($text)) {
-            unset($paras);
-            $paras = array(
-                'id' => $name,
-                'lg' => ABAP_DB_CONST::LANGU_EN
-            );
-            $record = current(ABAP_DB_TABLE::select($sql, $paras));
-            $text = $record['DDTEXT'];
-        }
-
-        return $text;
+        return ABAP_DB_TABLE::descr($sql, strtoupper($name));
     }
 
+    /**
+     * Get list.
+     */
     public static function DD31S($name) {
         $sql = 'select * from ' . ABAP_DB_TABLE_SHLP::DD31S
                 . ' where `SHLPNAME` = :id';
@@ -2007,6 +1745,9 @@ class ABAP_DB_TABLE_SHLP {
         return ABAP_DB_TABLE::select($sql, $paras);
     }
 
+    /**
+     * Get list.
+     */
     public static function DD32S($name) {
         $sql = 'select * from ' . ABAP_DB_TABLE_SHLP::DD32S
                 . ' where `SHLPNAME` = :id'
@@ -2017,6 +1758,9 @@ class ABAP_DB_TABLE_SHLP {
         return ABAP_DB_TABLE::select($sql, $paras);
     }
 
+    /**
+     * Get list.
+     */
     public static function DD33S($name) {
         $sql = 'select * from ' . ABAP_DB_TABLE_SHLP::DD33S
                 . ' where `SHLPNAME` = :id';
@@ -2125,10 +1869,7 @@ class ABAP_DB_TABLE_SEO {
     public static function SEOCLASS($clsname) {
         $sql = 'select * from ' . ABAP_DB_TABLE_SEO::SEOCLASS
                 . ' where `CLSNAME` = :id';
-        $paras = array(
-            'id' => $clsname,
-        );
-        return current(ABAP_DB_TABLE::select($sql, $paras));
+        return ABAP_DB_TABLE::select_single($sql, strtoupper($clsname));
     }
 
     /**
@@ -2137,24 +1878,16 @@ class ABAP_DB_TABLE_SEO {
     public static function SEOCLASSDF($clsname) {
         $sql = 'select * from ' . ABAP_DB_TABLE_SEO::SEOCLASSDF
                 . ' where `CLSNAME` = :id and VERSION = 1';
-        $paras = array(
-            'id' => $clsname,
-        );
-        return current(ABAP_DB_TABLE::select($sql, $paras));
+        return ABAP_DB_TABLE::select_single($sql, $clsname);
     }
 
     /**
      * Classes/Interfaces description.
      */
     public static function SEOCLASSTX($clsname) {
-        $sql = 'select * from ' . ABAP_DB_TABLE_SEO::SEOCLASSTX
-                . ' where `CLSNAME` = :id and LANGU = :langu';
-        $paras = array(
-            'id' => $clsname,
-            'langu' => $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]
-        );
-        $record = current(ABAP_DB_TABLE::select($sql, $paras));
-        return $record['DESCRIPT'];
+        $sql = 'select DESCRIPT as DESCR from ' . ABAP_DB_TABLE_SEO::SEOCLASSTX
+                . ' where `CLSNAME` = :id and LANGU = :lg';
+        return ABAP_DB_TABLE::descr($sql, strtoupper($clsname));
     }
 
     /**
@@ -2476,11 +2209,8 @@ class ABAP_DB_TABLE_TABL {
      * </pre>
      */
     public static function DD02L($TableName) {
-        $con = ABAP_DB_SCHEMA::getConnection();
-        $TableName = $con->real_escape_string($TableName);
-        $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD02L . " WHERE tabname = '" . $TableName . "'";
-        $qry = $con->query($sql);
-        return mysqli_fetch_array($qry);
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD02L . " WHERE tabname = :id";
+        return ABAP_DB_TABLE::select_single($sql, $TableName);
     }
 
     /**
@@ -2490,29 +2220,9 @@ class ABAP_DB_TABLE_TABL {
      * </pre>
      */
     public static function DD02T($TableName) {
-        if (strlen(trim($TableName)) < 1) {
-            return '';
-        }
-
-        $sql = "select DDTEXT from " . ABAP_DB_TABLE_TABL::DD02T
+        $sql = "select DDTEXT as DESCR from " . ABAP_DB_TABLE_TABL::DD02T
                 . " where tabname = :id and DDLANGUAGE = :lg";
-        $paras = array(
-            'id' => $TableName,
-            'lg' => $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]
-        );
-        $record = current(ABAP_DB_TABLE::select($sql, $paras));
-        $text = $record['DDTEXT'];
-        if (empty($text)) {
-            unset($paras);
-            $paras = array(
-                'id' => $TableName,
-                'lg' => ABAP_DB_CONST::LANGU_EN
-            );
-            $record = current(ABAP_DB_TABLE::select($sql, $paras));
-            $text = $record['DDTEXT'];
-        }
-
-        return $text;
+        return ABAP_DB_TABLE::descr($sql, $TableName);
     }
 
     /**
@@ -2621,25 +2331,17 @@ class ABAP_DB_TABLE_TABL {
      * Cluster/Pool table.
      */
     public static function DD06L($Sqltab) {
-        $con = ABAP_DB_SCHEMA::getConnection();
-        $Sqltab = $con->real_escape_string($Sqltab);
-        $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD06L . " where SQLTAB = '" . $Sqltab . "'";
-        $qry = $con->query($sql);
-        return mysqli_fetch_array($qry);
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD06L . " where SQLTAB = :id";
+        return ABAP_DB_TABLE::select_single($sql, $Sqltab);
     }
 
     /**
      * Cluster/Pool table text.
      */
     public static function DD06T($Sqltab) {
-        $sql = "select DDTEXT from " . ABAP_DB_TABLE_TABL::DD06T . " where SQLTAB = ? and DDLANGUAGE = ?";
-        $stmt = ABAP_DB_SCHEMA::getConnection()->prepare($sql);
-        $langu = $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU];  // ABAP_DB_CONST::LANGU_EN;
-        $stmt->bind_param('ss', $Sqltab, $langu);
-        $stmt->execute();
-        $stmt->bind_result($result);
-        $stmt->fetch();
-        return $result;
+        $sql = "select DDTEXT as DESCR from " . ABAP_DB_TABLE_TABL::DD06T 
+                . " where SQLTAB = :id and DDLANGUAGE = :lg";
+        return ABAP_DB_TABLE::descr($sql, $Sqltab);
     }
 
     /**
@@ -2737,11 +2439,8 @@ class ABAP_DB_TABLE_TRAN {
      * </pre>
      */
     public static function TSTC($tcode) {
-        $con = ABAP_DB_SCHEMA::getConnection();
-        $tcode = $con->real_escape_string($tcode);
-        $sql = "SELECT * FROM " . ABAP_DB_TABLE_TRAN::TSTC . " where TCODE = '" . $tcode . "'";
-        $qry = $con->query($sql);
-        return mysqli_fetch_array($qry);
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_TRAN::TSTC . " where TCODE = :id";
+        return ABAP_DB_TABLE::select_single($sql, $tcode);
     }
 
     /**
@@ -2779,11 +2478,8 @@ class ABAP_DB_TABLE_TRAN {
      * </pre>
      */
     public static function TSTCC($tcode) {
-        $con = ABAP_DB_SCHEMA::getConnection();
-        $tcode = $con->real_escape_string($tcode);
-        $sql = "SELECT * FROM " . ABAP_DB_TABLE_TRAN::TSTCC . " where TCODE = '" . $tcode . "'";
-        $qry = $con->query($sql);
-        return mysqli_fetch_array($qry);
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_TRAN::TSTCC . " where TCODE = :id";
+        return ABAP_DB_TABLE::select_single($sql, $tcode);
     }
 
     /**
@@ -2793,11 +2489,8 @@ class ABAP_DB_TABLE_TRAN {
      * </pre>
      */
     public static function TSTCP($tcode) {
-        $con = ABAP_DB_SCHEMA::getConnection();
-        $tcode = $con->real_escape_string($tcode);
-        $sql = "SELECT * FROM " . ABAP_DB_TABLE_TRAN::TSTCP . " where TCODE = '" . $tcode . "'";
-        $qry = $con->query($sql);
-        return mysqli_fetch_array($qry);
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_TRAN::TSTCP . " where TCODE = :id";
+        return ABAP_DB_TABLE::select_single($sql, $tcode);
     }
 
     /**
@@ -2807,15 +2500,9 @@ class ABAP_DB_TABLE_TRAN {
      * </pre>
      */
     public static function TSTCT($TCode) {
-        $sql = "select ttext from " . ABAP_DB_TABLE_TRAN::TSTCT
-                . " where TCODE = ? and SPRSL = ?";
-        $stmt = ABAP_DB_SCHEMA::getConnection()->prepare($sql);
-        $langu = $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]; // ABAP_DB_CONST::LANGU_EN;
-        $stmt->bind_param('ss', $TCode, $langu);
-        $stmt->execute();
-        $stmt->bind_result($result);
-        $stmt->fetch();
-        return $result;
+        $sql = "select ttext as DESCR from " . ABAP_DB_TABLE_TRAN::TSTCT
+                . " where TCODE = :id and SPRSL = :lg";
+        return ABAP_DB_TABLE::descr($sql, $TCode);
     }
 
 }
@@ -2893,25 +2580,17 @@ class ABAP_DB_TABLE_VIEW {
      * View.
      */
     public static function DD25L($ViewName) {
-        $con = ABAP_DB_SCHEMA::getConnection();
-        $ViewName = $con->real_escape_string($ViewName);
-        $sql = "SELECT * FROM " . ABAP_DB_TABLE_VIEW::DD25L . " where VIEWNAME = '" . $ViewName . "'";
-        $qry = $con->query($sql);
-        return mysqli_fetch_array($qry);
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_VIEW::DD25L . " where VIEWNAME = :id";
+        return ABAP_DB_TABLE::select_single($sql, $ViewName);
     }
 
     /**
      * View text.
      */
     public static function DD25T($ViewName) {
-        $sql = "select DDTEXT from " . ABAP_DB_TABLE_VIEW::DD25T . " where VIEWNAME = ? and DDLANGUAGE = ?";
-        $stmt = ABAP_DB_SCHEMA::getConnection()->prepare($sql);
-        $langu = $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]; // ABAP_DB_CONST::LANGU_EN;
-        $stmt->bind_param('ss', $ViewName, $langu);
-        $stmt->execute();
-        $stmt->bind_result($result);
-        $stmt->fetch();
-        return $result;
+        $sql = "select DDTEXT as DESCR from " . ABAP_DB_TABLE_VIEW::DD25T
+                . " where VIEWNAME = :id and DDLANGUAGE = :lg";
+        return ABAP_DB_TABLE::descr($sql, strtoupper($ViewName));
     }
 
     /**
@@ -2963,28 +2642,20 @@ class ABAP_DB_TABLE_VIEW {
      * </pre>
      */
     public static function DM02T($Entid) {
-        $sql = "select LANGBEZ from " . ABAP_DB_TABLE_VIEW::DM02T . " where entid = ? and SPRACHE = ?";
-        $stmt = ABAP_DB_SCHEMA::getConnection()->prepare($sql);
-        $langu = $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]; // ABAP_DB_CONST::LANGU_EN;
-        $stmt->bind_param('ss', $Entid, $langu);
-        $stmt->execute();
-        $stmt->bind_result($result);
-        $stmt->fetch();
-        return $result;
+        $sql = "select LANGBEZ as DESCR from " . ABAP_DB_TABLE_VIEW::DM02T
+                . " where entid = :id and SPRACHE = :lg";
+        return ABAP_DB_TABLE::descr($sql, strtoupper($Entid));
     }
 
     /**
      * DM View-Entity Type Assignment.
      * <pre>
-     * SELECT * FROM abapview.dm25l where VIEWNAME = 'ENT1003'
+     * SELECT * FROM dm25l where VIEWNAME = 'ENT1003'
      * </pre>
      */
     public static function DM25L($ViewName) {
-        $con = ABAP_DB_SCHEMA::getConnection();
-        $ViewName = $con->real_escape_string($ViewName);
-        $sql = "SELECT * FROM " . ABAP_DB_TABLE_VIEW::DM25L . " where VIEWNAME = '" . $ViewName . "'";
-        $qry = $con->query($sql);
-        return mysqli_fetch_array($qry);
+        $sql = "SELECT * FROM " . ABAP_DB_TABLE_VIEW::DM25L . " where VIEWNAME = :id";
+        return ABAP_DB_TABLE::select_single($sql, $ViewName);
     }
 
 }
@@ -3119,4 +2790,59 @@ class ABAP_DB_TABLE {
         return $res;
     }
 
+    /**
+     * Select with 1 filter only.
+     * 
+     * <pre>
+     * SELECT * FROM table WHERE OBJID_COLUMN = :id
+     * </pre>
+     */
+    public static function select_1filter($sql, $id){
+        $paras = array(
+            'id' => $id,
+        );
+        return ABAP_DB_TABLE::select($sql, $paras);
+    }
+    
+    /**
+     * Select one single record.
+     */
+    public static function select_single($sql, $id){
+        return current(ABAP_DB_TABLE::select_1filter($sql, $id));
+    }
+    
+    /**
+     * Get Object Desription.
+     * First we try to load the description in session language, 
+     * in case not found we will load in English language.
+     * 
+     * <pre>
+     * SELECT TEXT_COLUMN as DESCR 
+     *   FROM texttable 
+     *   WHERE OBJID_COLUMN = :id AND LANGUAGE_COLUMN :lg
+     * </pre>
+     */
+    public static function descr($sql, $objId) {
+        if (strlen(trim($objId)) < 1) {
+            return '';
+        }
+
+        $paras = array(
+            'id' => $objId,
+            'lg' => $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU]
+        );
+        $record = current(ABAP_DB_TABLE::select($sql, $paras));
+        $text = $record['DESCR'];
+        if (empty($text)) {
+            unset($paras);
+            $paras = array(
+                'id' => $objId,
+                'lg' => ABAP_DB_CONST::LANGU_EN
+            );
+            $record = current(ABAP_DB_TABLE::select($sql, $paras));
+            $text = $record['DESCR'];
+        }
+
+        return $text;
+    }
 }

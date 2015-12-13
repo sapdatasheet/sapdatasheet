@@ -123,7 +123,7 @@ $dd04l = ABAP_DB_TABLE_DTEL::DD04L_List($index);
                     </tr>
                     <?php
                     $count = 0;
-                    while ($dd04l_item = mysqli_fetch_array($dd04l)) {
+                    foreach ($dd04l as $dd04l_item) {
                         $count++;
                         $dd04l_item_t = ABAP_DB_TABLE_DTEL::DD04T($dd04l_item['ROLLNAME']);
                         ?>
