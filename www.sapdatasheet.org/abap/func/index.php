@@ -132,7 +132,7 @@ $fm_list = ABAP_DB_TABLE_FUNC::TFDIR_List($index);
                     </tr>
                     <?php
                     $count = 0;
-                    while ($fm = mysqli_fetch_array($fm_list)) {
+                    foreach ($fm_list as $fm) {
                         $count++;
                         $fm_desc = ABAP_DB_TABLE_FUNC::TFTIT($fm['FUNCNAME']);
                         ?>
@@ -161,5 +161,4 @@ file_put_contents($ob_fname, $ob_content);
 if ($index === ABAP_DB_CONST::INDEX_A) {
     $ob_fname = $ob_folder . "/index.html";
     file_put_contents($ob_fname, $ob_content);
-}       
-?>
+}

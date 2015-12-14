@@ -32,7 +32,7 @@
             <td>
                 <div class="headertxt"><a class="headertxt" href="/">
                         <img src="/sapdatasheet-middle.png"  alt="SAP Datasheet logo - Middle" />
-                        <span><?php // echo  WEBSITE::NAME               ?></span>
+                        <span><?php // echo  WEBSITE::NAME                ?></span>
                     </a></div>
                 <div class="headertxtsub"><span><?php echo WEBSITE::DESC ?></span></div>
             </td>
@@ -52,6 +52,14 @@
     <nav class="menu">
         <ul class="menu">
             <li><a href="/abap/">ABAP Types</a></li>
+            <li>
+                <a href="#">Hierarchy <span class="arrow">&#9660;</span></a>
+                <ul class="sub-menu">
+                    <li><a href="/abap/cers/">Software Component</a></li>
+                    <li><a href="/abap/bmfr/">Application Component</a></li>
+                    <li><a href="/abap/devc/">Package</a></li>
+                </ul>
+            </li>
             <li>
                 <a href="#">DDIC <span class="arrow">&#9660;</span></a>
                 <ul class="sub-menu">

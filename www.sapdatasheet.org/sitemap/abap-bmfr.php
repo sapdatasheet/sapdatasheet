@@ -6,7 +6,7 @@ $bmfr = ABAP_DB_TABLE_HIER::DF14L_Sitemap();
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- ABAP BMFR - 5439 lines -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"> 
-    <?php while ($row = mysqli_fetch_array($bmfr)) { ?>
+    <?php foreach ($bmfr as $row) { ?>
     <url>
         <loc>http://www.sapdatasheet.org/abap/bmfr/<?php echo htmlentities(strtolower($row['FCTR_ID'])) ?>.html</loc> 
         <changefreq>yearly</changefreq>

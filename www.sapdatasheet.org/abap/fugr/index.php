@@ -133,7 +133,7 @@ $fugr_list = ABAP_DB_TABLE_HIER::TADIR_FUGR_List($index);
                     </tr>
                     <?php
                     $count = 0;
-                    while ($fugr = mysqli_fetch_array($fugr_list)) {
+                    foreach ($fugr_list as $fugr) {
                         $count++;
                         $prog = ABAP_DB_TABLE_PROG::GET_PROG_FUGR($fugr['OBJ_NAME']);
                         $prog_desc = ABAP_DB_TABLE_FUNC::TLIBT($fugr['OBJ_NAME']);

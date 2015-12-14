@@ -18,7 +18,7 @@ $prog = ABAP_DB_TABLE_PROG::YREPOSRCMETA(strtoupper($ObjID));
 if (empty($prog['PROGNAME'])) {
     ABAP_UI_TOOL::Redirect404();
 }
-$prog_desc = ABAP_DB_TABLE_PROG::TRDIRT($prog['PROGNAME']);
+$prog_desc = htmlentities(ABAP_DB_TABLE_PROG::TRDIRT($prog['PROGNAME']));
 $reposrc_subc_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_REPOSRC_SUBC, $prog['SUBC']);
 $reposrc_rstat_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_REPOSRC_RSTAT, $prog['RSTAT']);
 $reposrc_appl_desc = ABAP_DB_TABLE_PROG::YTAPLT($prog['APPL']);
@@ -26,7 +26,6 @@ $reposrc_ldbname_desc = ABAP_DB_TABLE_PROG::LDBT($prog['LDBNAME']);
 
 $tcode_list = ABAP_DB_TABLE_TRAN::TSTC_PGMNA($prog['PROGNAME']);
 $dynr_list = ABAP_DB_TABLE_PROG::D020S_PROG($prog['PROGNAME']);
-$rsmptexts_list = ABAP_DB_TABLE_PROG::RSMPTEXTS($prog['PROGNAME']);
 
 $hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::PROG_NAME, $prog['PROGNAME']);
 $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::PROG_DESC . ' ' . $prog['PROGNAME'];
@@ -90,7 +89,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::PROG_DESC . ' ' . $prog['PROG
                     <tbody>
                         <tr><td class="content_label"> Program </td>
                             <td class="field"> <?php echo ABAP_Navigation::GetURLProgram($prog['PROGNAME'], $prog_desc); ?> </td>
-                            <td> <?php echo htmlentities($prog_desc) ?> &nbsp;</td>
+                            <td> <?php echo $prog_desc ?> &nbsp;</td>
                         </tr>
                         <tr><td class="content_label"> Program Type </td>
                             <td class="field"> <?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_REPOSRC_SUBC, $prog['SUBC'], $reposrc_subc_desc); ?> </td>
@@ -151,7 +150,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::PROG_DESC . ' ' . $prog['PROG
                         </thead>
                         <tbody>
                             <?php
-                            while ($tfdir = mysqli_fetch_array($tfdir_list)) {
+                            foreach ($tfdir_list as $tfdir) {
                                 $tfdir_desc = ABAP_DB_TABLE_FUNC::TFTIT($tfdir['FUNCNAME']);
                                 ?>
                                 <tr>
@@ -201,22 +200,27 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::PROG_DESC . ' ' . $prog['PROG
                 <!-- Transaction Code: End -->
 
                 <!-- Screen -->
-                <?php if (mysqli_num_rows($dynr_list) > 0) { ?>
+                <?php if (count($dynr_list) > 0) { ?>
                     <h4>Screens </h4>
                     <table class="alv">
                         <tr>
+                            <th class="alv"> # </th>
                             <th class="alv"> Screen </th>
                             <th class="alv"> Short Description </th>
                         </tr>
                         <?php
-                        while ($dynr = mysqli_fetch_array($dynr_list)) {
+                        $count = 0;
+                        foreach ($dynr_list as $dynr) {
+                            $count++;
                             $dynr_desc = ABAP_DB_TABLE_PROG::D020T($prog['PROGNAME'], $dynr['DNUM']);
                             ?>
-                            <tr><td class="alv"><?php echo $dynr['DNUM'] ?>&nbsp;</td>
+                            <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                                <td class="alv"><?php echo $dynr['DNUM'] ?>&nbsp;</td>
                                 <td class="alv"><?php echo htmlentities($dynr_desc) ?>&nbsp;</td>
                             </tr>
                         <?php } ?>
                         <tr><td class="alv">&nbsp;</td>
+                            <td class="alv">&nbsp;</td>
                             <td class="alv">&nbsp;</td>
                         </tr>
                     </table>
@@ -224,42 +228,52 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::PROG_DESC . ' ' . $prog['PROG
                 <!-- Screen: End -->
 
                 <!-- Report Texts  -->
-                <?php if (mysqli_num_rows($rsmptexts_list) > 0) { ?>
+                <?php $rsmptexts_list_status = ABAP_DB_TABLE_PROG::RSMPTEXTS($prog['PROGNAME'], ABAP_DB_CONST::DOMAINVALUE_MP_OBJTYPE_C); ?>
+                <?php if (count($rsmptexts_list_status) > 0) { ?>
                     <h4>GUI Status </h4>
                     <table class="alv">
                         <tr>
+                            <th class="alv"> # </th>
                             <th class="alv"> GUI Status </th>
                             <th class="alv"> Short Description </th>
                         </tr>
                         <?php
-                        foreach ($rsmptexts_list as $rsmptexts) {
-                            if ($rsmptexts['OBJ_TYPE'] == ABAP_DB_CONST::DOMAINVALUE_MP_OBJTYPE_C) {
-                                ?>
-                                <tr><td class="alv"><?php echo $rsmptexts['OBJ_CODE'] ?>&nbsp;</td>
-                                    <td class="alv"><?php echo htmlentities($rsmptexts['TEXT']) ?>&nbsp;</td>
-                                </tr>
-                            <?php } ?>
+                        $count = 0;
+                        foreach ($rsmptexts_list_status as $rsmptexts) {
+                            $count++;
+                            ?>
+                            <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                                <td class="alv"><?php echo $rsmptexts['OBJ_CODE'] ?>&nbsp;</td>
+                                <td class="alv"><?php echo htmlentities($rsmptexts['TEXT']) ?>&nbsp;</td>
+                            </tr>
                         <?php } ?>
                         <tr><td class="alv">&nbsp;</td>
                             <td class="alv">&nbsp;</td>
+                            <td class="alv">&nbsp;</td>
                         </tr>
                     </table>
+                <?php } ?>
+                <?php $rsmptexts_list_title = ABAP_DB_TABLE_PROG::RSMPTEXTS($prog['PROGNAME'], ABAP_DB_CONST::DOMAINVALUE_MP_OBJTYPE_T); ?>
+                <?php if (count($rsmptexts_list_title) > 0) { ?>
                     <h4>GUI Title </h4>
                     <table class="alv">
                         <tr>
-                            <th class="alv"> GUI Status </th>
+                            <th class="alv"> # </th>
+                            <th class="alv"> GUI Title </th>
                             <th class="alv"> Short Description </th>
                         </tr>
                         <?php
-                        foreach ($rsmptexts_list as $rsmptexts) {
-                            if ($rsmptexts['OBJ_TYPE'] == ABAP_DB_CONST::DOMAINVALUE_MP_OBJTYPE_T) {
-                                ?>
-                                <tr><td class="alv"><?php echo $rsmptexts['OBJ_CODE'] ?>&nbsp;</td>
-                                    <td class="alv"><?php echo htmlentities($rsmptexts['TEXT']) ?>&nbsp;</td>
-                                </tr>
-                            <?php } ?>
+                        $count = 0;
+                        foreach ($rsmptexts_list_title as $rsmptexts) {
+                            $count++;
+                            ?>
+                            <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                                <td class="alv"><?php echo $rsmptexts['OBJ_CODE'] ?>&nbsp;</td>
+                                <td class="alv"><?php echo htmlentities($rsmptexts['TEXT']) ?>&nbsp;</td>
+                            </tr>
                         <?php } ?>
                         <tr><td class="alv">&nbsp;</td>
+                            <td class="alv">&nbsp;</td>
                             <td class="alv">&nbsp;</td>
                         </tr>
                     </table>

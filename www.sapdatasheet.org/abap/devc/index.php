@@ -126,7 +126,7 @@ $devc = ABAP_DB_TABLE_HIER::TDEVC_List($index);
                     </tr>
                     <?php
                     $count = 0;
-                    while ($row = mysqli_fetch_array($devc)) {
+                    foreach ($devc as $row) {
                         $count++;
                         $devc_desc = ABAP_DB_TABLE_HIER::TDEVCT($row['DEVCLASS']);
                         $devc_ps_posid = ABAP_DB_TABLE_HIER::DF14L_PS_POSID($row['COMPONENT']);
@@ -157,5 +157,4 @@ file_put_contents($ob_fname, $ob_content);
 if ($index === ABAP_DB_CONST::INDEX_A) {
     $ob_fname = $ob_folder . "/index.html";
     file_put_contents($ob_fname, $ob_content);
-}       
-?>
+}

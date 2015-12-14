@@ -6,7 +6,7 @@ $cvers = ABAP_DB_TABLE_HIER::CVERS_List();
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- ABAP CVERS - 144 lines -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"> 
-    <?php while ($row = mysqli_fetch_array($cvers)) { ?>
+    <?php foreach ($cvers as $row) { ?>
     <url>
         <loc>http://www.sapdatasheet.org/abap/cvers/<?php echo htmlentities(strtolower($row['COMPONENT'])) ?>.html</loc> 
         <changefreq>yearly</changefreq>

@@ -84,10 +84,10 @@ $child_tdevc = ABAP_DB_TABLE_HIER::TDEVC_DEVCLASS($df14l['FCTR_ID']);
                 </table><!-- Basic Data: End -->
 
                 <!-- Application Component Content -->
-                <?php if (!empty($child_bmfr) || !empty($child_tdevc)) { ?>
+                <?php if (count($child_bmfr) > 0 || count($child_tdevc) > 0) { ?>
                     <h4> Content </h4>
                     <!-- Contained Application Component -->
-                    <?php if (!empty($child_bmfr)) { ?>
+                    <?php if (count($child_bmfr) > 0) { ?>
                         <table class="alv">
                             <caption>Contained Application Component</caption>
                             <tr>
@@ -95,7 +95,7 @@ $child_tdevc = ABAP_DB_TABLE_HIER::TDEVC_DEVCLASS($df14l['FCTR_ID']);
                                 <th class="alv"> Short Description </th>
                                 <th class="alv"> Application Component</th></tr>
                             <?php
-                            while ($child_bmfr_item = mysqli_fetch_array($child_bmfr)) {
+                            foreach ($child_bmfr as $child_bmfr_item) {
                                 $child_bmfr_item_desc = ABAP_DB_TABLE_HIER::DF14T($child_bmfr_item['FCTR_ID'])
                                 ?>
                                 <tr><td class="alv"><?php echo ABAP_Navigation::GetURLAppComp($child_bmfr_item['FCTR_ID'], $child_bmfr_item['PS_POSID'], $child_bmfr_item_desc) ?></td>
@@ -107,14 +107,14 @@ $child_tdevc = ABAP_DB_TABLE_HIER::TDEVC_DEVCLASS($df14l['FCTR_ID']);
                     <?php } ?><!-- Contained Application Component: End -->
 
                     <!-- Contained Packages -->
-                    <?php if (!empty($child_tdevc)) { ?>
+                    <?php if (count($child_tdevc) > 0) { ?>
                         <table class="alv">
                             <caption>Contained Package</caption>
                             <tr>
                                 <th class="alv"> Package </th>
                                 <th class="alv"> Short Description </th></tr>
                             <?php
-                            while ($child_tdevc_item = mysqli_fetch_array($child_tdevc)) {
+                            foreach ($child_tdevc as $child_tdevc_item) {
                                 $child_tdevc_item_desc = ABAP_DB_TABLE_HIER::TDEVCT($child_tdevc_item['DEVCLASS']);
                                 ?>
                                 <tr><td class="alv"><?php echo ABAP_Navigation::GetURLPackage($child_tdevc_item['DEVCLASS'], $child_tdevc_item_desc) ?></td>

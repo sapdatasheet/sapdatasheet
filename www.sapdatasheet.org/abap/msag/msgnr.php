@@ -31,13 +31,7 @@ if (empty($t100a['ARBGB'])) {
 }
 
 $t100t = ABAP_DB_TABLE_MSAG::T100T($ObjID);
-$t100_nr = ABAP_DB_TABLE_MSAG::T100_NR($ObjID, $MsgNr);
-if (empty($t100_nr) === TRUE) {
-    $t100_nr = ABAP_DB_TABLE_MSAG::T100_NR($ObjID, $MsgNr, ABAP_DB_CONST::LANGU_EN);
-}
-if (empty($t100_nr) === TRUE) {
-    $t100_nr = ABAP_DB_TABLE_MSAG::T100_NR($ObjID, $MsgNr, ABAP_DB_CONST::LANGU_DE);
-}
+$t100_nr_text = ABAP_DB_TABLE_MSAG::T100_NR($ObjID, $MsgNr);
 
 $t100u = ABAP_DB_TABLE_MSAG::T100U($ObjID, $MsgNr);
 $t100u_t = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_MSAG::T100U_SELFDEF_DOMAIN, $t100u['SELFDEF']);
@@ -53,14 +47,14 @@ if (empty($dok_na) === TRUE) {
 
 
 $hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::MSAG_NAME, $ObjID);
-$GLOBALS['TITLE_TEXT'] = $t100_nr['TEXT'] . ' - ' . 'SAP ABAP ' . ABAP_OTYPE::MSAG_DESC . ' ' . $ObjID . ' Message Number ' . $MsgNr;
+$GLOBALS['TITLE_TEXT'] = $t100_nr_text . ' - ' . 'SAP ABAP ' . ABAP_OTYPE::MSAG_DESC . ' ' . $ObjID . ' Message Number ' . $MsgNr;
 ?>
 <html>
     <head>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="stylesheet" href="/abap.css" type="text/css" />
         <title><?php echo $GLOBALS['TITLE_TEXT'] ?><?php echo WEBSITE::TITLE ?> </title>
-        <meta name="keywords" content="SAP,<?php echo ABAP_OTYPE::MSAG_DESC ?>,<?php echo $ObjID ?>,<?php echo $MsgNr ?>,<?php echo $t100t ?>,<?php echo $t100_nr['TEXT'] ?>" />
+        <meta name="keywords" content="SAP,<?php echo ABAP_OTYPE::MSAG_DESC ?>,<?php echo $ObjID ?>,<?php echo $MsgNr ?>,<?php echo $t100t ?>,<?php echo $t100_nr_text ?>" />
         <meta name="description" content="<?php echo WEBSITE::META_DESC; ?>" />
         <meta name="author" content="SAP Datasheet" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -85,7 +79,7 @@ $GLOBALS['TITLE_TEXT'] = $t100_nr['TEXT'] . ' - ' . 'SAP ABAP ' . ABAP_OTYPE::MS
                     <tr><td class="left_attribute"> Object type </td></tr>
                     <tr><td class="left_value"><a href="/abap/msag/"><?php echo ABAP_OTYPE::MSAG_DESC ?></a></td></tr>
                     <tr><td class="left_attribute"> Object name </td></tr>
-                    <tr><td class="left_value"> <a href="#" title="<?php echo $t100_nr['TEXT'] ?>"><?php echo $ObjID . '-' . $MsgNr ?></a> </td></tr>
+                    <tr><td class="left_value"> <a href="#" title="<?php echo $t100_nr_text ?>"><?php echo $ObjID . '-' . $MsgNr ?></a> </td></tr>
                 </tbody>
             </table>
 
@@ -122,7 +116,7 @@ $GLOBALS['TITLE_TEXT'] = $t100_nr['TEXT'] . ' - ' . 'SAP ABAP ' . ABAP_OTYPE::MS
                             <td> &nbsp; </td>
                         </tr>
                         <tr><td class="content_label"> Message Number </td>
-                            <td class="field"> <a href="#" title="<?php echo $t100_nr['TEXT'] ?>"><?php echo $MsgNr ?></a> </td>
+                            <td class="field"> <a href="#" title="<?php echo $t100_nr_text ?>"><?php echo $MsgNr ?></a> </td>
                             <td> &nbsp;</td>
                         </tr>
                         <tr><td class="content_label"> Documentation status</td>
@@ -141,7 +135,7 @@ $GLOBALS['TITLE_TEXT'] = $t100_nr['TEXT'] . ' - ' . 'SAP ABAP ' . ABAP_OTYPE::MS
                 </table>
 
                 <h4> Message Text </h4>
-                <div class="f1doc"><?php echo $t100_nr['TEXT'] ?></div>
+                <div class="f1doc"><?php echo $t100_nr_text ?></div>
                 <?php if (empty($dok_na) === FALSE) { ?>
                     <h4> Help Document </h4>
                     <div class="f1doc"><?php echo $dok_na ?></div>

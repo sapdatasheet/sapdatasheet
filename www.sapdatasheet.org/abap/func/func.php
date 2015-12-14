@@ -24,6 +24,7 @@ $ptype = ABAP_DB_TABLE_FUNC::TFDIR_PTYPE($func['FMODE'], $func['UTASK']);
 
 $enlfdir = ABAP_DB_TABLE_FUNC::ENLFDIR($func['FUNCNAME']);
 $funcgrp_desc = ABAP_DB_TABLE_FUNC::TLIBT($enlfdir['AREA']);
+$prog_desc = htmlentities(ABAP_DB_TABLE_PROG::TRDIRT($func['PNAME']));
 
 $include = ABAP_DB_TABLE_FUNC::GET_INCLUDE($enlfdir['AREA'], $func['INCLUDE']);
 $progmeta = ABAP_DB_TABLE_PROG::YREPOSRCMETA($include);
@@ -97,8 +98,8 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::FUNC_DESC . ' ' . $func['FUNC
                             <td> <?php echo htmlentities($funcgrp_desc) ?> &nbsp;</td>
                         </tr>
                         <tr><td class="content_label"> Program Name </td>
-                            <td class="field"> <?php echo $func['PNAME'] ?> &nbsp;</td>
-                            <td> &nbsp;</td>
+                            <td class="field"> <?php echo ABAP_Navigation::GetURLProgram($func['PNAME'], $prog_desc); ?> &nbsp;</td>
+                            <td> <?php echo $prog_desc ?>&nbsp;</td>
                         </tr>
                         <tr><td class="content_label"> INCLUDE Name </td>
                             <td class="field"> <?php echo $include ?> &nbsp;</td>
@@ -126,7 +127,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::FUNC_DESC . ' ' . $func['FUNC
                     </thead>
                     <tbody>
                         <?php
-                        while ($fupararef_item = mysqli_fetch_array($fupararef)) {
+                        foreach ($fupararef as $fupararef_item) {
                             // Reverse the TRLE / FALSE value
                             $para_passvalue = ABAP_DB_CONST::FLAG_TRUE;
                             if ($fupararef_item['REFERENCE'] == ABAP_DB_CONST::FLAG_TRUE) {

@@ -97,7 +97,7 @@ $child_tran = ABAP_DB_TABLE_HIER::TADIR_Child($tdevc['DEVCLASS'], ABAP_DB_TABLE_
                 <!-- Package Content -->
                 <h4> Package Content</h4>
                 <!-- Contained Tables or Views -->
-                <?php if (mysqli_num_rows($child_tabl) > 0) { ?>
+                <?php if (count($child_tabl) > 0) { ?>
                     <table class="alv">
                         <caption>Contained Tables / Views</caption>
                         <tr>
@@ -105,9 +105,9 @@ $child_tran = ABAP_DB_TABLE_HIER::TADIR_Child($tdevc['DEVCLASS'], ABAP_DB_TABLE_
                             <th class="alv"> Short Description </th>
                             <th class="alv"> Table Category </th>
                             <th class="alv"> Delivery Class </th>
-                        </tr>                        
+                        </tr>
                         <?php
-                        while ($child_tabl_item = mysqli_fetch_array($child_tabl)) {
+                        foreach ($child_tabl as $child_tabl_item) {
                             $table_dd02l = ABAP_DB_TABLE_TABL::DD02L($child_tabl_item['OBJ_NAME']);
                             $child_tabl_item_t = ABAP_DB_TABLE_TABL::DD02T($child_tabl_item['OBJ_NAME']);
                             if ($table_dd02l['TABCLASS'] === ABAP_DB_CONST::DOMAINVALUE_TABCLASS_TRANSP || $table_dd02l['TABCLASS'] == ABAP_DB_CONST::DOMAINVALUE_TABCLASS_POOL || $table_dd02l['TABCLASS'] == ABAP_DB_CONST::DOMAINVALUE_TABCLASS_CLUSTER || $table_dd02l['TABCLASS'] == ABAP_DB_CONST::DOMAINVALUE_TABCLASS_VIEW
@@ -128,7 +128,7 @@ $child_tran = ABAP_DB_TABLE_HIER::TADIR_Child($tdevc['DEVCLASS'], ABAP_DB_TABLE_
                     </table><!-- Contained Tables or Views: End -->
                 <?php } ?>
                 <!-- Contained T-Codes -->
-                <?php if (mysqli_num_rows($child_tran) > 0) { ?>
+                <?php if (count($child_tran) > 0) { ?>
                     <table class="alv">
                         <caption>Contained Transaction Codes</caption>
                         <tr>
@@ -137,7 +137,7 @@ $child_tran = ABAP_DB_TABLE_HIER::TADIR_Child($tdevc['DEVCLASS'], ABAP_DB_TABLE_
                             <th class="alv"> Program </th>
                         </tr>                        
                         <?php
-                        while ($child_tran_item = mysqli_fetch_array($child_tran)) {
+                        foreach ($child_tran as $child_tran_item) {
                             $tcode_tstc = ABAP_DB_TABLE_TRAN::TSTC($child_tran_item['OBJ_NAME']);
                             $child_tran_item_t = ABAP_DB_TABLE_TRAN::TSTCT($child_tran_item['OBJ_NAME']);
                             ?>

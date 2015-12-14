@@ -49,9 +49,9 @@ $child_bmfr = ABAP_DB_TABLE_HIER::TDEVC_COMPONENT($cvers['COMPONENT']);
             <table class="content_obj">
                 <tbody>
                     <?php
-                    while ($child_bmfr_item = mysqli_fetch_array($child_bmfr)) {
+                    foreach ($child_bmfr as $child_bmfr_item) {
                         $child_bmfr_item_s = ABAP_DB_TABLE_HIER::DF14L_ID_LEVEL($child_bmfr_item['COMPONENT']);
-                        while ($l1_bmfr = mysqli_fetch_array($child_bmfr_item_s)) {
+                        foreach ($child_bmfr_item_s as $l1_bmfr) {
                             if ($l1_bmfr['LEVEL'] <= 2) {
                                 $l1_bmfr_desc = ABAP_DB_TABLE_HIER::DF14T($l1_bmfr['FCTR_ID']);
                                 ?>
@@ -96,7 +96,7 @@ $child_bmfr = ABAP_DB_TABLE_HIER::TDEVC_COMPONENT($cvers['COMPONENT']);
                 </table><!-- Basic Data: End -->
 
                 <!-- Software Component Content -->
-                <?php if (!empty($child_bmfr)) { ?>
+                <?php if (count($child_bmfr) > 0) { ?>
                     <h4> Content </h4>
                     <table class="alv">
                         <caption>Contained Application Component</caption>
@@ -105,10 +105,9 @@ $child_bmfr = ABAP_DB_TABLE_HIER::TDEVC_COMPONENT($cvers['COMPONENT']);
                             <th class="alv"> Application Component ID </th>
                             <th class="alv"> Short Description </th></tr>                        
                         <?php
-                        $child_bmfr = ABAP_DB_TABLE_HIER::TDEVC_COMPONENT($cvers['COMPONENT']);
-                        while ($child_bmfr_item = mysqli_fetch_array($child_bmfr)) {
+                        foreach ($child_bmfr as $child_bmfr_item) {
                             $child_bmfr_item_s = ABAP_DB_TABLE_HIER::DF14L_ID($child_bmfr_item['COMPONENT']);
-                            while ($appcomp_item = mysqli_fetch_array($child_bmfr_item_s)) {
+                            foreach ($child_bmfr_item_s as $appcomp_item) {
                                 $appcomp_desc = ABAP_DB_TABLE_HIER::DF14T($appcomp_item['FCTR_ID']);
                                 ?>
                                 <tr><td class="alv"><?php echo ABAP_Navigation::GetURLAppComp($appcomp_item['FCTR_ID'], $appcomp_item['PS_POSID'], $appcomp_desc) ?></td>

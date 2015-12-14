@@ -121,7 +121,7 @@ $bmfr = ABAP_DB_TABLE_HIER::DF14L_List($index);
                     </tr>
                     <?php
                     $count = 0;
-                    while ($row = mysqli_fetch_array($bmfr)) {
+                    foreach ($bmfr as $row){
                         $count++;
                         $bmfr_desc = ABAP_DB_TABLE_HIER::DF14T($row['FCTR_ID']);
                         ?>

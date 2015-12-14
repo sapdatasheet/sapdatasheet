@@ -76,7 +76,7 @@ ob_start();
                     <?php
                     $table = ABAP_DB_TABLE_HIER::CVERS_List();
                     $count = 0;
-                    while ($row = mysqli_fetch_array($table)) {
+                    foreach ($table as $row) {
                         $count++;
                         $cvers_component = $row['COMPONENT'];
                         $cvers_desc = ABAP_DB_TABLE_HIER::CVERS_REF($row['COMPONENT']);

@@ -123,7 +123,7 @@ $prog_list = ABAP_DB_TABLE_HIER::TADIR_PROG_List($index);
                     </tr>
                     <?php
                     $count = 0;
-                    while ($prog = mysqli_fetch_array($prog_list)) {
+                    foreach ($prog_list as $prog) {
                         $count++;
                         $prog_desc = ABAP_DB_TABLE_PROG::TRDIRT($prog['OBJ_NAME']);
                         ?>
