@@ -271,5 +271,3 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::SHLP_DESC . ' ' . $ObjID . ' 
 <?php
 // Close PDO Database Connection
 ABAP_DB_TABLE::close_conn();
-?>
-<?php ?>

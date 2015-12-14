@@ -162,5 +162,3 @@ $GLOBALS['TITLE_TEXT'] = $t100_nr_text . ' - ' . 'SAP ABAP ' . ABAP_OTYPE::MSAG_
 <?php
 // Close PDO Database Connection
 ABAP_DB_TABLE::close_conn();
-?>
-<?php ?>

@@ -100,27 +100,6 @@ class ABAP_DB_CONST {
 
 }
 
-/** Database schema & connection. */
-class ABAP_DB_SCHEMA {
-
-    /** Schema Name. */
-    const SCHEMA = 'abap';
-
-    /** Database connection. */
-    private static $conn = null;
-
-    /** Get database connection. */
-    public static function getConnection() {
-        if (ABAP_DB_SCHEMA::$conn == null) {
-            ABAP_DB_SCHEMA::$conn = new mysqli(
-                    ABAP_DB_CONN::$host, ABAP_DB_CONN::$user, ABAP_DB_CONN::$pass, ABAP_DB_SCHEMA::SCHEMA);
-            ABAP_DB_SCHEMA::$conn->set_charset("utf8");
-        }
-        return ABAP_DB_SCHEMA::$conn;
-    }
-
-}
-
 /** Database table access for - SPRO - Customizing - Edit Project. */
 class ABAP_DB_TABLE_CUS0 {
 
@@ -270,7 +249,7 @@ class ABAP_DB_TABLE_CUS0 {
     public static function CUS_ATRCOU($attr_id) {
         $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::CUS_ATRCOU
                 . ' where `attr_id` = :id';
-        return ABAP_DB_TABLE::select_single($sql, $attr_id);
+        return ABAP_DB_TABLE::select_1filter($sql, $attr_id);
     }
 
     public static function CUS_ATRH($attr_id) {
@@ -2138,22 +2117,22 @@ class ABAP_DB_TABLE_TABL {
      * </pre>
      */
     public static function DD02L_List($index) {
-        $con = ABAP_DB_SCHEMA::getConnection();
-        $index = $con->real_escape_string($index);
         if ($index == ABAP_DB_CONST::DD02L_TABCLASS_CLUSTER) {
             $sql = "SELECT TABNAME, TABCLASS, CONTFLAG FROM " . ABAP_DB_TABLE_TABL::DD02L
                     . " WHERE TABCLASS = '" . ABAP_DB_CONST::DD02L_TABCLASS_CLUSTER . "' order by TABNAME";
+            return ABAP_DB_TABLE::select($sql);
         } else if ($index == ABAP_DB_CONST::DD02L_TABCLASS_POOL) {
             $sql = "SELECT TABNAME, TABCLASS, CONTFLAG FROM " . ABAP_DB_TABLE_TABL::DD02L
                     . " WHERE TABCLASS = '" . ABAP_DB_CONST::DD02L_TABCLASS_POOL . "' order by TABNAME";
+            return ABAP_DB_TABLE::select($sql);
         } else {
             $sql = "SELECT TABNAME, TABCLASS, CONTFLAG FROM " . ABAP_DB_TABLE_TABL::DD02L
-                    . " WHERE tabname like '" . $index . "%' and"
+                    . " WHERE tabname like :id and"
                     . " ( TABCLASS = '" . ABAP_DB_CONST::DD02L_TABCLASS_TRANSP
                     . "' OR TABCLASS = '" . ABAP_DB_CONST::DD02L_TABCLASS_CLUSTER
                     . "' OR TABCLASS = '" . ABAP_DB_CONST::DD02L_TABCLASS_POOL . "' ) order by TABNAME";
+            return ABAP_DB_TABLE::select_1filter($sql, $index . '%');
         }
-        return $con->query($sql);
     }
 
     /**
@@ -2163,10 +2142,9 @@ class ABAP_DB_TABLE_TABL {
      * </pre>
      */
     public static function DD02L_Sitemap() {
-        $con = ABAP_DB_SCHEMA::getConnection();
         $sql = "select TABNAME from " . ABAP_DB_TABLE_TABL::DD02L
                 . " where TABNAME not like 'Y%' and TABNAME not like 'Z%'";
-        return $con->query($sql);
+        return ABAP_DB_TABLE::select($sql);
     }
 
     /**
@@ -2176,11 +2154,9 @@ class ABAP_DB_TABLE_TABL {
      * </pre>
      */
     public static function DD02L_SQLTAB($Sqltab) {
-        $con = ABAP_DB_SCHEMA::getConnection();
-        $Sqltab = $con->real_escape_string($Sqltab);
         $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD02L
-                . " WHERE SQLTAB = '" . $Sqltab . "' order by TABNAME";
-        return $con->query($sql);
+                . " WHERE SQLTAB = :id order by TABNAME";
+        return ABAP_DB_TABLE::select_1filter($sql, $Sqltab);
     }
 
     /**
@@ -2213,11 +2189,9 @@ class ABAP_DB_TABLE_TABL {
      * </pre>
      */
     public static function DD03L_List($TableName) {
-        $con = ABAP_DB_SCHEMA::getConnection();
-        $TableName = $con->real_escape_string($TableName);
         $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD03L
-                . " WHERE tabname = '" . $TableName . "' order by POSITION";
-        return $con->query($sql);
+                . " WHERE tabname = :id order by POSITION";
+        return ABAP_DB_TABLE::select_1filter($sql, $TableName);
     }
 
     /**
@@ -2228,10 +2202,9 @@ class ABAP_DB_TABLE_TABL {
      * </pre>
      */
     public static function DD03L_Sitemap() {
-        $con = ABAP_DB_SCHEMA::getConnection();
         $sql = "select IF (CHAR_LENGTH(TRIM(PRECFIELD)) > 0, CONCAT(TABNAME, '-', POSITION), CONCAT(TABNAME, '-', FIELDNAME)) AS FIELD from " . ABAP_DB_TABLE_TABL::DD03L
                 . " where TABNAME NOT LIKE 'Y%' AND TABNAME NOT LIKE 'Z%'";
-        return $con->query($sql);
+        return ABAP_DB_TABLE::select($sql);
     }
 
     /**
@@ -2241,14 +2214,14 @@ class ABAP_DB_TABLE_TABL {
      * </pre>
      */
     public static function DD03L($TableName, $FieldName) {
-        $con = ABAP_DB_SCHEMA::getConnection();
-        $TableName = $con->real_escape_string($TableName);
-        $FieldName = $con->real_escape_string($FieldName);
         $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD03L
-                . " WHERE TABNAME = '" . $TableName
-                . "' AND FIELDNAME = '" . $FieldName . "'";
-        $qry = $con->query($sql);
-        return mysqli_fetch_array($qry);
+                . " WHERE TABNAME = :tname"
+                . " AND FIELDNAME = :fname";
+        $paras = array(
+            'tname' => $TableName,
+            'fname' => $FieldName,
+        );
+        return current(ABAP_DB_TABLE::select($sql, $paras));
     }
 
     /**
@@ -2258,14 +2231,14 @@ class ABAP_DB_TABLE_TABL {
      * </pre>
      */
     public static function DD03L_POSITION($TableName, $Position) {
-        $con = ABAP_DB_SCHEMA::getConnection();
-        $TableName = $con->real_escape_string($TableName);
-        $Position = $con->real_escape_string($Position);
         $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD03L
-                . " WHERE TABNAME = '" . $TableName
-                . "' AND POSITION = '" . $Position . "'";
-        $qry = $con->query($sql);
-        return mysqli_fetch_array($qry);
+                . " WHERE TABNAME = :tname" 
+                . " AND POSITION = :pos";
+        $paras = array(
+            'tname' => $TableName,
+            'pos' => $Position,
+        );
+        return current(ABAP_DB_TABLE::select($sql, $paras));
     }
 
     /**
@@ -2274,12 +2247,9 @@ class ABAP_DB_TABLE_TABL {
     public static function DD03L_ROLLNAME($rollname) {
         /*  No distinct, No order by  */
         $sql = "SELECT TABNAME FROM " . ABAP_DB_TABLE_TABL::DD03L
-                . " where ROLLNAME = :rollname limit "
+                . " where ROLLNAME = :id limit "
                 . ABAP_DB_CONST::USED_BY_LIMIT_DTEL;
-        $paras = array(
-            'rollname' => strtoupper($rollname),
-        );
-        return ABAP_DB_TABLE::select($sql, $paras);
+        return ABAP_DB_TABLE::select_1filter($sql, strtoupper($rollname));
     }
 
     /**
@@ -2289,11 +2259,9 @@ class ABAP_DB_TABLE_TABL {
      * </pre>
      */
     public static function DD05S($TableName) {
-        $con = ABAP_DB_SCHEMA::getConnection();
-        $TableName = $con->real_escape_string($TableName);
         $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD05S
-                . " WHERE tabname = '" . $TableName . "' order by FIELDNAME, PRIMPOS";
-        return $con->query($sql);
+                . " WHERE tabname = :id order by FIELDNAME, PRIMPOS";
+        return ABAP_DB_TABLE::select_1filter($sql, $TableName);
     }
 
     /**
@@ -2303,9 +2271,8 @@ class ABAP_DB_TABLE_TABL {
      * </pre>
      */
     public static function DD06L_List() {
-        $con = ABAP_DB_SCHEMA::getConnection();
         $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD06L . " order by SQLTAB";
-        return $con->query($sql);
+        return ABAP_DB_TABLE::select($sql);
     }
 
     /**
@@ -2326,33 +2293,32 @@ class ABAP_DB_TABLE_TABL {
     }
 
     /**
-     * Data Element List.
+     * Field List.
      * <pre>
      * SELECT * FROM dd16s where SQLTAB = 'AABLG' order by position
      * </pre>
      */
     public static function DD16S($Sqltable) {
-        $con = ABAP_DB_SCHEMA::getConnection();
-        $Sqltable = $con->real_escape_string($Sqltable);
         $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD16S
-                . " where SQLTAB = '" . $Sqltable . "' order by position";
-        return $con->query($sql);
+                . " where SQLTAB = :id order by position";
+        return ABAP_DB_TABLE::select_1filter($sql, $Sqltable);
     }
 
     /**
-     * Get index by field.
+     * Get indexes by field.
      * <pre>
      * SELECT * FROM abaptabl.dd17s where SQLTAB = 'BKPF' AND FIELDNAME = 'MANDT' ORDER BY INDEXNAME
      * </pre>
      */
     public static function DD17S_FIELDNAME($Sqltab, $FieldName) {
-        $con = ABAP_DB_SCHEMA::getConnection();
-        $Sqltab = $con->real_escape_string($Sqltab);
-        $FieldName = $con->real_escape_string($FieldName);
         $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD17S
-                . " WHERE SQLTAB = '" . $Sqltab
-                . "' AND FIELDNAME = '" . $FieldName . "' order by INDEXNAME";
-        return $con->query($sql);
+                . " WHERE SQLTAB = :sqlt"
+                . " AND FIELDNAME = :fname order by INDEXNAME";
+        $paras = array(
+            'sqlt' => $Sqltab,
+            'fname' => $FieldName,
+        );
+        return ABAP_DB_TABLE::select($sql, $paras);
     }
 
 }
@@ -2393,11 +2359,9 @@ class ABAP_DB_TABLE_TRAN {
      * </pre>
      */
     public static function TSTC_List($index) {
-        $con = ABAP_DB_SCHEMA::getConnection();
-        $index = $con->real_escape_string($index . '%');
         $sql = "SELECT * FROM " . ABAP_DB_TABLE_TRAN::TSTC
-                . " where TCODE LIKE '" . $index . "' order by TCODE";
-        return $con->query($sql);
+                . " where TCODE LIKE :id order by TCODE";
+        return ABAP_DB_TABLE::select_1filter($sql, $index . '%');
     }
 
     /**
@@ -2407,10 +2371,9 @@ class ABAP_DB_TABLE_TRAN {
      * </pre>
      */
     public static function TSTC_Sitemap() {
-        $con = ABAP_DB_SCHEMA::getConnection();
         $sql = "select TCODE from " . ABAP_DB_TABLE_TRAN::TSTC
                 . " where TCODE not like 'Y%' and TCODE not like 'Z%'";
-        return $con->query($sql);
+        return ABAP_DB_TABLE::select($sql);
     }
 
     /**
@@ -2431,11 +2394,9 @@ class ABAP_DB_TABLE_TRAN {
      * </pre>
      */
     public static function TSTCA_List($tcode) {
-        $con = ABAP_DB_SCHEMA::getConnection();
-        $tcode = $con->real_escape_string($tcode);
         $sql = "SELECT * FROM " . ABAP_DB_TABLE_TRAN::TSTCA
-                . " where TCODE = '" . $tcode . "' order by OBJECT";
-        return $con->query($sql);
+                . " where TCODE = :id order by OBJCT, FIELD";
+        return ABAP_DB_TABLE::select_1filter($sql, $tcode);
     }
 
     /**
@@ -2445,11 +2406,9 @@ class ABAP_DB_TABLE_TRAN {
      * </pre>
      */
     public static function TSTC_PGMNA($prog) {
-        $con = ABAP_DB_SCHEMA::getConnection();
-        $prog = $con->real_escape_string($prog);
         $sql = "SELECT TCODE FROM " . ABAP_DB_TABLE_TRAN::TSTC
-                . " where PGMNA = '" . $prog . "' order by TCODE";
-        return $con->query($sql);
+                . " where PGMNA = :id order by TCODE";
+        return ABAP_DB_TABLE::select_1filter($sql, $prog);
     }
 
     /**
@@ -2537,11 +2496,9 @@ class ABAP_DB_TABLE_VIEW {
      * </pre>
      */
     public static function DD25L_List($index) {
-        $con = ABAP_DB_SCHEMA::getConnection();
-        $index = $con->real_escape_string($index . '%');
         $sql = "SELECT VIEWNAME, VIEWCLASS, ROOTTAB FROM " . ABAP_DB_TABLE_VIEW::DD25L
-                . " where VIEWNAME LIKE '" . $index . "' order by VIEWNAME";
-        return $con->query($sql);
+                . " where VIEWNAME LIKE :id order by VIEWNAME";
+        return ABAP_DB_TABLE::select_1filter($sql, $index . '%');
     }
 
     /**
@@ -2551,10 +2508,9 @@ class ABAP_DB_TABLE_VIEW {
      * </pre>
      */
     public static function DD25L_Sitemap() {
-        $con = ABAP_DB_SCHEMA::getConnection();
         $sql = "select VIEWNAME from " . ABAP_DB_TABLE_VIEW::DD25L
                 . " where VIEWNAME <> '' AND VIEWNAME NOT LIKE 'Y%' AND VIEWNAME NOT LIKE 'Z%'";
-        return $con->query($sql);
+        return ABAP_DB_TABLE::select($sql);
     }
 
     /**
@@ -2581,11 +2537,9 @@ class ABAP_DB_TABLE_VIEW {
      * </pre>
      */
     public static function DD26S_List($ViewName) {
-        $con = ABAP_DB_SCHEMA::getConnection();
-        $ViewName = $con->real_escape_string($ViewName);
         $sql = "SELECT * FROM " . ABAP_DB_TABLE_VIEW::DD26S
-                . " where VIEWNAME = '" . $ViewName . "' order by TABPOS";
-        return $con->query($sql);
+                . " where VIEWNAME = :id order by TABPOS";
+        return ABAP_DB_TABLE::select_1filter($sql, $ViewName);
     }
 
     /**
@@ -2595,11 +2549,9 @@ class ABAP_DB_TABLE_VIEW {
      * </pre>
      */
     public static function DD27S_List($ViewName) {
-        $con = ABAP_DB_SCHEMA::getConnection();
-        $ViewName = $con->real_escape_string($ViewName);
         $sql = "SELECT * FROM " . ABAP_DB_TABLE_VIEW::DD27S
-                . " where VIEWNAME = '" . $ViewName . "' order by OBJPOS";
-        return $con->query($sql);
+                . " where VIEWNAME = :id order by OBJPOS";
+        return ABAP_DB_TABLE::select_1filter($sql, $ViewName);
     }
 
     /**
@@ -2609,11 +2561,9 @@ class ABAP_DB_TABLE_VIEW {
      * </pre>
      */
     public static function DD28S_List($ViewName) {
-        $con = ABAP_DB_SCHEMA::getConnection();
-        $ViewName = $con->real_escape_string($ViewName);
         $sql = "SELECT * FROM " . ABAP_DB_TABLE_VIEW::DD28S
-                . " where CONDNAME = '" . $ViewName . "' order by POSITION";
-        return $con->query($sql);
+                . " where CONDNAME = :id order by POSITION";
+        return ABAP_DB_TABLE::select_1filter($sql, $ViewName);
     }
 
     /**
@@ -2771,7 +2721,7 @@ class ABAP_DB_TABLE {
              */
             $stmt = $conn->prepare($sql);
             $stmt->execute($paras);
-            $res = $stmt->fetchAll();
+            $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
         return $res;

@@ -173,7 +173,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::PROG_DESC . ' ' . $prog['PROG
 
                 <!-- Transaction Code -->
                 <h4>Transaction Code </h4>
-                <?php if (mysqli_num_rows($tcode_list) > 0) { ?>
+                <?php if (count($tcode_list) > 0) { ?>
                     <table class="alv">
                         <caption>Transactions reference to this program</caption>
                         <tr>
@@ -181,7 +181,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::PROG_DESC . ' ' . $prog['PROG
                             <th class="alv"> Short Description </th>
                         </tr>                        
                         <?php
-                        while ($tcode = mysqli_fetch_array($tcode_list)) {
+                        foreach ($tcode_list as $tcode) {
                             $tcode_desc = ABAP_DB_TABLE_TRAN::TSTCT($tcode['TCODE']);
                             ?>
                             <tr><td class="alv"><?php echo ABAP_Navigation::GetURLTransactionCode($tcode['TCODE'], $tcode_desc) ?></td>
@@ -298,3 +298,6 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::PROG_DESC . ' ' . $prog['PROG
 
     </body>
 </html>
+<?php
+// Close PDO Database Connection
+ABAP_DB_TABLE::close_conn();

@@ -77,7 +77,7 @@ $dd06l = ABAP_DB_TABLE_TABL::DD06L_List();
                     </tr>
                     <?php
                     $count = 0;
-                    while ($dd06l_item = mysqli_fetch_array($dd06l)) {
+                    foreach ($dd06l as $dd06l_item) {
                         $count++;
                         $dd06l_item_t = ABAP_DB_TABLE_TABL::DD06T($dd06l_item['SQLTAB']);
                         $dd06l_sqlclass_t = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_TABL::DD06L_SQLCLASS_DOMAIN, $dd06l_item['SQLCLASS']);
@@ -102,5 +102,7 @@ $dd06l = ABAP_DB_TABLE_TABL::DD06L_List();
 <?php
 $ob_content = ob_get_contents();
 ob_end_flush();
-file_put_contents($ob_fname, $ob_content)
-?>
+file_put_contents($ob_fname, $ob_content);
+
+// Close PDO Database Connection
+ABAP_DB_TABLE::close_conn();

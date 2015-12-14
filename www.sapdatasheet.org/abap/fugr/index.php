@@ -168,4 +168,3 @@ if ($index === ABAP_DB_CONST::INDEX_A) {
 
 // Close PDO Database Connection
 ABAP_DB_TABLE::close_conn();
-?>

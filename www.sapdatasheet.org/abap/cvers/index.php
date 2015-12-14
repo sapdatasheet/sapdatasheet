@@ -102,5 +102,7 @@ ob_start();
 <?php
 $ob_content = ob_get_contents();
 ob_end_flush();
-file_put_contents($ob_fname, $ob_content)
-?>
+file_put_contents($ob_fname, $ob_content);
+
+// Close PDO Database Connection
+ABAP_DB_TABLE::close_conn();

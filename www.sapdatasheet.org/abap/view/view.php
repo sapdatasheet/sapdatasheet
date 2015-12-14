@@ -113,7 +113,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::VIEW_DESC . ' ' . $dd25l['VIE
                     </table>
                 <?php } ?>
 
-                <!-- Table / Join Conditions -->
+                <!-- Table & Join Conditions -->
                 <h4>Table</h4>
                 <table class="alv">
                     <thead>
@@ -125,7 +125,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::VIEW_DESC . ' ' . $dd25l['VIE
                     </thead>
                     <tbody>
                         <?php
-                        while ($dd26s = mysqli_fetch_array($dd26s_list)) {
+                        foreach ($dd26s_list as $dd26s) {
                             $dd26s_tabname_desc = ABAP_DB_TABLE_TABL::DD02T($dd26s['TABNAME']);
                             $dd26s_fortabname_desc = ABAP_DB_TABLE_TABL::DD02T($dd26s['FORTABNAME']);
                             ?>
@@ -158,7 +158,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::VIEW_DESC . ' ' . $dd25l['VIE
                     </thead>
                     <tbody>
                         <?php
-                        while ($dd28s = mysqli_fetch_array($dd28s_list)) {
+                        foreach ($dd28s_list as $dd28s) {
                             $dd28s_tabname_desc = ABAP_DB_TABLE_TABL::DD02T($dd28s['TABNAME']);
                             ?>
                             <tr>
@@ -210,7 +210,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::VIEW_DESC . ' ' . $dd25l['VIE
                     </thead>
                     <tbody>
                         <?php
-                        while ($dd27s = mysqli_fetch_array($dd27s_list)) {
+                        foreach ($dd27s_list as $dd27s) {
                             $dd27s_rollname_desc = ABAP_DB_TABLE_DTEL::DD04T($dd27s['ROLLNAME']);
                             ?>
                             <tr>
@@ -300,3 +300,6 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::VIEW_DESC . ' ' . $dd25l['VIE
 
     </body>
 </html>
+<?php
+// Close PDO Database Connection
+ABAP_DB_TABLE::close_conn();

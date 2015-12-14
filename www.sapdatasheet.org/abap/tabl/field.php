@@ -225,7 +225,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP Table Field ' . $dd02l['TABNAME'] . '-' . $dd
                         </tr> 
                     </tbody>
                 </table>
-                <?php if (mysqli_num_rows($dd17s_list) > 0) { ?>
+                <?php if (count($dd17s_list) > 0) { ?>
                     <h4> Contained in Index </h4>
                     <table class="alv">
                         <tr>
@@ -235,9 +235,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP Table Field ' . $dd02l['TABNAME'] . '-' . $dd
                             <th class="alv"> Field Name </th>
                             <th class="alv"> DESC Flag </th>
                         </tr>                        
-                        <?php
-                        while ($dd17s = mysqli_fetch_array($dd17s_list)) {
-                            ?>
+                        <?php foreach ($dd17s_list as $dd17s) { ?>
                             <tr><td class="alv"><?php echo ABAP_Navigation::GetURLTable($dd17s['SQLTAB'], '') ?></td>
                                 <td class="alv"><?php echo $dd17s['INDEXNAME'] ?></td>
                                 <td class="alv"><?php echo $dd17s['POSITION'] ?></td>
@@ -274,3 +272,6 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP Table Field ' . $dd02l['TABNAME'] . '-' . $dd
 
     </body>
 </html>
+<?php
+// Close PDO Database Connection
+ABAP_DB_TABLE::close_conn();

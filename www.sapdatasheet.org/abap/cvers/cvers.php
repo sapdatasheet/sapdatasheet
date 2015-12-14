@@ -128,3 +128,6 @@ $child_bmfr = ABAP_DB_TABLE_HIER::TDEVC_COMPONENT($cvers['COMPONENT']);
 
     </body>
 </html>
+<?php
+// Close PDO Database Connection
+ABAP_DB_TABLE::close_conn();

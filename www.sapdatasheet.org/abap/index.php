@@ -72,3 +72,6 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP";
 
     </body>
 </html>
+<?php
+// Close PDO Database Connection
+ABAP_DB_TABLE::close_conn();

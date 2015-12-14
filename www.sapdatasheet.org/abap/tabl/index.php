@@ -125,7 +125,7 @@ $dd02l = ABAP_DB_TABLE_TABL::DD02L_List($index);
                     </tr>
                     <?php
                     $count = 0;
-                    while ($dd02l_item = mysqli_fetch_array($dd02l)) {
+                    foreach ($dd02l as $dd02l_item) {
                         $count++;
                         $dd02l_item_desc = ABAP_DB_TABLE_TABL::DD02T($dd02l_item['TABNAME']);
                         ?>
@@ -154,5 +154,7 @@ file_put_contents($ob_fname, $ob_content);
 if ($index === ABAP_DB_CONST::INDEX_A) {
     $ob_fname = $ob_folder . "/index.html";
     file_put_contents($ob_fname, $ob_content);
-}       
-?>
+}
+
+// Close PDO Database Connection
+ABAP_DB_TABLE::close_conn();

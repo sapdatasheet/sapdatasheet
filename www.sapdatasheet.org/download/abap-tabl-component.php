@@ -17,11 +17,9 @@ if (strlen(trim($tabname)) > 0) {
     // Download the file
     // Load Data
     // SELECT * FROM abap.dd03l where TABNAME = 'BKPF' ORDER BY POSITION;
-    $con = ABAP_DB_SCHEMA::getConnection();
-    $tabname = $con->real_escape_string($tabname);
     $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD03L
-            . " where TABNAME = '" . $tabname . "' ORDER BY POSITION";
-    $result = $con->query($sql);
+            . " where TABNAME = :id ORDER BY POSITION";
+    $result = ABAP_DB_TABLE::select_1filter($sql, $tabname);
 
     // Download
     download_query($format, $result, 'sap-table-' . $tabname);
@@ -33,7 +31,7 @@ if (strlen(trim($tabname)) > 0) {
  * Download the query resutl as a file.
  */
 function download_query($format, $result, $filename) {
-    if (mysqli_num_rows($result) > 0) {
+    if (count($result) > 0) {
         if ($format === DOWNLOAD::FORMAT_XLS) {
             query_to_xls($result, $filename);
         } else if ($format === DOWNLOAD::FORMAT_XLSX) {
@@ -57,14 +55,10 @@ function query_to_csv($result, $filename) {
     $fp = fopen('php://output', 'w');
 
     // output header row (if at least one row exists)
-    $row = mysqli_fetch_assoc($result);
-    if ($row) {
-        fputcsv($fp, array_keys($row));
-        mysqli_data_seek($result, 0);    // reset pointer back to beginning
-    }
+    fputcsv($fp, array_keys($result[0]));
 
     // output each row
-    while ($row = mysqli_fetch_assoc($result)) {
+    foreach ($result as $row) {
         fputcsv($fp, $row);
     }
 
@@ -79,14 +73,10 @@ function query_to_xls($result, $filename) {
     $exporter->title = $filename;
     $exporter->initialize();                  // starts streaming data to web browser
     // Table Header
-    $row = mysqli_fetch_assoc($result);
-    if ($row) {
-        $exporter->addRow(array_keys($row));
-        mysqli_data_seek($result, 0);         // reset pointer back to beginning
-    }
+    $exporter->addRow(array_keys($result[0]));
 
     // Table Rows
-    while ($row = mysqli_fetch_assoc($result)) {
+    foreach ($result as $row) {
         $exporter->addRow(array_values($row));
     }
 
@@ -104,14 +94,9 @@ function query_to_xlsx($result, $filename) {
     header('Cache-Control: must-revalidate');
     header('Pragma: public');
 
-    $row = mysqli_fetch_assoc($result);
-    if ($row) {
-        $header = $row;
-        mysqli_data_seek($result, 0);         // reset pointer back to beginning
-    }
-
+    $header = array_keys($result[0]);
     $rows = array();
-    while ($row = mysqli_fetch_assoc($result)) {
+    foreach ($result as $row) {
         array_push($rows, array_values($row));
     }
 

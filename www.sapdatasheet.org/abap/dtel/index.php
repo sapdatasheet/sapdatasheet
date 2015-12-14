@@ -153,5 +153,7 @@ file_put_contents($ob_fname, $ob_content);
 if ($index === ABAP_DB_CONST::INDEX_A) {
     $ob_fname = $ob_folder . "/index.html";
     file_put_contents($ob_fname, $ob_content);
-}       
-?>
+}
+
+// Close PDO Database Connection
+ABAP_DB_TABLE::close_conn();

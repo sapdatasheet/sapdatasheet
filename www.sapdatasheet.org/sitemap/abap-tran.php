@@ -5,7 +5,7 @@ require_once ($__ROOT__ . '/include/global.php');
 require_once ($__ROOT__ . '/include/abap_db.php');
 
 $tran = ABAP_DB_TABLE_TRAN::TSTC_Sitemap();
-$num_rows = mysqli_num_rows($tran);
+$num_rows = $tran->rowCount();
 $file_count = intval(ceil($num_rows / SITEMAP::MAX_URL_COUNT));
 echo $num_rows . '-' . $file_count  . '<br />';
 
@@ -18,7 +18,7 @@ for ($i = 1; $i <= $file_count; $i++) {
     echo "\r\n";
 
     $j = 1;
-    while ($row = mysqli_fetch_array($tran)) {
+    foreach ($tran as $row) {
         $abapurl_obj = htmlentities(strtolower($row['TCODE']), ENT_QUOTES, "UTF-8");
         if (strlen(trim($abapurl_obj)) > 0) {
             $abapurl = "http://www.sapdatasheet.org/abap/tran/" . $abapurl_obj . ".html";

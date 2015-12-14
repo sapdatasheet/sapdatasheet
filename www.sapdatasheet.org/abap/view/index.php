@@ -125,7 +125,7 @@ $dd25l_list = ABAP_DB_TABLE_VIEW::DD25L_List($index);
                     </tr>
                     <?php
                     $count = 0;
-                    while ($dd25l = mysqli_fetch_array($dd25l_list)) {
+                    foreach ($dd25l_list as $dd25l) {
                         $count++;
                         $dd25l_desc = ABAP_DB_TABLE_VIEW::DD25T($dd25l['VIEWNAME']);
                         ?>
@@ -155,4 +155,6 @@ if ($index === ABAP_DB_CONST::INDEX_A) {
     $ob_fname = $ob_folder . "/index.html";
     file_put_contents($ob_fname, $ob_content);
 }       
-?>
+
+// Close PDO Database Connection
+ABAP_DB_TABLE::close_conn();

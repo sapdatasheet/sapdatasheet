@@ -144,7 +144,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $dd02l_tabclass_desc . ' ' . $dd02l['TABN
                     </thead>
                     <tbody>
                         <?php
-                        while ($dd03l_item = mysqli_fetch_array($dd03l)) {
+                        foreach ($dd03l as $dd03l_item) {
                             if (strlen(trim($dd03l_item['PRECFIELD'])) > 0) {
                                 $dd03l_fieldname_url = ABAP_Navigation::GetURLTableInclude($dd02l['TABNAME'], $dd03l_item['FIELDNAME'], $dd03l_item['POSITION']);
                                 $anchor_name = 'FIELD_' . $dd03l_item['POSITION'];
@@ -197,3 +197,6 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $dd02l_tabclass_desc . ' ' . $dd02l['TABN
 
     </body>
 </html>
+<?php
+// Close PDO Database Connection
+ABAP_DB_TABLE::close_conn();

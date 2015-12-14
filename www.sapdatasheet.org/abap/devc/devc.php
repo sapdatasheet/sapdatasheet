@@ -172,4 +172,6 @@ $child_tran = ABAP_DB_TABLE_HIER::TADIR_Child($tdevc['DEVCLASS'], ABAP_DB_TABLE_
 
     </body>
 </html>
-
+<?php
+// Close PDO Database Connection
+ABAP_DB_TABLE::close_conn();

@@ -6,7 +6,7 @@ $sqlt = ABAP_DB_TABLE_TABL::DD06L_List();
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- ABAP SQLT - 174 lines -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"> 
-    <?php while ($row = mysqli_fetch_array($sqlt)) { ?>
+    <?php foreach ($sqlt as $row) { ?>
     <url>
         <loc>http://www.sapdatasheet.org/abap/sqlt/<?php echo htmlentities(strtolower($row['SQLTAB'])) ?>.html</loc> 
         <changefreq>yearly</changefreq>

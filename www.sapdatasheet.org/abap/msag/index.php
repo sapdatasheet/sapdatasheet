@@ -105,7 +105,5 @@ $ob_content = ob_get_contents();
 ob_end_flush();
 file_put_contents($ob_fname, $ob_content);
 
-
 // Close Database Connection
 ABAP_DB_TABLE::close_conn();
-?>

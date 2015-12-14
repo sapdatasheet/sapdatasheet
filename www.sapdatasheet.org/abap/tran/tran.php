@@ -103,13 +103,13 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::TRAN_DESC . ' ' . $tstc['TCOD
                     </tbody>
                 </table>
 
-                <?php if ($tstca_list !== FALSE) { ?>
+                <?php if (count($tstca_list) > 0) { ?>
                     <h4>Authorization</h4>
                     <table class="alv">
                         <tbody>
                             <tr><th class="alv">Authorization Object</th><th class="alv">Authorization Field</th><th class="alv">Value</th></tr>
-                            <?php while ($tstca_item = mysqli_fetch_array($tstca_list)) { ?>
-                                <tr><td class="alv"><?php echo $tstca_item['OBJECT'] ?>&nbsp;</td>
+                            <?php foreach ($tstca_list as $tstca_item) { ?>
+                                <tr><td class="alv"><?php echo $tstca_item['OBJCT'] ?>&nbsp;</td>
                                     <td class="alv"><?php echo $tstca_item['FIELD'] ?></td>
                                     <td class="alv"><?php echo $tstca_item['VALUE'] ?>&nbsp;</td></tr>
                             <?php } ?>
@@ -166,3 +166,6 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::TRAN_DESC . ' ' . $tstc['TCOD
 
     </body>
 </html>
+<?php
+// Close PDO Database Connection
+ABAP_DB_TABLE::close_conn();

@@ -250,4 +250,3 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::CUS0_DESC . ' ' . $imgach['AC
 <?php
 // Close PDO Database Connection
 ABAP_DB_TABLE::close_conn();
-?>

@@ -139,4 +139,3 @@ if ($index == ABAP_DB_CONST::INDEX_HIER) {
 
 // Close Database Connection
 ABAP_DB_TABLE::close_conn();
-?>

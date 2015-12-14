@@ -132,7 +132,7 @@ $tstc_list = ABAP_DB_TABLE_TRAN::TSTC_List($index);
                     </tr>
                     <?php
                     $count = 0;
-                    while ($tstc = mysqli_fetch_array($tstc_list)) {
+                    foreach ($tstc_list as $tstc) {
                         $count++;
                         $tstc_desc = ABAP_DB_TABLE_TRAN::TSTCT($tstc['TCODE']);
                         ?>
@@ -161,4 +161,6 @@ if ($index === ABAP_DB_CONST::INDEX_A) {
     $ob_fname = $ob_folder . "/index.html";
     file_put_contents($ob_fname, $ob_content);
 }       
-?>
+
+// Close PDO Database Connection
+ABAP_DB_TABLE::close_conn();

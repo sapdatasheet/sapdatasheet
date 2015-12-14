@@ -185,4 +185,3 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DOMA_DESC . ' ' . $doma['DOMN
 <?php
 // Close PDO Database Connection
 ABAP_DB_TABLE::close_conn();
-?>

@@ -91,15 +91,28 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $sqlt_sqlcalss_desc . ' ' . $sqlt['SQLTAB
                 <h4> Components </h4>
                 <table class="alv">
                     <thead>
-                        <tr><th class="alv">Field name</th><th class="alv">Key</th><th class="alv">Data type</th><th class="alv">Length</th></tr>
+                        <tr><th class="alv">#</th>
+                            <th class="alv">Field name</th>
+                            <th class="alv">Key</th>
+                            <th class="alv">Data type</th>
+                            <th class="alv">Length</th>
+                            <th class="alv">Internal type</th>
+                            <th class="alv">Internal length</th>
+                        </tr>
                     </thead>
                     <tbody>
-                        <?php while ($dd16s_item = mysqli_fetch_array($dd16s)) { ?>
-                            <tr>
+                        <?php
+                        $count = 0;
+                        foreach ($dd16s as $dd16s_item) { 
+                            $count++;
+                            ?>
+                            <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
                                 <td class="alv"><?php echo $dd16s_item['FIELDNAME'] ?></td>
                                 <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox($dd16s_item['FIELDNAME'], $dd16s_item['KEYFLAG']) ?></td>
                                 <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_DATATYPE, $dd16s_item['DATATYPE'], '') ?></td>
                                 <td class="alv"><?php echo intval($dd16s_item['LENG']) ?></td>
+                                <td class="alv"><?php echo $dd16s_item['INTTYPE'] ?></td>
+                                <td class="alv"><?php echo intval($dd16s_item['INTLEN']) ?></td>
                             </tr>
                         <?php } ?>
                     </tbody>
@@ -116,7 +129,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $sqlt_sqlcalss_desc . ' ' . $sqlt['SQLTAB
                     <tbody>
                         <?php
                         $dd02l_sqlt = ABAP_DB_TABLE_TABL::DD02L_SQLTAB($sqlt['SQLTAB']);
-                        while ($dd02l_sqlt_item = mysqli_fetch_array($dd02l_sqlt)) {
+                        foreach ($dd02l_sqlt as $dd02l_sqlt_item) {
                             $dd02l_sqlt_item_desc = ABAP_DB_TABLE_TABL::DD02T($dd02l_sqlt_item['TABNAME']);
                             ?>
                             <tr>
@@ -148,3 +161,6 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . $sqlt_sqlcalss_desc . ' ' . $sqlt['SQLTAB
 
     </body>
 </html>
+<?php
+// Close PDO Database Connection
+ABAP_DB_TABLE::close_conn();

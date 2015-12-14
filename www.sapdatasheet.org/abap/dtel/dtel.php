@@ -207,4 +207,4 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DTEL_DESC . ' ' . $dtel['ROLL
 <?php
 // Close PDO Database Connection
 ABAP_DB_TABLE::close_conn();
-?>
+

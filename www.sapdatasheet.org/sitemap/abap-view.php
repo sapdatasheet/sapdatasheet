@@ -5,7 +5,7 @@ require_once ($__ROOT__ . '/include/global.php');
 require_once ($__ROOT__ . '/include/abap_db.php');
 
 $view = ABAP_DB_TABLE_VIEW::DD25L_Sitemap();
-$num_rows = mysqli_num_rows($view);
+$num_rows = $view->rowCount();
 $file_count = intval(ceil($num_rows / SITEMAP::MAX_URL_COUNT));
 echo $num_rows . '-' . $file_count  . '<br />';
 
@@ -18,7 +18,7 @@ for ($i = 1; $i <= $file_count; $i++) {
     echo "\r\n";
 
     $j = 1;
-    while ($row = mysqli_fetch_array($view)) {
+    foreach ($view as $row) {
         $abapurl_obj = htmlentities(strtolower($row['VIEWNAME']), ENT_QUOTES, "UTF-8");
         if (strlen(trim($abapurl_obj)) > 0) {
             $abapurl = "http://www.sapdatasheet.org/abap/view/" . $abapurl_obj . ".html";
