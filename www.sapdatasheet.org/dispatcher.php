@@ -6,7 +6,7 @@
 //
 // See the following web page for details:
 //   http://en.wikipedia.org/wiki/Front_Controller_pattern
-//   
+//
 // Related links
 //   http://php.net/manual/en/function.preg-match.php
 //   http://stackoverflow.com/questions/16388959/url-rewriting-with-php
@@ -25,11 +25,26 @@ require_once(dirname(__FILE__) . '/include/global.php');
 $requri = html_entity_decode(strtolower($_SERVER['REQUEST_URI']));
 unset($target);
 
+$abap_uris = array(
+    array("clas", '/abap/clas/index.html', '/abap/clas/index-', '/abap/clas/'),
+    array("cus0", '/abap/cus0/index.html', '/abap/cus0/index-', '/abap/cus0/'),
+    array("cvers", '/abap/cvers/index.html', '/abap/cvers/index-', '/abap/cvers/'),
+    array("bmfr", '/abap/bmfr/index.html', '/abap/bmfr/index-', '/abap/bmfr/'),
+    array("devc", '/abap/devc/index.html', '/abap/devc/index-', '/abap/devc/'),
+    array("doma", '/abap/doma/index.html', '/abap/doma/index-', '/abap/doma/'),
+    array("dtel", '/abap/dtel/index.html', '/abap/dtel/index-', '/abap/dtel/'),
+    array("fugr", '/abap/fugr/index.html', '/abap/fugr/index-', '/abap/fugr/'),
+    array("func", '/abap/func/index.html', '/abap/func/index-', '/abap/func/'),
+    array("intf", '/abap/intf/index.html', '/abap/intf/index-', '/abap/intf/'),
+    array("prog", '/abap/prog/index.html', '/abap/prog/index-', '/abap/prog/'),
+    array("shlp", '/abap/shlp/index.html', '/abap/shlp/index-', '/abap/shlp/'),
+    array("sqlt", '/abap/sqlt/index.html', '/abap/sqlt/index-', '/abap/sqlt/'),
+    array("tran", '/abap/tran/index.html', '/abap/tran/index-', '/abap/tran/'),
+    array("view", '/abap/view/index.html', '/abap/view/index-', '/abap/view/'),
+);
+
 // - Hacker URL
-if ($requri === '/wp/wp-admin/' 
-        || $requri === '/wp-admin/'
-        || $requri === '/test/wp-admin/'
-        || $requri === '/blog/wp-admin/') {
+if ($requri === '/wp/wp-admin/' || $requri === '/wp-admin/' || $requri === '/test/wp-admin/' || $requri === '/blog/wp-admin/') {
     $target = 'page404.php';
 
 // - Root path
@@ -66,7 +81,7 @@ if ($requri === '/wp/wp-admin/'
         list($Table, $FldPos) = explode('-', $TablURI, 2);
         if (ctype_digit($FldPos) === true) {
             $Position = $FldPos;
-        } else{
+        } else {
             $Field = $FldPos;
         }
         $target = 'abap/tabl/field.php';
@@ -91,37 +106,7 @@ if ($requri === '/wp/wp-admin/'
         $ObjID = $MsagURI;
         $target = 'abap/msag/msag.php';
     }
-}
-
-// - BMFR - Application Component
-//if ($requri === '/abap/bmfr/index.html') {
-//    $target = 'abap/bmfr/index.php';
-//} else if (GLOBAL_UTIL::StartsWith($requri, '/abap/bmfr/index-') && GLOBAL_UTIL::EndsWith($requri, '.html')) {
-//    $index = substr($requri, 17, -5);
-//    $target = 'abap/bmfr/index.php';
-//} else if (GLOBAL_UTIL::StartsWith($requri, '/abap/bmfr/') && GLOBAL_UTIL::EndsWith($requri, '.html')) {
-//    $ObjID = substr($requri, 11, -5);
-//    $target = 'abap/bmfr/bmfr.php';
-
-$abap_uris = array(
-    array("clas", '/abap/clas/index.html', '/abap/clas/index-', '/abap/clas/'),
-    array("cus0", '/abap/cus0/index.html', '/abap/cus0/index-', '/abap/cus0/'),
-    array("cvers", '/abap/cvers/index.html', '/abap/cvers/index-', '/abap/cvers/'),
-    array("bmfr", '/abap/bmfr/index.html', '/abap/bmfr/index-', '/abap/bmfr/'),
-    array("devc", '/abap/devc/index.html', '/abap/devc/index-', '/abap/devc/'),
-    array("doma", '/abap/doma/index.html', '/abap/doma/index-', '/abap/doma/'),
-    array("dtel", '/abap/dtel/index.html', '/abap/dtel/index-', '/abap/dtel/'),
-    array("fugr", '/abap/fugr/index.html', '/abap/fugr/index-', '/abap/fugr/'),
-    array("func", '/abap/func/index.html', '/abap/func/index-', '/abap/func/'),
-    array("intf", '/abap/intf/index.html', '/abap/intf/index-', '/abap/intf/'),
-    array("prog", '/abap/prog/index.html', '/abap/prog/index-', '/abap/prog/'),
-    array("shlp", '/abap/shlp/index.html', '/abap/shlp/index-', '/abap/shlp/'),
-    array("sqlt", '/abap/sqlt/index.html', '/abap/sqlt/index-', '/abap/sqlt/'),
-    array("tran", '/abap/tran/index.html', '/abap/tran/index-', '/abap/tran/'),
-    array("view", '/abap/view/index.html', '/abap/view/index-', '/abap/view/'),
-);
-
-if (!isset($target)) {
+} else if (GLOBAL_UTIL::StartsWith($requri, '/abap/')) {
     foreach ($abap_uris as $abap_uri) {
         if ($requri === $abap_uri[1]) {
             $target = 'abap/' . $abap_uri[0] . '/index.php';
@@ -136,6 +121,69 @@ if (!isset($target)) {
             break;
         }
     }
+} else if (GLOBAL_UTIL::StartsWith($requri, '/wul/abap/') && GLOBAL_UTIL::EndsWith($requri, '.html')) {
+//                                           1234567890                                      12345
+//
+//  - Example URI
+//    /wul/abap/
+//    /wul/abap/doma/mandt-dtel.html
+//    /wul/abap/prog/FGRWEF40_SET_RRD-MAX_DSUM-prog.html
+//    /wul/abap/prog/FGRWEF40_SET_RRD-MAX_DSUM-prog-3.html
+//    /wul/abap/clas//1BCWDY/H1UU15C38KAMHG7PW3WH-clas.html
+//    /wul/abap/clas//1BCWDY/H1UU15C38KAMHG7PW3WH-clas-1.html
+//    /wul/abap/clas//1BCWDY/H1UU15C38KAMHG7PW3WH-clas-3.html
+//    /wul/abap/tran/MC=1-prog.html
+//    /wul/abap/tran/MC=1-prog-11.html
+//             |                 |
+//              12345    12345
+//              dpSrcOType     dpPage
+//                   dpSrcOName
+//                        dpOType
+//
+    // Remvoe the left '/wul/abap/' part, and right '.html' part
+    $restUri = substr($requri, 10);
+    $restUri = substr($restUri, 0, strlen($restUri) - 5);
+    // The Rest URI at least have 10 charactors
+    //    /tran/MC=1-prog-11
+    //    12345     67890
+    if (strlen($restUri) > 10) {
+        $dpSrcOType = strtoupper(substr($restUri, 0, 4));
+        $restUri = substr($restUri, 5);
+
+        $items = explode('-', $restUri);
+        $itemsCount = count($items);
+
+        // There should at lest 2 items
+        if ($itemsCount >= 2) {
+            $itemLast = array_pop($items);
+            if (ctype_digit($itemLast)) {
+                $dpPage = intval($itemLast);
+                $lastPos = strlen($restUri) - strlen($itemLast) - 1;
+                $restUri = substr($restUri, 0, $lastPos);
+
+                // Pop again
+                $itemLast = array_pop($items);
+            }
+            if (strlen($itemLast) == 4) {
+                if (!isset($dpPage)) {
+                    $dpPage = 1;
+                }
+                $dpOType = strtoupper($itemLast);
+                $lastPos = strlen($restUri) - strlen($itemLast) - 1;
+                $dpSrcOName = strtoupper(substr($restUri, 0, $lastPos));
+                $target = 'wul/abap/wul.php';
+            }
+        }
+
+        /* Debug Only
+        echo '$dpSrcOType = ' . $dpSrcOType . '<br />';
+        echo '$dpSrcOName = ' . $dpSrcOName . '<br />';
+        echo '$dpOType    = ' . $dpOType . '<br />';
+        echo '$dpPage     = ' . $dpPage . '<br />';
+        echo '$target     = ' . $target . '<br />';
+        exit();
+         */
+    }
 }
 
 if (!isset($target)) {
@@ -143,9 +191,8 @@ if (!isset($target)) {
 }
 
 // Logging
-// Only log for Debug purpose, do not log on production system 
+// Only log for Debug purpose, do not log on production system
 // error_log('dispatcher: [' . $requri . '] --> [' . $target . ']');
-
 //  Navigation
 include $target;
 exit();
