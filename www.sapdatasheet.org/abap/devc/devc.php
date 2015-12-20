@@ -19,19 +19,20 @@ if (empty($tdevc['DEVCLASS'])) {
     ABAP_UI_TOOL::Redirect404();
 }
 
-$GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DEVC_DESC . ' ' . $tdevc['DEVCLASS'];
 $tdevc_desc = ABAP_DB_TABLE_HIER::TDEVCT($tdevc['DEVCLASS']);
 $tdevc_parent_desc = ABAP_DB_TABLE_HIER::TDEVCT($tdevc['PARENTCL']);
 $tdevc_mainpack_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_TDEVC_MAINPACK, $tdevc['MAINPACK']);
 $hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::DEVC_NAME, $tdevc['DEVCLASS']);
 $child_tabl = ABAP_DB_TABLE_HIER::TADIR_Child($tdevc['DEVCLASS'], ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::TABL_NAME);
 $child_tran = ABAP_DB_TABLE_HIER::TADIR_Child($tdevc['DEVCLASS'], ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::TRAN_NAME);
+
+$GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::DEVC_NAME, $tdevc['DEVCLASS']);
 ?>
 <html>
     <head>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="stylesheet" href="/abap.css" type="text/css" />
-        <title><?php echo $GLOBALS['TITLE_TEXT'] ?> <?php echo WEBSITE::TITLE ?> </title>
+        <title><?php echo $GLOBALS['TITLE_TEXT'] . WEBSITE::TITLE ?> </title>
         <meta name="keywords" content="SAP,<?php echo ABAP_OTYPE::DEVC_DESC ?>,<?php echo $tdevc['DEVCLASS'] ?>,<?php echo $tdevc_desc ?>" />
         <meta name="description" content="<?php echo WEBSITE::META_DESC; ?>" />
         <meta name="author" content="SAP Datasheet" />

@@ -41,14 +41,14 @@ $methods = ABAP_DB_TABLE_SEO::SEOCOMPO($ObjID, ABAP_DB_TABLE_SEO::SEOCOMPO_CMPTY
 $events = ABAP_DB_TABLE_SEO::SEOCOMPO($ObjID, ABAP_DB_TABLE_SEO::SEOCOMPO_CMPTYPE_2);
 $types = ABAP_DB_TABLE_SEO::SEOCOMPO($ObjID, ABAP_DB_TABLE_SEO::SEOCOMPO_CMPTYPE_3);
 
-$hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::CLAS_NAME, $ObjID);
-$GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::CLAS_DESC . ' ' . $ObjID . ' - ' . $class_tx;
+$hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::INTF_NAME, $ObjID);
+$GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::INTF_NAME, $ObjID);
 ?>
 <html>
     <head>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="stylesheet" href="/abap.css" type="text/css" />
-        <title><?php echo $GLOBALS['TITLE_TEXT'] ?><?php echo WEBSITE::TITLE ?> </title>
+        <title><?php echo $GLOBALS['TITLE_TEXT'] . WEBSITE::TITLE ?> </title>
         <meta name="keywords" content="SAP,<?php echo ABAP_OTYPE::CLAS_DESC ?>,<?php echo $ObjID ?>,<?php echo $class_tx ?>" />
         <meta name="description" content="<?php echo WEBSITE::META_DESC; ?>" />
         <meta name="author" content="SAP Datasheet" />
@@ -72,7 +72,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::CLAS_DESC . ' ' . $ObjID . ' 
                     <tr><td class="left_attribute"> Package </td></tr>
                     <tr><td class="left_value"><?php echo ABAP_Navigation::GetURLPackage($hier->DEVCLASS, $hier->DEVCLASS_T) ?></td></tr>
                     <tr><td class="left_attribute"> Object type </td></tr>
-                    <tr><td class="left_value"><a href="/abap/clas/"><?php echo ABAP_OTYPE::CLAS_DESC ?></a></td></tr>
+                    <tr><td class="left_value"><a href="/abap/intf/"><?php echo ABAP_OTYPE::INTF_DESC ?></a></td></tr>
                     <tr><td class="left_attribute"> Object name </td></tr>
                     <tr><td class="left_value"> <a href="#" title="<?php echo $class_tx ?>"><?php echo $ObjID ?></a> </td></tr>
                 </tbody>
@@ -87,7 +87,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::CLAS_DESC . ' ' . $ObjID . ' 
             <div class="content_navi">
                 <a href="/">Home page</a> &gt;
                 <a href="/abap/">ABAP Object</a> &gt;
-                <a href="/abap/clas/"><?php echo ABAP_OTYPE::CLAS_DESC ?></a> &gt;
+                <a href="/abap/intf/"><?php echo ABAP_OTYPE::INTF_DESC ?></a> &gt;
                 <a href="#"><?php echo $ObjID ?></a>
             </div>
 

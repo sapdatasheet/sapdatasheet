@@ -42,13 +42,13 @@ $events = ABAP_DB_TABLE_SEO::SEOCOMPO($ObjID, ABAP_DB_TABLE_SEO::SEOCOMPO_CMPTYP
 $types = ABAP_DB_TABLE_SEO::SEOCOMPO($ObjID, ABAP_DB_TABLE_SEO::SEOCOMPO_CMPTYPE_3);
 
 $hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::CLAS_NAME, $ObjID);
-$GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::CLAS_DESC . ' ' . $ObjID . ' - ' . $class_tx;
+$GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::CLAS_NAME, $ObjID);
 ?>
 <html>
     <head>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="stylesheet" href="/abap.css" type="text/css" />
-        <title><?php echo $GLOBALS['TITLE_TEXT'] ?><?php echo WEBSITE::TITLE ?> </title>
+        <title><?php echo $GLOBALS['TITLE_TEXT'] . WEBSITE::TITLE ?> </title>
         <meta name="keywords" content="SAP,<?php echo ABAP_OTYPE::CLAS_DESC ?>,<?php echo $ObjID ?>,<?php echo $class_tx ?>" />
         <meta name="description" content="<?php echo WEBSITE::META_DESC; ?>" />
         <meta name="author" content="SAP Datasheet" />

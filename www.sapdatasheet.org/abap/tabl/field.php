@@ -34,7 +34,7 @@ $dd02l = ABAP_DB_TABLE_TABL::DD02L(strtoupper($Table));
 $dd02l_desc = ABAP_DB_TABLE_TABL::DD02T($dd02l['TABNAME']);
 $dd02l_tabclass_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_TABL::DD02L_TABCLASS_DOMAIN, $dd02l['TABCLASS']);
 
-$dd03l_fieldname_desc = ABAP_UI_TOOL::GetTablFieldDesc($dd03l['PRECFIELD'], $dd03l['ROLLNAME']);
+$dd03l_fieldname_desc = htmlentities(ABAP_UI_TOOL::GetTablFieldDesc($dd03l['PRECFIELD'], $dd03l['ROLLNAME']));
 $dd03l_checktable_desc = ABAP_DB_TABLE_TABL::DD02T($dd03l['CHECKTABLE']);
 $dd03l_inttype_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_INTTYPE, $dd03l['INTTYPE']);
 $dd03l_reftable_desc = ABAP_DB_TABLE_TABL::DD02T($dd03l['REFTABLE']);
@@ -51,13 +51,14 @@ $dd03l_languflag_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_DD03L_LA
 $dd17s_list = ABAP_DB_TABLE_TABL::DD17S_FIELDNAME($dd02l['TABNAME'], $dd03l['FIELDNAME']);
 
 $hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::TABL_NAME, $dd02l['TABNAME']);
-$GLOBALS['TITLE_TEXT'] = 'SAP ABAP Table Field ' . $dd02l['TABNAME'] . '-' . $dd03l['FIELDNAME'];
+$title_desc = (empty($dd03l_fieldname_desc)) ? '' : ' (' . $dd03l_fieldname_desc . ')';
+$GLOBALS['TITLE_TEXT'] = 'SAP ABAP Table Field ' . $dd02l['TABNAME'] . '-' . $dd03l['FIELDNAME'] . $title_desc;
 ?>
 <html>
     <head>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="stylesheet" href="/abap.css" type="text/css" />
-        <title><?php echo $GLOBALS['TITLE_TEXT'] ?> <?php echo WEBSITE::TITLE ?> </title>
+        <title><?php echo $GLOBALS['TITLE_TEXT'] . WEBSITE::TITLE ?> </title>
         <meta name="keywords" content="SAP,Table Field,<?php echo $dd02l['TABNAME'] . '-' . $dd03l['FIELDNAME'] ?>" />
         <meta name="description" content="<?php echo WEBSITE::META_DESC; ?>" />
         <meta name="author" content="SAP Datasheet" />
@@ -144,7 +145,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP Table Field ' . $dd02l['TABNAME'] . '-' . $dd
                             <td> <?php echo htmlentities($dd03l_fieldname_desc) ?> &nbsp;</td>
                         </tr>
                         <tr><td class="content_label"> Check Table </td>
-                            <td class="field"> <?php echo ABAP_Navigation::GetURLTable($dd03l['CHECKTABLE'], $dd03l_checktable_desc) ?> &nbsp;</td>
+                            <td class="field"> <?php echo (trim($dd03l['CHECKTABLE']) == '*') ? '*' : ABAP_Navigation::GetURLTable($dd03l['CHECKTABLE'], $dd03l_checktable_desc) ?> &nbsp;</td>
                             <td> <?php echo htmlentities($dd03l_checktable_desc) ?> &nbsp;</td>
                         </tr>
                         <tr><td class="content_label"> Nesting depth for includes </td>

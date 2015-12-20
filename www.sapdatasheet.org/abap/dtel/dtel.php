@@ -25,14 +25,15 @@ $dtel_reftype_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_DD04L_REFTY
 $dtel_datatype_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_DATATYPE, $dtel['DATATYPE']);
 $dok_de = ABAP_DB_TABLE_DTEL::YDOK_DE($dtel['ROLLNAME']);
 $dok_dz = ABAP_DB_TABLE_DTEL::YDOK_DZ($dtel['ROLLNAME']);
+
 $hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::DTEL_NAME, $dtel['ROLLNAME']);
-$GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DTEL_DESC . ' ' . $dtel['ROLLNAME'];
+$GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::DTEL_NAME, $dtel['ROLLNAME']);
 ?>
 <html>
     <head>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="stylesheet" href="/abap.css" type="text/css" />
-        <title><?php echo $GLOBALS['TITLE_TEXT'] ?> <?php echo WEBSITE::TITLE ?> </title>
+        <title><?php echo $GLOBALS['TITLE_TEXT'] . WEBSITE::TITLE ?> </title>
         <meta name="keywords" content="SAP,<?php echo ABAP_OTYPE::DTEL_DESC ?>,<?php echo $dtel['ROLLNAME'] ?>,<?php echo $dtel_desc ?>" />
         <meta name="description" content="<?php echo WEBSITE::META_DESC; ?>" />
         <meta name="author" content="SAP Datasheet" />

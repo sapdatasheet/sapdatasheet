@@ -49,15 +49,15 @@ class ABAP_Hierarchy {
 
 class ABAP_Navigation {
 
-    public static function GetURLAppComp($fctr_id, $posid, $desc, $newwin = TRUE) {
+    public static function GetURLAppComp($fctr_id, $posid, $desc = NULL, $newwin = TRUE) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::BMFR_NAME, $fctr_id, $posid, $desc, $newwin);
     }
 
-    public static function GetURLClass($class, $desc, $newwin = TRUE) {
+    public static function GetURLClass($class, $desc = NULL, $newwin = TRUE) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::CLAS_NAME, $class, $class, $desc, $newwin);
     }
 
-    public static function GetURLDomain($domain, $desc, $newwin = TRUE) {
+    public static function GetURLDomain($domain, $desc = NULL, $newwin = TRUE) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::DOMA_NAME, $domain, $domain, $desc, $newwin);
     }
 
@@ -65,19 +65,19 @@ class ABAP_Navigation {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::DOMA_NAME, $domain, $domainValue, $desc, $newwin, ABAP_UI_CONST::ANCHOR_VALUES);
     }
 
-    public static function GetURLDtel($rollname, $desc, $newwin = TRUE) {
+    public static function GetURLDtel($rollname, $desc = NULL, $newwin = TRUE) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::DTEL_NAME, $rollname, $rollname, $desc, $newwin);
     }
 
-    public static function GetURLDtelDocument($rollname, $label, $newwin = TRUE) {
+    public static function GetURLDtelDocument($rollname = NULL, $label = '?', $newwin = TRUE) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::DTEL_NAME, $rollname, $label, ABAP_UI_CONST::LABEL_F1Help, $newwin, ABAP_UI_CONST::ANCHOR_DOCUMENT);
     }
 
-    public static function GetURLFuncModule($fm, $desc, $newwin = TRUE) {
+    public static function GetURLFuncModule($fm, $desc = NULL, $newwin = TRUE) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::FUNC_NAME, $fm, $fm, $desc, $newwin);
     }
 
-    public static function GetURLInterface($intf, $desc, $newwin = TRUE) {
+    public static function GetURLInterface($intf, $desc = NULL, $newwin = TRUE) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::INTF_NAME, $intf, $intf, $desc, $newwin);
     }
 
@@ -85,7 +85,7 @@ class ABAP_Navigation {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::FUGR_NAME, $fg, $fg, $desc, $newwin);
     }
 
-    public static function GetURLMessageClass($msgcls, $desc, $newwin = TRUE) {
+    public static function GetURLMessageClass($msgcls, $desc = NULL, $newwin = TRUE) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::MSAG_NAME, $msgcls, $msgcls, $desc, $newwin);
     }
 
@@ -98,34 +98,34 @@ class ABAP_Navigation {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::MSAG_NAME, $objname, $msgnr, $title, $newwin);
     }
 
-    public static function GetURLPackage($package, $desc, $newwin = TRUE) {
+    public static function GetURLPackage($package, $desc = NULL, $newwin = TRUE) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::DEVC_NAME, $package, $package, $desc, $newwin);
     }
 
-    public static function GetURLProgram($program, $desc, $value = "", $newwin = TRUE) {
+    public static function GetURLProgram($program, $desc = NULL, $value = "", $newwin = TRUE) {
         if ($value === "") {
             $value = $program;
         }
         return ABAP_Navigation::GetURL(ABAP_OTYPE::PROG_NAME, $program, $value, $desc, $newwin);
     }
 
-    public static function GetURLSearchHelp($shlp, $desc, $newwin = TRUE) {
+    public static function GetURLSearchHelp($shlp, $desc = NULL, $newwin = TRUE) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::SHLP_NAME, $shlp, $shlp, $desc, $newwin);
     }
 
-    public static function GetURLSoftComp($compName, $desc, $newwin = TRUE) {
+    public static function GetURLSoftComp($compName, $desc = NULL, $newwin = TRUE) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::CVERS_NAME, $compName, $compName, $desc, $newwin);
     }
 
-    public static function GetURLSproIMGActivity($img, $desc, $newwin = TRUE) {
+    public static function GetURLSproIMGActivity($img, $desc = NULL, $newwin = TRUE) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::CUS0_NAME, $img, $img, $desc, $newwin);
     }
 
-    public static function GetURLSqltable($sqlTable, $desc, $newwin = TRUE) {
+    public static function GetURLSqltable($sqlTable, $desc = NULL, $newwin = TRUE) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::SQLT_NAME, $sqlTable, $sqlTable, $desc, $newwin);
     }
 
-    public static function GetURLTable($table, $desc, $newwin = TRUE) {
+    public static function GetURLTable($table, $desc = NULL, $newwin = TRUE) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::TABL_NAME, $table, $table, $desc, $newwin);
     }
 
@@ -145,27 +145,32 @@ class ABAP_Navigation {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::TABL_NAME, $objname, $field, $position, $newwin);
     }
 
-    public static function GetURLTransactionCode($tcode, $desc, $newwin = TRUE) {
+    public static function GetURLTransactionCode($tcode, $desc = NULL, $newwin = TRUE) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::TRAN_NAME, $tcode, $tcode, $desc, $newwin);
     }
 
-    public static function GetURLView($view, $desc, $newwin = TRUE) {
+    public static function GetURLView($view, $desc = NULL, $newwin = TRUE) {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::VIEW_NAME, $view, $view, $desc, $newwin);
     }
 
-    private static function GetURL($objtype, $objname, $linkLabel, $linkTitle, $newwin = FALSE, $anchor = '') {
+    public static function GetURL($objtype, $objname, $linkLabel, $linkTitle, $newwin = FALSE, $anchor = '') {
         $linkLabel = trim($linkLabel);
         if (strlen(trim($objname)) < 1 || strlen($linkLabel) < 1) {
             return '&nbsp;';
         }
 
-        $sTitle = (empty($linkTitle)) ? $linkLabel : $linkTitle;
+        if (empty(trim($linkTitle))) {
+            $desc = ABAP_UI_TOOL::GetObjectDescr($objtype, $objname);
+            $sTitle = (empty($desc)) ? $linkLabel : $desc;
+        } else {
+            $sTitle = $linkTitle;
+        }
         $newWindow = ($newwin === TRUE) ? 'target="_blank"' : '';
         $anchorTag = (strlen(trim($anchor)) > 0) ? '#' . $anchor : '';
         $result = "<a href=\"/abap/" . strtolower($objtype)
-                . "/" . htmlentities(strtolower($objname)) . ".html" . $anchorTag 
+                . "/" . htmlentities(strtolower($objname)) . ".html" . $anchorTag
                 . "\" title=\"" . htmlentities($sTitle) . "\" "
-                .  $newWindow . ">" 
+                . $newWindow . ">"
                 . htmlentities($linkLabel) . "</a>";
         return $result;
     }
@@ -237,10 +242,11 @@ class ABAP_TFDIR_ProcessingType {
 }
 
 class ABAP_UI_CONST {
+
     const ANCHOR_VALUES = "values";
     const ANCHOR_DOCUMENT = "document";
-    
     const LABEL_F1Help = 'Help Document on this Field';
+
 }
 
 class ABAP_UI_CUS0 {
@@ -455,7 +461,112 @@ class ABAP_UI_TOOL {
     }
 
     /**
+     * Get ABAP Object description.
+     * 
+     * @param string $oType Object Type, example: DOMA, DTEL
+     * @param string $oName Object name, example: MANDT, BUKRS
+     * @return string Object description text, or '' for un-recognized object type
+     */
+    public static function GetObjectDescr($oType, $oName) {
+        switch ($oType) {
+            case ABAP_OTYPE::BMFR_NAME:
+                $desc = ABAP_DB_TABLE_HIER::DF14T($oName);
+                break;
+            case ABAP_OTYPE::CLAS_NAME:
+            case ABAP_OTYPE::INTF_NAME:
+                $desc = ABAP_DB_TABLE_SEO::SEOCLASSTX($oName);
+                break;
+            case ABAP_OTYPE::CUS0_NAME:
+                $desc = ABAP_DB_TABLE_CUS0::CUS_IMGACT($oName);
+                break;
+            case ABAP_OTYPE::CVERS_NAME:
+                $desc = ABAP_DB_TABLE_HIER::CVERS_REF($oName);
+                break;
+            case ABAP_OTYPE::DEVC_NAME:
+                $desc = ABAP_DB_TABLE_HIER::TDEVCT($oName);
+                break;
+            case ABAP_OTYPE::DOMA_NAME:
+                $desc = ABAP_DB_TABLE_DOMA::DD01T($oName);
+                break;
+            case ABAP_OTYPE::DTEL_NAME:
+                $desc = ABAP_DB_TABLE_DTEL::DD04T($oName);
+                break;
+            case ABAP_OTYPE::FUNC_NAME:
+                $desc = ABAP_DB_TABLE_FUNC::TFTIT($oName);
+                break;
+            case ABAP_OTYPE::MSAG_NAME:
+                $desc = ABAP_DB_TABLE_MSAG::T100T($oName);
+                break;
+            case ABAP_OTYPE::PROG_NAME:
+                $desc = ABAP_DB_TABLE_PROG::TRDIRT($oName);
+                break;
+            case ABAP_OTYPE::SHLP_NAME:
+                $desc = ABAP_DB_TABLE_SHLP::DD30T($oName);
+                break;
+            case ABAP_OTYPE::SQLT_NAME:
+                $desc = ABAP_DB_TABLE_TABL::DD06T($oName);
+                break;
+            case ABAP_OTYPE::TABL_NAME:
+                $desc = ABAP_DB_TABLE_TABL::DD02T($oName);
+                break;
+            case ABAP_OTYPE::TRAN_NAME:
+                $desc = ABAP_DB_TABLE_TRAN::TSTCT($oName);
+                break;
+            case ABAP_OTYPE::VIEW_NAME:
+                $desc = ABAP_DB_TABLE_VIEW::DD25T($oName);
+                break;
+            default:
+                $desc = '';
+                break;
+        }
+
+        return htmlentities($desc);
+    }
+
+    /**
+     * Get object title.
+     * 
+     * <pre>
+     * Input : TABL, BKPF
+     * Output: Table BKPF (Accounting Document Header)
+     * </pre>
+     * 
+     * @param string $oType Object Type, example: DOMA, DTEL, TABL
+     * @param string $oName Object name, example: MANDT, BUKRS, BKPF
+     * @param string $oNameDisp Objec name desplay, for 'Application Component'
+     * @return string Object title text
+     */
+    public static function GetObjectTitle($oType, $oName, $oNameDisp = NULL) {
+        $title_name = ($oNameDisp === NULL) ? $oName : $oNameDisp;
+        $title_name = 'SAP ABAP ' . ABAP_OTYPE::getOTypeDesc($oType) . ' ' . $title_name;
+        $srcObjDesc = ABAP_UI_TOOL::GetObjectDescr($oType, $oName);
+        if (!empty($srcObjDesc)) {
+            $title_name = $title_name . ' (' . $srcObjDesc . ')';
+        }
+
+        return $title_name;
+    }
+
+    /**
+     * Get ABAP Object URL.
+     * 
+     * @param string $oType Object Type, example: DOMA, DTEL
+     * @param string $oName Object name, example: MANDT, BUKRS
+     * @return string Object URL for supported object type, or else return object Name
+     */
+    public static function GetObjectURL($oType, $oName) {
+        if (array_key_exists($oType, ABAP_OTYPE::$OTYPES)) {
+            return ABAP_Navigation::GetURL($oType, $oName, $oName, NULL, TRUE);
+        } else {
+            return $oName;
+        }
+    }
+
+    /**
      * Get check box UI control.
+     * 
+     * @param string $Sqlclass SQL table class
+     * @return string SQL table class description
      */
     public static function GetSqltDesc($Sqlclass) {
         if ($Sqlclass == 'POOL') {

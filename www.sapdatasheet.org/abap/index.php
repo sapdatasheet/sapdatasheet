@@ -42,28 +42,25 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP";
                 <h4> ABAP Object </h4>
                 <table class="alv">
                     <tr>
+                        <th class="alv"> # </th>
                         <th class="alv"> Object Type </th>
                         <th class="alv"> Object Name </th>
                     </tr>
-                    <tr><td class="alv"><a href="/abap/cvers/"><?php echo ABAP_OTYPE::CVERS_NAME ?></a></td><td class="alv"><?php echo ABAP_OTYPE::CVERS_DESC ?></td></tr>
-                    <tr><td class="alv"><a href="/abap/bmfr/"><?php echo ABAP_OTYPE::BMFR_NAME ?></a></td><td class="alv"><?php echo ABAP_OTYPE::BMFR_DESC ?></td></tr>
-                    <tr><td class="alv"><a href="/abap/devc/"><?php echo ABAP_OTYPE::DEVC_NAME ?></a></td><td class="alv"><?php echo ABAP_OTYPE::DEVC_DESC ?></td></tr>
-                    <tr><td class="alv"><a href="/abap/msag/"><?php echo ABAP_OTYPE::MSAG_NAME ?></a></td><td class="alv"><?php echo ABAP_OTYPE::MSAG_DESC ?></td></tr>
-                    <tr><td class="alv"><a href="/abap/cus0/"><?php echo ABAP_OTYPE::CUS0_NAME ?></a></td><td class="alv"><?php echo ABAP_OTYPE::CUS0_DESC ?></td></tr>
-                    <tr><td class="alv"><a href="/abap/tran/"><?php echo ABAP_OTYPE::TRAN_NAME ?></a></td><td class="alv"><?php echo ABAP_OTYPE::TRAN_DESC ?></td></tr>
-                    <tr><td class="alv"><a href="/abap/prog/"><?php echo ABAP_OTYPE::PROG_NAME ?></a></td><td class="alv"><?php echo ABAP_OTYPE::PROG_DESC ?></td></tr>
-                    <tr><td class="alv"><a href="/abap/fugr/"><?php echo ABAP_OTYPE::FUGR_NAME ?></a></td><td class="alv"><?php echo ABAP_OTYPE::FUGR_DESC ?></td></tr>
-                    <tr><td class="alv"><a href="/abap/func/"><?php echo ABAP_OTYPE::FUNC_NAME ?></a></td><td class="alv"><?php echo ABAP_OTYPE::FUNC_DESC ?></td></tr>
-                    <tr><td class="alv"><a href="/abap/clas/"><?php echo ABAP_OTYPE::CLAS_NAME ?></a></td><td class="alv"><?php echo ABAP_OTYPE::CLAS_DESC ?></td></tr>
-                    <tr><td class="alv"><a href="/abap/intf/"><?php echo ABAP_OTYPE::INTF_NAME ?></a></td><td class="alv"><?php echo ABAP_OTYPE::INTF_DESC ?></td></tr>
-                    <tr><td class="alv"><a href="/abap/shlp/"><?php echo ABAP_OTYPE::SHLP_NAME ?></a></td><td class="alv"><?php echo ABAP_OTYPE::SHLP_DESC ?></td></tr>
-                    <tr><td class="alv"><a href="/abap/tabl/"><?php echo ABAP_OTYPE::TABL_NAME ?></a></td><td class="alv"><?php echo ABAP_OTYPE::TABL_DESC ?></td></tr>
-                    <tr><td class="alv"><a href="/abap/sqlt/"><?php echo ABAP_OTYPE::SQLT_NAME ?></a></td><td class="alv"><?php echo ABAP_OTYPE::SQLT_DESC ?></td></tr>
-                    <tr><td class="alv"><a href="/abap/view/"><?php echo ABAP_OTYPE::VIEW_NAME ?></a></td><td class="alv"><?php echo ABAP_OTYPE::VIEW_DESC ?></td></tr>
-                    <tr><td class="alv"><a href="/abap/dtel/"><?php echo ABAP_OTYPE::DTEL_NAME ?></a></td><td class="alv"><?php echo ABAP_OTYPE::DTEL_DESC ?></td></tr>
-                    <tr><td class="alv"><a href="/abap/doma/"><?php echo ABAP_OTYPE::DOMA_NAME ?></a></td><td class="alv"><?php echo ABAP_OTYPE::DOMA_DESC ?></td></tr>
+                    <?php 
+                    $count = 0;
+                    foreach (array_keys(ABAP_OTYPE::$OTYPES) as $oType) { 
+                        $count++;
+                        ?>
+                        <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                            <td class="alv"><a href="/abap/<?php echo strtolower($oType) ?>/"><?php echo $oType ?></a></td>
+                            <td class="alv"><?php echo ABAP_OTYPE::$OTYPES[$oType] ?></td>
+                        </tr>
+                    <?php } ?>
+                        <tr><td class="alv">&nbsp;</td>
+                            <td class="alv">&nbsp;</td>
+                            <td class="alv">&nbsp;</td>
+                        </tr>
                 </table>
-
             </div>
         </div><!-- Content: End -->        
 

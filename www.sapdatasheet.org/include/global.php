@@ -37,12 +37,16 @@ class ABAP_OTYPE {
     const DOMA_DESC = 'Domain';
     const DTEL_NAME = 'DTEL';
     const DTEL_DESC = 'Data Element';
-    const FUNC_NAME = 'FUNC';
-    const FUNC_DESC = 'Function Module';
     const FUGR_NAME = 'FUGR';
     const FUGR_DESC = 'Function Group';
+    const FUNC_NAME = 'FUNC';
+    const FUNC_DESC = 'Function Module';
     const INTF_NAME = 'INTF';
     const INTF_DESC = 'Interface';
+    const MENU_NAME = 'MENU';
+    const MENU_DESC = 'SAP Menu';
+    const MSAG_NAME = 'MSAG';
+    const MSAG_DESC = 'Message Class';
     const PROG_NAME = 'PROG';
     const PROG_DESC = 'Program';
     const SQLT_NAME = 'SQLT';
@@ -53,10 +57,6 @@ class ABAP_OTYPE {
     const TRAN_DESC = 'Transaction Code';
     const VIEW_NAME = 'VIEW';
     const VIEW_DESC = 'View';
-    const MENU_NAME = 'MENU';
-    const MENU_DESC = 'SAP Menu';
-    const MSAG_NAME = 'MSAG';
-    const MSAG_DESC = 'Message Class';
     const SHLP_NAME = 'SHLP';
     const SHLP_DESC = 'Search Help';
     const SU21_NAME = 'SU21';
@@ -65,6 +65,41 @@ class ABAP_OTYPE {
     const PFCG_DESC = 'Role';
     const RZ10_NAME = 'RZ10';
     const RZ10_DESC = 'NetWeaver Profile';
+
+    public static $OTYPES = array(
+        ABAP_OTYPE::BMFR_NAME => ABAP_OTYPE::BMFR_DESC,
+        ABAP_OTYPE::CLAS_NAME => ABAP_OTYPE::CLAS_DESC,
+        ABAP_OTYPE::CUS0_NAME => ABAP_OTYPE::CUS0_DESC,
+        ABAP_OTYPE::CVERS_NAME => ABAP_OTYPE::CVERS_DESC,
+        ABAP_OTYPE::DEVC_NAME => ABAP_OTYPE::DEVC_DESC,
+        ABAP_OTYPE::DOMA_NAME => ABAP_OTYPE::DOMA_DESC,
+        ABAP_OTYPE::DTEL_NAME => ABAP_OTYPE::DTEL_DESC,
+        ABAP_OTYPE::FUNC_NAME => ABAP_OTYPE::FUNC_DESC,
+        ABAP_OTYPE::FUGR_NAME => ABAP_OTYPE::FUGR_DESC,
+        ABAP_OTYPE::INTF_NAME => ABAP_OTYPE::INTF_DESC,
+        //ABAP_OTYPE::MENU_NAME => ABAP_OTYPE::MENU_DESC,
+        ABAP_OTYPE::MSAG_NAME => ABAP_OTYPE::MSAG_DESC,
+        ABAP_OTYPE::PROG_NAME => ABAP_OTYPE::PROG_DESC,
+        ABAP_OTYPE::SHLP_NAME => ABAP_OTYPE::SHLP_DESC,
+        ABAP_OTYPE::SQLT_NAME => ABAP_OTYPE::SQLT_DESC,
+        ABAP_OTYPE::TABL_NAME => ABAP_OTYPE::TABL_DESC,
+        ABAP_OTYPE::TRAN_NAME => ABAP_OTYPE::TRAN_DESC,
+        ABAP_OTYPE::VIEW_NAME => ABAP_OTYPE::VIEW_DESC,
+    );
+
+    /**
+     * Get Object Type Description.
+     * 
+     * @param string $oType Object type, example: DOMA, DTEL, TABL
+     * @return string Object type description, example: 'Domain', 'Data element'
+     */
+    public static function getOTypeDesc($oType) {
+        if (array_key_exists($oType, ABAP_OTYPE::$OTYPES)) {
+            return ABAP_OTYPE::$OTYPES[$oType];
+        } else {
+            return $oType;
+        }
+    }
 
 }
 

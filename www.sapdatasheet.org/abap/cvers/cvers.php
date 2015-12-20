@@ -15,16 +15,17 @@ $cvers = ABAP_DB_TABLE_HIER::CVERS(strtoupper($ObjID));
 if (empty($cvers['COMPONENT'])) {
     ABAP_UI_TOOL::Redirect404();
 }
-$GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::CVERS_DESC . ' ' . $cvers['COMPONENT'];
 $cvers_desc = ABAP_DB_TABLE_HIER::CVERS_REF($cvers['COMPONENT']);
 $cvers_comp_type_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_TADIR_COMP_TYPE, $cvers['COMP_TYPE']);
 $child_bmfr = ABAP_DB_TABLE_HIER::TDEVC_COMPONENT($cvers['COMPONENT']);
+
+$GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::CVERS_NAME, $cvers['COMPONENT']);
 ?>
 <html>
     <head>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="stylesheet" href="/abap.css" type="text/css" />
-        <title><?php echo $GLOBALS['TITLE_TEXT']; ?> <?php echo WEBSITE::TITLE ?> </title>
+        <title><?php echo $GLOBALS['TITLE_TEXT'] . WEBSITE::TITLE ?> </title>
         <meta name="keywords" content="SAP,<?php echo ABAP_OTYPE::CVERS_DESC ?>,<?php echo $cvers['COMPONENT']; ?>,<?php echo $cvers_desc; ?>" />
         <meta name="description" content="<?php echo WEBSITE::META_DESC; ?>" />
         <meta name="author" content="SAP Datasheet" />

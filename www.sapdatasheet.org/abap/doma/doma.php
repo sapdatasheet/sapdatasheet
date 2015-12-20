@@ -21,15 +21,16 @@ if (empty($doma['DOMNAME'])) {
 $doma_desc = ABAP_DB_TABLE_DOMA::DD01T($doma['DOMNAME']);
 $doma_datatype_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_DATATYPE, $doma['DATATYPE']);
 $doma_vall = ABAP_DB_TABLE_DOMA::DD07L($doma['DOMNAME']);
+
 $hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::DOMA_NAME, $doma['DOMNAME']);
-$GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::DOMA_DESC . ' ' . $doma['DOMNAME'];
+$GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::DOMA_NAME, $doma['DOMNAME']);
 ?>
 
 <html>
     <head>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="stylesheet" href="/abap.css" type="text/css" />
-        <title><?php echo $GLOBALS['TITLE_TEXT'] ?> <?php echo WEBSITE::TITLE ?> </title>
+        <title><?php echo $GLOBALS['TITLE_TEXT'] . WEBSITE::TITLE ?> </title>
         <meta name="keywords" content="SAP,<?php echo ABAP_OTYPE::DOMA_DESC ?>,<?php echo $doma['DOMNAME'] ?>,<?php echo $doma_desc ?>" />
         <meta name="description" content="<?php echo WEBSITE::META_DESC; ?>" />
         <meta name="author" content="SAP Datasheet" />

@@ -36,24 +36,16 @@ $t100_nr_text = ABAP_DB_TABLE_MSAG::T100_NR($ObjID, $MsgNr);
 $t100u = ABAP_DB_TABLE_MSAG::T100U($ObjID, $MsgNr);
 $t100u_t = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_MSAG::T100U_SELFDEF_DOMAIN, $t100u['SELFDEF']);
 $t100x = ABAP_DB_TABLE_MSAG::T100X($ObjID, $MsgNr);
-
 $dok_na = ABAP_DB_TABLE_MSAG::YDOK_NA($ObjID, $MsgNr);
-if (empty($dok_na) === TRUE) {
-    $dok_na = ABAP_DB_TABLE_MSAG::YDOK_NA($ObjID, $MsgNr, ABAP_DB_CONST::LANGU_EN);
-}
-if (empty($dok_na) === TRUE) {
-    $dok_na = ABAP_DB_TABLE_MSAG::YDOK_NA($ObjID, $MsgNr, ABAP_DB_CONST::LANGU_DE);
-}
-
 
 $hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::MSAG_NAME, $ObjID);
-$GLOBALS['TITLE_TEXT'] = $t100_nr_text . ' - ' . 'SAP ABAP ' . ABAP_OTYPE::MSAG_DESC . ' ' . $ObjID . ' Message Number ' . $MsgNr;
+$GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::MSAG_DESC . ' ' . $ObjID . ' Message Number ' . $MsgNr . ' (' . $t100_nr_text . ')';
 ?>
 <html>
     <head>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="stylesheet" href="/abap.css" type="text/css" />
-        <title><?php echo $GLOBALS['TITLE_TEXT'] ?><?php echo WEBSITE::TITLE ?> </title>
+        <title><?php echo $GLOBALS['TITLE_TEXT'] . WEBSITE::TITLE ?> </title>
         <meta name="keywords" content="SAP,<?php echo ABAP_OTYPE::MSAG_DESC ?>,<?php echo $ObjID ?>,<?php echo $MsgNr ?>,<?php echo $t100t ?>,<?php echo $t100_nr_text ?>" />
         <meta name="description" content="<?php echo WEBSITE::META_DESC; ?>" />
         <meta name="author" content="SAP Datasheet" />
@@ -136,7 +128,7 @@ $GLOBALS['TITLE_TEXT'] = $t100_nr_text . ' - ' . 'SAP ABAP ' . ABAP_OTYPE::MSAG_
 
                 <h4> Message Text </h4>
                 <div class="f1doc"><?php echo $t100_nr_text ?></div>
-                <?php if (empty($dok_na) === FALSE) { ?>
+                <?php if (empty(trim($dok_na)) === FALSE) { ?>
                     <h4> Help Document </h4>
                     <div class="f1doc"><?php echo $dok_na ?></div>
                 <?php } ?>

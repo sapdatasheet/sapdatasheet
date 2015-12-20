@@ -847,7 +847,7 @@ class ABAP_DB_TABLE_FUNC {
     /**
      * Function Module parameters text.
      * <pre>
-     * SELECT STEXT FROM abapfunc.funct_e 
+     * SELECT STEXT FROM abapfunc.funct_e
      *   where SPRAS = 'E' AND funcname = 'RFC_READ_TABLE' AND PARAMETER = 'DATA' AND KIND = 'P'
      * </pre>
      */
@@ -1294,13 +1294,13 @@ class ABAP_DB_TABLE_MSAG {
      */
     public static function T100_NR($msgcls, $msgnr) {
         $sql = 'select TEXT as DESCR from ' . ABAP_DB_TABLE_MSAG::T100
-                . ' where `ARBGB` = :id and SPRSL = :lg and MSGNR = :nr';
+                . ' where `ARBGB` = :id and MSGNR = :nr and SPRSL = :lg';
         $paras = array(
             'id' => $msgcls,
             'nr' => $msgnr,
             'lg' => $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU],
         );
-        ABAP_DB_TABLE::descr($sql, $paras);
+        return ABAP_DB_TABLE::descr($sql, $paras);
     }
 
     /**
@@ -1356,11 +1356,11 @@ class ABAP_DB_TABLE_MSAG {
         return current(ABAP_DB_TABLE::select($sql, $paras));
     }
 
-    public static function YDOK_NA($msgcls, $msgnr, $langu = ABAP_DB_CONST::LANGU_DEFAULT) {
+    public static function YDOK_NA($msgcls, $msgnr) {
         $sql = "select HTMLTEXT as DESCR from " . ABAP_DB_TABLE_MSAG::YDOK_NA
                 . " where `id` = '" . ABAP_DB_CONST::DOKHL_ID_NA
                 . "' and object = :id and langu = :lg";
-        return ABAP_DB_TABLE::descr_1filter($sql, strtoupper($msgnr));
+        return ABAP_DB_TABLE::descr_1filter($sql, strtoupper($msgcls . $msgnr));
     }
 
 }
@@ -1806,14 +1806,11 @@ class ABAP_DB_TABLE_SEO {
     public static function SEOCLASS_List($clstype, $page) {
         $offset = ($page - 1) * ABAP_DB_CONST::INDEX_PAGESIZE;
         $sql = 'select * from ' . ABAP_DB_TABLE_SEO::SEOCLASS
-                . ' where `CLSTYPE` = :clstype'
+                . ' where `CLSTYPE` = :id'
                 . ' ORDER BY CLSNAME'
                 . ' LIMIT ' . ABAP_DB_CONST::INDEX_PAGESIZE
                 . ' OFFSET ' . $offset;
-        $paras = array(
-            'clstype' => $clstype
-        );
-        return ABAP_DB_TABLE::select($sql, $paras);
+        return ABAP_DB_TABLE::select_1filter($sql, $clstype);
     }
 
     public static function SEOCLASS_Sitemap($clstype) {
@@ -1897,10 +1894,7 @@ class ABAP_DB_TABLE_SEO {
     public static function SEOFRIENDS($clsname) {
         $sql = 'select * from ' . ABAP_DB_TABLE_SEO::SEOFRIENDS
                 . ' where `CLSNAME` = :id';
-        $paras = array(
-            'id' => $clsname,
-        );
-        return ABAP_DB_TABLE::select($sql, $paras);
+        return ABAP_DB_TABLE::select_1filter($sql, $clsname);
     }
 
     /**
@@ -1987,10 +1981,7 @@ class ABAP_DB_TABLE_SEO {
     public static function SEOTYPEPLS($clsname) {
         $sql = 'select * from ' . ABAP_DB_TABLE_SEO::SEOTYPEPLS
                 . ' where `CLSNAME` = :id';
-        $paras = array(
-            'id' => $clsname,
-        );
-        return ABAP_DB_TABLE::select($sql, $paras);
+        return ABAP_DB_TABLE::select_1filter($sql, $clsname);
     }
 
 }
@@ -2232,7 +2223,7 @@ class ABAP_DB_TABLE_TABL {
      */
     public static function DD03L_POSITION($TableName, $Position) {
         $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD03L
-                . " WHERE TABNAME = :tname" 
+                . " WHERE TABNAME = :tname"
                 . " AND POSITION = :pos";
         $paras = array(
             'tname' => $TableName,
@@ -2591,6 +2582,95 @@ class ABAP_DB_TABLE_VIEW {
 
 }
 
+/** Database table access for Where-Used-List. */
+class ABAP_DB_TABLE_WUL {
+
+    const YWUL = "ywul";
+
+    /**
+     * Load Where-Used-List for an ABAP Object.
+     *
+     * <pre>
+     * SELECT * from abap.ywul
+     *   where SRC_OBJ_TYPE = 'DOMA'
+     *     and SRC_OBJ_NAME = 'MANDT'
+     *     and OBJ_TYPE = 'DTEL'
+     *   limit 10
+     *   offset 30
+     * </pre>
+     */
+    public static function YWUL($srcOType, $srcOName, $oType, $page) {
+        $offset = ($page - 1) * ABAP_DB_CONST::INDEX_PAGESIZE;
+        $sql = 'SELECT * from ' . ABAP_DB_TABLE_WUL::YWUL
+                . ' where SRC_OBJ_TYPE = :sotype AND SRC_OBJ_NAME = :soname AND OBJ_TYPE = :otype'
+                . ' order by OBJ_NAME'
+                . ' LIMIT ' . ABAP_DB_CONST::INDEX_PAGESIZE
+                . ' OFFSET ' . $offset;
+        $paras = array(
+            'sotype' => $srcOType,
+            'soname' => $srcOName,
+            'otype' => $oType,
+        );
+        //print_r($sql);
+        //print_r('<br />');
+        //print_r($paras);
+        return ABAP_DB_TABLE::select($sql, $paras);
+    }
+
+}
+
+class ABAPANA_DB_TABLE {
+
+    const COUNTER = "counter";
+
+    /**
+     * Load Where-Used-List counter for an ABAP Object.
+     * <pre>
+     * SELECT * FROM abapanalytics.counter
+     *   where SRC_OBJ_TYPE = 'DTEL'
+     *     and SRC_OBJ_NAME = 'MANDT'
+     *   order by OBJ_TYPE
+     * </pre>
+     */
+    public static function COUNTER_List($srcOType, $srcOName) {
+        $sql = 'SELECT * from ' . ABAP_DB_CONN::schema_abapana . '.' . ABAPANA_DB_TABLE::COUNTER
+                . ' where SRC_OBJ_TYPE = :sotype AND SRC_OBJ_NAME = :soname '
+                . ' order by OBJ_TYPE';
+        $paras = array(
+            'sotype' => $srcOType,
+            'soname' => $srcOName,
+        );
+        return ABAP_DB_TABLE::select($sql, $paras);
+    }
+    
+    
+    /**
+     * Load Where-Used-List counter for an ABAP Object.
+     *
+     * <pre>
+     * SELECT * FROM abapanalytics.counter
+     *   where SRC_OBJ_TYPE = 'DOMA'
+     *     and SRC_OBJ_NAME = 'MANDT'
+     *     and OBJ_TYPE = 'DTEL'
+     * </pre>
+     */
+    public static function COUNTER($srcOType, $srcOName, $oType) {
+        $sql = 'SELECT * from ' . ABAP_DB_CONN::schema_abapana . '.' . ABAPANA_DB_TABLE::COUNTER
+                . ' where SRC_OBJ_TYPE = :sotype AND SRC_OBJ_NAME = :soname AND OBJ_TYPE = :otype';
+        $paras = array(
+            'sotype' => $srcOType,
+            'soname' => $srcOName,
+            'otype' => $oType,
+        );
+        $row = current(ABAP_DB_TABLE::select($sql, $paras));
+        if (empty($row)) {
+            return -1;
+        } else {
+            return $row['COUNTER'];
+        }
+    }
+}
+
 /** Database table names. */
 class ABAP_DB_TABLE {
 
@@ -2685,31 +2765,52 @@ class ABAP_DB_TABLE {
     const YREPOSRCDATA = "yreposrcdata";
 
     /** Database connection. */
-    private static $conn = null;
+    private static $conn_abap = null;
+    private static $conn_abapana = null;
 
     /**
-     * Get a new Database connection
+     * Get a new Database connection for 'abap' schema.
      *
      * @return mixed PDO Database Connection
      */
-    public static function get_conn() {
-        if (ABAP_DB_TABLE::$conn == null) {
-            $dsn = 'mysql:host=127.0.0.1;dbname=' . ABAP_DB_CONN::schema;
-            ABAP_DB_TABLE::$conn = new PDO($dsn, ABAP_DB_CONN::$user, ABAP_DB_CONN::$pass);
+    private static function get_conn_abap() {
+        if (ABAP_DB_TABLE::$conn_abap == null) {
+            $dsn = 'mysql:host=' . ABAP_DB_CONN::host
+                    . ';dbname=' . ABAP_DB_CONN::schema_abap;
+            ABAP_DB_TABLE::$conn_abap = new PDO($dsn, ABAP_DB_CONN::user, ABAP_DB_CONN::pass);
         }
 
-        return ABAP_DB_TABLE::$conn;
+        return ABAP_DB_TABLE::$conn_abap;
     }
 
+    /**
+     * Get a new Database connection for 'abapanalytics' schema.
+     *
+     * @return mixed PDO Database Connection
+     */
+    private static function get_conn_abapana() {
+        if (ABAP_DB_TABLE::$conn_abapana == null) {
+            $dsn = 'mysql:host=' . ABAP_DB_CONN::host
+                    . ';dbname=' . ABAP_DB_CONN::schema_abap;
+            ABAP_DB_TABLE::$conn_abapana = new PDO($dsn, ABAP_DB_CONN::user, ABAP_DB_CONN::pass);
+        }
+
+        return ABAP_DB_TABLE::$conn_abapana;
+    }
+
+    /**
+     * Close the database connection(s).
+     */
     public static function close_conn() {
-        ABAP_DB_TABLE::$conn = null;                    # close the connection
+        ABAP_DB_TABLE::$conn_abap = null;
+        ABAP_DB_TABLE::$conn_abapana = null;
     }
 
     /**
      * Run an Select statement.
      */
     public static function select($sql, $paras = null) {
-        $conn = ABAP_DB_TABLE::get_conn();
+        $conn = ABAP_DB_TABLE::get_conn_abap();
         if ($paras === null) {
             $res = $conn->query($sql);
         } else {
@@ -2729,7 +2830,7 @@ class ABAP_DB_TABLE {
 
     /**
      * Select with 1 filter only.
-     * 
+     *
      * <pre>
      * SELECT * FROM table WHERE OBJID_COLUMN = :id
      * </pre>
@@ -2751,10 +2852,10 @@ class ABAP_DB_TABLE {
     /**
      * Get Object Desription.
      * Note: the SQL script should rename the description column as 'DESCR', and the language column as 'lg'.
-     * 
+     *
      * <pre>
-     * SELECT TEXT_COLUMN as DESCR 
-     *   FROM texttable 
+     * SELECT TEXT_COLUMN as DESCR
+     *   FROM texttable
      *   WHERE OBJID_COLUMN1 = :id1
      *     AND OBJID_COLUMN2 = :id2
      *     AND OBJID_COLUMN2 = :id2
@@ -2782,12 +2883,12 @@ class ABAP_DB_TABLE {
 
     /**
      * Get Object Desription.
-     * First we try to load the description in session language, 
+     * First we try to load the description in session language,
      * in case not found we will load in English language.
-     * 
+     *
      * <pre>
-     * SELECT TEXT_COLUMN as DESCR 
-     *   FROM texttable 
+     * SELECT TEXT_COLUMN as DESCR
+     *   FROM texttable
      *   WHERE OBJID_COLUMN = :id AND LANGUAGE_COLUMN :lg
      * </pre>
      */

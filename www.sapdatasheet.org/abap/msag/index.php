@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<!-- ABAP OO Class index. -->
 <?php
 $__ROOT__ = dirname(dirname(dirname(__FILE__)));
 require_once ($__ROOT__ . '/include/global.php');
@@ -22,10 +24,7 @@ if (file_exists($ob_fname)) {
     }
 }
 ob_start();
-?>
-<!DOCTYPE html>
-<!-- ABAP OO Class index. -->
-<?php
+
 $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::MSAG_DESC . " Index ";
 $msag_list = ABAP_DB_TABLE_MSAG::T100A_List();
 ?>
