@@ -26,6 +26,7 @@ $dtel_datatype_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_DATATYPE, 
 $dok_de = ABAP_DB_TABLE_DTEL::YDOK_DE($dtel['ROLLNAME']);
 $dok_dz = ABAP_DB_TABLE_DTEL::YDOK_DZ($dtel['ROLLNAME']);
 
+$wul_counter_list = ABAPANA_DB_TABLE::COUNTER_List(ABAP_OTYPE::DTEL_NAME, $dtel['ROLLNAME']);
 $hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::DTEL_NAME, $dtel['ROLLNAME']);
 $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::DTEL_NAME, $dtel['ROLLNAME']);
 ?>
@@ -62,6 +63,8 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::DTEL_NAME, $dt
                     <tr><td class="left_value"> <a href="#" title="<?php echo $dtel_desc ?>"><?php echo $dtel['ROLLNAME'] ?></a> </td></tr>
                 </tbody>
             </table>
+
+            <?php require $__ROOT__ . '/include/abap_oname_wul.php' ?>
 
             <h5>Used by Table/Structure</h5>
             <?php $wul_list = ABAP_DB_TABLE_TABL::DD03L_ROLLNAME($ObjID); ?>

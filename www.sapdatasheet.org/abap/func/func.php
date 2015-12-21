@@ -29,6 +29,7 @@ $prog_desc = htmlentities(ABAP_DB_TABLE_PROG::TRDIRT($func['PNAME']));
 $include = ABAP_DB_TABLE_FUNC::GET_INCLUDE($enlfdir['AREA'], $func['INCLUDE']);
 $progmeta = ABAP_DB_TABLE_PROG::YREPOSRCMETA($include);
 
+$wul_counter_list = ABAPANA_DB_TABLE::COUNTER_List(ABAP_OTYPE::FUNC_NAME, $func['FUNCNAME']);
 $hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::FUGR_NAME, $enlfdir['AREA']);
 $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::FUNC_NAME, $func['FUNCNAME']);
 ?>
@@ -66,6 +67,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::FUNC_NAME, $fu
                 </tbody>
             </table>
 
+            <?php require $__ROOT__ . '/include/abap_oname_wul.php' ?>
             <h5>&nbsp;</h5>
         </div>
 

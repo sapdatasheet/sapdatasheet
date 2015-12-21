@@ -22,6 +22,7 @@ $sqlt_desc = ABAP_DB_TABLE_TABL::DD06T($sqlt['SQLTAB']);
 $sqlt_sqlcalss_desc = ABAP_UI_TOOL::GetSqltDesc($sqlt['SQLCLASS']);
 $dd16s = ABAP_DB_TABLE_TABL::DD16S($sqlt['SQLTAB']);
 
+$wul_counter_list = ABAPANA_DB_TABLE::COUNTER_List(ABAP_OTYPE::SQLT_NAME, $sqlt['SQLTAB']);
 $hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::SQLT_NAME, $sqlt['SQLTAB']);
 $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::SQLT_NAME, $sqlt['SQLTAB']);
 ?>
@@ -59,6 +60,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::SQLT_NAME, $sq
                 </tbody>
             </table>
 
+            <?php require $__ROOT__ . '/include/abap_oname_wul.php' ?>
             <h5>&nbsp;</h5>
         </div>
 

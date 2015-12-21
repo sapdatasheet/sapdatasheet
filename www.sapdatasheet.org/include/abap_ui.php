@@ -175,6 +175,20 @@ class ABAP_Navigation {
         return $result;
     }
 
+    public static function GetWulURL($counter, $newwin = TRUE) {
+        $newWindow = ($newwin === TRUE) ? 'target="_blank"' : '';
+        $linkLabel = ABAP_OTYPE::getOTypeDesc($counter['OBJ_TYPE']);
+        return "<a href=\"/wul/abap/"
+                . strtolower($counter['SRC_OBJ_TYPE'])
+                . "/" . strtolower($counter['SRC_OBJ_NAME'])
+                . "-" . strtolower($counter['OBJ_TYPE'])
+                . ".html\" "
+                . "title=\"" . htmlentities($linkLabel) . "\" "
+                . $newWindow . " >"
+                . $linkLabel
+                . " (" . $counter['COUNTER'] . ")</a>";
+    }
+
 }
 
 /**
@@ -642,6 +656,10 @@ class ABAP_UI_TOOL {
                 //   the '-' is always in the middle
                 //   the '-' will not located at beginning or end
                 list($Table, $Field) = explode('-', $Structure, 2);
+                // For system variable, change 'SY' as structure name 'SYST'
+                if (strtoupper($Table) == 'SY') {
+                    $Table = 'SYST';
+                }
                 $link_table = ABAP_Navigation::GetURLTable($Table, '');
                 $link_field = ABAP_Navigation::GetURLTableField($Table, $Field);
                 $result = $link_table . '-' . $link_field;

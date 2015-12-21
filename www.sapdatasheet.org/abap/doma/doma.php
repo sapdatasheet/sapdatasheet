@@ -22,6 +22,7 @@ $doma_desc = ABAP_DB_TABLE_DOMA::DD01T($doma['DOMNAME']);
 $doma_datatype_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_DATATYPE, $doma['DATATYPE']);
 $doma_vall = ABAP_DB_TABLE_DOMA::DD07L($doma['DOMNAME']);
 
+$wul_counter_list = ABAPANA_DB_TABLE::COUNTER_List(ABAP_OTYPE::DOMA_NAME, $doma['DOMNAME']);
 $hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::DOMA_NAME, $doma['DOMNAME']);
 $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::DOMA_NAME, $doma['DOMNAME']);
 ?>
@@ -68,6 +69,8 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::DOMA_NAME, $do
                     </tbody>
                 </table>
             <?php } ?>
+
+            <?php require $__ROOT__ . '/include/abap_oname_wul.php' ?>
 
             <h5>Used by Data Element</h5>
             <?php $wul_list = ABAP_DB_TABLE_DTEL::DD04L_DOMNAME($ObjID); ?>

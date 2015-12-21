@@ -41,6 +41,7 @@ $dd31s_list = ABAP_DB_TABLE_SHLP::DD31S($dd30l['SHLPNAME']);
 $dd32s_list = ABAP_DB_TABLE_SHLP::DD32S($dd30l['SHLPNAME']);
 $dd33s_list = ABAP_DB_TABLE_SHLP::DD33S($dd30l['SHLPNAME']);
 
+$wul_counter_list = ABAPANA_DB_TABLE::COUNTER_List(ABAP_OTYPE::SHLP_NAME, $dd30l['SHLPNAME']);
 $hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::SHLP_NAME, $ObjID);
 $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::SHLP_NAME, $ObjID);
 ?>
@@ -78,6 +79,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::SHLP_NAME, $Ob
                 </tbody>
             </table>
 
+            <?php require $__ROOT__ . '/include/abap_oname_wul.php' ?>
             <h5>&nbsp;</h5>
         </div>
 

@@ -53,10 +53,12 @@ $GLOBALS['TITLE_TEXT'] = "Where Used List for " . $title_name;
                 </div>
 
                 <h4><?php echo $title_name ?> is used by</h4>
-                <?php foreach ($counter_list as $counter) { ?>
-                <a href="/wul/abap/<?php echo strtolower($counter['SRC_OBJ_TYPE']) ?>/<?php echo strtolower($counter['SRC_OBJ_NAME']) ?>-<?php echo strtolower($counter['OBJ_TYPE']) ?>.html">
-                        <?php echo ABAP_OTYPE::getOTypeDesc($counter['OBJ_TYPE']) ?> (<?php echo $counter['COUNTER'] ?>)</a>&nbsp;
-                <?php } ?>
+                <?php
+                foreach ($counter_list as $counter) {
+                    echo ABAP_Navigation::GetWulURL($counter, FALSE);
+                    echo '&nbsp;';
+                }
+                ?>
 
                 <h4> ABAP Object </h4>
                 <table class="alv">
@@ -91,14 +93,14 @@ $GLOBALS['TITLE_TEXT'] = "Where Used List for " . $title_name;
                             <td class="alv"><?php echo ABAP_Navigation::GetURLPackage($wul['APPL_PACKET']) ?>&nbsp;</td>
                             <td class="alv"><?php echo ABAP_Navigation::GetURLSoftComp($wul['APPL_DLVUNIT']) ?>&nbsp;</td>
                         </tr>
-                    <?php } ?>
+<?php } ?>
                 </table>
 
             </div>
         </div><!-- Content: End -->
 
         <!-- Footer -->
-        <?php require $__ROOT__ . '/include/footer.php' ?>
+<?php require $__ROOT__ . '/include/footer.php' ?>
 
     </body>
 </html>

@@ -24,6 +24,7 @@ $tstca_list = ABAP_DB_TABLE_TRAN::TSTCA_List($tstc['TCODE']);
 $tstcc = ABAP_DB_TABLE_TRAN::TSTCC($tstc['TCODE']);
 $tstcp = ABAP_DB_TABLE_TRAN::TSTCP($tstc['TCODE']);
 
+$wul_counter_list = ABAPANA_DB_TABLE::COUNTER_List(ABAP_OTYPE::TRAN_NAME, $tstc['TCODE']);
 $hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::TRAN_NAME, $tstc['TCODE']);
 $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::TRAN_NAME, $tstc['TCODE']);
 ?>
@@ -62,6 +63,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::TRAN_NAME, $ts
                 </tbody>
             </table>
 
+            <?php require $__ROOT__ . '/include/abap_oname_wul.php' ?>
             <h5>&nbsp;</h5>
         </div>
 

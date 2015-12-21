@@ -24,6 +24,7 @@ $dd02l_contflag_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_TABL::DD02L_CONTF
 $dd02l_mainflag_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_TABL::DD02L_MAINFLAG_DOMAIN, $dd02l['MAINFLAG']);
 $dd03l = ABAP_DB_TABLE_TABL::DD03L_List($dd02l['TABNAME']);
 
+$wul_counter_list = ABAPANA_DB_TABLE::COUNTER_List(ABAP_OTYPE::TABL_NAME, $dd02l['TABNAME']);
 $hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::TABL_NAME, $dd02l['TABNAME']);
 $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::TABL_NAME, $dd02l['TABNAME']);
 //        'SAP ABAP ' . $dd02l_tabclass_desc . ' ' . $dd02l['TABNAME'];
@@ -62,6 +63,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::TABL_NAME, $dd
                 </tbody>
             </table>
 
+            <?php require $__ROOT__ . '/include/abap_oname_wul.php' ?>
             <h5>&nbsp;</h5>
         </div>
 
