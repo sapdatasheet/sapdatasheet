@@ -189,6 +189,21 @@ class ABAP_Navigation {
                 . " (" . $counter['COUNTER'] . ")</a>";
     }
 
+    public static function GetWulPageURL($srcOType, $srcOName, $oType, $page, $pageCount, $newwin = TRUE) {
+        $title = 'title="' . 'Page ' . $page . ' of ' . $pageCount . '" ';
+        $newWindow = ($newwin === TRUE) ? 'target="_blank"' : '';
+        return "<a href=\"/wul/abap/"
+                . strtolower($srcOType)
+                . "/" . strtolower($srcOName)
+                . "-" . strtolower($oType)
+                . '-' . $page
+                . ".html\" "
+                . $title
+                . $newWindow . " >"
+                . $page
+                . "</a>";
+    }
+
 }
 
 /**

@@ -13,6 +13,7 @@ GLOBAL_UTIL::UpdateSAPDescLangu();
 //   $dpPage;
 
 $counter_list = ABAPANA_DB_TABLE::COUNTER_List($dpSrcOType, $dpSrcOName);
+$counter_value = ABAPANA_DB_TABLE::COUNTER($dpSrcOType, $dpSrcOName, $dpOType);
 $wul_list = ABAP_DB_TABLE_WUL::YWUL($dpSrcOType, $dpSrcOName, $dpOType, $dpPage);
 
 $srcObjDesc = ABAP_UI_TOOL::GetObjectDescr($dpSrcOType, $dpSrcOName);
@@ -60,7 +61,18 @@ $GLOBALS['TITLE_TEXT'] = "Where Used List for " . $title_name;
                 }
                 ?>
 
-                <h4> ABAP Object </h4>
+                <h4> <?php echo ABAP_OTYPE::getOTypeDesc($dpOType) ?>
+                    <?php
+                    if ($counter_value > ABAP_DB_CONST::INDEX_PAGESIZE) {
+                        $page_count = ceil($counter_value / ABAP_DB_CONST::INDEX_PAGESIZE);
+                        echo ' pages: ';
+                        for ($i = 1; $i <= $page_count; $i++) {
+                            echo ABAP_Navigation::GetWulPageURL($dpSrcOType, $dpSrcOName, $dpOType, $i, $page_count, FALSE);
+                            echo '&nbsp;';
+                        }
+                    }
+                    ?>
+                </h4>
                 <table class="alv">
                     <tr>
                         <th class="alv"> # </th>
@@ -93,14 +105,14 @@ $GLOBALS['TITLE_TEXT'] = "Where Used List for " . $title_name;
                             <td class="alv"><?php echo ABAP_Navigation::GetURLPackage($wul['APPL_PACKET']) ?>&nbsp;</td>
                             <td class="alv"><?php echo ABAP_Navigation::GetURLSoftComp($wul['APPL_DLVUNIT']) ?>&nbsp;</td>
                         </tr>
-<?php } ?>
+                    <?php } ?>
                 </table>
 
             </div>
         </div><!-- Content: End -->
 
         <!-- Footer -->
-<?php require $__ROOT__ . '/include/footer.php' ?>
+        <?php require $__ROOT__ . '/include/footer.php' ?>
 
     </body>
 </html>
