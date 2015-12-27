@@ -153,12 +153,12 @@ class ABAP_Navigation {
         return ABAP_Navigation::GetURL(ABAP_OTYPE::VIEW_NAME, $view, $view, $desc, $newwin);
     }
 
-    public static function GetURL($objtype, $objname, $linkLabel, $linkTitle, $newwin = FALSE, $anchor = '') {
-        $linkLabel = trim($linkLabel);
-        if (strlen(trim($objname)) < 1 || strlen($linkLabel) < 1) {
+    private static function GetURL($objtype, $objname, $linkLabel, $linkTitle, $newwin = FALSE, $anchor = '') {
+        if (strlen(trim($objtype)) < 1 || strlen(trim($objname)) < 1 || strlen(trim($linkLabel)) < 1) {
             return '&nbsp;';
         }
 
+        $linkLabel = trim($linkLabel);
         if (empty(trim($linkTitle))) {
             $desc = ABAP_UI_TOOL::GetObjectDescr($objtype, $objname);
             $sTitle = (empty($desc)) ? $linkLabel : $desc;
@@ -175,6 +175,40 @@ class ABAP_Navigation {
         return $result;
     }
 
+    /**
+     * Get ABAP Object URL.
+     * 
+     * @param string $oType Object Type, example: DOMA, DTEL
+     * @param string $oName Object name, example: MANDT, BUKRS
+     * @return string Object URL for supported object type, or else return object Name
+     */
+    public static function GetObjectURL($oType, $oName) {
+        if (array_key_exists($oType, ABAP_OTYPE::$OTYPES)) {
+            return ABAP_Navigation::GetURL($oType, $oName, $oName, NULL, TRUE);
+        } else {
+            return $oType . ' - ' . $oName;
+        }
+    }
+
+    /**
+     * Get ABAP Object Type URL.
+     */
+    public static function GetOTypeURL($oType, $newwin = TRUE) {
+        if (array_key_exists($oType, ABAP_OTYPE::$OTYPES)) {
+            $newWindow = ($newwin === TRUE) ? 'target="_blank"' : '';
+            $linkLabel = htmlentities(ABAP_OTYPE::getOTypeDesc($oType));
+            return '<a href="/abap/'
+                    . strtolower($oType)
+                    . '/"'
+                    . 'title="' . $linkLabel . '" '
+                    . $newWindow . ' >'
+                    . $linkLabel
+                    . '</a>';
+        } else {
+            return $oType;
+        }
+    }
+
     public static function GetWulURL($counter, $newwin = TRUE) {
         $newWindow = ($newwin === TRUE) ? 'target="_blank"' : '';
         $linkLabel = ABAP_OTYPE::getOTypeDesc($counter['OBJ_TYPE']);
@@ -189,19 +223,22 @@ class ABAP_Navigation {
                 . " (" . $counter['COUNTER'] . ")</a>";
     }
 
-    public static function GetWulPageURL($srcOType, $srcOName, $oType, $page, $pageCount, $newwin = TRUE) {
-        $title = 'title="' . 'Page ' . $page . ' of ' . $pageCount . '" ';
-        $newWindow = ($newwin === TRUE) ? 'target="_blank"' : '';
-        return "<a href=\"/wul/abap/"
-                . strtolower($srcOType)
-                . "/" . strtolower($srcOName)
-                . "-" . strtolower($oType)
-                . '-' . $page
-                . ".html\" "
-                . $title
-                . $newWindow . " >"
-                . $page
-                . "</a>";
+    public static function GetWulPagesURL($srcOType, $srcOName, $oType, $counter, $newwin = TRUE) {
+        $result = '';
+        if ($counter > ABAP_DB_CONST::INDEX_PAGESIZE) {
+            $newWindow = ($newwin === TRUE) ? 'target="_blank"' : '';
+            $pageCount = ceil($counter / ABAP_DB_CONST::INDEX_PAGESIZE);
+            $result = $result . ' pages: ';
+            for ($i = 1; $i <= $pageCount; $i++) {
+                $title = 'title="' . 'Page ' . $i . ' of ' . $pageCount . '" ';
+                $link = '<a href="/wul/abap/' . strtolower($srcOType) . '/'
+                        . strtolower($srcOName) . '-' . strtolower($oType)  . '-' . $i . '.html" '
+                        . $title . $newWindow . ' >'
+                        . $i . '</a>';
+                $result = $result . $link . '&nbsp;';
+            }
+        }
+        return $result;
     }
 
 }
@@ -574,21 +611,6 @@ class ABAP_UI_TOOL {
         }
 
         return $title_name;
-    }
-
-    /**
-     * Get ABAP Object URL.
-     * 
-     * @param string $oType Object Type, example: DOMA, DTEL
-     * @param string $oName Object name, example: MANDT, BUKRS
-     * @return string Object URL for supported object type, or else return object Name
-     */
-    public static function GetObjectURL($oType, $oName) {
-        if (array_key_exists($oType, ABAP_OTYPE::$OTYPES)) {
-            return ABAP_Navigation::GetURL($oType, $oName, $oName, NULL, TRUE);
-        } else {
-            return $oName;
-        }
     }
 
     /**

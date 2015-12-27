@@ -21,6 +21,7 @@ call:BuffGenerateSitemap abap-tran.php
 call:BuffGenerateSitemap abap-view.php
 call:BuffGenerateSitemap index.php
 call:BuffGenerateSitemap sitemaps.php
+call:BuffGenerateSitemap wul-abap.php
 
 timeout 60
 exit

@@ -121,6 +121,14 @@ if ($requri === '/wp/wp-admin/' || $requri === '/wp-admin/' || $requri === '/tes
             break;
         }
     }
+
+
+} else if ($requri === '/wul/abap/') {
+    $index = 1;
+    $target = 'wul/abap/index.php';
+} else if (GLOBAL_UTIL::StartsWith($requri, '/wul/abap/index-') && GLOBAL_UTIL::EndsWith($requri, '.html')) {
+    $index = substr($requri, 16, -5);
+    $target = 'wul/abap/index.php';
 } else if (GLOBAL_UTIL::StartsWith($requri, '/wul/abap/') && GLOBAL_UTIL::EndsWith($requri, '.html')) {
 //                                           1234567890                                      12345
 //

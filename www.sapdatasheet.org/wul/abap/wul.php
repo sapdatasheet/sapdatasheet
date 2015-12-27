@@ -61,17 +61,8 @@ $GLOBALS['TITLE_TEXT'] = "Where Used List for " . $title_name;
                 }
                 ?>
 
-                <h4> <?php echo ABAP_OTYPE::getOTypeDesc($dpOType) ?>
-                    <?php
-                    if ($counter_value > ABAP_DB_CONST::INDEX_PAGESIZE) {
-                        $page_count = ceil($counter_value / ABAP_DB_CONST::INDEX_PAGESIZE);
-                        echo ' pages: ';
-                        for ($i = 1; $i <= $page_count; $i++) {
-                            echo ABAP_Navigation::GetWulPageURL($dpSrcOType, $dpSrcOName, $dpOType, $i, $page_count, FALSE);
-                            echo '&nbsp;';
-                        }
-                    }
-                    ?>
+                <h4><?php echo ABAP_OTYPE::getOTypeDesc($dpOType) ?>
+                    <?php echo ABAP_Navigation::GetWulPagesURL($dpSrcOType, $dpSrcOName, $dpOType, $counter_value, FALSE) ?>
                 </h4>
                 <table class="alv">
                     <tr>
@@ -99,7 +90,7 @@ $GLOBALS['TITLE_TEXT'] = "Where Used List for " . $title_name;
                         ?>
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
                             <td class="alv"><a href="/abap/" target="_blank"><?php echo ABAP_OTYPE::getOTypeDesc($wul['OBJ_TYPE']) ?></a>&nbsp;</td>
-                            <td class="alv"><?php echo ABAP_UI_TOOL::GetObjectURL($wul['OBJ_TYPE'], $wul['OBJ_NAME']) ?></td>
+                            <td class="alv"><?php echo ABAP_Navigation::GetObjectURL($wul['OBJ_TYPE'], $wul['OBJ_NAME']) ?></td>
                             <td class="alv"><?php echo ABAP_UI_TOOL::GetObjectDescr($wul['OBJ_TYPE'], $wul['OBJ_NAME']) ?></td>
                             <td class="alv"><?php echo ABAP_Navigation::GetURLPackage($wul['APPL_NAME']) ?>&nbsp;</td>
                             <td class="alv"><?php echo ABAP_Navigation::GetURLPackage($wul['APPL_PACKET']) ?>&nbsp;</td>

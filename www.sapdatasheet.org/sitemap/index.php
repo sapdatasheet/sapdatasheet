@@ -85,6 +85,21 @@ for ($count = 1; $count <= ABAP_DB_TABLE_CUS0::CUS_IMGACT_INDEX_MAX; $count++) {
                 <priority>1.0</priority>
             </url>
         <?php } ?>
+        
+        <!-- Where Used List for ABAP -->
+        <url>
+            <loc>http://www.sapdatasheet.org/wul/abap<?php echo $sap_langu ?>/index.html</loc>
+            <changefreq>monthly</changefreq>
+            <priority>1.0</priority>
+        </url>
+        <?php for ($abap_index = 1; $abap_index <= ABAPANA_DB_TABLE::COUNTER_INDEX_MAX; $abap_index++) { ?>
+            <url>
+                <loc>http://www.sapdatasheet.org/wul/abap<?php echo $sap_langu ?>/index-<?php echo $abap_index ?>.html</loc>
+                <changefreq>monthly</changefreq>
+                <priority>1.0</priority>
+            </url>
+        <?php } ?>
+        
     <?php } ?>
     <?php foreach ($sap_langus as $sap_langu) { ?>
         <url>

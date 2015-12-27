@@ -1,9 +1,0 @@
-Transparent Table: YCROSSREF
-Short Description: Cross Reference Result - RS_EU_CROSSREF-RSFINDLST
-
-------------  --  ----------
-SRC_OTYPE      X  SEU_OBJ
-SRC_ENCL_OBJ   X  EU_CRO_OBJ
-SRC_OBJECT     X  EU_CRO_ENC
-SEQ            X  INT4
-(Other fields copied from RSFINDLST)

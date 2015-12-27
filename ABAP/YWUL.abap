@@ -8,7 +8,7 @@
 REPORT ywul.
 
 PARAMETERS p_otype   TYPE tadir-object.        " Object Type
-PARAMETERS p_maxjob  TYPE i DEFAULT 4.         " Max Job Count
+PARAMETERS p_maxjob  TYPE i DEFAULT 3.         " Max Job Count
 PARAMETERS p_batch   TYPE i DEFAULT 10000.     " Batch Size
 
 START-OF-SELECTION.
@@ -54,6 +54,9 @@ FORM main.
     WHEN 'TRAN'.
       lv_fullname = 'TRAN (Transaction Codes) loaded records '.
       SELECT tcode FROM tstc INTO TABLE lt_list.
+    WHEN 'MSAG'.
+      lv_fullname = 'MSAG (Message Class) loaded records '.
+      SELECT arbgb FROM t100a INTO TABLE lt_list.
     WHEN OTHERS.
       MESSAGE 'The object type is not supported' TYPE 'I'.
       MESSAGE p_otype TYPE 'I'.
@@ -93,7 +96,7 @@ FORM wul_jobs
 
 *   Skip the Empty Items
     CONDENSE lv_item.
-    IF lv_item is INITIAL.
+    IF lv_item IS INITIAL.
       CONTINUE.
     ENDIF.
 
@@ -137,7 +140,9 @@ FORM submit_job
   WHILE lv_active_cnt >= p_maxjob.
     WAIT UP TO 2 SECONDS.
     SELECT COUNT( * ) INTO lv_active_cnt
-      FROM tbtco WHERE status = 'R'.
+      FROM tbtco
+      WHERE status = 'R'
+        AND jobname LIKE 'YWUL_%'.
   ENDWHILE.
 
 * Format Job Name
