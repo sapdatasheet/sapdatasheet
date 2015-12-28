@@ -1,12 +1,13 @@
 FUNCTION YAKB_WHERE_USED_LIST.
-*"--------------------------------------------------------------------
+*"----------------------------------------------------------------------
 *"*"Local Interface:
 *"  IMPORTING
 *"     VALUE(OBJ_TYPE) TYPE  TROBJTYPE
 *"     VALUE(OBJ_NAME) TYPE  SOBJ_NAME
+*"     VALUE(SUBOBJ) TYPE  EU_CRO_OBJ OPTIONAL
 *"  EXPORTING
-*"     VALUE(REFERENCES) TYPE  AKB_EXCEPT_TYPE
-*"--------------------------------------------------------------------
+*"     VALUE(REFERENCES) TYPE  YWUL_TT
+*"----------------------------------------------------------------------
 *{   INSERT         AS1K900004                                        1
 
 * Result:
@@ -41,6 +42,7 @@ FUNCTION YAKB_WHERE_USED_LIST.
         trobj_name2     TYPE trobj_name,
         found           TYPE c,
         wa              TYPE akb_except,
+        ls_rsfind       TYPE RSFIND,
         objects         TYPE TABLE OF rsfind,
         usage           TYPE TABLE OF rsfindlst,
         used_object     TYPE rsfindlst,
@@ -48,7 +50,8 @@ FUNCTION YAKB_WHERE_USED_LIST.
         srcsystem       TYPE srcsystem,
         euobj           TYPE euobjedit,
         progname        TYPE progname,
-        is_intf         TYPE seoclstype.
+        is_intf         TYPE seoclstype,
+        ls_ywul         TYPE YWUL.
 
   REFRESH references.
 
@@ -72,10 +75,21 @@ FUNCTION YAKB_WHERE_USED_LIST.
                      found.
 
       wa-appl_name = devclass.
-      INSERT wa INTO TABLE references.
+
+      CLEAR ls_ywul.
+      MOVE-CORRESPONDING wa to ls_ywul.
+      INSERT ls_ywul INTO TABLE references.
 
     WHEN OTHERS.
-      APPEND obj_name TO objects.
+      IF subobj is SUPPLIED and subobj is NOT INITIAL.
+        CLEAR ls_rsfind.
+        ls_rsfind-encl_obj = obj_name.
+        ls_rsfind-object = subobj.
+        APPEND ls_rsfind TO objects.
+      ELSE.
+        APPEND obj_name TO objects.
+      ENDIF.
+
       objecttype = obj_type.
 
       CALL FUNCTION 'RS_EU_CROSSREF'
@@ -98,10 +112,14 @@ FUNCTION YAKB_WHERE_USED_LIST.
           wrong_type                   = 7
           object_not_exist             = 8
           OTHERS                       = 9.
-
       CHECK sy-subrc = 0.
 
       LOOP AT usage INTO used_object.
+        CLEAR ls_ywul.
+        MOVE-CORRESPONDING used_object to ls_ywul.
+        MOVE used_object-program to ls_ywul-program_2.
+        MOVE used_object-compress to ls_ywul-compress_2.
+        MOVE used_object-last TO ls_ywul-last_2.
 
         CLEAR wa.
 
@@ -109,6 +127,7 @@ FUNCTION YAKB_WHERE_USED_LIST.
                WHERE type = used_object-object_cls.
 
         CHECK sy-subrc = 0.
+        MOVE-CORRESPONDING euobj TO ls_ywul.
 
         CASE euobj-tadir.
           WHEN 'PROG'.
@@ -164,7 +183,7 @@ FUNCTION YAKB_WHERE_USED_LIST.
 
             wa-obj_type = euobj-tadir.
 
-* some class types do not have an TADIR_TYPE in EUOBJEDIT...
+*         Some class types do not have an TADIR_TYPE in EUOBJEDIT...
           WHEN ''.
             CHECK euobj-editor = 'CLASS'.
 
@@ -193,25 +212,27 @@ FUNCTION YAKB_WHERE_USED_LIST.
             wa-obj_type = euobj-tadir.
         ENDCASE.
 
-        READ TABLE references INTO wa WITH KEY
+        MOVE-CORRESPONDING wa to ls_ywul.
+
+        READ TABLE references INTO ls_ywul WITH KEY
           appl_type = wa-obj_type appl_name = wa-obj_name.
 
         IF sy-subrc > 2.
           PERFORM get_packet
                       USING
-                         wa-obj_type
-                         wa-obj_name
+                         ls_ywul-obj_type
+                         ls_ywul-obj_name
                       CHANGING
                          euobj-tadir
                          tadir_name
                          devclass
                          srcsystem
-                         wa-changed_by
-                         wa-appl_dlvunit
-                         wa-appl_packet
+                         ls_ywul-changed_by
+                         ls_ywul-appl_dlvunit
+                         ls_ywul-appl_packet
                          found.
-          wa-appl_name = devclass.
-          INSERT wa INTO TABLE references.
+          ls_ywul-appl_name = devclass.
+          INSERT ls_ywul INTO TABLE references.
         ENDIF.
 
       ENDLOOP.

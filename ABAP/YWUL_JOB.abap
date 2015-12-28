@@ -7,11 +7,12 @@
 
 REPORT ywul_job.
 
-TABLES akb_relobjs.
+TABLES RSFIND.
 
-PARAMETERS     p_otype  TYPE tadir-object OBLIGATORY.         " Object Type
-SELECT-OPTIONS p_oname  FOR akb_relobjs-obj_name OBLIGATORY.  " Object Name
-PARAMETERS     p_last   TYPE i OBLIGATORY.                    " Last Record Index of current Job
+PARAMETERS     p_otype   TYPE tadir-object OBLIGATORY.    " Object Type
+SELECT-OPTIONS p_oname   FOR RSFIND-encl_obj OBLIGATORY.  " Object Name
+SELECT-OPTIONS p_subobj  FOR RSFIND-object.               " Sub-Object name (Optional)
+PARAMETERS     p_last    TYPE i OBLIGATORY.               " Last Record Index of current Job
 
 START-OF-SELECTION.
 
@@ -42,11 +43,11 @@ FORM main.
       STARTING NEW TASK 'YWUL'
       DESTINATION 'NONE'
       EXPORTING
-        iv_otype = p_otype
-        iv_oname = lv_oname.
-    IF SY-SUBRC <> 0.
-      CLEAR LV_COUNT_S.
-      MOVE SY-SUBRC TO LV_COUNT_S.
+        iv_obj_type = p_otype
+        iv_obj_name = lv_oname.
+    IF sy-subrc <> 0.
+      CLEAR lv_count_s.
+      MOVE sy-subrc TO lv_count_s.
       CONCATENATE '====> Call RFC failed with SY-SUBRC:' lv_count_s
         INTO lv_message RESPECTING BLANKS.
       MESSAGE lv_message TYPE 'I'.

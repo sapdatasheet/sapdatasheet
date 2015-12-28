@@ -8,7 +8,7 @@
 REPORT ywul.
 
 PARAMETERS p_otype   TYPE tadir-object.        " Object Type
-PARAMETERS p_maxjob  TYPE i DEFAULT 3.         " Max Job Count
+PARAMETERS p_maxjob  TYPE i DEFAULT 2.         " Max Job Count
 PARAMETERS p_batch   TYPE i DEFAULT 10000.     " Batch Size
 
 START-OF-SELECTION.

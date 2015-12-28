@@ -1,21 +1,25 @@
 Transparent Table  YWUL
-Short Description  Where Used List - Genereated via AKB_WHERE_USED_LIST
+Short Description  Where Used List - RSFIND, AKB_EXCEPT,RSFINDLST,EUOBJEDIT
 
 ------------  ----  ----------  -----  ----  ---   -----------------------------------
-SRC_OBJ_TYPE  X  X  TROBJTYPE    CHAR     4    0    Object Type
-SRC_OBJ_NAME  X  X  SOBJ_NAME    CHAR    40    0    Object Name in Object Directory
-SEQ           X  X  INT4         INT4    10    0    Natural Number
-OBJ_TYPE            TROBJTYPE    CHAR     4    0    Object Type
-OBJ_NAME            SOBJ_NAME    CHAR    40    0    Object Name in Object Directory
-SUB_TYPE            TROBJTYPE    CHAR     4    0    Object Type
-SUB_NAME            SEOCPDLONG   CHAR    61    0    Compound component name or alias
-APPL_TYPE           TROBJTYPE    CHAR     4    0    Object Type
-APPL_NAME           SOBJ_NAME    CHAR    40    0    Object Name in Object Directory
-APPL_DLVUNIT        DLVUNIT      CHAR    30    0    Software Component
-APPL_PACKET         DEVCLASS     CHAR    30    0    Package
-CHANGED_ON          AS4DATE      DATS     8    0    Date of Last Change
-CHANGED_AT          AS4TIME      TIMS     6    0    Last changed at
-CHANGED_BY          AS4USER      CHAR    12    0    Last Changed by
-SEVERITY            ERRSEVRTY    CHAR     4    0    Error Severity
-STATE               CHAR1        CHAR     1    0    Single-Character Indicator
-DISTRIBUTED         CHAR1        CHAR     1    0    Single-Character Indicator
+SRC_OBJ_TYPE  X X   TROBJTYPE    CHAR     4    0    Object Type
+SRC_OBJ_NAME  X X   EU_CRO_ENC   CHAR    40    0    Object name of higher-level object in where-used list
+SRC_SUBOBJ    X X   EU_CRO_OBJ   CHAR    93    0    Object name in where-used list
+SEQ           X X   INT4         INT4    10    0    Natural Number
+.INCLUDE            YAKB_EXCEPT  STRU     0    0    Copy of AKB_EXCEPT
+.INCLUDE            YRSFINDLST   STRU     0    0    Copy of RSFINDLST
+.INCLUDE            YEUOBJEDIT   STRU     0    0    Copy of EUOBJEDIT
+
+
+Structure        : YAKB_EXCEPT
+Short Description: Copy of AKB_EXCEPT
+
+Structure        : YRSFINDLST
+Short Description: Copy of RSFINDLST
+                   with Rename PROGRAM_2, COMPRESS_2, LAST_2 adding "_2" suffix
+
+Structure        : YEUOBJEDIT
+Short Description: Copy of EUOBJEDIT
+
+Table Type       : YWUL_TT
+Short Description: Table Type of YWUL
