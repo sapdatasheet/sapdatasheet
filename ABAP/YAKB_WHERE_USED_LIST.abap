@@ -131,7 +131,13 @@ FUNCTION YAKB_WHERE_USED_LIST.
 
         CASE euobj-tadir.
           WHEN 'PROG'.
-            progname = used_object-object.
+            IF used_object-object_cls EQ 'P'.
+              " P - Program
+              progname = used_object-object.
+            ELSE.
+              " PS - Screen, etc
+              progname = used_object-encl_objec.
+            ENDIF.
 
             CALL FUNCTION 'RS_PROGNAME_DECIDER'
               EXPORTING
@@ -203,9 +209,25 @@ FUNCTION YAKB_WHERE_USED_LIST.
 
           WHEN 'TABL' OR 'VIEW'.
             wa-obj_type = euobj-tadir.
+
+            CASE used_object-object_cls.
+              WHEN 'DS' OR 'DT' OR 'DV'.
+                " DS - Structure
+                " DT - Database Table
+                " DV - View
+                wa-obj_name = used_object-object.
+              WHEN OTHERS.
+                " DSF - Structure Field
+                " DTF - Table Field
+                " DVF - View Field
+                wa-obj_name = used_object-encl_objec.
+                wa-sub_type = euobj-e071.
+                wa-sub_name = used_object-object.
+            ENDCASE.
+
+          WHEN 'ECAT' OR 'ECTD'.
             wa-obj_name = used_object-encl_objec.
-            wa-sub_type = euobj-e071.
-            wa-sub_name = used_object-object.
+            wa-obj_type = euobj-tadir.
 
           WHEN OTHERS.
             wa-obj_name = used_object-object.
