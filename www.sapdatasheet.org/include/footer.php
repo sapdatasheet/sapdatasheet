@@ -8,7 +8,6 @@
     <div>
         <a target="_blank" href="/site/privacy.html"><b>PRIVACY</b></a> -
         <a target="_blank" href="/site/term.html"><b>TERMS OF USE</b></a> -
-        <a target="_blank" href="https://code.google.com/p/sapdatasheet-support/issues/list"><b>SUPPORT</b></a> -
         <a target="_blank" href="/site/about.html"><b>ABOUT</b></a>
     </div>
     &copy; Copyright 2014 - 2015 SAPDatasheet.org All Rights Reserved.

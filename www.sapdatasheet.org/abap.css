@@ -291,6 +291,11 @@ root
     display:block;
 }
 
+summary  /* Summary title for WUL Title */
+{
+    font-size:small;
+}
+
 h4 /* Content Header */
 {
     font-size:small;

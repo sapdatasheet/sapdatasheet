@@ -90,7 +90,23 @@ $GLOBALS['TITLE_TEXT'] = "Where Used List for " . $title_name;
                         ?>
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
                             <td class="alv"><a href="/abap/" target="_blank"><?php echo ABAP_OTYPE::getOTypeDesc($wul['OBJ_TYPE']) ?></a>&nbsp;</td>
-                            <td class="alv"><?php echo ABAP_Navigation::GetObjectURL($wul['OBJ_TYPE'], $wul['OBJ_NAME']) ?></td>
+                            <td class="alv">
+                                <?php echo ABAP_Navigation::GetObjectURL($wul['OBJ_TYPE'], $wul['OBJ_NAME'], $wul['SUB_NAME']) ?>
+                                <?php if ($wul['OBJ_TYPE'] == ABAP_OTYPE::FUNC_NAME && strlen($wul['SOURCE']) > 0) { ?>
+                                    <br /><code><?php echo $wul['SOURCE'] ?></code>
+                                    <?php
+                                } else if ($wul['OBJ_TYPE'] == ABAP_OTYPE::CLAS_NAME && $wul['SUB_TYPE'] == ABAP_DB_TABLE_WUL::YWUL_SUB_TYPE_METH && strlen($wul['SUB_NAME']) > 0) {
+                                    $cpdname = ABAP_DB_TABLE_WUL::YSEOPROG_CPDNAME($wul['OBJ_NAME'], $wul['SUB_NAME']);
+                                    if (strlen($cpdname) > 0) {
+                                        ?>
+                                        <br /><code>Method: <?php echo $cpdname ?></code>
+                                        <?php
+                                    }
+                                } else if ($wul['OBJ_TYPE'] == ABAP_OTYPE::VIEW_NAME && $wul['SUB_TYPE'] == ABAP_DB_TABLE_WUL::YWUL_SUB_TYPE_VIED && strlen($wul['SUB_NAME']) > 0) {
+                                    ?>
+                                        - <?php echo $wul['SUB_NAME'] ?>
+                                <?php } ?>
+                            </td>
                             <td class="alv"><?php echo ABAP_UI_TOOL::GetObjectDescr($wul['OBJ_TYPE'], $wul['OBJ_NAME']) ?></td>
                             <td class="alv"><?php echo ABAP_Navigation::GetURLPackage($wul['APPL_NAME']) ?>&nbsp;</td>
                             <td class="alv"><?php echo ABAP_Navigation::GetURLPackage($wul['APPL_PACKET']) ?>&nbsp;</td>

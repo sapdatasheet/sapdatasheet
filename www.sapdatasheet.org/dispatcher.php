@@ -134,63 +134,69 @@ if ($requri === '/wp/wp-admin/' || $requri === '/wp-admin/' || $requri === '/tes
 //
 //  - Example URI
 //    /wul/abap/
-//    /wul/abap/doma/mandt-dtel.html
-//    /wul/abap/prog/FGRWEF40_SET_RRD-MAX_DSUM-prog.html
-//    /wul/abap/prog/FGRWEF40_SET_RRD-MAX_DSUM-prog-3.html
-//    /wul/abap/clas//1BCWDY/H1UU15C38KAMHG7PW3WH-clas.html
-//    /wul/abap/clas//1BCWDY/H1UU15C38KAMHG7PW3WH-clas-1.html
-//    /wul/abap/clas//1BCWDY/H1UU15C38KAMHG7PW3WH-clas-3.html
-//    /wul/abap/tran/MC=1-prog.html
-//    /wul/abap/tran/MC=1-prog-11.html
+//    /wul/abap/doma/mandt/dtel.html
+//    /wul/abap/prog/FGRWEF40_SET_RRD-MAX_DSUM/prog.html
+//    /wul/abap/prog/FGRWEF40_SET_RRD-MAX_DSUM/prog-3.html
+//    /wul/abap/clas//1BCWDY/H1UU15C38KAMHG7PW3WH/clas.html
+//    /wul/abap/clas//1BCWDY/H1UU15C38KAMHG7PW3WH/clas-1.html
+//    /wul/abap/clas//1BCWDY/H1UU15C38KAMHG7PW3WH/clas-3.html
+//    /wul/abap/dtel/mandt/prog.html
+//    /wul/abap/dtf//ain/structure-field/prog.html
+//    /wul/abap/nn/s01-001/prog.html
+//    /wul/abap/tran/MC=1/prog.html
+//    /wul/abap/tran/MC=1/prog-11.html
 //             |                 |
 //              12345    12345
 //              dpSrcOType     dpPage
 //                   dpSrcOName
 //                        dpOType
 //
-    // Remvoe the left '/wul/abap/' part, and right '.html' part
+    // Remvoe the left part '/wul/abap/' (length = 10)
+    // Remove right part '.html' (length = 5)
     $restUri = substr($requri, 10);
-    $restUri = substr($restUri, 0, strlen($restUri) - 5);
-    // The Rest URI at least have 10 charactors
-    //    /tran/MC=1-prog-11
-    //    12345     67890
-    if (strlen($restUri) > 10) {
-        $dpSrcOType = strtoupper(substr($restUri, 0, 4));
-        $restUri = substr($restUri, 5);
+    $restUri = strtoupper(substr($restUri, 0, strlen($restUri) - 5));
 
-        $items = explode('-', $restUri);
+    // The Rest URI at least have 10 charactors
+    //    tran/MC=1/prog-11
+    //    12345    67890
+    if (strlen($restUri) > 10) {
+
+        $items = explode('/', $restUri);
         $itemsCount = count($items);
 
-        // There should at lest 2 items
-        if ($itemsCount >= 2) {
+        // There should at lest 3 items
+        if ($itemsCount >= 3) {
+            $dpSrcOType = array_shift($items);
             $itemLast = array_pop($items);
-            if (ctype_digit($itemLast)) {
-                $dpPage = intval($itemLast);
-                $lastPos = strlen($restUri) - strlen($itemLast) - 1;
-                $restUri = substr($restUri, 0, $lastPos);
+            $itemLastLen = strlen($itemLast);
 
-                // Pop again
-                $itemLast = array_pop($items);
+            // Only left the middle part of the
+            $itemMiddle = substr($restUri, strlen($dpSrcOType) + 1);
+            $itemMiddle = substr($itemMiddle, 0, strlen($itemMiddle) - $itemLastLen - 1);
+
+            $dpSrcOName = $itemMiddle;
+
+            $lastItems = explode('-', $itemLast);
+            $lastItemsCount = count($lastItems);
+            if ($lastItemsCount == 1) {
+                $dpOType = $itemLast;
+                $dpPage = 1;
+            } else if ($lastItemsCount == 2) {
+                $dpOType = $lastItems[0];
+                $dpPage = $lastItems[1];
             }
-            if (strlen($itemLast) == 4) {
-                if (!isset($dpPage)) {
-                    $dpPage = 1;
-                }
-                $dpOType = strtoupper($itemLast);
-                $lastPos = strlen($restUri) - strlen($itemLast) - 1;
-                $dpSrcOName = strtoupper(substr($restUri, 0, $lastPos));
-                $target = 'wul/abap/wul.php';
-            }
+
+            $target = 'wul/abap/wul.php';
         }
 
-        /* Debug Only
+/*
         echo '$dpSrcOType = ' . $dpSrcOType . '<br />';
         echo '$dpSrcOName = ' . $dpSrcOName . '<br />';
         echo '$dpOType    = ' . $dpOType . '<br />';
         echo '$dpPage     = ' . $dpPage . '<br />';
         echo '$target     = ' . $target . '<br />';
-        exit();
-         */
+        // exit();
+ */
     }
 }
 

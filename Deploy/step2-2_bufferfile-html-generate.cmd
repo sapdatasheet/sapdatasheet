@@ -1,6 +1,9 @@
 echo off
 
 cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
+call:WULBuffGenerate                                       839
+
+cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
 FOR /F %%i IN (config-a-x.txt)       DO @call:BuffGenerate bmfr  %%i
 call:BuffGenerate                                          bmfr  TOP
 
@@ -82,6 +85,24 @@ FOR /F %%i IN (config-a-x-slash.txt) DO @call:BuffGenerate view  %%i
 
 timeout 60
 exit
+
+
+::----------------------------------------------
+::-- Where Used List Buffer Generate
+::
+::-- parameter 1. The index max number, example 3, 21, 188
+::----------------------------------------------
+:WULBuffGenerate
+echo =====================================================================
+echo == Processing for WUL max %~1 
+
+set buf_folder=C:\Data\Business\SAPDatasheet\Runtime\www-root\wul\abap\
+FOR /L %%i IN (1,1,%~1) DO (
+  FOR /F %%j IN (config-sap-desc-langu.txt) DO @call:BuffGenerateI18N  %buf_folder% %%i %%j
+)
+
+goto:eof
+
 
 ::----------------------------------------------
 ::-- Buffer Generate

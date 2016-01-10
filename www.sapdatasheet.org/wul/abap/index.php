@@ -33,7 +33,7 @@ if (file_exists($ob_fname)) {
 }
 ob_start();
 
-$GLOBALS['TITLE_TEXT'] = "SAP ABAP Where Used List - Index " . $index . " of " . ABAPANA_DB_TABLE::COUNTER_INDEX_MAX;
+$GLOBALS['TITLE_TEXT'] = "SAP ABAP Where Used List - Index " . $index . " of " . ABAP_DBDATA::COUNTER_INDEX_MAX;
 $list = ABAPANA_DB_TABLE::COUNTER_Index($index);
 ?>
 <html>
@@ -70,13 +70,17 @@ $list = ABAPANA_DB_TABLE::COUNTER_Index($index);
                     <?php include $__ROOT__ . '/include/google/adsense-content-top.html' ?>
                 </div>
 
-                <div>
-                    <?php for ($count = 1; $count <= ABAPANA_DB_TABLE::COUNTER_INDEX_MAX; $count++) { ?>
-                        <a href="index-<?php echo $count ?>.html"><?php echo $count ?></a>&nbsp;
-                    <?php } ?>
-                </div>
+                <br />
+                <details>
+                    <summary>Index pages</summary>
+                    <div>
+                        <?php for ($count = 1; $count <= ABAP_DBDATA::COUNTER_INDEX_MAX; $count++) { ?>
+                            <a href="index-<?php echo $count ?>.html"><?php echo $count ?></a>&nbsp;
+                        <?php } ?>
+                    </div>
+                </details>
 
-                <h4> Where Used List Indexes - <?php echo $index ?></h4>
+                <h4><?php echo $GLOBALS['TITLE_TEXT'] ?></h4>
                 <table class="alv">
                     <tr>
                         <th class="alv"><img src='/abap/icon/s_b_pvre.gif'></th>
@@ -102,7 +106,7 @@ $list = ABAPANA_DB_TABLE::COUNTER_Index($index);
                         ?>
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
                             <td class="alv"><?php echo ABAP_Navigation::GetOTypeURL($item['SRC_OBJ_TYPE']) ?>&nbsp;</td>
-                            <td class="alv"><?php echo ABAP_Navigation::GetObjectURL($item['SRC_OBJ_TYPE'], $item['SRC_OBJ_NAME']) ?>&nbsp;</td>
+                            <td class="alv"><?php echo ABAP_Navigation::GetObjectURL($item['SRC_OBJ_TYPE'], $item['SRC_OBJ_NAME'], $item['SRC_SUBOBJ']) ?>&nbsp;</td>
                             <td class="alv">
                                 <?php echo ABAP_Navigation::GetWulURL($item) ?>
                                 <?php echo ABAP_Navigation::GetWulPagesURL($item['SRC_OBJ_TYPE'], $item['SRC_OBJ_NAME'], $item['OBJ_TYPE'], $item['COUNTER'], TRUE) ?>
@@ -121,10 +125,15 @@ $list = ABAPANA_DB_TABLE::COUNTER_Index($index);
 <?php
 $ob_content = ob_get_contents();
 ob_end_flush();
+
+if (file_exists($ob_folder) === FALSE) {
+    // If the folder does not exit, crate it
+    mkdir($ob_folder);
+}
 file_put_contents($ob_fname, $ob_content);
 
 // Make default index file
-if ($index === ABAP_DB_CONST::INDEX_PAGE_1) {
+if ($index == ABAP_DB_CONST::INDEX_PAGE_1) {
     $ob_fname = $ob_folder . "/index.html";
     file_put_contents($ob_fname, $ob_content);
 }

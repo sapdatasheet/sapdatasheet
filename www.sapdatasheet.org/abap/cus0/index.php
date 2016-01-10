@@ -77,7 +77,7 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::CUS0_DESC . " - Index " . $in
 
                 <div>
                     <a href="index-<?php echo strtolower(ABAP_DB_CONST::INDEX_HIER) ?>.html">Hierarchy</a>&nbsp; - &nbsp;
-                    <?php for ($count = 1; $count <= ABAP_DB_TABLE_CUS0::CUS_IMGACT_INDEX_MAX; $count++) { ?>
+                    <?php for ($count = 1; $count <= ABAP_DBDATA::CUS_IMGACT_INDEX_MAX; $count++) { ?>
                         <a href="index-<?php echo $count ?>.html"><?php echo $count ?></a>&nbsp;
                     <?php } ?>
                     <!--<a href="index-roadmap.html">Road map</a>&nbsp;-->

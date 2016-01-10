@@ -927,9 +927,6 @@ insert ignore into sapall.yspflparausub select * from saperp6ehp7.yspflparausub;
 
 -- Database table for Where-Used-List
 
-create table if not exists sapall.ycrossref like saperp6ehp7.ycrossref;
-insert ignore into sapall.ycrossref select * from saperp6ehp7.ycrossref;
-
 create table if not exists sapall.ywul like saperp6ehp7.ywul;
 insert ignore into sapall.ywul select * from saperp6ehp7.ywul;
 

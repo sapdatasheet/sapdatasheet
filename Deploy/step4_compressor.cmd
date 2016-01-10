@@ -2,6 +2,9 @@ echo off
 
 cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
 
+call:HtmlCompress                                               html C:\Data\Business\SAPDatasheet\Runtime\www-root\wul\abap
+FOR /F %%i IN (config-sap-desc-langu.txt) DO @call:HtmlCompress html C:\Data\Business\SAPDatasheet\Runtime\www-root\wul\abap\%%i
+
 call:HtmlCompress                                               html C:\Data\Business\SAPDatasheet\Runtime\www-root\abap\bmfr
 FOR /F %%i IN (config-sap-desc-langu.txt) DO @call:HtmlCompress html C:\Data\Business\SAPDatasheet\Runtime\www-root\abap\bmfr\%%i
 
@@ -54,6 +57,7 @@ call:HtmlCompress                                               html C:\Data\Bus
 FOR /F %%i IN (config-sap-desc-langu.txt) DO @call:HtmlCompress html C:\Data\Business\SAPDatasheet\Runtime\www-root\abap\view\%%i
 
 call:HtmlCompress                                               xml  C:\Data\Business\SAPDatasheet\Runtime\www-root\sitemap
+
 
 timeout 60
 exit

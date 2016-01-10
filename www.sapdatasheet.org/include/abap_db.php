@@ -2,6 +2,7 @@
 
 $__ROOT__ = dirname(dirname(__FILE__));
 require_once($__ROOT__ . '/include/config.php');
+require_once($__ROOT__ . '/include/abap_dbdata.php');
 
 class ABAP_DB_CONST {
 
@@ -107,7 +108,6 @@ class ABAP_DB_TABLE_CUS0 {
     const TNODEIMG_NODE_TYPE_IMG = 'IMG';
     const TNODEIMG_NODE_TYPE_IMG0 = 'IMG0';
     const TNODEIMG_NODE_TYPE_IMG1 = 'IMG1';
-    const CUS_IMGACT_INDEX_MAX = 7;
 
     /**
      * Customizing Activity - Object List.
@@ -1621,7 +1621,6 @@ class ABAP_DB_TABLE_PROG {
 class ABAP_DB_TABLE_SHLP {
 
     const DD30L = 'dd30l';                        // Search helps
-    const DD30L_INDEX_MAX = 3;
     const DD30L_SHLPNAME_DTEL = 'SHLPNAME';
     const DD30L_SELMTYPE_DOMAIN = 'SELMTYPE';
     const DD30L_SELMTYPE_T = 'T';                 // Selection from table
@@ -1740,8 +1739,6 @@ class ABAP_DB_TABLE_SEO {
      */
     const SEOCLASS = 'seoclass';
     const SEOCLASS_CLSNAME_DTEL = 'SEOCLSNAME';
-    const SEOCLASS_CLAS_INDEX_MAX = 13;
-    const SEOCLASS_INTF_INDEX_MAX = 4;
     const SEOCLASS_CLSTYPE_CLAS = 0;                     // Class
     const SEOCLASS_CLSTYPE_INTF = 1;                     // Interface
 
@@ -2585,7 +2582,27 @@ class ABAP_DB_TABLE_VIEW {
 /** Database table access for Where-Used-List. */
 class ABAP_DB_TABLE_WUL {
 
+    /**
+     * SEO Class Method name and Method program name.
+     */
+    const YSEOPROG = "yseoprog";
     const YWUL = "ywul";
+    const YWUL_SUB_TYPE_METH = "METH";
+    const YWUL_SUB_TYPE_VIED = "VIED";
+
+    /**
+     * Get method name from class method include name.
+     */
+    public static function YSEOPROG_CPDNAME($clsName, $include) {
+        $sql = 'SELECT * from ' . ABAP_DB_TABLE_WUL::YSEOPROG
+                . ' where CLSNAME = :cls AND INCLUDE = :inc';
+        $paras = array(
+            'cls' => $clsName,
+            'inc' => $include,
+        );
+        $result = current(ABAP_DB_TABLE::select($sql, $paras));
+        return $result['CPDNAME'];
+    }
 
     /**
      * Load Where-Used-List for an ABAP Object.
@@ -2622,7 +2639,6 @@ class ABAP_DB_TABLE_WUL {
 class ABAPANA_DB_TABLE {
 
     const COUNTER = "counter";
-    const COUNTER_INDEX_MAX = 291;
 
     /**
      * Load Where-Used-List counter for an ABAP Object.
@@ -2634,14 +2650,27 @@ class ABAPANA_DB_TABLE {
      *     and OBJ_TYPE = 'DTEL'
      * </pre>
      */
-    public static function COUNTER($srcOType, $srcOName, $oType) {
-        $sql = 'SELECT * from ' . ABAP_DB_CONN::schema_abapana . '.' . ABAPANA_DB_TABLE::COUNTER
-                . ' where SRC_OBJ_TYPE = :sotype AND SRC_OBJ_NAME = :soname AND OBJ_TYPE = :otype';
-        $paras = array(
-            'sotype' => $srcOType,
-            'soname' => $srcOName,
-            'otype' => $oType,
-        );
+    public static function COUNTER($srcOType, $srcOName, $oType, $srcSubobj = NULL) {
+
+        if ($srcSubobj == NULL || strlen($srcSubobj) < 1) {
+            $sql = 'SELECT * from ' . ABAP_DB_CONN::schema_abapana . '.' . ABAPANA_DB_TABLE::COUNTER
+                    . ' where SRC_OBJ_TYPE = :sotype AND SRC_OBJ_NAME = :soname AND OBJ_TYPE = :otype';
+            $paras = array(
+                'sotype' => $srcOType,
+                'soname' => $srcOName,
+                'otype' => $oType,
+            );
+        } else {
+            $sql = 'SELECT * from ' . ABAP_DB_CONN::schema_abapana . '.' . ABAPANA_DB_TABLE::COUNTER
+                    . ' where SRC_OBJ_TYPE = :sotype AND SRC_OBJ_NAME = :soname AND SRC_SUBOBJ = :ssubob AND OBJ_TYPE = :otype';
+            $paras = array(
+                'sotype' => $srcOType,
+                'soname' => $srcOName,
+                'ssubob' => $srcSubobj,
+                'otype' => $oType,
+            );
+        }
+
         $row = current(ABAP_DB_TABLE::select($sql, $paras));
         if (empty($row)) {
             return -1;
@@ -2649,7 +2678,7 @@ class ABAPANA_DB_TABLE {
             return $row['COUNTER'];
         }
     }
-    
+
     /**
      * Load Where-Used-List counters by page index.
      * <pre>
@@ -2662,12 +2691,12 @@ class ABAPANA_DB_TABLE {
     public static function COUNTER_Index($page) {
         $offset = ($page - 1) * ABAP_DB_CONST::INDEX_PAGESIZE;
         $sql = 'select * from ' . ABAP_DB_CONN::schema_abapana . '.' . ABAPANA_DB_TABLE::COUNTER
-                . ' ORDER BY SRC_OBJ_TYPE, SRC_OBJ_NAME, OBJ_TYPE'
+//              . ' ORDER BY SRC_OBJ_TYPE, SRC_OBJ_NAME, OBJ_TYPE'
                 . ' LIMIT ' . ABAP_DB_CONST::INDEX_PAGESIZE
                 . ' OFFSET ' . $offset;
         return ABAP_DB_TABLE::select($sql);
     }
-    
+
     /**
      * Load Where-Used-List counter for an ABAP Object.
      * <pre>
@@ -2677,23 +2706,34 @@ class ABAPANA_DB_TABLE {
      *   order by OBJ_TYPE
      * </pre>
      */
-    public static function COUNTER_List($srcOType, $srcOName) {
-        $sql = 'SELECT * from ' . ABAP_DB_CONN::schema_abapana . '.' . ABAPANA_DB_TABLE::COUNTER
-                . ' where SRC_OBJ_TYPE = :sotype AND SRC_OBJ_NAME = :soname '
-                . ' order by OBJ_TYPE';
-        $paras = array(
-            'sotype' => $srcOType,
-            'soname' => $srcOName,
-        );
+    public static function COUNTER_List($srcOType, $srcOName, $srcSubobj = NULL) {
+        if ($srcSubobj == NULL || strlen($srcSubobj) < 1) {
+            $sql = 'SELECT * from ' . ABAP_DB_CONN::schema_abapana . '.' . ABAPANA_DB_TABLE::COUNTER
+                    . ' where SRC_OBJ_TYPE = :sotype AND SRC_OBJ_NAME = :soname '
+                    . ' order by OBJ_TYPE';
+            $paras = array(
+                'sotype' => $srcOType,
+                'soname' => $srcOName,
+            );
+        } else {
+            $sql = 'SELECT * from ' . ABAP_DB_CONN::schema_abapana . '.' . ABAPANA_DB_TABLE::COUNTER
+                    . ' where SRC_OBJ_TYPE = :sotype AND SRC_OBJ_NAME = :soname AND SRC_SUBOBJ = :ssubob'
+                    . ' order by OBJ_TYPE';
+            $paras = array(
+                'sotype' => $srcOType,
+                'soname' => $srcOName,
+                'ssubob' => $srcSubobj,
+            );
+        }
         return ABAP_DB_TABLE::select($sql, $paras);
     }
-    
+
     public static function COUNTER_Sitemap() {
         $sql = "select * from "
                 . ABAP_DB_CONN::schema_abapana . '.' . ABAPANA_DB_TABLE::COUNTER;
         return ABAP_DB_TABLE::select($sql);
     }
-    
+
 }
 
 /** Database table names. */

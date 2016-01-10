@@ -37,7 +37,7 @@ ob_start();
 <!DOCTYPE html>
 <!-- ABAP OO Interface index. -->
 <?php
-$page_label = "Page " . $index . " of " . ABAP_DB_TABLE_SEO::SEOCLASS_INTF_INDEX_MAX;
+$page_label = "Page " . $index . " of " . ABAP_DBDATA::SEOCLASS_INTF_INDEX_MAX;
 $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::INTF_DESC . " - Index " . $page_label;
 $intf_list = ABAP_DB_TABLE_SEO::SEOCLASS_List(ABAP_DB_TABLE_SEO::SEOCLASS_CLSTYPE_INTF, $index);
 ?>
@@ -76,7 +76,7 @@ $intf_list = ABAP_DB_TABLE_SEO::SEOCLASS_List(ABAP_DB_TABLE_SEO::SEOCLASS_CLSTYP
                 </div>
 
                 <div>
-                    <?php for ($count = 1; $count <= ABAP_DB_TABLE_SEO::SEOCLASS_INTF_INDEX_MAX; $count++) { ?>
+                    <?php for ($count = 1; $count <= ABAP_DBDATA::SEOCLASS_INTF_INDEX_MAX; $count++) { ?>
                         <a href="index-<?php echo $count ?>.html"><?php echo $count ?></a>&nbsp;
                     <?php } ?>
                 </div>

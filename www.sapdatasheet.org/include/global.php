@@ -66,6 +66,16 @@ class ABAP_OTYPE {
     const RZ10_NAME = 'RZ10';
     const RZ10_DESC = 'NetWeaver Profile';
 
+    const DTF_NAME = 'DTF';
+    const DTF_DESC = 'Table/Structure Field';
+    const NN_NAME = 'NN';
+    const NN_DESC = 'Message Number';
+    const OM_NAME = 'OM';
+    const OM_DESC = 'Class Method';
+
+    /**
+     * Supported base object type.
+     */
     public static $OTYPES = array(
         ABAP_OTYPE::BMFR_NAME => ABAP_OTYPE::BMFR_DESC,
         ABAP_OTYPE::CLAS_NAME => ABAP_OTYPE::CLAS_DESC,
@@ -86,6 +96,15 @@ class ABAP_OTYPE {
         ABAP_OTYPE::TRAN_NAME => ABAP_OTYPE::TRAN_DESC,
         ABAP_OTYPE::VIEW_NAME => ABAP_OTYPE::VIEW_DESC,
     );
+    
+    /**
+     * Other object types.
+     */
+    public static $OTYPES_OTHER = array(
+        ABAP_OTYPE::DTF_NAME => ABAP_OTYPE::DTF_DESC,
+        ABAP_OTYPE::NN_NAME => ABAP_OTYPE::NN_DESC,
+        ABAP_OTYPE::OM_NAME => ABAP_OTYPE::OM_DESC,
+    );
 
     /**
      * Get Object Type Description.
@@ -96,6 +115,8 @@ class ABAP_OTYPE {
     public static function getOTypeDesc($oType) {
         if (array_key_exists($oType, ABAP_OTYPE::$OTYPES)) {
             return ABAP_OTYPE::$OTYPES[$oType];
+        } else if (array_key_exists($oType, ABAP_OTYPE::$OTYPES_OTHER)) {
+            return ABAP_OTYPE::$OTYPES_OTHER[$oType];
         } else {
             return $oType;
         }

@@ -180,13 +180,24 @@ class ABAP_Navigation {
      * 
      * @param string $oType Object Type, example: DOMA, DTEL
      * @param string $oName Object name, example: MANDT, BUKRS
+     * @param string $subName Object sub name, example: Message number, Class method
      * @return string Object URL for supported object type, or else return object Name
      */
-    public static function GetObjectURL($oType, $oName) {
-        if (array_key_exists($oType, ABAP_OTYPE::$OTYPES)) {
+    public static function GetObjectURL($oType, $oName, $subName = NULL) {
+        if ($oType == ABAP_OTYPE::TABL_NAME && strlen($subName) > 0) {
+            return ABAP_Navigation::GetURLTable($oName) 
+                    . ' - '
+                    . ABAP_Navigation::GetURLTableField($oName, $subName);
+        } else if (array_key_exists($oType, ABAP_OTYPE::$OTYPES)) {
             return ABAP_Navigation::GetURL($oType, $oName, $oName, NULL, TRUE);
+        } else if ($oType == ABAP_OTYPE::OM_NAME) {
+            return ABAP_Navigation::GetURLClass($oName) . ' - ' . $subName;
+        } else if ($oType == ABAP_OTYPE::NN_NAME) {
+            return ABAP_Navigation::GetURLMessageNumber($oName, $subName);
+        } else if ($oType == ABAP_OTYPE::DTEL_NAME) {
+            return ABAP_Navigation::GetURLTableField($oName, $subName);
         } else {
-            return $oType . ' - ' . $oName;
+            return $oName;
         }
     }
 
@@ -204,25 +215,34 @@ class ABAP_Navigation {
                     . $newWindow . ' >'
                     . $linkLabel
                     . '</a>';
+        } else if (array_key_exists($oType, ABAP_OTYPE::$TYPES_OTHER)) {
+            return ABAP_OTYPE::getOTypeDesc($oType);
         } else {
             return $oType;
         }
     }
 
+    /**
+     * Get Where-Used-List URL.
+     */
     public static function GetWulURL($counter, $newwin = TRUE) {
         $newWindow = ($newwin === TRUE) ? 'target="_blank"' : '';
         $linkLabel = ABAP_OTYPE::getOTypeDesc($counter['OBJ_TYPE']);
-        return "<a href=\"/wul/abap/"
+        $url = '/wul/abap/'
                 . strtolower($counter['SRC_OBJ_TYPE'])
-                . "/" . strtolower($counter['SRC_OBJ_NAME'])
-                . "-" . strtolower($counter['OBJ_TYPE'])
-                . ".html\" "
-                . "title=\"" . htmlentities($linkLabel) . "\" "
-                . $newWindow . " >"
+                . '/' . strtolower($counter['SRC_OBJ_NAME'])
+                . '/' . strtolower($counter['OBJ_TYPE'])
+                . '.html';
+        return '<a href="' . $url  . '" '
+                . 'title="' . htmlentities($linkLabel) . '" '
+                . $newWindow . ' >'
                 . $linkLabel
-                . " (" . $counter['COUNTER'] . ")</a>";
+                . ' (' . $counter['COUNTER'] . ')</a>';
     }
 
+    /**
+     * Get Where-Used-List URL with pages.
+     */
     public static function GetWulPagesURL($srcOType, $srcOName, $oType, $counter, $newwin = TRUE) {
         $result = '';
         if ($counter > ABAP_DB_CONST::INDEX_PAGESIZE) {
@@ -231,10 +251,11 @@ class ABAP_Navigation {
             $result = $result . ' pages: ';
             for ($i = 1; $i <= $pageCount; $i++) {
                 $title = 'title="' . 'Page ' . $i . ' of ' . $pageCount . '" ';
-                $link = '<a href="/wul/abap/' . strtolower($srcOType) . '/'
-                        . strtolower($srcOName) . '-' . strtolower($oType)  . '-' . $i . '.html" '
-                        . $title . $newWindow . ' >'
-                        . $i . '</a>';
+                $url = '/wul/abap/' . strtolower($srcOType) . '/'
+                        . strtolower($srcOName) . '/'
+                        . strtolower($oType)  . '-' . $i
+                        . '.html';
+                $link = '<a href="' . $url . '" ' . $title . $newWindow . ' >' . $i . '</a>';
                 $result = $result . $link . '&nbsp;';
             }
         }

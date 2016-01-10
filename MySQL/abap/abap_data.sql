@@ -460,9 +460,6 @@ insert ignore into abap.yspflparausub select * from sapall.yspflparausub;
 
 -- Database table for Where-Used-List
 
-create table if not exists abap.ycrossref like sapall.ycrossref;
-insert ignore into abap.ycrossref select * from sapall.ycrossref;
-
 create table if not exists abap.ywul like sapall.ywul;
 insert ignore into abap.ywul select * from sapall.ywul;
 
