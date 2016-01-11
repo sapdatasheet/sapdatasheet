@@ -109,7 +109,7 @@ $list = ABAPANA_DB_TABLE::COUNTER_Index($index);
                             <td class="alv"><?php echo ABAP_Navigation::GetObjectURL($item['SRC_OBJ_TYPE'], $item['SRC_OBJ_NAME'], $item['SRC_SUBOBJ']) ?>&nbsp;</td>
                             <td class="alv">
                                 <?php echo ABAP_Navigation::GetWulURL($item) ?>
-                                <?php echo ABAP_Navigation::GetWulPagesURL($item['SRC_OBJ_TYPE'], $item['SRC_OBJ_NAME'], $item['OBJ_TYPE'], $item['COUNTER'], TRUE) ?>
+                                <?php echo ABAP_Navigation::GetWulPagesURL($item['SRC_OBJ_TYPE'], $item['SRC_OBJ_NAME'], $item['SRC_SUBOBJ'], $item['OBJ_TYPE'], $item['COUNTER'], TRUE) ?>
                                 &nbsp;</td>
                         </tr>
                     <?php } ?>

@@ -23,6 +23,8 @@ if (empty($msag['ARBGB'])) {
 $msag_t = ABAP_DB_TABLE_MSAG::T100T($ObjID);
 $t100_list = ABAP_DB_TABLE_MSAG::T100($ObjID);
 
+$wul_counter_list = ABAPANA_DB_TABLE::COUNTER_List(ABAP_OTYPE::MSAG_NAME, $ObjID);
+
 $hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::MSAG_NAME, $ObjID);
 $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::MSAG_NAME, $ObjID);
 ?>
@@ -60,6 +62,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::MSAG_NAME, $Ob
                 </tbody>
             </table>
 
+            <?php require $__ROOT__ . '/include/abap_oname_wul.php' ?>
             <h5>&nbsp;</h5>
         </div>
 

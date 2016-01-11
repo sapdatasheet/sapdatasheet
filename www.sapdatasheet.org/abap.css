@@ -262,10 +262,12 @@ div.left
     float:left;
     width:11em;
 }
+/* -- Not Used Anymore
 div.whereusedlist
 {
     overflow-x:auto;
 }
+*/
 
 /* Footer */
 div.footer

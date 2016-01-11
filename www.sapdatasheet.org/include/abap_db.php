@@ -2611,21 +2611,23 @@ class ABAP_DB_TABLE_WUL {
      * SELECT * from abap.ywul
      *   where SRC_OBJ_TYPE = 'DOMA'
      *     and SRC_OBJ_NAME = 'MANDT'
+     *     and SRC_SUBOBJ   = ''
      *     and OBJ_TYPE = 'DTEL'
      *   limit 10
      *   offset 30
      * </pre>
      */
-    public static function YWUL($srcOType, $srcOName, $oType, $page) {
+    public static function YWUL($srcOType, $srcOName, $srcSubobj, $oType, $page) {
         $offset = ($page - 1) * ABAP_DB_CONST::INDEX_PAGESIZE;
         $sql = 'SELECT * from ' . ABAP_DB_TABLE_WUL::YWUL
-                . ' where SRC_OBJ_TYPE = :sotype AND SRC_OBJ_NAME = :soname AND OBJ_TYPE = :otype'
+                . ' where SRC_OBJ_TYPE = :sotype AND SRC_OBJ_NAME = :soname AND SRC_SUBOBJ = :ssubobj AND OBJ_TYPE = :otype'
                 . ' order by OBJ_NAME'
                 . ' LIMIT ' . ABAP_DB_CONST::INDEX_PAGESIZE
                 . ' OFFSET ' . $offset;
         $paras = array(
             'sotype' => $srcOType,
             'soname' => $srcOName,
+            'ssubobj' => $srcSubobj,
             'otype' => $oType,
         );
         //print_r($sql);
@@ -2650,26 +2652,15 @@ class ABAPANA_DB_TABLE {
      *     and OBJ_TYPE = 'DTEL'
      * </pre>
      */
-    public static function COUNTER($srcOType, $srcOName, $oType, $srcSubobj = NULL) {
-
-        if ($srcSubobj == NULL || strlen($srcSubobj) < 1) {
-            $sql = 'SELECT * from ' . ABAP_DB_CONN::schema_abapana . '.' . ABAPANA_DB_TABLE::COUNTER
-                    . ' where SRC_OBJ_TYPE = :sotype AND SRC_OBJ_NAME = :soname AND OBJ_TYPE = :otype';
-            $paras = array(
-                'sotype' => $srcOType,
-                'soname' => $srcOName,
-                'otype' => $oType,
-            );
-        } else {
-            $sql = 'SELECT * from ' . ABAP_DB_CONN::schema_abapana . '.' . ABAPANA_DB_TABLE::COUNTER
-                    . ' where SRC_OBJ_TYPE = :sotype AND SRC_OBJ_NAME = :soname AND SRC_SUBOBJ = :ssubob AND OBJ_TYPE = :otype';
-            $paras = array(
-                'sotype' => $srcOType,
-                'soname' => $srcOName,
-                'ssubob' => $srcSubobj,
-                'otype' => $oType,
-            );
-        }
+    public static function COUNTER($srcOType, $srcOName, $oType, $srcSubobj = '') {
+        $sql = 'SELECT * from ' . ABAP_DB_CONN::schema_abapana . '.' . ABAPANA_DB_TABLE::COUNTER
+                . ' where SRC_OBJ_TYPE = :sotype AND SRC_OBJ_NAME = :soname AND SRC_SUBOBJ = :ssubob AND OBJ_TYPE = :otype';
+        $paras = array(
+            'sotype' => $srcOType,
+            'soname' => $srcOName,
+            'ssubob' => $srcSubobj,
+            'otype' => $oType,
+        );
 
         $row = current(ABAP_DB_TABLE::select($sql, $paras));
         if (empty($row)) {
@@ -2706,25 +2697,17 @@ class ABAPANA_DB_TABLE {
      *   order by OBJ_TYPE
      * </pre>
      */
-    public static function COUNTER_List($srcOType, $srcOName, $srcSubobj = NULL) {
-        if ($srcSubobj == NULL || strlen($srcSubobj) < 1) {
-            $sql = 'SELECT * from ' . ABAP_DB_CONN::schema_abapana . '.' . ABAPANA_DB_TABLE::COUNTER
-                    . ' where SRC_OBJ_TYPE = :sotype AND SRC_OBJ_NAME = :soname '
-                    . ' order by OBJ_TYPE';
-            $paras = array(
-                'sotype' => $srcOType,
-                'soname' => $srcOName,
-            );
-        } else {
-            $sql = 'SELECT * from ' . ABAP_DB_CONN::schema_abapana . '.' . ABAPANA_DB_TABLE::COUNTER
-                    . ' where SRC_OBJ_TYPE = :sotype AND SRC_OBJ_NAME = :soname AND SRC_SUBOBJ = :ssubob'
-                    . ' order by OBJ_TYPE';
-            $paras = array(
-                'sotype' => $srcOType,
-                'soname' => $srcOName,
-                'ssubob' => $srcSubobj,
-            );
-        }
+    public static function COUNTER_List($srcOType, $srcOName, $srcSubobj = '') {
+        $sql = 'SELECT * from ' . ABAP_DB_CONN::schema_abapana . '.' . ABAPANA_DB_TABLE::COUNTER
+                . ' where SRC_OBJ_TYPE = :sotype AND SRC_OBJ_NAME = :soname AND SRC_SUBOBJ = :ssubob'
+                . ' order by OBJ_TYPE';
+        $paras = array(
+            'sotype' => $srcOType,
+            'soname' => $srcOName,
+            'ssubob' => $srcSubobj,
+        );
+
+        // print_r($paras);
         return ABAP_DB_TABLE::select($sql, $paras);
     }
 

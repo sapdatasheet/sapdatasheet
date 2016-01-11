@@ -11,4 +11,5 @@ xcopy *.txt      ..\..\..\Runtime\www-root /S /Y
 xcopy *.gif      ..\..\..\Runtime\www-root /S /Y
 xcopy *.js       ..\..\..\Runtime\www-root /S /Y
 xcopy *.html     ..\..\..\Runtime\www-root /S /Y
-pause
+
+cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy

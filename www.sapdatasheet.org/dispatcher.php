@@ -170,11 +170,17 @@ if ($requri === '/wp/wp-admin/' || $requri === '/wp-admin/' || $requri === '/tes
             $itemLast = array_pop($items);
             $itemLastLen = strlen($itemLast);
 
-            // Only left the middle part of the
-            $itemMiddle = substr($restUri, strlen($dpSrcOType) + 1);
-            $itemMiddle = substr($itemMiddle, 0, strlen($itemMiddle) - $itemLastLen - 1);
-
-            $dpSrcOName = $itemMiddle;
+            // Only left the middle part of the URI
+            $dpMiddle = substr($restUri, strlen($dpSrcOType) + 1);
+            $dpMiddle = substr($dpMiddle, 0, strlen($dpMiddle) - $itemLastLen - 1);
+            $middleLastPos = strrpos($dpMiddle, '-');
+            if ($middleLastPos === FALSE) {
+                $dpSrcOName = $dpMiddle;
+                $dpSrcSubobj = '';
+            } else {
+                $dpSrcOName = substr($dpMiddle, 0, $middleLastPos);
+                $dpSrcSubobj = substr($dpMiddle, $middleLastPos + 1);
+            }
 
             $lastItems = explode('-', $itemLast);
             $lastItemsCount = count($lastItems);
@@ -190,13 +196,15 @@ if ($requri === '/wp/wp-admin/' || $requri === '/wp-admin/' || $requri === '/tes
         }
 
 /*
-        echo '$dpSrcOType = ' . $dpSrcOType . '<br />';
-        echo '$dpSrcOName = ' . $dpSrcOName . '<br />';
-        echo '$dpOType    = ' . $dpOType . '<br />';
-        echo '$dpPage     = ' . $dpPage . '<br />';
-        echo '$target     = ' . $target . '<br />';
+        echo '$dpSrcOType  = ' . $dpSrcOType . '<br />';
+        echo '$dpMiddle    = ' . $dpMiddle . '<br />';
+        echo '$dpSrcOName  = ' . $dpSrcOName . '<br />';
+        echo '$dpSrcSubobj = ' . $dpSrcSubobj . '<br />';
+        echo '$dpOType     = ' . $dpOType . '<br />';
+        echo '$dpPage      = ' . $dpPage . '<br />';
+        echo '$target      = ' . $target . '<br />';
         // exit();
- */
+*/
     }
 }
 

@@ -7,17 +7,19 @@ require_once($__ROOT__ . '/include/abap_ui.php');
 GLOBAL_UTIL::UpdateSAPDescLangu();
 
 // Variables from Dispatcher
-//   $dpSrcOType;
-//   $dpSrcOName;
-//   $dpOType;
-//   $dpPage;
+//   $dpSrcOType
+//   $dpMiddle
+//   $dpSrcOName
+//   $dpSrcSubobj
+//   $dpOType
+//   $dpPage
 
-$counter_list = ABAPANA_DB_TABLE::COUNTER_List($dpSrcOType, $dpSrcOName);
-$counter_value = ABAPANA_DB_TABLE::COUNTER($dpSrcOType, $dpSrcOName, $dpOType);
-$wul_list = ABAP_DB_TABLE_WUL::YWUL($dpSrcOType, $dpSrcOName, $dpOType, $dpPage);
+$counter_list = ABAPANA_DB_TABLE::COUNTER_List($dpSrcOType, $dpSrcOName, $dpSrcSubobj);
+$counter_value = ABAPANA_DB_TABLE::COUNTER($dpSrcOType, $dpSrcOName, $dpOType, $dpSrcSubobj);
+$wul_list = ABAP_DB_TABLE_WUL::YWUL($dpSrcOType, $dpSrcOName, $dpSrcSubobj, $dpOType, $dpPage);
 
 $srcObjDesc = ABAP_UI_TOOL::GetObjectDescr($dpSrcOType, $dpSrcOName);
-$title_name = ABAP_UI_TOOL::GetObjectTitle($dpSrcOType, $dpSrcOName);
+$title_name = ABAP_UI_TOOL::GetObjectTitle($dpSrcOType, $dpSrcOName, $dpMiddle);
 $GLOBALS['TITLE_TEXT'] = "Where Used List for " . $title_name;
 ?>
 <html>
@@ -55,6 +57,8 @@ $GLOBALS['TITLE_TEXT'] = "Where Used List for " . $title_name;
 
                 <h4><?php echo $title_name ?> is used by</h4>
                 <?php
+                // print_r($counter_list);
+                
                 foreach ($counter_list as $counter) {
                     echo ABAP_Navigation::GetWulURL($counter, FALSE);
                     echo '&nbsp;';
@@ -62,7 +66,7 @@ $GLOBALS['TITLE_TEXT'] = "Where Used List for " . $title_name;
                 ?>
 
                 <h4><?php echo ABAP_OTYPE::getOTypeDesc($dpOType) ?>
-                    <?php echo ABAP_Navigation::GetWulPagesURL($dpSrcOType, $dpSrcOName, $dpOType, $counter_value, FALSE) ?>
+                    <?php echo ABAP_Navigation::GetWulPagesURL($dpSrcOType, $dpSrcOName, $dpSrcSubobj, $dpOType, $counter_value, FALSE) ?>
                 </h4>
                 <table class="alv">
                     <tr>

@@ -86,6 +86,7 @@ class ABAP_Navigation {
     }
 
     public static function GetURLMessageClass($msgcls, $desc = NULL, $newwin = TRUE) {
+        // $msgcls = htmlentities(strtolower($msgcls));
         return ABAP_Navigation::GetURL(ABAP_OTYPE::MSAG_NAME, $msgcls, $msgcls, $desc, $newwin);
     }
 
@@ -167,11 +168,11 @@ class ABAP_Navigation {
         }
         $newWindow = ($newwin === TRUE) ? 'target="_blank"' : '';
         $anchorTag = (strlen(trim($anchor)) > 0) ? '#' . $anchor : '';
-        $result = "<a href=\"/abap/" . strtolower($objtype)
-                . "/" . htmlentities(strtolower($objname)) . ".html" . $anchorTag
-                . "\" title=\"" . htmlentities($sTitle) . "\" "
-                . $newWindow . ">"
-                . htmlentities($linkLabel) . "</a>";
+        $url = '/abap/' . $objtype . '/' . htmlentities(strtolower($objname)) . '.html' . $anchorTag;
+        $result = '<a href="' . strtolower($url)
+                . '" title="' . htmlentities($sTitle) . '" '
+                . $newWindow . '>'
+                . htmlentities($linkLabel) . '</a>';
         return $result;
     }
 
@@ -184,7 +185,8 @@ class ABAP_Navigation {
      * @return string Object URL for supported object type, or else return object Name
      */
     public static function GetObjectURL($oType, $oName, $subName = NULL) {
-        if ($oType == ABAP_OTYPE::TABL_NAME && strlen($subName) > 0) {
+        if (($oType == ABAP_OTYPE::TABL_NAME && strlen(trim($subName)) > 0) 
+                || ($oType == ABAP_OTYPE::DTF_NAME)) {
             return ABAP_Navigation::GetURLTable($oName) 
                     . ' - '
                     . ABAP_Navigation::GetURLTableField($oName, $subName);
@@ -193,9 +195,9 @@ class ABAP_Navigation {
         } else if ($oType == ABAP_OTYPE::OM_NAME) {
             return ABAP_Navigation::GetURLClass($oName) . ' - ' . $subName;
         } else if ($oType == ABAP_OTYPE::NN_NAME) {
-            return ABAP_Navigation::GetURLMessageNumber($oName, $subName);
-        } else if ($oType == ABAP_OTYPE::DTEL_NAME) {
-            return ABAP_Navigation::GetURLTableField($oName, $subName);
+            return ABAP_Navigation::GetURLMessageClass($oName)
+                    . ' - '
+                    . ABAP_Navigation::GetURLMessageNumber($oName, $subName);
         } else {
             return $oName;
         }
@@ -215,7 +217,7 @@ class ABAP_Navigation {
                     . $newWindow . ' >'
                     . $linkLabel
                     . '</a>';
-        } else if (array_key_exists($oType, ABAP_OTYPE::$TYPES_OTHER)) {
+        } else if (array_key_exists($oType, ABAP_OTYPE::$OTYPES_OTHER)) {
             return ABAP_OTYPE::getOTypeDesc($oType);
         } else {
             return $oType;
@@ -228,12 +230,13 @@ class ABAP_Navigation {
     public static function GetWulURL($counter, $newwin = TRUE) {
         $newWindow = ($newwin === TRUE) ? 'target="_blank"' : '';
         $linkLabel = ABAP_OTYPE::getOTypeDesc($counter['OBJ_TYPE']);
+        $url_subobj = (strlen(trim($counter['SRC_SUBOBJ'])) > 0) ? '-' . strtolower($counter['SRC_SUBOBJ']) : '';
         $url = '/wul/abap/'
-                . strtolower($counter['SRC_OBJ_TYPE'])
-                . '/' . strtolower($counter['SRC_OBJ_NAME'])
-                . '/' . strtolower($counter['OBJ_TYPE'])
+                . $counter['SRC_OBJ_TYPE']
+                . '/' . htmlentities($counter['SRC_OBJ_NAME']) . $url_subobj
+                . '/' . $counter['OBJ_TYPE']
                 . '.html';
-        return '<a href="' . $url  . '" '
+        return '<a href="' . strtolower($url)  . '" '
                 . 'title="' . htmlentities($linkLabel) . '" '
                 . $newWindow . ' >'
                 . $linkLabel
@@ -243,7 +246,7 @@ class ABAP_Navigation {
     /**
      * Get Where-Used-List URL with pages.
      */
-    public static function GetWulPagesURL($srcOType, $srcOName, $oType, $counter, $newwin = TRUE) {
+    public static function GetWulPagesURL($srcOType, $srcOName, $srcSubobj, $oType, $counter, $newwin = TRUE) {
         $result = '';
         if ($counter > ABAP_DB_CONST::INDEX_PAGESIZE) {
             $newWindow = ($newwin === TRUE) ? 'target="_blank"' : '';
@@ -251,11 +254,12 @@ class ABAP_Navigation {
             $result = $result . ' pages: ';
             for ($i = 1; $i <= $pageCount; $i++) {
                 $title = 'title="' . 'Page ' . $i . ' of ' . $pageCount . '" ';
+                $urlObj = (strlen(trim($srcSubobj)) > 0) ? '-' . $srcSubobj : '';
                 $url = '/wul/abap/' . strtolower($srcOType) . '/'
-                        . strtolower($srcOName) . '/'
-                        . strtolower($oType)  . '-' . $i
+                        . strtolower($srcOName) . $urlObj
+                        . '/' . strtolower($oType)  . '-' . $i
                         . '.html';
-                $link = '<a href="' . $url . '" ' . $title . $newWindow . ' >' . $i . '</a>';
+                $link = '<a href="' . htmlentities(strtolower($url)) . '" ' . $title . $newWindow . ' >' . $i . '</a>';
                 $result = $result . $link . '&nbsp;';
             }
         }
@@ -620,7 +624,7 @@ class ABAP_UI_TOOL {
      * 
      * @param string $oType Object Type, example: DOMA, DTEL, TABL
      * @param string $oName Object name, example: MANDT, BUKRS, BKPF
-     * @param string $oNameDisp Objec name desplay, for 'Application Component'
+     * @param string $oNameDisp Objec name desplay, for 'Application Component', Table field, etc
      * @return string Object title text
      */
     public static function GetObjectTitle($oType, $oName, $oNameDisp = NULL) {

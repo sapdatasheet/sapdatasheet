@@ -23,6 +23,8 @@ $doma_datatype_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_DATATYPE, 
 $doma_vall = ABAP_DB_TABLE_DOMA::DD07L($doma['DOMNAME']);
 
 $wul_counter_list = ABAPANA_DB_TABLE::COUNTER_List(ABAP_OTYPE::DOMA_NAME, $doma['DOMNAME']);
+$wul_list = ABAP_DB_TABLE_DTEL::DD04L_DOMNAME($ObjID);
+
 $hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::DOMA_NAME, $doma['DOMNAME']);
 $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::DOMA_NAME, $doma['DOMNAME']);
 ?>
@@ -73,20 +75,17 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::DOMA_NAME, $do
             <?php require $__ROOT__ . '/include/abap_oname_wul.php' ?>
 
             <h5>Used by Data Element</h5>
-            <?php $wul_list = ABAP_DB_TABLE_DTEL::DD04L_DOMNAME($ObjID); ?>
-            <div class="whereusedlist">
-                <table class="content_obj">
-                    <tbody>
-                        <?php if (empty($wul_list) === FALSE) { ?>
-                            <?php foreach ($wul_list as $wul_item) { ?>
-                                <tr><td><?php echo ABAP_Navigation::GetURLDtel($wul_item['ROLLNAME'], ABAP_DB_TABLE_DTEL::DD04T($wul_item['ROLLNAME'])) ?>&nbsp;</td></tr>
-                            <?php } ?>
-                        <?php } else { ?>
-                            <tr><td>Not Used by Anyone</td></tr>
+            <table class="content_obj">
+                <tbody>
+                    <?php if (empty($wul_list) === FALSE) { ?>
+                        <?php foreach ($wul_list as $wul_item) { ?>
+                            <tr><td class="left_value"><?php echo ABAP_Navigation::GetURLDtel($wul_item['ROLLNAME'], ABAP_DB_TABLE_DTEL::DD04T($wul_item['ROLLNAME'])) ?>&nbsp;</td></tr>
                         <?php } ?>
-                    </tbody>
-                </table>
-            </div>
+                    <?php } else { ?>
+                        <tr><td class="left_value">Not Used by Anyone</td></tr>
+                    <?php } ?>
+                </tbody>
+            </table>
         </div>
 
         <!-- Content -->

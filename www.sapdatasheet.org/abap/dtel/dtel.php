@@ -27,6 +27,8 @@ $dok_de = ABAP_DB_TABLE_DTEL::YDOK_DE($dtel['ROLLNAME']);
 $dok_dz = ABAP_DB_TABLE_DTEL::YDOK_DZ($dtel['ROLLNAME']);
 
 $wul_counter_list = ABAPANA_DB_TABLE::COUNTER_List(ABAP_OTYPE::DTEL_NAME, $dtel['ROLLNAME']);
+$wul_list = ABAP_DB_TABLE_TABL::DD03L_ROLLNAME($ObjID);
+
 $hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::DTEL_NAME, $dtel['ROLLNAME']);
 $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::DTEL_NAME, $dtel['ROLLNAME']);
 ?>
@@ -67,20 +69,17 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::DTEL_NAME, $dt
             <?php require $__ROOT__ . '/include/abap_oname_wul.php' ?>
 
             <h5>Used by Table/Structure</h5>
-            <?php $wul_list = ABAP_DB_TABLE_TABL::DD03L_ROLLNAME($ObjID); ?>
-            <div class="whereusedlist">
-                <table class="content_obj">
-                    <tbody>
-                        <?php if (empty($wul_list) === FALSE) { ?>
-                            <?php foreach ($wul_list as $wul_item) { ?>
-                        <tr><td><?php echo ABAP_Navigation::GetURLTable($wul_item['TABNAME'], ABAP_DB_TABLE_TABL::DD02T($wul_item['TABNAME'])) ?>&nbsp;</td></tr>
-                            <?php } ?>
-                        <?php } else { ?>
-                            <tr><td>Not Used by Anyone</td></tr>
+            <table class="content_obj">
+                <tbody>
+                    <?php if (empty($wul_list) === FALSE) { ?>
+                        <?php foreach ($wul_list as $wul_item) { ?>
+                            <tr><td><?php echo ABAP_Navigation::GetURLTable($wul_item['TABNAME'], ABAP_DB_TABLE_TABL::DD02T($wul_item['TABNAME'])) ?>&nbsp;</td></tr>
                         <?php } ?>
-                    </tbody>
-                </table>
-            </div>
+                    <?php } else { ?>
+                        <tr><td>Not Used by Anyone</td></tr>
+                    <?php } ?>
+                </tbody>
+            </table>
         </div>
 
         <!-- Content -->
@@ -177,7 +176,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::DTEL_NAME, $dt
                     </tbody>
                 </table>
                 <?php if (empty($dok_de) === FALSE) { ?>
-                <h4 id="<?php echo ABAP_UI_CONST::ANCHOR_DOCUMENT ?>"> Documentation </h4>
+                    <h4 id="<?php echo ABAP_UI_CONST::ANCHOR_DOCUMENT ?>"> Documentation </h4>
                     <div class="f1doc"><?php echo $dok_de ?></div>
                 <?php } ?>
                 <?php
@@ -186,7 +185,8 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::DTEL_NAME, $dt
                         ?>
                         <h4> Supplementary Documentation - <?php echo $dok_dz_item['OBJECT'] ?> </h4>
                         <div class="f1doc"><?php echo $dok_dz_item['HTMLTEXT'] ?></div>
-                    <?php }
+                    <?php
+                    }
                 }
                 ?>
 
