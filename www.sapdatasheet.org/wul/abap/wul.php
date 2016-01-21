@@ -60,7 +60,7 @@ $GLOBALS['TITLE_TEXT'] = "Where Used List for " . $title_name;
                 // print_r($counter_list);
                 
                 foreach ($counter_list as $counter) {
-                    echo ABAP_Navigation::GetWulURL($counter, FALSE);
+                    echo ABAP_Navigation::GetWulURLLink($counter, FALSE);
                     echo '&nbsp;';
                 }
                 ?>

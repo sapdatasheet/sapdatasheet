@@ -185,9 +185,8 @@ class ABAP_Navigation {
      * @return string Object URL for supported object type, or else return object Name
      */
     public static function GetObjectURL($oType, $oName, $subName = NULL) {
-        if (($oType == ABAP_OTYPE::TABL_NAME && strlen(trim($subName)) > 0) 
-                || ($oType == ABAP_OTYPE::DTF_NAME)) {
-            return ABAP_Navigation::GetURLTable($oName) 
+        if (($oType == ABAP_OTYPE::TABL_NAME && strlen(trim($subName)) > 0) || ($oType == ABAP_OTYPE::DTF_NAME)) {
+            return ABAP_Navigation::GetURLTable($oName)
                     . ' - '
                     . ABAP_Navigation::GetURLTableField($oName, $subName);
         } else if (array_key_exists($oType, ABAP_OTYPE::$OTYPES)) {
@@ -227,20 +226,25 @@ class ABAP_Navigation {
     /**
      * Get Where-Used-List URL.
      */
-    public static function GetWulURL($counter, $newwin = TRUE) {
+    public static function GetWulURLLink($counter, $newwin = TRUE) {
         $newWindow = ($newwin === TRUE) ? 'target="_blank"' : '';
         $linkLabel = ABAP_OTYPE::getOTypeDesc($counter['OBJ_TYPE']);
+        $url = ABAP_Navigation::getWulURL($counter);
+        return '<a href="' . $url . '" '
+                . 'title="' . htmlentities($linkLabel) . '" '
+                . $newWindow . ' >'
+                . $linkLabel
+                . ' (' . $counter['COUNTER'] . ')</a>';
+    }
+
+    public static function getWulURL($counter) {
         $url_subobj = (strlen(trim($counter['SRC_SUBOBJ'])) > 0) ? '-' . strtolower($counter['SRC_SUBOBJ']) : '';
         $url = '/wul/abap/'
                 . $counter['SRC_OBJ_TYPE']
                 . '/' . htmlentities($counter['SRC_OBJ_NAME']) . $url_subobj
                 . '/' . $counter['OBJ_TYPE']
                 . '.html';
-        return '<a href="' . strtolower($url)  . '" '
-                . 'title="' . htmlentities($linkLabel) . '" '
-                . $newWindow . ' >'
-                . $linkLabel
-                . ' (' . $counter['COUNTER'] . ')</a>';
+        return strtolower($url);
     }
 
     /**
@@ -257,7 +261,7 @@ class ABAP_Navigation {
                 $urlObj = (strlen(trim($srcSubobj)) > 0) ? '-' . $srcSubobj : '';
                 $url = '/wul/abap/' . strtolower($srcOType) . '/'
                         . strtolower($srcOName) . $urlObj
-                        . '/' . strtolower($oType)  . '-' . $i
+                        . '/' . strtolower($oType) . '-' . $i
                         . '.html';
                 $link = '<a href="' . htmlentities(strtolower($url)) . '" ' . $title . $newWindow . ' >' . $i . '</a>';
                 $result = $result . $link . '&nbsp;';

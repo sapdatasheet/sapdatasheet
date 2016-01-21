@@ -24,7 +24,7 @@ call:BuffGenerateSitemap sitemaps.php
 call:BuffGenerateSitemap wul-abap.php
 
 timeout 60
-exit
+
 
 ::----------------------------------------------
 ::-- Buffer Generate for Sitemap

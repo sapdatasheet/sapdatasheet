@@ -3,6 +3,7 @@
 $__ROOT__ = dirname(dirname(__FILE__));
 require_once ($__ROOT__ . '/include/global.php');
 require_once ($__ROOT__ . '/include/abap_db.php');
+require_once ($__ROOT__ . '/include/abap_ui.php');
 
 function startOB() {
     ob_start();
@@ -39,11 +40,7 @@ foreach ($list as $row) {
         startOB();
     }
 
-    $wulurl = "http://www.sapdatasheet.org/wul/abap/"
-            . htmlentities(strtolower($row['SRC_OBJ_TYPE']))
-            . "/" . htmlentities(strtolower($row['SRC_OBJ_NAME']))
-            . "-" . htmlentities(strtolower($row['OBJ_TYPE']))
-            . ".html";
+    $wulurl = "http://www.sapdatasheet.org" . ABAP_Navigation::getWulURL($row);
     echoUrl($wulurl);
 
     // Check if the Sitemap is full

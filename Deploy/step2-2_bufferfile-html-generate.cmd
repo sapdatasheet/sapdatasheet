@@ -84,7 +84,7 @@ cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
 FOR /F %%i IN (config-a-x-slash.txt) DO @call:BuffGenerate view  %%i
 
 timeout 60
-exit
+
 
 
 ::----------------------------------------------

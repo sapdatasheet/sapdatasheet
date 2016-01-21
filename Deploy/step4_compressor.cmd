@@ -60,7 +60,7 @@ call:HtmlCompress                                               xml  C:\Data\Bus
 
 
 timeout 60
-exit
+
 
 ::----------------------------------------------
 ::-- Buffer Generate with I18N

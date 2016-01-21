@@ -3,7 +3,7 @@
     <tbody>
         <?php if (empty($wul_counter_list) === FALSE) { ?>
             <?php foreach ($wul_counter_list as $wul_counter_item) { ?>
-                <tr><td class="left_value"><?php echo ABAP_Navigation::GetWulURL($wul_counter_item) ?>&nbsp;</td></tr>
+                <tr><td class="left_value"><?php echo ABAP_Navigation::GetWulURLLink($wul_counter_item) ?>&nbsp;</td></tr>
             <?php } ?>
         <?php } else { ?>
             <tr><td class="left_value">Not Used by Anyone</td></tr>
