@@ -2825,7 +2825,7 @@ class ABAP_DB_TABLE {
         if (ABAP_DB_TABLE::$conn_abap == null) {
             $dsn = 'mysql:host=' . ABAP_DB_CONN::host
                     . ';dbname=' . ABAP_DB_CONN::schema_abap;
-            ABAP_DB_TABLE::$conn_abap = new PDO($dsn, ABAP_DB_CONN::user, ABAP_DB_CONN::pass);
+            ABAP_DB_TABLE::$conn_abap = new PDO($dsn, ABAP_DB_CONN::user, ABAP_DB_CONN::pass, array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
         }
 
         return ABAP_DB_TABLE::$conn_abap;
@@ -2840,7 +2840,7 @@ class ABAP_DB_TABLE {
         if (ABAP_DB_TABLE::$conn_abapana == null) {
             $dsn = 'mysql:host=' . ABAP_DB_CONN::host
                     . ';dbname=' . ABAP_DB_CONN::schema_abap;
-            ABAP_DB_TABLE::$conn_abapana = new PDO($dsn, ABAP_DB_CONN::user, ABAP_DB_CONN::pass);
+            ABAP_DB_TABLE::$conn_abapana = new PDO($dsn, ABAP_DB_CONN::user, ABAP_DB_CONN::pass, array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
         }
 
         return ABAP_DB_TABLE::$conn_abapana;

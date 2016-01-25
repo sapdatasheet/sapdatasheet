@@ -73,10 +73,10 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::DTEL_NAME, $dt
                 <tbody>
                     <?php if (empty($wul_list) === FALSE) { ?>
                         <?php foreach ($wul_list as $wul_item) { ?>
-                            <tr><td><?php echo ABAP_Navigation::GetURLTable($wul_item['TABNAME'], ABAP_DB_TABLE_TABL::DD02T($wul_item['TABNAME'])) ?>&nbsp;</td></tr>
+                            <tr><td class="left_value"><?php echo ABAP_Navigation::GetURLTable($wul_item['TABNAME'], ABAP_DB_TABLE_TABL::DD02T($wul_item['TABNAME'])) ?>&nbsp;</td></tr>
                         <?php } ?>
                     <?php } else { ?>
-                        <tr><td>Not Used by Anyone</td></tr>
+                        <tr><td class="left_value">Not Used by Anyone</td></tr>
                     <?php } ?>
                 </tbody>
             </table>

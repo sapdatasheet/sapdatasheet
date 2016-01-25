@@ -1,0 +1,13 @@
+$TTL	604800
+@	IN	SOA	ns.sapdatasheet.com. root.ns.sapdatasheet.com. ns.sapdatasheet.org. root.ns.sapdatasheet.org. (
+			      1		; Serial
+			 604800		; Refresh
+			  86400		; Retry
+			2419200		; Expire
+			 604800 )	; Negative Cache TTL
+;
+@	IN	NS	ns.
+9	IN	PTR	ns.sapdatasheet.com.
+9	IN	PTR	www.sapdatasheet.com.
+9	IN	PTR	ns.sapdatasheet.org.
+9	IN	PTR	www.sapdatasheet.org.
