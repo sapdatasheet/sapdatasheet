@@ -26,15 +26,10 @@ $category_tx = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SEO::SEOCLASSDF_CATEGORY_
 $package_tx = ABAP_DB_TABLE_HIER::TDEVCT($classdef['CATEGORY']);
 
 $class_tx = htmlentities(ABAP_DB_TABLE_SEO::SEOCLASSTX($ObjID));
-$class_super = ABAP_DB_TABLE_SEO::SEOMETAREL_GetSuperClass($ObjID);
-if (empty($class_super) === FALSE) {
-    $class_super_tx = htmlentities(ABAP_DB_TABLE_SEO::SEOCLASSTX($class_super));
-} else {
-    $class_super_tx = '';
-}
 
 $typepls = ABAP_DB_TABLE_SEO::SEOTYPEPLS($ObjID);
 $interfaces = ABAP_DB_TABLE_SEO::SEOMETAREL($ObjID, ABAP_DB_TABLE_SEO::SEOMETAREL_RELTYPE_ALL);
+$metarel_refs = ABAP_DB_TABLE_SEO::SEOMETAREL_REFCLSNAME($ObjID);
 $friends = ABAP_DB_TABLE_SEO::SEOFRIENDS($ObjID);
 $attributes = ABAP_DB_TABLE_SEO::SEOCOMPO($ObjID, ABAP_DB_TABLE_SEO::SEOCOMPO_CMPTYPE_0);
 $methods = ABAP_DB_TABLE_SEO::SEOCOMPO($ObjID, ABAP_DB_TABLE_SEO::SEOCOMPO_CMPTYPE_1);
@@ -67,11 +62,11 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::INTF_NAME, $Ob
             <table class="content_obj">
                 <tbody>
                     <tr><td>Software Component</td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_Navigation::GetURLSoftComp($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
+                    <tr><td class="left_value"><?php echo ABAP_Navigation::GetURL4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
                     <tr><td class="left_attribute"> Application Component ID</td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_Navigation::GetURLAppComp($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
+                    <tr><td class="left_value"><?php echo ABAP_Navigation::GetURL4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
                     <tr><td class="left_attribute"> Package </td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_Navigation::GetURLPackage($hier->DEVCLASS, $hier->DEVCLASS_T) ?></td></tr>
+                    <tr><td class="left_value"><?php echo ABAP_Navigation::GetURL4Devc($hier->DEVCLASS, $hier->DEVCLASS_T) ?></td></tr>
                     <tr><td class="left_attribute"> Object type </td></tr>
                     <tr><td class="left_value"><a href="/abap/intf/"><?php echo ABAP_OTYPE::INTF_DESC ?></a></td></tr>
                     <tr><td class="left_attribute"> Object name </td></tr>
@@ -100,14 +95,52 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::INTF_NAME, $Ob
                     <?php include $__ROOT__ . '/include/google/adsense-content-top.html' ?>
                 </div>
 
-                <!-- Optional: if the class has super class  -->
-                <h4> Interface Tree </h4>
+                <!-- Meta Relationship (top 50) -->
+                <?php if (empty($metarel_refs) === FALSE) { ?>
+                    <h4> Meta Relationship - Used By </h4>
+                    <table class="alv">
+                        <tr>
+                            <th class="alv"> # </th>
+                            <th class="alv"> Relationship type </th>
+                            <th class="alv"> Used by </th>
+                            <th class="alv"> Short Description </th>
+                            <th class="alv"> Created on</th>
+                        </tr>
+                        <?php
+                        $count = 0;
+                        $metarel_ref_exceeded = FALSE;
+                        foreach ($metarel_refs as $metarel_ref) {
+                            $count++;
+                            if ($count > ABAP_DB_CONST::SEO_METAREL_LIMIT) {
+                                // Avoid too many records at the top section
+                                $metarel_ref_exceeded = TRUE;
+                                break;
+                            }
+
+                            $reltype_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SEO::SEOMETAREL_RELTYPE_DOMAIN, $metarel_ref['RELTYPE']);
+                            $metarel_cls_desc = ABAP_DB_TABLE_SEO::SEOCLASSTX($metarel_ref['CLSNAME']);
+                            ?>
+                            <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                                <td class="alv"><?php echo ABAP_Navigation::GetURL4DomainValue(ABAP_DB_TABLE_SEO::SEOMETAREL_RELTYPE_DOMAIN, $reltype_desc, $metarel_ref['RELTYPE']) ?>&nbsp;</td>
+                                <td class="alv"><?php echo ABAP_Navigation::GetObjectURL(ABAP_OTYPE::SEOC_NAME, $metarel_ref['CLSNAME']) ?></td>
+                                <td class="alv"><?php echo $metarel_cls_desc ?></td>
+                                <td class="alv"><?php echo $metarel_ref['CREATEDON'] ?></td>
+                            </tr>
+                        <?php } ?>
+                        <?php if ($metarel_ref_exceeded === TRUE) { ?>
+                            <tr><td class="alv" style="text-align: right;">...</td>
+                                <td  class="alv" colspan="4">Click <a href="#<?php echo ABAP_UI_CONST::ANCHOR_SEOMETARELFL ?>">here</a> to see Used By full list (<?php echo count($metarel_refs) ?> items)</td>
+                            </tr>
+                        <?php } ?>
+                    </table>
+                <?php } ?>
+
 
                 <h4> Properties </h4>
                 <table class="content_obj">
                     <tbody>
                         <tr><td class="content_label"> Interface </td>
-                            <td class="field"> <?php echo ABAP_Navigation::GetURLInterface($ObjID, $class_tx, FALSE); ?> </td>
+                            <td class="field"> <?php echo ABAP_Navigation::GetURL4Intf($ObjID, $class_tx, FALSE); ?> </td>
                             <td> &nbsp;</td>
                         </tr>
                         <tr><td class="content_label"> Short Description</td>
@@ -121,7 +154,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::INTF_NAME, $Ob
                 <table class="content_obj">
                     <tbody>
                         <tr><td class="content_label"> Package</td>
-                            <td class="field"> <?php echo ABAP_Navigation::GetURLPackage($hier->DEVCLASS, $hier->DEVCLASS_T) ?> &nbsp;</td>
+                            <td class="field"> <?php echo ABAP_Navigation::GetURL4Devc($hier->DEVCLASS, $hier->DEVCLASS_T) ?> &nbsp;</td>
                             <td> <?php echo $hier->DEVCLASS_T ?>&nbsp; </td>
                         </tr>
                         <!--
@@ -160,14 +193,14 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::INTF_NAME, $Ob
                             $count++;
                             $typepl_type_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SEO::SEOTYPEPLS_TPUTYPE_DOMAIN, $typepl['TPUTYPE']);
                             if ($typepl['TPUTYPE'] == ABAP_DB_TABLE_SEO::SEOTYPEPLS_TPUTYPE_1 || $typepl['TPUTYPE'] == ABAP_DB_TABLE_SEO::SEOTYPEPLS_TPUTYPE_2) {
-                                $typepl_type = ABAP_Navigation::GetURLClass($typepl['TYPEGROUP'], NULL);
+                                $typepl_type = ABAP_Navigation::GetURL4Clas($typepl['TYPEGROUP'], NULL);
                             } else {
                                 $typepl_type = $typepl['TYPEGROUP'];
                             }
                             ?>
                             <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
                                 <td class="alv"><?php echo $typepl_type ?></td>
-                                <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOTYPEPLS_TPUTYPE_DOMAIN, $typepl_type_desc, $typepl['TPUTYPE']) ?>&nbsp;</td>
+                                <td class="alv"><?php echo ABAP_Navigation::GetURL4DomainValue(ABAP_DB_TABLE_SEO::SEOTYPEPLS_TPUTYPE_DOMAIN, $typepl_type_desc, $typepl['TPUTYPE']) ?>&nbsp;</td>
                                 <td class="alv"><?php echo $typepl_type_desc ?></td>
                             </tr>
                         <?php } ?>
@@ -194,7 +227,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::INTF_NAME, $Ob
                             $interface_tx = ABAP_DB_TABLE_SEO::SEOCLASSTX($interface['REFCLSNAME']);
                             ?>
                             <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                                <td class="alv"><?php echo ABAP_Navigation::GetURLInterface($interface['REFCLSNAME'], $interface_tx) ?></td>
+                                <td class="alv"><?php echo ABAP_Navigation::GetURL4Intf($interface['REFCLSNAME'], $interface_tx) ?></td>
                                 <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox("IMPABSTRCT", $interface['IMPABSTRCT']) ?></td>
                                 <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox("IMPFINAL", $interface['IMPFINAL']) ?></td>
                                 <td class="alv"><?php echo $interface_tx ?></td>
@@ -224,7 +257,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::INTF_NAME, $Ob
                             $friend_state = ($friend['STATE'] == 1) ? '' : 'X';
                             ?>
                             <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                                <td class="alv"><?php echo ABAP_Navigation::GetURLClass($friend['REFCLSNAME'], $friend_tx) ?></td>
+                                <td class="alv"><?php echo ABAP_Navigation::GetURL4Clas($friend['REFCLSNAME'], $friend_tx) ?></td>
                                 <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox("FRIEND_STATE", $friend_state) ?></td>
                                 <td class="alv"><?php echo $friend['CREATEDON'] ?></td>
                                 <td class="alv"><?php echo $friend_tx ?></td>
@@ -262,17 +295,17 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::INTF_NAME, $Ob
                             ?>
                             <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
                                 <td class="alv"><?php echo $seocomp_df['CMPNAME'] ?></td>
-                                <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_ATTDECLTYP_DOMAIN, $attribute_level_tx, $seocomp_df['ATTDECLTYP']) ?></td>
-                                <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_EXPOSURE_DOMAIN, $seocomp_visibility_tx, $seocomp_df['EXPOSURE']) ?></td>
+                                <td class="alv"><?php echo ABAP_Navigation::GetURL4DomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_ATTDECLTYP_DOMAIN, $attribute_level_tx, $seocomp_df['ATTDECLTYP']) ?></td>
+                                <td class="alv"><?php echo ABAP_Navigation::GetURL4DomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_EXPOSURE_DOMAIN, $seocomp_visibility_tx, $seocomp_df['EXPOSURE']) ?></td>
                                 <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox('ATTRDONLY', $seocomp_df['ATTRDONLY']) ?></td>
-                                <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_TYPTYPE_DOMAIN, $seocomp_typing_tx, $seocomp_df['TYPTYPE']) ?></td>
+                                <td class="alv"><?php echo ABAP_Navigation::GetURL4DomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_TYPTYPE_DOMAIN, $seocomp_typing_tx, $seocomp_df['TYPTYPE']) ?></td>
                                 <td class="alv"><?php
                                     if ($seocomp_df['TYPTYPE'] == ABAP_DB_TABLE_SEO::SEOCOMPODF_TYPTYPE_3) {
                                         $clstype = ABAP_DB_TABLE_SEO::SEOCLASS($seocomp_df['TYPE']);
                                         if ($clstype['CLSTYPE'] == ABAP_DB_TABLE_SEO::SEOCLASS_CLSTYPE_CLAS) {
-                                            echo ABAP_Navigation::GetURLClass($seocomp_df['TYPE'], NULL);
+                                            echo ABAP_Navigation::GetURL4Clas($seocomp_df['TYPE'], NULL);
                                         } else {
-                                            echo ABAP_Navigation::GetURLInterface($seocomp_df['TYPE'], NULL);
+                                            echo ABAP_Navigation::GetURL4Intf($seocomp_df['TYPE'], NULL);
                                         }
                                     } else {
                                         echo $seocomp_df['TYPE'];
@@ -312,9 +345,9 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::INTF_NAME, $Ob
                             ?>
                             <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
                                 <td class="alv"><a href="#<?php echo ABAP_UI_TOOL::GetClassMethodAnchorName($seocomp_df['CMPNAME']) ?>"><?php echo $seocomp_df['CMPNAME'] ?></a></td>
-                                <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_MTDDECLTYP_DOMAIN, $method_level_tx, $seocomp_df['MTDDECLTYP']) ?></td>
-                                <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_EXPOSURE_DOMAIN, $seocomp_visibility_tx, $seocomp_df['EXPOSURE']) ?></td>
-                                <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOCOMPO_MTDTYPE_DOMAIN, $method_type_tx, $method['MTDTYPE']) ?></td>
+                                <td class="alv"><?php echo ABAP_Navigation::GetURL4DomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_MTDDECLTYP_DOMAIN, $method_level_tx, $seocomp_df['MTDDECLTYP']) ?></td>
+                                <td class="alv"><?php echo ABAP_Navigation::GetURL4DomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_EXPOSURE_DOMAIN, $seocomp_visibility_tx, $seocomp_df['EXPOSURE']) ?></td>
+                                <td class="alv"><?php echo ABAP_Navigation::GetURL4DomainValue(ABAP_DB_TABLE_SEO::SEOCOMPO_MTDTYPE_DOMAIN, $method_type_tx, $method['MTDTYPE']) ?></td>
                                 <td class="alv"><?php echo $seocomp_tx ?></td>
                                 <td class="alv"><?php echo $seocomp_df['CREATEDON'] ?></td>
                             </tr>
@@ -348,10 +381,10 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::INTF_NAME, $Ob
                             <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
                                 <td class="alv"><a href="#<?php echo ABAP_UI_TOOL::GetClassMethodAnchorName($seocomp_df['CMPNAME']) ?>"><?php echo $seocomp_df['CMPNAME'] ?></a></td>
                                 <td class="alv"><?php echo $event_type_tx ?>
-                                    <br/>(<?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_EVTDECLTYP_DOMAIN, $seocomp_df['EVTDECLTYP'], $method_level_tx) ?>)
+                                    <br/>(<?php echo ABAP_Navigation::GetURL4DomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_EVTDECLTYP_DOMAIN, $seocomp_df['EVTDECLTYP'], $method_level_tx) ?>)
                                 </td>
                                 <td class="alv"><?php echo $seocomp_visibility_tx ?>
-                                    <br/>(<?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_EXPOSURE_DOMAIN, $seocomp_df['EXPOSURE'], $seocomp_visibility_tx) ?>)
+                                    <br/>(<?php echo ABAP_Navigation::GetURL4DomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_EXPOSURE_DOMAIN, $seocomp_df['EXPOSURE'], $seocomp_visibility_tx) ?>)
                                 </td>
                                 <td class="alv"><?php echo $seocomp_tx ?></td>
                                 <td class="alv"><?php echo $seocomp_df['CREATEDON'] ?></td>
@@ -387,8 +420,8 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::INTF_NAME, $Ob
                             ?>
                             <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
                                 <td class="alv"><?php echo $seocomp_df['CMPNAME'] ?></td>
-                                <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_EXPOSURE_DOMAIN, $seocomp_visibility_tx, $seocomp_df['EXPOSURE']) ?></td>
-                                <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_TYPTYPE_DOMAIN, $seocomp_typing_tx, $seocomp_df['TYPTYPE']) ?></td>
+                                <td class="alv"><?php echo ABAP_Navigation::GetURL4DomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_EXPOSURE_DOMAIN, $seocomp_visibility_tx, $seocomp_df['EXPOSURE']) ?></td>
+                                <td class="alv"><?php echo ABAP_Navigation::GetURL4DomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_TYPTYPE_DOMAIN, $seocomp_typing_tx, $seocomp_df['TYPTYPE']) ?></td>
                                 <td class="alv"><?php echo $seocomp_df['TYPE']; ?></td>
                                 <td class="alv"><?php echo $seocomp_tx ?></td>
                                 <td class="alv"><?php echo $seocomp_df['CREATEDON'] ?></td>
@@ -401,7 +434,6 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::INTF_NAME, $Ob
                 <?php } ?>
 
                 <!-- <h4> Alias </h4> -->
-
                 <?php if (empty($methods) === FALSE) { ?>
                     <h4> Method Signatures </h4>
                     <?php
@@ -436,10 +468,10 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::INTF_NAME, $Ob
                                     ?>
                                     <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
                                         <td class="alv"><?php echo $method_para['SCONAME'] ?></td>
-                                        <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOSUBCODF_PARDECLTYP_DOMAIN, $subco_decltype_tx, $subco_df['PARDECLTYP']) ?></td>
-                                        <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOSUBCODF_PARPASSTYP_DOMAIN, $subco_passvalue_tx, $subco_df['PARPASSTYP']) ?></td>
+                                        <td class="alv"><?php echo ABAP_Navigation::GetURL4DomainValue(ABAP_DB_TABLE_SEO::SEOSUBCODF_PARDECLTYP_DOMAIN, $subco_decltype_tx, $subco_df['PARDECLTYP']) ?></td>
+                                        <td class="alv"><?php echo ABAP_Navigation::GetURL4DomainValue(ABAP_DB_TABLE_SEO::SEOSUBCODF_PARPASSTYP_DOMAIN, $subco_passvalue_tx, $subco_df['PARPASSTYP']) ?></td>
                                         <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox('PAROPTIONL', $subco_df['PAROPTIONL']) ?></td>
-                                        <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOSUBCODF_TYPTYPE_DOMAIN, $subco_typing_tx, $subco_df['TYPTYPE']) ?></td>
+                                        <td class="alv"><?php echo ABAP_Navigation::GetURL4DomainValue(ABAP_DB_TABLE_SEO::SEOSUBCODF_TYPTYPE_DOMAIN, $subco_typing_tx, $subco_df['TYPTYPE']) ?></td>
                                         <td class="alv"><?php echo $subco_df['TYPE'] ?></td>
                                         <td class="alv"><?php echo $subco_df['PARVALUE'] ?></td>
                                         <td class="alv"><?php echo $subco_tx ?></td>
@@ -472,7 +504,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::INTF_NAME, $Ob
                                     $subco_typing_tx = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SEO::SEOSUBCODF_TYPTYPE_DOMAIN, $subco_df['TYPTYPE']);
                                     ?>
                                     <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                                        <td class="alv"><?php echo ABAP_Navigation::GetURLClass($method_para['SCONAME'], $subco_tx) ?></td>
+                                        <td class="alv"><?php echo ABAP_Navigation::GetURL4Clas($method_para['SCONAME'], $subco_tx) ?></td>
                                         <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox('IS_RESUMABLE', $subco_df['IS_RESUMABLE']) ?></td>
                                         <td class="alv"><?php echo $subco_tx ?></td>
                                         <td class="alv"><?php echo $subco_df['CREATEDON'] ?></td>
@@ -519,10 +551,10 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::INTF_NAME, $Ob
                                     ?>
                                     <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
                                         <td class="alv"><?php echo $event_para['SCONAME'] ?></td>
-                                        <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOSUBCODF_PARDECLTYP_DOMAIN, $subco_decltype_tx, $subco_df['PARDECLTYP']) ?></td>
-                                        <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOSUBCODF_PARPASSTYP_DOMAIN, $subco_passvalue_tx, $subco_df['PARPASSTYP']) ?></td>
+                                        <td class="alv"><?php echo ABAP_Navigation::GetURL4DomainValue(ABAP_DB_TABLE_SEO::SEOSUBCODF_PARDECLTYP_DOMAIN, $subco_decltype_tx, $subco_df['PARDECLTYP']) ?></td>
+                                        <td class="alv"><?php echo ABAP_Navigation::GetURL4DomainValue(ABAP_DB_TABLE_SEO::SEOSUBCODF_PARPASSTYP_DOMAIN, $subco_passvalue_tx, $subco_df['PARPASSTYP']) ?></td>
                                         <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox('PAROPTIONL', $subco_df['PAROPTIONL']) ?></td>
-                                        <td class="alv"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_TABLE_SEO::SEOSUBCODF_TYPTYPE_DOMAIN, $subco_typing_tx, $subco_df['TYPTYPE']) ?></td>
+                                        <td class="alv"><?php echo ABAP_Navigation::GetURL4DomainValue(ABAP_DB_TABLE_SEO::SEOSUBCODF_TYPTYPE_DOMAIN, $subco_typing_tx, $subco_df['TYPTYPE']) ?></td>
                                         <td class="alv"><?php echo $subco_df['TYPE'] ?></td>
                                         <td class="alv"><?php echo $subco_df['PARVALUE'] ?></td>
                                         <td class="alv"><?php echo $subco_tx ?></td>
@@ -537,14 +569,43 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::INTF_NAME, $Ob
                     <?php } ?>
                 <?php } ?>
 
+                <?php if (isset($metarel_ref_exceeded) && $metarel_ref_exceeded === TRUE) { ?>
+                    <h4> Meta Relationship - Used By (full list) </h4>
+                    <a id="<?php echo ABAP_UI_CONST::ANCHOR_SEOMETARELFL ?>"></a>
+                    <table class="alv">
+                        <tr>
+                            <th class="alv"> # </th>
+                            <th class="alv"> Relationship type </th>
+                            <th class="alv"> Used by </th>
+                            <th class="alv"> Short Description </th>
+                            <th class="alv"> Created on</th>
+                        </tr>
+                        <?php
+                        $count = 0;
+                        foreach ($metarel_refs as $metarel_ref) {
+                            $count++;
+                            $reltype_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SEO::SEOMETAREL_RELTYPE_DOMAIN, $metarel_ref['RELTYPE']);
+                            $metarel_cls_desc = ABAP_DB_TABLE_SEO::SEOCLASSTX($metarel_ref['CLSNAME']);
+                            ?>
+                            <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                                <td class="alv"><?php echo ABAP_Navigation::GetURL4DomainValue(ABAP_DB_TABLE_SEO::SEOMETAREL_RELTYPE_DOMAIN, $reltype_desc, $metarel_ref['RELTYPE']) ?>&nbsp;</td>
+                                <td class="alv"><?php echo ABAP_Navigation::GetObjectURL(ABAP_OTYPE::SEOC_NAME, $metarel_ref['CLSNAME']) ?></td>
+                                <td class="alv"><?php echo $metarel_cls_desc ?></td>
+                                <td class="alv"><?php echo $metarel_ref['CREATEDON'] ?></td>
+                            </tr>
+                        <?php } ?>
+                    </table>
+
+                <?php } ?>
+
                 <h4> Hierarchy </h4>
                 <table class="content_obj">
                     <tbody>
                         <tr><td class="content_label"> Last changed by/on      </td><td class="field"><?php echo $classdef['AUTHOR'] ?>&nbsp;</td><td> <?php echo $classdef['CHANGEDON'] ?>&nbsp;</td></tr>
-                        <tr><td class="content_label"> Software Component      </td><td class="field"><?php echo ABAP_Navigation::GetURLSoftComp($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td><td> <?php echo $hier->DLVUNIT_T ?>&nbsp;</td></tr>
+                        <tr><td class="content_label"> Software Component      </td><td class="field"><?php echo ABAP_Navigation::GetURL4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td><td> <?php echo $hier->DLVUNIT_T ?>&nbsp;</td></tr>
                         <tr><td class="content_label"> SAP Release Created in  </td><td class="field"><?php echo $hier->CRELEASE ?>&nbsp;</td><td>&nbsp;</td></tr>
-                        <tr><td class="content_label"> Application Component   </td><td class="field"><?php echo ABAP_Navigation::GetURLAppComp($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;(<?php echo $hier->FCTR_ID ?>)</td><td> <?php echo $hier->POSID_T ?>&nbsp;</td></tr>
-                        <tr><td class="content_label"> Package                 </td><td class="field"><?php echo ABAP_Navigation::GetURLPackage($hier->DEVCLASS, $hier->DEVCLASS_T) ?>&nbsp;</td><td> <?php echo $hier->DEVCLASS_T ?>&nbsp;</td></tr>
+                        <tr><td class="content_label"> Application Component   </td><td class="field"><?php echo ABAP_Navigation::GetURL4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;(<?php echo $hier->FCTR_ID ?>)</td><td> <?php echo $hier->POSID_T ?>&nbsp;</td></tr>
+                        <tr><td class="content_label"> Package                 </td><td class="field"><?php echo ABAP_Navigation::GetURL4Devc($hier->DEVCLASS, $hier->DEVCLASS_T) ?>&nbsp;</td><td> <?php echo $hier->DEVCLASS_T ?>&nbsp;</td></tr>
                     </tbody>
                 </table>
             </div>

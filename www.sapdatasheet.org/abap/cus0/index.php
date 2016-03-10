@@ -97,9 +97,9 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::CUS0_DESC . " - Index " . $in
                             <th class="alv"> Short Description </th>
                         </tr>
                         <tr>
-                            <th class="alv"> <?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
+                            <th class="alv"> <?php echo ABAP_Navigation::GetURL4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
                             <th class="alv"> &nbsp; </th>
-                            <th class="alv"> <?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_CUS0::CUS_IMGACH_TCODE_DTEL, '?') ?></th>
+                            <th class="alv"> <?php echo ABAP_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_CUS0::CUS_IMGACH_TCODE_DTEL, '?') ?></th>
                             <th class="alv"> &nbsp; </th>
                         </tr>
                         <?php
@@ -110,8 +110,8 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::CUS0_DESC . " - Index " . $in
                             $img_desc = ABAP_DB_TABLE_CUS0::CUS_IMGACT($img['ACTIVITY']);
                             ?>
                             <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                                <td class="alv"><?php echo ABAP_Navigation::GetURLSproIMGActivity($img['ACTIVITY'], $img_desc, TRUE) ?> </td>
-                                <td class="alv"><?php echo ABAP_Navigation::GetURLTransactionCode($img['TCODE'], '', TRUE) ?> </td>
+                                <td class="alv"><?php echo ABAP_Navigation::GetURL4Cus0IMGActivity($img['ACTIVITY'], $img_desc, TRUE) ?> </td>
+                                <td class="alv"><?php echo ABAP_Navigation::GetURL4Tran($img['TCODE'], '', TRUE) ?> </td>
                                 <td class="alv"><?php echo htmlentities($img_desc) ?>&nbsp;</td>
                             </tr>
                         <?php } ?>

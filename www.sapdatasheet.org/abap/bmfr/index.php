@@ -112,12 +112,12 @@ $bmfr = ABAP_DB_TABLE_HIER::DF14L_List($index);
                         <th class="alv"> Application Component </th>
                     </tr>
                     <tr>
-                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_HIER::DF14L_PS_POSID_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURL4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_HIER::DF14L_PS_POSID_DTEL, '?') ?></th>
                         <th class="alv"> &nbsp; </th>
-                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_HIER::DF14L_FSTDATE_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_HIER::DF14L_FSTDATE_DTEL, '?') ?></th>
                         <th class="alv"> &nbsp; </th>
-                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_HIER::DF14L_FCTR_ID_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_HIER::DF14L_FCTR_ID_DTEL, '?') ?></th>
                     </tr>
                     <?php
                     $count = 0;
@@ -126,7 +126,7 @@ $bmfr = ABAP_DB_TABLE_HIER::DF14L_List($index);
                         $bmfr_desc = ABAP_DB_TABLE_HIER::DF14T($row['FCTR_ID']);
                         ?>
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                            <td class="alv"><?php echo ABAP_Navigation::GetURLAppComp($row['FCTR_ID'], $row['PS_POSID'], $bmfr_desc); ?> </td>
+                            <td class="alv"><?php echo ABAP_Navigation::GetURL4Bmfr($row['FCTR_ID'], $row['PS_POSID'], $bmfr_desc); ?> </td>
                             <td class="alv"><?php echo htmlentities($bmfr_desc) ?></td>
                             <td class="alv"><?php echo $row['FSTDATE'] ?></td>
                             <td class="alv"><?php echo $row['RELE'] ?></td>

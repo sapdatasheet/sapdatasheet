@@ -16,6 +16,7 @@ class ABAP_DB_CONST {
     const INDEX_SEQNO_DTEL = 'SEQNZ';          // Data Element for Sequence Number
     const USED_BY_LIMIT_DOMA = 15;
     const USED_BY_LIMIT_DTEL = 40;
+    const SEO_METAREL_LIMIT = 10;
     const LANGU_EN = "E";
     const LANGU_DE = "D";
     const FLAG_TRUE = "X";
@@ -1778,13 +1779,14 @@ class ABAP_DB_TABLE_SEO {
     const SEOCOMPOTX = 'seocompotx';
     const SEOFRIENDS = 'seofriends';
     const SEOMETAREL = 'seometarel';
-    const SEOMETAREL_RELTYPE_ALL = -1;                      // All types
+    const SEOMETAREL_RELTYPE_DOMAIN = 'SEORELTYPE';      // Relationship type between classes
+    const SEOMETAREL_RELTYPE_ALL = -1;                   // All types
     const SEOMETAREL_RELTYPE_0 = 0;                      // Interface composition    (i COMPRISING i_ref)
     const SEOMETAREL_RELTYPE_1 = 1;                      // Interface implementation (CLASS c. INTERFACES i_ref)
     const SEOMETAREL_RELTYPE_2 = 2;                      // Inheritance              (c INHERITING FROM c_ref)
     const SEOSUBCO = 'seosubco';
-    const SEOSUBCO_SCOTYPE_0 = 0;                      // Parameters
-    const SEOSUBCO_SCOTYPE_1 = 1;                      // Exception
+    const SEOSUBCO_SCOTYPE_0 = 0;                        // Parameters
+    const SEOSUBCO_SCOTYPE_1 = 1;                        // Exception
     const SEOSUBCODF = 'seosubcodf';
     const SEOSUBCODF_PARDECLTYP_DOMAIN = 'SEOPARDECL';
     const SEOSUBCODF_PARPASSTYP_DOMAIN = 'SEOPARPASS';
@@ -1913,6 +1915,15 @@ class ABAP_DB_TABLE_SEO {
             );
         }
         return ABAP_DB_TABLE::select($sql, $paras);
+    }
+
+    /**
+     * Class/Interface is used by list.
+     */
+    public static function SEOMETAREL_REFCLSNAME($refclsname) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_SEO::SEOMETAREL
+                . ' where `REFCLSNAME` = :id order by RELTYPE';
+        return ABAP_DB_TABLE::select_1filter($sql, $refclsname);
     }
 
     /**

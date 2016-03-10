@@ -99,8 +99,16 @@ if ($requri === '/wp/wp-admin/' || $requri === '/wp-admin/' || $requri === '/tes
     $target = 'abap/msag/index.php';
 } else if (GLOBAL_UTIL::StartsWith($requri, '/abap/msag/') && GLOBAL_UTIL::EndsWith($requri, '.html')) {
     $MsagURI = substr($requri, 11, -5);
-    if (strpos($MsagURI, '-') !== false) {
-        list($ObjID, $MsgNr) = explode('-', $MsagURI, 2);
+    if (GLOBAL_UTIL::EndsWith($MsagURI, '-')) {
+        // In case the message class name ends with '-'. Example: 'C-'
+        $ObjID = $MsagURI;
+        $target = 'abap/msag/msag.php';
+    } else if (strpos($MsagURI, '-') !== false) {
+        // We cannot use explode(), becaus we have the case: 'C--041', where 'C-' is the message class
+        //list($ObjID, $MsgNr) = explode('-', $MsagURI, 2);
+        $lastpos_msgnr = strrpos($MsagURI, '-');
+        $ObjID = substr($MsagURI, 0, $lastpos_msgnr);
+        $MsgNr = substr($MsagURI, $lastpos_msgnr + 1);
         $target = 'abap/msag/msgnr.php';
     } else {
         $ObjID = $MsagURI;
@@ -121,8 +129,6 @@ if ($requri === '/wp/wp-admin/' || $requri === '/wp-admin/' || $requri === '/tes
             break;
         }
     }
-
-
 } else if ($requri === '/wul/abap/') {
     $index = 1;
     $target = 'wul/abap/index.php';
@@ -195,21 +201,28 @@ if ($requri === '/wp/wp-admin/' || $requri === '/wp-admin/' || $requri === '/tes
             $target = 'wul/abap/wul.php';
         }
 
-/*
-        echo '$dpSrcOType  = ' . $dpSrcOType . '<br />';
-        echo '$dpMiddle    = ' . $dpMiddle . '<br />';
-        echo '$dpSrcOName  = ' . $dpSrcOName . '<br />';
-        echo '$dpSrcSubobj = ' . $dpSrcSubobj . '<br />';
-        echo '$dpOType     = ' . $dpOType . '<br />';
-        echo '$dpPage      = ' . $dpPage . '<br />';
-        echo '$target      = ' . $target . '<br />';
-        // exit();
-*/
+        /*
+          echo '$dpSrcOType  = ' . $dpSrcOType . '<br />';
+          echo '$dpMiddle    = ' . $dpMiddle . '<br />';
+          echo '$dpSrcOName  = ' . $dpSrcOName . '<br />';
+          echo '$dpSrcSubobj = ' . $dpSrcSubobj . '<br />';
+          echo '$dpOType     = ' . $dpOType . '<br />';
+          echo '$dpPage      = ' . $dpPage . '<br />';
+          echo '$target      = ' . $target . '<br />';
+          // exit();
+         */
     }
 }
 
 if (!isset($target)) {
     $target = 'page404.php';
+}
+
+// Decode object-id in case of spcial characters
+if (empty($ObjID) === FALSE) {
+    if (GLOBAL_UTIL::Contains($ObjID, '%')) {
+        $ObjID = urldecode($ObjID);
+    }
 }
 
 // Logging

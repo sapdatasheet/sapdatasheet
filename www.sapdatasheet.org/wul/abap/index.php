@@ -94,8 +94,8 @@ $list = ABAPANA_DB_TABLE::COUNTER_Index($index);
                         <th class="alv">ABAP Type</th>
                     </tr>
                     <tr>
-                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument('TROBJTYPE', '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURL4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURL4DtelDocument('TROBJTYPE', '?') ?></th>
                         <th class="alv">&nbsp;</th>
                         <th class="alv">&nbsp;</th>
                     </tr>

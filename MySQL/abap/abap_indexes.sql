@@ -18,6 +18,10 @@ CREATE INDEX tdevc_dlvunit on abap.tdevc(dlvunit);
 DROP   INDEX tdevc_component on abap.tdevc;
 CREATE INDEX tdevc_component on abap.tdevc(component);
 
+-- SEO (Class & Interface)
+DROP   INDEX seometarel_refclsname on abap.seometarel;
+CREATE INDEX seometarel_refclsname on abap.seometarel(refclsname);
+
 -- ABAP_DB_TABLE_TABL.DD02L_List(...)
 DROP   INDEX tdevc_tabclass on abap.dd02l;
 CREATE INDEX tdevc_tabclass on abap.dd02l(tabclass);

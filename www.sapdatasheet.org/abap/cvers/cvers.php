@@ -43,7 +43,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::CVERS_NAME, $c
             <table class="content_obj">
                 <tbody>
                     <tr><td>Software Component</td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_Navigation::GetURLSoftComp($cvers['COMPONENT'], $cvers_desc) ?>&nbsp;</td></tr>
+                    <tr><td class="left_value"><?php echo ABAP_Navigation::GetURL4Cvers($cvers['COMPONENT'], $cvers_desc) ?>&nbsp;</td></tr>
                 </tbody>
             </table>
             <h5>Top Level Application Component</h5>
@@ -56,7 +56,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::CVERS_NAME, $c
                             if ($l1_bmfr['LEVEL'] <= 2) {
                                 $l1_bmfr_desc = ABAP_DB_TABLE_HIER::DF14T($l1_bmfr['FCTR_ID']);
                                 ?>
-                                <tr><td class="left_value"><?php echo ABAP_Navigation::GetURLAppComp($l1_bmfr['FCTR_ID'], $l1_bmfr['PS_POSID'], $l1_bmfr_desc) ?> </td></tr>
+                                <tr><td class="left_value"><?php echo ABAP_Navigation::GetURL4Bmfr($l1_bmfr['FCTR_ID'], $l1_bmfr['PS_POSID'], $l1_bmfr_desc) ?> </td></tr>
                                 <?php
                             }
                         }
@@ -91,7 +91,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::CVERS_NAME, $c
                         <tr><td class="content_label"> Software Component </td><td class="field"><?php echo $cvers['COMPONENT'] ?> &nbsp;</td><td>&nbsp;</td></tr>
                         <tr><td class="content_label"> Short Description  </td><td class="field"><?php echo htmlentities($cvers_desc) ?> &nbsp;</td><td>&nbsp;</td></tr>
                         <tr><td class="content_label"> Component type     </td>
-                            <td class="field"><?php echo ABAP_Navigation::GetURLDomainValue(ABAP_DB_CONST::DOMAIN_TADIR_COMP_TYPE, $cvers['COMP_TYPE'], $cvers_comp_type_desc) ?>&nbsp;</td>
+                            <td class="field"><?php echo ABAP_Navigation::GetURL4DomainValue(ABAP_DB_CONST::DOMAIN_TADIR_COMP_TYPE, $cvers['COMP_TYPE'], $cvers_comp_type_desc) ?>&nbsp;</td>
                             <td><?php echo $cvers_comp_type_desc ?>&nbsp;</td></tr>
                     </tbody>
                 </table><!-- Basic Data: End -->
@@ -111,7 +111,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::CVERS_NAME, $c
                             foreach ($child_bmfr_item_s as $appcomp_item) {
                                 $appcomp_desc = ABAP_DB_TABLE_HIER::DF14T($appcomp_item['FCTR_ID']);
                                 ?>
-                                <tr><td class="alv"><?php echo ABAP_Navigation::GetURLAppComp($appcomp_item['FCTR_ID'], $appcomp_item['PS_POSID'], $appcomp_desc) ?></td>
+                                <tr><td class="alv"><?php echo ABAP_Navigation::GetURL4Bmfr($appcomp_item['FCTR_ID'], $appcomp_item['PS_POSID'], $appcomp_desc) ?></td>
                                     <td class="alv"><?php echo $appcomp_item['FCTR_ID'] ?></td>
                                     <td class="alv"><?php echo htmlentities($appcomp_desc) ?>&nbsp;</td></tr>
                                     <?php

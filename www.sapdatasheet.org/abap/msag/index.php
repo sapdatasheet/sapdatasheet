@@ -71,10 +71,10 @@ $msag_list = ABAP_DB_TABLE_MSAG::T100A_List();
                         <th class="alv"> Package </th>
                     </tr>
                     <tr>
-                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_MSAG::T100A_ARBGB_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_MSAG::T100T_STEXT_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_Navigation::GetURLDtelDocument(ABAP_DB_TABLE_HIER::TADIR_DEVCLASS_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURL4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_MSAG::T100A_ARBGB_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_MSAG::T100T_STEXT_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_HIER::TADIR_DEVCLASS_DTEL, '?') ?></th>
                     </tr>
                     <?php
                     $count = 0;
@@ -84,9 +84,9 @@ $msag_list = ABAP_DB_TABLE_MSAG::T100A_List();
                         $tadir = ABAP_DB_TABLE_HIER::TADIR(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::MSAG_NAME, $msag['ARBGB']);
                         ?>
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                            <td class="alv"><?php echo ABAP_Navigation::GetURLMessageClass($msag['ARBGB'], $msag_t) ?></td>
+                            <td class="alv"><?php echo ABAP_Navigation::GetURL4Msag($msag['ARBGB'], $msag_t) ?></td>
                             <td class="alv"><?php echo $msag_t ?></td>
-                            <td class="alv"><?php echo ABAP_Navigation::GetURLPackage($tadir['DEVCLASS'], NULL) ?>&nbsp;</td>
+                            <td class="alv"><?php echo ABAP_Navigation::GetURL4Devc($tadir['DEVCLASS'], NULL) ?>&nbsp;</td>
                         </tr>
                     <?php } ?>
                 </table>

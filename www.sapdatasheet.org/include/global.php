@@ -49,6 +49,8 @@ class ABAP_OTYPE {
     const MSAG_DESC = 'Message Class';
     const PROG_NAME = 'PROG';
     const PROG_DESC = 'Program';
+    const SEOC_NAME = 'SEOC';                     // Dummy Type for SEO Class/Interface
+    const SEOC_DESC = 'Class or Interface';       // Dummy Type for SEO Class/Interface
     const SQLT_NAME = 'SQLT';
     const SQLT_DESC = 'Table Cluster/Pool';
     const TABL_NAME = 'TABL';
@@ -65,7 +67,6 @@ class ABAP_OTYPE {
     const PFCG_DESC = 'Role';
     const RZ10_NAME = 'RZ10';
     const RZ10_DESC = 'NetWeaver Profile';
-
     const DTF_NAME = 'DTF';
     const DTF_DESC = 'Table/Structure Field';
     const NN_NAME = 'NN';
@@ -96,7 +97,7 @@ class ABAP_OTYPE {
         ABAP_OTYPE::TRAN_NAME => ABAP_OTYPE::TRAN_DESC,
         ABAP_OTYPE::VIEW_NAME => ABAP_OTYPE::VIEW_DESC,
     );
-    
+
     /**
      * Other object types.
      */
@@ -189,7 +190,21 @@ class GLOBAL_UTIL {
     const SAP_DESC_LANGU = 'SAP_DESC_LANGU';
 
     /**
-     * Source: http://stackoverflow.com/questions/834303/startswith-and-endswith-functions-in-php/834355#834355
+     * Check if an string contains a needle.
+     * 
+     * @return BOOLEAN TRUE if the string conains the needle, else return FALSE
+     * @link http://stackoverflow.com/questions/4366730/check-if-string-contains-specific-words
+     */
+    public static function Contains($haystack, $needle) {
+        if (strpos($haystack, $needle) !== false) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
+    /**
+     * @link http://stackoverflow.com/questions/834303/startswith-and-endswith-functions-in-php/834355#834355
      */
     public static function StartsWith($haystack, $needle) {
         $length = strlen($needle);
@@ -197,7 +212,7 @@ class GLOBAL_UTIL {
     }
 
     /**
-     * Source: http://stackoverflow.com/questions/834303/startswith-and-endswith-functions-in-php/834355#834355
+     * @link http://stackoverflow.com/questions/834303/startswith-and-endswith-functions-in-php/834355#834355
      */
     public static function EndsWith($haystack, $needle) {
         $length = strlen($needle);

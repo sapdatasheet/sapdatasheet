@@ -19,14 +19,18 @@ for ($i = 1; $i <= $file_count; $i++) {
     foreach ($fugr as $row) {
         $abapurl_obj = htmlentities(strtolower($row['OBJ_NAME']), ENT_QUOTES, "UTF-8");
         if (strlen(trim($abapurl_obj)) > 0) {
-            $abapurl = "http://www.sapdatasheet.org/abap/fugr/" . $abapurl_obj . ".html";
+            $prog = ABAP_DB_TABLE_PROG::GET_PROG_FUGR($row['OBJ_NAME']);
+            $prog_meta = ABAP_DB_TABLE_PROG::YREPOSRCMETA(strtoupper($prog));
+            if (!empty($prog_meta['PROGNAME'])) {
+                $abapurl = "http://www.sapdatasheet.org/abap/prog/" . strtolower($prog) . ".html";
 
-            echo '<url>';
-            echo '<loc>' . $abapurl . '</loc>';
-            echo '<changefreq>yearly</changefreq>';
-            echo '<priority>0.6</priority>';
-            echo '</url>';
-            echo "\r\n";
+                echo '<url>';
+                echo '<loc>' . $abapurl . '</loc>';
+                echo '<changefreq>yearly</changefreq>';
+                echo '<priority>0.6</priority>';
+                echo '</url>';
+                echo "\r\n";
+            }
         }
 
         $j++;

@@ -32,7 +32,7 @@
             <td>
                 <div class="headertxt"><a class="headertxt" href="/">
                         <img src="/sapdatasheet-middle.png"  alt="SAP Datasheet logo - Middle" />
-                        <span><?php // echo  WEBSITE::NAME                ?></span>
+                        <span><?php // echo  WEBSITE::NAME                  ?></span>
                     </a></div>
                 <div class="headertxtsub"><span><?php echo WEBSITE::DESC ?></span></div>
             </td>
@@ -81,9 +81,21 @@
                     <li><a href="/abap/prog/">Program</a></li>
                 </ul>
             </li>
-            <li><a href="/abap/tran/">Transaction Code</a></li>
-            <li><a href="/abap/cus0/">IMG Activity</a></li>
-            <li><a href="/abap/msag/">Message Class</a></li>
+            <li>
+                <a href="#">References <span class="arrow">&#9660;</span></a>
+                <ul class="sub-menu">
+                    <li><a href="/wul/abap/">Where Used List</a></li>
+                    <li><a href="/wil/abap/">Where Using List</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Entrance <span class="arrow">&#9660;</span></a>
+                <ul class="sub-menu">
+                    <li><a href="/abap/tran/">Transaction Code</a></li>
+                    <li><a href="/abap/cus0/">IMG Activity</a></li>
+                    <li><a href="/abap/msag/">Message Class</a></li>
+                </ul>
+            </li>
         </ul>
     </nav>
 </div>
