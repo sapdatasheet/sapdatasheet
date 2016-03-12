@@ -27,7 +27,10 @@ $reposrc_ldbname_desc = ABAP_DB_TABLE_PROG::LDBT($prog['LDBNAME']);
 $tcode_list = ABAP_DB_TABLE_TRAN::TSTC_PGMNA($prog['PROGNAME']);
 $dynr_list = ABAP_DB_TABLE_PROG::D020S_PROG($prog['PROGNAME']);
 
-$wul_counter_list = ABAPANA_DB_TABLE::COUNTER_List(ABAP_OTYPE::PROG_NAME, $prog['PROGNAME']);
+$wul_counter_list = ABAPANA_DB_TABLE::WULCOUNTER_List(ABAP_OTYPE::PROG_NAME, $prog['PROGNAME']);
+$wil_enabled = TRUE;
+$wil_counter_list = ABAPANA_DB_TABLE::WILCOUNTER_List(ABAP_OTYPE::PROG_NAME, $prog['PROGNAME']);
+
 $hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::PROG_NAME, $prog['PROGNAME']);
 $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::PROG_NAME, $prog['PROGNAME']);
 ?>

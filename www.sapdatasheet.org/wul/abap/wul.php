@@ -14,9 +14,9 @@ GLOBAL_UTIL::UpdateSAPDescLangu();
 //   $dpOType            - Target Object Type
 //   $dpPage             - Target Result Page Number, in case there are too many results
 
-$counter_list = ABAPANA_DB_TABLE::COUNTER_List($dpSrcOType, $dpSrcOName, $dpSrcSubobj);
-$counter_value = ABAPANA_DB_TABLE::COUNTER($dpSrcOType, $dpSrcOName, $dpOType, $dpSrcSubobj);
-$wul_list = ABAP_DB_TABLE_WUL::YWUL($dpSrcOType, $dpSrcOName, $dpSrcSubobj, $dpOType, $dpPage);
+$counter_list = ABAPANA_DB_TABLE::WULCOUNTER_List($dpSrcOType, $dpSrcOName, $dpSrcSubobj);
+$counter_value = ABAPANA_DB_TABLE::WULCOUNTER($dpSrcOType, $dpSrcOName, $dpOType, $dpSrcSubobj);
+$wul_list = ABAP_DB_TABLE_CREF::YWUL($dpSrcOType, $dpSrcOName, $dpSrcSubobj, $dpOType, $dpPage);
 
 $srcObjDesc = ABAP_UI_TOOL::GetObjectDescr($dpSrcOType, $dpSrcOName);
 $title_name = ABAP_UI_TOOL::GetObjectTitle($dpSrcOType, $dpSrcOName, $dpMiddle);
@@ -100,20 +100,20 @@ $GLOBALS['TITLE_TEXT'] = "Where Used List for " . $title_name;
                         $count++;
                         ?>
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                            <td class="alv"><a href="/abap/" target="_blank"><?php echo ABAP_OTYPE::getOTypeDesc($wul['OBJ_TYPE']) ?></a>&nbsp;</td>
+                            <td class="alv"><?php echo ABAP_Navigation::GetOTypeURL($wul['OBJ_TYPE']) ?>&nbsp;</td>
                             <td class="alv">
                                 <?php echo ABAP_Navigation::GetObjectURL($wul['OBJ_TYPE'], $wul['OBJ_NAME'], $wul['SUB_NAME']) ?>
                                 <?php if ($wul['OBJ_TYPE'] == ABAP_OTYPE::FUNC_NAME && strlen($wul['SOURCE']) > 0) { ?>
                                     <br /><code><?php echo $wul['SOURCE'] ?></code>
                                     <?php
-                                } else if ($wul['OBJ_TYPE'] == ABAP_OTYPE::CLAS_NAME && $wul['SUB_TYPE'] == ABAP_DB_TABLE_WUL::YWUL_SUB_TYPE_METH && strlen($wul['SUB_NAME']) > 0) {
-                                    $cpdname = ABAP_DB_TABLE_WUL::YSEOPROG_CPDNAME($wul['OBJ_NAME'], $wul['SUB_NAME']);
+                                } else if ($wul['OBJ_TYPE'] == ABAP_OTYPE::CLAS_NAME && $wul['SUB_TYPE'] == ABAP_DB_TABLE_CREF::YWUL_SUB_TYPE_METH && strlen($wul['SUB_NAME']) > 0) {
+                                    $cpdname = ABAP_DB_TABLE_CREF::YSEOPROG_CPDNAME($wul['OBJ_NAME'], $wul['SUB_NAME']);
                                     if (strlen($cpdname) > 0) {
                                         ?>
                                         <br /><code>Method: <?php echo $cpdname ?></code>
                                         <?php
                                     }
-                                } else if ($wul['OBJ_TYPE'] == ABAP_OTYPE::VIEW_NAME && $wul['SUB_TYPE'] == ABAP_DB_TABLE_WUL::YWUL_SUB_TYPE_VIED && strlen($wul['SUB_NAME']) > 0) {
+                                } else if ($wul['OBJ_TYPE'] == ABAP_OTYPE::VIEW_NAME && $wul['SUB_TYPE'] == ABAP_DB_TABLE_CREF::YWUL_SUB_TYPE_VIED && strlen($wul['SUB_NAME']) > 0) {
                                     ?>
                                     - <?php echo $wul['SUB_NAME'] ?>
                                 <?php } ?>

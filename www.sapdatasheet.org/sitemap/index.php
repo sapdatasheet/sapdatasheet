@@ -92,7 +92,7 @@ for ($count = 1; $count <= ABAP_DBDATA::CUS_IMGACT_INDEX_MAX; $count++) {
             <changefreq>monthly</changefreq>
             <priority>1.0</priority>
         </url>
-        <?php for ($abap_index = 1; $abap_index <= ABAP_DBDATA::COUNTER_INDEX_MAX; $abap_index++) { ?>
+        <?php for ($abap_index = 1; $abap_index <= ABAP_DBDATA::WULCOUNTER_INDEX_MAX; $abap_index++) { ?>
             <url>
                 <loc>http://www.sapdatasheet.org/wul/abap<?php echo $sap_langu ?>/index-<?php echo $abap_index ?>.html</loc>
                 <changefreq>monthly</changefreq>

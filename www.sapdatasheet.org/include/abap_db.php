@@ -70,9 +70,9 @@ class ABAP_DB_CONST {
     const DOMAINVALUE_VIEWGRANT_SPACE_DESC = 'read, change, delete and insert';
 
     /* Table values */
-    const CUS_ACTH_ACT_TYPE_C = 'C';       // IMG Activity Type - Customizing Object
-    const CUS_ACTH_ACT_TYPE_E = 'E';       // IMG Activity Type - Business Add-In - Definition
-    const CUS_ACTH_ACT_TYPE_I = 'I';       // IMG Activity Type - Business Add-In - Implementation
+    const CUS_ACTH_ACT_TYPE_C = 'C';           // IMG Activity Type - Customizing Object
+    const CUS_ACTH_ACT_TYPE_E = 'E';           // IMG Activity Type - Business Add-In - Definition
+    const CUS_ACTH_ACT_TYPE_I = 'I';           // IMG Activity Type - Business Add-In - Implementation
     const DD02L_TABCLASS_TRANSP = "TRANSP";
     const DD02L_TABCLASS_CLUSTER = "CLUSTER";
     const DD02L_TABCLASS_POOL = "POOL";
@@ -88,15 +88,15 @@ class ABAP_DB_CONST {
     const FUPARAREF_PARAMTYPE_X = "X";         // Exception
     const TFDIR_FMODE_SPACE = " ";             // Type of function module - Normal Function Module.
     const TFDIR_FMODE_AT = "@";
-    const TFDIR_FMODE_J = "J";         // Type of function module - JAVA Module Callable from ABAP.
-    const TFDIR_FMODE_K = "K";         // Type of function module - Remote-Enabled JAVA Module.
-    const TFDIR_FMODE_L = "L";         // Type of function module - Module Callable from JAVA.
-    const TFDIR_FMODE_R = "R";         // Type of function module - Remote-Enabled Module.
-    const TFDIR_FMODE_X = "X";         // Type of function module - Remote-Enabled Module & BaseXML supported.
-    const TFDIR_UTASK_1 = "1";         // Update module - Start immediately.
-    const TFDIR_UTASK_2 = "2";         // Update module - Immediate Start, No Restart.
-    const TFDIR_UTASK_3 = "3";         // Update module - Start Delayed.
-    const TFDIR_UTASK_4 = "4";         // Update module - Coll.run.
+    const TFDIR_FMODE_J = "J";                 // Type of function module - JAVA Module Callable from ABAP.
+    const TFDIR_FMODE_K = "K";                 // Type of function module - Remote-Enabled JAVA Module.
+    const TFDIR_FMODE_L = "L";                 // Type of function module - Module Callable from JAVA.
+    const TFDIR_FMODE_R = "R";                 // Type of function module - Remote-Enabled Module.
+    const TFDIR_FMODE_X = "X";                 // Type of function module - Remote-Enabled Module & BaseXML supported.
+    const TFDIR_UTASK_1 = "1";                 // Update module - Start immediately.
+    const TFDIR_UTASK_2 = "2";                 // Update module - Immediate Start, No Restart.
+    const TFDIR_UTASK_3 = "3";                 // Update module - Start Delayed.
+    const TFDIR_UTASK_4 = "4";                 // Update module - Coll.run.
     const TSTCC_S_WEBGUI_1 = "1";
     const TSTCC_S_WEBGUI_2 = "2";
 
@@ -2590,8 +2590,8 @@ class ABAP_DB_TABLE_VIEW {
 
 }
 
-/** Database table access for Where-Used-List. */
-class ABAP_DB_TABLE_WUL {
+/** Database table access for Cross Reference (eg. Where-Used-List). */
+class ABAP_DB_TABLE_CREF {
 
     /**
      * SEO Class Method name and Method program name.
@@ -2605,7 +2605,7 @@ class ABAP_DB_TABLE_WUL {
      * Get method name from class method include name.
      */
     public static function YSEOPROG_CPDNAME($clsName, $include) {
-        $sql = 'SELECT * from ' . ABAP_DB_TABLE_WUL::YSEOPROG
+        $sql = 'SELECT * from ' . ABAP_DB_TABLE_CREF::YSEOPROG
                 . ' where CLSNAME = :cls AND INCLUDE = :inc';
         $paras = array(
             'cls' => $clsName,
@@ -2630,7 +2630,7 @@ class ABAP_DB_TABLE_WUL {
      */
     public static function YWUL($srcOType, $srcOName, $srcSubobj, $oType, $page) {
         $offset = ($page - 1) * ABAP_DB_CONST::INDEX_PAGESIZE;
-        $sql = 'SELECT * from ' . ABAP_DB_TABLE_WUL::YWUL
+        $sql = 'SELECT * from ' . ABAP_DB_TABLE_CREF::YWUL
                 . ' where SRC_OBJ_TYPE = :sotype AND SRC_OBJ_NAME = :soname AND SRC_SUBOBJ = :ssubobj AND OBJ_TYPE = :otype'
                 . ' order by OBJ_NAME'
                 . ' LIMIT ' . ABAP_DB_CONST::INDEX_PAGESIZE
@@ -2641,17 +2641,42 @@ class ABAP_DB_TABLE_WUL {
             'ssubobj' => $srcSubobj,
             'otype' => $oType,
         );
-        //print_r($sql);
-        //print_r('<br />');
-        //print_r($paras);
         return ABAP_DB_TABLE::select($sql, $paras);
     }
+    
+    /**
+     * Load Where-Using-List for an ABAP Object.
+     *
+     * <pre>
+     * SELECT * FROM ABAP.ywul
+     *   where OBJ_TYPE = 'TABL'
+     *     and OBJ_NAME = 'BSEG'
+     *     and SRC_OBJ_TYPE = 'DTEL'
+     *   LIMIT 10
+     *   OFFSET 30
+     * </pre>
+     */
+    public static function YWIL($oType, $oName, $srcOType, $page) {
+        $offset = ($page - 1) * ABAP_DB_CONST::INDEX_PAGESIZE;
+        $sql = 'SELECT * from ' . ABAP_DB_TABLE_CREF::YWUL
+                . ' where OBJ_TYPE = :otype AND OBJ_NAME = :oname AND SRC_OBJ_TYPE = :sotyp'
+                . ' order by SRC_OBJ_NAME'
+                . ' LIMIT ' . ABAP_DB_CONST::INDEX_PAGESIZE
+                . ' OFFSET ' . $offset;
+        $paras = array(
+            'otype' => $oType,
+            'oname' => $oName,
+            'sotyp' => $srcOType,
+        );
 
+        return ABAP_DB_TABLE::select($sql, $paras);
+    }
 }
 
 class ABAPANA_DB_TABLE {
 
-    const COUNTER = "counter";
+    const WULCOUNTER = "counter";
+    const WILCOUNTER = "wilcounter";
 
     /**
      * Load Where-Used-List counter for an ABAP Object.
@@ -2663,8 +2688,8 @@ class ABAPANA_DB_TABLE {
      *     and OBJ_TYPE = 'DTEL'
      * </pre>
      */
-    public static function COUNTER($srcOType, $srcOName, $oType, $srcSubobj = '') {
-        $sql = 'SELECT * from ' . ABAP_DB_CONN::schema_abapana . '.' . ABAPANA_DB_TABLE::COUNTER
+    public static function WULCOUNTER($srcOType, $srcOName, $oType, $srcSubobj = '') {
+        $sql = 'SELECT * from ' . ABAP_DB_CONN::schema_abapana . '.' . ABAPANA_DB_TABLE::WULCOUNTER
                 . ' where SRC_OBJ_TYPE = :sotype AND SRC_OBJ_NAME = :soname AND SRC_SUBOBJ = :ssubob AND OBJ_TYPE = :otype';
         $paras = array(
             'sotype' => $srcOType,
@@ -2690,10 +2715,10 @@ class ABAPANA_DB_TABLE {
      *   offset 2000000
      * </pre>
      */
-    public static function COUNTER_Index($page) {
+    public static function WULCOUNTER_Index($page) {
         $offset = ($page - 1) * ABAP_DB_CONST::INDEX_PAGESIZE;
-        $sql = 'select * from ' . ABAP_DB_CONN::schema_abapana . '.' . ABAPANA_DB_TABLE::COUNTER
-//              . ' ORDER BY SRC_OBJ_TYPE, SRC_OBJ_NAME, OBJ_TYPE'
+        $sql = 'select * from ' . ABAP_DB_CONN::schema_abapana . '.' . ABAPANA_DB_TABLE::WULCOUNTER
+//              . ' ORDER BY SRC_OBJ_TYPE, SRC_OBJ_NAME, OBJ_TYPE'  -- Do not order for performance reason
                 . ' LIMIT ' . ABAP_DB_CONST::INDEX_PAGESIZE
                 . ' OFFSET ' . $offset;
         return ABAP_DB_TABLE::select($sql);
@@ -2708,8 +2733,8 @@ class ABAPANA_DB_TABLE {
      *   order by OBJ_TYPE
      * </pre>
      */
-    public static function COUNTER_List($srcOType, $srcOName, $srcSubobj = '') {
-        $sql = 'SELECT * from ' . ABAP_DB_CONN::schema_abapana . '.' . ABAPANA_DB_TABLE::COUNTER
+    public static function WULCOUNTER_List($srcOType, $srcOName, $srcSubobj = '') {
+        $sql = 'SELECT * from ' . ABAP_DB_CONN::schema_abapana . '.' . ABAPANA_DB_TABLE::WULCOUNTER
                 . ' where SRC_OBJ_TYPE = :sotype AND SRC_OBJ_NAME = :soname AND SRC_SUBOBJ = :ssubob'
                 . ' order by OBJ_TYPE';
         $paras = array(
@@ -2722,12 +2747,85 @@ class ABAPANA_DB_TABLE {
         return ABAP_DB_TABLE::select($sql, $paras);
     }
 
-    public static function COUNTER_Sitemap() {
+    public static function WULCOUNTER_Sitemap() {
         $sql = "select * from "
-                . ABAP_DB_CONN::schema_abapana . '.' . ABAPANA_DB_TABLE::COUNTER;
+                . ABAP_DB_CONN::schema_abapana . '.' . ABAPANA_DB_TABLE::WULCOUNTER;
         return ABAP_DB_TABLE::select($sql);
     }
 
+    /**
+     * Load Where-Using-List counter for an ABAP Object.
+     *
+     * <pre>
+     * SELECT * FROM abapanalytics.wilcounter
+     *   where OBJ_TYPE = 'TABL'
+     *     and OBJ_NAME = 'BKPF'
+     *     and SRC_OBJ_TYPE = 'DTEL'
+     * </pre>
+     */
+    public static function WILCOUNTER($oType, $oName, $srcOType) {
+        $sql = 'SELECT * from ' . ABAP_DB_CONN::schema_abapana . '.' . ABAPANA_DB_TABLE::WILCOUNTER
+                . ' where OBJ_TYPE = :otype AND OBJ_NAME = :oname AND SRC_OBJ_TYPE = :sotyp';
+        $paras = array(
+            'otype' => $oType,
+            'oname' => $oName,
+            'sotyp' => $srcOType,
+        );
+
+        $row = current(ABAP_DB_TABLE::select($sql, $paras));
+        if (empty($row)) {
+            return -1;
+        } else {
+            return $row['COUNTER'];
+        }
+    }
+
+    /**
+     * Load Where-Using-List counters by page index.
+     * 
+     * <pre>
+     * SELECT * FROM abapanalytics.wilcounter
+     *   order by OBJ_TYPE, OBJ_NAME, SRC_OBJ_TYPE
+     *   limit  10000
+     *   offset 50000
+     * </pre>
+     */
+    public static function WILCOUNTER_Index($page) {
+        $offset = ($page - 1) * ABAP_DB_CONST::INDEX_PAGESIZE;
+        $sql = 'select * from ' . ABAP_DB_CONN::schema_abapana . '.' . ABAPANA_DB_TABLE::WILCOUNTER
+//              . ' ORDER BY OBJ_TYPE, OBJ_NAME, SRC_OBJ_TYPE'
+                . ' LIMIT ' . ABAP_DB_CONST::INDEX_PAGESIZE
+                . ' OFFSET ' . $offset;
+        return ABAP_DB_TABLE::select($sql);
+    }
+
+    /**
+     * Load Where-Using-List counter for an ABAP Object.
+     * 
+     * <pre>
+     * SELECT * FROM abapanalytics.wilcounter
+     *   where OBJ_TYPE = 'TABL'
+     *     and OBJ_NAME = 'BKPF'
+     *   order by SRC_OBJ_TYPE
+     * </pre>
+     */
+    public static function WILCOUNTER_List($oType, $oName) {
+        $sql = 'SELECT * from ' . ABAP_DB_CONN::schema_abapana . '.' . ABAPANA_DB_TABLE::WILCOUNTER
+                . ' where OBJ_TYPE = :otype AND OBJ_NAME = :oname'
+                . ' order by SRC_OBJ_TYPE';
+        $paras = array(
+            'otype' => $oType,
+            'oname' => $oName,
+        );
+
+        return ABAP_DB_TABLE::select($sql, $paras);
+    }
+
+    public static function WILCOUNTER_Sitemap() {
+        $sql = "select * from "
+                . ABAP_DB_CONN::schema_abapana . '.' . ABAPANA_DB_TABLE::WILCOUNTER;
+        return ABAP_DB_TABLE::select($sql);
+    }
 }
 
 /** Database table names. */
@@ -2873,12 +2971,6 @@ class ABAP_DB_TABLE {
         if ($paras === null) {
             $res = $conn->query($sql);
         } else {
-            /*
-              echo '<br/><br/> SQL [' . $sql . ']';
-              echo '<br/>Parameters [';
-              print_r($paras);
-              echo ']';
-             */
             $stmt = $conn->prepare($sql);
             $stmt->execute($paras);
             $res = $stmt->fetchAll(PDO::FETCH_ASSOC);

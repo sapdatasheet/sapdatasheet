@@ -28,7 +28,10 @@ if (!empty($dm25l['ENTID'])) {
     $dm25l_entid_desc = ABAP_DB_TABLE_VIEW::DM02T($dm25l['ENTID']);
 }
 
-$wul_counter_list = ABAPANA_DB_TABLE::COUNTER_List(ABAP_OTYPE::VIEW_NAME, $dd25l['VIEWNAME']);
+$wul_counter_list = ABAPANA_DB_TABLE::WULCOUNTER_List(ABAP_OTYPE::VIEW_NAME, $dd25l['VIEWNAME']);
+$wil_enabled = TRUE;
+$wil_counter_list = ABAPANA_DB_TABLE::WILCOUNTER_List(ABAP_OTYPE::VIEW_NAME, $dd25l['VIEWNAME']);
+
 $hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::VIEW_NAME, $dd25l['VIEWNAME']);
 $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::VIEW_NAME, $dd25l['VIEWNAME']);
 ?>

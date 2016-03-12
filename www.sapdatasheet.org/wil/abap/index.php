@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Where Used List index -->
+<!-- Where Using List index -->
 <?php
 $__ROOT__ = dirname(dirname(dirname(__FILE__)));
 require_once ($__ROOT__ . '/include/global.php');
@@ -33,8 +33,8 @@ if (file_exists($ob_fname)) {
 }
 ob_start();
 
-$GLOBALS['TITLE_TEXT'] = "SAP ABAP Where Used List - Index " . $index . " of " . ABAP_DBDATA::WULCOUNTER_INDEX_MAX;
-$list = ABAPANA_DB_TABLE::WULCOUNTER_Index($index);
+$GLOBALS['TITLE_TEXT'] = "SAP ABAP Where Using List - Index " . $index . " of " . ABAP_DBDATA::WILCOUNTER_INDEX_MAX;
+$list = ABAPANA_DB_TABLE::WILCOUNTER_Index($index);
 ?>
 <html>
     <head>
@@ -59,8 +59,8 @@ $list = ABAPANA_DB_TABLE::WULCOUNTER_Index($index);
             <!-- Content Navigator -->
             <div class="content_navi">
                 <a href="/">Home page</a> &gt;
-                <a href="/wul/">Where Used List (WUL)</a> &gt;
-                <a href="/wul/abap/">WUL for ABAP Object</a>
+                <a href="/wil/">Where Using List (WIL)</a> &gt;
+                <a href="/wil/abap/">WIL for ABAP Object</a>
             </div>
 
             <!-- Content Object -->
@@ -74,7 +74,7 @@ $list = ABAPANA_DB_TABLE::WULCOUNTER_Index($index);
                 <details>
                     <summary>Index pages</summary>
                     <div>
-                        <?php for ($count = 1; $count <= ABAP_DBDATA::WULCOUNTER_INDEX_MAX; $count++) { ?>
+                        <?php for ($count = 1; $count <= ABAP_DBDATA::WILCOUNTER_INDEX_MAX; $count++) { ?>
                             <a href="index-<?php echo $count ?>.html"><?php echo $count ?></a>&nbsp;
                         <?php } ?>
                     </div>
@@ -105,11 +105,11 @@ $list = ABAPANA_DB_TABLE::WULCOUNTER_Index($index);
                         $count++;
                         ?>
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                            <td class="alv"><?php echo ABAP_Navigation::GetOTypeURL($item['SRC_OBJ_TYPE']) ?>&nbsp;</td>
-                            <td class="alv"><?php echo ABAP_Navigation::GetObjectURL($item['SRC_OBJ_TYPE'], $item['SRC_OBJ_NAME'], $item['SRC_SUBOBJ']) ?>&nbsp;</td>
+                            <td class="alv"><?php echo ABAP_Navigation::GetOTypeURL($item['OBJ_TYPE']) ?>&nbsp;</td>
+                            <td class="alv"><?php echo ABAP_Navigation::GetObjectURL($item['OBJ_TYPE'], $item['OBJ_NAME']) ?>&nbsp;</td>
                             <td class="alv">
-                                <?php echo ABAP_Navigation::GetWulURLLink($item) ?>
-                                <?php echo ABAP_Navigation::GetWulPagesURL($item['SRC_OBJ_TYPE'], $item['SRC_OBJ_NAME'], $item['SRC_SUBOBJ'], $item['OBJ_TYPE'], $item['COUNTER'], TRUE) ?>
+                                <?php echo ABAP_Navigation::GetWilURLLink($item) ?>
+                                <?php echo ABAP_Navigation::GetWilPagesURL($item['OBJ_TYPE'], $item['OBJ_NAME'], $item['SRC_OBJ_TYPE'], $item['COUNTER'], TRUE) ?>
                                 &nbsp;</td>
                         </tr>
                     <?php } ?>

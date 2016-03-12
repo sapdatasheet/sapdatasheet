@@ -212,6 +212,78 @@ if ($requri === '/wp/wp-admin/' || $requri === '/wp-admin/' || $requri === '/tes
           // exit();
          */
     }
+} else if ($requri === '/wil/abap/') {
+    $index = 1;
+    $target = 'wil/abap/index.php';
+} else if (GLOBAL_UTIL::StartsWith($requri, '/wil/abap/index-') && GLOBAL_UTIL::EndsWith($requri, '.html')) {
+    $index = substr($requri, 16, -5);
+    $target = 'wil/abap/index.php';
+} else if (GLOBAL_UTIL::StartsWith($requri, '/wil/abap/') && GLOBAL_UTIL::EndsWith($requri, '.html')) {
+//                                           1234567890                                      12345
+//
+//  - Example URI
+//    /wil/abap/
+//    /wil/abap/dtel/mandt/doma.html
+//    /wil/abap/prog/FGRWEF40_SET_RRD-MAX_DSUM/prog.html
+//    /wil/abap/prog/FGRWEF40_SET_RRD-MAX_DSUM/prog-3.html
+//    /wil/abap/clas//1BCWDY/H1UU15C38KAMHG7PW3WH/clas.html
+//    /wil/abap/clas//1BCWDY/H1UU15C38KAMHG7PW3WH/clas-1.html
+//    /wil/abap/clas//1BCWDY/H1UU15C38KAMHG7PW3WH/clas-3.html
+//    /wil/abap/prog/mandt/dtel.html
+//    /wil/abap/prog//ain/structure-field/dtf.html
+//    /wil/abap/tran/MC=1/prog.html
+//    /wil/abap/tran/MC=1/prog-11.html
+//             |                 |
+//              12345    12345
+//              dpSrcOType     dpPage
+//                   dpSrcOName
+//                        dpOType
+//
+    // Remvoe the left part '/wil/abap/' (length = 10)
+    // Remove right part '.html' (length = 5)
+    $restUri = substr($requri, 10);
+    $restUri = strtoupper(substr($restUri, 0, strlen($restUri) - 5));
+
+    // The Rest URI at least have 10 charactors
+    //    tran/MC=1/prog-11
+    //    12345    67890
+    if (strlen($restUri) > 10) {
+
+        $items = explode('/', $restUri);
+        $itemsCount = count($items);
+
+        // There should at lest 3 items
+        if ($itemsCount >= 3) {
+            $dpOType = array_shift($items);
+            $itemLast = array_pop($items);
+            $itemLastLen = strlen($itemLast);
+
+            // Only left the middle part of the URI, as the object name
+            $dpOName = substr($restUri, strlen($dpOType) + 1);
+            $dpOName = substr($dpOName, 0, strlen($dpOName) - $itemLastLen - 1);
+
+            $lastItems = explode('-', $itemLast);
+            $lastItemsCount = count($lastItems);
+            if ($lastItemsCount == 1) {
+                $dpSrcOType = $itemLast;
+                $dpPage = 1;
+            } else if ($lastItemsCount == 2) {
+                $dpSrcOType = $lastItems[0];
+                $dpPage = $lastItems[1];
+            }
+
+            $target = 'wil/abap/wil.php';
+        }
+
+        /*
+          echo '$dpOType    = ' . $dpOType . '<br />';
+          echo '$dpOName    = ' . $dpOName . '<br />';
+          echo '$dpSrcOType = ' . $dpSrcOType . '<br />';
+          echo '$dpPage     = ' . $dpPage . '<br />';
+          echo '$target     = ' . $target . '<br />';
+          // exit();
+         */
+    }
 }
 
 if (!isset($target)) {

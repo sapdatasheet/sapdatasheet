@@ -42,3 +42,8 @@ CREATE INDEX tstc_pgmna on abap.tstc(pgmna);
 DROP   INDEX dm25l_viewname on abap.dm25l;
 CREATE INDEX dm25l_viewname on abap.dm25l(viewname);
 
+-- ABAP Where Using List (WIL)
+-- 1900.656 sec = 32 min
+DROP   INDEX ywul_target on abap.ywul;
+CREATE INDEX ywul_target on abap.ywul(obj_type, obj_name, src_obj_type);
+

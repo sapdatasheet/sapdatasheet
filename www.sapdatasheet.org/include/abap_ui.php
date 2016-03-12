@@ -283,6 +283,50 @@ class ABAP_Navigation {
         return $result;
     }
 
+    /**
+     * Get Where-Using-List URL.
+     */
+    public static function GetWilURLLink($counter, $newwin = TRUE) {
+        $newWindow = ($newwin === TRUE) ? 'target="_blank"' : '';
+        $linkLabel = ABAP_OTYPE::getOTypeDesc($counter['SRC_OBJ_TYPE']);
+        $url = ABAP_Navigation::getWilURL($counter);
+        return '<a href="' . $url . '" '
+                . 'title="' . htmlentities($linkLabel) . '" '
+                . $newWindow . ' >'
+                . $linkLabel
+                . ' (' . $counter['COUNTER'] . ')</a>';
+    }
+
+    public static function getWilURL($counter) {
+        $url = '/wil/abap/'
+                . $counter['OBJ_TYPE']
+                . '/' . htmlentities($counter['OBJ_NAME'])
+                . '/' . $counter['SRC_OBJ_TYPE']
+                . '.html';
+        return strtolower($url);
+    }
+
+    /**
+     * Get Where-Using-List URL with pages.
+     */
+    public static function GetWilPagesURL($oType, $oName, $srcOType, $counter, $newwin = TRUE) {
+        $result = '';
+        if ($counter > ABAP_DB_CONST::INDEX_PAGESIZE) {
+            $newWindow = ($newwin === TRUE) ? 'target="_blank"' : '';
+            $pageCount = ceil($counter / ABAP_DB_CONST::INDEX_PAGESIZE);
+            $result = $result . ' pages: ';
+            for ($i = 1; $i <= $pageCount; $i++) {
+                $title = 'title="' . 'Page ' . $i . ' of ' . $pageCount . '" ';
+                $url = '/wil/abap/' . strtolower($oType) . '/'
+                        . strtolower($oName)
+                        . '/' . strtolower($srcOType) . '-' . $i
+                        . '.html';
+                $link = '<a href="' . htmlentities(strtolower($url)) . '" ' . $title . $newWindow . ' >' . $i . '</a>';
+                $result = $result . $link . '&nbsp;';
+            }
+        }
+        return $result;
+    }
 }
 
 /**
@@ -578,13 +622,14 @@ class ABAP_UI_TOOL {
      * @param string $oName Object name, example: MANDT, BUKRS
      * @return string Object description text, or '' for un-recognized object type
      */
-    public static function GetObjectDescr($oType, $oName) {
+    public static function GetObjectDescr($oType, $oName, $subObj = NULL) {
         switch ($oType) {
             case ABAP_OTYPE::BMFR_NAME:
                 $desc = ABAP_DB_TABLE_HIER::DF14T($oName);
                 break;
             case ABAP_OTYPE::CLAS_NAME:
             case ABAP_OTYPE::INTF_NAME:
+            case ABAP_OTYPE::OM_NAME:
                 $desc = ABAP_DB_TABLE_SEO::SEOCLASSTX($oName);
                 break;
             case ABAP_OTYPE::CUS0_NAME:
@@ -602,11 +647,17 @@ class ABAP_UI_TOOL {
             case ABAP_OTYPE::DTEL_NAME:
                 $desc = ABAP_DB_TABLE_DTEL::DD04T($oName);
                 break;
+            case ABAP_OTYPE::DTF_NAME:
+                $desc = ABAP_UI_TOOL::GetTablFieldDescDirect($oName, $subObj);
+                break;
             case ABAP_OTYPE::FUNC_NAME:
                 $desc = ABAP_DB_TABLE_FUNC::TFTIT($oName);
                 break;
             case ABAP_OTYPE::MSAG_NAME:
                 $desc = ABAP_DB_TABLE_MSAG::T100T($oName);
+                break;
+            case ABAP_OTYPE::NN_NAME:
+                $desc = ABAP_DB_TABLE_MSAG::T100_NR($oName, $subObj);
                 break;
             case ABAP_OTYPE::PROG_NAME:
                 $desc = ABAP_DB_TABLE_PROG::TRDIRT($oName);
@@ -682,6 +733,14 @@ class ABAP_UI_TOOL {
             return ABAP_DB_TABLE_DTEL::DD04T($RollName);
         }
     }
+    
+    /**
+     * Get Table Filed description directly.
+     */
+    public static function GetTablFieldDescDirect($table, $field) {
+        $dd03l = ABAP_DB_TABLE_TABL::DD03L(strtoupper($table), strtoupper($field));
+        return htmlentities(ABAP_UI_TOOL::GetTablFieldDesc($dd03l['PRECFIELD'], $dd03l['ROLLNAME']));
+    }    
 
     /**
      * Get transaction code type.

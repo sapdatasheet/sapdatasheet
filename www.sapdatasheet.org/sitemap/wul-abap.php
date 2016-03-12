@@ -32,7 +32,7 @@ function endOB($i) {
     fclose($ob_fp);
 }
 
-$list = ABAPANA_DB_TABLE::COUNTER_Sitemap();
+$list = ABAPANA_DB_TABLE::WULCOUNTER_Sitemap();
 $i = 1;
 $j = 1;
 foreach ($list as $row) {
