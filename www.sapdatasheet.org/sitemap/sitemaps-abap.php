@@ -10,27 +10,14 @@ ob_start();
         <loc>http://www.sapdatasheet.org/sitemap/index.xml</loc>
         <lastmod><?php echo date("Y-m-d") ?></lastmod>
     </sitemap>
-    <sitemap>
-        <loc>http://www.sapdatasheet.org/sitemap/abap-bmfr.xml</loc>
-        <lastmod><?php echo date("Y-m-d") ?></lastmod>
-    </sitemap>
-    <sitemap>
-        <loc>http://www.sapdatasheet.org/sitemap/abap-cvers.xml</loc>
-        <lastmod><?php echo date("Y-m-d") ?></lastmod>
-    </sitemap>
-    <sitemap>
-        <loc>http://www.sapdatasheet.org/sitemap/abap-devc.xml</loc>
-        <lastmod><?php echo date("Y-m-d") ?></lastmod>
-    </sitemap>
-    <sitemap>
-        <loc>http://www.sapdatasheet.org/sitemap/abap-sqlt.xml</loc>
-        <lastmod><?php echo date("Y-m-d") ?></lastmod>
-    </sitemap>
     <?php
     $abap_type_count = array(
+        array("bmfr", 1),
         array("clas", 3),
         array("cus0", 2),
+        array("cvers", 1),
         array("doma", 3),
+        array("devc", 1),
         array("dtel", 11),
         array("fugr", 2),
         array("func", 11),
@@ -39,6 +26,7 @@ ob_start();
         array("msag-msgnr", 14),
         array("prog", 7),
         array("shlp", 1),
+        array("sqlt", 1),
         array("tabl", 12),
         array("table-field", 199),
         array("tran", 3),

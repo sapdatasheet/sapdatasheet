@@ -330,7 +330,8 @@ class ABAP_DB_TABLE_CUS0 {
     public static function TNODEIMG_PARENT_ID($parent_id) {
         $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::TNODEIMG
                 . ' where `parent_id` = :id order by node_type';
-        return ABAP_DB_TABLE::select_single($sql, $parent_id);
+        return ABAP_DB_TABLE::select_1filter($sql, $parent_id);
+        //return ABAP_DB_TABLE::select_single($sql, $parent_id);
     }
 
     /**
@@ -1284,7 +1285,7 @@ class ABAP_DB_TABLE_MSAG {
     }
 
     public static function T100_Sitemap() {
-        $sql = "select ARBGB, MSGNR from " . ABAP_DB_TABLE_MSAG::T100
+        $sql = "select concat(ARBGB, '-', MSGNR) as MSGNBR from " . ABAP_DB_TABLE_MSAG::T100
                 . " where sprsl = '" . ABAP_DB_CONST::LANGU_EN . "'"
                 . " order by ARBGB, MSGNR";
         return ABAP_DB_TABLE::select($sql);
@@ -2675,7 +2676,7 @@ class ABAP_DB_TABLE_CREF {
 
 class ABAPANA_DB_TABLE {
 
-    const WULCOUNTER = "counter";
+    const WULCOUNTER = "wulcounter";
     const WILCOUNTER = "wilcounter";
 
     /**

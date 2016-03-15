@@ -71,7 +71,7 @@ $GLOBALS['TITLE_TEXT'] = "Where Using List for " . $title_name;
                 ?>
 
                 <h4><?php echo ABAP_OTYPE::getOTypeDesc($dpOType) ?>
-                    <?php echo ABAP_Navigation::GetWilPagesURL($dpOType, $dpOName, $dpSrcOType, $counter_value, FALSE) ?>
+                    <?php echo ABAP_Navigation::GetWilURLsLink($dpOType, $dpOName, $dpSrcOType, $counter_value, FALSE) ?>
                 </h4>
                 <table class="alv">
                     <tr>

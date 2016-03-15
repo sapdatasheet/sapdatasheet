@@ -258,4 +258,11 @@ class GLOBAL_UTIL {
         return $ob_folder;
     }
 
+    /**
+     * Clear an object id for URL.
+     */
+    public static function Clear4Url($id) {
+        return htmlentities(strtolower($id), ENT_QUOTES, "UTF-8");
+    }
+
 }

@@ -6,8 +6,8 @@ require_once ($__ROOT__ . '/include/abap_db.php');
 require_once ($__ROOT__ . '/include/abap_ui.php');
 require_once ($__ROOT__ . '/include/sitemap.php');
 
-$fname_prefix = 'wul-abap';
-$list = ABAPANA_DB_TABLE::WULCOUNTER_Sitemap();
+$fname_prefix = 'wil-abap';
+$list = ABAPANA_DB_TABLE::WILCOUNTER_Sitemap();
 $i = 1;
 $j = 1;
 foreach ($list as $row) {
@@ -15,8 +15,8 @@ foreach ($list as $row) {
         sitemapStartOB();
     }
 
-    $wulurl = "http://www.sapdatasheet.org" . ABAP_Navigation::GetWulURL($row);
-    sitemapEchoUrl($wulurl);
+    $wilurl = "http://www.sapdatasheet.org" . ABAP_Navigation::GetWilURL($row);
+    sitemapEchoUrl($wilurl);
 
     // Check if the Sitemap is full
     $j++;
@@ -26,11 +26,11 @@ foreach ($list as $row) {
         $j = 1;
     }
 
+    // If several pages exists ...
     if ($row['COUNTER'] > ABAP_DB_CONST::INDEX_PAGESIZE) {
-        $urls = ABAP_Navigation::GetWulURLs(
-                $row['SRC_OBJ_TYPE'], $row['SRC_OBJ_NAME'], $row['SRC_SUBOBJ'], $row['OBJ_TYPE'], $row['COUNTER']);
-        foreach ($urls as $wulurl) {
-            sitemapEchoUrl("http://www.sapdatasheet.org" . $wulurl);
+        $urls = ABAP_Navigation::GetWilURLs($row['OBJ_TYPE'], $row['OBJ_NAME'], $row['SRC_OBJ_TYPE'], $row['COUNTER']);
+        foreach ($urls as $wilurl) {
+            sitemapEchoUrl("http://www.sapdatasheet.org" . $wilurl);
 
             // Check if the Sitemap is full
             $j++;

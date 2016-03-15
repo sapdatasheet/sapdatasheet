@@ -12,4 +12,5 @@ class ABAP_DBDATA {
     const SEOCLASS_INTF_INDEX_MAX = 4;
 
     const SITEMAP_WUL_MAX = 168;
+    const SITEMAP_WIL_MAX = 120;
 }

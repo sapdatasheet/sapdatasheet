@@ -20,7 +20,10 @@ call:BuffGenerateSitemap abap-table-field.php
 call:BuffGenerateSitemap abap-tran.php
 call:BuffGenerateSitemap abap-view.php
 call:BuffGenerateSitemap index.php
-call:BuffGenerateSitemap sitemaps.php
+call:BuffGenerateSitemap sitemaps-abap.php
+call:BuffGenerateSitemap sitemaps-wil.php
+call:BuffGenerateSitemap sitemaps-wul.php
+call:BuffGenerateSitemap wil-abap.php
 call:BuffGenerateSitemap wul-abap.php
 
 timeout 60

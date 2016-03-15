@@ -1,22 +1,11 @@
 <?php
-ob_start();
-require_once (dirname(dirname(__FILE__)) . '/include/abap_db.php');
-$cvers = ABAP_DB_TABLE_HIER::CVERS_List();
-?>
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- ABAP CVERS - 144 lines -->
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"> 
-    <?php foreach ($cvers as $row) { ?>
-    <url>
-        <loc>http://www.sapdatasheet.org/abap/cvers/<?php echo htmlentities(strtolower($row['COMPONENT'])) ?>.html</loc> 
-        <changefreq>yearly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    <?php } ?>
-</urlset>
-<?php
-$ob_content = ob_get_contents();
-ob_end_flush();
-$ob_fp = fopen("./abap-cvers.xml", "w");
-fwrite($ob_fp, $ob_content);
-fclose($ob_fp);
+$__ROOT__ = dirname(dirname(__FILE__));
+require_once ($__ROOT__ . '/include/global.php');
+require_once ($__ROOT__ . '/include/abap_db.php');
+require_once ($__ROOT__ . '/include/sitemap.php');
+
+$obj_type = 'cvers';
+$list = ABAP_DB_TABLE_HIER::CVERS_List();
+$column_name = 'COMPONENT';
+
+Sitemap4ABAPOType($obj_type, $list, $column_name);

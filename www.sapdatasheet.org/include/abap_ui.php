@@ -242,7 +242,7 @@ class ABAP_Navigation {
     public static function GetWulURLLink($counter, $newwin = TRUE) {
         $newWindow = ($newwin === TRUE) ? 'target="_blank"' : '';
         $linkLabel = ABAP_OTYPE::getOTypeDesc($counter['OBJ_TYPE']);
-        $url = ABAP_Navigation::getWulURL($counter);
+        $url = ABAP_Navigation::GetWulURL($counter);
         return '<a href="' . $url . '" '
                 . 'title="' . htmlentities($linkLabel) . '" '
                 . $newWindow . ' >'
@@ -250,34 +250,51 @@ class ABAP_Navigation {
                 . ' (' . $counter['COUNTER'] . ')</a>';
     }
 
-    public static function getWulURL($counter) {
+    public static function GetWulURL($counter) {
         $url_subobj = (strlen(trim($counter['SRC_SUBOBJ'])) > 0) ? '-' . strtolower($counter['SRC_SUBOBJ']) : '';
         $url = '/wul/abap/'
                 . $counter['SRC_OBJ_TYPE']
-                . '/' . htmlentities($counter['SRC_OBJ_NAME']) . $url_subobj
+                . '/' . GLOBAL_UTIL::Clear4Url($counter['SRC_OBJ_NAME']) . $url_subobj
                 . '/' . $counter['OBJ_TYPE']
                 . '.html';
         return strtolower($url);
     }
 
+    public static function GetWulURLs($srcOType, $srcOName, $srcSubobj, $oType, $counter) {
+        $urls = array();
+        if ($counter > ABAP_DB_CONST::INDEX_PAGESIZE) {
+            $pageCount = ceil($counter / ABAP_DB_CONST::INDEX_PAGESIZE);
+            for ($i = 1; $i <= $pageCount; $i++) {
+                $urlObj = (strlen(trim($srcSubobj)) > 0) ? '-' . $srcSubobj : '';
+                $url = '/wul/abap/'
+                        . $srcOType
+                        . '/' . GLOBAL_UTIL::Clear4Url($srcOName) . $urlObj
+                        . '/' . $oType . '-' . $i
+                        . '.html';
+                array_push($urls, strtolower($url));
+            }
+        }
+
+        return $urls;
+    }
+
     /**
      * Get Where-Used-List URL with pages.
      */
-    public static function GetWulPagesURL($srcOType, $srcOName, $srcSubobj, $oType, $counter, $newwin = TRUE) {
+    public static function GetWulURLsLink($srcOType, $srcOName, $srcSubobj, $oType, $counter, $newwin = TRUE) {
         $result = '';
         if ($counter > ABAP_DB_CONST::INDEX_PAGESIZE) {
             $newWindow = ($newwin === TRUE) ? 'target="_blank"' : '';
             $pageCount = ceil($counter / ABAP_DB_CONST::INDEX_PAGESIZE);
             $result = $result . ' pages: ';
-            for ($i = 1; $i <= $pageCount; $i++) {
+            $urls = ABAP_Navigation::GetWulURLs($srcOType, $srcOName, $srcSubobj, $oType, $counter);
+            $i = 1;
+            foreach ($urls as $url) {
                 $title = 'title="' . 'Page ' . $i . ' of ' . $pageCount . '" ';
-                $urlObj = (strlen(trim($srcSubobj)) > 0) ? '-' . $srcSubobj : '';
-                $url = '/wul/abap/' . strtolower($srcOType) . '/'
-                        . strtolower($srcOName) . $urlObj
-                        . '/' . strtolower($oType) . '-' . $i
-                        . '.html';
-                $link = '<a href="' . htmlentities(strtolower($url)) . '" ' . $title . $newWindow . ' >' . $i . '</a>';
+                $link = '<a href="' . htmlentities($url) . '" ' . $title . $newWindow . ' >' . $i . '</a>';
                 $result = $result . $link . '&nbsp;';
+
+                $i++;
             }
         }
         return $result;
@@ -289,7 +306,7 @@ class ABAP_Navigation {
     public static function GetWilURLLink($counter, $newwin = TRUE) {
         $newWindow = ($newwin === TRUE) ? 'target="_blank"' : '';
         $linkLabel = ABAP_OTYPE::getOTypeDesc($counter['SRC_OBJ_TYPE']);
-        $url = ABAP_Navigation::getWilURL($counter);
+        $url = ABAP_Navigation::GetWilURL($counter);
         return '<a href="' . $url . '" '
                 . 'title="' . htmlentities($linkLabel) . '" '
                 . $newWindow . ' >'
@@ -297,36 +314,56 @@ class ABAP_Navigation {
                 . ' (' . $counter['COUNTER'] . ')</a>';
     }
 
-    public static function getWilURL($counter) {
+    public static function GetWilURL($counter) {
         $url = '/wil/abap/'
                 . $counter['OBJ_TYPE']
-                . '/' . htmlentities($counter['OBJ_NAME'])
+                . '/' . GLOBAL_UTIL::Clear4Url($counter['OBJ_NAME'])
                 . '/' . $counter['SRC_OBJ_TYPE']
                 . '.html';
         return strtolower($url);
     }
 
     /**
+     * Get URLs list for pages.
+     */
+    public static function GetWilURLs($oType, $oName, $srcOType, $counter) {
+        $urls = array();
+        if ($counter > ABAP_DB_CONST::INDEX_PAGESIZE) {
+            $pageCount = ceil($counter / ABAP_DB_CONST::INDEX_PAGESIZE);
+            for ($i = 1; $i <= $pageCount; $i++) {
+                $url = '/wil/abap/'
+                        . $oType
+                        . '/' . htmlentities($oName)
+                        . '/' . $srcOType . '-' . $i
+                        . '.html';
+                array_push($urls, strtolower($url));
+            }
+        }
+
+        return $urls;
+    }
+
+    /**
      * Get Where-Using-List URL with pages.
      */
-    public static function GetWilPagesURL($oType, $oName, $srcOType, $counter, $newwin = TRUE) {
+    public static function GetWilURLsLink($oType, $oName, $srcOType, $counter, $newwin = TRUE) {
         $result = '';
         if ($counter > ABAP_DB_CONST::INDEX_PAGESIZE) {
-            $newWindow = ($newwin === TRUE) ? 'target="_blank"' : '';
             $pageCount = ceil($counter / ABAP_DB_CONST::INDEX_PAGESIZE);
+            $newWindow = ($newwin === TRUE) ? 'target="_blank"' : '';
             $result = $result . ' pages: ';
-            for ($i = 1; $i <= $pageCount; $i++) {
+            $urls = ABAP_Navigation::GetWilURLs($oType, $oName, $srcOType, $counter);
+            $i = 1;
+            foreach ($urls as $url) {
                 $title = 'title="' . 'Page ' . $i . ' of ' . $pageCount . '" ';
-                $url = '/wil/abap/' . strtolower($oType) . '/'
-                        . strtolower($oName)
-                        . '/' . strtolower($srcOType) . '-' . $i
-                        . '.html';
                 $link = '<a href="' . htmlentities(strtolower($url)) . '" ' . $title . $newWindow . ' >' . $i . '</a>';
                 $result = $result . $link . '&nbsp;';
+                $i++;
             }
         }
         return $result;
     }
+
 }
 
 /**
@@ -733,14 +770,14 @@ class ABAP_UI_TOOL {
             return ABAP_DB_TABLE_DTEL::DD04T($RollName);
         }
     }
-    
+
     /**
      * Get Table Filed description directly.
      */
     public static function GetTablFieldDescDirect($table, $field) {
         $dd03l = ABAP_DB_TABLE_TABL::DD03L(strtoupper($table), strtoupper($field));
         return htmlentities(ABAP_UI_TOOL::GetTablFieldDesc($dd03l['PRECFIELD'], $dd03l['ROLLNAME']));
-    }    
+    }
 
     /**
      * Get transaction code type.

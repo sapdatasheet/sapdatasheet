@@ -109,7 +109,7 @@ $list = ABAPANA_DB_TABLE::WILCOUNTER_Index($index);
                             <td class="alv"><?php echo ABAP_Navigation::GetObjectURL($item['OBJ_TYPE'], $item['OBJ_NAME']) ?>&nbsp;</td>
                             <td class="alv">
                                 <?php echo ABAP_Navigation::GetWilURLLink($item) ?>
-                                <?php echo ABAP_Navigation::GetWilPagesURL($item['OBJ_TYPE'], $item['OBJ_NAME'], $item['SRC_OBJ_TYPE'], $item['COUNTER'], TRUE) ?>
+                                <?php echo ABAP_Navigation::GetWilURLsLink($item['OBJ_TYPE'], $item['OBJ_NAME'], $item['SRC_OBJ_TYPE'], $item['COUNTER'], TRUE) ?>
                                 &nbsp;</td>
                         </tr>
                     <?php } ?>
