@@ -66,7 +66,7 @@ timeout 60
 
 
 ::----------------------------------------------
-::-- Buffer Generate with I18N
+::-- Compress Buffer files
 ::
 ::-- parameter 1. File Type,  example html, xml
 ::-- parameter 2. The folder, example C:\Data\Business\SAPDatasheet\Runtime\www-root\abap\doma   C:\Data\Business\SAPDatasheet\Runtime\www-root\abap\doma\1
@@ -75,8 +75,17 @@ timeout 60
 echo =====================================================================
 echo == Processing for %~1  %~2
 
-cd C:\Data\Business\SAPDatasheet\Runtime\htmlcompressor
-java -jar htmlcompressor-1.5.3.jar --type %~1 -o %~2 %~2
 cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
+start /min "Compress Buffer Files Job" "C:\Data\Business\SAPDatasheet\Development\Repos\Deploy\bufferfile-compress.cmd" %~1 %~2
+
+setlocal enableextensions enabledelayedexpansion
+:loop
+  for /f "tokens=1,*" %%a in ('tasklist ^| find /I /C "cmd.exe"') do set cmd_count=%%a
+  echo Command count = %cmd_count%
+  if %cmd_count% GEQ 5 (
+    timeout 1
+    goto loop
+  )
+endlocal
 
 goto:eof

@@ -55,7 +55,7 @@
             <li>
                 <a href="#">Hierarchy <span class="arrow">&#9660;</span></a>
                 <ul class="sub-menu">
-                    <li><a href="/abap/cers/">Software Component</a></li>
+                    <li><a href="/abap/cvers/">Software Component</a></li>
                     <li><a href="/abap/bmfr/">Application Component</a></li>
                     <li><a href="/abap/devc/">Package</a></li>
                 </ul>
