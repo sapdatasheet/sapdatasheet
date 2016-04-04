@@ -10,11 +10,11 @@ BEGIN
   DECLARE loop_tran_done INT DEFAULT FALSE;
   DECLARE v_tcode VARCHAR(20);
   DECLARE v_param VARCHAR(254);
-  DECLARE c_tran  CURSOR FOR SELECT tcode FROM abaprep.tran;
+  DECLARE c_tran  CURSOR FOR SELECT tcode FROM abapanalytics.tran;
   DECLARE CONTINUE HANDLER FOR NOT FOUND SET loop_tran_done = TRUE;
 
   -- Clear the existing param value
-  update abaprep.tran set param = null;
+  update abapanalytics.tran set param = null;
 
   -- Load the new param
   OPEN c_tran;
@@ -28,11 +28,11 @@ BEGIN
     set v_param = null;
     select PARAM into v_param from abap.tstcp where TCODE = v_tcode;
     if LENGTH(TRIM(v_param)) > 0 then
-      update abaprep.tran set param = v_param where tcode = v_tcode;
+      update abapanalytics.tran set param = v_param where tcode = v_tcode;
 	end if;
   end loop;
   CLOSE c_tran;
 
-  call abaprep.debug_msg('tran_data() ended');
+  call abapanalytics.debug_msg('tran_data() ended');
 
 END
