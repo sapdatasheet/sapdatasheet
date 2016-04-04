@@ -4,7 +4,7 @@
 -- --------------------------------------------------------------------------------
 DELIMITER $$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `tran_data_param_parsekv`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `abaptran_data_param_parsekv`(
   IN i_tcode varchar(20),
   IN i_param varchar(254)
 )
@@ -31,7 +31,7 @@ BEGIN
 --    a. Parse current value
       set v_p2 = substr(v_p1, 1, v_pos - 1);
       if length(v_p2) > 0 then
-        call abapanalytics.tran_data_param_parsekvu(i_tcode, v_p2, v_level);
+        call abapanalytics.abaptran_data_param_parsekvu(i_tcode, v_p2, v_level);
 	  end if;
 
 --    b. Call next level
@@ -41,7 +41,7 @@ BEGIN
     else
 --    This is the last key-value pair
       if length(v_p1) > 0 then
-        call abapanalytics.tran_data_param_parsekvu(i_tcode, v_p1, v_level);
+        call abapanalytics.abaptran_data_param_parsekvu(i_tcode, v_p1, v_level);
       end if;
       set v_p1 = '';
     end if;

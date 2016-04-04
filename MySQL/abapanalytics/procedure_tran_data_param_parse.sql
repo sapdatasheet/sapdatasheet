@@ -4,7 +4,7 @@
 -- --------------------------------------------------------------------------------
 DELIMITER $$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `tran_data_param_parse`()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `abaptran_data_param_parse`()
 BEGIN
 -- See: https://code.google.com/p/sapdatasheet/wiki/ABAPTRANAnalytics
 
@@ -15,11 +15,11 @@ BEGIN
   DECLARE v_p2     VARCHAR(254);
   DECLARE v_ppos   int;             -- Position of sub-string
   DECLARE v_dummy  int;
-  DECLARE c_tran  CURSOR FOR select tcode, param from abapanalytics.tran where param is not null;
+  DECLARE c_tran  CURSOR FOR select tcode, param from abapanalytics.abaptran where param is not null;
   DECLARE CONTINUE HANDLER FOR NOT FOUND SET loop_tran_done = TRUE;
 
   -- Clear the existing param parsed value
-  update abapanalytics.tran 
+  update abapanalytics.abaptran 
     set calledtcode    = null, variant        = null,
         calledprogname = null, calledclass    = null, calledmethod   = null,
         key1           = null, value1         = null,
@@ -47,12 +47,12 @@ BEGIN
       set v_p1 = substr(v_param, 3);
       set v_ppos = position(' ' in v_p1);
       if v_ppos = 0 then
-        update abapanalytics.tran set calledtcode = left(v_p1, 20) where tcode = v_tcode;
+        update abapanalytics.abaptran set calledtcode = left(v_p1, 20) where tcode = v_tcode;
       else
-        update abapanalytics.tran set calledtcode = left(left(v_p1, v_ppos - 1), 20) where tcode = v_tcode;
+        update abapanalytics.abaptran set calledtcode = left(left(v_p1, v_ppos - 1), 20) where tcode = v_tcode;
 		set v_p1 = substr(v_p1, v_ppos);
 --      TODO - Parse the string 'aaa=bbb;ccc=ddd'
-        update abapanalytics.tran set debug = v_p1 where tcode = v_tcode;
+        update abapanalytics.abaptran set debug = v_p1 where tcode = v_tcode;
         call tran_data_param_parsekv(v_tcode, v_p1);
 	  end if;
 
@@ -66,12 +66,12 @@ BEGIN
 
       set v_ppos = position(' ' in v_p1);
       if v_ppos = 0 then
-        update abapanalytics.tran set calledtcode = left(v_p1, 20) where tcode = v_tcode;
+        update abapanalytics.abaptran set calledtcode = left(v_p1, 20) where tcode = v_tcode;
       else
-        update abapanalytics.tran set calledtcode = left(left(v_p1, v_ppos - 1), 20) where tcode = v_tcode;
+        update abapanalytics.abaptran set calledtcode = left(left(v_p1, v_ppos - 1), 20) where tcode = v_tcode;
 		set v_p1 = trim(substr(v_p1, v_ppos));
         if length(v_p1) > 0 then
-          update abapanalytics.tran set variant = left(v_p1, 14) where tcode = v_tcode;
+          update abapanalytics.abaptran set variant = left(v_p1, 14) where tcode = v_tcode;
         end if;
 	  end if;
 
@@ -84,13 +84,13 @@ BEGIN
 --      Class
         set v_p2 = substr(v_p1, 1, v_ppos - 1);
         if length(v_p2) > 0 then
-		  update abapanalytics.tran set calledclass = left(v_p2, 30) where tcode = v_tcode;
+		  update abapanalytics.abaptran set calledclass = left(v_p2, 30) where tcode = v_tcode;
 		end if;
 --      Method
         set v_p2 = substr(v_p1, v_ppos);           -- Delete Class name
         set v_p2 = substr(v_p2, 8);                -- Delete 'METHOD='
         if length(v_p2) > 0 then
-		  update abapanalytics.tran set calledmethod = left(v_p2, 61) where tcode = v_tcode;
+		  update abapanalytics.abaptran set calledmethod = left(v_p2, 61) where tcode = v_tcode;
 		end if;
 	  end if;
 
@@ -103,7 +103,7 @@ BEGIN
 --      Program
         set v_p2 = substr(v_p1, 1, v_ppos - 1);
         if length(v_p2) > 0 then
-		  update abapanalytics.tran set calledprogname = left(v_p2, 40) where tcode = v_tcode;
+		  update abapanalytics.abaptran set calledprogname = left(v_p2, 40) where tcode = v_tcode;
 		end if;
 
 --      Class
@@ -113,14 +113,14 @@ BEGIN
         if v_ppos > 0 then
           set v_p1 = substr(v_p2, 1, v_ppos - 1);
 		  if length(v_p1) > 0 then
-            update abapanalytics.tran set calledclass = left(v_p1, 30) where tcode = v_tcode;
+            update abapanalytics.abaptran set calledclass = left(v_p1, 30) where tcode = v_tcode;
           end if;
 
 --        Method
           set v_p2 = substr(v_p2, v_ppos);           -- Delete Class name
           set v_p2 = substr(v_p2, 8);                -- Delete 'METHOD='
           if length(v_p2) > 0 then
-		    update abapanalytics.tran set calledmethod = left(v_p2, 61) where tcode = v_tcode;
+		    update abapanalytics.abaptran set calledmethod = left(v_p2, 61) where tcode = v_tcode;
           end if;
         end if;
       end if;
@@ -132,7 +132,7 @@ BEGIN
 --      TODO - Parse key-value
         call tran_data_param_parsekv(v_tcode, v_param);
       else
-        update abapanalytics.tran set variant = left(v_param, 14) where tcode = v_tcode;
+        update abapanalytics.abaptran set variant = left(v_param, 14) where tcode = v_tcode;
       end if;
     end if;
 
