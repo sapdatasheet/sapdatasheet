@@ -139,7 +139,7 @@ class ABAP_Navigation {
         if (strlen(trim($table)) < 1 || strlen(trim($field)) < 1) {
             return '&nbsp;';
         }
-        $objname = htmlentities(strtolower($table)) . "-" . htmlentities(strtolower($field));
+        $objname = GLOBAL_UTIL::Clear4Url($table) . "-" . GLOBAL_UTIL::Clear4Url($field);
         return ABAP_Navigation::GetURL(ABAP_OTYPE::TABL_NAME, $objname, $field, $field, $newwin);
     }
 
@@ -173,7 +173,7 @@ class ABAP_Navigation {
         }
         $newWindow = ($newwin === TRUE) ? 'target="_blank"' : '';
         $anchorTag = (strlen(trim($anchor)) > 0) ? '#' . $anchor : '';
-        $url = '/abap/' . $objtype . '/' . htmlentities(strtolower($objname)) . '.html' . $anchorTag;
+        $url = '/abap/' . $objtype . '/' . GLOBAL_UTIL::Clear4Url($objname) . '.html' . $anchorTag;
         $result = '<a href="' . strtolower($url)
                 . '" title="' . htmlentities($sTitle) . '" '
                 . $newWindow . '>'
@@ -251,7 +251,7 @@ class ABAP_Navigation {
     }
 
     public static function GetWulURL($counter) {
-        $url_subobj = (strlen(trim($counter['SRC_SUBOBJ'])) > 0) ? '-' . strtolower($counter['SRC_SUBOBJ']) : '';
+        $url_subobj = (strlen(trim($counter['SRC_SUBOBJ'])) > 0) ? '-' . GLOBAL_UTIL::Clear4Url($counter['SRC_SUBOBJ']) : '';
         $url = '/wul/abap/'
                 . $counter['SRC_OBJ_TYPE']
                 . '/' . GLOBAL_UTIL::Clear4Url($counter['SRC_OBJ_NAME']) . $url_subobj
@@ -265,7 +265,7 @@ class ABAP_Navigation {
         if ($counter > ABAP_DB_CONST::INDEX_PAGESIZE) {
             $pageCount = ceil($counter / ABAP_DB_CONST::INDEX_PAGESIZE);
             for ($i = 1; $i <= $pageCount; $i++) {
-                $urlObj = (strlen(trim($srcSubobj)) > 0) ? '-' . $srcSubobj : '';
+                $urlObj = (strlen(trim($srcSubobj)) > 0) ? '-' . GLOBAL_UTIL::Clear4Url($srcSubobj) : '';
                 $url = '/wul/abap/'
                         . $srcOType
                         . '/' . GLOBAL_UTIL::Clear4Url($srcOName) . $urlObj
@@ -291,7 +291,7 @@ class ABAP_Navigation {
             $i = 1;
             foreach ($urls as $url) {
                 $title = 'title="' . 'Page ' . $i . ' of ' . $pageCount . '" ';
-                $link = '<a href="' . htmlentities($url) . '" ' . $title . $newWindow . ' >' . $i . '</a>';
+                $link = '<a href="' . $url . '" ' . $title . $newWindow . ' >' . $i . '</a>';
                 $result = $result . $link . '&nbsp;';
 
                 $i++;
@@ -333,7 +333,7 @@ class ABAP_Navigation {
             for ($i = 1; $i <= $pageCount; $i++) {
                 $url = '/wil/abap/'
                         . $oType
-                        . '/' . htmlentities($oName)
+                        . '/' . GLOBAL_UTIL::Clear4Url($oName)
                         . '/' . $srcOType . '-' . $i
                         . '.html';
                 array_push($urls, strtolower($url));
@@ -356,7 +356,7 @@ class ABAP_Navigation {
             $i = 1;
             foreach ($urls as $url) {
                 $title = 'title="' . 'Page ' . $i . ' of ' . $pageCount . '" ';
-                $link = '<a href="' . htmlentities(strtolower($url)) . '" ' . $title . $newWindow . ' >' . $i . '</a>';
+                $link = '<a href="' . $url . '" ' . $title . $newWindow . ' >' . $i . '</a>';
                 $result = $result . $link . '&nbsp;';
                 $i++;
             }
