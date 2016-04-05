@@ -53,7 +53,7 @@ BEGIN
 		set v_p1 = substr(v_p1, v_ppos);
 --      TODO - Parse the string 'aaa=bbb;ccc=ddd'
         update abapanalytics.abaptran set debug = v_p1 where tcode = v_tcode;
-        call tran_data_param_parsekv(v_tcode, v_p1);
+        call abapanalytics.abaptran_data_param_parsekv(v_tcode, v_p1);
 	  end if;
 
     elseif v_param like '@%' then
@@ -129,8 +129,7 @@ BEGIN
 --    para1=value1;para2=value2
 --    variant
       if position('=' in v_param) > 0 then
---      TODO - Parse key-value
-        call tran_data_param_parsekv(v_tcode, v_param);
+        call abapanalytics.abaptran_data_param_parsekv(v_tcode, v_param);
       else
         update abapanalytics.abaptran set variant = left(v_param, 14) where tcode = v_tcode;
       end if;

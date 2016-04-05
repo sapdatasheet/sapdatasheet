@@ -4,16 +4,16 @@
 -- --------------------------------------------------------------------------------
 DELIMITER $$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `tran_data`()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `abaptran_data`()
 BEGIN
 
-  delete from abapanalytics.tran;
-  insert into abapanalytics.tran (tcode)
+  delete from abapanalytics.abaptran;
+  insert into abapanalytics.abaptran (tcode)
     select tcode from abap.tstc;  
 
-  call tran_data_hira();
-  call tran_data_param();
-  call tran_data_param_parse();
-  call tran_data_view();
+  call abapanalytics.abaptran_data_hira();
+  call abapanalytics.abaptran_data_param();
+  call abapanalytics.abaptran_data_param_parse();
+  call abapanalytics.abaptran_data_view();
 
 END
