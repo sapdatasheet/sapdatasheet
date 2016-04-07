@@ -264,5 +264,17 @@ class GLOBAL_UTIL {
     public static function Clear4Url($id) {
         return htmlentities(strtolower($id), ENT_QUOTES, "UTF-8");
     }
+    
+    /**
+     * Echo spaces.
+     * 
+     * @param int $count Number of spaces to echo
+     */
+    public static function EchoSpace($count = 1){
+        while ($count > 0) {
+            echo '&nbsp;';
+            $count--;
+        }
+    }
 
 }

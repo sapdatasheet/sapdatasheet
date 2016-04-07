@@ -89,6 +89,8 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::PROG_NAME, $pr
                     <?php include $__ROOT__ . '/include/google/adsense-content-top.html' ?>
                 </div>
 
+                <?php require $__ROOT__ . '/include/abap_oname_hier.php' ?>
+
                 <h4> Basic data </h4>
                 <table class="content_obj">
                     <tbody>
@@ -182,14 +184,18 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::PROG_NAME, $pr
                     <table class="alv">
                         <caption>Transactions reference to this program</caption>
                         <tr>
+                            <th class="alv"> # </th>
                             <th class="alv"> Transaction Code </th>
                             <th class="alv"> Short Description </th>
                         </tr>                        
                         <?php
+                        $count = 0;
                         foreach ($tcode_list as $tcode) {
+                            $count++;
                             $tcode_desc = ABAP_DB_TABLE_TRAN::TSTCT($tcode['TCODE']);
                             ?>
-                            <tr><td class="alv"><?php echo ABAP_Navigation::GetURL4Tran($tcode['TCODE'], $tcode_desc) ?></td>
+                            <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                                <td class="alv"><?php echo ABAP_Navigation::GetURL4Tran($tcode['TCODE'], $tcode_desc) ?></td>
                                 <td class="alv"><?php echo htmlentities($tcode_desc) ?>&nbsp;</td>
                             </tr>
                         <?php } ?>
@@ -285,14 +291,11 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::PROG_NAME, $pr
                 <?php } ?>
                 <!-- Report Texts: End  -->
 
-                <h4> Hierarchy </h4>
+                <h4> History </h4>
                 <table class="content_obj">
                     <tbody>
                         <tr><td class="content_label"> Last changed by/on      </td><td class="field"><?php echo $prog['CNAM'] ?>&nbsp;</td><td> <?php echo $prog['CDAT'] ?>&nbsp;</td></tr>
-                        <tr><td class="content_label"> Software Component      </td><td class="field"><?php echo ABAP_Navigation::GetURL4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td><td> <?php echo $hier->DLVUNIT_T ?>&nbsp;</td></tr>
                         <tr><td class="content_label"> SAP Release Created in  </td><td class="field"><?php echo $hier->CRELEASE ?>&nbsp;</td><td>&nbsp;</td></tr>
-                        <tr><td class="content_label"> Application Component   </td><td class="field"><?php echo ABAP_Navigation::GetURL4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;(<?php echo $hier->FCTR_ID ?>)</td><td> <?php echo $hier->POSID_T ?>&nbsp;</td></tr>
-                        <tr><td class="content_label"> Package                 </td><td class="field"><?php echo ABAP_Navigation::GetURL4Devc($hier->DEVCLASS, $hier->DEVCLASS_T) ?>&nbsp;</td><td> <?php echo $hier->DEVCLASS_T ?>&nbsp;</td></tr>
                     </tbody>
                 </table>
             </div>

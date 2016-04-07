@@ -86,6 +86,8 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::CUS0_NAME, $im
                     <?php include $__ROOT__ . '/include/google/adsense-content-top.html' ?>
                 </div>
 
+                <?php require $__ROOT__ . '/include/abap_oname_hier.php' ?>
+
                 <h4> IMG Tree </h4>
                 
                 <h4> IMG Activity </h4>
@@ -229,14 +231,11 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::CUS0_NAME, $im
                     </table>
                 <?php } ?>
 
-                <h4> Hierarchy </h4>
+                <h4> History </h4>
                 <table class="content_obj">
                     <tbody>
                         <tr><td class="content_label"> Last changed by/on      </td><td class="field"><?php echo $imgach['LUSER'] ?>&nbsp;</td><td> <?php echo $imgach['LDATE'] ?>&nbsp;</td></tr>
-                        <tr><td class="content_label"> Software Component      </td><td class="field"><?php echo ABAP_Navigation::GetURL4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td><td> <?php echo $hier->DLVUNIT_T ?>&nbsp;</td></tr>
                         <tr><td class="content_label"> SAP Release Created in  </td><td class="field"><?php echo $hier->CRELEASE ?>&nbsp;</td><td>&nbsp;</td></tr>
-                        <tr><td class="content_label"> Application Component   </td><td class="field"><?php echo ABAP_Navigation::GetURL4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;(<?php echo $hier->FCTR_ID ?>)</td><td> <?php echo $hier->POSID_T ?>&nbsp;</td></tr>
-                        <tr><td class="content_label"> Package                 </td><td class="field"><?php echo ABAP_Navigation::GetURL4Devc($hier->DEVCLASS, $hier->DEVCLASS_T) ?>&nbsp;</td><td> <?php echo $hier->DEVCLASS_T ?>&nbsp;</td></tr>
                     </tbody>
                 </table>
             </div>

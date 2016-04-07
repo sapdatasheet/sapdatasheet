@@ -145,6 +145,7 @@ div.content_obj
     padding-left:0.5em;
     padding-bottom:1em;
 }
+/* F1 Help Document Box */
 div.f1doc
 {
     background-color:#FEFEEE;
@@ -154,6 +155,18 @@ div.f1doc
     padding-right:0.5em;
     padding-bottom:1em;
 }
+/* Hierarchy Information Box */
+div.hier
+{
+    background-color:#F0F4F0;
+    border-style:groove;
+    padding-top:0.5em;
+    padding-left:0.5em;
+    padding-right:0.5em;
+    padding-bottom:0.5em;
+    font-size:small;
+}
+
 table.content_obj
 {
     font-size:small;

@@ -6,16 +6,6 @@ require_once($__ROOT__ . '/include/global.php');
 class ABAP_Hierarchy {
 
     /**
-     * Package. <p> Database field: TADIR-DEVCLASS or TDEVC-DEVCLASS. </p>
-     */
-    public $DEVCLASS = '';
-
-    /**
-     * Text of {@link #DEVCLASS}.
-     */
-    public $DEVCLASS_T = '';
-
-    /**
      * Software Component. <p> Database field: TDEVC-DLVUNIT. </p>
      */
     public $DLVUNIT = '';
@@ -41,7 +31,39 @@ class ABAP_Hierarchy {
     public $POSID_T = '';
 
     /**
-     * SAP Release. <p> Database field: TADIR-CRELEASE. </p>
+     * Parent Package in upper 2 level. Parent packge of {@link #PARENTCL1}. 
+     * <p> Database field: TDEVC-PARENTCL. </p>
+     */
+    public $PARENTCL2 = '';
+
+    /**
+     * Text of {@link #PARENTCL2}.
+     */
+    public $PARENTCL2_T = '';
+
+    /**
+     * Parent Package in upper 1 level. Parent packge of {@link #DEVCLASS}. 
+     * <p> Database field: TDEVC-PARENTCL. </p>
+     */
+    public $PARENTCL1 = '';
+
+    /**
+     * Text of {@link #PARENTCL1}.
+     */
+    public $PARENTCL1_T = '';
+
+    /**
+     * Package. <p> Database field: TADIR-DEVCLASS or TDEVC-DEVCLASS. </p>
+     */
+    public $DEVCLASS = '';
+
+    /**
+     * Text of {@link #DEVCLASS}.
+     */
+    public $DEVCLASS_T = '';
+
+    /**
+     * Created since Release. <p> Database field: TADIR-CRELEASE. </p>
      */
     public $CRELEASE = '';
 

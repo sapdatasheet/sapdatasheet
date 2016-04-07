@@ -1067,11 +1067,35 @@ class ABAP_DB_TABLE_HIER {
         $tdevc = ABAP_DB_TABLE_HIER::TDEVC($hier->DEVCLASS);
         $hier->DLVUNIT = $tdevc['DLVUNIT'];
         $hier->DLVUNIT_T = ABAP_DB_TABLE_HIER::CVERS_REF($hier->DLVUNIT);
-        $df14l = ABAP_DB_TABLE_HIER::DF14L($tdevc['COMPONENT']);
-        $hier->FCTR_ID = $tdevc['COMPONENT'];
+        if (strlen(trim($tdevc['COMPONENT'])) > 0) {
+            ABAP_DB_TABLE_HIER::HierAppComp($tdevc['COMPONENT'], $hier);
+        } else if (strlen(trim($tdevc['PARENTCL'])) > 0) {
+            $hier->PARENTCL1 = $tdevc['PARENTCL'];
+            $hier->PARENTCL1_T = ABAP_DB_TABLE_HIER::TDEVCT($hier->PARENTCL1);
+            $tdevc_up1 = ABAP_DB_TABLE_HIER::TDEVC($tdevc['PARENTCL']);
+            if (strlen(trim($tdevc_up1['COMPONENT'])) > 0) {
+                ABAP_DB_TABLE_HIER::HierAppComp($tdevc_up1['COMPONENT'], $hier);
+            } else if (strlen(trim($tdevc_up1['PARENTCL'])) > 0) {
+                $hier->PARENTCL2 = $tdevc_up1['PARENTCL'];
+                $hier->PARENTCL2_T = ABAP_DB_TABLE_HIER::TDEVCT($hier->PARENTCL2);
+                $tdevc_up2 = ABAP_DB_TABLE_HIER::TDEVC($tdevc['PARENTCL']);
+                if (strlen(trim($tdevc_up2['COMPONENT'])) > 0) {
+                    ABAP_DB_TABLE_HIER::HierAppComp($tdevc_up2['COMPONENT'], $hier);
+                }
+            }
+        }
+
+        return $hier;
+    }
+
+    /**
+     * Update the Application Component information in hierarchy structure.
+     */
+    private static function HierAppComp($fctr, &$hier) {
+        $df14l = ABAP_DB_TABLE_HIER::DF14L($fctr);
+        $hier->FCTR_ID = $df14l['FCTR_ID'];
         $hier->POSID = $df14l['PS_POSID'];
         $hier->POSID_T = ABAP_DB_TABLE_HIER::DF14T($hier->FCTR_ID);
-        return $hier;
     }
 
     /**
@@ -2644,7 +2668,7 @@ class ABAP_DB_TABLE_CREF {
         );
         return ABAP_DB_TABLE::select($sql, $paras);
     }
-    
+
     /**
      * Load Where-Using-List for an ABAP Object.
      *
@@ -2672,6 +2696,7 @@ class ABAP_DB_TABLE_CREF {
 
         return ABAP_DB_TABLE::select($sql, $paras);
     }
+
 }
 
 class ABAPANA_DB_TABLE {
@@ -2827,6 +2852,7 @@ class ABAPANA_DB_TABLE {
                 . ABAP_DB_CONN::schema_abapana . '.' . ABAPANA_DB_TABLE::WILCOUNTER;
         return ABAP_DB_TABLE::select($sql);
     }
+
 }
 
 /** Database table names. */
