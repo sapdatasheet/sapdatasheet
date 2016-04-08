@@ -29,16 +29,16 @@ $atrcou_list = ABAP_DB_TABLE_CUS0::CUS_ATRCOU($imgach['ACTIVITY']);
 $acth = ABAP_DB_TABLE_CUS0::CUS_ACTH($imgach['C_ACTIVITY']);
 $actobj_list = ABAP_DB_TABLE_CUS0::CUS_ACTOBJ($imgach['C_ACTIVITY']);
 
-$hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::CUS0_NAME, $imgach['ACTIVITY']);
-$GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::CUS0_NAME, $imgach['ACTIVITY']);
+$hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, GLOBAL_ABAP_OTYPE::CUS0_NAME, $imgach['ACTIVITY']);
+$GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::CUS0_NAME, $imgach['ACTIVITY']);
 ?>
 <html>
     <head>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="stylesheet" href="/abap.css" type="text/css" />
-        <title><?php echo $GLOBALS['TITLE_TEXT'] . WEBSITE::TITLE ?> </title>
-        <meta name="keywords" content="SAP,<?php echo ABAP_OTYPE::CUS0_DESC ?>,<?php echo $imgach['ACTIVITY'] ?>,<?php echo $imgach_t ?>" />
-        <meta name="description" content="<?php echo WEBSITE::META_DESC; ?>" />
+        <title><?php echo $GLOBALS['TITLE_TEXT'] . GLOBAL_WEBSITE_SAPDS::TITLE ?> </title>
+        <meta name="keywords" content="SAP,<?php echo GLOBAL_ABAP_OTYPE::CUS0_DESC ?>,<?php echo $imgach['ACTIVITY'] ?>,<?php echo $imgach_t ?>" />
+        <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC; ?>" />
         <meta name="author" content="SAP Datasheet" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
@@ -54,13 +54,13 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::CUS0_NAME, $im
             <table class="content_obj">
                 <tbody>
                     <tr><td>Software Component</td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_Navigation::GetURL4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
+                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetURL4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
                     <tr><td class="left_attribute"> Application Component ID</td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_Navigation::GetURL4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
+                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetURL4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
                     <tr><td class="left_attribute"> Package </td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_Navigation::GetURL4Devc($hier->DEVCLASS, $hier->DEVCLASS_T) ?></td></tr>
+                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetURL4Devc($hier->DEVCLASS, $hier->DEVCLASS_T) ?></td></tr>
                     <tr><td class="left_attribute"> Object type </td></tr>
-                    <tr><td class="left_value"><a href="/abap/cus0/"><?php echo ABAP_OTYPE::CUS0_DESC ?></a></td></tr>
+                    <tr><td class="left_value"><a href="/abap/cus0/"><?php echo GLOBAL_ABAP_OTYPE::CUS0_DESC ?></a></td></tr>
                     <tr><td class="left_attribute"> Object name </td></tr>
                     <tr><td class="left_value"> <a href="#" title="<?php echo $imgach_t ?>"><?php echo $imgach['ACTIVITY'] ?></a> </td></tr>
                 </tbody>
@@ -75,7 +75,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::CUS0_NAME, $im
             <div class="content_navi">
                 <a href="/">Home page</a> &gt;
                 <a href="/abap/">ABAP Object</a> &gt;
-                <a href="/abap/cus0/"><?php echo ABAP_OTYPE::CUS0_DESC ?></a> &gt;
+                <a href="/abap/cus0/"><?php echo GLOBAL_ABAP_OTYPE::CUS0_DESC ?></a> &gt;
                 <a href="#"><?php echo $imgach['ACTIVITY'] ?></a>
             </div>
 
@@ -94,11 +94,11 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::CUS0_NAME, $im
                 <table class="content_obj">
                     <tbody>
                         <tr><td class="content_label"> ID </td>
-                            <td class="field"> <?php echo ABAP_Navigation::GetURL4Cus0IMGActivity($imgach['ACTIVITY'], $imgach_t, FALSE); ?> </td>
+                            <td class="field"> <?php echo ABAP_UI_Navigation::GetURL4Cus0IMGActivity($imgach['ACTIVITY'], $imgach_t, FALSE); ?> </td>
                             <td> <?php echo htmlentities($imgach_t) ?> &nbsp;</td>
                         </tr>
                         <tr><td class="content_label"> Transaction Code </td>
-                            <td class="field"> <?php echo ABAP_Navigation::GetURL4Tran($imgach['TCODE'], null) ?> &nbsp;</td>
+                            <td class="field"> <?php echo ABAP_UI_Navigation::GetURL4Tran($imgach['TCODE'], null) ?> &nbsp;</td>
                             <td> <?php echo ABAP_DB_TABLE_TRAN::TSTCT($imgach['TCODE']) ?>&nbsp; </td>
                         </tr>
                         <tr><td class="content_label"> Created on </td>
@@ -188,7 +188,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::CUS0_NAME, $im
                             <tr><td class="alv"><?php echo $tfm18['DOKCLASS'] ?> </td>
                                 <td class="alv"><?php echo $tfm18['DOKNAME'] ?> </td>
                                 <td class="alv"><?php echo $tfm18['LINNO'] ?> </td>
-                                <td class="alv"><?php echo ABAP_Navigation::GetURL4Bmfr($tfm18['FUNCT'], $tfm18['FUNCT'], $tfm18_desc); ?> </td>
+                                <td class="alv"><?php echo ABAP_UI_Navigation::GetURL4Bmfr($tfm18['FUNCT'], $tfm18['FUNCT'], $tfm18_desc); ?> </td>
                                 <td class="alv"><?php echo htmlentities($tfm18_desc) ?>&nbsp;</td>
                             </tr>
                         <?php } ?>
@@ -221,7 +221,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::CUS0_NAME, $im
                         <?php foreach ($actobj_list as $actobj) { ?>
                             <tr><td class="alv"><?php echo $actobj['OBJECTNAME'] ?> </td>
                                 <td class="alv"><?php echo $actobj['OBJECTTYPE'] ?> - <?php echo ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_CUS_ACTOBJ_OBJECTTYPE, $actobj['OBJECTTYPE']) ?></td>
-                                <td class="alv"><?php echo ABAP_Navigation::GetURL4Tran($actobj['TCODE'], null) ?> </td>
+                                <td class="alv"><?php echo ABAP_UI_Navigation::GetURL4Tran($actobj['TCODE'], null) ?> </td>
                                 <td class="alv"><?php echo $actobj['SUBOBJNAME'] ?> </td>
                                 <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox("TXN_NO_CON", $actobj['TXN_NO_CON']) ?> </td>
                                 <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox("SUPRESS_FL", $actobj['SUPRESS_FL']) ?> </td>

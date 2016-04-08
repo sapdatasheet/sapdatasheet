@@ -1,9 +1,16 @@
 <?php
 
+/** Sitemap constants. */
+class SITEMAP {
+
+    const MAX_URL_COUNT = 50000;
+
+}
+
 /**
  * Start a new sitemap xml file.
  */
-function sitemapStartOB() {
+function SitemapStartOB() {
     ob_start();
     echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
     echo "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">";
@@ -13,7 +20,7 @@ function sitemapStartOB() {
 /**
  * Echo one URL for the sitemap file.
  */
-function sitemapEchoUrl($url) {
+function SitemapEchoUrl($url) {
     echo '<url>';
     echo '<loc>' . $url . '</loc>';
     echo '<changefreq>yearly</changefreq>';
@@ -28,7 +35,7 @@ function sitemapEchoUrl($url) {
  * @param string $prefix File name prefix, example: 'wul-abap'
  * @param number $i File sequence number
  */
-function sitemapEndOB($prefix, $i = NULL) {
+function SitemapEndOB($prefix, $i = NULL) {
     echo '</urlset>';
 
     $ob_content = ob_get_contents();
@@ -50,24 +57,24 @@ function Sitemap4ABAPOType($obj_type, $list, $column_name, $fname_pre = NULL) {
 
     foreach ($list as $row) {
         if ($j == 1) {
-            sitemapStartOB();
+            SitemapStartOB();
         }
 
         if (strlen(trim($row[$column_name])) > 0) {
             $abapurl = "http://www.sapdatasheet.org/abap/" . $obj_type . "/" . GLOBAL_UTIL::Clear4Url($row[$column_name]) . ".html";
-            sitemapEchoUrl($abapurl);
+            SitemapEchoUrl($abapurl);
         }
 
         // Check if the Sitemap is full
         $j++;
         if ($j >= SITEMAP::MAX_URL_COUNT) {
-            sitemapEndOB($fname_prefix, $i);
+            SitemapEndOB($fname_prefix, $i);
             $i++;
             $j = 1;
         }
     } // End foreach
 
     if ($j > 1) {
-        sitemapEndOB($fname_prefix, $i);
+        SitemapEndOB($fname_prefix, $i);
     }
 }

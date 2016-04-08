@@ -36,16 +36,16 @@ ob_start();
 <!DOCTYPE html>
 <!-- Application component index. -->
 <?php
-$GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::BMFR_DESC . " - Index " . $index . " ";
+$GLOBALS['TITLE_TEXT'] = "SAP ABAP " . GLOBAL_ABAP_OTYPE::BMFR_DESC . " - Index " . $index . " ";
 $bmfr = ABAP_DB_TABLE_HIER::DF14L_List($index);
 ?>
 <html>
     <head>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="stylesheet" href="/abap.css" type="text/css" />
-        <title><?php echo $GLOBALS['TITLE_TEXT'] ?> <?php echo WEBSITE::TITLE ?> </title>
-        <meta name="keywords" content="SAP,ABAP,<?php echo ABAP_OTYPE::BMFR_DESC ?>" />
-        <meta name="description" content="<?php echo WEBSITE::META_DESC ?>" />
+        <title><?php echo $GLOBALS['TITLE_TEXT'] ?> <?php echo GLOBAL_WEBSITE_SAPDS::TITLE ?> </title>
+        <meta name="keywords" content="SAP,ABAP,<?php echo GLOBAL_ABAP_OTYPE::BMFR_DESC ?>" />
+        <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC ?>" />
         <meta name="author" content="SAP Datasheet" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
@@ -63,11 +63,11 @@ $bmfr = ABAP_DB_TABLE_HIER::DF14L_List($index);
             <div class="content_navi">
                 <a href="/">Home page</a> &gt; 
                 <a href="/abap/">ABAP Object</a> &gt; 
-                <a href="/abap/bmfr/"><?php echo ABAP_OTYPE::BMFR_DESC ?></a>
+                <a href="/abap/bmfr/"><?php echo GLOBAL_ABAP_OTYPE::BMFR_DESC ?></a>
             </div>
 
             <!-- Content Object -->
-            <div class="content_obj_title"><span>SAP ABAP <?php echo ABAP_OTYPE::BMFR_DESC ?></span></div>
+            <div class="content_obj_title"><span>SAP ABAP <?php echo GLOBAL_ABAP_OTYPE::BMFR_DESC ?></span></div>
             <div class="content_obj">
                 <div>
                     <?php include $__ROOT__ . '/include/google/adsense-content-top.html' ?>
@@ -101,7 +101,7 @@ $bmfr = ABAP_DB_TABLE_HIER::DF14L_List($index);
                     <a href="index-x.html">X</a>&nbsp;
                 </div>
 
-                <h4> <?php echo ABAP_OTYPE::BMFR_DESC ?> - <?php echo $index ?></h4>
+                <h4> <?php echo GLOBAL_ABAP_OTYPE::BMFR_DESC ?> - <?php echo $index ?></h4>
                 <table class="alv">
                     <tr>
                         <th class="alv"> # </th>
@@ -112,12 +112,12 @@ $bmfr = ABAP_DB_TABLE_HIER::DF14L_List($index);
                         <th class="alv"> Application Component </th>
                     </tr>
                     <tr>
-                        <th class="alv"><?php echo ABAP_Navigation::GetURL4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_HIER::DF14L_PS_POSID_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_HIER::DF14L_PS_POSID_DTEL, '?') ?></th>
                         <th class="alv"> &nbsp; </th>
-                        <th class="alv"><?php echo ABAP_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_HIER::DF14L_FSTDATE_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_HIER::DF14L_FSTDATE_DTEL, '?') ?></th>
                         <th class="alv"> &nbsp; </th>
-                        <th class="alv"><?php echo ABAP_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_HIER::DF14L_FCTR_ID_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_HIER::DF14L_FCTR_ID_DTEL, '?') ?></th>
                     </tr>
                     <?php
                     $count = 0;
@@ -126,7 +126,7 @@ $bmfr = ABAP_DB_TABLE_HIER::DF14L_List($index);
                         $bmfr_desc = ABAP_DB_TABLE_HIER::DF14T($row['FCTR_ID']);
                         ?>
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                            <td class="alv"><?php echo ABAP_Navigation::GetURL4Bmfr($row['FCTR_ID'], $row['PS_POSID'], $bmfr_desc); ?> </td>
+                            <td class="alv"><?php echo ABAP_UI_Navigation::GetURL4Bmfr($row['FCTR_ID'], $row['PS_POSID'], $bmfr_desc); ?> </td>
                             <td class="alv"><?php echo htmlentities($bmfr_desc) ?></td>
                             <td class="alv"><?php echo $row['FSTDATE'] ?></td>
                             <td class="alv"><?php echo $row['RELE'] ?></td>

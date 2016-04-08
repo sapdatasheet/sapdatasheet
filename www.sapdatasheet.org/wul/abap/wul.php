@@ -26,9 +26,9 @@ $GLOBALS['TITLE_TEXT'] = "Where Used List for " . $title_name;
     <head>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="stylesheet" href="/abap.css" type="text/css" />
-        <title><?php echo $GLOBALS['TITLE_TEXT'] . WEBSITE::TITLE ?> </title>
+        <title><?php echo $GLOBALS['TITLE_TEXT'] . GLOBAL_WEBSITE_SAPDS::TITLE ?> </title>
         <meta name="keywords" content="SAP,ABAP,<?php $dpSrcOType ?>,<?php $dpSrcOName ?>,<?php $srcObjDesc ?>" />
-        <meta name="description" content="<?php echo WEBSITE::META_DESC ?>" />
+        <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC ?>" />
         <meta name="author" content="SAP Datasheet" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
@@ -56,8 +56,8 @@ $GLOBALS['TITLE_TEXT'] = "Where Used List for " . $title_name;
                 </div>
 
                 <?php
-                $wulSrcTitle = 'SAP ABAP ' . ABAP_OTYPE::getOTypeDesc($dpSrcOType) . ' '
-                        . ABAP_Navigation::GetObjectURL($dpSrcOType, $dpSrcOName, $dpSrcSubobj);
+                $wulSrcTitle = 'SAP ABAP ' . GLOBAL_ABAP_OTYPE::getOTypeDesc($dpSrcOType) . ' '
+                        . ABAP_UI_Navigation::GetObjectURL($dpSrcOType, $dpSrcOName, $dpSrcSubobj);
                 if (!empty($srcObjDesc)){
                     $wulSrcTitle = $wulSrcTitle . ' (' . $srcObjDesc . ')';
                 }
@@ -67,13 +67,13 @@ $GLOBALS['TITLE_TEXT'] = "Where Used List for " . $title_name;
                 // print_r($counter_list);
 
                 foreach ($counter_list as $counter) {
-                    echo ABAP_Navigation::GetWulURLLink($counter, FALSE);
+                    echo ABAP_UI_Navigation::GetWulURLLink($counter, FALSE);
                     echo '&nbsp;';
                 }
                 ?>
 
-                <h4><?php echo ABAP_OTYPE::getOTypeDesc($dpOType) ?>
-                    <?php echo ABAP_Navigation::GetWulURLsLink($dpSrcOType, $dpSrcOName, $dpSrcSubobj, $dpOType, $counter_value, FALSE) ?>
+                <h4><?php echo GLOBAL_ABAP_OTYPE::getOTypeDesc($dpOType) ?>
+                    <?php echo ABAP_UI_Navigation::GetWulURLsLink($dpSrcOType, $dpSrcOName, $dpSrcSubobj, $dpOType, $counter_value, FALSE) ?>
                 </h4>
                 <table class="alv">
                     <tr>
@@ -86,13 +86,13 @@ $GLOBALS['TITLE_TEXT'] = "Where Used List for " . $title_name;
                         <th class="alv"> Software Component </th>
                     </tr>
                     <tr>
-                        <th class="alv"><?php echo ABAP_Navigation::GetURL4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL) ?></th>
-                        <th class="alv"><?php echo ABAP_Navigation::GetURL4DtelDocument('TROBJTYPE') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL) ?></th>
+                        <th class="alv"><?php echo ABAP_UI_Navigation::GetURL4DtelDocument('TROBJTYPE') ?></th>
                         <th class="alv">&nbsp;</th>
                         <th class="alv">&nbsp;</th>
-                        <th class="alv"><?php echo ABAP_Navigation::GetURL4DtelDocument('DEVCLASS') ?></th>
-                        <th class="alv"><?php echo ABAP_Navigation::GetURL4DtelDocument('DEVCLASS') ?></th>
-                        <th class="alv"><?php echo ABAP_Navigation::GetURL4DtelDocument('DLVUNIT') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_Navigation::GetURL4DtelDocument('DEVCLASS') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_Navigation::GetURL4DtelDocument('DEVCLASS') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_Navigation::GetURL4DtelDocument('DLVUNIT') ?></th>
                     </tr>
                     <?php
                     $count = 0;
@@ -100,28 +100,28 @@ $GLOBALS['TITLE_TEXT'] = "Where Used List for " . $title_name;
                         $count++;
                         ?>
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                            <td class="alv"><?php echo ABAP_Navigation::GetOTypeURL($wul['OBJ_TYPE']) ?>&nbsp;</td>
+                            <td class="alv"><?php echo ABAP_UI_Navigation::GetOTypeURL($wul['OBJ_TYPE']) ?>&nbsp;</td>
                             <td class="alv">
-                                <?php echo ABAP_Navigation::GetObjectURL($wul['OBJ_TYPE'], $wul['OBJ_NAME'], $wul['SUB_NAME']) ?>
-                                <?php if ($wul['OBJ_TYPE'] == ABAP_OTYPE::FUNC_NAME && strlen($wul['SOURCE']) > 0) { ?>
+                                <?php echo ABAP_UI_Navigation::GetObjectURL($wul['OBJ_TYPE'], $wul['OBJ_NAME'], $wul['SUB_NAME']) ?>
+                                <?php if ($wul['OBJ_TYPE'] == GLOBAL_ABAP_OTYPE::FUNC_NAME && strlen($wul['SOURCE']) > 0) { ?>
                                     <br /><code><?php echo $wul['SOURCE'] ?></code>
                                     <?php
-                                } else if ($wul['OBJ_TYPE'] == ABAP_OTYPE::CLAS_NAME && $wul['SUB_TYPE'] == ABAP_DB_TABLE_CREF::YWUL_SUB_TYPE_METH && strlen($wul['SUB_NAME']) > 0) {
+                                } else if ($wul['OBJ_TYPE'] == GLOBAL_ABAP_OTYPE::CLAS_NAME && $wul['SUB_TYPE'] == ABAP_DB_TABLE_CREF::YWUL_SUB_TYPE_METH && strlen($wul['SUB_NAME']) > 0) {
                                     $cpdname = ABAP_DB_TABLE_CREF::YSEOPROG_CPDNAME($wul['OBJ_NAME'], $wul['SUB_NAME']);
                                     if (strlen($cpdname) > 0) {
                                         ?>
                                         <br /><code>Method: <?php echo $cpdname ?></code>
                                         <?php
                                     }
-                                } else if ($wul['OBJ_TYPE'] == ABAP_OTYPE::VIEW_NAME && $wul['SUB_TYPE'] == ABAP_DB_TABLE_CREF::YWUL_SUB_TYPE_VIED && strlen($wul['SUB_NAME']) > 0) {
+                                } else if ($wul['OBJ_TYPE'] == GLOBAL_ABAP_OTYPE::VIEW_NAME && $wul['SUB_TYPE'] == ABAP_DB_TABLE_CREF::YWUL_SUB_TYPE_VIED && strlen($wul['SUB_NAME']) > 0) {
                                     ?>
                                     - <?php echo $wul['SUB_NAME'] ?>
                                 <?php } ?>
                             </td>
                             <td class="alv"><?php echo ABAP_UI_TOOL::GetObjectDescr($wul['OBJ_TYPE'], $wul['OBJ_NAME']) ?></td>
-                            <td class="alv"><?php echo ABAP_Navigation::GetURL4Devc($wul['APPL_NAME']) ?>&nbsp;</td>
-                            <td class="alv"><?php echo ABAP_Navigation::GetURL4Devc($wul['APPL_PACKET']) ?>&nbsp;</td>
-                            <td class="alv"><?php echo ABAP_Navigation::GetURL4Cvers($wul['APPL_DLVUNIT']) ?>&nbsp;</td>
+                            <td class="alv"><?php echo ABAP_UI_Navigation::GetURL4Devc($wul['APPL_NAME']) ?>&nbsp;</td>
+                            <td class="alv"><?php echo ABAP_UI_Navigation::GetURL4Devc($wul['APPL_PACKET']) ?>&nbsp;</td>
+                            <td class="alv"><?php echo ABAP_UI_Navigation::GetURL4Cvers($wul['APPL_DLVUNIT']) ?>&nbsp;</td>
                         </tr>
                         <?php
                     }

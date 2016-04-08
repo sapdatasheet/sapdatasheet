@@ -8,21 +8,21 @@ $GLOBALS['SearchTerm'] = "Company Code";
     <head>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="stylesheet" href="abap.css" type="text/css" />
-        <title><?php echo WEBSITE::NAME ?> - <?php echo WEBSITE::DESC ?> </title>
+        <title><?php echo GLOBAL_WEBSITE_SAPDS::NAME ?> - <?php echo GLOBAL_WEBSITE_SAPDS::DESC ?> </title>
         <meta name="keywords" content="SAP,ABAP" />
-        <meta name="description" content="<?php echo WEBSITE::META_DESC ?>" />
+        <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC ?>" />
         <meta name="author" content="SAP Datasheet" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
     <body>
         <div class="headerlink">
             <a href="/abap/"><b>ALL</b></a> |
-            <a href="/abap/doma/"><b><?php echo ABAP_OTYPE::DOMA_DESC ?></b></a> |
-            <a href="/abap/dtel/"><b><?php echo ABAP_OTYPE::DTEL_DESC ?></b></a> |
-            <a href="/abap/tabl/"><b><?php echo ABAP_OTYPE::TABL_DESC ?></b></a> |
-            <a href="/abap/sqlt/"><b><?php echo ABAP_OTYPE::SQLT_DESC ?></b></a> |
-            <a href="/abap/view/"><b><?php echo ABAP_OTYPE::VIEW_DESC ?></b></a> |
-            <a href="/abap/tran/"><b><?php echo ABAP_OTYPE::TRAN_DESC ?></b></a>
+            <a href="/abap/doma/"><b><?php echo GLOBAL_ABAP_OTYPE::DOMA_DESC ?></b></a> |
+            <a href="/abap/dtel/"><b><?php echo GLOBAL_ABAP_OTYPE::DTEL_DESC ?></b></a> |
+            <a href="/abap/tabl/"><b><?php echo GLOBAL_ABAP_OTYPE::TABL_DESC ?></b></a> |
+            <a href="/abap/sqlt/"><b><?php echo GLOBAL_ABAP_OTYPE::SQLT_DESC ?></b></a> |
+            <a href="/abap/view/"><b><?php echo GLOBAL_ABAP_OTYPE::VIEW_DESC ?></b></a> |
+            <a href="/abap/tran/"><b><?php echo GLOBAL_ABAP_OTYPE::TRAN_DESC ?></b></a>
         </div>
 
         <div class="home_logo">

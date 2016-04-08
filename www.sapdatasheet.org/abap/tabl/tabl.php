@@ -24,21 +24,21 @@ $dd02l_contflag_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_TABL::DD02L_CONTF
 $dd02l_mainflag_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_TABL::DD02L_MAINFLAG_DOMAIN, $dd02l['MAINFLAG']);
 $dd03l = ABAP_DB_TABLE_TABL::DD03L_List($dd02l['TABNAME']);
 
-$wul_counter_list = ABAPANA_DB_TABLE::WULCOUNTER_List(ABAP_OTYPE::TABL_NAME, $dd02l['TABNAME']);
+$wul_counter_list = ABAPANA_DB_TABLE::WULCOUNTER_List(GLOBAL_ABAP_OTYPE::TABL_NAME, $dd02l['TABNAME']);
 $wil_enabled = TRUE;
-$wil_counter_list = ABAPANA_DB_TABLE::WILCOUNTER_List(ABAP_OTYPE::TABL_NAME, $dd02l['TABNAME']);
+$wil_counter_list = ABAPANA_DB_TABLE::WILCOUNTER_List(GLOBAL_ABAP_OTYPE::TABL_NAME, $dd02l['TABNAME']);
 
-$hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::TABL_NAME, $dd02l['TABNAME']);
-$GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::TABL_NAME, $dd02l['TABNAME']);
+$hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, GLOBAL_ABAP_OTYPE::TABL_NAME, $dd02l['TABNAME']);
+$GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::TABL_NAME, $dd02l['TABNAME']);
 //        'SAP ABAP ' . $dd02l_tabclass_desc . ' ' . $dd02l['TABNAME'];
 ?>
 <html>
     <head>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="stylesheet" href="/abap.css" type="text/css" />
-        <title><?php echo $GLOBALS['TITLE_TEXT'] . WEBSITE::TITLE ?> </title>
-        <meta name="keywords" content="SAP,<?php echo ABAP_OTYPE::TABL_DESC ?>,<?php echo $dd02l['TABNAME'] ?>,<?php echo $dd02l_desc ?>" />
-        <meta name="description" content="<?php echo WEBSITE::META_DESC; ?>" />
+        <title><?php echo $GLOBALS['TITLE_TEXT'] . GLOBAL_WEBSITE_SAPDS::TITLE ?> </title>
+        <meta name="keywords" content="SAP,<?php echo GLOBAL_ABAP_OTYPE::TABL_DESC ?>,<?php echo $dd02l['TABNAME'] ?>,<?php echo $dd02l_desc ?>" />
+        <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC; ?>" />
         <meta name="author" content="SAP Datasheet" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
@@ -54,11 +54,11 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::TABL_NAME, $dd
             <table class="content_obj">
                 <tbody>
                     <tr><td>Software Component</td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_Navigation::GetURL4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
+                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetURL4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
                     <tr><td class="left_attribute"> Application Component ID</td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_Navigation::GetURL4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
+                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetURL4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
                     <tr><td class="left_attribute"> Package </td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_Navigation::GetURL4Devc($hier->DEVCLASS, $hier->DEVCLASS_T) ?></td></tr>
+                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetURL4Devc($hier->DEVCLASS, $hier->DEVCLASS_T) ?></td></tr>
                     <tr><td class="left_attribute"> Object type </td></tr>
                     <tr><td class="left_value"><a href="/abap/tabl/"><?php echo $dd02l_tabclass_desc ?></a></td></tr>
                     <tr><td class="left_attribute"> Object name </td></tr>
@@ -93,7 +93,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::TABL_NAME, $dd
                 <table class="content_obj">
                     <tbody>
                         <tr><td class="content_label"> Table Category        </td>
-                            <td class="field"> <?php echo ABAP_Navigation::GetURL4DomainValue(ABAP_DB_TABLE_TABL::DD02L_TABCLASS_DOMAIN, $dd02l['TABCLASS'], $dd02l_tabclass_desc) ?> &nbsp;</td>
+                            <td class="field"> <?php echo ABAP_UI_Navigation::GetURL4DomainValue(ABAP_DB_TABLE_TABL::DD02L_TABCLASS_DOMAIN, $dd02l['TABCLASS'], $dd02l_tabclass_desc) ?> &nbsp;</td>
                             <td><?php echo htmlentities($dd02l_tabclass_desc) ?>&nbsp;</td></tr>
                         <tr><td class="content_label"> <?php echo htmlentities($dd02l_tabclass_desc) ?> </td>
                             <td class="field"><a href="#"><?php echo $dd02l['TABNAME'] ?></a></td>
@@ -109,13 +109,13 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::TABL_NAME, $dd
                 <table class="content_obj">
                     <tbody>
                         <tr><td class="content_label"> Pool/cluster </td>
-                            <td class="field"> <?php echo ABAP_Navigation::GetURL4Sqlt($dd02l['SQLTAB'], '') ?> &nbsp;</td>
+                            <td class="field"> <?php echo ABAP_UI_Navigation::GetURL4Sqlt($dd02l['SQLTAB'], '') ?> &nbsp;</td>
                             <td>&nbsp;</td></tr>
                         <tr><td class="content_label"> Delivery Class </td>
-                            <td class="field"> <?php echo ABAP_Navigation::GetURL4DomainValue(ABAP_DB_TABLE_TABL::DD02L_CONTFLAG_DOMAIN, $dd02l['CONTFLAG'], $dd02l_contflag_desc) ?> &nbsp;</td>
+                            <td class="field"> <?php echo ABAP_UI_Navigation::GetURL4DomainValue(ABAP_DB_TABLE_TABL::DD02L_CONTFLAG_DOMAIN, $dd02l['CONTFLAG'], $dd02l_contflag_desc) ?> &nbsp;</td>
                             <td><?php echo htmlentities($dd02l_contflag_desc) ?>&nbsp;</td></tr>
                         <tr><td class="content_label"> Data Browser/Table View Maintenance </td>
-                            <td class="field"> <?php echo ABAP_Navigation::GetURL4DomainValue(ABAP_DB_TABLE_TABL::DD02L_MAINFLAG_DOMAIN, $dd02l['MAINFLAG'], $dd02l_mainflag_desc) ?> &nbsp;</td>
+                            <td class="field"> <?php echo ABAP_UI_Navigation::GetURL4DomainValue(ABAP_DB_TABLE_TABL::DD02L_MAINFLAG_DOMAIN, $dd02l['MAINFLAG'], $dd02l_mainflag_desc) ?> &nbsp;</td>
                             <td><?php echo htmlentities($dd02l_mainflag_desc) ?>&nbsp;</td></tr>
                     </tbody>
                 </table>
@@ -124,15 +124,15 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::TABL_NAME, $dd
                 <h4> Components </h4>
                 <table class="alv">
                     <caption class="right">
-                        <a href="/download/abap-tabl-component.php?format=<?php echo strtolower(DOWNLOAD::FORMAT_CSV) ?>&tabname=<?php echo $dd02l['TABNAME'] ?>"
+                        <a href="/download/abap-tabl-component.php?format=<?php echo strtolower(GLOBAL_DOWNLOAD::FORMAT_CSV) ?>&tabname=<?php echo $dd02l['TABNAME'] ?>"
                            title="Download components as CSV file.&#10;The downloaded file contains more columns than displayed here."
                            target="_blank">
                            <img src='/abap/icon/s_wdvtxe.gif'></a> &nbsp;
-                        <a href="/download/abap-tabl-component.php?format=<?php echo strtolower(DOWNLOAD::FORMAT_XLS) ?>&tabname=<?php echo $dd02l['TABNAME'] ?>"
+                        <a href="/download/abap-tabl-component.php?format=<?php echo strtolower(GLOBAL_DOWNLOAD::FORMAT_XLS) ?>&tabname=<?php echo $dd02l['TABNAME'] ?>"
                            title="Download components as Excel (.xls) file.&#10;The downloaded file contains more columns than displayed here."
                            target="_blank">
                            <img src='/abap/icon/s_x__xls.gif'></a> &nbsp;
-                        <a href="/download/abap-tabl-component.php?format=<?php echo strtolower(DOWNLOAD::FORMAT_XLSX) ?>&tabname=<?php echo $dd02l['TABNAME'] ?>"
+                        <a href="/download/abap-tabl-component.php?format=<?php echo strtolower(GLOBAL_DOWNLOAD::FORMAT_XLSX) ?>&tabname=<?php echo $dd02l['TABNAME'] ?>"
                            title="Download components as Excel (.xlsx) file.&#10;The downloaded file contains more columns than displayed here."
                            target="_blank">
                            <img src='/abap/icon/s_lisvie.gif'></a> &nbsp;
@@ -155,26 +155,26 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::TABL_NAME, $dd
                         <?php
                         foreach ($dd03l as $dd03l_item) {
                             if (strlen(trim($dd03l_item['PRECFIELD'])) > 0) {
-                                $dd03l_fieldname_url = ABAP_Navigation::GetURL4TablInclude($dd02l['TABNAME'], $dd03l_item['FIELDNAME'], $dd03l_item['POSITION']);
+                                $dd03l_fieldname_url = ABAP_UI_Navigation::GetURL4TablInclude($dd02l['TABNAME'], $dd03l_item['FIELDNAME'], $dd03l_item['POSITION']);
                                 $anchor_name = 'FIELD_' . $dd03l_item['POSITION'];
                             } else {
-                                $dd03l_fieldname_url = ABAP_Navigation::GetURL4TablField($dd02l['TABNAME'], $dd03l_item['FIELDNAME']);
+                                $dd03l_fieldname_url = ABAP_UI_Navigation::GetURL4TablField($dd02l['TABNAME'], $dd03l_item['FIELDNAME']);
                                 $anchor_name = 'FIELD_' . $dd03l_item['FIELDNAME'];
                             }
                             $dd03l_fieldname_desc = ABAP_UI_TOOL::GetTablFieldDesc($dd03l_item['PRECFIELD'], $dd03l_item['ROLLNAME']);
-                            $dd03l_rollname_url = ABAP_Navigation::GetURL4Dtel($dd03l_item['ROLLNAME'], '');
+                            $dd03l_rollname_url = ABAP_UI_Navigation::GetURL4Dtel($dd03l_item['ROLLNAME'], '');
                             ?>
                             <tr>
                                 <td class="alv"> <a id="<?php echo $anchor_name ?>"></a> <?php echo $dd03l_item['POSITION'] ?> </td>
                                 <td class="alv"> <?php echo $dd03l_fieldname_url ?> </td>
                                 <td class="alv_center"> <?php echo ABAP_UI_TOOL::GetCheckBox('field_' . $dd03l_item['FIELDNAME'], $dd03l_item['KEYFLAG']) ?> </td>
                                 <td class="alv"> <?php echo $dd03l_rollname_url ?> </td>
-                                <td class="alv"> <?php echo ABAP_Navigation::GetURL4Doma($dd03l_item['DOMNAME'], '') ?> </td>
-                                <td class="alv"> <?php echo ABAP_Navigation::GetURL4DomainValue(ABAP_DB_CONST::DOMAIN_DATATYPE, $dd03l_item['DATATYPE'], '') ?> </td>
+                                <td class="alv"> <?php echo ABAP_UI_Navigation::GetURL4Doma($dd03l_item['DOMNAME'], '') ?> </td>
+                                <td class="alv"> <?php echo ABAP_UI_Navigation::GetURL4DomainValue(ABAP_DB_CONST::DOMAIN_DATATYPE, $dd03l_item['DATATYPE'], '') ?> </td>
                                 <td class="alv_right"> <?php echo intval($dd03l_item['LENG']) ?> &nbsp; </td>
                                 <td class="alv_right"> <?php echo intval($dd03l_item['DECIMALS']) ?> &nbsp; </td>
                                 <td class="alv"> <?php echo htmlentities($dd03l_fieldname_desc) ?> </td>
-                                <td class="alv"> <?php echo ABAP_Navigation::GetURL4Tabl($dd03l_item['CHECKTABLE'], '') ?> </td>
+                                <td class="alv"> <?php echo ABAP_UI_Navigation::GetURL4Tabl($dd03l_item['CHECKTABLE'], '') ?> </td>
                             </tr>
                         <?php } ?>
                     </tbody>

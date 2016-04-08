@@ -34,7 +34,7 @@
                         <img src="/sapdatasheet-middle.png"  alt="SAP Datasheet logo - Middle" />
                         <span><?php // echo  WEBSITE::NAME                  ?></span>
                     </a></div>
-                <div class="headertxtsub"><span><?php echo WEBSITE::DESC ?></span></div>
+                <div class="headertxtsub"><span><?php echo GLOBAL_WEBSITE_SAPDS::DESC ?></span></div>
             </td>
             <!-- Search -->
             <td class="search">

@@ -9,8 +9,8 @@ include_once ($__ROOT__ . "/include/3rdparty/php_xlsxwriter/xlsxwriter.class.php
 
 $tabname = strtoupper(filter_input(INPUT_GET, 'tabname'));
 $format = strtoupper(filter_input(INPUT_GET, 'format'));
-if ($format != DOWNLOAD::FORMAT_XLS && $format != DOWNLOAD::FORMAT_XLSX) {
-    $format = DOWNLOAD::FORMAT_CSV;
+if ($format != GLOBAL_DOWNLOAD::FORMAT_XLS && $format != GLOBAL_DOWNLOAD::FORMAT_XLSX) {
+    $format = GLOBAL_DOWNLOAD::FORMAT_CSV;
 }
 
 if (strlen(trim($tabname)) > 0) {
@@ -32,9 +32,9 @@ if (strlen(trim($tabname)) > 0) {
  */
 function download_query($format, $result, $filename) {
     if (count($result) > 0) {
-        if ($format === DOWNLOAD::FORMAT_XLS) {
+        if ($format === GLOBAL_DOWNLOAD::FORMAT_XLS) {
             query_to_xls($result, $filename);
-        } else if ($format === DOWNLOAD::FORMAT_XLSX) {
+        } else if ($format === GLOBAL_DOWNLOAD::FORMAT_XLSX) {
             query_to_xlsx($result, $filename);
         } else {
             query_to_csv($result, $filename);
@@ -51,7 +51,7 @@ function query_to_csv($result, $filename) {
 
     // send response headers to the browser
     header('Content-Type: text/csv');
-    header('Content-Disposition: attachment;filename=' . $filename . '.' . strtolower(DOWNLOAD::FORMAT_CSV));
+    header('Content-Disposition: attachment;filename=' . $filename . '.' . strtolower(GLOBAL_DOWNLOAD::FORMAT_CSV));
     $fp = fopen('php://output', 'w');
 
     // output header row (if at least one row exists)
@@ -69,7 +69,7 @@ function query_to_csv($result, $filename) {
  * Download the file in Excel 2003 XML format (.xls).
  */
 function query_to_xls($result, $filename) {
-    $exporter = new ExportDataExcel('browser', $filename . '.' . strtolower(DOWNLOAD::FORMAT_XLS));
+    $exporter = new ExportDataExcel('browser', $filename . '.' . strtolower(GLOBAL_DOWNLOAD::FORMAT_XLS));
     $exporter->title = $filename;
     $exporter->initialize();                  // starts streaming data to web browser
     // Table Header
@@ -88,7 +88,7 @@ function query_to_xls($result, $filename) {
  * Download the file in Excel 2007+ format (.xlsx).
  */
 function query_to_xlsx($result, $filename) {
-    header('Content-disposition: attachment; filename="' . XLSXWriter::sanitize_filename($filename . '.' . strtolower(DOWNLOAD::FORMAT_XLSX)) . '"');
+    header('Content-disposition: attachment; filename="' . XLSXWriter::sanitize_filename($filename . '.' . strtolower(GLOBAL_DOWNLOAD::FORMAT_XLSX)) . '"');
     header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
     header('Content-Transfer-Encoding: binary');
     header('Cache-Control: must-revalidate');

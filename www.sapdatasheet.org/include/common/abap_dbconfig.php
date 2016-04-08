@@ -1,6 +1,6 @@
 <?php
 
-class ABAP_DB_CONN {
+class ABAP_DB_CONFIG {
 
     const host = '127.0.0.1';
     const schema_abap = 'abap';

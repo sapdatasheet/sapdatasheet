@@ -38,16 +38,16 @@ ob_start();
 <!-- ABAP DDIC Search Help. -->
 <?php
 $page_label = "Page " . $index . " of " . ABAP_DBDATA::DD30L_INDEX_MAX;
-$GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::SHLP_DESC . " - Index " . $page_label;
+$GLOBALS['TITLE_TEXT'] = "SAP ABAP " . GLOBAL_ABAP_OTYPE::SHLP_DESC . " - Index " . $page_label;
 $shlp_list = ABAP_DB_TABLE_SHLP::DD30L_List($index);
 ?>
 <html>
     <head>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="stylesheet" href="/abap.css" type="text/css" />
-        <title><?php echo $GLOBALS['TITLE_TEXT'] ?> <?php echo WEBSITE::TITLE ?> </title>
-        <meta name="keywords" content="SAP,ABAP,<?php echo ABAP_OTYPE::SHLP_DESC ?>" />
-        <meta name="description" content="<?php echo WEBSITE::META_DESC ?>" />
+        <title><?php echo $GLOBALS['TITLE_TEXT'] ?> <?php echo GLOBAL_WEBSITE_SAPDS::TITLE ?> </title>
+        <meta name="keywords" content="SAP,ABAP,<?php echo GLOBAL_ABAP_OTYPE::SHLP_DESC ?>" />
+        <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC ?>" />
         <meta name="author" content="SAP Datasheet" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
@@ -65,7 +65,7 @@ $shlp_list = ABAP_DB_TABLE_SHLP::DD30L_List($index);
             <div class="content_navi">
                 <a href="/">Home page</a> &gt; 
                 <a href="/abap/">ABAP Object</a> &gt; 
-                <a href="/abap/shlp/"><?php echo ABAP_OTYPE::SHLP_DESC ?></a> 
+                <a href="/abap/shlp/"><?php echo GLOBAL_ABAP_OTYPE::SHLP_DESC ?></a> 
             </div>
 
             <!-- Content Object -->
@@ -81,7 +81,7 @@ $shlp_list = ABAP_DB_TABLE_SHLP::DD30L_List($index);
                     <?php } ?>
                 </div>
 
-                <h4> <?php echo ABAP_OTYPE::SHLP_DESC ?> - <?php echo $page_label ?></h4>
+                <h4> <?php echo GLOBAL_ABAP_OTYPE::SHLP_DESC ?> - <?php echo $page_label ?></h4>
                 <table class="alv">
                     <tr>
                         <th class="alv"> # </th>
@@ -90,22 +90,22 @@ $shlp_list = ABAP_DB_TABLE_SHLP::DD30L_List($index);
                         <th class="alv"> Package </th>
                     </tr>
                     <tr>
-                        <th class="alv"><?php echo ABAP_Navigation::GetURL4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_SHLP::DD30L_SHLPNAME_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_SHLP::DD30T_DDTEXT_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_HIER::TADIR_DEVCLASS_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_SHLP::DD30L_SHLPNAME_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_SHLP::DD30T_DDTEXT_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_HIER::TADIR_DEVCLASS_DTEL, '?') ?></th>
                     </tr>
                     <?php
                     $count = 0;
                     foreach ($shlp_list as $dd30l) {
                         $count++;
                         $dd30t = ABAP_DB_TABLE_SHLP::DD30T($dd30l['SHLPNAME']);
-                        $tadir = ABAP_DB_TABLE_HIER::TADIR(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::SHLP_NAME, $dd30l['SHLPNAME']);
+                        $tadir = ABAP_DB_TABLE_HIER::TADIR(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, GLOBAL_ABAP_OTYPE::SHLP_NAME, $dd30l['SHLPNAME']);
                         ?>
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                            <td class="alv"><?php echo ABAP_Navigation::GetURL4Shlp($dd30l['SHLPNAME'], $dd30t) ?></td>
+                            <td class="alv"><?php echo ABAP_UI_Navigation::GetURL4Shlp($dd30l['SHLPNAME'], $dd30t) ?></td>
                             <td class="alv"><?php echo $dd30t ?></td>
-                            <td class="alv"><?php echo ABAP_Navigation::GetURL4Devc($tadir['DEVCLASS'], NULL) ?>&nbsp;</td>
+                            <td class="alv"><?php echo ABAP_UI_Navigation::GetURL4Devc($tadir['DEVCLASS'], NULL) ?>&nbsp;</td>
                         </tr>
                     <?php } ?>
                 </table>

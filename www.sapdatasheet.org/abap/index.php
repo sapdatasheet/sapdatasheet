@@ -11,9 +11,9 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP";
     <head>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="stylesheet" href="/abap.css" type="text/css" />
-        <title>SAP ABAP Objects <?php echo WEBSITE::TITLE ?> </title>
+        <title>SAP ABAP Objects <?php echo GLOBAL_WEBSITE_SAPDS::TITLE ?> </title>
         <meta name="keywords" content="SAP,ABAP" />
-        <meta name="description" content="<?php echo WEBSITE::META_DESC ?>" />
+        <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC ?>" />
         <meta name="author" content="SAP Datasheet" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
@@ -48,12 +48,12 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP";
                     </tr>
                     <?php 
                     $count = 0;
-                    foreach (array_keys(ABAP_OTYPE::$OTYPES) as $oType) { 
+                    foreach (array_keys(GLOBAL_ABAP_OTYPE::$OTYPES) as $oType) { 
                         $count++;
                         ?>
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
                             <td class="alv"><a href="/abap/<?php echo strtolower($oType) ?>/"><?php echo $oType ?></a></td>
-                            <td class="alv"><?php echo ABAP_OTYPE::$OTYPES[$oType] ?></td>
+                            <td class="alv"><?php echo GLOBAL_ABAP_OTYPE::$OTYPES[$oType] ?></td>
                         </tr>
                     <?php } ?>
                         <tr><td class="alv">&nbsp;</td>

@@ -24,21 +24,21 @@ $tstca_list = ABAP_DB_TABLE_TRAN::TSTCA_List($tstc['TCODE']);
 $tstcc = ABAP_DB_TABLE_TRAN::TSTCC($tstc['TCODE']);
 $tstcp = ABAP_DB_TABLE_TRAN::TSTCP($tstc['TCODE']);
 
-$wul_counter_list = ABAPANA_DB_TABLE::WULCOUNTER_List(ABAP_OTYPE::TRAN_NAME, $tstc['TCODE']);
+$wul_counter_list = ABAPANA_DB_TABLE::WULCOUNTER_List(GLOBAL_ABAP_OTYPE::TRAN_NAME, $tstc['TCODE']);
 $wil_enabled = TRUE;
-$wil_counter_list = ABAPANA_DB_TABLE::WILCOUNTER_List(ABAP_OTYPE::TRAN_NAME, $tstc['TCODE']);
+$wil_counter_list = ABAPANA_DB_TABLE::WILCOUNTER_List(GLOBAL_ABAP_OTYPE::TRAN_NAME, $tstc['TCODE']);
 
-$hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::TRAN_NAME, $tstc['TCODE']);
-$GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::TRAN_NAME, $tstc['TCODE']);
+$hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, GLOBAL_ABAP_OTYPE::TRAN_NAME, $tstc['TCODE']);
+$GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::TRAN_NAME, $tstc['TCODE']);
 ?>
 
 <html>
     <head>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="stylesheet" href="/abap.css" type="text/css" />
-        <title><?php echo $GLOBALS['TITLE_TEXT'] . WEBSITE::TITLE ?> </title>
-        <meta name="keywords" content="SAP,<?php echo ABAP_OTYPE::TRAN_DESC ?>,<?php echo $tstc['TCODE']; ?>,<?php echo $tstc_desc ?>" />
-        <meta name="description" content="<?php echo WEBSITE::META_DESC; ?>" />
+        <title><?php echo $GLOBALS['TITLE_TEXT'] . GLOBAL_WEBSITE_SAPDS::TITLE ?> </title>
+        <meta name="keywords" content="SAP,<?php echo GLOBAL_ABAP_OTYPE::TRAN_DESC ?>,<?php echo $tstc['TCODE']; ?>,<?php echo $tstc_desc ?>" />
+        <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC; ?>" />
         <meta name="author" content="SAP Datasheet" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
@@ -54,13 +54,13 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::TRAN_NAME, $ts
             <table class="content_obj">
                 <tbody>
                     <tr><td>Software Component</td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_Navigation::GetURL4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
+                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetURL4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
                     <tr><td class="left_attribute"> Application Component ID</td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_Navigation::GetURL4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
+                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetURL4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
                     <tr><td class="left_attribute"> Package </td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_Navigation::GetURL4Devc($hier->DEVCLASS, $hier->DEVCLASS_T) ?></td></tr>
+                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetURL4Devc($hier->DEVCLASS, $hier->DEVCLASS_T) ?></td></tr>
                     <tr><td class="left_attribute"> Object type </td></tr>
-                    <tr><td class="left_value"><a href="/abap/tran/"><?php echo ABAP_OTYPE::TRAN_DESC ?></a></td></tr>
+                    <tr><td class="left_value"><a href="/abap/tran/"><?php echo GLOBAL_ABAP_OTYPE::TRAN_DESC ?></a></td></tr>
                     <tr><td class="left_attribute"> Object name </td></tr>
                     <tr><td class="left_value"> <a href="#" title="<?php echo $tstc_desc ?>"><?php echo $tstc['TCODE'] ?></a> </td></tr>
                 </tbody>
@@ -76,7 +76,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::TRAN_NAME, $ts
             <div class="content_navi">
                 <a href="/">Home page</a> &gt; 
                 <a href="/abap/">ABAP Object</a> &gt; 
-                <a href="/abap/tran/"><?php echo ABAP_OTYPE::TRAN_DESC ?></a> &gt; 
+                <a href="/abap/tran/"><?php echo GLOBAL_ABAP_OTYPE::TRAN_DESC ?></a> &gt; 
                 <a href="#"><?php echo $tstc['TCODE'] ?></a>
             </div>
 
@@ -92,7 +92,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::TRAN_NAME, $ts
                 <h4> Basic Data </h4>
                 <table class="content_obj">
                     <tbody>
-                        <tr><td class="content_label"> Transaction Code        </td><td class="field"> <?php echo ABAP_Navigation::GetURL4Tran($tstc['TCODE'], $tstc_desc) ?> </td><td>&nbsp;</td></tr>
+                        <tr><td class="content_label"> Transaction Code        </td><td class="field"> <?php echo ABAP_UI_Navigation::GetURL4Tran($tstc['TCODE'], $tstc_desc) ?> </td><td>&nbsp;</td></tr>
                         <tr><td class="content_label"> Transaction Description </td><td class="field"> <?php echo htmlentities($tstc_desc) ?> &nbsp;</td><td>&nbsp;</td></tr>
                         <tr><td class="content_label"> Transaction Type        </td><td class="field"> <?php echo $tstc['CINFO'] ?> </td><td><?php echo $tstc_cinfo_desc ?></td></tr>
                     </tbody>
@@ -103,7 +103,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::TRAN_NAME, $ts
                 <table class="content_obj">
                     <tbody>
                         <tr><td class="content_label"> Program       </td>
-                            <td class="field"><?php echo ABAP_Navigation::GetURL4Prog($tstc['PGMNA'], $tstc_pgmna_desc) ?>&nbsp; </td>
+                            <td class="field"><?php echo ABAP_UI_Navigation::GetURL4Prog($tstc['PGMNA'], $tstc_pgmna_desc) ?>&nbsp; </td>
                             <td><?php echo htmlentities($tstc_pgmna_desc) ?></td></tr>
                         <tr><td class="content_label"> Screen number </td>
                             <td class="field"><?php echo $tstc['DYPNO'] ?>&nbsp;</td>

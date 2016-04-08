@@ -36,7 +36,7 @@ ob_start();
 <!DOCTYPE html>
 <!-- Function Module index -->
 <?php
-$GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::FUNC_DESC . " - Index " . $index . " ";
+$GLOBALS['TITLE_TEXT'] = "SAP ABAP " . GLOBAL_ABAP_OTYPE::FUNC_DESC . " - Index " . $index . " ";
 
 if ($index === ABAP_DB_CONST::INDEX_SLASH) {
     $index = '/';
@@ -47,9 +47,9 @@ $fm_list = ABAP_DB_TABLE_FUNC::TFDIR_List($index);
     <head>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="stylesheet" href="/abap.css" type="text/css" />
-        <title><?php echo $GLOBALS['TITLE_TEXT'] ?> <?php echo WEBSITE::TITLE ?> </title>
-        <meta name="keywords" content="SAP,ABAP,<?php echo ABAP_OTYPE::FUNC_DESC ?>" />
-        <meta name="description" content="<?php echo WEBSITE::META_DESC ?>" />
+        <title><?php echo $GLOBALS['TITLE_TEXT'] ?> <?php echo GLOBAL_WEBSITE_SAPDS::TITLE ?> </title>
+        <meta name="keywords" content="SAP,ABAP,<?php echo GLOBAL_ABAP_OTYPE::FUNC_DESC ?>" />
+        <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC ?>" />
         <meta name="author" content="SAP Datasheet" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
@@ -67,7 +67,7 @@ $fm_list = ABAP_DB_TABLE_FUNC::TFDIR_List($index);
             <div class="content_navi">
                 <a href="/">Home page</a> &gt; 
                 <a href="/abap/">ABAP Object</a> &gt; 
-                <a href="/abap/func/"><?php echo ABAP_OTYPE::FUNC_DESC ?></a> 
+                <a href="/abap/func/"><?php echo GLOBAL_ABAP_OTYPE::FUNC_DESC ?></a> 
             </div>
 
             <!-- Content Object -->
@@ -116,7 +116,7 @@ $fm_list = ABAP_DB_TABLE_FUNC::TFDIR_List($index);
                     <a href="index-slash.html">/</a>&nbsp;
                 </div>
 
-                <h4> <?php echo ABAP_OTYPE::FUNC_DESC ?> - <?php echo $index ?></h4>
+                <h4> <?php echo GLOBAL_ABAP_OTYPE::FUNC_DESC ?> - <?php echo $index ?></h4>
                 <table class="alv">
                     <tr>
                         <th class="alv"> # </th>
@@ -125,10 +125,10 @@ $fm_list = ABAP_DB_TABLE_FUNC::TFDIR_List($index);
                         <th class="alv"> Short Description </th>
                     </tr>
                     <tr>
-                        <th class="alv"> <?php echo ABAP_Navigation::GetURL4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
-                        <th class="alv"> <?php echo ABAP_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_FUNC::TFDIR_FUNCNAME_DTEL, '?') ?></th>
+                        <th class="alv"> <?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
+                        <th class="alv"> <?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_FUNC::TFDIR_FUNCNAME_DTEL, '?') ?></th>
                         <th class="alv"> &nbsp; </th>
-                        <th class="alv"> <?php echo ABAP_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_FUNC::TFTIT_STEXT_DTEL, '?') ?></th>
+                        <th class="alv"> <?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_FUNC::TFTIT_STEXT_DTEL, '?') ?></th>
                     </tr>
                     <?php
                     $count = 0;
@@ -137,7 +137,7 @@ $fm_list = ABAP_DB_TABLE_FUNC::TFDIR_List($index);
                         $fm_desc = ABAP_DB_TABLE_FUNC::TFTIT($fm['FUNCNAME']);
                         ?>
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                            <td class="alv"><?php echo ABAP_Navigation::GetURL4Func($fm['FUNCNAME'], $fm_desc) ?> </td>
+                            <td class="alv"><?php echo ABAP_UI_Navigation::GetURL4Func($fm['FUNCNAME'], $fm_desc) ?> </td>
                             <td class="alv"><?php echo $fm['FMODE'] ?> </td>
                             <td class="alv"><?php echo htmlentities($fm_desc) ?>&nbsp;</td>
                         </tr>

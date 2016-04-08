@@ -762,7 +762,7 @@ class ABAP_DB_TABLE_FUNC {
      * Calculate function module processing type.
      */
     public static function TFDIR_PTYPE($fmode, $utask) {
-        $ptype = new ABAP_TFDIR_ProcessingType();
+        $ptype = new ABAP_UI_TFDIR_ProcessingType();
 
         switch ($fmode) {
             case ABAP_DB_CONST::TFDIR_FMODE_SPACE:
@@ -1059,7 +1059,7 @@ class ABAP_DB_TABLE_HIER {
     }
 
     public static function Hier($Pgmid, $ObjType, $ObjName) {
-        $hier = new ABAP_Hierarchy();
+        $hier = new ABAP_UI_Hierarchy();
         $tadir = ABAP_DB_TABLE_HIER::TADIR($Pgmid, $ObjType, $ObjName);
         $hier->CRELEASE = $tadir['CRELEASE'];
         $hier->DEVCLASS = $tadir['DEVCLASS'];
@@ -2715,7 +2715,7 @@ class ABAPANA_DB_TABLE {
      * </pre>
      */
     public static function WULCOUNTER($srcOType, $srcOName, $oType, $srcSubobj = '') {
-        $sql = 'SELECT * from ' . ABAP_DB_CONN::schema_abapana . '.' . ABAPANA_DB_TABLE::WULCOUNTER
+        $sql = 'SELECT * from ' . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::WULCOUNTER
                 . ' where SRC_OBJ_TYPE = :sotype AND SRC_OBJ_NAME = :soname AND SRC_SUBOBJ = :ssubob AND OBJ_TYPE = :otype';
         $paras = array(
             'sotype' => $srcOType,
@@ -2743,7 +2743,7 @@ class ABAPANA_DB_TABLE {
      */
     public static function WULCOUNTER_Index($page) {
         $offset = ($page - 1) * ABAP_DB_CONST::INDEX_PAGESIZE;
-        $sql = 'select * from ' . ABAP_DB_CONN::schema_abapana . '.' . ABAPANA_DB_TABLE::WULCOUNTER
+        $sql = 'select * from ' . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::WULCOUNTER
 //              . ' ORDER BY SRC_OBJ_TYPE, SRC_OBJ_NAME, OBJ_TYPE'  -- Do not order for performance reason
                 . ' LIMIT ' . ABAP_DB_CONST::INDEX_PAGESIZE
                 . ' OFFSET ' . $offset;
@@ -2760,7 +2760,7 @@ class ABAPANA_DB_TABLE {
      * </pre>
      */
     public static function WULCOUNTER_List($srcOType, $srcOName, $srcSubobj = '') {
-        $sql = 'SELECT * from ' . ABAP_DB_CONN::schema_abapana . '.' . ABAPANA_DB_TABLE::WULCOUNTER
+        $sql = 'SELECT * from ' . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::WULCOUNTER
                 . ' where SRC_OBJ_TYPE = :sotype AND SRC_OBJ_NAME = :soname AND SRC_SUBOBJ = :ssubob'
                 . ' order by OBJ_TYPE';
         $paras = array(
@@ -2775,7 +2775,7 @@ class ABAPANA_DB_TABLE {
 
     public static function WULCOUNTER_Sitemap() {
         $sql = "select * from "
-                . ABAP_DB_CONN::schema_abapana . '.' . ABAPANA_DB_TABLE::WULCOUNTER;
+                . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::WULCOUNTER;
         return ABAP_DB_TABLE::select($sql);
     }
 
@@ -2790,7 +2790,7 @@ class ABAPANA_DB_TABLE {
      * </pre>
      */
     public static function WILCOUNTER($oType, $oName, $srcOType) {
-        $sql = 'SELECT * from ' . ABAP_DB_CONN::schema_abapana . '.' . ABAPANA_DB_TABLE::WILCOUNTER
+        $sql = 'SELECT * from ' . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::WILCOUNTER
                 . ' where OBJ_TYPE = :otype AND OBJ_NAME = :oname AND SRC_OBJ_TYPE = :sotyp';
         $paras = array(
             'otype' => $oType,
@@ -2818,7 +2818,7 @@ class ABAPANA_DB_TABLE {
      */
     public static function WILCOUNTER_Index($page) {
         $offset = ($page - 1) * ABAP_DB_CONST::INDEX_PAGESIZE;
-        $sql = 'select * from ' . ABAP_DB_CONN::schema_abapana . '.' . ABAPANA_DB_TABLE::WILCOUNTER
+        $sql = 'select * from ' . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::WILCOUNTER
 //              . ' ORDER BY OBJ_TYPE, OBJ_NAME, SRC_OBJ_TYPE'
                 . ' LIMIT ' . ABAP_DB_CONST::INDEX_PAGESIZE
                 . ' OFFSET ' . $offset;
@@ -2836,7 +2836,7 @@ class ABAPANA_DB_TABLE {
      * </pre>
      */
     public static function WILCOUNTER_List($oType, $oName) {
-        $sql = 'SELECT * from ' . ABAP_DB_CONN::schema_abapana . '.' . ABAPANA_DB_TABLE::WILCOUNTER
+        $sql = 'SELECT * from ' . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::WILCOUNTER
                 . ' where OBJ_TYPE = :otype AND OBJ_NAME = :oname'
                 . ' order by SRC_OBJ_TYPE';
         $paras = array(
@@ -2849,7 +2849,7 @@ class ABAPANA_DB_TABLE {
 
     public static function WILCOUNTER_Sitemap() {
         $sql = "select * from "
-                . ABAP_DB_CONN::schema_abapana . '.' . ABAPANA_DB_TABLE::WILCOUNTER;
+                . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::WILCOUNTER;
         return ABAP_DB_TABLE::select($sql);
     }
 
@@ -2959,9 +2959,9 @@ class ABAP_DB_TABLE {
      */
     private static function get_conn_abap() {
         if (ABAP_DB_TABLE::$conn_abap == null) {
-            $dsn = 'mysql:host=' . ABAP_DB_CONN::host
-                    . ';dbname=' . ABAP_DB_CONN::schema_abap;
-            ABAP_DB_TABLE::$conn_abap = new PDO($dsn, ABAP_DB_CONN::user, ABAP_DB_CONN::pass, array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
+            $dsn = 'mysql:host=' . ABAP_DB_CONFIG::host
+                    . ';dbname=' . ABAP_DB_CONFIG::schema_abap;
+            ABAP_DB_TABLE::$conn_abap = new PDO($dsn, ABAP_DB_CONFIG::user, ABAP_DB_CONFIG::pass, array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
         }
 
         return ABAP_DB_TABLE::$conn_abap;
@@ -2974,9 +2974,9 @@ class ABAP_DB_TABLE {
      */
     private static function get_conn_abapana() {
         if (ABAP_DB_TABLE::$conn_abapana == null) {
-            $dsn = 'mysql:host=' . ABAP_DB_CONN::host
-                    . ';dbname=' . ABAP_DB_CONN::schema_abap;
-            ABAP_DB_TABLE::$conn_abapana = new PDO($dsn, ABAP_DB_CONN::user, ABAP_DB_CONN::pass, array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
+            $dsn = 'mysql:host=' . ABAP_DB_CONFIG::host
+                    . ';dbname=' . ABAP_DB_CONFIG::schema_abap;
+            ABAP_DB_TABLE::$conn_abapana = new PDO($dsn, ABAP_DB_CONFIG::user, ABAP_DB_CONFIG::pass, array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
         }
 
         return ABAP_DB_TABLE::$conn_abapana;

@@ -3,25 +3,8 @@
 $GLOBALS['TITLE_TEXT'] = 'SAP';
 error_reporting(-1);
 
-/** Web Site Constants. */
-class WEBSITE {
-
-    const NAME = 'SAP Datasheet';
-    const DESC = 'The Best Online SAP Object Repository';
-    const TITLE = ' - SAP Datasheet - The Best Online SAP Object Repository';
-    const META_DESC = 'Datasheet for all SAP objects: domain, data element, table, view, class, function module, report, transaction code, IMG nodes, SAP Menu, etc';
-
-}
-
-/** Sitemap constants. */
-class SITEMAP {
-
-    const MAX_URL_COUNT = 50000;
-
-}
-
 /** ABAP Object types and description. */
-class ABAP_OTYPE {
+class GLOBAL_ABAP_OTYPE {
 
     const BMFR_NAME = 'BMFR';
     const BMFR_DESC = 'Application Component';
@@ -78,33 +61,33 @@ class ABAP_OTYPE {
      * Supported base object type.
      */
     public static $OTYPES = array(
-        ABAP_OTYPE::BMFR_NAME => ABAP_OTYPE::BMFR_DESC,
-        ABAP_OTYPE::CLAS_NAME => ABAP_OTYPE::CLAS_DESC,
-        ABAP_OTYPE::CUS0_NAME => ABAP_OTYPE::CUS0_DESC,
-        ABAP_OTYPE::CVERS_NAME => ABAP_OTYPE::CVERS_DESC,
-        ABAP_OTYPE::DEVC_NAME => ABAP_OTYPE::DEVC_DESC,
-        ABAP_OTYPE::DOMA_NAME => ABAP_OTYPE::DOMA_DESC,
-        ABAP_OTYPE::DTEL_NAME => ABAP_OTYPE::DTEL_DESC,
-        ABAP_OTYPE::FUNC_NAME => ABAP_OTYPE::FUNC_DESC,
-        ABAP_OTYPE::FUGR_NAME => ABAP_OTYPE::FUGR_DESC,
-        ABAP_OTYPE::INTF_NAME => ABAP_OTYPE::INTF_DESC,
+        GLOBAL_ABAP_OTYPE::BMFR_NAME => GLOBAL_ABAP_OTYPE::BMFR_DESC,
+        GLOBAL_ABAP_OTYPE::CLAS_NAME => GLOBAL_ABAP_OTYPE::CLAS_DESC,
+        GLOBAL_ABAP_OTYPE::CUS0_NAME => GLOBAL_ABAP_OTYPE::CUS0_DESC,
+        GLOBAL_ABAP_OTYPE::CVERS_NAME => GLOBAL_ABAP_OTYPE::CVERS_DESC,
+        GLOBAL_ABAP_OTYPE::DEVC_NAME => GLOBAL_ABAP_OTYPE::DEVC_DESC,
+        GLOBAL_ABAP_OTYPE::DOMA_NAME => GLOBAL_ABAP_OTYPE::DOMA_DESC,
+        GLOBAL_ABAP_OTYPE::DTEL_NAME => GLOBAL_ABAP_OTYPE::DTEL_DESC,
+        GLOBAL_ABAP_OTYPE::FUNC_NAME => GLOBAL_ABAP_OTYPE::FUNC_DESC,
+        GLOBAL_ABAP_OTYPE::FUGR_NAME => GLOBAL_ABAP_OTYPE::FUGR_DESC,
+        GLOBAL_ABAP_OTYPE::INTF_NAME => GLOBAL_ABAP_OTYPE::INTF_DESC,
         //ABAP_OTYPE::MENU_NAME => ABAP_OTYPE::MENU_DESC,
-        ABAP_OTYPE::MSAG_NAME => ABAP_OTYPE::MSAG_DESC,
-        ABAP_OTYPE::PROG_NAME => ABAP_OTYPE::PROG_DESC,
-        ABAP_OTYPE::SHLP_NAME => ABAP_OTYPE::SHLP_DESC,
-        ABAP_OTYPE::SQLT_NAME => ABAP_OTYPE::SQLT_DESC,
-        ABAP_OTYPE::TABL_NAME => ABAP_OTYPE::TABL_DESC,
-        ABAP_OTYPE::TRAN_NAME => ABAP_OTYPE::TRAN_DESC,
-        ABAP_OTYPE::VIEW_NAME => ABAP_OTYPE::VIEW_DESC,
+        GLOBAL_ABAP_OTYPE::MSAG_NAME => GLOBAL_ABAP_OTYPE::MSAG_DESC,
+        GLOBAL_ABAP_OTYPE::PROG_NAME => GLOBAL_ABAP_OTYPE::PROG_DESC,
+        GLOBAL_ABAP_OTYPE::SHLP_NAME => GLOBAL_ABAP_OTYPE::SHLP_DESC,
+        GLOBAL_ABAP_OTYPE::SQLT_NAME => GLOBAL_ABAP_OTYPE::SQLT_DESC,
+        GLOBAL_ABAP_OTYPE::TABL_NAME => GLOBAL_ABAP_OTYPE::TABL_DESC,
+        GLOBAL_ABAP_OTYPE::TRAN_NAME => GLOBAL_ABAP_OTYPE::TRAN_DESC,
+        GLOBAL_ABAP_OTYPE::VIEW_NAME => GLOBAL_ABAP_OTYPE::VIEW_DESC,
     );
 
     /**
      * Other object types.
      */
     public static $OTYPES_OTHER = array(
-        ABAP_OTYPE::DTF_NAME => ABAP_OTYPE::DTF_DESC,
-        ABAP_OTYPE::NN_NAME => ABAP_OTYPE::NN_DESC,
-        ABAP_OTYPE::OM_NAME => ABAP_OTYPE::OM_DESC,
+        GLOBAL_ABAP_OTYPE::DTF_NAME => GLOBAL_ABAP_OTYPE::DTF_DESC,
+        GLOBAL_ABAP_OTYPE::NN_NAME => GLOBAL_ABAP_OTYPE::NN_DESC,
+        GLOBAL_ABAP_OTYPE::OM_NAME => GLOBAL_ABAP_OTYPE::OM_DESC,
     );
 
     /**
@@ -114,14 +97,26 @@ class ABAP_OTYPE {
      * @return string Object type description, example: 'Domain', 'Data element'
      */
     public static function getOTypeDesc($oType) {
-        if (array_key_exists($oType, ABAP_OTYPE::$OTYPES)) {
-            return ABAP_OTYPE::$OTYPES[$oType];
-        } else if (array_key_exists($oType, ABAP_OTYPE::$OTYPES_OTHER)) {
-            return ABAP_OTYPE::$OTYPES_OTHER[$oType];
+        if (array_key_exists($oType, GLOBAL_ABAP_OTYPE::$OTYPES)) {
+            return GLOBAL_ABAP_OTYPE::$OTYPES[$oType];
+        } else if (array_key_exists($oType, GLOBAL_ABAP_OTYPE::$OTYPES_OTHER)) {
+            return GLOBAL_ABAP_OTYPE::$OTYPES_OTHER[$oType];
         } else {
             return $oType;
         }
     }
+
+}
+
+
+/**
+ * Download file Format
+ */
+class GLOBAL_DOWNLOAD {
+
+    const FORMAT_CSV = "CSV";
+    const FORMAT_XLS = "XLS";
+    const FORMAT_XLSX = "XLSX";
 
 }
 
@@ -130,7 +125,7 @@ class ABAP_OTYPE {
  * 
  * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html Status Code Definitions
  */
-class HTTP_STATUS {
+class GLOBAL_HTTP_STATUS {
 
     const STATUS_100 = "HTTP/1.1 100 Continue";
     const STATUS_101 = "HTTP/1.1 101 Switching Protocols";
@@ -174,16 +169,6 @@ class HTTP_STATUS {
 
 }
 
-/**
- * Download file Format
- */
-class DOWNLOAD {
-
-    const FORMAT_CSV = "CSV";
-    const FORMAT_XLS = "XLS";
-    const FORMAT_XLSX = "XLSX";
-
-}
 
 class GLOBAL_UTIL {
 
@@ -276,5 +261,16 @@ class GLOBAL_UTIL {
             $count--;
         }
     }
+
+}
+
+
+/** Web Site Constants. */
+class GLOBAL_WEBSITE_SAPDS {
+
+    const NAME = 'SAP Datasheet';
+    const DESC = 'The Best Online SAP Object Repository';
+    const TITLE = ' - SAP Datasheet - The Best Online SAP Object Repository';
+    const META_DESC = 'Datasheet for all SAP objects: domain, data element, table, view, class, function module, report, transaction code, IMG nodes, SAP Menu, etc';
 
 }

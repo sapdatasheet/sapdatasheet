@@ -28,20 +28,20 @@ if (!empty($dm25l['ENTID'])) {
     $dm25l_entid_desc = ABAP_DB_TABLE_VIEW::DM02T($dm25l['ENTID']);
 }
 
-$wul_counter_list = ABAPANA_DB_TABLE::WULCOUNTER_List(ABAP_OTYPE::VIEW_NAME, $dd25l['VIEWNAME']);
+$wul_counter_list = ABAPANA_DB_TABLE::WULCOUNTER_List(GLOBAL_ABAP_OTYPE::VIEW_NAME, $dd25l['VIEWNAME']);
 $wil_enabled = TRUE;
-$wil_counter_list = ABAPANA_DB_TABLE::WILCOUNTER_List(ABAP_OTYPE::VIEW_NAME, $dd25l['VIEWNAME']);
+$wil_counter_list = ABAPANA_DB_TABLE::WILCOUNTER_List(GLOBAL_ABAP_OTYPE::VIEW_NAME, $dd25l['VIEWNAME']);
 
-$hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::VIEW_NAME, $dd25l['VIEWNAME']);
-$GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::VIEW_NAME, $dd25l['VIEWNAME']);
+$hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, GLOBAL_ABAP_OTYPE::VIEW_NAME, $dd25l['VIEWNAME']);
+$GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::VIEW_NAME, $dd25l['VIEWNAME']);
 ?>
 <html>
     <head>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="stylesheet" href="/abap.css" type="text/css" />
-        <title><?php echo $GLOBALS['TITLE_TEXT'] . WEBSITE::TITLE ?> </title>
-        <meta name="keywords" content="SAP,<?php echo ABAP_OTYPE::VIEW_DESC ?>,<?php echo $dd25l['VIEWNAME']; ?>,<?php echo $dd25l_desc ?>" />
-        <meta name="description" content="<?php echo WEBSITE::META_DESC; ?>" />
+        <title><?php echo $GLOBALS['TITLE_TEXT'] . GLOBAL_WEBSITE_SAPDS::TITLE ?> </title>
+        <meta name="keywords" content="SAP,<?php echo GLOBAL_ABAP_OTYPE::VIEW_DESC ?>,<?php echo $dd25l['VIEWNAME']; ?>,<?php echo $dd25l_desc ?>" />
+        <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC; ?>" />
         <meta name="author" content="SAP Datasheet" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
@@ -57,13 +57,13 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::VIEW_NAME, $dd
             <table class="content_obj">
                 <tbody>
                     <tr><td>Software Component</td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_Navigation::GetURL4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
+                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetURL4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
                     <tr><td class="left_attribute"> Application Component ID</td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_Navigation::GetURL4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
+                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetURL4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
                     <tr><td class="left_attribute"> Package </td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_Navigation::GetURL4Devc($hier->DEVCLASS, $hier->DEVCLASS_T) ?></td></tr>
+                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetURL4Devc($hier->DEVCLASS, $hier->DEVCLASS_T) ?></td></tr>
                     <tr><td class="left_attribute"> Object type </td></tr>
-                    <tr><td class="left_value"><a href="/abap/view/"><?php echo ABAP_OTYPE::VIEW_DESC ?></a></td></tr>
+                    <tr><td class="left_value"><a href="/abap/view/"><?php echo GLOBAL_ABAP_OTYPE::VIEW_DESC ?></a></td></tr>
                     <tr><td class="left_attribute"> Object name </td></tr>
                     <tr><td class="left_value"> <a href="#" title="<?php echo $dd25l_desc ?>"><?php echo $dd25l['VIEWNAME'] ?></a> </td></tr>
                 </tbody>
@@ -79,7 +79,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::VIEW_NAME, $dd
             <div class="content_navi">
                 <a href="/">Home page</a> &gt; 
                 <a href="/abap/">ABAP Object</a> &gt; 
-                <a href="/abap/view/"><?php echo ABAP_OTYPE::VIEW_DESC ?></a> &gt; 
+                <a href="/abap/view/"><?php echo GLOBAL_ABAP_OTYPE::VIEW_DESC ?></a> &gt; 
                 <a href="#"><?php echo $dd25l['VIEWNAME'] ?></a>
             </div>
 
@@ -96,17 +96,17 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::VIEW_NAME, $dd
                 <table class="content_obj">
                     <tbody>
                         <tr><td class="content_label"> View Type             </td>
-                            <td class="field"> <?php echo ABAP_Navigation::GetURL4DomainValue(ABAP_DB_CONST::DOMAIN_DD25L_VIEWCLASS, $dd25l['VIEWCLASS'], $dd25l_viewclass_desc) ?> </td>
+                            <td class="field"> <?php echo ABAP_UI_Navigation::GetURL4DomainValue(ABAP_DB_CONST::DOMAIN_DD25L_VIEWCLASS, $dd25l['VIEWCLASS'], $dd25l_viewclass_desc) ?> </td>
                             <td><?php echo htmlentities($dd25l_viewclass_desc) ?>&nbsp;</td>
                         </tr>
                         <tr><td class="content_label"> <?php echo $dd25l_viewclass_desc ?></td>
-                            <td class="field"> <?php echo ABAP_Navigation::GetURL4View($dd25l['VIEWNAME'], $dd25l_desc) ?> </td>
+                            <td class="field"> <?php echo ABAP_UI_Navigation::GetURL4View($dd25l['VIEWNAME'], $dd25l_desc) ?> </td>
                             <td>&nbsp;</td></tr>
                         <tr><td class="content_label"> Short Description     </td>
                             <td class="field"> <?php echo htmlentities($dd25l_desc) ?> &nbsp;</td>
                             <td>&nbsp;</td></tr>
                         <tr><td class="content_label"> Root table </td>
-                            <td class="field"> <?php echo ABAP_Navigation::GetURL4Tabl($dd25l['ROOTTAB'], $dd25l_roottab_desc) ?> &nbsp;</td>
+                            <td class="field"> <?php echo ABAP_UI_Navigation::GetURL4Tabl($dd25l['ROOTTAB'], $dd25l_roottab_desc) ?> &nbsp;</td>
                             <td><?php echo htmlentities($dd25l_roottab_desc) ?>&nbsp; </td></tr>
                     </tbody>
                 </table>
@@ -114,7 +114,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::VIEW_NAME, $dd
                 <?php if (!empty($dm25l['ENTID'])) { ?>
                     <table  class="content_obj">
                         <tbody>
-                            <tr><td class="content_label">Entity Type</td><td class="field"><?php echo ABAP_Navigation::GetURL4Tabl("DM02L", $dm25l['ENTID']) ?>&nbsp;</td></tr>
+                            <tr><td class="content_label">Entity Type</td><td class="field"><?php echo ABAP_UI_Navigation::GetURL4Tabl("DM02L", $dm25l['ENTID']) ?>&nbsp;</td></tr>
                             <tr><td class="content_label">Short text </td><td class="field"><?php echo htmlentities($dm25l_entid_desc) ?></td></tr>
                         </tbody>
                     </table>
@@ -138,8 +138,8 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::VIEW_NAME, $dd
                             ?>
                             <tr>
                                 <td class="alv"><?php echo $dd26s['TABPOS'] ?></td>
-                                <td class="alv"><?php echo ABAP_Navigation::GetURL4Tabl($dd26s['TABNAME'], $dd26s_tabname_desc) ?></td>
-                                <td class="alv"><?php echo ABAP_Navigation::GetURL4Tabl($dd26s['FORTABNAME'], $dd26s_fortabname_desc) ?></td>
+                                <td class="alv"><?php echo ABAP_UI_Navigation::GetURL4Tabl($dd26s['TABNAME'], $dd26s_tabname_desc) ?></td>
+                                <td class="alv"><?php echo ABAP_UI_Navigation::GetURL4Tabl($dd26s['FORTABNAME'], $dd26s_fortabname_desc) ?></td>
                                 <td class="alv"><?php echo $dd26s['FORFIELD'] ?></td>
                                 <td class="alv"><?php echo $dd26s['FORDIR'] ?></td>
                             </tr>
@@ -170,7 +170,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::VIEW_NAME, $dd
                             ?>
                             <tr>
                                 <td class="alv"><?php echo $dd28s['POSITION'] ?></td>
-                                <td class="alv"><?php echo ABAP_Navigation::GetURL4Tabl($dd28s['TABNAME'], $dd28s_tabname_desc) ?></td>
+                                <td class="alv"><?php echo ABAP_UI_Navigation::GetURL4Tabl($dd28s['TABNAME'], $dd28s_tabname_desc) ?></td>
                                 <td class="alv"><?php echo $dd28s['FIELDNAME'] ?></td>
                                 <td class="alv"><?php echo $dd28s['NEGATION'] ?></td>
                                 <td class="alv"><?php echo $dd28s['OPERATOR'] ?></td>
@@ -223,11 +223,11 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::VIEW_NAME, $dd
                             <tr>
                                 <td class="alv"><?php echo $dd27s['OBJPOS'] ?> </td>
                                 <td class="alv"><?php echo $dd27s['VIEWFIELD'] ?> </td>
-                                <td class="alv"><?php echo ABAP_Navigation::GetURL4Tabl($dd27s['TABNAME'], '') ?> </td>
-                                <td class="alv"><?php echo ABAP_Navigation::GetURL4TablField($dd27s['TABNAME'], $dd27s['FIELDNAME']) ?> </td>
-                                <td class="alv"><?php echo ABAP_Navigation::GetURL4DomainValue(ABAP_DB_CONST::DOMAIN_DD27S_RDONLY, $dd27s['RDONLY'], '') ?> </td>
+                                <td class="alv"><?php echo ABAP_UI_Navigation::GetURL4Tabl($dd27s['TABNAME'], '') ?> </td>
+                                <td class="alv"><?php echo ABAP_UI_Navigation::GetURL4TablField($dd27s['TABNAME'], $dd27s['FIELDNAME']) ?> </td>
+                                <td class="alv"><?php echo ABAP_UI_Navigation::GetURL4DomainValue(ABAP_DB_CONST::DOMAIN_DD27S_RDONLY, $dd27s['RDONLY'], '') ?> </td>
                                 <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox("FELD_KEY_" . $dd27s['OBJPOS'], $dd27s['RDONLY']) ?> </td>
-                                <td class="alv"><?php echo ABAP_Navigation::GetURL4Dtel($dd27s['ROLLNAME'], '') ?> </td>
+                                <td class="alv"><?php echo ABAP_UI_Navigation::GetURL4Dtel($dd27s['ROLLNAME'], '') ?> </td>
                                 <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox("FELD_MOD_" . $dd27s['OBJPOS'], $dd27s['ROLLCHANGE']) ?> </td>
                                 <td class="alv"><?php echo htmlentities($dd27s_rollname_desc) ?> </td>
                                 <!-- TODO: <td class="alv">f.SWITCH_ID </td> -->
@@ -277,12 +277,12 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::VIEW_NAME, $dd
                     <tbody>
                         <tr>
                             <td class="content_label"> Delivery Class </td>
-                            <td class="field"> <?php echo ABAP_Navigation::GetURL4DomainValue(ABAP_DB_CONST::DOMAIN_DD25L_CUSTOMAUTH, $dd25l['CUSTOMAUTH'], $dd25l_customauth_desc) ?> &nbsp;</td>
+                            <td class="field"> <?php echo ABAP_UI_Navigation::GetURL4DomainValue(ABAP_DB_CONST::DOMAIN_DD25L_CUSTOMAUTH, $dd25l['CUSTOMAUTH'], $dd25l_customauth_desc) ?> &nbsp;</td>
                             <td> <?php echo htmlentities($dd25l_customauth_desc) ?>&nbsp;</td>
                         </tr>
                         <tr>
                             <td class="content_label"> Data Browser/Table View Maintenance </td>
-                            <td class="field"><?php echo ABAP_Navigation::GetURL4DomainValue(ABAP_DB_CONST::DOMAIN_DD25L_GLOBALFLAG, $dd25l['GLOBALFLAG'], $dd25l_globalflag_desc) ?>&nbsp;</td>
+                            <td class="field"><?php echo ABAP_UI_Navigation::GetURL4DomainValue(ABAP_DB_CONST::DOMAIN_DD25L_GLOBALFLAG, $dd25l['GLOBALFLAG'], $dd25l_globalflag_desc) ?>&nbsp;</td>
                             <td><?php echo htmlentities($dd25l_globalflag_desc) ?> &nbsp;</td></tr>
                     </tbody>
                 </table><!-- Maintenance Status: End -->

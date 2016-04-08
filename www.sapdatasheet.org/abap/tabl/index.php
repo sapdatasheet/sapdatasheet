@@ -36,7 +36,7 @@ ob_start();
 <!DOCTYPE html>
 <!-- DDIC Table index. -->
 <?php
-$GLOBALS['TITLE_TEXT'] = "SAP ABAP " . ABAP_OTYPE::TABL_DESC . " - Index " . $index . " ";
+$GLOBALS['TITLE_TEXT'] = "SAP ABAP " . GLOBAL_ABAP_OTYPE::TABL_DESC . " - Index " . $index . " ";
 
 if ($index === ABAP_DB_CONST::INDEX_SLASH) {
     $index = '/';
@@ -47,9 +47,9 @@ $dd02l = ABAP_DB_TABLE_TABL::DD02L_List($index);
     <head>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="stylesheet" href="/abap.css" type="text/css" />
-        <title><?php echo $GLOBALS['TITLE_TEXT'] ?> <?php echo WEBSITE::TITLE ?> </title>
-        <meta name="keywords" content="SAP,ABAP,<?php echo ABAP_OTYPE::TABL_DESC ?>" />
-        <meta name="description" content="<?php echo WEBSITE::META_DESC ?>" />
+        <title><?php echo $GLOBALS['TITLE_TEXT'] ?> <?php echo GLOBAL_WEBSITE_SAPDS::TITLE ?> </title>
+        <meta name="keywords" content="SAP,ABAP,<?php echo GLOBAL_ABAP_OTYPE::TABL_DESC ?>" />
+        <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC ?>" />
         <meta name="author" content="SAP Datasheet" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
@@ -67,7 +67,7 @@ $dd02l = ABAP_DB_TABLE_TABL::DD02L_List($index);
             <div class="content_navi">
                 <a href="/">Home page</a> &gt; 
                 <a href="/abap/">ABAP Object</a> &gt; 
-                <a href="/abap/tabl/"><?php echo ABAP_OTYPE::TABL_DESC ?></a> 
+                <a href="/abap/tabl/"><?php echo GLOBAL_ABAP_OTYPE::TABL_DESC ?></a> 
             </div>
 
             <!-- Content Object -->
@@ -107,7 +107,7 @@ $dd02l = ABAP_DB_TABLE_TABL::DD02L_List($index);
                     <a href="index-slash.html">/</a>&nbsp;
                 </div>
 
-                <h4> <?php echo ABAP_OTYPE::TABL_DESC ?> - <?php echo $index ?></h4>
+                <h4> <?php echo GLOBAL_ABAP_OTYPE::TABL_DESC ?> - <?php echo $index ?></h4>
                 <table class="alv">
                     <tr>
                         <th class="alv"> # </th>
@@ -117,11 +117,11 @@ $dd02l = ABAP_DB_TABLE_TABL::DD02L_List($index);
                         <th class="alv"> Delivery Class </th>
                     </tr>
                     <tr>
-                        <th class="alv"><?php echo ABAP_Navigation::GetURL4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_TABL::DD02L_TABNAME_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_TABL::DD02T_DDTEXT_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_TABL::DD02L_TABCLASS_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_TABL::DD02L_CONTFLAG_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_TABL::DD02L_TABNAME_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_TABL::DD02T_DDTEXT_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_TABL::DD02L_TABCLASS_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_TABL::DD02L_CONTFLAG_DTEL, '?') ?></th>
                     </tr>
                     <?php
                     $count = 0;
@@ -130,10 +130,10 @@ $dd02l = ABAP_DB_TABLE_TABL::DD02L_List($index);
                         $dd02l_item_desc = ABAP_DB_TABLE_TABL::DD02T($dd02l_item['TABNAME']);
                         ?>
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                            <td class="alv"><?php echo ABAP_Navigation::GetURL4Tabl($dd02l_item['TABNAME'], $dd02l_item_desc); ?> </td>
+                            <td class="alv"><?php echo ABAP_UI_Navigation::GetURL4Tabl($dd02l_item['TABNAME'], $dd02l_item_desc); ?> </td>
                             <td class="alv"><?php echo htmlentities($dd02l_item_desc) ?></td>
-                            <td class="alv"><?php echo ABAP_Navigation::GetURL4DomainValue(ABAP_DB_TABLE_TABL::DD02L_TABCLASS_DOMAIN, $dd02l_item['TABCLASS'], '') ?></td>
-                            <td class="alv"><?php echo ABAP_Navigation::GetURL4DomainValue(ABAP_DB_TABLE_TABL::DD02L_CONTFLAG_DOMAIN, $dd02l_item['CONTFLAG'], '') ?></td></tr>
+                            <td class="alv"><?php echo ABAP_UI_Navigation::GetURL4DomainValue(ABAP_DB_TABLE_TABL::DD02L_TABCLASS_DOMAIN, $dd02l_item['TABCLASS'], '') ?></td>
+                            <td class="alv"><?php echo ABAP_UI_Navigation::GetURL4DomainValue(ABAP_DB_TABLE_TABL::DD02L_CONTFLAG_DOMAIN, $dd02l_item['CONTFLAG'], '') ?></td></tr>
                         <?php } ?>
                 </table>
 

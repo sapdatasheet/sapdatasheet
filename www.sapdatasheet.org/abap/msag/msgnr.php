@@ -38,18 +38,18 @@ $t100u_t = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_MSAG::T100U_SELFDEF_DOMAIN, $
 $t100x = ABAP_DB_TABLE_MSAG::T100X($ObjID, $MsgNr);
 $dok_na = ABAP_DB_TABLE_MSAG::YDOK_NA($ObjID, $MsgNr);
 
-$wul_counter_list = ABAPANA_DB_TABLE::WULCOUNTER_List(ABAP_OTYPE::NN_NAME, $ObjID, $MsgNr);
+$wul_counter_list = ABAPANA_DB_TABLE::WULCOUNTER_List(GLOBAL_ABAP_OTYPE::NN_NAME, $ObjID, $MsgNr);
 
-$hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::MSAG_NAME, $ObjID);
-$GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::MSAG_DESC . ' ' . $ObjID . ' Message Number ' . $MsgNr . ' (' . $t100_nr_text . ')';
+$hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, GLOBAL_ABAP_OTYPE::MSAG_NAME, $ObjID);
+$GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . GLOBAL_ABAP_OTYPE::MSAG_DESC . ' ' . $ObjID . ' Message Number ' . $MsgNr . ' (' . $t100_nr_text . ')';
 ?>
 <html>
     <head>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="stylesheet" href="/abap.css" type="text/css" />
-        <title><?php echo $GLOBALS['TITLE_TEXT'] . WEBSITE::TITLE ?> </title>
-        <meta name="keywords" content="SAP,<?php echo ABAP_OTYPE::MSAG_DESC ?>,<?php echo $ObjID ?>,<?php echo $MsgNr ?>,<?php echo $t100t ?>,<?php echo $t100_nr_text ?>" />
-        <meta name="description" content="<?php echo WEBSITE::META_DESC; ?>" />
+        <title><?php echo $GLOBALS['TITLE_TEXT'] . GLOBAL_WEBSITE_SAPDS::TITLE ?> </title>
+        <meta name="keywords" content="SAP,<?php echo GLOBAL_ABAP_OTYPE::MSAG_DESC ?>,<?php echo $ObjID ?>,<?php echo $MsgNr ?>,<?php echo $t100t ?>,<?php echo $t100_nr_text ?>" />
+        <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC; ?>" />
         <meta name="author" content="SAP Datasheet" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
@@ -65,13 +65,13 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::MSAG_DESC . ' ' . $ObjID . ' 
             <table class="content_obj">
                 <tbody>
                     <tr><td>Software Component</td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_Navigation::GetURL4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
+                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetURL4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
                     <tr><td class="left_attribute"> Application Component ID</td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_Navigation::GetURL4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
+                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetURL4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
                     <tr><td class="left_attribute"> Package </td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_Navigation::GetURL4Devc($hier->DEVCLASS, $hier->DEVCLASS_T) ?></td></tr>
+                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetURL4Devc($hier->DEVCLASS, $hier->DEVCLASS_T) ?></td></tr>
                     <tr><td class="left_attribute"> Object type </td></tr>
-                    <tr><td class="left_value"><a href="/abap/msag/"><?php echo ABAP_OTYPE::MSAG_DESC ?></a></td></tr>
+                    <tr><td class="left_value"><a href="/abap/msag/"><?php echo GLOBAL_ABAP_OTYPE::MSAG_DESC ?></a></td></tr>
                     <tr><td class="left_attribute"> Object name </td></tr>
                     <tr><td class="left_value"> <a href="#" title="<?php echo $t100_nr_text ?>"><?php echo $ObjID . '-' . $MsgNr ?></a> </td></tr>
                 </tbody>
@@ -87,7 +87,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::MSAG_DESC . ' ' . $ObjID . ' 
             <div class="content_navi">
                 <a href="/">Home page</a> &gt;
                 <a href="/abap/">ABAP Object</a> &gt;
-                <a href="/abap/msag/"><?php echo ABAP_OTYPE::MSAG_DESC ?></a> &gt;
+                <a href="/abap/msag/"><?php echo GLOBAL_ABAP_OTYPE::MSAG_DESC ?></a> &gt;
                 <a href="/abap/msag/<?php echo $ObjID ?>.html"><?php echo $ObjID ?></a> &gt;
                 <a href="#"><?php echo $ObjID . '-' . $MsgNr ?></a>
             </div>
@@ -105,7 +105,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::MSAG_DESC . ' ' . $ObjID . ' 
                 <table class="content_obj">
                     <tbody>
                         <tr><td class="content_label"> Message class </td>
-                            <td class="field"> <?php echo ABAP_Navigation::GetURL4Msag($ObjID, $t100t, FALSE); ?> </td>
+                            <td class="field"> <?php echo ABAP_UI_Navigation::GetURL4Msag($ObjID, $t100t, FALSE); ?> </td>
                             <td> &nbsp;</td>
                         </tr>
                         <tr><td class="content_label"> Short Description</td>
@@ -117,7 +117,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . ABAP_OTYPE::MSAG_DESC . ' ' . $ObjID . ' 
                             <td> &nbsp;</td>
                         </tr>
                         <tr><td class="content_label"> Documentation status</td>
-                            <td class="field"> <?php echo ABAP_Navigation::GetURL4DomainValue(ABAP_DB_TABLE_MSAG::T100U_SELFDEF_DOMAIN, $t100u['SELFDEF'], $t100u_t) ?> &nbsp;</td>
+                            <td class="field"> <?php echo ABAP_UI_Navigation::GetURL4DomainValue(ABAP_DB_TABLE_MSAG::T100U_SELFDEF_DOMAIN, $t100u['SELFDEF'], $t100u_t) ?> &nbsp;</td>
                             <td> <?php echo $t100u_t ?> </td>
                         </tr>
                         <tr><td class="content_label"> Authorization check Error Message</td>

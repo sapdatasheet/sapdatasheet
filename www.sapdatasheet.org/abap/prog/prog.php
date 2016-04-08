@@ -27,20 +27,20 @@ $reposrc_ldbname_desc = ABAP_DB_TABLE_PROG::LDBT($prog['LDBNAME']);
 $tcode_list = ABAP_DB_TABLE_TRAN::TSTC_PGMNA($prog['PROGNAME']);
 $dynr_list = ABAP_DB_TABLE_PROG::D020S_PROG($prog['PROGNAME']);
 
-$wul_counter_list = ABAPANA_DB_TABLE::WULCOUNTER_List(ABAP_OTYPE::PROG_NAME, $prog['PROGNAME']);
+$wul_counter_list = ABAPANA_DB_TABLE::WULCOUNTER_List(GLOBAL_ABAP_OTYPE::PROG_NAME, $prog['PROGNAME']);
 $wil_enabled = TRUE;
-$wil_counter_list = ABAPANA_DB_TABLE::WILCOUNTER_List(ABAP_OTYPE::PROG_NAME, $prog['PROGNAME']);
+$wil_counter_list = ABAPANA_DB_TABLE::WILCOUNTER_List(GLOBAL_ABAP_OTYPE::PROG_NAME, $prog['PROGNAME']);
 
-$hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::PROG_NAME, $prog['PROGNAME']);
-$GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::PROG_NAME, $prog['PROGNAME']);
+$hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, GLOBAL_ABAP_OTYPE::PROG_NAME, $prog['PROGNAME']);
+$GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::PROG_NAME, $prog['PROGNAME']);
 ?>
 <html>
     <head>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="stylesheet" href="/abap.css" type="text/css" />
-        <title><?php echo $GLOBALS['TITLE_TEXT'] . WEBSITE::TITLE ?> </title>
-        <meta name="keywords" content="SAP,<?php echo ABAP_OTYPE::PROG_DESC ?>,<?php echo $prog['PROGNAME'] ?>,<?php echo $prog_desc ?>" />
-        <meta name="description" content="<?php echo WEBSITE::META_DESC; ?>" />
+        <title><?php echo $GLOBALS['TITLE_TEXT'] . GLOBAL_WEBSITE_SAPDS::TITLE ?> </title>
+        <meta name="keywords" content="SAP,<?php echo GLOBAL_ABAP_OTYPE::PROG_DESC ?>,<?php echo $prog['PROGNAME'] ?>,<?php echo $prog_desc ?>" />
+        <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC; ?>" />
         <meta name="author" content="SAP Datasheet" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
@@ -56,13 +56,13 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::PROG_NAME, $pr
             <table class="content_obj">
                 <tbody>
                     <tr><td>Software Component</td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_Navigation::GetURL4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
+                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetURL4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
                     <tr><td class="left_attribute"> Application Component ID</td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_Navigation::GetURL4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
+                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetURL4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
                     <tr><td class="left_attribute"> Package </td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_Navigation::GetURL4Devc($hier->DEVCLASS, $hier->DEVCLASS_T) ?></td></tr>
+                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetURL4Devc($hier->DEVCLASS, $hier->DEVCLASS_T) ?></td></tr>
                     <tr><td class="left_attribute"> Object type </td></tr>
-                    <tr><td class="left_value"><a href="/abap/prog/"><?php echo ABAP_OTYPE::PROG_DESC ?></a></td></tr>
+                    <tr><td class="left_value"><a href="/abap/prog/"><?php echo GLOBAL_ABAP_OTYPE::PROG_DESC ?></a></td></tr>
                     <tr><td class="left_attribute"> Object name </td></tr>
                     <tr><td class="left_value"> <a href="#" title="<?php echo $prog_desc ?>"><?php echo $prog['PROGNAME'] ?></a> </td></tr>
                 </tbody>
@@ -78,7 +78,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::PROG_NAME, $pr
             <div class="content_navi">
                 <a href="/">Home page</a> &gt; 
                 <a href="/abap/">ABAP Object</a> &gt; 
-                <a href="/abap/prog/"><?php echo ABAP_OTYPE::PROG_DESC ?></a> &gt; 
+                <a href="/abap/prog/"><?php echo GLOBAL_ABAP_OTYPE::PROG_DESC ?></a> &gt; 
                 <a href="#"><?php echo $prog['PROGNAME'] ?></a>
             </div>
 
@@ -95,11 +95,11 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::PROG_NAME, $pr
                 <table class="content_obj">
                     <tbody>
                         <tr><td class="content_label"> Program </td>
-                            <td class="field"> <?php echo ABAP_Navigation::GetURL4Prog($prog['PROGNAME'], $prog_desc); ?> </td>
+                            <td class="field"> <?php echo ABAP_UI_Navigation::GetURL4Prog($prog['PROGNAME'], $prog_desc); ?> </td>
                             <td> <?php echo $prog_desc ?> &nbsp;</td>
                         </tr>
                         <tr><td class="content_label"> Program Type </td>
-                            <td class="field"> <?php echo ABAP_Navigation::GetURL4DomainValue(ABAP_DB_CONST::DOMAIN_REPOSRC_SUBC, $prog['SUBC'], $reposrc_subc_desc); ?> </td>
+                            <td class="field"> <?php echo ABAP_UI_Navigation::GetURL4DomainValue(ABAP_DB_CONST::DOMAIN_REPOSRC_SUBC, $prog['SUBC'], $reposrc_subc_desc); ?> </td>
                             <td> <?php echo htmlentities($reposrc_subc_desc) ?> &nbsp;</td>
                         </tr>
                     </tbody>
@@ -109,7 +109,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::PROG_NAME, $pr
                 <table class="content_obj">
                     <tbody>
                         <tr><td class="content_label"> Status </td>
-                            <td class="field"> <?php echo ABAP_Navigation::GetURL4DomainValue(ABAP_DB_CONST::DOMAIN_REPOSRC_RSTAT, $prog['RSTAT'], $reposrc_rstat_desc); ?> </td>
+                            <td class="field"> <?php echo ABAP_UI_Navigation::GetURL4DomainValue(ABAP_DB_CONST::DOMAIN_REPOSRC_RSTAT, $prog['RSTAT'], $reposrc_rstat_desc); ?> </td>
                             <td> <?php echo htmlentities($reposrc_rstat_desc) ?> &nbsp;</td>
                         </tr>
                         <tr><td class="content_label"> Application </td>
@@ -162,7 +162,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::PROG_NAME, $pr
                                 ?>
                                 <tr>
                                     <td class="alv"> <?php echo $tfdir['INCLUDE'] ?> &nbsp;</td>
-                                    <td class="alv"> <?php echo ABAP_Navigation::GetURL4Func($tfdir['FUNCNAME'], $tfdir_desc) ?> &nbsp;</td>
+                                    <td class="alv"> <?php echo ABAP_UI_Navigation::GetURL4Func($tfdir['FUNCNAME'], $tfdir_desc) ?> &nbsp;</td>
                                     <td class="alv"> <?php echo htmlentities($tfdir_desc) ?> &nbsp;</td>
                                     <td class="alv"> <?php echo $tfdir['FMODE'] ?> &nbsp;</td>
                                 </tr>
@@ -195,7 +195,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::PROG_NAME, $pr
                             $tcode_desc = ABAP_DB_TABLE_TRAN::TSTCT($tcode['TCODE']);
                             ?>
                             <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                                <td class="alv"><?php echo ABAP_Navigation::GetURL4Tran($tcode['TCODE'], $tcode_desc) ?></td>
+                                <td class="alv"><?php echo ABAP_UI_Navigation::GetURL4Tran($tcode['TCODE'], $tcode_desc) ?></td>
                                 <td class="alv"><?php echo htmlentities($tcode_desc) ?>&nbsp;</td>
                             </tr>
                         <?php } ?>

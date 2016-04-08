@@ -26,21 +26,21 @@ $dtel_datatype_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_DATATYPE, 
 $dok_de = ABAP_DB_TABLE_DTEL::YDOK_DE($dtel['ROLLNAME']);
 $dok_dz = ABAP_DB_TABLE_DTEL::YDOK_DZ($dtel['ROLLNAME']);
 
-$wul_counter_list = ABAPANA_DB_TABLE::WULCOUNTER_List(ABAP_OTYPE::DTEL_NAME, $dtel['ROLLNAME']);
+$wul_counter_list = ABAPANA_DB_TABLE::WULCOUNTER_List(GLOBAL_ABAP_OTYPE::DTEL_NAME, $dtel['ROLLNAME']);
 $wul_list = ABAP_DB_TABLE_TABL::DD03L_ROLLNAME($ObjID);
 $wil_enabled = TRUE;
-$wil_counter_list = ABAPANA_DB_TABLE::WILCOUNTER_List(ABAP_OTYPE::DTEL_NAME, $dtel['ROLLNAME']);
+$wil_counter_list = ABAPANA_DB_TABLE::WILCOUNTER_List(GLOBAL_ABAP_OTYPE::DTEL_NAME, $dtel['ROLLNAME']);
 
-$hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::DTEL_NAME, $dtel['ROLLNAME']);
-$GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::DTEL_NAME, $dtel['ROLLNAME']);
+$hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, GLOBAL_ABAP_OTYPE::DTEL_NAME, $dtel['ROLLNAME']);
+$GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::DTEL_NAME, $dtel['ROLLNAME']);
 ?>
 <html>
     <head>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="stylesheet" href="/abap.css" type="text/css" />
-        <title><?php echo $GLOBALS['TITLE_TEXT'] . WEBSITE::TITLE ?> </title>
-        <meta name="keywords" content="SAP,<?php echo ABAP_OTYPE::DTEL_DESC ?>,<?php echo $dtel['ROLLNAME'] ?>,<?php echo $dtel_desc ?>" />
-        <meta name="description" content="<?php echo WEBSITE::META_DESC; ?>" />
+        <title><?php echo $GLOBALS['TITLE_TEXT'] . GLOBAL_WEBSITE_SAPDS::TITLE ?> </title>
+        <meta name="keywords" content="SAP,<?php echo GLOBAL_ABAP_OTYPE::DTEL_DESC ?>,<?php echo $dtel['ROLLNAME'] ?>,<?php echo $dtel_desc ?>" />
+        <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC; ?>" />
         <meta name="author" content="SAP Datasheet" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
@@ -56,13 +56,13 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::DTEL_NAME, $dt
             <table class="content_obj">
                 <tbody>
                     <tr><td>Software Component</td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_Navigation::GetURL4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
+                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetURL4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
                     <tr><td class="left_attribute"> Application Component ID</td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_Navigation::GetURL4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
+                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetURL4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
                     <tr><td class="left_attribute"> Package </td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_Navigation::GetURL4Devc($hier->DEVCLASS, $hier->DEVCLASS_T) ?></td></tr>
+                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetURL4Devc($hier->DEVCLASS, $hier->DEVCLASS_T) ?></td></tr>
                     <tr><td class="left_attribute"> Object type </td></tr>
-                    <tr><td class="left_value"><a href="/abap/dtel/"><?php echo ABAP_OTYPE::DTEL_DESC ?></a></td></tr>
+                    <tr><td class="left_value"><a href="/abap/dtel/"><?php echo GLOBAL_ABAP_OTYPE::DTEL_DESC ?></a></td></tr>
                     <tr><td class="left_attribute"> Object name </td></tr>
                     <tr><td class="left_value"> <a href="#" title="<?php echo $dtel_desc ?>"><?php echo $dtel['ROLLNAME'] ?></a> </td></tr>
                 </tbody>
@@ -75,7 +75,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::DTEL_NAME, $dt
                 <tbody>
                     <?php if (empty($wul_list) === FALSE) { ?>
                         <?php foreach ($wul_list as $wul_item) { ?>
-                            <tr><td class="left_value"><?php echo ABAP_Navigation::GetURL4Tabl($wul_item['TABNAME'], ABAP_DB_TABLE_TABL::DD02T($wul_item['TABNAME'])) ?>&nbsp;</td></tr>
+                            <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetURL4Tabl($wul_item['TABNAME'], ABAP_DB_TABLE_TABL::DD02T($wul_item['TABNAME'])) ?>&nbsp;</td></tr>
                         <?php } ?>
                     <?php } else { ?>
                         <tr><td class="left_value">Not Used by Anyone</td></tr>
@@ -90,7 +90,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::DTEL_NAME, $dt
             <div class="content_navi">
                 <a href="/">Home page</a> &gt;
                 <a href="/abap/">ABAP Object</a> &gt;
-                <a href="/abap/dtel/"><?php echo ABAP_OTYPE::DTEL_DESC ?></a> &gt;
+                <a href="/abap/dtel/"><?php echo GLOBAL_ABAP_OTYPE::DTEL_DESC ?></a> &gt;
                 <a href="#"><?php echo $dtel['ROLLNAME'] ?></a>
             </div>
 
@@ -106,7 +106,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::DTEL_NAME, $dt
                 <h4> Basic data </h4>
                 <table class="content_obj">
                     <tbody>
-                        <tr><td class="content_label"> Data Element      </td><td class="field"> <?php echo ABAP_Navigation::GetURL4Dtel($dtel['ROLLNAME'], $dtel_desc) ?> </td></tr>
+                        <tr><td class="content_label"> Data Element      </td><td class="field"> <?php echo ABAP_UI_Navigation::GetURL4Dtel($dtel['ROLLNAME'], $dtel_desc) ?> </td></tr>
                         <tr><td class="content_label"> Short Description </td><td class="field"> <?php echo htmlentities($dtel_desc) ?> &nbsp;</td></tr>
                     </tbody>
                 </table>
@@ -115,16 +115,16 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::DTEL_NAME, $dt
                 <table class="content_obj">
                     <tbody>
                         <tr><td class="content_label"> Category of Dictionary Type </td>
-                            <td class="field"> <?php echo ABAP_Navigation::GetURL4DomainValue(ABAP_DB_CONST::DOMAIN_DD04L_REFKIND, $dtel['REFKIND'], $dtel_refkind_desc); ?> &nbsp;</td>
+                            <td class="field"> <?php echo ABAP_UI_Navigation::GetURL4DomainValue(ABAP_DB_CONST::DOMAIN_DD04L_REFKIND, $dtel['REFKIND'], $dtel_refkind_desc); ?> &nbsp;</td>
                             <td><?php echo $dtel_refkind_desc ?></td></tr>
                         <tr><td class="content_label"> Type of Object Referenced  </td>
-                            <td class="field"> <?php echo ABAP_Navigation::GetURL4DomainValue(ABAP_DB_CONST::DOMAIN_DD04L_REFTYPE, $dtel['REFTYPE'], $dtel_reftype_desc); ?> &nbsp;</td>
+                            <td class="field"> <?php echo ABAP_UI_Navigation::GetURL4DomainValue(ABAP_DB_CONST::DOMAIN_DD04L_REFTYPE, $dtel['REFTYPE'], $dtel_reftype_desc); ?> &nbsp;</td>
                             <td><?php echo $dtel_reftype_desc ?></td></tr>
                         <tr><td class="content_label">Domain / Name of Reference Type</td>
-                            <td class="field"> <?php echo ABAP_Navigation::GetURL4Doma($dtel['DOMNAME'], ''); ?> &nbsp;</td>
+                            <td class="field"> <?php echo ABAP_UI_Navigation::GetURL4Doma($dtel['DOMNAME'], ''); ?> &nbsp;</td>
                             <td>&nbsp;</td></tr>
                         <tr><td class="content_label">Data Type </td>
-                            <td class="field"> <?php echo ABAP_Navigation::GetURL4DomainValue(ABAP_DB_CONST::DOMAIN_DATATYPE, $dtel['DATATYPE'], $dtel_datatype_desc) ?> &nbsp;</td>
+                            <td class="field"> <?php echo ABAP_UI_Navigation::GetURL4DomainValue(ABAP_DB_CONST::DOMAIN_DATATYPE, $dtel['DATATYPE'], $dtel_datatype_desc) ?> &nbsp;</td>
                             <td><?php echo htmlentities($dtel_datatype_desc) ?>&nbsp;</td></tr>
                         <tr><td class="content_label">Length </td>
                             <td class="field_right"> <?php echo intval($dtel['LENG']) ?> &nbsp;</td>
@@ -136,7 +136,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::DTEL_NAME, $dt
                             <td class="field_right"> <?php echo intval($dtel['OUTPUTLEN']) ?> &nbsp;</td>
                             <td>&nbsp;</td></tr>
                         <tr><td class="content_label">Value Table </td>
-                            <td class="field_right"> <?php echo ABAP_Navigation::GetURL4Tabl($dtel['ENTITYTAB'], '') ?> &nbsp;</td>
+                            <td class="field_right"> <?php echo ABAP_UI_Navigation::GetURL4Tabl($dtel['ENTITYTAB'], '') ?> &nbsp;</td>
                             <td>&nbsp;</td></tr>
                     </tbody>
                 </table>

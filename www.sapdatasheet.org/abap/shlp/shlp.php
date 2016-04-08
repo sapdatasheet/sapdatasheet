@@ -25,10 +25,10 @@ $dd30l_selmtype_t = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SHLP::DD30L_SELMTYPE
 $dd30l_selmethod_url = $dd30l['SELMETHOD'];
 $dd30l_selmethod_t = '';
 if ($dd30l['SELMTYPE'] == ABAP_DB_TABLE_SHLP::DD30L_SELMTYPE_T || $dd30l['SELMTYPE'] == ABAP_DB_TABLE_SHLP::DD30L_SELMTYPE_X) {
-    $dd30l_selmethod_url = ABAP_Navigation::GetURL4Tabl($dd30l['SELMETHOD'], '');
+    $dd30l_selmethod_url = ABAP_UI_Navigation::GetURL4Tabl($dd30l['SELMETHOD'], '');
     $dd30l_selmethod_t = ABAP_DB_TABLE_TABL::DD02T($dd30l['SELMETHOD']);
 } else if ($dd30l['SELMTYPE'] == ABAP_DB_TABLE_SHLP::DD30L_SELMTYPE_V || $dd30l['SELMTYPE'] == ABAP_DB_TABLE_SHLP::DD30L_SELMTYPE_H) {
-    $dd30l_selmethod_url = ABAP_Navigation::GetURL4View($dd30l['SELMETHOD'], '');
+    $dd30l_selmethod_url = ABAP_UI_Navigation::GetURL4View($dd30l['SELMETHOD'], '');
     $dd30l_selmethod_t = ABAP_DB_TABLE_VIEW::DD25T($dd30l['SELMETHOD']);
 }
 $dd30l_texttab_t = ABAP_DB_TABLE_TABL::DD02T($dd30l['TEXTTAB']);
@@ -41,20 +41,20 @@ $dd31s_list = ABAP_DB_TABLE_SHLP::DD31S($dd30l['SHLPNAME']);
 $dd32s_list = ABAP_DB_TABLE_SHLP::DD32S($dd30l['SHLPNAME']);
 $dd33s_list = ABAP_DB_TABLE_SHLP::DD33S($dd30l['SHLPNAME']);
 
-$wul_counter_list = ABAPANA_DB_TABLE::WULCOUNTER_List(ABAP_OTYPE::SHLP_NAME, $dd30l['SHLPNAME']);
+$wul_counter_list = ABAPANA_DB_TABLE::WULCOUNTER_List(GLOBAL_ABAP_OTYPE::SHLP_NAME, $dd30l['SHLPNAME']);
 $wil_enabled = TRUE;
-$wil_counter_list = ABAPANA_DB_TABLE::WILCOUNTER_List(ABAP_OTYPE::SHLP_NAME, $dd30l['SHLPNAME']);
+$wil_counter_list = ABAPANA_DB_TABLE::WILCOUNTER_List(GLOBAL_ABAP_OTYPE::SHLP_NAME, $dd30l['SHLPNAME']);
 
-$hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::SHLP_NAME, $ObjID);
-$GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::SHLP_NAME, $ObjID);
+$hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, GLOBAL_ABAP_OTYPE::SHLP_NAME, $ObjID);
+$GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::SHLP_NAME, $ObjID);
 ?>
 <html>
     <head>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="stylesheet" href="/abap.css" type="text/css" />
-        <title><?php echo $GLOBALS['TITLE_TEXT'] . WEBSITE::TITLE ?> </title>
-        <meta name="keywords" content="SAP,<?php echo ABAP_OTYPE::SHLP_DESC ?>,<?php echo $ObjID ?>,<?php echo $dd30t ?>" />
-        <meta name="description" content="<?php echo WEBSITE::META_DESC; ?>" />
+        <title><?php echo $GLOBALS['TITLE_TEXT'] . GLOBAL_WEBSITE_SAPDS::TITLE ?> </title>
+        <meta name="keywords" content="SAP,<?php echo GLOBAL_ABAP_OTYPE::SHLP_DESC ?>,<?php echo $ObjID ?>,<?php echo $dd30t ?>" />
+        <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC; ?>" />
         <meta name="author" content="SAP Datasheet" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
@@ -70,13 +70,13 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::SHLP_NAME, $Ob
             <table class="content_obj">
                 <tbody>
                     <tr><td>Software Component</td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_Navigation::GetURL4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
+                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetURL4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
                     <tr><td class="left_attribute"> Application Component ID</td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_Navigation::GetURL4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
+                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetURL4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
                     <tr><td class="left_attribute"> Package </td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_Navigation::GetURL4Devc($hier->DEVCLASS, $hier->DEVCLASS_T) ?></td></tr>
+                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetURL4Devc($hier->DEVCLASS, $hier->DEVCLASS_T) ?></td></tr>
                     <tr><td class="left_attribute"> Object type </td></tr>
-                    <tr><td class="left_value"><a href="/abap/shlp/"><?php echo ABAP_OTYPE::SHLP_DESC ?></a></td></tr>
+                    <tr><td class="left_value"><a href="/abap/shlp/"><?php echo GLOBAL_ABAP_OTYPE::SHLP_DESC ?></a></td></tr>
                     <tr><td class="left_attribute"> Object name </td></tr>
                     <tr><td class="left_value"> <a href="#" title="<?php echo $dd30t ?>"><?php echo $ObjID ?></a> </td></tr>
                 </tbody>
@@ -92,7 +92,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::SHLP_NAME, $Ob
             <div class="content_navi">
                 <a href="/">Home page</a> &gt;
                 <a href="/abap/">ABAP Object</a> &gt;
-                <a href="/abap/shlp/"><?php echo ABAP_OTYPE::SHLP_DESC ?></a> &gt;
+                <a href="/abap/shlp/"><?php echo GLOBAL_ABAP_OTYPE::SHLP_DESC ?></a> &gt;
                 <a href="#"><?php echo $ObjID ?></a>
             </div>
 
@@ -109,7 +109,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::SHLP_NAME, $Ob
                 <table class="content_obj">
                     <tbody>
                         <tr><td class="content_label"> Search Help </td>
-                            <td class="field"> <?php echo ABAP_Navigation::GetURL4Shlp($ObjID, $dd30t, FALSE); ?> </td>
+                            <td class="field"> <?php echo ABAP_UI_Navigation::GetURL4Shlp($ObjID, $dd30t, FALSE); ?> </td>
                             <td> &nbsp;</td>
                         </tr>
                         <tr><td class="content_label"> Short Description</td>
@@ -117,7 +117,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::SHLP_NAME, $Ob
                             <td> &nbsp; </td>
                         </tr>
                         <tr><td class="content_label"> Package </td>
-                            <td class="field"> <?php echo ABAP_Navigation::GetURL4Devc($hier->DEVCLASS, $hier->DEVCLASS_T); ?> </td>
+                            <td class="field"> <?php echo ABAP_UI_Navigation::GetURL4Devc($hier->DEVCLASS, $hier->DEVCLASS_T); ?> </td>
                             <td> <?php echo $hier->DEVCLASS_T ?>&nbsp; </td>
                         </tr>
                         <tr><td class="content_label"> Flag if a search help is an elementary search help</td>
@@ -155,50 +155,50 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::SHLP_NAME, $Ob
                 <table class="content_obj">
                     <tbody>
                         <tr><td class="content_label"> Selection Method Category</td>
-                            <td class="field"> <?php echo ABAP_Navigation::GetURL4DomainValue(ABAP_DB_TABLE_SHLP::DD30L_SELMTYPE_DOMAIN, $dd30l['SELMTYPE'], $dd30l_selmtype_t); ?> </td>
+                            <td class="field"> <?php echo ABAP_UI_Navigation::GetURL4DomainValue(ABAP_DB_TABLE_SHLP::DD30L_SELMTYPE_DOMAIN, $dd30l['SELMTYPE'], $dd30l_selmtype_t); ?> </td>
                             <td><?php echo $dd30l_selmtype_t ?> &nbsp;</td>
                         </tr>
                         <tr><td class="content_label"> Selection Method</td>
                             <td class="field"><?php echo $dd30l_selmethod_url ?>&nbsp;</td>
-                            <td><?php echo ABAP_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_SHLP::DD30L_SELMETHOD_DTEL, '?') ?> &nbsp;
+                            <td><?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_SHLP::DD30L_SELMETHOD_DTEL, '?') ?> &nbsp;
                                 <?php echo $dd30l_selmethod_t ?>&nbsp; 
                             </td>
                         </tr>
                         <tr><td class="content_label"> Text Table</td>
-                            <td class="field"><?php echo ABAP_Navigation::GetURL4Tabl($dd30l['TEXTTAB'], $dd30l_texttab_t) ?>&nbsp;</td>
-                            <td><?php echo ABAP_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_SHLP::DD30L_TEXTTAB_DTEL, '?') ?> &nbsp;
+                            <td class="field"><?php echo ABAP_UI_Navigation::GetURL4Tabl($dd30l['TEXTTAB'], $dd30l_texttab_t) ?>&nbsp;</td>
+                            <td><?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_SHLP::DD30L_TEXTTAB_DTEL, '?') ?> &nbsp;
                                 <?php echo $dd30l_texttab_t ?>&nbsp; 
                             </td>
                         </tr>
                         <tr><td class="content_label"> Dialog Type </td>
-                            <td class="field"><?php echo ABAP_Navigation::GetURL4DomainValue(ABAP_DB_TABLE_SHLP::DD30L_DIALOGTYPE_DOMAIN, $dd30l['DIALOGTYPE'], $dd30l_DDSHDIATYP_t) ?>&nbsp;</td>
-                            <td><?php echo ABAP_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_SHLP::DD30L_DIALOGTYPE_DTEL, '?') ?> &nbsp;
+                            <td class="field"><?php echo ABAP_UI_Navigation::GetURL4DomainValue(ABAP_DB_TABLE_SHLP::DD30L_DIALOGTYPE_DOMAIN, $dd30l['DIALOGTYPE'], $dd30l_DDSHDIATYP_t) ?>&nbsp;</td>
+                            <td><?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_SHLP::DD30L_DIALOGTYPE_DTEL, '?') ?> &nbsp;
                                 <?php echo $dd30l_DDSHDIATYP_t ?> 
                             </td>
                         </tr>
                         <tr><td class="content_label"> Hot Key</td>
                             <td class="field"><?php echo $dd30l['AS4USER'] ?>&nbsp;</td>
-                            <td><?php echo ABAP_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_SHLP::DD30L_HOTKEY_DTEL, '?') ?>&nbsp; </td>
+                            <td><?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_SHLP::DD30L_HOTKEY_DTEL, '?') ?>&nbsp; </td>
                         </tr>
                         <tr><td class="content_label"> Proposal Search for Input Fields </td>
-                            <td class="field"><?php echo ABAP_Navigation::GetURL4DomainValue(ABAP_DB_TABLE_SHLP::DD30L_AUTOSUGGEST_DOMAIN, $dd30l['AUTOSUGGEST'], $dd30l_AUTOSUGGEST_t)  ?>&nbsp;</td>
-                            <td><?php echo ABAP_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_SHLP::DD30L_AUTOSUGGEST_DTEL, '?') ?>&nbsp; 
+                            <td class="field"><?php echo ABAP_UI_Navigation::GetURL4DomainValue(ABAP_DB_TABLE_SHLP::DD30L_AUTOSUGGEST_DOMAIN, $dd30l['AUTOSUGGEST'], $dd30l_AUTOSUGGEST_t)  ?>&nbsp;</td>
+                            <td><?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_SHLP::DD30L_AUTOSUGGEST_DTEL, '?') ?>&nbsp; 
                                 <?php echo $dd30l_AUTOSUGGEST_t ?>
                             </td>
                         </tr>
                         <tr><td class="content_label"> Full Text Fuzzy Search (Database-Specific) </td>
-                            <td class="field"><?php echo ABAP_Navigation::GetURL4DomainValue(ABAP_DB_TABLE_SHLP::DD30L_FUZZY_SEARCH_DOMAIN, $dd30l['FUZZY_SEARCH'], $dd30l_FUZZY_SEARCH_t)  ?>&nbsp;</td>
-                            <td><?php echo ABAP_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_SHLP::DD30L_FUZZY_SEARCH_DTEL, '?') ?>&nbsp; 
+                            <td class="field"><?php echo ABAP_UI_Navigation::GetURL4DomainValue(ABAP_DB_TABLE_SHLP::DD30L_FUZZY_SEARCH_DOMAIN, $dd30l['FUZZY_SEARCH'], $dd30l_FUZZY_SEARCH_t)  ?>&nbsp;</td>
+                            <td><?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_SHLP::DD30L_FUZZY_SEARCH_DTEL, '?') ?>&nbsp; 
                                 <?php echo $dd30l_FUZZY_SEARCH_t ?>
                             </td>
                         </tr>
                         <tr><td class="content_label"> Accuracy Value for Error-Tolerant Full Text Search </td>
-                            <td class="field"><?php echo ABAP_Navigation::GetURL4DomainValue(ABAP_DB_TABLE_SHLP::DD30L_FUZZY_SIMILARITY_DOMAIN, $dd30l['FUZZY_SIMILARITY'], $dd30l['FUZZY_SIMILARITY'])  ?>&nbsp;</td>
-                            <td><?php echo ABAP_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_SHLP::DD30L_FUZZY_SIMILARITY_DTEL, '?') ?>&nbsp; </td>
+                            <td class="field"><?php echo ABAP_UI_Navigation::GetURL4DomainValue(ABAP_DB_TABLE_SHLP::DD30L_FUZZY_SIMILARITY_DOMAIN, $dd30l['FUZZY_SIMILARITY'], $dd30l['FUZZY_SIMILARITY'])  ?>&nbsp;</td>
+                            <td><?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_SHLP::DD30L_FUZZY_SIMILARITY_DTEL, '?') ?>&nbsp; </td>
                         </tr>
                         <tr><td class="content_label"> Search Help Exit </td>
-                            <td class="field"><?php echo ABAP_Navigation::GetURL4Func($dd30l['SELMEXIT'], $dd30l_selmexit_t) ?>&nbsp;</td>
-                            <td><?php echo ABAP_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_SHLP::DD30L_SELMEXIT_DTEL, '?') ?> &nbsp; 
+                            <td class="field"><?php echo ABAP_UI_Navigation::GetURL4Func($dd30l['SELMEXIT'], $dd30l_selmexit_t) ?>&nbsp;</td>
+                            <td><?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_SHLP::DD30L_SELMEXIT_DTEL, '?') ?> &nbsp; 
                                 <?php echo $dd30l_selmexit_t ?>&nbsp; 
                             </td>
                         </tr>
@@ -223,16 +223,16 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::SHLP_NAME, $Ob
                     </tr>
                     <tr>
                         <th class="alv"> &nbsp; </th>
-                        <th class="alv"><?php echo ABAP_Navigation::GetURL4DtelDocument('SHLPFIELD', '?') ?></th>
-                        <th class="alv"><?php echo ABAP_Navigation::GetURL4DtelDocument('SHLPINPUT', '?') ?></th>
-                        <th class="alv"><?php echo ABAP_Navigation::GetURL4DtelDocument('SHLPOUTPUT', '?') ?></th>
-                        <th class="alv"><?php echo ABAP_Navigation::GetURL4DtelDocument('SHLPLISPOS', '?') ?></th>
-                        <th class="alv"><?php echo ABAP_Navigation::GetURL4DtelDocument('SHLPSELPOS', '?') ?></th>
-                        <th class="alv"><?php echo ABAP_Navigation::GetURL4DtelDocument('SHLPSELDIS', '?') ?></th>
-                        <th class="alv"><?php echo ABAP_Navigation::GetURL4DtelDocument('MCNOUPPER', '?') ?></th>
-                        <th class="alv"><?php echo ABAP_Navigation::GetURL4DtelDocument('SHLPSPARDE', '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_Navigation::GetURL4DtelDocument('SHLPFIELD', '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_Navigation::GetURL4DtelDocument('SHLPINPUT', '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_Navigation::GetURL4DtelDocument('SHLPOUTPUT', '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_Navigation::GetURL4DtelDocument('SHLPLISPOS', '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_Navigation::GetURL4DtelDocument('SHLPSELPOS', '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_Navigation::GetURL4DtelDocument('SHLPSELDIS', '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_Navigation::GetURL4DtelDocument('MCNOUPPER', '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_Navigation::GetURL4DtelDocument('SHLPSPARDE', '?') ?></th>
                         <th class="alv"> &nbsp; </th>
-                        <th class="alv"><?php echo ABAP_Navigation::GetURL4DtelDocument('DDSHDEFVAL', '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_Navigation::GetURL4DtelDocument('DDSHDEFVAL', '?') ?></th>
                     </tr>
                     <?php
                     foreach ($dd32s_list as $dd32s) {
@@ -246,8 +246,8 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::SHLP_NAME, $Ob
                             <td class="alv"><?php echo $dd32s['SHLPSELPOS'] ?></td>
                             <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox('SHLPSELDIS', $dd32s['SHLPSELDIS']) ?></td>
                             <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox('SHLPUPPER', $dd32s['SHLPUPPER']) ?></td>
-                            <td class="alv"><?php echo ABAP_Navigation::GetURL4Dtel($dd32s['ROLLNAME'], '') ?></td>
-                            <td class="alv"><?php echo ABAP_Navigation::GetURL4DomainValue(ABAP_DB_TABLE_SHLP::DD32S_DEFAULTTYP_DOMAIN, $dd32s['DEFAULTTYP'], $dd32s_DEFAULTTYP_t) ?></td>
+                            <td class="alv"><?php echo ABAP_UI_Navigation::GetURL4Dtel($dd32s['ROLLNAME'], '') ?></td>
+                            <td class="alv"><?php echo ABAP_UI_Navigation::GetURL4DomainValue(ABAP_DB_TABLE_SHLP::DD32S_DEFAULTTYP_DOMAIN, $dd32s['DEFAULTTYP'], $dd32s_DEFAULTTYP_t) ?></td>
                             <td class="alv"><?php echo $dd32s['DEFAULTVAL'] ?></td>
                         </tr>
                     <?php } ?>

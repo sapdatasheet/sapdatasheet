@@ -20,19 +20,19 @@ if (empty($df14l['FCTR_ID'])) {
 }
 
 $df14l_desc = ABAP_DB_TABLE_HIER::DF14T($ObjID);
-$hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, ABAP_OTYPE::BMFR_NAME, $df14l['FCTR_ID']);
+$hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, GLOBAL_ABAP_OTYPE::BMFR_NAME, $df14l['FCTR_ID']);
 $child_bmfr = ABAP_DB_TABLE_HIER::DF14L_Child($df14l['PS_POSID'], $df14l['FCTR_ID']);
 $child_tdevc = ABAP_DB_TABLE_HIER::TDEVC_DEVCLASS($df14l['FCTR_ID']);
 
-$GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::BMFR_NAME, $df14l['FCTR_ID'], $df14l['PS_POSID']);
+$GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::BMFR_NAME, $df14l['FCTR_ID'], $df14l['PS_POSID']);
 ?>
 <html>
     <head>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="stylesheet" href="/abap.css" type="text/css" />
-        <title><?php echo $GLOBALS['TITLE_TEXT'] . WEBSITE::TITLE ?> </title>
-        <meta name="keywords" content="SAP,<?php echo ABAP_OTYPE::BMFR_DESC ?>,<?php echo $df14l['FCTR_ID'] ?>,<?php echo $df14l['PS_POSID'] ?>,<?php echo $df14l_desc ?>" />
-        <meta name="description" content="<?php echo WEBSITE::META_DESC; ?>" />
+        <title><?php echo $GLOBALS['TITLE_TEXT'] . GLOBAL_WEBSITE_SAPDS::TITLE ?> </title>
+        <meta name="keywords" content="SAP,<?php echo GLOBAL_ABAP_OTYPE::BMFR_DESC ?>,<?php echo $df14l['FCTR_ID'] ?>,<?php echo $df14l['PS_POSID'] ?>,<?php echo $df14l_desc ?>" />
+        <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC; ?>" />
         <meta name="author" content="SAP Datasheet" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
@@ -48,9 +48,9 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::BMFR_NAME, $df
             <table class="content_obj">
                 <tbody>
                     <tr><td>Software Component</td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_Navigation::GetURL4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
+                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetURL4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
                     <tr><td class="left_attribute"> Application Component ID</td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_Navigation::GetURL4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
+                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetURL4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
                 </tbody>
             </table>
 
@@ -63,7 +63,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::BMFR_NAME, $df
             <div class="content_navi">
                 <a href="/">Home page</a> &gt;
                 <a href="/abap/">ABAP Object</a> &gt;
-                <a href="/abap/bmfr/">ABAP <?php echo ABAP_OTYPE::BMFR_DESC ?></a> &gt;
+                <a href="/abap/bmfr/">ABAP <?php echo GLOBAL_ABAP_OTYPE::BMFR_DESC ?></a> &gt;
                 <a href="#"><?php echo $df14l['PS_POSID'] ?></a>
             </div>
 
@@ -99,7 +99,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::BMFR_NAME, $df
                             foreach ($child_bmfr as $child_bmfr_item) {
                                 $child_bmfr_item_desc = ABAP_DB_TABLE_HIER::DF14T($child_bmfr_item['FCTR_ID'])
                                 ?>
-                                <tr><td class="alv"><?php echo ABAP_Navigation::GetURL4Bmfr($child_bmfr_item['FCTR_ID'], $child_bmfr_item['PS_POSID'], $child_bmfr_item_desc) ?></td>
+                                <tr><td class="alv"><?php echo ABAP_UI_Navigation::GetURL4Bmfr($child_bmfr_item['FCTR_ID'], $child_bmfr_item['PS_POSID'], $child_bmfr_item_desc) ?></td>
                                     <td class="alv"><?php echo htmlentities($child_bmfr_item_desc) ?>&nbsp;</td>
                                     <td class="alv"><?php echo $child_bmfr_item['FCTR_ID'] ?>&nbsp;</td>
                                 </tr>
@@ -118,7 +118,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::BMFR_NAME, $df
                             foreach ($child_tdevc as $child_tdevc_item) {
                                 $child_tdevc_item_desc = ABAP_DB_TABLE_HIER::TDEVCT($child_tdevc_item['DEVCLASS']);
                                 ?>
-                                <tr><td class="alv"><?php echo ABAP_Navigation::GetURL4Devc($child_tdevc_item['DEVCLASS'], $child_tdevc_item_desc) ?></td>
+                                <tr><td class="alv"><?php echo ABAP_UI_Navigation::GetURL4Devc($child_tdevc_item['DEVCLASS'], $child_tdevc_item_desc) ?></td>
                                     <td class="alv"><?php echo htmlentities($child_tdevc_item_desc) ?>&nbsp;</td></tr>
                             <?php } ?>
                         </table>
@@ -129,7 +129,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(ABAP_OTYPE::BMFR_NAME, $df
                 <h4> Hierarchy </h4>
                 <table class="content_obj">
                     <tbody>
-                        <tr><td class="content_label"> Software Component      </td><td class="field"><?php echo ABAP_Navigation::GetURL4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td><td> <?php echo $hier->DLVUNIT_T ?>&nbsp;</td></tr>
+                        <tr><td class="content_label"> Software Component      </td><td class="field"><?php echo ABAP_UI_Navigation::GetURL4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td><td> <?php echo $hier->DLVUNIT_T ?>&nbsp;</td></tr>
                         <tr><td class="content_label"> SAP Release Created in  </td><td class="field"><?php echo $hier->CRELEASE ?>&nbsp;</td><td>&nbsp;</td></tr>
                     </tbody>
                 </table><!-- Hierarchy: End -->

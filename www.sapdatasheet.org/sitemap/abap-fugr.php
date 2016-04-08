@@ -13,7 +13,7 @@ $i = 1;
 $j = 1;
 foreach ($list as $row) {
     if ($j == 1) {
-        sitemapStartOB();
+        SitemapStartOB();
     }
 
     if (strlen(trim($row[$column_name])) > 0) {
@@ -21,19 +21,19 @@ foreach ($list as $row) {
         $prog_meta = ABAP_DB_TABLE_PROG::YREPOSRCMETA(strtoupper($prog));
         if (!empty($prog_meta['PROGNAME'])) {
             $abapurl = "http://www.sapdatasheet.org/abap/prog/" . strtolower($prog) . ".html";
-            sitemapEchoUrl($abapurl);
+            SitemapEchoUrl($abapurl);
         }
     }
 
     // Check if the Sitemap is full
     $j++;
     if ($j >= SITEMAP::MAX_URL_COUNT) {
-        sitemapEndOB($fname_prefix, $i);
+        SitemapEndOB($fname_prefix, $i);
         $i++;
         $j = 1;
     }
 } // End foreach
 
 if ($j > 1) {
-    sitemapEndOB($fname_prefix, $i);
+    SitemapEndOB($fname_prefix, $i);
 }

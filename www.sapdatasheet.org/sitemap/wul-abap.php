@@ -12,39 +12,39 @@ $i = 1;
 $j = 1;
 foreach ($list as $row) {
     if ($j == 1) {
-        sitemapStartOB();
+        SitemapStartOB();
     }
 
-    $wulurl = "http://www.sapdatasheet.org" . ABAP_Navigation::GetWulURL($row);
-    sitemapEchoUrl($wulurl);
+    $wulurl = "http://www.sapdatasheet.org" . ABAP_UI_Navigation::GetWulURL($row);
+    SitemapEchoUrl($wulurl);
 
     // Check if the Sitemap is full
     $j++;
     if ($j >= SITEMAP::MAX_URL_COUNT) {
-        sitemapEndOB($fname_prefix, $i);
+        SitemapEndOB($fname_prefix, $i);
         $i++;
         $j = 1;
     }
 
     if ($row['COUNTER'] > ABAP_DB_CONST::INDEX_PAGESIZE) {
-        $urls = ABAP_Navigation::GetWulURLs(
+        $urls = ABAP_UI_Navigation::GetWulURLs(
                 $row['SRC_OBJ_TYPE'], $row['SRC_OBJ_NAME'], $row['SRC_SUBOBJ'], $row['OBJ_TYPE'], $row['COUNTER']);
         foreach ($urls as $wulurl) {
-            sitemapEchoUrl("http://www.sapdatasheet.org" . $wulurl);
+            SitemapEchoUrl("http://www.sapdatasheet.org" . $wulurl);
 
             // Check if the Sitemap is full
             $j++;
             if ($j >= SITEMAP::MAX_URL_COUNT) {
-                sitemapEndOB($fname_prefix, $i);
+                SitemapEndOB($fname_prefix, $i);
                 $i++;
 
                 $j = 1;
-                sitemapStartOB();
+                SitemapStartOB();
             }
         }
     }
 } // End foreach
 
 if ($j > 1) {
-    sitemapEndOB($fname_prefix, $i);
+    SitemapEndOB($fname_prefix, $i);
 }
