@@ -2,7 +2,7 @@
 <!-- ABAP Object Types List -->
 <?php
 $__ROOT__ = dirname(dirname(__FILE__));
-require_once($__ROOT__ . '/include/global.php');
+require_once($__ROOT__ . '/include/common/global.php');
 GLOBAL_UTIL::UpdateSAPDescLangu();
 
 $GLOBALS['TITLE_TEXT'] = "SAP ABAP";

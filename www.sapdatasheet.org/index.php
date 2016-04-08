@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
 $__ROOT__ = dirname(__FILE__);
-require_once($__ROOT__ . '/include/global.php');
+require_once($__ROOT__ . '/include/common/global.php');
 $GLOBALS['SearchTerm'] = "Company Code";
 ?>
 <html>

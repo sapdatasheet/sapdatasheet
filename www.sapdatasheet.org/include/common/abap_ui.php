@@ -1,7 +1,7 @@
 <?php
 
-$__ROOT__ = dirname(dirname(__FILE__));
-require_once($__ROOT__ . '/include/global.php');
+$__ROOT__ = dirname(dirname(dirname(__FILE__)));
+require_once($__ROOT__ . '/include/common/global.php');
 
 class ABAP_Hierarchy {
 

@@ -1,11 +1,11 @@
 <?php
 
 $__ROOT__ = dirname(dirname(__FILE__));
-require_once ($__ROOT__ . '/include/global.php');
-require_once ($__ROOT__ . '/include/abap_db.php');
-require_once ($__ROOT__ . '/include/abap_ui.php');
-require_once ($__ROOT__ . '/include/library/php-export-data/php-export-data.class.php');
-include_once ($__ROOT__ . "/include/library/php_xlsxwriter/xlsxwriter.class.php");
+require_once ($__ROOT__ . '/include/common/global.php');
+require_once ($__ROOT__ . '/include/common/abap_db.php');
+require_once ($__ROOT__ . '/include/common/abap_ui.php');
+require_once ($__ROOT__ . '/include/3rdparty/php-export-data/php-export-data.class.php');
+include_once ($__ROOT__ . "/include/3rdparty/php_xlsxwriter/xlsxwriter.class.php");
 
 $tabname = strtoupper(filter_input(INPUT_GET, 'tabname'));
 $format = strtoupper(filter_input(INPUT_GET, 'format'));

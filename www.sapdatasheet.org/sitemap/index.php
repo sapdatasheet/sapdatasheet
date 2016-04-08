@@ -1,6 +1,6 @@
 <?php
 $__ROOT__ = dirname(dirname(__FILE__));
-require_once($__ROOT__ . '/include/abap_db.php');
+require_once($__ROOT__ . '/include/common/abap_db.php');
 ob_start();
 ?>
 <?xml version="1.0" encoding="UTF-8"?>

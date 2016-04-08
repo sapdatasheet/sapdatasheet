@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <?php
 $__ROOT__ = dirname(dirname(dirname(__FILE__)));
-require_once($__ROOT__ . '/include/global.php');
-require_once($__ROOT__ . '/include/abap_db.php');
-require_once($__ROOT__ . '/include/abap_ui.php');
+require_once($__ROOT__ . '/include/common/global.php');
+require_once($__ROOT__ . '/include/common/abap_db.php');
+require_once($__ROOT__ . '/include/common/abap_ui.php');
 GLOBAL_UTIL::UpdateSAPDescLangu();
 
 // Variables from Dispatcher
