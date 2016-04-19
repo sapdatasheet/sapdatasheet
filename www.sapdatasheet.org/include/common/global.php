@@ -261,6 +261,17 @@ class GLOBAL_UTIL {
             $count--;
         }
     }
+    
+    /**
+     * Check if the string is empty or not.
+     */
+    public static function IsEmpty($string){
+        if (strlen(trim($string)) < 1) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
 
 }
 

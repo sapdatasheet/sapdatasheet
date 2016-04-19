@@ -1,3 +1,7 @@
+-- Database table for BASE (Basis)
+
+create table if not exists abap.t002t like sapall.t002t;
+insert into abap.t002t select * from sapall.t002t;
 
 -- Database table for DOMA
 

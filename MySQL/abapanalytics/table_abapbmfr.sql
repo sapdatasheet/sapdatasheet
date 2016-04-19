@@ -34,8 +34,8 @@ CREATE TABLE `abapbmfr` (
 
 -- Initialize Data
 DELETE FROM abapanalytics.abapbmfr;
-INSERT INTO abapanalytics.abapbmfr(FCTR_ID, FSTDATE, FSTTIME, RELE, PS_POSID, PS_POSID_LMAX)
-SELECT FCTR_ID, FSTDATE, FSTTIME, RELE, PS_POSID, (length(ps_posid )-length(replace(ps_posid ,'-',''))) as PS_POSID_LMAX 
+INSERT INTO abapanalytics.abapbmfr(FCTR_ID, FSTDATE, FSTTIME, RELE, PS_POSID)
+SELECT FCTR_ID, FSTDATE, FSTTIME, RELE, PS_POSID
   FROM abap.df14l
   where length(trim(fctr_id)) > 0
 ;
@@ -293,4 +293,55 @@ update abapanalytics.abapbmfr
       fctr_id_l9 = null
   where fctr_id_l8 is null
     and fctr_id_l9 is not null
+;
+
+-- 
+
+UPDATE abapanalytics.abapbmfr
+  SET PS_POSID_LMAX = null
+;
+
+UPDATE abapanalytics.abapbmfr
+  SET PS_POSID_LMAX = 1
+  WHERE length(trim(PS_POSID_L1)) > 0
+;
+
+UPDATE abapanalytics.abapbmfr
+  SET PS_POSID_LMAX = 2
+  WHERE length(trim(PS_POSID_L2)) > 0
+;
+
+UPDATE abapanalytics.abapbmfr
+  SET PS_POSID_LMAX = 3
+  WHERE length(trim(PS_POSID_L3)) > 0
+;
+
+UPDATE abapanalytics.abapbmfr
+  SET PS_POSID_LMAX = 4
+  WHERE length(trim(PS_POSID_L4)) > 0
+;
+
+UPDATE abapanalytics.abapbmfr
+  SET PS_POSID_LMAX = 5
+  WHERE length(trim(PS_POSID_L5)) > 0
+;
+
+UPDATE abapanalytics.abapbmfr
+  SET PS_POSID_LMAX = 6
+  WHERE length(trim(PS_POSID_L6)) > 0
+;
+
+UPDATE abapanalytics.abapbmfr
+  SET PS_POSID_LMAX = 7
+  WHERE length(trim(PS_POSID_L7)) > 0
+;
+
+UPDATE abapanalytics.abapbmfr
+  SET PS_POSID_LMAX = 8
+  WHERE length(trim(PS_POSID_L8)) > 0
+;
+
+UPDATE abapanalytics.abapbmfr
+  SET PS_POSID_LMAX = 9
+  WHERE length(trim(PS_POSID_L9)) > 0
 ;

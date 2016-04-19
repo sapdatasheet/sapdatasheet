@@ -3,6 +3,12 @@
 -- Since it contains the latest SAP_BASIS
 --
 
+-- Database table for BASE (Basis)
+
+create table if not exists sapall.t002t like sapcrm7ehp3sr2.t002t;
+insert into sapall.t002t select * from sapcrm7ehp3sr2.t002t;
+
+
 -- Database table for DOMA
 
 insert into sapall.dd01l select * from sapcrm7ehp3sr2.dd01l;

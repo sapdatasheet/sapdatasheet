@@ -38,6 +38,10 @@ CREATE INDEX dd17s_fieldname on abap.dd17s(sqltab, fieldname);
 DROP   INDEX tstc_pgmna on abap.tstc;
 CREATE INDEX tstc_pgmna on abap.tstc(pgmna);
 
+-- ABAP_DB_TABLE_TRAN.TSTCT_ALL(...)
+DROP   INDEX tstct_tcode on abap.tstct;
+CREATE INDEX tstct_tcode on abap.tstct(tcode);
+
 -- ABAP_DB_TABLE_VIEW.DM25L(...)
 DROP   INDEX dm25l_viewname on abap.dm25l;
 CREATE INDEX dm25l_viewname on abap.dm25l(viewname);

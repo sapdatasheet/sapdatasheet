@@ -2468,6 +2468,27 @@ class ABAP_DB_TABLE_TRAN {
                 . " where TCODE = :id and SPRSL = :lg";
         return ABAP_DB_TABLE::descr_1filter($sql, $TCode);
     }
+    
+    /**
+     * Transaction Code text in all languages.
+     * <pre>
+     * SELECT SPTXT, TTEXT, a.SPRSL as SPRSL 
+     *   FROM abap.tstct a
+     *   left join abap.t002t b on a.SPRSL = b.SPRSL and a.SPRSL = b.SPRAS
+     *   where a.tcode = 'SE90' 
+     *     and b.SPTXT is not null
+     *   ORDER BY SPRSL
+     * </pre>
+     */
+    public static function TSTCT_All($TCode) {
+        $sql = "select SPTXT, TTEXT, a.SPRSL as SPRSL"
+                . " from " . ABAP_DB_TABLE_TRAN::TSTCT . " a"
+                . " left join " . ABAP_DB_TABLE_BASIS::T002T . " b on a.SPRSL = b.SPRSL and a.SPRSL = b.SPRAS"
+                . " where a.TCODE = :id and b.SPTXT is not null"
+                . " ORDER BY SPRSL";
+        return ABAP_DB_TABLE::select_1filter($sql, $TCode);
+    }
+    
 
 }
 
@@ -2615,6 +2636,14 @@ class ABAP_DB_TABLE_VIEW {
 
 }
 
+/** Database table access for Basis. */
+class ABAP_DB_TABLE_BASIS {
+
+    const T002T = "t002t";
+    
+}
+
+
 /** Database table access for Cross Reference (eg. Where-Used-List). */
 class ABAP_DB_TABLE_CREF {
 
@@ -2703,7 +2732,26 @@ class ABAPANA_DB_TABLE {
 
     const WULCOUNTER = "wulcounter";
     const WILCOUNTER = "wilcounter";
+    const ABAPBMFR = "abapbmfr";
+    const ABAPBMFR_L1 = "abapbmfr_l1";
+    const ABAPBMFR_L2 = "ABAPBMFR_l2";
+    const ABAPDEVC = "abapdevc";
+    const ABAPTABL = "abaptabl";
+    const ABAPTABLFLD = "abaptablfld";
+    const ABAPTRAN = "abaptran";
 
+    /**
+     * Load ABAP Transaction Code Basic Data.
+     * <pre>
+     * SELECT * FROM abapanalytics.abaptran where tcode = 'SE90'
+     * </pre>
+     */
+    public static function ABAPTRAN($tcode) {
+        $sql = "SELECT * FROM " . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPTRAN
+                . " where tcode = :id";
+        return ABAP_DB_TABLE::select_single($sql, $tcode);
+    }
+    
     /**
      * Load Where-Used-List counter for an ABAP Object.
      *
