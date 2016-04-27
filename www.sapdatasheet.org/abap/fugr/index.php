@@ -125,10 +125,10 @@ $fugr_list = ABAP_DB_TABLE_HIER::TADIR_FUGR_List($index);
                         <th class="alv"> Short Description </th>
                     </tr>
                     <tr>
-                        <th class="alv"> <?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
-                        <th class="alv"> <?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_FUNC::TLIBG_AREA_DTEL, '?') ?></th>
-                        <th class="alv"> <?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_HIER::TDEVC_DEVCLASS_DTEL, '?') ?></th>
-                        <th class="alv"> <?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_HIER::CVERS_REF_DESC_TEXT_DTEL, '?') ?></th>
+                        <th class="alv"> <?php echo ABAP_UI_Navigation::GetHyperlink4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
+                        <th class="alv"> <?php echo ABAP_UI_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_FUNC::TLIBG_AREA_DTEL, '?') ?></th>
+                        <th class="alv"> <?php echo ABAP_UI_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_HIER::TDEVC_DEVCLASS_DTEL, '?') ?></th>
+                        <th class="alv"> <?php echo ABAP_UI_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_HIER::CVERS_REF_DESC_TEXT_DTEL, '?') ?></th>
                         <th class="alv"> &nbsp; </th>
                     </tr>
                     <?php
@@ -139,9 +139,9 @@ $fugr_list = ABAP_DB_TABLE_HIER::TADIR_FUGR_List($index);
                         $prog_desc = ABAP_DB_TABLE_FUNC::TLIBT($fugr['OBJ_NAME']);
                         ?>
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                            <td class="alv"><?php echo ABAP_UI_Navigation::GetURL4Prog($prog, '', $fugr['OBJ_NAME']) ?> </td>
-                            <td class="alv"><?php echo ABAP_UI_Navigation::GetURL4Devc($fugr['DEVCLASS'], '') ?> </td>
-                            <td class="alv"><?php echo ABAP_UI_Navigation::GetURL4Cvers($fugr['COMPONENT'], '') ?>&nbsp;</td>
+                            <td class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4Prog($prog, '', $fugr['OBJ_NAME']) ?> </td>
+                            <td class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4Devc($fugr['DEVCLASS'], '') ?> </td>
+                            <td class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4Cvers($fugr['COMPONENT'], '') ?>&nbsp;</td>
                             <td class="alv"><?php echo htmlspecialchars($prog_desc) ?> &nbsp; </td>
                         </tr>
                     <?php } ?>

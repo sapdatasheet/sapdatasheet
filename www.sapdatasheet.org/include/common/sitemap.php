@@ -61,7 +61,7 @@ function Sitemap4ABAPOType($obj_type, $list, $column_name, $fname_pre = NULL) {
         }
 
         if (strlen(trim($row[$column_name])) > 0) {
-            $abapurl = "http://www.sapdatasheet.org/abap/" . $obj_type . "/" . GLOBAL_UTIL::Clear4Url($row[$column_name]) . ".html";
+            $abapurl = GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG . ABAP_UI_Navigation::GetObjectPath($obj_type, $objname);
             SitemapEchoUrl($abapurl);
         }
 

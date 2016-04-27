@@ -125,10 +125,10 @@ $fm_list = ABAP_DB_TABLE_FUNC::TFDIR_List($index);
                         <th class="alv"> Short Description </th>
                     </tr>
                     <tr>
-                        <th class="alv"> <?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
-                        <th class="alv"> <?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_FUNC::TFDIR_FUNCNAME_DTEL, '?') ?></th>
+                        <th class="alv"> <?php echo ABAP_UI_Navigation::GetHyperlink4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
+                        <th class="alv"> <?php echo ABAP_UI_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_FUNC::TFDIR_FUNCNAME_DTEL, '?') ?></th>
                         <th class="alv"> &nbsp; </th>
-                        <th class="alv"> <?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_FUNC::TFTIT_STEXT_DTEL, '?') ?></th>
+                        <th class="alv"> <?php echo ABAP_UI_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_FUNC::TFTIT_STEXT_DTEL, '?') ?></th>
                     </tr>
                     <?php
                     $count = 0;
@@ -137,7 +137,7 @@ $fm_list = ABAP_DB_TABLE_FUNC::TFDIR_List($index);
                         $fm_desc = ABAP_DB_TABLE_FUNC::TFTIT($fm['FUNCNAME']);
                         ?>
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                            <td class="alv"><?php echo ABAP_UI_Navigation::GetURL4Func($fm['FUNCNAME'], $fm_desc) ?> </td>
+                            <td class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4Func($fm['FUNCNAME'], $fm_desc) ?> </td>
                             <td class="alv"><?php echo $fm['FMODE'] ?> </td>
                             <td class="alv"><?php echo htmlentities($fm_desc) ?>&nbsp;</td>
                         </tr>

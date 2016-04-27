@@ -262,11 +262,15 @@ class GLOBAL_UTIL {
         }
     }
     
+    public static function IsEmpty($string){
+        return !GLOBAL_UTIL::IsNotEmpty($string);
+    }
+    
     /**
      * Check if the string is empty or not.
      */
-    public static function IsEmpty($string){
-        if (strlen(trim($string)) < 1) {
+    public static function IsNotEmpty($string){
+        if (strlen(trim($string)) > 0) {
             return TRUE;
         } else {
             return FALSE;
@@ -275,6 +279,18 @@ class GLOBAL_UTIL {
 
 }
 
+class GLOBAL_WEBSITE {
+    const URLPREFIX_SAPDS_ORG = "http://www.sapdatasheet.org";
+    const URLPREFIX_SAPTABLS_ORG = "http://www.sap-tables.org";
+    
+    public static function GetFullUrl_SAPDS_ORG($uri){
+        return GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG . $uri;
+    }
+    
+    public static function GetFullUrl_SAPTABLES_ORG($uri){
+        return GLOBAL_WEBSITE::URLPREFIX_SAPTABLS_ORG . $uri;
+    }
+}
 
 /** Web Site Constants. */
 class GLOBAL_WEBSITE_SAPDS {

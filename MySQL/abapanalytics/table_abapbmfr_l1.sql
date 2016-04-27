@@ -9,6 +9,9 @@ CREATE TABLE `abapbmfr_l1` (
 
 -- Prepare Data
 
+DELETE FROM abapanalytics.abapbmfr_l1
+;
+
 INSERT INTO abapanalytics.abapbmfr_l1
 SELECT a.FCTR_ID_L1, b.PS_POSID_L1, c.`NAME`
   from (
@@ -21,4 +24,9 @@ SELECT a.FCTR_ID_L1, b.PS_POSID_L1, c.`NAME`
   left join abap.df14t c on a.FCTR_ID_L1 = c.FCTR_ID
   where c.LANGU = 'E'
   ORDER BY PS_POSID_L1
+;
 
+update abapanalytics.abapbmfr_l1
+  set text = 'Business Warehouse'
+  where PS_POSID_L1 = 'BW'
+;

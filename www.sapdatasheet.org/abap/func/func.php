@@ -58,11 +58,11 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::FUNC_NA
             <table class="content_obj">
                 <tbody>
                     <tr><td>Software Component</td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetURL4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
+                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetHyperlink4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
                     <tr><td class="left_attribute"> Application Component ID</td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetURL4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
+                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetHyperlink4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
                     <tr><td class="left_attribute"> Package </td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetURL4Devc($hier->DEVCLASS, $hier->DEVCLASS_T) ?></td></tr>
+                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetHyperlink4Devc($hier->DEVCLASS, $hier->DEVCLASS_T) ?></td></tr>
                     <tr><td class="left_attribute"> Object type </td></tr>
                     <tr><td class="left_value"><a href="/abap/func/"><?php echo GLOBAL_ABAP_OTYPE::FUNC_DESC ?></a></td></tr>
                     <tr><td class="left_attribute"> Object name </td></tr>
@@ -97,7 +97,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::FUNC_NA
                 <table class="content_obj">
                     <tbody>
                         <tr><td class="content_label"> Function Module </td>
-                            <td class="field"> <?php echo ABAP_UI_Navigation::GetURL4Func($func['FUNCNAME'], $func_desc); ?> </td>
+                            <td class="field"> <?php echo ABAP_UI_Navigation::GetHyperlink4Func($func['FUNCNAME'], $func_desc); ?> </td>
                             <td> <?php echo htmlentities($func_desc) ?> &nbsp;</td>
                         </tr>
                         <tr><td class="content_label"> Function Group </td>
@@ -105,7 +105,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::FUNC_NA
                             <td> <?php echo htmlentities($funcgrp_desc) ?> &nbsp;</td>
                         </tr>
                         <tr><td class="content_label"> Program Name </td>
-                            <td class="field"> <?php echo ABAP_UI_Navigation::GetURL4Prog($func['PNAME'], $prog_desc); ?> &nbsp;</td>
+                            <td class="field"> <?php echo ABAP_UI_Navigation::GetHyperlink4Prog($func['PNAME'], $prog_desc); ?> &nbsp;</td>
                             <td> <?php echo $prog_desc ?>&nbsp;</td>
                         </tr>
                         <tr><td class="content_label"> INCLUDE Name </td>

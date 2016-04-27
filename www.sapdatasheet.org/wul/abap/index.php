@@ -94,8 +94,8 @@ $list = ABAPANA_DB_TABLE::WULCOUNTER_Index($index);
                         <th class="alv">ABAP Type</th>
                     </tr>
                     <tr>
-                        <th class="alv"><?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_UI_Navigation::GetURL4DtelDocument('TROBJTYPE', '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4DtelDocument('TROBJTYPE', '?') ?></th>
                         <th class="alv">&nbsp;</th>
                         <th class="alv">&nbsp;</th>
                     </tr>
@@ -105,11 +105,11 @@ $list = ABAPANA_DB_TABLE::WULCOUNTER_Index($index);
                         $count++;
                         ?>
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                            <td class="alv"><?php echo ABAP_UI_Navigation::GetOTypeURL($item['SRC_OBJ_TYPE']) ?>&nbsp;</td>
-                            <td class="alv"><?php echo ABAP_UI_Navigation::GetObjectURL($item['SRC_OBJ_TYPE'], $item['SRC_OBJ_NAME'], $item['SRC_SUBOBJ']) ?>&nbsp;</td>
+                            <td class="alv"><?php echo ABAP_UI_Navigation::GetOTypeHyperlink($item['SRC_OBJ_TYPE']) ?>&nbsp;</td>
+                            <td class="alv"><?php echo ABAP_UI_Navigation::GetObjectHyperlink($item['SRC_OBJ_TYPE'], $item['SRC_OBJ_NAME'], $item['SRC_SUBOBJ']) ?>&nbsp;</td>
                             <td class="alv">
-                                <?php echo ABAP_UI_Navigation::GetWulURLLink($item) ?>
-                                <?php echo ABAP_UI_Navigation::GetWulURLsLink($item['SRC_OBJ_TYPE'], $item['SRC_OBJ_NAME'], $item['SRC_SUBOBJ'], $item['OBJ_TYPE'], $item['COUNTER'], TRUE) ?>
+                                <?php echo ABAP_UI_Navigation::GetWulHyperlink($item) ?>
+                                <?php echo ABAP_UI_Navigation::GetWulHyperlinks($item['SRC_OBJ_TYPE'], $item['SRC_OBJ_NAME'], $item['SRC_SUBOBJ'], $item['OBJ_TYPE'], $item['COUNTER'], TRUE) ?>
                                 &nbsp;</td>
                         </tr>
                     <?php } ?>

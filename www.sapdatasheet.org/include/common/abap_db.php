@@ -2468,14 +2468,14 @@ class ABAP_DB_TABLE_TRAN {
                 . " where TCODE = :id and SPRSL = :lg";
         return ABAP_DB_TABLE::descr_1filter($sql, $TCode);
     }
-    
+
     /**
      * Transaction Code text in all languages.
      * <pre>
-     * SELECT SPTXT, TTEXT, a.SPRSL as SPRSL 
+     * SELECT SPTXT, TTEXT, a.SPRSL as SPRSL
      *   FROM abap.tstct a
      *   left join abap.t002t b on a.SPRSL = b.SPRSL and a.SPRSL = b.SPRAS
-     *   where a.tcode = 'SE90' 
+     *   where a.tcode = 'SE90'
      *     and b.SPTXT is not null
      *   ORDER BY SPRSL
      * </pre>
@@ -2488,7 +2488,6 @@ class ABAP_DB_TABLE_TRAN {
                 . " ORDER BY SPRSL";
         return ABAP_DB_TABLE::select_1filter($sql, $TCode);
     }
-    
 
 }
 
@@ -2640,9 +2639,8 @@ class ABAP_DB_TABLE_VIEW {
 class ABAP_DB_TABLE_BASIS {
 
     const T002T = "t002t";
-    
-}
 
+}
 
 /** Database table access for Cross Reference (eg. Where-Used-List). */
 class ABAP_DB_TABLE_CREF {
@@ -2739,6 +2737,35 @@ class ABAPANA_DB_TABLE {
     const ABAPTABL = "abaptabl";
     const ABAPTABLFLD = "abaptablfld";
     const ABAPTRAN = "abaptran";
+    const ABAPTRAN_PGMNA = "pgmna";               // Column name
+    const ABAPTRAN_PACKAGE = "package";           // Column name
+    const ABAPTRAN_SOFTCOMP = "softcomp";         // Column name
+    const ABAPTRAN_APPLFCTR = 'applfctr';         // Column name
+    const ABAPTRAN_PACKAGEP = "packagep";         // Column name
+    const ABAPTRAN_CALLEDTCODE = "calledtcode";   // Column name
+    const ABAPTRAN_FCTR_ID_L1 = "fctr_id_l1";     // Column name
+    const ABAPTRAN_FCTR_ID_L2 = "fctr_id_l2";     // Column name
+    const ABAPTRAN_FCTR_ID_L3 = "fctr_id_l3";     // Column name
+    const ABAPTRAN_FCTR_ID_L4 = "fctr_id_l4";     // Column name
+    const ABAPTRAN_FCTR_ID_L5 = "fctr_id_l5";     // Column name
+    const ABAPTRAN_FCTR_ID_L6 = "fctr_id_l6";     // Column name
+    const ABAPTRAN_FCTR_ID_L7 = "fctr_id_l7";     // Column name
+    const ABAPTRAN_FCTR_ID_L8 = "fctr_id_l8";     // Column name
+    const ABAPTRAN_FCTR_ID_L9 = "fctr_id_l9";     // Column name
+
+    /**
+     * Load Level 1 Application Component from database by PS_POSID_L1.
+     * <pre>
+     * SELECT * FROM abapanalytics.abapbmfr_l1 
+     *   where PS_POSID_L1 = 'FI'
+     * </pre>
+     */
+
+    public static function ABAPBMFR_L1_POSID($posid) {
+        $sql = 'SELECT * FROM ' . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPBMFR_L1
+                . ' where PS_POSID_L1 = :id';
+        return ABAP_DB_TABLE::select_single($sql, $posid);
+    }
 
     /**
      * Load ABAP Transaction Code Basic Data.
@@ -2751,7 +2778,36 @@ class ABAPANA_DB_TABLE {
                 . " where tcode = :id";
         return ABAP_DB_TABLE::select_single($sql, $tcode);
     }
-    
+
+    /**
+     * Get record cound for a filter.
+     *
+     * @param string $col Database Column Name
+     * @param string $value Column Value
+     */
+    public static function ABAPTRAN_COUNT($col, $value) {
+        $sql = "SELECT count(*) as COUNT FROM " . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPTRAN
+                . " WHERE " . $col . ' = :id';
+        $count_array = ABAP_DB_TABLE::select_single($sql, $value);
+        return $count_array['COUNT'];
+    }
+
+    /**
+     * Get reocrd count group by <code>PS_POSID_L1</code>.
+     * 
+     * <pre>
+     * SELECT PS_POSID_L1, COUNT(*) as COUNT
+     *   FROM abapanalytics.abaptran
+     *   group by PS_POSID_L1
+     * </pre>
+     */
+    public static function ABAPTRAN_GROUP_PS_POSID_L1() {
+        $sql = "SELECT PS_POSID_L1, COUNT(*) as COUNT FROM "
+                . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPTRAN
+                . ' group by PS_POSID_L1';
+        return ABAP_DB_TABLE::select($sql);
+    }
+
     /**
      * Load Where-Used-List counter for an ABAP Object.
      *
@@ -2856,7 +2912,7 @@ class ABAPANA_DB_TABLE {
 
     /**
      * Load Where-Using-List counters by page index.
-     * 
+     *
      * <pre>
      * SELECT * FROM abapanalytics.wilcounter
      *   order by OBJ_TYPE, OBJ_NAME, SRC_OBJ_TYPE
@@ -2875,7 +2931,7 @@ class ABAPANA_DB_TABLE {
 
     /**
      * Load Where-Using-List counter for an ABAP Object.
-     * 
+     *
      * <pre>
      * SELECT * FROM abapanalytics.wilcounter
      *   where OBJ_TYPE = 'TABL'

@@ -117,12 +117,12 @@ $devc = ABAP_DB_TABLE_HIER::TDEVC_List($index);
                         <th class="alv"> <?php echo GLOBAL_ABAP_OTYPE::BMFR_DESC ?> </th>
                     </tr>
                     <tr>
-                        <th class="alv"><?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_HIER::TDEVC_DEVCLASS_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_HIER::TDEVCT_CTEXT_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_HIER::TDEVC_DEVCLASS_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_HIER::CVERS_COMPONENT_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_HIER::DF14L_FCTR_ID_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_HIER::TDEVC_DEVCLASS_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_HIER::TDEVCT_CTEXT_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_HIER::TDEVC_DEVCLASS_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_HIER::CVERS_COMPONENT_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_HIER::DF14L_FCTR_ID_DTEL, '?') ?></th>
                     </tr>
                     <?php
                     $count = 0;
@@ -132,11 +132,11 @@ $devc = ABAP_DB_TABLE_HIER::TDEVC_List($index);
                         $devc_ps_posid = ABAP_DB_TABLE_HIER::DF14L_PS_POSID($row['COMPONENT']);
                         ?>
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                            <td class="alv"><?php echo ABAP_UI_Navigation::GetURL4Devc($row['DEVCLASS'], $devc_desc) ?> </td>
+                            <td class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4Devc($row['DEVCLASS'], $devc_desc) ?> </td>
                             <td class="alv"><?php echo htmlentities($devc_desc) ?></td>
-                            <td class="alv"><?php echo ABAP_UI_Navigation::GetURL4Devc($row['PARENTCL'], '') ?></td>
-                            <td class="alv"><?php echo ABAP_UI_Navigation::GetURL4Cvers($row['DLVUNIT'], '') ?></td>
-                            <td class="alv"><?php echo ABAP_UI_Navigation::GetURL4Bmfr($row['COMPONENT'], $devc_ps_posid, '') ?></td>
+                            <td class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4Devc($row['PARENTCL'], '') ?></td>
+                            <td class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4Cvers($row['DLVUNIT'], '') ?></td>
+                            <td class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4Bmfr($row['COMPONENT'], $devc_ps_posid, '') ?></td>
                         </tr>
                     <?php } ?>
                 </table>

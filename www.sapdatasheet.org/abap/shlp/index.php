@@ -90,10 +90,10 @@ $shlp_list = ABAP_DB_TABLE_SHLP::DD30L_List($index);
                         <th class="alv"> Package </th>
                     </tr>
                     <tr>
-                        <th class="alv"><?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_SHLP::DD30L_SHLPNAME_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_SHLP::DD30T_DDTEXT_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_HIER::TADIR_DEVCLASS_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_SHLP::DD30L_SHLPNAME_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_SHLP::DD30T_DDTEXT_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_HIER::TADIR_DEVCLASS_DTEL, '?') ?></th>
                     </tr>
                     <?php
                     $count = 0;
@@ -103,9 +103,9 @@ $shlp_list = ABAP_DB_TABLE_SHLP::DD30L_List($index);
                         $tadir = ABAP_DB_TABLE_HIER::TADIR(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, GLOBAL_ABAP_OTYPE::SHLP_NAME, $dd30l['SHLPNAME']);
                         ?>
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                            <td class="alv"><?php echo ABAP_UI_Navigation::GetURL4Shlp($dd30l['SHLPNAME'], $dd30t) ?></td>
+                            <td class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4Shlp($dd30l['SHLPNAME'], $dd30t) ?></td>
                             <td class="alv"><?php echo $dd30t ?></td>
-                            <td class="alv"><?php echo ABAP_UI_Navigation::GetURL4Devc($tadir['DEVCLASS'], NULL) ?>&nbsp;</td>
+                            <td class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4Devc($tadir['DEVCLASS'], NULL) ?>&nbsp;</td>
                         </tr>
                     <?php } ?>
                 </table>

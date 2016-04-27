@@ -33,7 +33,9 @@ CREATE TABLE `abapbmfr` (
 --
 
 -- Initialize Data
-DELETE FROM abapanalytics.abapbmfr;
+DELETE FROM abapanalytics.abapbmfr
+;
+
 INSERT INTO abapanalytics.abapbmfr(FCTR_ID, FSTDATE, FSTTIME, RELE, PS_POSID)
 SELECT FCTR_ID, FSTDATE, FSTTIME, RELE, PS_POSID
   FROM abap.df14l
@@ -173,10 +175,10 @@ update abapanalytics.abapbmfr a
 ;
 
 -- Clear non-exist FCTR_ID
+-- Run this part for 3 Rounds
 
 SELECT * FROM abapanalytics.abapbmfr 
   where fctr_id_l1 is null
-    and fctr_id_l2 is not null
   limit 10000
 ;
 
@@ -186,12 +188,10 @@ update abapanalytics.abapbmfr
       fctr_id_l1 = fctr_id_l2,
       fctr_id_l2 = null
   where fctr_id_l1 is null
-    and fctr_id_l2 is not null
 ;
 
 SELECT * FROM abapanalytics.abapbmfr 
   where fctr_id_l2 is null
-    and fctr_id_l3 is not null
   limit 10000
 ;
 
@@ -201,12 +201,10 @@ update abapanalytics.abapbmfr
       fctr_id_l2 = fctr_id_l3,
       fctr_id_l3 = null
   where fctr_id_l2 is null
-    and fctr_id_l3 is not null
 ;
 
 SELECT * FROM abapanalytics.abapbmfr 
   where fctr_id_l3 is null
-    and fctr_id_l4 is not null
   limit 10000
 ;
 
@@ -216,12 +214,10 @@ update abapanalytics.abapbmfr
       fctr_id_l3 = fctr_id_l4,
       fctr_id_l4 = null
   where fctr_id_l3 is null
-    and fctr_id_l4 is not null
 ;
 
 SELECT * FROM abapanalytics.abapbmfr 
   where fctr_id_l4 is null
-    and fctr_id_l5 is not null
   limit 10000
 ;
 
@@ -231,12 +227,10 @@ update abapanalytics.abapbmfr
       fctr_id_l4 = fctr_id_l5,
       fctr_id_l5 = null
   where fctr_id_l4 is null
-    and fctr_id_l5 is not null
 ;
 
 SELECT * FROM abapanalytics.abapbmfr 
   where fctr_id_l5 is null
-    and fctr_id_l6 is not null
   limit 10000
 ;
 
@@ -246,13 +240,11 @@ update abapanalytics.abapbmfr
       fctr_id_l5 = fctr_id_l6,
       fctr_id_l6 = null
   where fctr_id_l5 is null
-    and fctr_id_l6 is not null
 ;
 
 -- Not exists
 SELECT * FROM abapanalytics.abapbmfr 
   where fctr_id_l6 is null
-    and fctr_id_l7 is not null
   limit 10000
 ;
 
@@ -262,12 +254,10 @@ update abapanalytics.abapbmfr
       fctr_id_l6 = fctr_id_l7,
       fctr_id_l7 = null
   where fctr_id_l6 is null
-    and fctr_id_l7 is not null
 ;
 
 SELECT * FROM abapanalytics.abapbmfr 
   where fctr_id_l7 is null
-    and fctr_id_l8 is not null
   limit 10000
 ;
 
@@ -277,12 +267,10 @@ update abapanalytics.abapbmfr
       fctr_id_l7 = fctr_id_l8,
       fctr_id_l8 = null
   where fctr_id_l7 is null
-    and fctr_id_l8 is not null
 ;
 
 SELECT * FROM abapanalytics.abapbmfr 
   where fctr_id_l8 is null
-    and fctr_id_l9 is not null
   limit 10000
 ;
 
@@ -292,7 +280,6 @@ update abapanalytics.abapbmfr
       fctr_id_l8 = fctr_id_l9,
       fctr_id_l9 = null
   where fctr_id_l8 is null
-    and fctr_id_l9 is not null
 ;
 
 -- 

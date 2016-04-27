@@ -2,18 +2,18 @@
 
 CREATE TABLE `abaptran` (
   `TCODE` varchar(20) COLLATE utf8_bin NOT NULL COMMENT 'Transaction Code',
+  `PGMNA` varchar(40) COLLATE utf8_bin DEFAULT NULL COMMENT 'ABAP Program name',
+  `DYPNO` int(11) DEFAULT NULL COMMENT 'ABAP Program Dynpro number',
   `SOFTCOMP` varchar(30) COLLATE utf8_bin DEFAULT NULL COMMENT 'Software Component',
   `APPLPOSID` varchar(24) COLLATE utf8_bin DEFAULT NULL COMMENT 'Application component - PS_POSID, Human readable format',
   `APPLFCTR` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT 'Application component - FCTR_ID, Technical ID',
   `PACKAGE` varchar(30) COLLATE utf8_bin DEFAULT NULL COMMENT 'Package',
   `PACKAGENS` varchar(10) COLLATE utf8_bin DEFAULT NULL COMMENT 'Package name space',
   `PACKAGEP` varchar(30) COLLATE utf8_bin DEFAULT NULL COMMENT 'Package parent',
-  `PROGNAME` varchar(40) COLLATE utf8_bin DEFAULT NULL COMMENT 'ABAP Program name',
-  `DYPNO` int(11) DEFAULT NULL COMMENT 'ABAP Program Dynpro number',
   `PARAM` varchar(254) COLLATE utf8_bin DEFAULT NULL COMMENT 'TCode Parameter',
   `CALLEDTCODE` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT 'Called transaction code (if exist)',
   `VARIANT` varchar(14) COLLATE utf8_bin DEFAULT NULL COMMENT 'Variant',
-  `CALLEDPROGNAME` varchar(40) COLLATE utf8_bin DEFAULT NULL COMMENT 'Called Program',
+  `CALLEDPROGNAME` varchar(40) COLLATE utf8_bin DEFAULT NULL COMMENT 'Called Program, alwasy the same as PGMNA',
   `CALLEDCLASS` varchar(30) COLLATE utf8_bin DEFAULT NULL COMMENT 'Called Class',
   `CALLEDMETHOD` varchar(61) COLLATE utf8_bin DEFAULT NULL COMMENT 'Called Method',
   `CALLEDVIEW` varchar(30) COLLATE utf8_bin DEFAULT NULL COMMENT 'Called View',
@@ -56,14 +56,95 @@ CREATE TABLE `abaptran` (
   PRIMARY KEY (`TCODE`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Transaction Code';
 
-
 -- Prepare Data
-CALL `abapanalytics`.`abaptran_data`();
 
--- Clean Data
--- Clear Local System T-Codes
+delete from abapanalytics.abaptran;
+insert into abapanalytics.abaptran (tcode, pgmna, dypno)
+    select tcode, pgmna, dypno from abap.tstc;  
+
+UPDATE abapanalytics.abaptran 
+  SET DYPNO = null 
+  WHERE DYPNO = 0
+;
+
+-- Clean Data - Clear Local System T-Codes
 DELETE FROM abapanalytics.abaptran
-  WHERE SOFTCOMP = 'LOCAL';
+  WHERE SOFTCOMP = 'LOCAL'
+;
+	
+-- Hierarchy Data
+-- abapanalytics.abaptran-package     -->  abap.tadir-devclass    abap.tdevc-devclass
+-- abapanalytics.abaptran-packagens   -->  abap.tdevc-namespace
+-- abapanalytics.abaptran-packagep    -->  abap.tdevc-parentcl
+-- abapanalytics.abaptran-applfctr    -->  abap.tdevc-component   abap.df14l-FCTR_ID
+-- abapanalytics.abaptran-applposid   -->  abap.df14l-ps_posid    
+-- abapanalytics.abaptran-softcomp    -->  abap.tdevc-dlvunit
+	
+update abapanalytics.abaptran a
+  left join abap.tadir b on a.tcode = b.obj_name and b.pgmid = 'R3TR' and b.object = 'TRAN'
+  set a.package = trim(b.DEVCLASS)
+;
+
+DELETE FROM abapanalytics.abaptran
+  where PACKAGE is null              -- Clear non-hierarchy data
+;
+
+update abapanalytics.abaptran a
+  left join abap.tdevc b on a.package = b.devclass
+  set a.packagens = trim(b.namespace),
+      a.packagep = trim(b.parentcl),
+      a.applfctr = trim(b.component),
+      a.SOFTCOMP = trim(b.DLVUNIT)
+;
+
+DELETE from abapanalytics.abaptran
+  where SOFTCOMP is null
+;
+
+UPDATE abapanalytics.abaptran
+  SET PACKAGEP = null
+  WHERE length(trim(PACKAGEP)) < 1
+;
+  
+update abapanalytics.abaptran a
+  left join abap.tdevc b on a.packagep = b.devclass -- Use Parent Package if cannot find appl-component
+  set a.applfctr = trim(b.component)
+  where length(trim(applfctr)) < 1
+;
+
+update abapanalytics.abaptran a
+  left join abap.df14l b on a.applfctr = b.FCTR_ID
+  set a.applposid = trim(b.ps_posid)
+;
+
+DELETE FROM abapanalytics.abaptran
+  where APPLPOSID is null
+;
+
+-- TCode Parameters
+
+update abapanalytics.abaptran a
+  left join abap.tstcp b on a.tcode = b.TCODE
+  set a.PARAM = trim(b.PARAM)
+;
+
+update abapanalytics.abaptran
+  set PARAM = null
+  where length(trim(PARAM)) < 1
+;
+
+CALL `abapanalytics`.`abaptran_data_param_parse`();
+
+-- Generate data for view, view cluster, and update flag
+
+update abapanalytics.abaptran set calledview = left(trim(value1), 30) where upper(trim(key1)) = 'VIEWNAME';
+update abapanalytics.abaptran set calledview = left(trim(value2), 30) where upper(trim(key2)) = 'VIEWNAME';
+
+update abapanalytics.abaptran set calledviewc = left(trim(value1), 30) where upper(trim(key1)) = 'VCLDIR-VCLNAME';
+update abapanalytics.abaptran set calledviewc = left(trim(value2), 30) where upper(trim(key2)) = 'VCLDIR-VCLNAME';
+
+update abapanalytics.abaptran set updateflag = left(trim(value1), 1) where upper(trim(key1)) = 'UPDATE';
+update abapanalytics.abaptran set updateflag = left(trim(value2), 1) where upper(trim(key2)) = 'UPDATE';
 
 -- Fill in Application Components
 
@@ -91,4 +172,9 @@ UPDATE abapanalytics.abaptran a
 ;
 
 -- Create Indexes, for Analytics
+
+DROP   INDEX abaptran_ps_posid_l1 on abapanalytics.abaptran;
+CREATE INDEX abaptran_ps_posid_l1 on abapanalytics.abaptran(ps_posid_l1);
+
+
 

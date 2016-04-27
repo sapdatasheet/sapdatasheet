@@ -56,11 +56,11 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::DTEL_NA
             <table class="content_obj">
                 <tbody>
                     <tr><td>Software Component</td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetURL4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
+                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetHyperlink4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
                     <tr><td class="left_attribute"> Application Component ID</td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetURL4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
+                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetHyperlink4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
                     <tr><td class="left_attribute"> Package </td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetURL4Devc($hier->DEVCLASS, $hier->DEVCLASS_T) ?></td></tr>
+                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetHyperlink4Devc($hier->DEVCLASS, $hier->DEVCLASS_T) ?></td></tr>
                     <tr><td class="left_attribute"> Object type </td></tr>
                     <tr><td class="left_value"><a href="/abap/dtel/"><?php echo GLOBAL_ABAP_OTYPE::DTEL_DESC ?></a></td></tr>
                     <tr><td class="left_attribute"> Object name </td></tr>
@@ -75,7 +75,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::DTEL_NA
                 <tbody>
                     <?php if (empty($wul_list) === FALSE) { ?>
                         <?php foreach ($wul_list as $wul_item) { ?>
-                            <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetURL4Tabl($wul_item['TABNAME'], ABAP_DB_TABLE_TABL::DD02T($wul_item['TABNAME'])) ?>&nbsp;</td></tr>
+                            <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetHyperlink4Tabl($wul_item['TABNAME'], ABAP_DB_TABLE_TABL::DD02T($wul_item['TABNAME'])) ?>&nbsp;</td></tr>
                         <?php } ?>
                     <?php } else { ?>
                         <tr><td class="left_value">Not Used by Anyone</td></tr>
@@ -106,7 +106,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::DTEL_NA
                 <h4> Basic data </h4>
                 <table class="content_obj">
                     <tbody>
-                        <tr><td class="content_label"> Data Element      </td><td class="field"> <?php echo ABAP_UI_Navigation::GetURL4Dtel($dtel['ROLLNAME'], $dtel_desc) ?> </td></tr>
+                        <tr><td class="content_label"> Data Element      </td><td class="field"> <?php echo ABAP_UI_Navigation::GetHyperlink4Dtel($dtel['ROLLNAME'], $dtel_desc) ?> </td></tr>
                         <tr><td class="content_label"> Short Description </td><td class="field"> <?php echo htmlentities($dtel_desc) ?> &nbsp;</td></tr>
                     </tbody>
                 </table>
@@ -115,16 +115,16 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::DTEL_NA
                 <table class="content_obj">
                     <tbody>
                         <tr><td class="content_label"> Category of Dictionary Type </td>
-                            <td class="field"> <?php echo ABAP_UI_Navigation::GetURL4DomainValue(ABAP_DB_CONST::DOMAIN_DD04L_REFKIND, $dtel['REFKIND'], $dtel_refkind_desc); ?> &nbsp;</td>
+                            <td class="field"> <?php echo ABAP_UI_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_DD04L_REFKIND, $dtel['REFKIND'], $dtel_refkind_desc); ?> &nbsp;</td>
                             <td><?php echo $dtel_refkind_desc ?></td></tr>
                         <tr><td class="content_label"> Type of Object Referenced  </td>
-                            <td class="field"> <?php echo ABAP_UI_Navigation::GetURL4DomainValue(ABAP_DB_CONST::DOMAIN_DD04L_REFTYPE, $dtel['REFTYPE'], $dtel_reftype_desc); ?> &nbsp;</td>
+                            <td class="field"> <?php echo ABAP_UI_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_DD04L_REFTYPE, $dtel['REFTYPE'], $dtel_reftype_desc); ?> &nbsp;</td>
                             <td><?php echo $dtel_reftype_desc ?></td></tr>
                         <tr><td class="content_label">Domain / Name of Reference Type</td>
-                            <td class="field"> <?php echo ABAP_UI_Navigation::GetURL4Doma($dtel['DOMNAME'], ''); ?> &nbsp;</td>
+                            <td class="field"> <?php echo ABAP_UI_Navigation::GetHyperlink4Doma($dtel['DOMNAME'], ''); ?> &nbsp;</td>
                             <td>&nbsp;</td></tr>
                         <tr><td class="content_label">Data Type </td>
-                            <td class="field"> <?php echo ABAP_UI_Navigation::GetURL4DomainValue(ABAP_DB_CONST::DOMAIN_DATATYPE, $dtel['DATATYPE'], $dtel_datatype_desc) ?> &nbsp;</td>
+                            <td class="field"> <?php echo ABAP_UI_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_DATATYPE, $dtel['DATATYPE'], $dtel_datatype_desc) ?> &nbsp;</td>
                             <td><?php echo htmlentities($dtel_datatype_desc) ?>&nbsp;</td></tr>
                         <tr><td class="content_label">Length </td>
                             <td class="field_right"> <?php echo intval($dtel['LENG']) ?> &nbsp;</td>
@@ -136,7 +136,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::DTEL_NA
                             <td class="field_right"> <?php echo intval($dtel['OUTPUTLEN']) ?> &nbsp;</td>
                             <td>&nbsp;</td></tr>
                         <tr><td class="content_label">Value Table </td>
-                            <td class="field_right"> <?php echo ABAP_UI_Navigation::GetURL4Tabl($dtel['ENTITYTAB'], '') ?> &nbsp;</td>
+                            <td class="field_right"> <?php echo ABAP_UI_Navigation::GetHyperlink4Tabl($dtel['ENTITYTAB'], '') ?> &nbsp;</td>
                             <td>&nbsp;</td></tr>
                     </tbody>
                 </table>

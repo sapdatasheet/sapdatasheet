@@ -125,10 +125,10 @@ $tstc_list = ABAP_DB_TABLE_TRAN::TSTC_List($index);
                         <th class="alv"> Corresponding Report (if exist) </th>
                     </tr>
                     <tr>
-                        <th class="alv"><?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_TRAN::TSTC_TCODE_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_TRAN::TSTC_TCODE_DTEL, '?') ?></th>
                         <th class="alv">&nbsp;</th>
-                        <th class="alv"><?php echo ABAP_UI_Navigation::GetURL4DtelDocument(ABAP_DB_TABLE_PROG::REPOSRC_PROGNAME_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_PROG::REPOSRC_PROGNAME_DTEL, '?') ?></th>
                     </tr>
                     <?php
                     $count = 0;
@@ -137,9 +137,9 @@ $tstc_list = ABAP_DB_TABLE_TRAN::TSTC_List($index);
                         $tstc_desc = ABAP_DB_TABLE_TRAN::TSTCT($tstc['TCODE']);
                         ?>
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                            <td class="alv"><?php echo ABAP_UI_Navigation::GetURL4Tran($tstc['TCODE'], $tstc_desc) ?> </td>
+                            <td class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4Tran($tstc['TCODE'], $tstc_desc) ?> </td>
                             <td class="alv"><?php echo htmlentities($tstc_desc) ?></td>
-                            <td class="alv"><?php echo ABAP_UI_Navigation::GetURL4Prog($tstc['PGMNA'], '') ?></td></tr>
+                            <td class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4Prog($tstc['PGMNA'], '') ?></td></tr>
                         <?php } ?>
                 </table>
 
