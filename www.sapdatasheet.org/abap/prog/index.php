@@ -115,11 +115,11 @@ $prog_list = ABAP_DB_TABLE_HIER::TADIR_PROG_List($index);
                         <th class="alv"> Short Description </th>
                     </tr>
                     <tr>
-                        <th class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_PROG::REPOSRC_PROGNAME_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_HIER::TADIR_DEVCLASS_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_HIER::CVERS_COMPONENT_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_PROG::TRDIRT_TEXT_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_PROG::REPOSRC_PROGNAME_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_HIER::TADIR_DEVCLASS_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_HIER::CVERS_COMPONENT_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_PROG::TRDIRT_TEXT_DTEL, '?') ?></th>
                     </tr>
                     <?php
                     $count = 0;
@@ -128,9 +128,9 @@ $prog_list = ABAP_DB_TABLE_HIER::TADIR_PROG_List($index);
                         $prog_desc = ABAP_DB_TABLE_PROG::TRDIRT($prog['OBJ_NAME']);
                         ?>
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                            <td class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4Prog($prog['OBJ_NAME'], '') ?> </td>
-                            <td class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4Devc($prog['DEVCLASS'], '') ?> </td>
-                            <td class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4Cvers($prog['COMPONENT'], '') ?>&nbsp;</td>
+                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Prog($prog['OBJ_NAME'], '') ?> </td>
+                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Devc($prog['DEVCLASS'], '') ?> </td>
+                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Cvers($prog['COMPONENT'], '') ?>&nbsp;</td>
                             <td class="alv"><?php echo htmlspecialchars($prog_desc) ?> &nbsp; </td>
                         </tr>
                     <?php } ?>

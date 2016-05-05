@@ -67,11 +67,11 @@ ob_start();
                         <th class="alv"> Component Type Text </th>
                     </tr>
                     <tr>
-                        <th class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_HIER::CVERS_COMPONENT_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_HIER::CVERS_REF_DESC_TEXT_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_HIER::CVERS_COMP_TYPE_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_DOMA::DD07T_DDTEXT_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_HIER::CVERS_COMPONENT_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_HIER::CVERS_REF_DESC_TEXT_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_HIER::CVERS_COMP_TYPE_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_DOMA::DD07T_DDTEXT_DTEL, '?') ?></th>
                     </tr>
                     <?php
                     $table = ABAP_DB_TABLE_HIER::CVERS_List();
@@ -84,9 +84,9 @@ ob_start();
                         $cvers_comp_type_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_TADIR_COMP_TYPE, $row['COMP_TYPE']);
                         ?>
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                            <td class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4Cvers($cvers_component, $cvers_desc) ?></td>
+                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Cvers($cvers_component, $cvers_desc) ?></td>
                             <td class="alv"><?php echo htmlentities($cvers_desc) ?></td>
-                            <td class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_TADIR_COMP_TYPE, $cvers_comp_type, $cvers_comp_type_desc) ?></td>
+                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_TADIR_COMP_TYPE, $cvers_comp_type, $cvers_comp_type_desc) ?></td>
                             <td class="alv"><?php echo htmlentities($cvers_comp_type_desc) ?></td></tr>
                         <?php } ?>
                 </table>

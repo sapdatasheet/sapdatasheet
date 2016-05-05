@@ -2,6 +2,7 @@
 
 CREATE TABLE `abaptran` (
   `TCODE` varchar(20) COLLATE utf8_bin NOT NULL COMMENT 'Transaction Code',
+  `TCODENS` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT 'TCode Name Space, the left part of /xxx/',
   `PGMNA` varchar(40) COLLATE utf8_bin DEFAULT NULL COMMENT 'ABAP Program name',
   `DYPNO` int(11) DEFAULT NULL COMMENT 'ABAP Program Dynpro number',
   `SOFTCOMP` varchar(30) COLLATE utf8_bin DEFAULT NULL COMMENT 'Software Component',
@@ -53,7 +54,24 @@ CREATE TABLE `abaptran` (
   `FCTR_ID_L7` varchar(20) COLLATE utf8_bin DEFAULT NULL,
   `FCTR_ID_L8` varchar(20) COLLATE utf8_bin DEFAULT NULL,
   `FCTR_ID_L9` varchar(20) COLLATE utf8_bin DEFAULT NULL,
-  PRIMARY KEY (`TCODE`)
+  PRIMARY KEY (`TCODE`),
+  KEY `abaptran_pgmna` (`PGMNA`),
+  KEY `abaptran_softcomp` (`SOFTCOMP`),
+  KEY `abaptran_package` (`PACKAGE`),
+  KEY `abaptran_packagep` (`PACKAGEP`),
+  KEY `abaptran_calledtcode` (`CALLEDTCODE`),
+  KEY `abaptran_calledview` (`CALLEDVIEW`),
+  KEY `abaptran_calledviewc` (`CALLEDVIEWC`),
+  KEY `abaptran_ps_posid_l1` (`PS_POSID_L1`),
+  KEY `abaptran_fctr_id_l1` (`FCTR_ID_L1`),
+  KEY `abaptran_fctr_id_l2` (`FCTR_ID_L2`),
+  KEY `abaptran_fctr_id_l3` (`FCTR_ID_L3`),
+  KEY `abaptran_fctr_id_l4` (`FCTR_ID_L4`),
+  KEY `abaptran_fctr_id_l5` (`FCTR_ID_L5`),
+  KEY `abaptran_fctr_id_l6` (`FCTR_ID_L6`),
+  KEY `abaptran_fctr_id_l7` (`FCTR_ID_L7`),
+  KEY `abaptran_fctr_id_l8` (`FCTR_ID_L8`),
+  KEY `abaptran_fctr_id_l9` (`FCTR_ID_L9`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Transaction Code';
 
 -- Prepare Data
@@ -69,7 +87,19 @@ UPDATE abapanalytics.abaptran
 
 -- Clean Data - Clear Local System T-Codes
 DELETE FROM abapanalytics.abaptran
-  WHERE SOFTCOMP = 'LOCAL'
+  WHERE SOFTCOMP = 'LOCAL' OR SOFTCOMP = 'HOME'
+;
+
+-- TCode Name Space
+
+update abapanalytics.abaptran
+  set tcodens = left(tcode, (length(tcode) - length(substring_index(tcode, '/', -1))))
+  where left(tcode) = '/'
+;
+
+update abapanalytics.abaptran
+  set tcodens = null
+  where length(trim(tcodens)) < 1
 ;
 	
 -- Hierarchy Data
@@ -173,8 +203,57 @@ UPDATE abapanalytics.abaptran a
 
 -- Create Indexes, for Analytics
 
+DROP   INDEX abaptran_tcodens on abapanalytics.abaptran;
+CREATE INDEX abaptran_tcodens on abapanalytics.abaptran(tcodens);
+
+DROP   INDEX abaptran_pgmna on abapanalytics.abaptran;
+CREATE INDEX abaptran_pgmna on abapanalytics.abaptran(pgmna);
+
+DROP   INDEX abaptran_softcomp on abapanalytics.abaptran;
+CREATE INDEX abaptran_softcomp on abapanalytics.abaptran(softcomp);
+
+DROP   INDEX abaptran_package on abapanalytics.abaptran;
+CREATE INDEX abaptran_package on abapanalytics.abaptran(package);
+
+DROP   INDEX abaptran_packagep on abapanalytics.abaptran;
+CREATE INDEX abaptran_packagep on abapanalytics.abaptran(packagep);
+
+DROP   INDEX abaptran_calledtcode on abapanalytics.abaptran;
+CREATE INDEX abaptran_calledtcode on abapanalytics.abaptran(calledtcode);
+
+DROP   INDEX abaptran_calledview on abapanalytics.abaptran;
+CREATE INDEX abaptran_calledview on abapanalytics.abaptran(calledview);
+
+DROP   INDEX abaptran_calledviewc on abapanalytics.abaptran;
+CREATE INDEX abaptran_calledviewc on abapanalytics.abaptran(calledviewc);
+
 DROP   INDEX abaptran_ps_posid_l1 on abapanalytics.abaptran;
 CREATE INDEX abaptran_ps_posid_l1 on abapanalytics.abaptran(ps_posid_l1);
 
+DROP   INDEX abaptran_fctr_id_l1 on abapanalytics.abaptran;
+CREATE INDEX abaptran_fctr_id_l1 on abapanalytics.abaptran(fctr_id_l1);
 
+DROP   INDEX abaptran_fctr_id_l2 on abapanalytics.abaptran;
+CREATE INDEX abaptran_fctr_id_l2 on abapanalytics.abaptran(fctr_id_l2);
+
+DROP   INDEX abaptran_fctr_id_l3 on abapanalytics.abaptran;
+CREATE INDEX abaptran_fctr_id_l3 on abapanalytics.abaptran(fctr_id_l3);
+
+DROP   INDEX abaptran_fctr_id_l4 on abapanalytics.abaptran;
+CREATE INDEX abaptran_fctr_id_l4 on abapanalytics.abaptran(fctr_id_l4);
+
+DROP   INDEX abaptran_fctr_id_l5 on abapanalytics.abaptran;
+CREATE INDEX abaptran_fctr_id_l5 on abapanalytics.abaptran(fctr_id_l5);
+
+DROP   INDEX abaptran_fctr_id_l6 on abapanalytics.abaptran;
+CREATE INDEX abaptran_fctr_id_l6 on abapanalytics.abaptran(fctr_id_l6);
+
+DROP   INDEX abaptran_fctr_id_l7 on abapanalytics.abaptran;
+CREATE INDEX abaptran_fctr_id_l7 on abapanalytics.abaptran(fctr_id_l7);
+
+DROP   INDEX abaptran_fctr_id_l8 on abapanalytics.abaptran;
+CREATE INDEX abaptran_fctr_id_l8 on abapanalytics.abaptran(fctr_id_l8);
+
+DROP   INDEX abaptran_fctr_id_l9 on abapanalytics.abaptran;
+CREATE INDEX abaptran_fctr_id_l9 on abapanalytics.abaptran(fctr_id_l9);
 

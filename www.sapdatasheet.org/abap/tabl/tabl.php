@@ -54,11 +54,11 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::TABL_NA
             <table class="content_obj">
                 <tbody>
                     <tr><td>Software Component</td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetHyperlink4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
+                    <tr><td class="left_value"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
                     <tr><td class="left_attribute"> Application Component ID</td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetHyperlink4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
+                    <tr><td class="left_value"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
                     <tr><td class="left_attribute"> Package </td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetHyperlink4Devc($hier->DEVCLASS, $hier->DEVCLASS_T) ?></td></tr>
+                    <tr><td class="left_value"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Devc($hier->DEVCLASS, $hier->DEVCLASS_T) ?></td></tr>
                     <tr><td class="left_attribute"> Object type </td></tr>
                     <tr><td class="left_value"><a href="/abap/tabl/"><?php echo $dd02l_tabclass_desc ?></a></td></tr>
                     <tr><td class="left_attribute"> Object name </td></tr>
@@ -93,7 +93,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::TABL_NA
                 <table class="content_obj">
                     <tbody>
                         <tr><td class="content_label"> Table Category        </td>
-                            <td class="field"> <?php echo ABAP_UI_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_TABL::DD02L_TABCLASS_DOMAIN, $dd02l['TABCLASS'], $dd02l_tabclass_desc) ?> &nbsp;</td>
+                            <td class="field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_TABL::DD02L_TABCLASS_DOMAIN, $dd02l['TABCLASS'], $dd02l_tabclass_desc) ?> &nbsp;</td>
                             <td><?php echo htmlentities($dd02l_tabclass_desc) ?>&nbsp;</td></tr>
                         <tr><td class="content_label"> <?php echo htmlentities($dd02l_tabclass_desc) ?> </td>
                             <td class="field"><a href="#"><?php echo $dd02l['TABNAME'] ?></a></td>
@@ -109,13 +109,13 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::TABL_NA
                 <table class="content_obj">
                     <tbody>
                         <tr><td class="content_label"> Pool/cluster </td>
-                            <td class="field"> <?php echo ABAP_UI_Navigation::GetHyperlink4Sqlt($dd02l['SQLTAB'], '') ?> &nbsp;</td>
+                            <td class="field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Sqlt($dd02l['SQLTAB'], '') ?> &nbsp;</td>
                             <td>&nbsp;</td></tr>
                         <tr><td class="content_label"> Delivery Class </td>
-                            <td class="field"> <?php echo ABAP_UI_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_TABL::DD02L_CONTFLAG_DOMAIN, $dd02l['CONTFLAG'], $dd02l_contflag_desc) ?> &nbsp;</td>
+                            <td class="field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_TABL::DD02L_CONTFLAG_DOMAIN, $dd02l['CONTFLAG'], $dd02l_contflag_desc) ?> &nbsp;</td>
                             <td><?php echo htmlentities($dd02l_contflag_desc) ?>&nbsp;</td></tr>
                         <tr><td class="content_label"> Data Browser/Table View Maintenance </td>
-                            <td class="field"> <?php echo ABAP_UI_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_TABL::DD02L_MAINFLAG_DOMAIN, $dd02l['MAINFLAG'], $dd02l_mainflag_desc) ?> &nbsp;</td>
+                            <td class="field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_TABL::DD02L_MAINFLAG_DOMAIN, $dd02l['MAINFLAG'], $dd02l_mainflag_desc) ?> &nbsp;</td>
                             <td><?php echo htmlentities($dd02l_mainflag_desc) ?>&nbsp;</td></tr>
                     </tbody>
                 </table>
@@ -155,26 +155,26 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::TABL_NA
                         <?php
                         foreach ($dd03l as $dd03l_item) {
                             if (strlen(trim($dd03l_item['PRECFIELD'])) > 0) {
-                                $dd03l_fieldname_url = ABAP_UI_Navigation::GetHyperlink4TablInclude($dd02l['TABNAME'], $dd03l_item['FIELDNAME'], $dd03l_item['POSITION']);
+                                $dd03l_fieldname_url = ABAP_UI_DS_Navigation::GetHyperlink4TablInclude($dd02l['TABNAME'], $dd03l_item['FIELDNAME'], $dd03l_item['POSITION']);
                                 $anchor_name = 'FIELD_' . $dd03l_item['POSITION'];
                             } else {
-                                $dd03l_fieldname_url = ABAP_UI_Navigation::GetHyperlink4TablField($dd02l['TABNAME'], $dd03l_item['FIELDNAME']);
+                                $dd03l_fieldname_url = ABAP_UI_DS_Navigation::GetHyperlink4TablField($dd02l['TABNAME'], $dd03l_item['FIELDNAME']);
                                 $anchor_name = 'FIELD_' . $dd03l_item['FIELDNAME'];
                             }
                             $dd03l_fieldname_desc = ABAP_UI_TOOL::GetTablFieldDesc($dd03l_item['PRECFIELD'], $dd03l_item['ROLLNAME']);
-                            $dd03l_rollname_url = ABAP_UI_Navigation::GetHyperlink4Dtel($dd03l_item['ROLLNAME'], '');
+                            $dd03l_rollname_url = ABAP_UI_DS_Navigation::GetHyperlink4Dtel($dd03l_item['ROLLNAME'], '');
                             ?>
                             <tr>
                                 <td class="alv"> <a id="<?php echo $anchor_name ?>"></a> <?php echo $dd03l_item['POSITION'] ?> </td>
                                 <td class="alv"> <?php echo $dd03l_fieldname_url ?> </td>
                                 <td class="alv_center"> <?php echo ABAP_UI_TOOL::GetCheckBox('field_' . $dd03l_item['FIELDNAME'], $dd03l_item['KEYFLAG']) ?> </td>
                                 <td class="alv"> <?php echo $dd03l_rollname_url ?> </td>
-                                <td class="alv"> <?php echo ABAP_UI_Navigation::GetHyperlink4Doma($dd03l_item['DOMNAME'], '') ?> </td>
-                                <td class="alv"> <?php echo ABAP_UI_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_DATATYPE, $dd03l_item['DATATYPE'], '') ?> </td>
+                                <td class="alv"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Doma($dd03l_item['DOMNAME'], '') ?> </td>
+                                <td class="alv"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_DATATYPE, $dd03l_item['DATATYPE'], '') ?> </td>
                                 <td class="alv_right"> <?php echo intval($dd03l_item['LENG']) ?> &nbsp; </td>
                                 <td class="alv_right"> <?php echo intval($dd03l_item['DECIMALS']) ?> &nbsp; </td>
                                 <td class="alv"> <?php echo htmlentities($dd03l_fieldname_desc) ?> </td>
-                                <td class="alv"> <?php echo ABAP_UI_Navigation::GetHyperlink4Tabl($dd03l_item['CHECKTABLE'], '') ?> </td>
+                                <td class="alv"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tabl($dd03l_item['CHECKTABLE'], '') ?> </td>
                             </tr>
                         <?php } ?>
                     </tbody>

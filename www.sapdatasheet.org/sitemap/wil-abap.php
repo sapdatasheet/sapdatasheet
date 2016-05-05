@@ -15,7 +15,7 @@ foreach ($list as $row) {
         SitemapStartOB();
     }
 
-    $wilurl = "http://www.sapdatasheet.org" . ABAP_UI_Navigation::GetWilPath($row);
+    $wilurl = "http://www.sapdatasheet.org" . ABAP_UI_DS_Navigation::GetWilPath($row);
     SitemapEchoUrl($wilurl);
 
     // Check if the Sitemap is full
@@ -28,7 +28,7 @@ foreach ($list as $row) {
 
     // If several pages exists ...
     if ($row['COUNTER'] > ABAP_DB_CONST::INDEX_PAGESIZE) {
-        $urls = ABAP_UI_Navigation::GetWilPaths($row['OBJ_TYPE'], $row['OBJ_NAME'], $row['SRC_OBJ_TYPE'], $row['COUNTER']);
+        $urls = ABAP_UI_DS_Navigation::GetWilPaths($row['OBJ_TYPE'], $row['OBJ_NAME'], $row['SRC_OBJ_TYPE'], $row['COUNTER']);
         foreach ($urls as $wilurl) {
             SitemapEchoUrl("http://www.sapdatasheet.org" . $wilurl);
 

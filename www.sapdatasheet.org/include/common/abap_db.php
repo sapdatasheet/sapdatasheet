@@ -2739,10 +2739,12 @@ class ABAPANA_DB_TABLE {
     const ABAPTRAN = "abaptran";
     const ABAPTRAN_PGMNA = "pgmna";               // Column name
     const ABAPTRAN_PACKAGE = "package";           // Column name
+    const ABAPTRAN_PACKAGEP = "packagep";         // Column name
     const ABAPTRAN_SOFTCOMP = "softcomp";         // Column name
     const ABAPTRAN_APPLFCTR = 'applfctr';         // Column name
-    const ABAPTRAN_PACKAGEP = "packagep";         // Column name
     const ABAPTRAN_CALLEDTCODE = "calledtcode";   // Column name
+    const ABAPTRAN_CALLEDVIEW = "calledview";     // Column name
+    const ABAPTRAN_CALLEDVIEWC = "calledviewc";   // Column name
     const ABAPTRAN_FCTR_ID_L1 = "fctr_id_l1";     // Column name
     const ABAPTRAN_FCTR_ID_L2 = "fctr_id_l2";     // Column name
     const ABAPTRAN_FCTR_ID_L3 = "fctr_id_l3";     // Column name
@@ -2765,6 +2767,14 @@ class ABAPANA_DB_TABLE {
         $sql = 'SELECT * FROM ' . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPBMFR_L1
                 . ' where PS_POSID_L1 = :id';
         return ABAP_DB_TABLE::select_single($sql, $posid);
+    }
+
+    /**
+     * Level 1 Application Component description.
+     */
+    public static function ABAPBMFR_L1_T($posid) {
+        $row = ABAPANA_DB_TABLE::ABAPBMFR_L1_POSID($posid);
+        return $row['TEXT'];
     }
 
     /**
@@ -2793,7 +2803,34 @@ class ABAPANA_DB_TABLE {
     }
 
     /**
-     * Get reocrd count group by <code>PS_POSID_L1</code>.
+     * Get record cound for a filter.
+     *
+     * @param string $col Database Column Name
+     * @param string $value Column Value
+     */
+    public static function ABAPTRAN_LOAD($col, $value) {
+        $sql = "SELECT TCODE, PS_POSID_L1, FCTR_ID_L1 FROM "
+                . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPTRAN
+                . " WHERE " . $col . ' = :id';
+        return ABAP_DB_TABLE::select_1filter($sql, $value);
+    }
+
+    /**
+     * Load tcodes for name pattern.
+     * 
+     * <pre>
+     * SELECT * FROM abapanalytics.abaptran where tcode like 'SE%'
+     * </pre>
+     */
+    public static function ABAPTRAN_NAMEPATTERN_LOAD($pattern) {
+        $sql = "SELECT TCODE, PS_POSID_L1, FCTR_ID_L1 FROM "
+                . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPTRAN
+                . " WHERE TCODE like :id";
+        return ABAP_DB_TABLE::select_1filter($sql, $pattern);
+    }
+
+    /**
+     * Get record count group by <code>PS_POSID_L1</code>.
      * 
      * <pre>
      * SELECT PS_POSID_L1, COUNT(*) as COUNT
@@ -2806,6 +2843,75 @@ class ABAPANA_DB_TABLE {
                 . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPTRAN
                 . ' group by PS_POSID_L1';
         return ABAP_DB_TABLE::select($sql);
+    }
+
+    /**
+     * Analysis the TCode Names via left(1) charactors.
+     * We ignore the "S_%" spro dummy t-codes.
+     */
+    public static function ABAPTRAN_ANALYTICS_NAME_LEFT1() {
+        $sql = 'select distinct left(tcode, 1) as TCODEPREFIX, count(*) as COUNT from '
+                . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPTRAN
+                . ' where left(tcode, 2) <> "S_" group by left(tcode, 1)';
+
+        return ABAP_DB_TABLE::select($sql);
+    }
+
+    /**
+     * Analysis the TCode Names via left(2) charactors and namespace (if exists).
+     * We ignore the "S_%" spro dummy t-codes.
+     */
+    /*
+      select distinct tcodens as TCODEPREFIX, count(*) as COUNT
+      from abapanalytics.abaptran
+      where tcodens is not null
+      group by tcodens
+      union
+      select distinct left(tcode, 2) as TCODEPREFIX, count(*) as COUNT
+      from abapanalytics.abaptran
+      where tcodens is null and left(tcode, 2) <> 'S_'
+      group by left(tcode, 2)
+     */
+    public static function ABAPTRAN_ANALYTICS_NAME_LEFT2() {
+        $sql = ' select distinct tcodens as TCODEPREFIX, count(*) as COUNT from '
+                . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPTRAN
+                . ' where tcodens is not null group by tcodens'
+                . ' union '
+                . 'select distinct left(tcode, 2) as TCODEPREFIX, count(*) as COUNT from '
+                . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPTRAN
+                . ' where tcodens is null and left(tcode, 2) <> "S_" group by left(tcode, 2) ';
+        return ABAP_DB_TABLE::select($sql);
+    }
+    
+    /**
+     * Analysis the TCode Names via software component.
+     * <pre>
+     * select SOFTCOMP, count(*) as COUNT 
+     *   from abapanalytics.abaptran
+     *   GROUP BY SOFTCOMP
+     * </pre>
+     */
+    public static function ABAPTRAN_ANALYTICS_SOFTCOMP() {
+        $sql = 'select SOFTCOMP, count(*) as COUNT from '
+                . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPTRAN
+                . ' group by SOFTCOMP';
+        return ABAP_DB_TABLE::select($sql);
+    }
+    
+    /**
+     * Analysis the TCode Names via application component by software component.
+     * <pre>
+     * SELECT APPLPOSID, COUNT(*) AS COUNT
+     *   from abapanalytics.abaptran
+     *   WHERE SOFTCOMP = 'SAP_BASIS'
+     *   GROUP BY APPLPOSID
+     * </pre>
+     */
+    public static function ABAPTRAN_ANALYTICS_SOFTCOMP_APPLPOSID($softcomp) {
+        $sql = 'select APPLPOSID, count(*) as COUNT from '
+                . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPTRAN
+                . ' WHERE SOFTCOMP = :id GROUP BY APPLPOSID';
+        return ABAP_DB_TABLE::select_1filter($sql, $softcomp);
     }
 
     /**

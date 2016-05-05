@@ -116,12 +116,12 @@ $dd01l = ABAP_DB_TABLE_DOMA::DD01L_List($index);
                         <th class="alv"> Decimals </th>
                     </tr>
                     <tr>
-                        <th class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_DOMA::DD01L_DOMNAME_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_DOMA::DD01T_DDTEXT_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_DOMA::DD01L_DATATYPE_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_DOMA::DD01L_LENG_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_DOMA::DD01L_DECIMALS_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_DOMA::DD01L_DOMNAME_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_DOMA::DD01T_DDTEXT_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_DOMA::DD01L_DATATYPE_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_DOMA::DD01L_LENG_DTEL, '?') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_DOMA::DD01L_DECIMALS_DTEL, '?') ?></th>
                     </tr>
                     <?php
                     $count = 0;
@@ -130,9 +130,9 @@ $dd01l = ABAP_DB_TABLE_DOMA::DD01L_List($index);
                         $dd01l_item_t = ABAP_DB_TABLE_DOMA::DD01T($dd01l_item['DOMNAME'])
                         ?>
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                            <td class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4Doma($dd01l_item['DOMNAME'], $dd01l_item_t) ?> </td>
+                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Doma($dd01l_item['DOMNAME'], $dd01l_item_t) ?> </td>
                             <td class="alv"><?php echo htmlentities($dd01l_item_t) ?></td>
-                            <td class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_DATATYPE, $dd01l_item['DATATYPE'], '') ?></td>
+                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_DATATYPE, $dd01l_item['DATATYPE'], '') ?></td>
                             <td class="alv" style="text-align: right;"><?php echo intval($dd01l_item['LENG']) ?>&nbsp;</td>
                             <td class="alv"><?php echo ABAP_UI_TOOL::ClearZero(intval($dd01l_item['DECIMALS'])) ?>&nbsp;</td>
                         </tr>

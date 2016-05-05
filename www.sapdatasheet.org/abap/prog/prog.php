@@ -56,11 +56,11 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::PROG_NA
             <table class="content_obj">
                 <tbody>
                     <tr><td>Software Component</td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetHyperlink4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
+                    <tr><td class="left_value"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
                     <tr><td class="left_attribute"> Application Component ID</td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetHyperlink4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
+                    <tr><td class="left_value"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
                     <tr><td class="left_attribute"> Package </td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_UI_Navigation::GetHyperlink4Devc($hier->DEVCLASS, $hier->DEVCLASS_T) ?></td></tr>
+                    <tr><td class="left_value"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Devc($hier->DEVCLASS, $hier->DEVCLASS_T) ?></td></tr>
                     <tr><td class="left_attribute"> Object type </td></tr>
                     <tr><td class="left_value"><a href="/abap/prog/"><?php echo GLOBAL_ABAP_OTYPE::PROG_DESC ?></a></td></tr>
                     <tr><td class="left_attribute"> Object name </td></tr>
@@ -95,11 +95,11 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::PROG_NA
                 <table class="content_obj">
                     <tbody>
                         <tr><td class="content_label"> Program </td>
-                            <td class="field"> <?php echo ABAP_UI_Navigation::GetHyperlink4Prog($prog['PROGNAME'], $prog_desc); ?> </td>
+                            <td class="field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Prog($prog['PROGNAME'], $prog_desc); ?> </td>
                             <td> <?php echo $prog_desc ?> &nbsp;</td>
                         </tr>
                         <tr><td class="content_label"> Program Type </td>
-                            <td class="field"> <?php echo ABAP_UI_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_REPOSRC_SUBC, $prog['SUBC'], $reposrc_subc_desc); ?> </td>
+                            <td class="field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_REPOSRC_SUBC, $prog['SUBC'], $reposrc_subc_desc); ?> </td>
                             <td> <?php echo htmlentities($reposrc_subc_desc) ?> &nbsp;</td>
                         </tr>
                     </tbody>
@@ -109,7 +109,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::PROG_NA
                 <table class="content_obj">
                     <tbody>
                         <tr><td class="content_label"> Status </td>
-                            <td class="field"> <?php echo ABAP_UI_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_REPOSRC_RSTAT, $prog['RSTAT'], $reposrc_rstat_desc); ?> </td>
+                            <td class="field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_REPOSRC_RSTAT, $prog['RSTAT'], $reposrc_rstat_desc); ?> </td>
                             <td> <?php echo htmlentities($reposrc_rstat_desc) ?> &nbsp;</td>
                         </tr>
                         <tr><td class="content_label"> Application </td>
@@ -162,7 +162,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::PROG_NA
                                 ?>
                                 <tr>
                                     <td class="alv"> <?php echo $tfdir['INCLUDE'] ?> &nbsp;</td>
-                                    <td class="alv"> <?php echo ABAP_UI_Navigation::GetHyperlink4Func($tfdir['FUNCNAME'], $tfdir_desc) ?> &nbsp;</td>
+                                    <td class="alv"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Func($tfdir['FUNCNAME'], $tfdir_desc) ?> &nbsp;</td>
                                     <td class="alv"> <?php echo htmlentities($tfdir_desc) ?> &nbsp;</td>
                                     <td class="alv"> <?php echo $tfdir['FMODE'] ?> &nbsp;</td>
                                 </tr>
@@ -195,7 +195,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::PROG_NA
                             $tcode_desc = ABAP_DB_TABLE_TRAN::TSTCT($tcode['TCODE']);
                             ?>
                             <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                                <td class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4Tran($tcode['TCODE'], $tcode_desc) ?></td>
+                                <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tran($tcode['TCODE'], $tcode_desc) ?></td>
                                 <td class="alv"><?php echo htmlentities($tcode_desc) ?>&nbsp;</td>
                             </tr>
                         <?php } ?>

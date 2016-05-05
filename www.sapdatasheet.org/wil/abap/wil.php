@@ -55,7 +55,7 @@ $GLOBALS['TITLE_TEXT'] = "Where Using List for " . $title_name;
 
                 <?php
                 $wilTitle = 'SAP ABAP ' . GLOBAL_ABAP_OTYPE::getOTypeDesc($dpOType) . ' '
-                        . ABAP_UI_Navigation::GetObjectHyperlink($dpOType, $dpOName);
+                        . ABAP_UI_DS_Navigation::GetObjectHyperlink($dpOType, $dpOName);
                 if (!empty($objDesc)) {
                     $wilTitle = $wilTitle . ' (' . $objDesc . ')';
                 }
@@ -65,13 +65,13 @@ $GLOBALS['TITLE_TEXT'] = "Where Using List for " . $title_name;
                 // print_r($counter_list);
 
                 foreach ($counter_list as $counter) {
-                    echo ABAP_UI_Navigation::GetWilHyperlink($counter, FALSE);
+                    echo ABAP_UI_DS_Navigation::GetWilHyperlink($counter, FALSE);
                     echo '&nbsp;';
                 }
                 ?>
 
                 <h4><?php echo GLOBAL_ABAP_OTYPE::getOTypeDesc($dpOType) ?>
-                    <?php echo ABAP_UI_Navigation::GetWilHyperlinks($dpOType, $dpOName, $dpSrcOType, $counter_value, FALSE) ?>
+                    <?php echo ABAP_UI_DS_Navigation::GetWilHyperlinks($dpOType, $dpOName, $dpSrcOType, $counter_value, FALSE) ?>
                 </h4>
                 <table class="alv">
                     <tr>
@@ -82,8 +82,8 @@ $GLOBALS['TITLE_TEXT'] = "Where Using List for " . $title_name;
                         <th class="alv"> Note </th>
                     </tr>
                     <tr>
-                        <th class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL) ?></th>
-                        <th class="alv"><?php echo ABAP_UI_Navigation::GetHyperlink4DtelDocument('TROBJTYPE') ?></th>
+                        <th class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL) ?></th>
+                        <th class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument('TROBJTYPE') ?></th>
                         <th class="alv">&nbsp;</th>
                         <th class="alv">&nbsp;</th>
                         <th class="alv">&nbsp;</th>
@@ -94,8 +94,8 @@ $GLOBALS['TITLE_TEXT'] = "Where Using List for " . $title_name;
                         $count++;
                         ?>
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                            <td class="alv"><?php echo ABAP_UI_Navigation::GetOTypeHyperlink($wil['SRC_OBJ_TYPE']) ?>&nbsp;</td>
-                            <td class="alv"><?php echo ABAP_UI_Navigation::GetObjectHyperlink($wil['SRC_OBJ_TYPE'], $wil['SRC_OBJ_NAME'], $wil['SRC_SUBOBJ']) ?></td>
+                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetOTypeHyperlink($wil['SRC_OBJ_TYPE']) ?>&nbsp;</td>
+                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetObjectHyperlink($wil['SRC_OBJ_TYPE'], $wil['SRC_OBJ_NAME'], $wil['SRC_SUBOBJ']) ?></td>
                             <td class="alv"><?php echo ABAP_UI_TOOL::GetObjectDescr($wil['SRC_OBJ_TYPE'], $wil['SRC_OBJ_NAME'], $wil['SRC_SUBOBJ']) ?></td>
                             <td class="alv"><?php
                                 if (empty(trim($wil['SOURCE'])) === FALSE) {
