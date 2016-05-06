@@ -1,7 +1,7 @@
 
 -- Create Table
 
-CREATE TABLE `abapbmfr_l2` (
+CREATE TABLE `abapbmfrl2` (
   `FCTR_ID_L2` varchar(20) COLLATE utf8_bin NOT NULL,
   `PS_POSID_L2` varchar(24) COLLATE utf8_bin DEFAULT NULL,
   `FCTR_ID_L1` varchar(20) COLLATE utf8_bin DEFAULT NULL,
@@ -13,10 +13,10 @@ CREATE TABLE `abapbmfr_l2` (
 
 -- Prepare Data
 
-DELETE FROM abapanalytics.abapbmfr_l2
+DELETE FROM abapanalytics.abapbmfrl2
 ;
 
-INSERT INTO abapanalytics.abapbmfr_l2
+INSERT INTO abapanalytics.abapbmfrl2
 SELECT a.FCTR_ID_L2, b.PS_POSID_L2, b.FCTR_ID_L1, b.PS_POSID_L1, c.`NAME`
   from (
     select distinct `FCTR_ID_L2`

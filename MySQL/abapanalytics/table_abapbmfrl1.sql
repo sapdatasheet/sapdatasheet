@@ -1,6 +1,6 @@
 -- Create Table
 
-CREATE TABLE `abapbmfr_l1` (
+CREATE TABLE `abapbmfrl1` (
   `FCTR_ID_L1` varchar(20) COLLATE utf8_bin NOT NULL,
   `PS_POSID_L1` varchar(24) COLLATE utf8_bin DEFAULT NULL,
   `TEXT` varchar(60) COLLATE utf8_bin DEFAULT NULL,
@@ -9,10 +9,10 @@ CREATE TABLE `abapbmfr_l1` (
 
 -- Prepare Data
 
-DELETE FROM abapanalytics.abapbmfr_l1
+DELETE FROM abapanalytics.abapbmfrl1
 ;
 
-INSERT INTO abapanalytics.abapbmfr_l1
+INSERT INTO abapanalytics.abapbmfrl1
 SELECT a.FCTR_ID_L1, b.PS_POSID_L1, c.`NAME`
   from (
     select distinct `FCTR_ID_L1`
@@ -26,7 +26,7 @@ SELECT a.FCTR_ID_L1, b.PS_POSID_L1, c.`NAME`
   ORDER BY PS_POSID_L1
 ;
 
-update abapanalytics.abapbmfr_l1
+update abapanalytics.abapbmfrl1
   set text = 'Business Warehouse'
   where PS_POSID_L1 = 'BW'
 ;

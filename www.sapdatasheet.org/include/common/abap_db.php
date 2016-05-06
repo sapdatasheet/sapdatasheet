@@ -2763,7 +2763,7 @@ class ABAPANA_DB_TABLE {
      * </pre>
      */
 
-    public static function ABAPBMFR_L1_POSID($posid) {
+    public static function ABAPBMFRL1_POSID($posid) {
         $sql = 'SELECT * FROM ' . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPBMFR_L1
                 . ' where PS_POSID_L1 = :id';
         return ABAP_DB_TABLE::select_single($sql, $posid);
@@ -2772,9 +2772,31 @@ class ABAPANA_DB_TABLE {
     /**
      * Level 1 Application Component description.
      */
-    public static function ABAPBMFR_L1_T($posid) {
-        $row = ABAPANA_DB_TABLE::ABAPBMFR_L1_POSID($posid);
+    public static function ABAPBMFRL1_TEXT($posid) {
+        $row = ABAPANA_DB_TABLE::ABAPBMFRL1_POSID($posid);
         return $row['TEXT'];
+    }
+
+    /**
+     * Get one record for a given posid.
+     */
+    public static function ABAPBMFR_PS_POSID($posid) {
+        $sql = "SELECT * FROM "
+                . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPBMFR
+                . " WHERE ps_posid = :id";
+        return ABAP_DB_TABLE::select_single($sql, $posid);
+    }
+
+    /**
+     * Get Text for an application component posid.
+     */
+    public static function ABAPBMFR_TEXT($posid) {
+        $abap_bmfr = ABAPANA_DB_TABLE::ABAPBMFR_PS_POSID($posid);
+        if (empty($abap_bmfr['FCTR_ID'])) {
+            return '';
+        } else {
+            return ABAP_DB_TABLE_HIER::DF14T($abap_bmfr['FCTR_ID']);
+        }
     }
 
     /**
@@ -2882,7 +2904,7 @@ class ABAPANA_DB_TABLE {
                 . ' where tcodens is null and left(tcode, 2) <> "S_" group by left(tcode, 2) ';
         return ABAP_DB_TABLE::select($sql);
     }
-    
+
     /**
      * Analysis the TCode Names via software component.
      * <pre>
@@ -2892,12 +2914,15 @@ class ABAPANA_DB_TABLE {
      * </pre>
      */
     public static function ABAPTRAN_ANALYTICS_SOFTCOMP() {
-        $sql = 'select SOFTCOMP, count(*) as COUNT from '
+        //$sql = 'select SOFTCOMP, count(*) as COUNT from '
+        //        . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPTRAN
+        //        . ' group by SOFTCOMP';
+        $sql = 'select SOFTCOMP_GROUP as SOFTCOMP, count(*) as COUNT from '
                 . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPTRAN
-                . ' group by SOFTCOMP';
+                . ' group by SOFTCOMP_GROUP';
         return ABAP_DB_TABLE::select($sql);
     }
-    
+
     /**
      * Analysis the TCode Names via application component by software component.
      * <pre>
@@ -2910,7 +2935,7 @@ class ABAPANA_DB_TABLE {
     public static function ABAPTRAN_ANALYTICS_SOFTCOMP_APPLPOSID($softcomp) {
         $sql = 'select APPLPOSID, count(*) as COUNT from '
                 . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPTRAN
-                . ' WHERE SOFTCOMP = :id GROUP BY APPLPOSID';
+                . ' WHERE SOFTCOMP_GROUP = :id GROUP BY APPLPOSID';
         return ABAP_DB_TABLE::select_1filter($sql, $softcomp);
     }
 

@@ -6,6 +6,7 @@ CREATE TABLE `abaptran` (
   `PGMNA` varchar(40) COLLATE utf8_bin DEFAULT NULL COMMENT 'ABAP Program name',
   `DYPNO` int(11) DEFAULT NULL COMMENT 'ABAP Program Dynpro number',
   `SOFTCOMP` varchar(30) COLLATE utf8_bin DEFAULT NULL COMMENT 'Software Component',
+  `SOFTCOMP_GROUP` varchar(30) COLLATE utf8_bin DEFAULT NULL,
   `APPLPOSID` varchar(24) COLLATE utf8_bin DEFAULT NULL COMMENT 'Application component - PS_POSID, Human readable format',
   `APPLFCTR` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT 'Application component - FCTR_ID, Technical ID',
   `PACKAGE` varchar(30) COLLATE utf8_bin DEFAULT NULL COMMENT 'Package',
@@ -71,7 +72,8 @@ CREATE TABLE `abaptran` (
   KEY `abaptran_fctr_id_l6` (`FCTR_ID_L6`),
   KEY `abaptran_fctr_id_l7` (`FCTR_ID_L7`),
   KEY `abaptran_fctr_id_l8` (`FCTR_ID_L8`),
-  KEY `abaptran_fctr_id_l9` (`FCTR_ID_L9`)
+  KEY `abaptran_fctr_id_l9` (`FCTR_ID_L9`),
+  KEY `abaptran_tcodens` (`TCODENS`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Transaction Code';
 
 -- Prepare Data
@@ -131,6 +133,22 @@ DELETE from abapanalytics.abaptran
   where SOFTCOMP is null
 ;
 
+-- Software Group: Merge all HR Software Components
+UPDATE abapanalytics.abaptran
+  SET SOFTCOMP_GROUP = SOFTCOMP
+;
+
+UPDATE abapanalytics.abaptran
+  SET SOFTCOMP_GROUP = 'SAP_HR'
+  WHERE SOFTCOMP_GROUP LIKE 'SAP_HR%'
+;
+
+UPDATE abapanalytics.abaptran
+  SET SOFTCOMP_GROUP = 'EA-HR'
+  WHERE SOFTCOMP_GROUP LIKE 'EA-HR%'
+;
+
+-- Parent Package
 UPDATE abapanalytics.abaptran
   SET PACKAGEP = null
   WHERE length(trim(PACKAGEP)) < 1

@@ -332,3 +332,9 @@ UPDATE abapanalytics.abapbmfr
   SET PS_POSID_LMAX = 9
   WHERE length(trim(PS_POSID_L9)) > 0
 ;
+
+-- Create Index
+
+DROP   INDEX abapbmfr_ps_posid on abapanalytics.abapbmfr;
+CREATE INDEX abapbmfr_ps_posid on abapanalytics.abapbmfr(ps_posid);
+
