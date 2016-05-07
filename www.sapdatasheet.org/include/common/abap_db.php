@@ -2727,12 +2727,17 @@ class ABAP_DB_TABLE_CREF {
 }
 
 class ABAPANA_DB_TABLE {
+    
+    /**
+     * Max rows limit for result set, to avoid load too many record to UI.
+     */
+    const MAX_ROWS_LIMIT = 2000;
 
     const WULCOUNTER = "wulcounter";
     const WILCOUNTER = "wilcounter";
     const ABAPBMFR = "abapbmfr";
-    const ABAPBMFR_L1 = "abapbmfr_l1";
-    const ABAPBMFR_L2 = "ABAPBMFR_l2";
+    const ABAPBMFR_L1 = "abapbmfrl1";
+    const ABAPBMFR_L2 = "abapbmfrl2";
     const ABAPDEVC = "abapdevc";
     const ABAPTABL = "abaptabl";
     const ABAPTABLFLD = "abaptablfld";
@@ -2742,6 +2747,7 @@ class ABAPANA_DB_TABLE {
     const ABAPTRAN_PACKAGEP = "packagep";         // Column name
     const ABAPTRAN_SOFTCOMP = "softcomp";         // Column name
     const ABAPTRAN_APPLFCTR = 'applfctr';         // Column name
+    const ABAPTRAN_APPLPOSID = 'applposid';       // Column name
     const ABAPTRAN_CALLEDTCODE = "calledtcode";   // Column name
     const ABAPTRAN_CALLEDVIEW = "calledview";     // Column name
     const ABAPTRAN_CALLEDVIEWC = "calledviewc";   // Column name
@@ -2833,10 +2839,22 @@ class ABAPANA_DB_TABLE {
     public static function ABAPTRAN_LOAD($col, $value) {
         $sql = "SELECT TCODE, PS_POSID_L1, FCTR_ID_L1 FROM "
                 . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPTRAN
-                . " WHERE " . $col . ' = :id';
+                . " WHERE " . $col . ' = :id'
+                . ' limit ' . ABAPANA_DB_TABLE::MAX_ROWS_LIMIT;
         return ABAP_DB_TABLE::select_1filter($sql, $value);
     }
 
+    /**
+     * Count tcodes for name pattern.
+     */
+    public static function ABAPTRAN_NAMEPATTERN_COUNT($pattern) {
+        $sql = "SELECT  count(*) as COUNT FROM "
+                . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPTRAN
+                . " WHERE TCODE like :id";
+        $count_array = ABAP_DB_TABLE::select_single($sql, $pattern);
+        return $count_array['COUNT'];
+    }
+    
     /**
      * Load tcodes for name pattern.
      * 
@@ -2847,24 +2865,9 @@ class ABAPANA_DB_TABLE {
     public static function ABAPTRAN_NAMEPATTERN_LOAD($pattern) {
         $sql = "SELECT TCODE, PS_POSID_L1, FCTR_ID_L1 FROM "
                 . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPTRAN
-                . " WHERE TCODE like :id";
+                . " WHERE TCODE like :id"
+                . ' limit ' . ABAPANA_DB_TABLE::MAX_ROWS_LIMIT;
         return ABAP_DB_TABLE::select_1filter($sql, $pattern);
-    }
-
-    /**
-     * Get record count group by <code>PS_POSID_L1</code>.
-     * 
-     * <pre>
-     * SELECT PS_POSID_L1, COUNT(*) as COUNT
-     *   FROM abapanalytics.abaptran
-     *   group by PS_POSID_L1
-     * </pre>
-     */
-    public static function ABAPTRAN_GROUP_PS_POSID_L1() {
-        $sql = "SELECT PS_POSID_L1, COUNT(*) as COUNT FROM "
-                . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPTRAN
-                . ' group by PS_POSID_L1';
-        return ABAP_DB_TABLE::select($sql);
     }
 
     /**
@@ -2904,6 +2907,22 @@ class ABAPANA_DB_TABLE {
                 . ' where tcodens is null and left(tcode, 2) <> "S_" group by left(tcode, 2) ';
         return ABAP_DB_TABLE::select($sql);
     }
+    
+
+    /**
+     * Analysis the TCode Names via level 1 application component.
+     * <pre>
+     * SELECT PS_POSID_L1, count(*)
+     *   FROM abapanalytics.abaptran
+     *   group by PS_POSID_L1
+     * </pre>
+     */
+    public static function ABAPTRAN_ANALYTICS_PS_POSID_L1() {
+        $sql = 'select PS_POSID_L1, count(*) as COUNT from '
+                . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPTRAN
+                . ' group by PS_POSID_L1';
+        return ABAP_DB_TABLE::select($sql);
+    }    
 
     /**
      * Analysis the TCode Names via software component.
@@ -2914,9 +2933,6 @@ class ABAPANA_DB_TABLE {
      * </pre>
      */
     public static function ABAPTRAN_ANALYTICS_SOFTCOMP() {
-        //$sql = 'select SOFTCOMP, count(*) as COUNT from '
-        //        . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPTRAN
-        //        . ' group by SOFTCOMP';
         $sql = 'select SOFTCOMP_GROUP as SOFTCOMP, count(*) as COUNT from '
                 . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPTRAN
                 . ' group by SOFTCOMP_GROUP';

@@ -230,6 +230,9 @@ CREATE INDEX abaptran_pgmna on abapanalytics.abaptran(pgmna);
 DROP   INDEX abaptran_softcomp on abapanalytics.abaptran;
 CREATE INDEX abaptran_softcomp on abapanalytics.abaptran(softcomp);
 
+DROP   INDEX abaptran_applposid on abapanalytics.abaptran;
+CREATE INDEX abaptran_applposid on abapanalytics.abaptran(applposid);
+
 DROP   INDEX abaptran_package on abapanalytics.abaptran;
 CREATE INDEX abaptran_package on abapanalytics.abaptran(package);
 
@@ -247,6 +250,24 @@ CREATE INDEX abaptran_calledviewc on abapanalytics.abaptran(calledviewc);
 
 DROP   INDEX abaptran_ps_posid_l1 on abapanalytics.abaptran;
 CREATE INDEX abaptran_ps_posid_l1 on abapanalytics.abaptran(ps_posid_l1);
+
+DROP   INDEX abaptran_ps_posid_l2 on abapanalytics.abaptran;
+CREATE INDEX abaptran_ps_posid_l2 on abapanalytics.abaptran(ps_posid_l2);
+
+DROP   INDEX abaptran_ps_posid_l3 on abapanalytics.abaptran;
+CREATE INDEX abaptran_ps_posid_l3 on abapanalytics.abaptran(ps_posid_l3);
+
+DROP   INDEX abaptran_ps_posid_l4 on abapanalytics.abaptran;
+CREATE INDEX abaptran_ps_posid_l4 on abapanalytics.abaptran(ps_posid_l4);
+
+DROP   INDEX abaptran_ps_posid_l5 on abapanalytics.abaptran;
+CREATE INDEX abaptran_ps_posid_l5 on abapanalytics.abaptran(ps_posid_l5);
+
+DROP   INDEX abaptran_ps_posid_l6 on abapanalytics.abaptran;
+CREATE INDEX abaptran_ps_posid_l6 on abapanalytics.abaptran(ps_posid_l6);
+
+DROP   INDEX abaptran_ps_posid_l7 on abapanalytics.abaptran;
+CREATE INDEX abaptran_ps_posid_l7 on abapanalytics.abaptran(ps_posid_l7);
 
 DROP   INDEX abaptran_fctr_id_l1 on abapanalytics.abaptran;
 CREATE INDEX abaptran_fctr_id_l1 on abapanalytics.abaptran(fctr_id_l1);
