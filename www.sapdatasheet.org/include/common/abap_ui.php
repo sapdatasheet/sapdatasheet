@@ -451,6 +451,24 @@ class ABAP_UI_TCODES_Navigation {
     const PATH_ANALYTICS_NAME = '/analytics/name/';
     const PATH_TCODE = '/tcode/';
 
+    /**
+     * Create HTML Link (&lta&gt) to an software component.
+     */
+    public static function AnalyticsCompHyperlink($comp, $url = FALSE) {
+        $buf_key = GLOBAL_BUFFER::KEYPREFIX_TCODES_UINAV_COMP . $comp;
+        $buf_value = GLOBAL_BUFFER::Get($buf_key);
+        if ($buf_value == FALSE) {
+            $href = ABAP_UI_TCODES_Navigation::AnalyticsCompPath($comp, $url);
+            $title = ABAP_DB_TABLE_HIER::CVERS_REF($comp);
+            $buf_value = '<a href="' . $href . '" title="' . $title . '" target="_blank">' . $comp . '</a>';
+
+            // Add to bufer
+            GLOBAL_BUFFER::Set($buf_key, $buf_value);
+        }
+
+        return $buf_value;
+    }    
+    
 
     /**
      * Get Path for Analytics by Component.
@@ -469,6 +487,25 @@ class ABAP_UI_TCODES_Navigation {
     }
 
     /**
+     * Create HTML Link (&lta&gt) to an application module.
+     */
+    public static function AnalyticsModuleHyperlink($posid, $url = FALSE) {
+        $buf_key = GLOBAL_BUFFER::KEYPREFIX_TCODES_UINAV_MODULE . $posid;
+        $buf_value = GLOBAL_BUFFER::Get($buf_key);
+        if ($buf_value == FALSE) {
+            $fctr = ABAPANA_DB_TABLE::ABAPBMFR_POSID_2_FCTR($posid);
+            $href = ABAP_UI_TCODES_Navigation::AnalyticsModulePath($posid, $url);
+            $title = ABAP_DB_TABLE_HIER::DF14T($fctr);
+            $buf_value = '<a href="' . $href . '" title="' . $title . '" target="_blank">' . $posid . '</a>';
+
+            // Add to bufer
+            GLOBAL_BUFFER::Set($buf_key, $buf_value);
+        }
+
+        return $buf_value;
+    }
+
+    /**
      * Get Path for Analytics by Component.
      * Example:
      * <pre>
@@ -483,8 +520,8 @@ class ABAP_UI_TCODES_Navigation {
         $path = ABAP_UI_TCODES_Navigation::PATH_ANALYTICS_MODULE . strtolower($posid) . '.html';
         return ($url) ? GLOBAL_WEBSITE::URLPREFIX_SAPTABLS_ORG . $path : $path;
     }
-    
-    
+
+
     /**
      * Get Path for Analytics by Name.
      * Example:
@@ -529,11 +566,15 @@ class ABAP_UI_TCODES_Navigation {
      * @param boolean $url Add prefix for URL
      */
     public static function TCodeHyperlink($tcode, $url = FALSE){
-        $tcode_desc = htmlentities(ABAP_DB_TABLE_TRAN::TSTCT($tcode));
-        return '<a href="' . ABAP_UI_TCODES_Navigation::TCode($tcode, $url)
-                . '" target="_blank" title="' . $tcode_desc . '">'
+        $href = ABAP_UI_TCODES_Navigation::TCode($tcode, $url);
+        $title = htmlentities(ABAP_DB_TABLE_TRAN::TSTCT($tcode));
+        if (GLOBAL_UTIL::IsEmpty($title)) {
+            $title = htmlentities($tcode);
+        }
+        return '<a href="' . $href . '" target="_blank" title="' . $title . '">'
                 . htmlentities($tcode) . '</a>';
     }
+
 
 }
 

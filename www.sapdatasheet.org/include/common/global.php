@@ -108,6 +108,52 @@ class GLOBAL_ABAP_OTYPE {
 
 }
 
+class GLOBAL_BUFFER {
+
+    private static $buffer = array();
+
+    /**
+     * Buffer key prefix for sap-tcodes.com UI Navigation link for Component.
+     */
+    const KEYPREFIX_TCODES_UINAV_COMP = 'tcodeunc-';
+
+    /**
+     * Buffer key prefix for sap-tcodes.com UI Navigation link for Module.
+     */
+    const KEYPREFIX_TCODES_UINAV_MODULE = 'tcodeunm-';
+    
+    /**
+     * Set a value to the global buffer.
+     * 
+     * @return int 0 - Succeed; -1 - invalid input
+     */
+    public static function Set($key, $value) {
+        if (GLOBAL_UTIL::IsEmpty($key)) {
+            return -1;
+        }
+
+        GLOBAL_BUFFER::$buffer[$key] = $value;
+        return 0;
+    }
+
+    /**
+     * Get a value from the global buffer.
+     * 
+     * @return string Value of the key, or default if the key does not exist
+     */
+    public static function Get($key, $default = NULL) {
+        if (GLOBAL_UTIL::IsEmpty($key)) {
+            return NULL;
+        }
+        
+        if (array_key_exists($key, GLOBAL_BUFFER::$buffer)) {
+            return GLOBAL_BUFFER::$buffer[$key];
+        } else {
+            return $default;
+        }
+    }
+
+}
 
 /**
  * Download file Format
@@ -168,7 +214,6 @@ class GLOBAL_HTTP_STATUS {
     const STATUS_504 = "HTTP/1.1 504 Gateway Time-out";
 
 }
-
 
 class GLOBAL_UTIL {
 
@@ -249,27 +294,27 @@ class GLOBAL_UTIL {
     public static function Clear4Url($id) {
         return htmlentities(strtolower($id), ENT_QUOTES, "UTF-8");
     }
-    
+
     /**
      * Echo spaces.
      * 
      * @param int $count Number of spaces to echo
      */
-    public static function EchoSpace($count = 1){
+    public static function EchoSpace($count = 1) {
         while ($count > 0) {
             echo '&nbsp;';
             $count--;
         }
     }
-    
-    public static function IsEmpty($string){
+
+    public static function IsEmpty($string) {
         return !GLOBAL_UTIL::IsNotEmpty($string);
     }
-    
+
     /**
      * Check if the string is empty or not.
      */
-    public static function IsNotEmpty($string){
+    public static function IsNotEmpty($string) {
         if (strlen(trim($string)) > 0) {
             return TRUE;
         } else {
@@ -280,16 +325,18 @@ class GLOBAL_UTIL {
 }
 
 class GLOBAL_WEBSITE {
+
     const URLPREFIX_SAPDS_ORG = "http://www.sapdatasheet.org";
     const URLPREFIX_SAPTABLS_ORG = "http://www.sap-tables.org";
-    
-    public static function GetFullUrl_SAPDS_ORG($uri){
+
+    public static function GetFullUrl_SAPDS_ORG($uri) {
         return GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG . $uri;
     }
-    
-    public static function GetFullUrl_SAPTABLES_ORG($uri){
+
+    public static function GetFullUrl_SAPTABLES_ORG($uri) {
         return GLOBAL_WEBSITE::URLPREFIX_SAPTABLS_ORG . $uri;
     }
+
 }
 
 /** Web Site Constants. */

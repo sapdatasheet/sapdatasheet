@@ -1052,10 +1052,10 @@ class ABAP_DB_TABLE_HIER {
     /**
      * Application Component text.
      */
-    public static function DF14T($AppComp) {
+    public static function DF14T($fctr) {
         $sql = "select name as DESCR from " . ABAP_DB_TABLE_HIER::DF14T
                 . " where FCTR_ID = :id and LANGU = :lg";
-        return ABAP_DB_TABLE::descr_1filter($sql, strtoupper($AppComp));
+        return ABAP_DB_TABLE::descr_1filter($sql, strtoupper($fctr));
     }
 
     public static function Hier($Pgmid, $ObjType, $ObjName) {
@@ -2727,12 +2727,11 @@ class ABAP_DB_TABLE_CREF {
 }
 
 class ABAPANA_DB_TABLE {
-    
+
     /**
      * Max rows limit for result set, to avoid load too many record to UI.
      */
-    const MAX_ROWS_LIMIT = 2000;
-
+    const MAX_ROWS_LIMIT = 300;
     const WULCOUNTER = "wulcounter";
     const WILCOUNTER = "wilcounter";
     const ABAPBMFR = "abapbmfr";
@@ -2760,15 +2759,17 @@ class ABAPANA_DB_TABLE {
     const ABAPTRAN_FCTR_ID_L7 = "fctr_id_l7";     // Column name
     const ABAPTRAN_FCTR_ID_L8 = "fctr_id_l8";     // Column name
     const ABAPTRAN_FCTR_ID_L9 = "fctr_id_l9";     // Column name
+    const ABAPTRAN_PS_POSID_L1 = "ps_posid_l1";   // Column name
+    const ABAPTRAN_PS_POSID_L2 = "ps_posid_l2";   // Column name
+    const ABAPTRAN_FIELDS_LOAD = ' TCODE, SOFTCOMP, APPLPOSID, APPLFCTR, PS_POSID_L1, FCTR_ID_L1 ';
 
     /**
      * Load Level 1 Application Component from database by PS_POSID_L1.
      * <pre>
-     * SELECT * FROM abapanalytics.abapbmfr_l1 
+     * SELECT * FROM abapanalytics.abapbmfr_l1
      *   where PS_POSID_L1 = 'FI'
      * </pre>
      */
-
     public static function ABAPBMFRL1_POSID($posid) {
         $sql = 'SELECT * FROM ' . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPBMFR_L1
                 . ' where PS_POSID_L1 = :id';
@@ -2784,24 +2785,46 @@ class ABAPANA_DB_TABLE {
     }
 
     /**
+     * Load Level 2 Application Component from database by PS_POSID_L2.
+     */
+    public static function ABAPBMFRL2_POSID($posid) {
+        $sql = 'SELECT * FROM ' . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPBMFR_L2
+                . ' where PS_POSID_L2 = :id';
+        return ABAP_DB_TABLE::select_single($sql, $posid);
+    }
+
+    /**
+     * Level 2 Application Component description.
+     */
+    public static function ABAPBMFRL2_TEXT($posid) {
+        $row = ABAPANA_DB_TABLE::ABAPBMFRL2_POSID($posid);
+        return $row['TEXT'];
+    }
+
+    /**
      * Get one record for a given posid.
      */
-    public static function ABAPBMFR_PS_POSID($posid) {
+    public static function ABAPBMFR_POSID($posid) {
         $sql = "SELECT * FROM "
                 . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPBMFR
                 . " WHERE ps_posid = :id";
         return ABAP_DB_TABLE::select_single($sql, $posid);
+    }
+    
+    public static function ABAPBMFR_POSID_2_FCTR($posid){
+        $abap_bmfr = ABAPANA_DB_TABLE::ABAPBMFR_POSID($posid);
+        return $abap_bmfr['FCTR_ID'];
     }
 
     /**
      * Get Text for an application component posid.
      */
     public static function ABAPBMFR_TEXT($posid) {
-        $abap_bmfr = ABAPANA_DB_TABLE::ABAPBMFR_PS_POSID($posid);
-        if (empty($abap_bmfr['FCTR_ID'])) {
+        $bmfr = ABAPANA_DB_TABLE::ABAPBMFR_POSID_2_FCTR($posid);
+        if (GLOBAL_UTIL::IsEmpty($bmfr)) {
             return '';
         } else {
-            return ABAP_DB_TABLE_HIER::DF14T($abap_bmfr['FCTR_ID']);
+            return ABAP_DB_TABLE_HIER::DF14T($bmfr);
         }
     }
 
@@ -2837,10 +2860,10 @@ class ABAPANA_DB_TABLE {
      * @param string $value Column Value
      */
     public static function ABAPTRAN_LOAD($col, $value) {
-        $sql = "SELECT TCODE, PS_POSID_L1, FCTR_ID_L1 FROM "
+        $sql = "SELECT " . ABAPANA_DB_TABLE::ABAPTRAN_FIELDS_LOAD . " FROM "
                 . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPTRAN
                 . " WHERE " . $col . ' = :id'
-                . ' limit ' . ABAPANA_DB_TABLE::MAX_ROWS_LIMIT;
+                . ' LIMIT ' . ABAPANA_DB_TABLE::MAX_ROWS_LIMIT;
         return ABAP_DB_TABLE::select_1filter($sql, $value);
     }
 
@@ -2854,16 +2877,16 @@ class ABAPANA_DB_TABLE {
         $count_array = ABAP_DB_TABLE::select_single($sql, $pattern);
         return $count_array['COUNT'];
     }
-    
+
     /**
      * Load tcodes for name pattern.
-     * 
+     *
      * <pre>
      * SELECT * FROM abapanalytics.abaptran where tcode like 'SE%'
      * </pre>
      */
     public static function ABAPTRAN_NAMEPATTERN_LOAD($pattern) {
-        $sql = "SELECT TCODE, PS_POSID_L1, FCTR_ID_L1 FROM "
+        $sql = "SELECT " . ABAPANA_DB_TABLE::ABAPTRAN_FIELDS_LOAD . " FROM "
                 . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPTRAN
                 . " WHERE TCODE like :id"
                 . ' limit ' . ABAPANA_DB_TABLE::MAX_ROWS_LIMIT;
@@ -2907,7 +2930,6 @@ class ABAPANA_DB_TABLE {
                 . ' where tcodens is null and left(tcode, 2) <> "S_" group by left(tcode, 2) ';
         return ABAP_DB_TABLE::select($sql);
     }
-    
 
     /**
      * Analysis the TCode Names via level 1 application component.
@@ -2922,12 +2944,12 @@ class ABAPANA_DB_TABLE {
                 . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPTRAN
                 . ' group by PS_POSID_L1';
         return ABAP_DB_TABLE::select($sql);
-    }    
+    }
 
     /**
      * Analysis the TCode Names via software component.
      * <pre>
-     * select SOFTCOMP, count(*) as COUNT 
+     * select SOFTCOMP, count(*) as COUNT
      *   from abapanalytics.abaptran
      *   GROUP BY SOFTCOMP
      * </pre>
