@@ -2810,10 +2810,23 @@ class ABAPANA_DB_TABLE {
                 . " WHERE ps_posid = :id";
         return ABAP_DB_TABLE::select_single($sql, $posid);
     }
-    
-    public static function ABAPBMFR_POSID_2_FCTR($posid){
+
+    /**
+     * Convert application component POSID to FCTR id.
+     */
+    public static function ABAPBMFR_POSID_2_FCTR($posid) {
         $abap_bmfr = ABAPANA_DB_TABLE::ABAPBMFR_POSID($posid);
         return $abap_bmfr['FCTR_ID'];
+    }
+
+    /**
+     * Get application component level.
+     * The level 1 appl-comp is the top level.
+     * The level 2's parent is an level 1 appl-comp.
+     */
+    public static function ABAPBMFR_POSID_LEVEL($posid) {
+        $abap_bmfr = ABAPANA_DB_TABLE::ABAPBMFR_POSID($posid);
+        return $abap_bmfr['PS_POSID_LMAX'];
     }
 
     /**
