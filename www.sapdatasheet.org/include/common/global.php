@@ -327,14 +327,14 @@ class GLOBAL_UTIL {
 class GLOBAL_WEBSITE {
 
     const URLPREFIX_SAPDS_ORG = "http://www.sapdatasheet.org";
-    const URLPREFIX_SAPTABLS_ORG = "http://www.sap-tables.org";
+    const URLPREFIX_SAPTCODES_ORG = "http://www.sap-tcodes.org";
 
     public static function GetFullUrl_SAPDS_ORG($uri) {
         return GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG . $uri;
     }
 
     public static function GetFullUrl_SAPTABLES_ORG($uri) {
-        return GLOBAL_WEBSITE::URLPREFIX_SAPTABLS_ORG . $uri;
+        return GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . $uri;
     }
 
 }

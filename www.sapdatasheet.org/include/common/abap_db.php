@@ -2871,12 +2871,16 @@ class ABAPANA_DB_TABLE {
      *
      * @param string $col Database Column Name
      * @param string $value Column Value
+     * @param true $limit Limit the result set max row
      */
-    public static function ABAPTRAN_LOAD($col, $value) {
+    public static function ABAPTRAN_LOAD($col, $value, $limit = TRUE) {
         $sql = "SELECT " . ABAPANA_DB_TABLE::ABAPTRAN_FIELDS_LOAD . " FROM "
                 . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPTRAN
-                . " WHERE " . $col . ' = :id'
-                . ' LIMIT ' . ABAPANA_DB_TABLE::MAX_ROWS_LIMIT;
+                . " WHERE " . $col . ' = :id';
+        if ($limit == TRUE) {
+            $sql = $sql . ' LIMIT ' . ABAPANA_DB_TABLE::MAX_ROWS_LIMIT;
+        }
+
         return ABAP_DB_TABLE::select_1filter($sql, $value);
     }
 

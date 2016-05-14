@@ -483,7 +483,7 @@ class ABAP_UI_TCODES_Navigation {
      */
     public static function AnalyticsCompPath($comp, $url = FALSE) {
         $path = ABAP_UI_TCODES_Navigation::PATH_ANALYTICS_COMP . strtolower($comp) . '.html';
-        return ($url) ? GLOBAL_WEBSITE::URLPREFIX_SAPTABLS_ORG . $path : $path;
+        return ($url) ? GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . $path : $path;
     }
 
     /**
@@ -518,7 +518,7 @@ class ABAP_UI_TCODES_Navigation {
      */
     public static function AnalyticsModulePath($posid, $url = FALSE) {
         $path = ABAP_UI_TCODES_Navigation::PATH_ANALYTICS_MODULE . strtolower($posid) . '.html';
-        return ($url) ? GLOBAL_WEBSITE::URLPREFIX_SAPTABLS_ORG . $path : $path;
+        return ($url) ? GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . $path : $path;
     }
 
 
@@ -535,7 +535,7 @@ class ABAP_UI_TCODES_Navigation {
      */
     public static function AnalyticsNamePath($prefix, $url = FALSE) {
         $path = ABAP_UI_TCODES_Navigation::PATH_ANALYTICS_NAME . strtolower($prefix) . '.html';
-        return ($url) ? GLOBAL_WEBSITE::URLPREFIX_SAPTABLS_ORG . $path : $path;
+        return ($url) ? GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . $path : $path;
     }
 
 
@@ -552,7 +552,7 @@ class ABAP_UI_TCODES_Navigation {
      */
     public static function TCode($tcode, $url = FALSE){
         $path = ABAP_UI_TCODES_Navigation::PATH_TCODE . htmlentities(strtolower($tcode)) . '.html';
-        return ($url) ? GLOBAL_WEBSITE::URLPREFIX_SAPTABLS_ORG . $path : $path;
+        return ($url) ? GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . $path : $path;
     }
 
     /**
