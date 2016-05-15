@@ -449,7 +449,9 @@ class ABAP_UI_TCODES_Navigation {
     const PATH_ANALYTICS_COMP = '/analytics/component/';
     const PATH_ANALYTICS_MODULE = '/analytics/module/';
     const PATH_ANALYTICS_NAME = '/analytics/name/';
+    const PATH_DOWNLOAD_BOOK = '/download/book/';
     const PATH_TCODE = '/tcode/';
+    const BOOK_PREFIX_MODULE = 'SAP-TCodes_Module_';
 
     /**
      * Create HTML Link (&lta&gt) to an software component.
@@ -536,6 +538,13 @@ class ABAP_UI_TCODES_Navigation {
     public static function AnalyticsNamePath($prefix, $url = FALSE) {
         $path = ABAP_UI_TCODES_Navigation::PATH_ANALYTICS_NAME . strtolower($prefix) . '.html';
         return ($url) ? GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . $path : $path;
+    }
+    
+    /**
+     * Get book name for an module.
+     */
+    public static function Book4Module($module){
+        return ABAP_UI_TCODES_Navigation::BOOK_PREFIX_MODULE . strtoupper($module) . '.pdf';
     }
 
 

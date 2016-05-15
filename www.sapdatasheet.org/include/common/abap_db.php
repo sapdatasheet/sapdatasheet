@@ -2975,7 +2975,8 @@ class ABAPANA_DB_TABLE {
     public static function ABAPTRAN_ANALYTICS_PS_POSID_L2($posid_l1) {
         $sql = 'select PS_POSID_L2, count(*) as COUNT from '
                 . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPTRAN
-                . ' where PS_POSID_L1 = :id AND PS_POSID_L2 is not null'
+                // . ' where PS_POSID_L1 = :id AND PS_POSID_L2 is not null'
+                . ' where PS_POSID_L1 = :id'
                 . ' group by PS_POSID_L2';
         return ABAP_DB_TABLE::select_1filter($sql, $posid_l1);
     }

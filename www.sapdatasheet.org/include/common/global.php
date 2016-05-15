@@ -121,7 +121,7 @@ class GLOBAL_BUFFER {
      * Buffer key prefix for sap-tcodes.com UI Navigation link for Module.
      */
     const KEYPREFIX_TCODES_UINAV_MODULE = 'tcodeunm-';
-    
+
     /**
      * Set a value to the global buffer.
      * 
@@ -145,7 +145,7 @@ class GLOBAL_BUFFER {
         if (GLOBAL_UTIL::IsEmpty($key)) {
             return NULL;
         }
-        
+
         if (array_key_exists($key, GLOBAL_BUFFER::$buffer)) {
             return GLOBAL_BUFFER::$buffer[$key];
         } else {
@@ -273,6 +273,27 @@ class GLOBAL_UTIL {
             $sap_desc_langu = "E";
         }
         $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU] = $sap_desc_langu;
+    }
+
+    /**
+     * Show file size in bytes into human readable format.
+     */
+    public static function FormatSizeUnits($bytes) {
+        if ($bytes >= 1073741824) {
+            $bytes = number_format($bytes / 1073741824, 2) . ' GB';
+        } elseif ($bytes >= 1048576) {
+            $bytes = number_format($bytes / 1048576, 2) . ' MB';
+        } elseif ($bytes >= 1024) {
+            $bytes = number_format($bytes / 1024, 2) . ' KB';
+        } elseif ($bytes > 1) {
+            $bytes = $bytes . ' bytes';
+        } elseif ($bytes == 1) {
+            $bytes = $bytes . ' byte';
+        } else {
+            $bytes = '0 bytes';
+        }
+
+        return $bytes;
     }
 
     /**
