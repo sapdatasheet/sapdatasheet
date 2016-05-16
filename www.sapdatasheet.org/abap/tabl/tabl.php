@@ -5,6 +5,8 @@ $__ROOT__ = dirname(dirname(dirname(__FILE__)));
 require_once ($__ROOT__ . '/include/common/global.php');
 require_once ($__ROOT__ . '/include/common/abap_db.php');
 require_once ($__ROOT__ . '/include/common/abap_ui.php');
+require_once ($__ROOT__ . '/include/common/download.php');
+
 GLOBAL_UTIL::UpdateSAPDescLangu();
 
 if (!isset($ObjID)) {
@@ -124,16 +126,16 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::TABL_NA
                 <h4> Components </h4>
                 <table class="alv">
                     <caption class="right">
-                        <a href="/download/abap-tabl-component.php?format=<?php echo strtolower(GLOBAL_DOWNLOAD::FORMAT_CSV) ?>&tabname=<?php echo $dd02l['TABNAME'] ?>"
-                           title="Download components as CSV file.&#10;The downloaded file contains more columns than displayed here."
+                        <a href="/download/abap-tabl-component.php?format=<?php echo strtolower(DOWNLOAD::FORMAT_CSV) ?>&tabname=<?php echo $dd02l['TABNAME'] ?>"
+                           title="Download components as <?php echo DOWNLOAD::FORMAT_CSV_Title ?>.&#10;The downloaded file contains more columns than displayed here."
                            target="_blank">
                            <img src='/abap/icon/s_wdvtxe.gif'></a> &nbsp;
-                        <a href="/download/abap-tabl-component.php?format=<?php echo strtolower(GLOBAL_DOWNLOAD::FORMAT_XLS) ?>&tabname=<?php echo $dd02l['TABNAME'] ?>"
-                           title="Download components as Excel (.xls) file.&#10;The downloaded file contains more columns than displayed here."
+                        <a href="/download/abap-tabl-component.php?format=<?php echo strtolower(DOWNLOAD::FORMAT_XLS) ?>&tabname=<?php echo $dd02l['TABNAME'] ?>"
+                           title="Download components as <?php echo DOWNLOAD::FORMAT_XLS_Title ?>.&#10;The downloaded file contains more columns than displayed here."
                            target="_blank">
                            <img src='/abap/icon/s_x__xls.gif'></a> &nbsp;
-                        <a href="/download/abap-tabl-component.php?format=<?php echo strtolower(GLOBAL_DOWNLOAD::FORMAT_XLSX) ?>&tabname=<?php echo $dd02l['TABNAME'] ?>"
-                           title="Download components as Excel (.xlsx) file.&#10;The downloaded file contains more columns than displayed here."
+                        <a href="/download/abap-tabl-component.php?format=<?php echo strtolower(DOWNLOAD::FORMAT_XLSX) ?>&tabname=<?php echo $dd02l['TABNAME'] ?>"
+                           title="Download components as <?php echo DOWNLOAD::FORMAT_XLSX_Title ?>.&#10;The downloaded file contains more columns than displayed here."
                            target="_blank">
                            <img src='/abap/icon/s_lisvie.gif'></a> &nbsp;
                     </caption>

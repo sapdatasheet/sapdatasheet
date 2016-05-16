@@ -450,8 +450,16 @@ class ABAP_UI_TCODES_Navigation {
     const PATH_ANALYTICS_MODULE = '/analytics/module/';
     const PATH_ANALYTICS_NAME = '/analytics/name/';
     const PATH_DOWNLOAD_BOOK_DIST = '/download/book/dist/';
+    const PATH_DOWNLOAD_SHEET = '/download/sheet/download.php?';
     const PATH_TCODE = '/tcode/';
     const BOOK_PREFIX_MODULE = 'SAP-TCodes_Module_';
+    const SHEET_PARAMETER_FILTER = 'filter';
+    const SHEET_PARAMETER_FILTER_MODULE = 'module';
+    const SHEET_PARAMETER_FILTER_COMPONENT = 'component';
+    const SHEET_PARAMETER_FILTER_NAME = 'name';
+    const SHEET_PARAMETER_ID = 'id';
+    const SHEET_PARAMETER_FORMAT = 'format';
+    const SHEET_PREFIX = 'SAP-TCodes_';
 
     /**
      * Create HTML Link (&lta&gt) to an software component.
@@ -555,7 +563,7 @@ class ABAP_UI_TCODES_Navigation {
     }
 
     /**
-     * Get Pathf for downloading a book.
+     * Get Path for downloading a book.
      * Example:
      * <pre>
      *   /download/book/dist/dist/SAP-TCodes_Module_AC.pdf
@@ -565,7 +573,32 @@ class ABAP_UI_TCODES_Navigation {
         $path = ABAP_UI_TCODES_Navigation::PATH_DOWNLOAD_BOOK_DIST . $bookName;
         return ($url) ? GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . $path : $path;
     }
+    
+    /**
+     * Get path for download an sheet.
+     * Example:
+     * <pre>
+     *   download.php?filter=module&id=fi&format=csv
+     * </pre>
+     */
+    public static function DownloadSheetPath($filter, $id, $format, $url = FALSE){
+        $path = ABAP_UI_TCODES_Navigation::PATH_DOWNLOAD_SHEET
+                . ABAP_UI_TCODES_Navigation::SHEET_PARAMETER_FILTER . '=' . strtolower($filter) . '&'
+                . ABAP_UI_TCODES_Navigation::SHEET_PARAMETER_ID . '=' . strtolower($id) . '&'
+                . ABAP_UI_TCODES_Navigation::SHEET_PARAMETER_FORMAT . '=' . strtolower($format);
+        return ($url) ? GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . $path : $path;
+    }
 
+    /**
+     * Get Sheet file name (no suffix).
+     */
+    public static function SheetName($filter, $id){
+        $name = str_replace('/', '', $id);
+        return ABAP_UI_TCODES_Navigation::SHEET_PREFIX
+                . ucfirst(strtolower($filter)) . '_'
+                . strtoupper($name);
+    }
+    
     /**
      * Get Path for a Transaction Code.
      * Example:

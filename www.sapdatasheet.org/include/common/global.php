@@ -156,17 +156,6 @@ class GLOBAL_BUFFER {
 }
 
 /**
- * Download file Format
- */
-class GLOBAL_DOWNLOAD {
-
-    const FORMAT_CSV = "CSV";
-    const FORMAT_XLS = "XLS";
-    const FORMAT_XLSX = "XLSX";
-
-}
-
-/**
  * HTTP Status Codes.
  * 
  * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html Status Code Definitions
