@@ -449,7 +449,7 @@ class ABAP_UI_TCODES_Navigation {
     const PATH_ANALYTICS_COMP = '/analytics/component/';
     const PATH_ANALYTICS_MODULE = '/analytics/module/';
     const PATH_ANALYTICS_NAME = '/analytics/name/';
-    const PATH_DOWNLOAD_BOOK = '/download/book/';
+    const PATH_DOWNLOAD_BOOK_DIST = '/download/book/dist/';
     const PATH_TCODE = '/tcode/';
     const BOOK_PREFIX_MODULE = 'SAP-TCodes_Module_';
 
@@ -543,10 +543,28 @@ class ABAP_UI_TCODES_Navigation {
     /**
      * Get book name for an module.
      */
-    public static function Book4Module($module){
+    public static function BookName4Module($module){
         return ABAP_UI_TCODES_Navigation::BOOK_PREFIX_MODULE . strtoupper($module) . '.pdf';
     }
+    
+    /**
+     * Get relative book path.
+     */
+    public static function BookPath($bookName){
+        return 'dist' . DIRECTORY_SEPARATOR . $bookName;
+    }
 
+    /**
+     * Get Pathf for downloading a book.
+     * Example:
+     * <pre>
+     *   /download/book/dist/dist/SAP-TCodes_Module_AC.pdf
+     * </pre>
+     */
+    public static function DownloadBookPath($bookName, $url = FALSE){
+        $path = ABAP_UI_TCODES_Navigation::PATH_DOWNLOAD_BOOK_DIST . $bookName;
+        return ($url) ? GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . $path : $path;
+    }
 
     /**
      * Get Path for a Transaction Code.
