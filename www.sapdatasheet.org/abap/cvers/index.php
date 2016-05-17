@@ -25,6 +25,7 @@ ob_start();
 <!-- Software component index. -->
 <html>
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="stylesheet" href="/abap.css" type="text/css" />
         <title>SAP ABAP <?php echo GLOBAL_ABAP_OTYPE::CVERS_DESC ?> <?php echo GLOBAL_WEBSITE_SAPDS::TITLE ?> </title>

@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Note Found</title>
         <META http-equiv="refresh" content="3;URL=/index.php">
     </head>

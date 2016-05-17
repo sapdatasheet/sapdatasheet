@@ -450,7 +450,7 @@ class ABAP_UI_TCODES_Navigation {
     const PATH_ANALYTICS_MODULE = '/analytics/module/';
     const PATH_ANALYTICS_NAME = '/analytics/name/';
     const PATH_DOWNLOAD_BOOK_DIST = '/download/book/dist/';
-    const PATH_DOWNLOAD_SHEET = '/download/sheet/download.php?';
+    const PATH_DOWNLOAD_SHEET_DIST = '/download/sheet/dist/';
     const PATH_TCODE = '/tcode/';
     const BOOK_PREFIX_MODULE = 'SAP-TCodes_Module_';
     const SHEET_PARAMETER_FILTER = 'filter';
@@ -556,10 +556,10 @@ class ABAP_UI_TCODES_Navigation {
     }
     
     /**
-     * Get relative book path.
+     * Get relative Distribution path.
      */
-    public static function BookPath($bookName){
-        return 'dist' . DIRECTORY_SEPARATOR . $bookName;
+    public static function DistPath($fileName){
+        return 'dist' . DIRECTORY_SEPARATOR . $fileName;
     }
 
     /**
@@ -582,21 +582,20 @@ class ABAP_UI_TCODES_Navigation {
      * </pre>
      */
     public static function DownloadSheetPath($filter, $id, $format, $url = FALSE){
-        $path = ABAP_UI_TCODES_Navigation::PATH_DOWNLOAD_SHEET
-                . ABAP_UI_TCODES_Navigation::SHEET_PARAMETER_FILTER . '=' . strtolower($filter) . '&'
-                . ABAP_UI_TCODES_Navigation::SHEET_PARAMETER_ID . '=' . strtolower($id) . '&'
-                . ABAP_UI_TCODES_Navigation::SHEET_PARAMETER_FORMAT . '=' . strtolower($format);
+        $sheetName = ABAP_UI_TCODES_Navigation::SheetName($filter, $id, $format);
+        $path = ABAP_UI_TCODES_Navigation::PATH_DOWNLOAD_SHEET_DIST . $sheetName;
         return ($url) ? GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . $path : $path;
     }
 
     /**
      * Get Sheet file name (no suffix).
      */
-    public static function SheetName($filter, $id){
+    public static function SheetName($filter, $id, $format){
         $name = str_replace('/', '', $id);
         return ABAP_UI_TCODES_Navigation::SHEET_PREFIX
                 . ucfirst(strtolower($filter)) . '_'
-                . strtoupper($name);
+                . strtoupper($name) 
+                . '.' . strtolower($format);
     }
     
     /**

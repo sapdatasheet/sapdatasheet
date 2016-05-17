@@ -2761,6 +2761,7 @@ class ABAPANA_DB_TABLE {
     const ABAPTRAN_FCTR_ID_L9 = "fctr_id_l9";     // Column name
     const ABAPTRAN_PS_POSID_L1 = "ps_posid_l1";   // Column name
     const ABAPTRAN_PS_POSID_L2 = "ps_posid_l2";   // Column name
+    const ABAPTRAN_FIELDS_DOWNLOAD = " TCODE, '' AS TCODE_DESC, '' AS TCODE_URL, PGMNA AS ABAP_PROGRAM, PACKAGE, '' AS PACKAGE_DESC, APPLPOSID AS MODULE,  '' AS MODULE_DESC, '' AS MODULE_URL, PS_POSID_L1 AS MODULE_TOP, '' AS MODULE_TOP_DESC, '' AS MODULE_TOP_URL, SOFTCOMP_GROUP AS COMPONENT, '' AS COMPONENT_DESC, '' AS COMPONENT_URL";
     const ABAPTRAN_FIELDS_LOAD = ' TCODE, SOFTCOMP, APPLPOSID, APPLFCTR, PS_POSID_L1, FCTR_ID_L1 ';
 
     /**
@@ -2867,7 +2868,7 @@ class ABAPANA_DB_TABLE {
     }
 
     /**
-     * Get record cound for a filter.
+     * Get records for a filter.
      *
      * @param string $col Database Column Name
      * @param string $value Column Value
@@ -2880,6 +2881,20 @@ class ABAPANA_DB_TABLE {
         if ($limit == TRUE) {
             $sql = $sql . ' LIMIT ' . ABAPANA_DB_TABLE::MAX_ROWS_LIMIT;
         }
+
+        return ABAP_DB_TABLE::select_1filter($sql, $value);
+    }
+
+    /**
+     * Download records for a filter.
+     *
+     * @param string $col Database Column Name
+     * @param string $value Column Value
+     */
+    public static function ABAPTRAN_DOANLOAD($col, $value) {
+        $sql = "SELECT " . ABAPANA_DB_TABLE::ABAPTRAN_FIELDS_DOWNLOAD . " FROM "
+                . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPTRAN
+                . " WHERE " . $col . ' = :id';
 
         return ABAP_DB_TABLE::select_1filter($sql, $value);
     }
@@ -2902,11 +2917,24 @@ class ABAPANA_DB_TABLE {
      * SELECT * FROM abapanalytics.abaptran where tcode like 'SE%'
      * </pre>
      */
-    public static function ABAPTRAN_NAMEPATTERN_LOAD($pattern) {
+    public static function ABAPTRAN_NAMEPATTERN_LOAD($pattern, $limit = TRUE) {
         $sql = "SELECT " . ABAPANA_DB_TABLE::ABAPTRAN_FIELDS_LOAD . " FROM "
                 . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPTRAN
-                . " WHERE TCODE like :id"
-                . ' limit ' . ABAPANA_DB_TABLE::MAX_ROWS_LIMIT;
+                . " WHERE TCODE like :id";
+        if ($limit == TRUE) {
+            $sql = $sql . ' limit ' . ABAPANA_DB_TABLE::MAX_ROWS_LIMIT;
+        }
+
+        return ABAP_DB_TABLE::select_1filter($sql, $pattern);
+    }
+
+    /**
+     * Download tcodes for name pattern.
+     */
+    public static function ABAPTRAN_NAMEPATTERN_DOWNLOAD($pattern) {
+        $sql = "SELECT " . ABAPANA_DB_TABLE::ABAPTRAN_FIELDS_DOWNLOAD . " FROM "
+                . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPTRAN
+                . " WHERE TCODE like :id";
         return ABAP_DB_TABLE::select_1filter($sql, $pattern);
     }
 

@@ -20,31 +20,29 @@ class DOWNLOAD {
      * Download the file in CSV format
      */
     public static function AsCSV($result, $filename) {
-
-        // send response headers to the browser
-        header('Content-Type: text/csv');
-        header('Content-Disposition: attachment;filename=' . $filename . '.' . strtolower(DOWNLOAD::FORMAT_CSV));
-        $fp = fopen('php://output', 'w');
-
-        // output header row (if at least one row exists)
-        fputcsv($fp, array_keys($result[0]));
-
-        // output each row
-        foreach ($result as $row) {
-            fputcsv($fp, $row);
+        // Send response headers to the browser if not in command line
+        if (php_sapi_name() != 'cli') {
+            header('Content-Type: text/csv');
+            header('Content-Disposition: attachment;filename=' . $filename);
         }
 
-        fclose($fp);
+        $fp = fopen('php://memory', 'w');
+        fputcsv($fp, array_keys($result[0]));        // output header row (if at least one row exists)
+        foreach ($result as $row) {
+            fputcsv($fp, $row);                      // output each row
+        }
+
+        rewind($fp);
+        echo stream_get_contents($fp);
     }
 
     /**
      * Download the file in Excel 2003 XML format (.xls).
      */
     public static function AsXLS($result, $filename) {
-        $exporter = new ExportDataExcel('browser', $filename . '.' . strtolower(DOWNLOAD::FORMAT_XLS));
+        $exporter = new ExportDataExcel('browser', $filename);
         $exporter->title = $filename;
         $exporter->initialize();                  // starts streaming data to web browser
-
         // Table Header
         $exporter->addRow(array_keys($result[0]));
 
@@ -61,16 +59,18 @@ class DOWNLOAD {
      * Download the file in Excel 2007+ format (.xlsx).
      */
     public static function AsXLSX($result, $filename) {
-        header('Content-disposition: attachment; filename="' . XLSXWriter::sanitize_filename($filename . '.' . strtolower(DOWNLOAD::FORMAT_XLSX)) . '"');
-        header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        header('Content-Transfer-Encoding: binary');
-        header('Cache-Control: must-revalidate');
-        header('Pragma: public');
+        if (php_sapi_name() != 'cli') {
+            header('Content-disposition: attachment; filename="' . XLSXWriter::sanitize_filename($filename) . '"');
+            header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            header('Content-Transfer-Encoding: binary');
+            header('Cache-Control: must-revalidate');
+            header('Pragma: public');
+        }
 
         $rows = array();
-        array_push($rows, array_keys($result[0]));
+        array_push($rows, array_keys($result[0]));    // Table Header
         foreach ($result as $row) {
-            array_push($rows, array_values($row));
+            array_push($rows, array_values($row));    // Table Rows
         }
 
         $writer = new XLSXWriter();

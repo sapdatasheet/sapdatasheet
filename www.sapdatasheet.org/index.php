@@ -6,6 +6,7 @@ $GLOBALS['SearchTerm'] = "Company Code";
 ?>
 <html>
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="stylesheet" href="abap.css" type="text/css" />
         <title><?php echo GLOBAL_WEBSITE_SAPDS::NAME ?> - <?php echo GLOBAL_WEBSITE_SAPDS::DESC ?> </title>
