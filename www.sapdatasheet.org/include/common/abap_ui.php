@@ -446,13 +446,14 @@ class ABAP_UI_DS_Navigation {
 
 class ABAP_UI_TCODES_Navigation {
 
+    const BOOK_PREFIX_MODULE = 'SAP-TCodes_Module_';
+    const DOWNLOAD_NAME_ROW_MIN = 200;                   // Only download
     const PATH_ANALYTICS_COMP = '/analytics/component/';
     const PATH_ANALYTICS_MODULE = '/analytics/module/';
     const PATH_ANALYTICS_NAME = '/analytics/name/';
     const PATH_DOWNLOAD_BOOK_DIST = '/download/book/dist/';
     const PATH_DOWNLOAD_SHEET_DIST = '/download/sheet/dist/';
     const PATH_TCODE = '/tcode/';
-    const BOOK_PREFIX_MODULE = 'SAP-TCodes_Module_';
     const SHEET_PARAMETER_FILTER = 'filter';
     const SHEET_PARAMETER_FILTER_MODULE = 'module';
     const SHEET_PARAMETER_FILTER_COMPONENT = 'component';
@@ -581,8 +582,7 @@ class ABAP_UI_TCODES_Navigation {
      *   download.php?filter=module&id=fi&format=csv
      * </pre>
      */
-    public static function DownloadSheetPath($filter, $id, $format, $url = FALSE){
-        $sheetName = ABAP_UI_TCODES_Navigation::SheetName($filter, $id, $format);
+    public static function DownloadSheetPath($sheetName, $url = FALSE){
         $path = ABAP_UI_TCODES_Navigation::PATH_DOWNLOAD_SHEET_DIST . $sheetName;
         return ($url) ? GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . $path : $path;
     }

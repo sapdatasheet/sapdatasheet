@@ -20,11 +20,11 @@ function SitemapStartOB() {
 /**
  * Echo one URL for the sitemap file.
  */
-function SitemapEchoUrl($url) {
+function SitemapEchoUrl($url, $priority = '0.7') {
     echo '<url>';
     echo '<loc>' . $url . '</loc>';
     echo '<changefreq>yearly</changefreq>';
-    echo '<priority>0.6</priority>';
+    echo '<priority>' . $priority . '</priority>';
     echo '</url>';
     echo "\r\n";
 }

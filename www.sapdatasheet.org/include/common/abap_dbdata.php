@@ -13,4 +13,6 @@ class ABAP_DBDATA {
 
     const SITEMAP_WUL_MAX = 168;
     const SITEMAP_WIL_MAX = 120;
+    const SITEMAP_SAPTCODES_MAX = 3;
+
 }

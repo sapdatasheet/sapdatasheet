@@ -3012,7 +3012,7 @@ class ABAPANA_DB_TABLE {
     /**
      * Analysis the TCode Names via software component.
      * <pre>
-     * select SOFTCOMP, count(*) as COUNT
+     * select SOFTCOMP_GROUP as SOFTCOMP, count(*) as COUNT
      *   from abapanalytics.abaptran
      *   GROUP BY SOFTCOMP
      * </pre>
@@ -3038,6 +3038,27 @@ class ABAPANA_DB_TABLE {
                 . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPTRAN
                 . ' WHERE SOFTCOMP_GROUP = :id GROUP BY APPLPOSID';
         return ABAP_DB_TABLE::select_1filter($sql, $softcomp);
+    }
+
+    /**
+     * Sitemap for Analytics Module.
+     * <pre>
+     *   SELECT distinct APPLPOSID as MODULE FROM abapanalytics.abaptran
+     * </pre>
+     */
+    public static function ABAPTRAN_Sitemap_Module() {
+        $sql = "SELECT distinct APPLPOSID as MODULE FROM "
+                . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPTRAN;
+        return ABAP_DB_TABLE::select($sql);
+    }
+
+    /**
+     * ABAP T-Code sitemap.
+     */
+    public static function ABAPTRAN_Sitemap_TCode() {
+        $sql = "SELECT TCODE FROM "
+                . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPTRAN;
+        return ABAP_DB_TABLE::select($sql);
     }
 
     /**
