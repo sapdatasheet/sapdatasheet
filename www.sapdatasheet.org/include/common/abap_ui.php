@@ -553,7 +553,7 @@ class ABAP_UI_TCODES_Navigation {
      * Get book name for an module.
      */
     public static function BookName4Module($module){
-        return ABAP_UI_TCODES_Navigation::BOOK_PREFIX_MODULE . strtoupper($module) . '.pdf';
+        return ABAP_UI_TCODES_Navigation::BOOK_PREFIX_MODULE . strtoupper($module) . '-EN.pdf';
     }
     
     /**
@@ -595,7 +595,7 @@ class ABAP_UI_TCODES_Navigation {
         return ABAP_UI_TCODES_Navigation::SHEET_PREFIX
                 . ucfirst(strtolower($filter)) . '_'
                 . strtoupper($name) 
-                . '.' . strtolower($format);
+                . '-EN.' . strtolower($format);
     }
     
     /**
