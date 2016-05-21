@@ -26,7 +26,6 @@ call:BuffGenerate                                          clas  12
 call:BuffGenerate                                          clas  13
 
 cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
-call:BuffGenerate                                          cus0  hierarchy
 call:BuffGenerate                                          cus0  1
 call:BuffGenerate                                          cus0  2
 call:BuffGenerate                                          cus0  3

@@ -716,6 +716,8 @@ class ABAP_UI_CUS0 {
 
     /**
      * Generate IMG Tree.
+     * 
+     * @deprecated since version 2016.05.21
      */
     public static function LoadImgNodes() {
         $nodeimg_list = ABAP_DB_TABLE_CUS0::TNODEIMG_PARENT_ID('368DDFAC3AB96CCFE10000009B38F976');

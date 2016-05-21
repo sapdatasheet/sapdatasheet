@@ -7,7 +7,6 @@ require_once($__ROOT__ . '/include/common/abap_dbdata.php');
 class ABAP_DB_CONST {
 
     const INDEX_A = "A";                       // First page, start from 'A'
-    const INDEX_HIER = "HIERARCHY";            // Hierarchy view, example: SPRO
     const INDEX_LIST = "LIST";                 // List all contents, no paging
     const INDEX_SLASH = "SLASH";
     const INDEX_TOP = "TOP";

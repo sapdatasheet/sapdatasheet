@@ -77,7 +77,6 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . GLOBAL_ABAP_OTYPE::CUS0_DESC . " - Index 
                 </div>
 
                 <div>
-                    <a href="index-<?php echo strtolower(ABAP_DB_CONST::INDEX_HIER) ?>.html">Hierarchy</a>&nbsp; - &nbsp;
                     <?php for ($count = 1; $count <= ABAP_DBDATA::CUS_IMGACT_INDEX_MAX; $count++) { ?>
                         <a href="index-<?php echo $count ?>.html"><?php echo $count ?></a>&nbsp;
                     <?php } ?>
@@ -85,39 +84,33 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . GLOBAL_ABAP_OTYPE::CUS0_DESC . " - Index 
                 </div>
 
                 <h4> <?php echo GLOBAL_ABAP_OTYPE::CUS0_DESC ?> - <?php echo $index ?></h4>
-                <?php if ($index === ABAP_DB_CONST::INDEX_HIER) { ?>
-                    <ol type="1">
-                        <?php ABAP_UI_CUS0::LoadImgNodes(); ?>
-                    </ol>
-                <?php } else { ?>
-                    <table class="alv">
-                        <tr>
-                            <th class="alv"> # </th>
-                            <th class="alv"> IMG Activity </th>
-                            <th class="alv"> Transaction Code </th>
-                            <th class="alv"> Short Description </th>
+                <table class="alv">
+                    <tr>
+                        <th class="alv"> # </th>
+                        <th class="alv"> IMG Activity </th>
+                        <th class="alv"> Transaction Code </th>
+                        <th class="alv"> Short Description </th>
+                    </tr>
+                    <tr>
+                        <th class="alv"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
+                        <th class="alv"> &nbsp; </th>
+                        <th class="alv"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_CUS0::CUS_IMGACH_TCODE_DTEL, '?') ?></th>
+                        <th class="alv"> &nbsp; </th>
+                    </tr>
+                    <?php
+                    $img_list = ABAP_DB_TABLE_CUS0::CUS_IMGACH_List($index);
+                    $count = 0;
+                    foreach ($img_list as $img) {
+                        $count ++;
+                        $img_desc = ABAP_DB_TABLE_CUS0::CUS_IMGACT($img['ACTIVITY']);
+                        ?>
+                        <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Cus0IMGActivity($img['ACTIVITY'], $img_desc, TRUE) ?> </td>
+                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tran($img['TCODE'], '', TRUE) ?> </td>
+                            <td class="alv"><?php echo htmlentities($img_desc) ?>&nbsp;</td>
                         </tr>
-                        <tr>
-                            <th class="alv"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
-                            <th class="alv"> &nbsp; </th>
-                            <th class="alv"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_CUS0::CUS_IMGACH_TCODE_DTEL, '?') ?></th>
-                            <th class="alv"> &nbsp; </th>
-                        </tr>
-                        <?php
-                        $img_list = ABAP_DB_TABLE_CUS0::CUS_IMGACH_List($index);
-                        $count = 0;
-                        foreach ($img_list as $img) {
-                            $count ++;
-                            $img_desc = ABAP_DB_TABLE_CUS0::CUS_IMGACT($img['ACTIVITY']);
-                            ?>
-                            <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                                <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Cus0IMGActivity($img['ACTIVITY'], $img_desc, TRUE) ?> </td>
-                                <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tran($img['TCODE'], '', TRUE) ?> </td>
-                                <td class="alv"><?php echo htmlentities($img_desc) ?>&nbsp;</td>
-                            </tr>
-                        <?php } ?>
-                    </table>
-                <?php } ?>
+                    <?php } ?>
+                </table>
 
             </div>
         </div><!-- Content: End -->
@@ -133,7 +126,7 @@ ob_end_flush();
 file_put_contents($ob_fname, $ob_content);
 
 // Make default index file
-if ($index == ABAP_DB_CONST::INDEX_HIER) {
+if ($index == ABAP_DB_CONST::INDEX_PAGE_1) {
     $ob_fname = $ob_folder . "/index.html";
     file_put_contents($ob_fname, $ob_content);
 }
