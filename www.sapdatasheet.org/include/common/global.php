@@ -108,6 +108,44 @@ class GLOBAL_ABAP_OTYPE {
 
 }
 
+/** ABAP Object types and description. */
+class GLOBAL_ABAP_ICON {
+
+    const ANALYTICS = 's_b_area.gif';
+    const FILE_PDF = 's_x__pdf.gif';
+    const FILE_XLSX = 's_x__xlv.gif';
+
+    public static function getIcon4Analytics($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::ANALYTICS, $url);
+    }
+
+    public static function getIcon4FilePDF($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::FILE_PDF, $url);
+    }
+
+    public static function getIcon4FileXLSX($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::FILE_XLSX, $url);
+    }
+
+    /**
+     * Get Icon image link.
+     * Examples:
+     * <pre>
+     *   <img src='/abap/icon/s_b_area.gif'>
+     *   <img src='http://www.sapdatasheet.org/abap/icon/s_b_area.gif'>
+     * </pre>
+     */
+    public static function getIconLink($fname, $url = FALSE) {
+        $location = '/abap/icon/' . $fname;
+        if ($url == TRUE) {
+            $location = GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG . $location;
+        }
+
+        return "<img src='" . $location . "'>";
+    }
+
+}
+
 class GLOBAL_BUFFER {
 
     private static $buffer = array();

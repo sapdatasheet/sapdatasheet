@@ -451,7 +451,9 @@ class ABAP_UI_TCODES_Navigation {
     const PATH_ANALYTICS_COMP = '/analytics/component/';
     const PATH_ANALYTICS_MODULE = '/analytics/module/';
     const PATH_ANALYTICS_NAME = '/analytics/name/';
+    const PATH_DOWNLOAD_BOOK = '/download/book/';
     const PATH_DOWNLOAD_BOOK_DIST = '/download/book/dist/';
+    const PATH_DOWNLOAD_SHEET = '/download/sheet/';
     const PATH_DOWNLOAD_SHEET_DIST = '/download/sheet/dist/';
     const PATH_TCODE = '/tcode/';
     const SHEET_PARAMETER_FILTER = 'filter';
@@ -576,6 +578,18 @@ class ABAP_UI_TCODES_Navigation {
     }
     
     /**
+     * Get Path for downloading books.
+     * Example:
+     * <pre>
+     *   /download/book/
+     *   https://www.sap-tcodes.org/download/book/
+     * </pre>
+     */
+    public static function DownloadBooks($url = FALSE){
+        return ($url) ? GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . ABAP_UI_TCODES_Navigation::PATH_DOWNLOAD_BOOK : ABAP_UI_TCODES_Navigation::PATH_DOWNLOAD_BOOK;
+    }
+
+    /**
      * Get path for download an sheet.
      * Example:
      * <pre>
@@ -585,6 +599,18 @@ class ABAP_UI_TCODES_Navigation {
     public static function DownloadSheetPath($sheetName, $url = FALSE){
         $path = ABAP_UI_TCODES_Navigation::PATH_DOWNLOAD_SHEET_DIST . $sheetName;
         return ($url) ? GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . $path : $path;
+    }
+    
+    /**
+     * Get Path for downloading sheets.
+     * Example:
+     * <pre>
+     *   /download/sheet/
+     *   https://www.sap-tcodes.org/download/sheet/
+     * </pre>
+     */
+    public static function DownloadSheets($url = FALSE){
+        return ($url) ? GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . ABAP_UI_TCODES_Navigation::PATH_DOWNLOAD_SHEET : ABAP_UI_TCODES_Navigation::PATH_DOWNLOAD_SHEET;
     }
 
     /**

@@ -68,7 +68,25 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::TRAN_NA
             </table>
 
             <?php require $__ROOT__ . '/include/abap_oname_wul.php' ?>
-            <h5>&nbsp;</h5>
+
+            <h5>Related Links</h5>
+            <table class="content_obj">
+                <tbody>
+                    <tr><td class="left_value">
+                        <?php echo GLOBAL_ABAP_ICON::getIcon4Analytics() ?>
+                        <?php echo ABAP_UI_TCODES_Navigation::TCodeHyperlink($tstc['TCODE'], TRUE) ?> Analytics
+                        </td></tr>
+                    <tr><td class="left_value">
+                            <?php echo GLOBAL_ABAP_ICON::getIcon4FilePDF() ?>
+                            <a href="<?php echo ABAP_UI_TCODES_Navigation::DownloadBooks(TRUE) ?>" target="_blank">Download TCode Books</a>
+                        </td></tr>
+                    <tr><td class="left_value">
+                            <?php echo GLOBAL_ABAP_ICON::getIcon4FileXLSX() ?>
+                            <a href="<?php echo ABAP_UI_TCODES_Navigation::DownloadSheets(TRUE) ?>" target="_blank">Download TCode Excels</a>
+                        </td></tr>
+                </tbody>
+            </table>            
+
         </div>
 
         <!-- Content -->
