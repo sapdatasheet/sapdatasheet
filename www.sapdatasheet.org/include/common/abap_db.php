@@ -1813,6 +1813,10 @@ class ABAP_DB_TABLE_SEO {
     const SEOSUBCO_SCOTYPE_1 = 1;                        // Exception
     const SEOSUBCODF = 'seosubcodf';
     const SEOSUBCODF_PARDECLTYP_DOMAIN = 'SEOPARDECL';
+    const SEOSUBCODF_PARDECLTYP_0 = 0;                   // Importing
+    const SEOSUBCODF_PARDECLTYP_1 = 1;                   // Exporting
+    const SEOSUBCODF_PARDECLTYP_2 = 2;                   // Changing
+    const SEOSUBCODF_PARDECLTYP_3 = 3;                   // Returning
     const SEOSUBCODF_PARPASSTYP_DOMAIN = 'SEOPARPASS';
     const SEOSUBCODF_TYPTYPE_DOMAIN = 'SEOTYPTYPE';
     const SEOSUBCOTX = 'seosubcotx';

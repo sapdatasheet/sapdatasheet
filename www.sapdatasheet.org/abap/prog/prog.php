@@ -203,11 +203,13 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::PROG_NA
                             $tcode_desc = ABAP_DB_TABLE_TRAN::TSTCT($tcode['TCODE']);
                             ?>
                             <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                                <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tran($tcode['TCODE'], $tcode_desc) ?></td>
+                                <td class="alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeTRAN() ?>
+                                    <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tran($tcode['TCODE'], $tcode_desc) ?></td>
                                 <td class="alv"><?php echo htmlentities($tcode_desc) ?>&nbsp;</td>
                             </tr>
                         <?php } ?>
                         <tr><td class="alv">&nbsp;</td>
+                            <td class="alv">&nbsp;</td>
                             <td class="alv">&nbsp;</td>
                         </tr>
                     </table>

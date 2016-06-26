@@ -38,6 +38,7 @@ class GLOBAL_ABAP_ICON {
     );
 
     const ABAP = 's_b_abap.gif';
+    const ABAPLOCAL = 's_b_abal.gif';
     const ALERT = 's_b_alet.gif';
     const ANALYTICS = 's_b_area.gif';
     const DATE = 's_t_date.gif';
@@ -50,6 +51,13 @@ class GLOBAL_ABAP_ICON {
     const LIGHT_OUT = 's_outlig.gif';
     const LIGHT_YELLOW = 's_s_tl_y.gif';
     const NAMEPREFIX = 's_b_renm.gif';
+    const OO_CLASS_ATTRIBUTE = 's_b_klat.gif';
+    const OO_CLASS_EVENT = 's_b_clev.gif';
+    const OO_CLASS_METHOD = 's_b_klme.gif';
+    const OO_CONNECTION = 's_b_conn.gif';
+    const OO_CONSTANT = 's_b_kons.gif';
+    const OO_EVENT = 's_b_even.gif';
+    const OO_INHERITANCE = 's_b_verb.gif';
     const OTYPE_BMFR = 's_b_tree.gif';
     const OTYPE_CLAS = 's_b_clas.gif';
     const OTYPE_CUS0 = 's_b_exec.gif';
@@ -88,6 +96,10 @@ class GLOBAL_ABAP_ICON {
 
     public static function getIcon4Abap($url = FALSE) {
         return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::ABAP, $url);
+    }
+
+    public static function getIcon4Abaplocal($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::ABAPLOCAL, $url);
     }
 
     public static function getIcon4Alert($url = FALSE) {
@@ -136,6 +148,34 @@ class GLOBAL_ABAP_ICON {
 
     public static function getIcon4NamePrefix($url = FALSE) {
         return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::NAMEPREFIX, $url);
+    }
+
+    public static function getIcon4OOClassAttribute($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OO_CLASS_ATTRIBUTE, $url);
+    }
+
+    public static function getIcon4OOClassEvent($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OO_CLASS_EVENT, $url);
+    }
+
+    public static function getIcon4OOClassMethod($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OO_CLASS_METHOD, $url);
+    }
+
+    public static function getIcon4OOConnection($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OO_CONNECTION, $url);
+    }
+
+    public static function getIcon4OOConstant($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OO_CONSTANT, $url);
+    }
+
+    public static function getIcon4OOEvent($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OO_EVENT, $url);
+    }
+
+    public static function getIcon4OOInheritance($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OO_INHERITANCE, $url);
     }
 
     public static function getIcon4Otype($otype, $url = FALSE) {

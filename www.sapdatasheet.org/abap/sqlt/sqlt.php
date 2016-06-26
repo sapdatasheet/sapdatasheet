@@ -114,7 +114,8 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::SQLT_NA
                             $count++;
                             ?>
                             <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                                <td class="alv"><?php echo $dd16s_item['FIELDNAME'] ?></td>
+                                <td class="alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDTF() ?>
+                                    <?php echo $dd16s_item['FIELDNAME'] ?></td>
                                 <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox($dd16s_item['FIELDNAME'], $dd16s_item['KEYFLAG']) ?></td>
                                 <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_DATATYPE, $dd16s_item['DATATYPE'], '') ?></td>
                                 <td class="alv"><?php echo intval($dd16s_item['LENG']) ?></td>
@@ -140,7 +141,8 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::SQLT_NA
                             $dd02l_sqlt_item_desc = ABAP_DB_TABLE_TABL::DD02T($dd02l_sqlt_item['TABNAME']);
                             ?>
                             <tr>
-                                <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tabl($dd02l_sqlt_item['TABNAME'], $dd02l_sqlt_item_desc) ?></td>
+                                <td class="alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeTABL() ?>
+                                    <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tabl($dd02l_sqlt_item['TABNAME'], $dd02l_sqlt_item_desc) ?></td>
                                 <td class="alv"><?php echo htmlentities($dd02l_sqlt_item_desc) ?></td>
                                 <td class="alv"><?php echo $dd02l_sqlt_item['AS4DATE'] ?></td>
                             </tr>

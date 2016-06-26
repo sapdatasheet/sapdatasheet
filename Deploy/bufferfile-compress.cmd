@@ -6,6 +6,6 @@
 ::----------------------------------------------
 
 cd C:\Data\Business\SAPDatasheet\Runtime\htmlcompressor
-java -jar htmlcompressor-1.5.3.jar --type %~1 -o %~2 %~2
+java -Xmx4g -jar htmlcompressor-1.5.3.jar --type %~1 -o %~2 %~2
 
 exit

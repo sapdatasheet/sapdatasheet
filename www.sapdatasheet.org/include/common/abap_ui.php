@@ -934,6 +934,23 @@ class ABAP_UI_TOOL {
     }
 
     /**
+     * ABAP OO Paratmer Type icon.
+     */
+    public static function GetOOParameterIcon($Type){
+        if ($Type == ABAP_DB_TABLE_SEO::SEOSUBCODF_PARDECLTYP_0) {
+           return GLOBAL_ABAP_ICON::getIcon4ParameterImport();
+        } else if ($Type == ABAP_DB_TABLE_SEO::SEOSUBCODF_PARDECLTYP_1) {
+           return GLOBAL_ABAP_ICON::getIcon4ParameterExport();
+        } else if ($Type == ABAP_DB_TABLE_SEO::SEOSUBCODF_PARDECLTYP_2) {
+           return GLOBAL_ABAP_ICON::getIcon4ParameterChanging();
+        } else if ($Type == ABAP_DB_TABLE_SEO::SEOSUBCODF_PARDECLTYP_3) {
+           return GLOBAL_ABAP_ICON::getIcon4ParameterResult();
+        } else {
+            return GLOBAL_ABAP_ICON::getIcon4Abap();
+        }
+    }
+
+    /**
      * Function Module parameter Typing. Type assignment.
      * <p> Related table field FUPARAREF-REF_CLASS. </p>
      * <pre>

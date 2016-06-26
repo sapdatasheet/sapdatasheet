@@ -305,7 +305,8 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::CLAS_NA
                             }
                             ?>
                             <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                                <td class="alv"><?php echo $typepl_type ?></td>
+                                <td class="alv"><?php echo GLOBAL_ABAP_ICON::getIcon4Abaplocal() ?>
+                                    <?php echo $typepl_type ?></td>
                                 <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_SEO::SEOTYPEPLS_TPUTYPE_DOMAIN, $typepl_type_desc, $typepl['TPUTYPE']) ?>&nbsp;</td>
                                 <td class="alv"><?php echo $typepl_type_desc ?></td>
                             </tr>
@@ -400,7 +401,8 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::CLAS_NA
                             $seocomp_typing_tx = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SEO::SEOCOMPODF_TYPTYPE_DOMAIN, $seocomp_df['TYPTYPE']);
                             ?>
                             <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                                <td class="alv"><?php echo $seocomp_df['CMPNAME'] ?></td>
+                                <td class="alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OOClassAttribute() ?>
+                                    <?php echo $seocomp_df['CMPNAME'] ?></td>
                                 <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_ATTDECLTYP_DOMAIN, $attribute_level_tx, $seocomp_df['ATTDECLTYP']) ?></td>
                                 <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_EXPOSURE_DOMAIN, $seocomp_visibility_tx, $seocomp_df['EXPOSURE']) ?></td>
                                 <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox('ATTRDONLY', $seocomp_df['ATTRDONLY']) ?></td>
@@ -450,7 +452,8 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::CLAS_NA
                             $method_type_tx = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SEO::SEOCOMPO_MTDTYPE_DOMAIN, $method['MTDTYPE']);
                             ?>
                             <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                                <td class="alv"><a href="#<?php echo ABAP_UI_TOOL::GetClassMethodAnchorName($seocomp_df['CMPNAME']) ?>"><?php echo $seocomp_df['CMPNAME'] ?></a></td>
+                                <td class="alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OOClassMethod() ?>
+                                    <a href="#<?php echo ABAP_UI_TOOL::GetClassMethodAnchorName($seocomp_df['CMPNAME']) ?>"><?php echo $seocomp_df['CMPNAME'] ?></a></td>
                                 <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_MTDDECLTYP_DOMAIN, $method_level_tx, $seocomp_df['MTDDECLTYP']) ?></td>
                                 <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_EXPOSURE_DOMAIN, $seocomp_visibility_tx, $seocomp_df['EXPOSURE']) ?></td>
                                 <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_SEO::SEOCOMPO_MTDTYPE_DOMAIN, $method_type_tx, $method['MTDTYPE']) ?></td>
@@ -553,8 +556,8 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::CLAS_NA
                             <table class="alv">
                                 <tr>
                                     <th class="alv"> # </th>
-                                    <th class="alv"> Parameter </th>
                                     <th class="alv"> Type </th>
+                                    <th class="alv"> Parameter </th>
                                     <th class="alv"> Pass Value </th>
                                     <th class="alv"> Optional </th>
                                     <th class="alv"> Typing Method </th>
@@ -574,8 +577,9 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::CLAS_NA
                                     $subco_typing_tx = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SEO::SEOSUBCODF_TYPTYPE_DOMAIN, $subco_df['TYPTYPE']);
                                     ?>
                                     <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                                        <td class="alv"><?php echo ABAP_UI_TOOL::GetOOParameterIcon($subco_df['PARDECLTYP']) ?>
+                                            <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_SEO::SEOSUBCODF_PARDECLTYP_DOMAIN, $subco_decltype_tx, $subco_df['PARDECLTYP']) ?></td>
                                         <td class="alv"><?php echo $method_para['SCONAME'] ?></td>
-                                        <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_SEO::SEOSUBCODF_PARDECLTYP_DOMAIN, $subco_decltype_tx, $subco_df['PARDECLTYP']) ?></td>
                                         <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_SEO::SEOSUBCODF_PARPASSTYP_DOMAIN, $subco_passvalue_tx, $subco_df['PARPASSTYP']) ?></td>
                                         <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox('PAROPTIONL', $subco_df['PAROPTIONL']) ?></td>
                                         <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_SEO::SEOSUBCODF_TYPTYPE_DOMAIN, $subco_typing_tx, $subco_df['TYPTYPE']) ?></td>
@@ -611,7 +615,8 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::CLAS_NA
                                     $subco_typing_tx = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SEO::SEOSUBCODF_TYPTYPE_DOMAIN, $subco_df['TYPTYPE']);
                                     ?>
                                     <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                                        <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Clas($method_para['SCONAME'], $subco_tx) ?></td>
+                                        <td class="alv"><?php echo GLOBAL_ABAP_ICON::getIcon4Alert() ?>
+                                            <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Clas($method_para['SCONAME'], $subco_tx) ?></td>
                                         <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox('IS_RESUMABLE', $subco_df['IS_RESUMABLE']) ?></td>
                                         <td class="alv"><?php echo $subco_tx ?></td>
                                         <td class="alv"><?php echo $subco_df['CREATEDON'] ?></td>

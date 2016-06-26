@@ -115,7 +115,8 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::CVERS_N
                             foreach ($child_bmfr_item_s as $appcomp_item) {
                                 $appcomp_desc = ABAP_DB_TABLE_HIER::DF14T($appcomp_item['FCTR_ID']);
                                 ?>
-                                <tr><td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Bmfr($appcomp_item['FCTR_ID'], $appcomp_item['PS_POSID'], $appcomp_desc) ?></td>
+                                <tr><td class="alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeBMFR() ?>
+                                        <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Bmfr($appcomp_item['FCTR_ID'], $appcomp_item['PS_POSID'], $appcomp_desc) ?></td>
                                     <td class="alv"><?php echo $appcomp_item['FCTR_ID'] ?></td>
                                     <td class="alv"><?php echo htmlentities($appcomp_desc) ?>&nbsp;</td></tr>
                                     <?php
