@@ -62,6 +62,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::SQLT_NA
             </table>
 
             <?php require $__ROOT__ . '/include/abap_oname_wul.php' ?>
+            <?php require $__ROOT__ . '/include/abap_relatedlinks.php' ?>
             <h5>&nbsp;</h5>
         </div>
 
@@ -69,7 +70,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::SQLT_NA
         <div class="content">
             <!-- Content Navigator -->
             <div class="content_navi">
-                <a href="/">Home page</a> &gt; 
+                <a href="/"><?php echo GLOBAL_ABAP_ICON::getIcon4Home() ?> Home page</a> &gt; 
                 <a href="/abap/">ABAP Object</a> &gt; 
                 <a href="/abap/sqlt/">ABAP <?php echo $sqlt_sqlcalss_desc ?></a> &gt; 
                 <a href="#"><?php echo $sqlt['SQLTAB'] ?></a>

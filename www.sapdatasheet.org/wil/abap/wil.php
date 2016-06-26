@@ -43,7 +43,7 @@ $GLOBALS['TITLE_TEXT'] = "Where Using List for " . $title_name;
         <div class="content">
             <!-- Content Navigator -->
             <div class="content_navi">
-                <a href="/">Home page</a> &gt;
+                <a href="/"><?php echo GLOBAL_ABAP_ICON::getIcon4Home() ?> Home page</a> &gt;
                 <a href="/abap/">ABAP Object</a>
             </div>
 
@@ -56,6 +56,7 @@ $GLOBALS['TITLE_TEXT'] = "Where Using List for " . $title_name;
 
                 <?php
                 $wilTitle = 'SAP ABAP ' . GLOBAL_ABAP_OTYPE::getOTypeDesc($dpOType) . ' '
+                        . GLOBAL_ABAP_ICON::getIcon4Otype($dpOType) . ' '
                         . ABAP_UI_DS_Navigation::GetObjectHyperlink($dpOType, $dpOName);
                 if (!empty($objDesc)) {
                     $wilTitle = $wilTitle . ' (' . $objDesc . ')';
@@ -63,9 +64,9 @@ $GLOBALS['TITLE_TEXT'] = "Where Using List for " . $title_name;
                 ?>
                 <h4><?php echo $wilTitle ?> is using</h4>
                 <?php
-                // print_r($counter_list);
 
                 foreach ($counter_list as $counter) {
+                    echo GLOBAL_ABAP_ICON::getIcon4Otype($counter['SRC_OBJ_TYPE']) . ' ';
                     echo ABAP_UI_DS_Navigation::GetWilHyperlink($counter, FALSE);
                     echo '&nbsp;';
                 }
@@ -95,7 +96,8 @@ $GLOBALS['TITLE_TEXT'] = "Where Using List for " . $title_name;
                         $count++;
                         ?>
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetOTypeHyperlink($wil['SRC_OBJ_TYPE']) ?>&nbsp;</td>
+                            <td class="alv"><?php echo GLOBAL_ABAP_ICON::getIcon4Otype($wil['SRC_OBJ_TYPE']) ?>
+                                <?php echo ABAP_UI_DS_Navigation::GetOTypeHyperlink($wil['SRC_OBJ_TYPE']) ?>&nbsp;</td>
                             <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetObjectHyperlink($wil['SRC_OBJ_TYPE'], $wil['SRC_OBJ_NAME'], $wil['SRC_SUBOBJ']) ?></td>
                             <td class="alv"><?php echo ABAP_UI_TOOL::GetObjectDescr($wil['SRC_OBJ_TYPE'], $wil['SRC_OBJ_NAME'], $wil['SRC_SUBOBJ']) ?></td>
                             <td class="alv"><?php

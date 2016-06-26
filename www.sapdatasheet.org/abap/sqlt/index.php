@@ -48,7 +48,7 @@ $dd06l = ABAP_DB_TABLE_TABL::DD06L_List();
         <div class="content">
             <!-- Content Navigator -->
             <div class="content_navi">
-                <a href="/">Home page</a> &gt; 
+                <a href="/"><?php echo GLOBAL_ABAP_ICON::getIcon4Home() ?> Home page</a> &gt; 
                 <a href="/abap/">ABAP Object</a> &gt; 
                 <a href="/abap/sqlt/"><?php echo GLOBAL_ABAP_OTYPE::SQLT_DESC ?></a> 
             </div>
@@ -84,7 +84,8 @@ $dd06l = ABAP_DB_TABLE_TABL::DD06L_List();
                         $dd06l_sqlclass_t = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_TABL::DD06L_SQLCLASS_DOMAIN, $dd06l_item['SQLCLASS']);
                         ?>
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Sqlt($dd06l_item['SQLTAB'], $dd06l_item_t) ?> </td>
+                            <td class="alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeSQLT() ?>
+                                <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Sqlt($dd06l_item['SQLTAB'], $dd06l_item_t) ?> </td>
                             <td class="alv"><?php echo htmlentities($dd06l_item_t) ?></td>
                             <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_TABL::DD06L_SQLCLASS_DOMAIN, $dd06l_item['SQLCLASS'], $dd06l_sqlclass_t) ?></td>
                             <td class="alv"><?php echo $dd06l_item['AS4DATE'] ?></td>

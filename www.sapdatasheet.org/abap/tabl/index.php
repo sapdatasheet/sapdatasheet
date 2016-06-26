@@ -66,7 +66,7 @@ $dd02l = ABAP_DB_TABLE_TABL::DD02L_List($index);
         <div class="content">
             <!-- Content Navigator -->
             <div class="content_navi">
-                <a href="/">Home page</a> &gt; 
+                <a href="/"><?php echo GLOBAL_ABAP_ICON::getIcon4Home() ?> Home page</a> &gt; 
                 <a href="/abap/">ABAP Object</a> &gt; 
                 <a href="/abap/tabl/"><?php echo GLOBAL_ABAP_OTYPE::TABL_DESC ?></a> 
             </div>
@@ -131,7 +131,8 @@ $dd02l = ABAP_DB_TABLE_TABL::DD02L_List($index);
                         $dd02l_item_desc = ABAP_DB_TABLE_TABL::DD02T($dd02l_item['TABNAME']);
                         ?>
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tabl($dd02l_item['TABNAME'], $dd02l_item_desc); ?> </td>
+                            <td class="alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeTABL() ?>
+                                <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tabl($dd02l_item['TABNAME'], $dd02l_item_desc); ?> </td>
                             <td class="alv"><?php echo htmlentities($dd02l_item_desc) ?></td>
                             <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_TABL::DD02L_TABCLASS_DOMAIN, $dd02l_item['TABCLASS'], '') ?></td>
                             <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_TABL::DD02L_CONTFLAG_DOMAIN, $dd02l_item['CONTFLAG'], '') ?></td></tr>

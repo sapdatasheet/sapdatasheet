@@ -64,7 +64,7 @@ $intf_list = ABAP_DB_TABLE_SEO::SEOCLASS_List(ABAP_DB_TABLE_SEO::SEOCLASS_CLSTYP
         <div class="content">
             <!-- Content Navigator -->
             <div class="content_navi">
-                <a href="/">Home page</a> &gt; 
+                <a href="/"><?php echo GLOBAL_ABAP_ICON::getIcon4Home() ?> Home page</a> &gt; 
                 <a href="/abap/">ABAP Object</a> &gt; 
                 <a href="/abap/intf/"><?php echo GLOBAL_ABAP_OTYPE::INTF_DESC ?></a> 
             </div>
@@ -104,9 +104,11 @@ $intf_list = ABAP_DB_TABLE_SEO::SEOCLASS_List(ABAP_DB_TABLE_SEO::SEOCLASS_CLSTYP
                         $tadir = ABAP_DB_TABLE_HIER::TADIR(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, GLOBAL_ABAP_OTYPE::INTF_NAME, $intf['CLSNAME']);
                         ?>
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Intf($intf['CLSNAME'], $intf_tx) ?></td>
+                            <td class="alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeINTF() ?>
+                                <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Intf($intf['CLSNAME'], $intf_tx) ?></td>
                             <td class="alv"><?php echo $intf_tx ?></td>
-                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Devc($tadir['DEVCLASS'], NULL) ?>&nbsp;</td>
+                            <td class="alv"><?php echo (GLOBAL_UTIL::IsNotEmpty($tadir['DEVCLASS'])) ? GLOBAL_ABAP_ICON::getIcon4OtypeDEVC() : '' ?>
+                                <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Devc($tadir['DEVCLASS'], NULL) ?>&nbsp;</td>
                         </tr>
                     <?php } ?>
                 </table>

@@ -62,7 +62,7 @@ $bmfr = ABAP_DB_TABLE_HIER::DF14L_List($index);
         <div class="content">
             <!-- Content Navigator -->
             <div class="content_navi">
-                <a href="/">Home page</a> &gt; 
+                <a href="/"><?php echo GLOBAL_ABAP_ICON::getIcon4Home() ?> Home page</a> &gt; 
                 <a href="/abap/">ABAP Object</a> &gt; 
                 <a href="/abap/bmfr/"><?php echo GLOBAL_ABAP_OTYPE::BMFR_DESC ?></a>
             </div>
@@ -127,7 +127,8 @@ $bmfr = ABAP_DB_TABLE_HIER::DF14L_List($index);
                         $bmfr_desc = ABAP_DB_TABLE_HIER::DF14T($row['FCTR_ID']);
                         ?>
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Bmfr($row['FCTR_ID'], $row['PS_POSID'], $bmfr_desc); ?> </td>
+                            <td class="alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeBMFR() ?>
+                                <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Bmfr($row['FCTR_ID'], $row['PS_POSID'], $bmfr_desc); ?> </td>
                             <td class="alv"><?php echo htmlentities($bmfr_desc) ?></td>
                             <td class="alv"><?php echo $row['FSTDATE'] ?></td>
                             <td class="alv"><?php echo $row['RELE'] ?></td>

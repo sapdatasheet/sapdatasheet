@@ -60,8 +60,9 @@ function Sitemap4ABAPOType($obj_type, $list, $column_name, $fname_pre = NULL) {
             SitemapStartOB();
         }
 
-        if (strlen(trim($row[$column_name])) > 0) {
-            $abapurl = GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG . ABAP_UI_DS_Navigation::GetObjectPath($obj_type, $objname);
+        $obj_name = trim($row[$column_name]);
+        if (strlen($obj_name) > 0) {
+            $abapurl = GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG . ABAP_UI_DS_Navigation::GetObjectPath($obj_type, $obj_name);
             SitemapEchoUrl($abapurl);
         }
 

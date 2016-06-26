@@ -55,45 +55,45 @@
             <li>
                 <a href="#">Hierarchy <span class="arrow">&#9660;</span></a>
                 <ul class="sub-menu">
-                    <li><a href="/abap/cvers/">Software Component</a></li>
-                    <li><a href="/abap/bmfr/">Application Component</a></li>
-                    <li><a href="/abap/devc/">Package</a></li>
+                    <li><a href="/abap/cvers/"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeCVERS() ?> Software Component</a></li>
+                    <li><a href="/abap/bmfr/"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeBMFR() ?> Application Component</a></li>
+                    <li><a href="/abap/devc/"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDEVC() ?> Package</a></li>
                 </ul>
             </li>
             <li>
                 <a href="#">DDIC <span class="arrow">&#9660;</span></a>
                 <ul class="sub-menu">
-                    <li><a href="/abap/doma/">Domain</a></li>
-                    <li><a href="/abap/dtel/">Data Element</a></li>
-                    <li><a href="/abap/tabl/">Table</a></li>
-                    <li><a href="/abap/sqlt/">Table Cluster/Pool</a></li>
-                    <li><a href="/abap/view/">View</a></li>
-                    <li><a href="/abap/shlp/">Search Help</a></li>
+                    <li><a href="/abap/doma/"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDOMA() ?> Domain</a></li>
+                    <li><a href="/abap/dtel/"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDTEL() ?> Data Element</a></li>
+                    <li><a href="/abap/tabl/"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeTABL() ?> Table</a></li>
+                    <li><a href="/abap/sqlt/"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeSQLT() ?> Table Cluster/Pool</a></li>
+                    <li><a href="/abap/view/"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeVIEW() ?> View</a></li>
+                    <li><a href="/abap/shlp/"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeSHLP() ?>  Search Help</a></li>
                 </ul>
             </li>
             <li>
                 <a href="#">Code <span class="arrow">&#9660;</span></a>
                 <ul class="sub-menu">
-                    <li><a href="/abap/intf/">ABAP Interface</a></li>
-                    <li><a href="/abap/clas/">ABAP Class</a></li>
-                    <li><a href="/abap/fugr/">Function Group</a></li>
-                    <li><a href="/abap/func/">Function Module</a></li>
-                    <li><a href="/abap/prog/">Program</a></li>
+                    <li><a href="/abap/intf/"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeINTF() ?> ABAP Interface</a></li>
+                    <li><a href="/abap/clas/"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeCLAS() ?> ABAP Class</a></li>
+                    <li><a href="/abap/fugr/"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeFUGR() ?> Function Group</a></li>
+                    <li><a href="/abap/func/"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeFUNC() ?> Function Module</a></li>
+                    <li><a href="/abap/prog/"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypePROG() ?> Program</a></li>
                 </ul>
             </li>
             <li>
                 <a href="#">References <span class="arrow">&#9660;</span></a>
                 <ul class="sub-menu">
-                    <li><a href="/wul/abap/">Where Used List</a></li>
-                    <li><a href="/wil/abap/">Where Using List</a></li>
+                    <li><a href="/wul/abap/"><?php echo GLOBAL_ABAP_ICON::getIcon4WUL() ?> Where Used List</a></li>
+                    <li><a href="/wil/abap/"><?php echo GLOBAL_ABAP_ICON::getIcon4WIL() ?> Where Using List</a></li>
                 </ul>
             </li>
             <li>
                 <a href="#">Entrance <span class="arrow">&#9660;</span></a>
                 <ul class="sub-menu">
-                    <li><a href="/abap/tran/">Transaction Code</a></li>
-                    <li><a href="/abap/cus0/">IMG Activity</a></li>
-                    <li><a href="/abap/msag/">Message Class</a></li>
+                    <li><a href="/abap/tran/"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeTRAN() ?> Transaction Code</a></li>
+                    <li><a href="/abap/cus0/"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeCUS0() ?> IMG Activity</a></li>
+                    <li><a href="/abap/msag/"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeMSAG() ?> Message Class</a></li>
                 </ul>
             </li>
         </ul>

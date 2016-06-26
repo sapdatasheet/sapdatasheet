@@ -44,7 +44,8 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::CVERS_N
             <table class="content_obj">
                 <tbody>
                     <tr><td>Software Component</td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Cvers($cvers['COMPONENT'], $cvers_desc) ?>&nbsp;</td></tr>
+                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeCVERS() ?>
+                            <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Cvers($cvers['COMPONENT'], $cvers_desc) ?>&nbsp;</td></tr>
                 </tbody>
             </table>
             <h5>Top Level Application Component</h5>
@@ -57,7 +58,8 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::CVERS_N
                             if ($l1_bmfr['LEVEL'] <= 2) {
                                 $l1_bmfr_desc = ABAP_DB_TABLE_HIER::DF14T($l1_bmfr['FCTR_ID']);
                                 ?>
-                                <tr><td class="left_value"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Bmfr($l1_bmfr['FCTR_ID'], $l1_bmfr['PS_POSID'], $l1_bmfr_desc) ?> </td></tr>
+                                <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeBMFR() ?>
+                                        <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Bmfr($l1_bmfr['FCTR_ID'], $l1_bmfr['PS_POSID'], $l1_bmfr_desc) ?> </td></tr>
                                 <?php
                             }
                         }
@@ -66,6 +68,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::CVERS_N
                 </tbody>
             </table>
 
+            <?php require $__ROOT__ . '/include/abap_relatedlinks.php' ?>
             <h5>&nbsp;</h5>
         </div>
 
@@ -73,7 +76,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::CVERS_N
         <div class="content">
             <!-- Content Navigator -->
             <div class="content_navi">
-                <a href="/">Home page</a> &gt; 
+                <a href="/"><?php echo GLOBAL_ABAP_ICON::getIcon4Home() ?> Home page</a> &gt; 
                 <a href="/abap/">ABAP Object</a> &gt; 
                 <a href="/abap/cvers/">ABAP <?php echo GLOBAL_ABAP_OTYPE::CVERS_DESC ?></a> &gt; 
                 <a href="#"><?php echo $cvers['COMPONENT'] ?></a>

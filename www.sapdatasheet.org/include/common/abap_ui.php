@@ -919,17 +919,17 @@ class ABAP_UI_TOOL {
      */
     public static function GetFunctionModuleParameterType($Type) {
         if ($Type == ABAP_DB_CONST::FUPARAREF_PARAMTYPE_I) {
-            return 'Importing';
+            return GLOBAL_ABAP_ICON::getIcon4ParameterImport() . ' Importing';
         } else if ($Type == ABAP_DB_CONST::FUPARAREF_PARAMTYPE_E) {
-            return 'Exporting';
+            return GLOBAL_ABAP_ICON::getIcon4ParameterExport() . ' Exporting';
         } else if ($Type == ABAP_DB_CONST::FUPARAREF_PARAMTYPE_C) {
-            return 'Changing';
+            return GLOBAL_ABAP_ICON::getIcon4ParameterChanging() . ' Changing';
         } else if ($Type == ABAP_DB_CONST::FUPARAREF_PARAMTYPE_T) {
-            return 'Tables';
+            return GLOBAL_ABAP_ICON::getIcon4ParameterTable() . ' Tables';
         } else if ($Type == ABAP_DB_CONST::FUPARAREF_PARAMTYPE_X) {
-            return 'Exception';
+            return GLOBAL_ABAP_ICON::getIcon4Alert() . ' Exception';
         } else {
-            return 'Unknown Type';
+            return GLOBAL_ABAP_ICON::getIcon4Abap() . ' Unknown Type';
         }
     }
 

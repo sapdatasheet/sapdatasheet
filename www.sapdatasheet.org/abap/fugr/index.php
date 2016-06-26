@@ -66,7 +66,7 @@ $fugr_list = ABAP_DB_TABLE_HIER::TADIR_FUGR_List($index);
         <div class="content">
             <!-- Content Navigator -->
             <div class="content_navi">
-                <a href="/">Home page</a> &gt; 
+                <a href="/"><?php echo GLOBAL_ABAP_ICON::getIcon4Home() ?> Home page</a> &gt; 
                 <a href="/abap/">ABAP Object</a> &gt; 
                 <a href="/abap/fugr/"><?php echo GLOBAL_ABAP_OTYPE::FUGR_DESC ?></a> 
             </div>
@@ -140,9 +140,12 @@ $fugr_list = ABAP_DB_TABLE_HIER::TADIR_FUGR_List($index);
                         $prog_desc = ABAP_DB_TABLE_FUNC::TLIBT($fugr['OBJ_NAME']);
                         ?>
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Prog($prog, '', $fugr['OBJ_NAME']) ?> </td>
-                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Devc($fugr['DEVCLASS'], '') ?> </td>
-                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Cvers($fugr['COMPONENT'], '') ?>&nbsp;</td>
+                            <td class="alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeFUGR() ?>
+                                <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Prog($prog, '', $fugr['OBJ_NAME']) ?> </td>
+                            <td class="alv"><?php echo (GLOBAL_UTIL::IsNotEmpty($fugr['DEVCLASS'])) ? GLOBAL_ABAP_ICON::getIcon4OtypeDEVC() : '' ?>
+                                <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Devc($fugr['DEVCLASS'], '') ?> </td>
+                            <td class="alv"><?php echo (GLOBAL_UTIL::IsNotEmpty($fugr['COMPONENT'])) ? GLOBAL_ABAP_ICON::getIcon4OtypeCVERS() : '' ?>
+                                <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Cvers($fugr['COMPONENT'], '') ?>&nbsp;</td>
                             <td class="alv"><?php echo htmlspecialchars($prog_desc) ?> &nbsp; </td>
                         </tr>
                     <?php } ?>

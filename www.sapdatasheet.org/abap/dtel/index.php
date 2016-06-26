@@ -66,7 +66,7 @@ $dd04l = ABAP_DB_TABLE_DTEL::DD04L_List($index);
         <div class="content">
             <!-- Content Navigator -->
             <div class="content_navi">
-                <a href="/">Home page</a> &gt; 
+                <a href="/"><?php echo GLOBAL_ABAP_ICON::getIcon4Home() ?> Home page</a> &gt; 
                 <a href="/abap/">ABAP Object</a> &gt; 
                 <a href="/abap/dtel/"><?php echo GLOBAL_ABAP_OTYPE::DTEL_DESC ?></a> 
             </div>
@@ -129,9 +129,11 @@ $dd04l = ABAP_DB_TABLE_DTEL::DD04L_List($index);
                         $dd04l_item_t = ABAP_DB_TABLE_DTEL::DD04T($dd04l_item['ROLLNAME']);
                         ?>
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Dtel($dd04l_item['ROLLNAME'], $dd04l_item_t) ?> </td>
+                            <td class="alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDTEL() ?>
+                                <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Dtel($dd04l_item['ROLLNAME'], $dd04l_item_t) ?> </td>
                             <td class="alv"><?php echo htmlentities($dd04l_item_t) ?></td>
-                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Doma($dd04l_item['DOMNAME'], '') ?> </td>
+                            <td class="alv"><?php echo (GLOBAL_UTIL::IsNotEmpty($dd04l_item['DOMNAME'])) ? GLOBAL_ABAP_ICON::getIcon4OtypeDOMA() : '' ?>
+                                <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Doma($dd04l_item['DOMNAME'], '') ?> </td>
                             <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_DATATYPE, $dd04l_item['DATATYPE'], '') ?>&nbsp;</td>
                         </tr>
                     <?php } ?>

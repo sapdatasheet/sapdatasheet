@@ -45,7 +45,7 @@ $GLOBALS['TITLE_TEXT'] = "Where Used List for " . $title_name;
         <div class="content">
             <!-- Content Navigator -->
             <div class="content_navi">
-                <a href="/">Home page</a> &gt;
+                <a href="/"><?php echo GLOBAL_ABAP_ICON::getIcon4Home() ?> Home page</a> &gt;
                 <a href="/abap/">ABAP Object</a>
             </div>
 
@@ -58,6 +58,7 @@ $GLOBALS['TITLE_TEXT'] = "Where Used List for " . $title_name;
 
                 <?php
                 $wulSrcTitle = 'SAP ABAP ' . GLOBAL_ABAP_OTYPE::getOTypeDesc($dpSrcOType) . ' '
+                        . GLOBAL_ABAP_ICON::getIcon4Otype($dpSrcOType)
                         . ABAP_UI_DS_Navigation::GetObjectHyperlink($dpSrcOType, $dpSrcOName, $dpSrcSubobj);
                 if (!empty($srcObjDesc)){
                     $wulSrcTitle = $wulSrcTitle . ' (' . $srcObjDesc . ')';
@@ -68,6 +69,7 @@ $GLOBALS['TITLE_TEXT'] = "Where Used List for " . $title_name;
                 // print_r($counter_list);
 
                 foreach ($counter_list as $counter) {
+                    echo GLOBAL_ABAP_ICON::getIcon4Otype($counter['OBJ_TYPE']) . ' ';
                     echo ABAP_UI_DS_Navigation::GetWulHyperlink($counter, FALSE);
                     echo '&nbsp;';
                 }
@@ -101,7 +103,8 @@ $GLOBALS['TITLE_TEXT'] = "Where Used List for " . $title_name;
                         $count++;
                         ?>
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetOTypeHyperlink($wul['OBJ_TYPE']) ?>&nbsp;</td>
+                            <td class="alv"><?php echo GLOBAL_ABAP_ICON::getIcon4Otype($wul['OBJ_TYPE']) ?>
+                                <?php echo ABAP_UI_DS_Navigation::GetOTypeHyperlink($wul['OBJ_TYPE']) ?>&nbsp;</td>
                             <td class="alv">
                                 <?php echo ABAP_UI_DS_Navigation::GetObjectHyperlink($wul['OBJ_TYPE'], $wul['OBJ_NAME'], $wul['SUB_NAME']) ?>
                                 <?php if ($wul['OBJ_TYPE'] == GLOBAL_ABAP_OTYPE::FUNC_NAME && strlen($wul['SOURCE']) > 0) { ?>
@@ -120,9 +123,12 @@ $GLOBALS['TITLE_TEXT'] = "Where Used List for " . $title_name;
                                 <?php } ?>
                             </td>
                             <td class="alv"><?php echo ABAP_UI_TOOL::GetObjectDescr($wul['OBJ_TYPE'], $wul['OBJ_NAME']) ?></td>
-                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Devc($wul['APPL_NAME']) ?>&nbsp;</td>
-                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Devc($wul['APPL_PACKET']) ?>&nbsp;</td>
-                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Cvers($wul['APPL_DLVUNIT']) ?>&nbsp;</td>
+                            <td class="alv"><?php echo (GLOBAL_UTIL::IsNotEmpty($wul['APPL_NAME'])) ? GLOBAL_ABAP_ICON::getIcon4OtypeDEVC() : '' ?>
+                                <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Devc($wul['APPL_NAME']) ?>&nbsp;</td>
+                            <td class="alv"><?php echo (GLOBAL_UTIL::IsNotEmpty($wul['APPL_PACKET'])) ? GLOBAL_ABAP_ICON::getIcon4OtypeDEVC() : '' ?>
+                                <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Devc($wul['APPL_PACKET']) ?>&nbsp;</td>
+                            <td class="alv"><?php echo (GLOBAL_UTIL::IsNotEmpty($wul['APPL_DLVUNIT'])) ? GLOBAL_ABAP_ICON::getIcon4OtypeDEVC() : '' ?>
+                                <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Cvers($wul['APPL_DLVUNIT']) ?>&nbsp;</td>
                         </tr>
                         <?php
                     }

@@ -66,7 +66,7 @@ $dd01l = ABAP_DB_TABLE_DOMA::DD01L_List($index);
         <div class="content">
             <!-- Content Navigator -->
             <div class="content_navi">
-                <a href="/">Home page</a> &gt; 
+                <a href="/"><?php echo GLOBAL_ABAP_ICON::getIcon4Home() ?> Home page</a> &gt; 
                 <a href="/abap/">ABAP Object</a> &gt; 
                 <a href="/abap/doma/"><?php echo GLOBAL_ABAP_OTYPE::DOMA_DESC ?></a> 
             </div>
@@ -131,7 +131,8 @@ $dd01l = ABAP_DB_TABLE_DOMA::DD01L_List($index);
                         $dd01l_item_t = ABAP_DB_TABLE_DOMA::DD01T($dd01l_item['DOMNAME'])
                         ?>
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Doma($dd01l_item['DOMNAME'], $dd01l_item_t) ?> </td>
+                            <td class="alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDOMA() ?>
+                                <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Doma($dd01l_item['DOMNAME'], $dd01l_item_t) ?> </td>
                             <td class="alv"><?php echo htmlentities($dd01l_item_t) ?></td>
                             <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_DATATYPE, $dd01l_item['DATATYPE'], '') ?></td>
                             <td class="alv" style="text-align: right;"><?php echo intval($dd01l_item['LENG']) ?>&nbsp;</td>

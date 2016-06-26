@@ -67,7 +67,7 @@ $devc = ABAP_DB_TABLE_HIER::TDEVC_List($index);
         <div class="content">
             <!-- Content Navigator -->
             <div class="content_navi">
-                <a href="/">Home page</a> &gt; 
+                <a href="/"><?php echo GLOBAL_ABAP_ICON::getIcon4Home() ?> Home page</a> &gt; 
                 <a href="/abap/">ABAP Object</a> &gt; 
                 <a href="/abap/devc/"><?php echo GLOBAL_ABAP_OTYPE::DEVC_DESC ?></a> 
             </div>
@@ -133,11 +133,15 @@ $devc = ABAP_DB_TABLE_HIER::TDEVC_List($index);
                         $devc_ps_posid = ABAP_DB_TABLE_HIER::DF14L_PS_POSID($row['COMPONENT']);
                         ?>
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Devc($row['DEVCLASS'], $devc_desc) ?> </td>
+                            <td class="alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDEVC() ?>
+                                <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Devc($row['DEVCLASS'], $devc_desc) ?> </td>
                             <td class="alv"><?php echo htmlentities($devc_desc) ?></td>
-                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Devc($row['PARENTCL'], '') ?></td>
-                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Cvers($row['DLVUNIT'], '') ?></td>
-                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Bmfr($row['COMPONENT'], $devc_ps_posid, '') ?></td>
+                            <td class="alv"><?php echo (GLOBAL_UTIL::IsNotEmpty($row['PARENTCL'])) ? GLOBAL_ABAP_ICON::getIcon4OtypeDEVC() : '' ?>
+                                <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Devc($row['PARENTCL'], '') ?></td>
+                            <td class="alv"><?php echo (GLOBAL_UTIL::IsNotEmpty($row['DLVUNIT'])) ? GLOBAL_ABAP_ICON::getIcon4OtypeCVERS() : '' ?>
+                                <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Cvers($row['DLVUNIT'], '') ?></td>
+                            <td class="alv"><?php echo (GLOBAL_UTIL::IsNotEmpty($row['COMPONENT'])) ? GLOBAL_ABAP_ICON::getIcon4OtypeBMFR() : '' ?>
+                                <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Bmfr($row['COMPONENT'], $devc_ps_posid, '') ?></td>
                         </tr>
                     <?php } ?>
                 </table>

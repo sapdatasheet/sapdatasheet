@@ -67,7 +67,7 @@ $dd25l_list = ABAP_DB_TABLE_VIEW::DD25L_List($index);
         <div class="content">
             <!-- Content Navigator -->
             <div class="content_navi">
-                <a href="/">Home page</a> &gt; 
+                <a href="/"><?php echo GLOBAL_ABAP_ICON::getIcon4Home() ?> Home page</a> &gt; 
                 <a href="/abap/">ABAP Object</a> &gt; 
                 <a href="/abap/view/"><?php echo GLOBAL_ABAP_OTYPE::VIEW_DESC ?></a> 
             </div>
@@ -131,10 +131,12 @@ $dd25l_list = ABAP_DB_TABLE_VIEW::DD25L_List($index);
                         $dd25l_desc = ABAP_DB_TABLE_VIEW::DD25T($dd25l['VIEWNAME']);
                         ?>
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4View($dd25l['VIEWNAME'], $dd25l_desc) ?> </td>
+                            <td class="alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeVIEW() ?>
+                                <?php echo ABAP_UI_DS_Navigation::GetHyperlink4View($dd25l['VIEWNAME'], $dd25l_desc) ?> </td>
                             <td class="alv"><?php echo htmlentities($dd25l_desc) ?></td>
                             <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_DD25L_VIEWCLASS, $dd25l['VIEWCLASS'], '') ?> </td>
-                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tabl($dd25l['ROOTTAB'], '') ?>&nbsp;</td></tr>
+                            <td class="alv"><?php echo (GLOBAL_UTIL::IsNotEmpty($dd25l['ROOTTAB'])) ? GLOBAL_ABAP_ICON::getIcon4OtypeTABL() : '' ?>
+                                <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tabl($dd25l['ROOTTAB'], '') ?>&nbsp;</td></tr>
                         <?php } ?>
                 </table>
 

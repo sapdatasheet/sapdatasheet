@@ -57,20 +57,26 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::VIEW_NA
             <h5>Object Hierarchy</h5>
             <table class="content_obj">
                 <tbody>
-                    <tr><td>Software Component</td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
+                    <tr><td class="left_attribute">Software Component</td></tr>
+                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeCVERS() ?>
+                        <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
                     <tr><td class="left_attribute"> Application Component ID</td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
+                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeBMFR() ?>
+                        <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
                     <tr><td class="left_attribute"> Package </td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Devc($hier->DEVCLASS, $hier->DEVCLASS_T) ?></td></tr>
+                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDEVC() ?>
+                        <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Devc($hier->DEVCLASS, $hier->DEVCLASS_T) ?></td></tr>
                     <tr><td class="left_attribute"> Object type </td></tr>
-                    <tr><td class="left_value"><a href="/abap/view/"><?php echo GLOBAL_ABAP_OTYPE::VIEW_DESC ?></a></td></tr>
+                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeVIEW() ?>
+                            <a href="/abap/view/"><?php echo GLOBAL_ABAP_OTYPE::VIEW_DESC ?></a></td></tr>
                     <tr><td class="left_attribute"> Object name </td></tr>
-                    <tr><td class="left_value"> <a href="#" title="<?php echo $dd25l_desc ?>"><?php echo $dd25l['VIEWNAME'] ?></a> </td></tr>
+                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeVIEW() ?>
+                            <a href="#" title="<?php echo $dd25l_desc ?>"><?php echo $dd25l['VIEWNAME'] ?></a> </td></tr>
                 </tbody>
             </table>
 
             <?php require $__ROOT__ . '/include/abap_oname_wul.php' ?>
+            <?php require $__ROOT__ . '/include/abap_relatedlinks.php' ?>
             <h5>&nbsp;</h5>
         </div>
 
@@ -78,7 +84,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::VIEW_NA
         <div class="content">
             <!-- Content Navigator -->
             <div class="content_navi">
-                <a href="/">Home page</a> &gt; 
+                <a href="/"><?php echo GLOBAL_ABAP_ICON::getIcon4Home() ?> Home page</a> &gt; 
                 <a href="/abap/">ABAP Object</a> &gt; 
                 <a href="/abap/view/"><?php echo GLOBAL_ABAP_OTYPE::VIEW_DESC ?></a> &gt; 
                 <a href="#"><?php echo $dd25l['VIEWNAME'] ?></a>
@@ -139,7 +145,8 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::VIEW_NA
                             ?>
                             <tr>
                                 <td class="alv"><?php echo $dd26s['TABPOS'] ?></td>
-                                <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tabl($dd26s['TABNAME'], $dd26s_tabname_desc) ?></td>
+                                <td class="alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeTABL() ?>
+                                    <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tabl($dd26s['TABNAME'], $dd26s_tabname_desc) ?></td>
                                 <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tabl($dd26s['FORTABNAME'], $dd26s_fortabname_desc) ?></td>
                                 <td class="alv"><?php echo $dd26s['FORFIELD'] ?></td>
                                 <td class="alv"><?php echo $dd26s['FORDIR'] ?></td>
@@ -171,7 +178,8 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::VIEW_NA
                             ?>
                             <tr>
                                 <td class="alv"><?php echo $dd28s['POSITION'] ?></td>
-                                <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tabl($dd28s['TABNAME'], $dd28s_tabname_desc) ?></td>
+                                <td class="alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeTABL() ?>
+                                    <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tabl($dd28s['TABNAME'], $dd28s_tabname_desc) ?></td>
                                 <td class="alv"><?php echo $dd28s['FIELDNAME'] ?></td>
                                 <td class="alv"><?php echo $dd28s['NEGATION'] ?></td>
                                 <td class="alv"><?php echo $dd28s['OPERATOR'] ?></td>
@@ -223,8 +231,10 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::VIEW_NA
                             ?>
                             <tr>
                                 <td class="alv"><?php echo $dd27s['OBJPOS'] ?> </td>
-                                <td class="alv"><?php echo $dd27s['VIEWFIELD'] ?> </td>
-                                <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tabl($dd27s['TABNAME'], '') ?> </td>
+                                <td class="alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDTF() ?>
+                                    <?php echo $dd27s['VIEWFIELD'] ?> </td>
+                                <td class="alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeTABL() ?>
+                                    <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tabl($dd27s['TABNAME'], '') ?> </td>
                                 <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4TablField($dd27s['TABNAME'], $dd27s['FIELDNAME']) ?> </td>
                                 <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_DD27S_RDONLY, $dd27s['RDONLY'], '') ?> </td>
                                 <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox("FELD_KEY_" . $dd27s['OBJPOS'], $dd27s['RDONLY']) ?> </td>
@@ -235,8 +245,6 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::VIEW_NA
                             </tr>
                         <?php } ?>
                         <tr>
-                            <td class="alv">&nbsp;</td>
-                            <td class="alv">&nbsp;</td>
                             <td class="alv">&nbsp;</td>
                             <td class="alv">&nbsp;</td>
                             <td class="alv">&nbsp;</td>

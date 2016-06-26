@@ -46,7 +46,7 @@ ob_start();
         <div class="content">
             <!-- Content Navigator -->
             <div class="content_navi">
-                <a href="/">Home page</a> &gt; 
+                <a href="/"><?php echo GLOBAL_ABAP_ICON::getIcon4Home() ?> Home page</a> &gt; 
                 <a href="/abap/">ABAP Object</a> &gt; 
                 <a href="/abap/cvers/"><?php echo GLOBAL_ABAP_OTYPE::CVERS_DESC ?></a> 
             </div>
@@ -85,7 +85,8 @@ ob_start();
                         $cvers_comp_type_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_TADIR_COMP_TYPE, $row['COMP_TYPE']);
                         ?>
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Cvers($cvers_component, $cvers_desc) ?></td>
+                            <td class="alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeCVERS() ?>
+                                <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Cvers($cvers_component, $cvers_desc) ?></td>
                             <td class="alv"><?php echo htmlentities($cvers_desc) ?></td>
                             <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_TADIR_COMP_TYPE, $cvers_comp_type, $cvers_comp_type_desc) ?></td>
                             <td class="alv"><?php echo htmlentities($cvers_comp_type_desc) ?></td></tr>

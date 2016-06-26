@@ -64,7 +64,7 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . GLOBAL_ABAP_OTYPE::CUS0_DESC . " - Index 
         <div class="content">
             <!-- Content Navigator -->
             <div class="content_navi">
-                <a href="/">Home page</a> &gt;
+                <a href="/"><?php echo GLOBAL_ABAP_ICON::getIcon4Home() ?> Home page</a> &gt;
                 <a href="/abap/">ABAP Object</a> &gt;
                 <a href="/abap/cus0/"><?php echo GLOBAL_ABAP_OTYPE::CUS0_DESC ?></a>
             </div>
@@ -105,8 +105,10 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . GLOBAL_ABAP_OTYPE::CUS0_DESC . " - Index 
                         $img_desc = ABAP_DB_TABLE_CUS0::CUS_IMGACT($img['ACTIVITY']);
                         ?>
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Cus0IMGActivity($img['ACTIVITY'], $img_desc, TRUE) ?> </td>
-                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tran($img['TCODE'], '', TRUE) ?> </td>
+                            <td class="alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeCUS0() ?> 
+                                <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Cus0IMGActivity($img['ACTIVITY'], $img_desc, TRUE) ?> </td>
+                            <td class="alv"><?php echo (GLOBAL_UTIL::IsNotEmpty($img['TCODE'])) ? GLOBAL_ABAP_ICON::getIcon4OtypeTRAN() : '' ?>
+                                <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tran($img['TCODE'], '', TRUE) ?> </td>
                             <td class="alv"><?php echo htmlentities($img_desc) ?>&nbsp;</td>
                         </tr>
                     <?php } ?>

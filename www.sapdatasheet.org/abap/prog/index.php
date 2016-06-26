@@ -66,7 +66,7 @@ $prog_list = ABAP_DB_TABLE_HIER::TADIR_PROG_List($index);
         <div class="content">
             <!-- Content Navigator -->
             <div class="content_navi">
-                <a href="/">Home page</a> &gt; 
+                <a href="/"><?php echo GLOBAL_ABAP_ICON::getIcon4Home() ?> Home page</a> &gt; 
                 <a href="/abap/">ABAP Object</a> &gt; 
                 <a href="/abap/prog/"><?php echo GLOBAL_ABAP_OTYPE::PROG_DESC ?></a> 
             </div>
@@ -129,9 +129,12 @@ $prog_list = ABAP_DB_TABLE_HIER::TADIR_PROG_List($index);
                         $prog_desc = ABAP_DB_TABLE_PROG::TRDIRT($prog['OBJ_NAME']);
                         ?>
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Prog($prog['OBJ_NAME'], '') ?> </td>
-                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Devc($prog['DEVCLASS'], '') ?> </td>
-                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Cvers($prog['COMPONENT'], '') ?>&nbsp;</td>
+                            <td class="alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypePROG() ?>
+                                <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Prog($prog['OBJ_NAME'], '') ?> </td>
+                            <td class="alv"><?php echo (GLOBAL_UTIL::IsNotEmpty($prog['DEVCLASS'])) ? GLOBAL_ABAP_ICON::getIcon4OtypeDEVC() : '' ?>
+                                <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Devc($prog['DEVCLASS'], '') ?> </td>
+                            <td class="alv"><?php echo (GLOBAL_UTIL::IsNotEmpty($prog['COMPONENT'])) ? GLOBAL_ABAP_ICON::getIcon4OtypeCVERS() : '' ?>
+                                <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Cvers($prog['COMPONENT'], '') ?>&nbsp;</td>
                             <td class="alv"><?php echo htmlspecialchars($prog_desc) ?> &nbsp; </td>
                         </tr>
                     <?php } ?>

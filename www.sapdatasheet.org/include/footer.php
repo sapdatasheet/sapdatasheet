@@ -10,7 +10,7 @@
         <a target="_blank" href="/site/term.html"><b>TERMS OF USE</b></a> -
         <a target="_blank" href="/site/about.html"><b>ABOUT</b></a>
     </div>
-    &copy; Copyright 2014 - 2015 SAPDatasheet.org All Rights Reserved.
+    &copy; Copyright 2014 - <?php echo date("Y"); ?> SAPDatasheet.org All Rights Reserved.
 </div>
 <div class="footer_note">
     SAP Datasheet web site content is based on our knowledge of SAP system, and it is constantly reviewed to avoid errors; 

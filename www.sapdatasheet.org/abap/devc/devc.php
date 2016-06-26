@@ -51,14 +51,18 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::DEVC_NA
             <table class="content_obj">
                 <tbody>
                     <tr><td>Software Component</td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
+                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeCVERS() ?>
+                            <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
                     <tr><td class="left_attribute"> Application Component ID</td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
+                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeBMFR() ?>
+                            <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
                     <tr><td class="left_attribute"> Package </td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Devc($tdevc['DEVCLASS'], $tdevc_desc) ?></td></tr>
+                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDEVC() ?>
+                            <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Devc($tdevc['DEVCLASS'], $tdevc_desc) ?></td></tr>
                 </tbody>
             </table>
 
+            <?php require $__ROOT__ . '/include/abap_relatedlinks.php' ?>
             <h5>&nbsp;</h5>
         </div>
 
@@ -66,7 +70,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::DEVC_NA
         <div class="content">
             <!-- Content Navigator -->
             <div class="content_navi">
-                <a href="/">Home page</a> &gt; 
+                <a href="/"><?php echo GLOBAL_ABAP_ICON::getIcon4Home() ?> Home page</a> &gt; 
                 <a href="/abap/">ABAP Object</a> &gt; 
                 <a href="/abap/devc/">ABAP <?php echo GLOBAL_ABAP_OTYPE::DEVC_DESC ?></a> &gt; 
                 <a href="#"><?php echo $tdevc['DEVCLASS'] ?></a>
@@ -83,16 +87,25 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::DEVC_NA
                 <table class="content_obj">
                     <tbody>
                         <tr><td class="content_label"> Package                </td>
+                            <td><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDEVC() ?></td>
                             <td class="field"><a href="#"><?php echo $tdevc['DEVCLASS'] ?></a>&nbsp;</td>
                             <td>&nbsp;</td></tr>
-                        <tr><td class="content_label"> Short Description      </td><td class="field"> <?php echo htmlentities($tdevc_desc) ?> &nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td class="content_label"> Short Description      </td>
+                            <td>&nbsp;</td>
+                            <td class="field"> <?php echo htmlentities($tdevc_desc) ?> &nbsp;</td>
+                            <td>&nbsp;</td></tr>
                         <tr><td class="content_label"> Super package          </td>
+                            <td><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDEVC() ?></td>
                             <td class="field"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Devc($tdevc['PARENTCL'], $tdevc_parent_desc) ?> &nbsp;</td>
                             <td><?php echo $tdevc_parent_desc ?>&nbsp;</td></tr>
                         <tr><td class="content_label"> Main package indicator </td>
+                            <td>&nbsp;</td>
                             <td class="field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_TDEVC_MAINPACK, $tdevc['MAINPACK'], $tdevc_mainpack_desc) ?> &nbsp;</td>
                             <td><?php echo $tdevc_mainpack_desc ?>&nbsp;</td></tr>
-                        <tr><td class="content_label"> Created by/on          </td><td class="field"><?php echo $tdevc['CREATED_BY'] ?>&nbsp;</td><td class="field"> <?php echo $tdevc['CREATED_ON'] ?>&nbsp;</td></tr>
+                        <tr><td class="content_label"> Created on/by          </td>
+                            <td><?php echo GLOBAL_ABAP_ICON::getIcon4Date() ?></td>
+                            <td class="field"><?php echo $tdevc['CREATED_ON'] ?>&nbsp;</td>
+                            <td class="field"><?php echo $tdevc['CREATED_BY'] ?>&nbsp;</td></tr>
                     </tbody>
                 </table><!-- Basic Data: End -->
 
@@ -115,7 +128,8 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::DEVC_NA
                             if ($table_dd02l['TABCLASS'] === ABAP_DB_CONST::DOMAINVALUE_TABCLASS_TRANSP || $table_dd02l['TABCLASS'] == ABAP_DB_CONST::DOMAINVALUE_TABCLASS_POOL || $table_dd02l['TABCLASS'] == ABAP_DB_CONST::DOMAINVALUE_TABCLASS_CLUSTER || $table_dd02l['TABCLASS'] == ABAP_DB_CONST::DOMAINVALUE_TABCLASS_VIEW
                             ) {
                                 ?>
-                                <tr><td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tabl($child_tabl_item['OBJ_NAME'], $child_tabl_item_t) ?></td>
+                                <tr><td class="alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeTABL() ?>
+                                        <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tabl($child_tabl_item['OBJ_NAME'], $child_tabl_item_t) ?></td>
                                     <td class="alv"><?php echo htmlentities($child_tabl_item_t) ?>&nbsp;</td>
                                     <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_TABL::DD02L_TABCLASS_DOMAIN, $table_dd02l['TABCLASS'], '') ?> &nbsp;</td>
                                     <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_TABL::DD02L_CONTFLAG_DOMAIN, $table_dd02l['CONTFLAG'], '') ?> &nbsp;</td>
@@ -143,9 +157,11 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::DEVC_NA
                             $tcode_tstc = ABAP_DB_TABLE_TRAN::TSTC($child_tran_item['OBJ_NAME']);
                             $child_tran_item_t = ABAP_DB_TABLE_TRAN::TSTCT($child_tran_item['OBJ_NAME']);
                             ?>
-                            <tr><td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tran($child_tran_item['OBJ_NAME'], $child_tran_item_t) ?></td>
+                            <tr><td class="alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeTRAN() ?>
+                                    <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tran($child_tran_item['OBJ_NAME'], $child_tran_item_t) ?></td>
                                 <td class="alv"><?php echo htmlentities($child_tran_item_t) ?>&nbsp;</td>
-                                <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Prog($tcode_tstc['PGMNA'], '') ?> &nbsp;</td>
+                                <td class="alv"><?php echo (GLOBAL_UTIL::IsNotEmpty($tcode_tstc['PGMNA'])) ? GLOBAL_ABAP_ICON::getIcon4OtypePROG() : '' ?>
+                                    <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Prog($tcode_tstc['PGMNA'], '') ?> &nbsp;</td>
                             </tr>
                         <?php } ?>
                         <tr><td class="alv">&nbsp;</td>
@@ -159,10 +175,22 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::DEVC_NA
                 <h4> Hierarchy </h4>
                 <table class="content_obj">
                     <tbody>
-                        <tr><td class="content_label"> Software Component      </td><td class="field"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td><td> <?php echo $hier->DLVUNIT_T ?>&nbsp;</td></tr>
-                        <tr><td class="content_label"> SAP Release Created in  </td><td class="field"><?php echo $hier->CRELEASE ?>&nbsp;</td><td>&nbsp;</td></tr>
-                        <tr><td class="content_label"> Application Component   </td><td class="field"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;(<?php echo $hier->FCTR_ID ?>)</td><td> <?php echo $hier->POSID_T ?>&nbsp;</td></tr>
-                        <tr><td class="content_label"> Package                 </td><td class="field"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Devc($hier->DEVCLASS, $hier->DEVCLASS_T); ?>&nbsp;</td><td> <?php echo $hier->DEVCLASS_T ?>&nbsp;</td></tr>
+                        <tr><td class="content_label"> Software Component      </td>
+                            <td><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeCVERS() ?></td>
+                            <td class="field"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td>
+                            <td> <?php echo $hier->DLVUNIT_T ?>&nbsp;</td></tr>
+                        <tr><td class="content_label"> SAP Release Created in  </td>
+                            <td>&nbsp;</td>
+                            <td class="field"><?php echo $hier->CRELEASE ?>&nbsp;</td>
+                            <td>&nbsp;</td></tr>
+                        <tr><td class="content_label"> Application Component   </td>
+                            <td><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeBMFR() ?></td>
+                            <td class="field"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;(<?php echo $hier->FCTR_ID ?>)</td>
+                            <td> <?php echo $hier->POSID_T ?>&nbsp;</td></tr>
+                        <tr><td class="content_label"> Package                 </td>
+                            <td><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDEVC() ?></td>
+                            <td class="field"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Devc($hier->DEVCLASS, $hier->DEVCLASS_T); ?>&nbsp;</td>
+                            <td> <?php echo $hier->DEVCLASS_T ?>&nbsp;</td></tr>
                     </tbody>
                 </table><!-- Hierarchy: End -->
 

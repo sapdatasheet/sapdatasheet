@@ -32,7 +32,6 @@ $wil_counter_list = ABAPANA_DB_TABLE::WILCOUNTER_List(GLOBAL_ABAP_OTYPE::TABL_NA
 
 $hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, GLOBAL_ABAP_OTYPE::TABL_NAME, $dd02l['TABNAME']);
 $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::TABL_NAME, $dd02l['TABNAME']);
-//        'SAP ABAP ' . $dd02l_tabclass_desc . ' ' . $dd02l['TABNAME'];
 ?>
 <html>
     <head>
@@ -56,20 +55,26 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::TABL_NA
             <h5>Object Hierarchy</h5>
             <table class="content_obj">
                 <tbody>
-                    <tr><td>Software Component</td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
+                    <tr><td class="left_attribute">Software Component</td></tr>
+                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeCVERS() ?>
+                            <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
                     <tr><td class="left_attribute"> Application Component ID</td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
+                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeBMFR() ?>
+                            <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
                     <tr><td class="left_attribute"> Package </td></tr>
-                    <tr><td class="left_value"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Devc($hier->DEVCLASS, $hier->DEVCLASS_T) ?></td></tr>
+                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDEVC() ?>
+                            <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Devc($hier->DEVCLASS, $hier->DEVCLASS_T) ?></td></tr>
                     <tr><td class="left_attribute"> Object type </td></tr>
-                    <tr><td class="left_value"><a href="/abap/tabl/"><?php echo $dd02l_tabclass_desc ?></a></td></tr>
+                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeTABL() ?>
+                            <a href="/abap/tabl/"><?php echo $dd02l_tabclass_desc ?></a></td></tr>
                     <tr><td class="left_attribute"> Object name </td></tr>
-                    <tr><td class="left_value"> <a href="#" title="<?php echo $dd02l['TABNAME'] ?>"><?php echo $dd02l['TABNAME'] ?></a> </td></tr>
+                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeTABL() ?>
+                            <a href="#" title="<?php echo $dd02l['TABNAME'] ?>"><?php echo $dd02l['TABNAME'] ?></a> </td></tr>
                 </tbody>
             </table>
 
             <?php require $__ROOT__ . '/include/abap_oname_wul.php' ?>
+            <?php require $__ROOT__ . '/include/abap_relatedlinks.php' ?>
             <h5>&nbsp;</h5>
         </div>
 
@@ -77,7 +82,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::TABL_NA
         <div class="content">
             <!-- Content Navigator -->
             <div class="content_navi">
-                <a href="/">Home page</a> &gt;
+                <a href="/"><?php echo GLOBAL_ABAP_ICON::getIcon4Home() ?> Home page</a> &gt;
                 <a href="/abap/">ABAP Object</a> &gt;
                 <a href="/abap/tabl/"><?php echo htmlentities($dd02l_tabclass_desc) ?></a> &gt;
                 <a href="#"><?php echo $dd02l['TABNAME'] ?></a>
@@ -130,15 +135,15 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::TABL_NA
                         <a href="/download/abap-tabl-component.php?format=<?php echo strtolower(DOWNLOAD::FORMAT_CSV) ?>&tabname=<?php echo $dd02l['TABNAME'] ?>"
                            title="Download components as <?php echo DOWNLOAD::FORMAT_CSV_Title ?>.&#10;The downloaded file contains more columns than displayed here."
                            target="_blank">
-                           <img src='/abap/icon/s_wdvtxe.gif'></a> &nbsp;
+                            <img src='/abap/icon/s_wdvtxe.gif'></a> &nbsp;
                         <a href="/download/abap-tabl-component.php?format=<?php echo strtolower(DOWNLOAD::FORMAT_XLS) ?>&tabname=<?php echo $dd02l['TABNAME'] ?>"
                            title="Download components as <?php echo DOWNLOAD::FORMAT_XLS_Title ?>.&#10;The downloaded file contains more columns than displayed here."
                            target="_blank">
-                           <img src='/abap/icon/s_x__xls.gif'></a> &nbsp;
+                            <img src='/abap/icon/s_x__xls.gif'></a> &nbsp;
                         <a href="/download/abap-tabl-component.php?format=<?php echo strtolower(DOWNLOAD::FORMAT_XLSX) ?>&tabname=<?php echo $dd02l['TABNAME'] ?>"
                            title="Download components as <?php echo DOWNLOAD::FORMAT_XLSX_Title ?>.&#10;The downloaded file contains more columns than displayed here."
                            target="_blank">
-                           <img src='/abap/icon/s_lisvie.gif'></a> &nbsp;
+                            <img src='/abap/icon/s_lisvie.gif'></a> &nbsp;
                     </caption>
                     <thead>
                         <tr>
@@ -169,7 +174,8 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::TABL_NA
                             ?>
                             <tr>
                                 <td class="alv"> <a id="<?php echo $anchor_name ?>"></a> <?php echo $dd03l_item['POSITION'] ?> </td>
-                                <td class="alv"> <?php echo $dd03l_fieldname_url ?> </td>
+                                <td class="alv"> <?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDTF() ?>
+                                     <?php echo $dd03l_fieldname_url ?> </td>
                                 <td class="alv_center"> <?php echo ABAP_UI_TOOL::GetCheckBox('field_' . $dd03l_item['FIELDNAME'], $dd03l_item['KEYFLAG']) ?> </td>
                                 <td class="alv"> <?php echo $dd03l_rollname_url ?> </td>
                                 <td class="alv"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Doma($dd03l_item['DOMNAME'], '') ?> </td>

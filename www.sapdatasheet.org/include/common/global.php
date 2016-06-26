@@ -4,6 +4,309 @@ $GLOBALS['TITLE_TEXT'] = 'SAP';
 error_reporting(-1);
 
 /** ABAP Object types and description. */
+class GLOBAL_ABAP_ICON {
+
+    const _METHOD_PREFIX_OTYPE = 'getIcon4Otype';
+
+    /** All avialbe Icon OTypes   */
+    public static $_METHOD_OTYPES = array(
+        GLOBAL_ABAP_OTYPE::BMFR_NAME => GLOBAL_ABAP_OTYPE::BMFR_DESC,
+        GLOBAL_ABAP_OTYPE::CLAS_NAME => GLOBAL_ABAP_OTYPE::CLAS_DESC,
+        GLOBAL_ABAP_OTYPE::CUS0_NAME => GLOBAL_ABAP_OTYPE::CUS0_DESC,
+        GLOBAL_ABAP_OTYPE::CVERS_NAME => GLOBAL_ABAP_OTYPE::CVERS_DESC,
+        GLOBAL_ABAP_OTYPE::DEVC_NAME => GLOBAL_ABAP_OTYPE::DEVC_DESC,
+        GLOBAL_ABAP_OTYPE::DOMA_NAME => GLOBAL_ABAP_OTYPE::DOMA_DESC,
+        GLOBAL_ABAP_OTYPE::DTEL_NAME => GLOBAL_ABAP_OTYPE::DTEL_DESC,
+        GLOBAL_ABAP_OTYPE::DTF_NAME => GLOBAL_ABAP_OTYPE::DTF_DESC,
+        GLOBAL_ABAP_OTYPE::FUGR_NAME => GLOBAL_ABAP_OTYPE::FUGR_DESC,
+        GLOBAL_ABAP_OTYPE::FUNC_NAME => GLOBAL_ABAP_OTYPE::FUNC_DESC,
+        GLOBAL_ABAP_OTYPE::INTF_NAME => GLOBAL_ABAP_OTYPE::INTF_DESC,
+        GLOBAL_ABAP_OTYPE::MENU_NAME => GLOBAL_ABAP_OTYPE::MENU_DESC,
+        GLOBAL_ABAP_OTYPE::MSAG_NAME => GLOBAL_ABAP_OTYPE::MSAG_DESC,
+        GLOBAL_ABAP_OTYPE::NN_NAME => GLOBAL_ABAP_OTYPE::NN_DESC,
+        GLOBAL_ABAP_OTYPE::OM_NAME => GLOBAL_ABAP_OTYPE::OM_DESC,
+        GLOBAL_ABAP_OTYPE::PFCG_NAME => GLOBAL_ABAP_OTYPE::PFCG_DESC,
+        GLOBAL_ABAP_OTYPE::PROG_NAME => GLOBAL_ABAP_OTYPE::PROG_DESC,
+        GLOBAL_ABAP_OTYPE::RZ10_NAME => GLOBAL_ABAP_OTYPE::RZ10_DESC,
+        GLOBAL_ABAP_OTYPE::SEOC_NAME => GLOBAL_ABAP_OTYPE::SEOC_DESC,
+        GLOBAL_ABAP_OTYPE::SHLP_NAME => GLOBAL_ABAP_OTYPE::SHLP_DESC,
+        GLOBAL_ABAP_OTYPE::SQLT_NAME => GLOBAL_ABAP_OTYPE::SQLT_DESC,
+        GLOBAL_ABAP_OTYPE::SU21_NAME => GLOBAL_ABAP_OTYPE::SU21_DESC,
+        GLOBAL_ABAP_OTYPE::TABL_NAME => GLOBAL_ABAP_OTYPE::TABL_DESC,
+        GLOBAL_ABAP_OTYPE::TRAN_NAME => GLOBAL_ABAP_OTYPE::TRAN_DESC,
+        GLOBAL_ABAP_OTYPE::VIEW_NAME => GLOBAL_ABAP_OTYPE::VIEW_DESC,
+    );
+
+    const ABAP = 's_b_abap.gif';
+    const ALERT = 's_b_alet.gif';
+    const ANALYTICS = 's_b_area.gif';
+    const DATE = 's_t_date.gif';
+    const DESCRIPTION = 's_wdvlab.gif';
+    const FILE_PDF = 's_x__pdf.gif';
+    const FILE_XLSX = 's_x__xlv.gif';
+    const HOME = 's_b_life.gif';
+    const LIGHT_GREEN = 's_s_tl_g.gif';
+    const LIGHT_RED = 's_s_tl_r.gif';
+    const LIGHT_OUT = 's_outlig.gif';
+    const LIGHT_YELLOW = 's_s_tl_y.gif';
+    const NAMEPREFIX = 's_b_renm.gif';
+    const OTYPE_BMFR = 's_b_tree.gif';
+    const OTYPE_CLAS = 's_b_clas.gif';
+    const OTYPE_CUS0 = 's_b_exec.gif';
+    const OTYPE_CVERS = 's_instal.gif'; // 's_wdcomp.gif';
+    const OTYPE_DEVC = 's_pckstd.gif';
+    const OTYPE_DOMA = 's_elemen.gif';
+    const OTYPE_DTEL = 's_struct.gif';
+    const OTYPE_DTF = 's_struct.gif';
+    const OTYPE_FUGR = 's_b_objc.gif';
+    const OTYPE_FUNC = 's_b_meth.gif';
+    const OTYPE_INTF = 's_b_intf.gif';
+    const OTYPE_MENU = 's_f_sapm.gif';
+    const OTYPE_MSAG = 's_messag.gif';
+    const OTYPE_NN = 's_x__msg.gif';
+    const OTYPE_OM = 's_b_klme.gif';
+    const OTYPE_PFCG = 's_actgro.gif';
+    const OTYPE_PROG = 's_b_sumi.gif';
+    const OTYPE_RZ10 = 's_perset.gif';
+    const OTYPE_SEOC = 's_b_clas.gif';
+    const OTYPE_SHLP = 's_f4help.gif';
+    const OTYPE_SQLT = 's_bwdata.gif';
+    const OTYPE_SU21 = 's_x_role.gif';
+    const OTYPE_TABL = 's_b_tvar.gif';
+    const OTYPE_TRAN = 's_b_tsak.gif';
+    const OTYPE_VIEW = 's_b_bwrv.gif';
+    const PARAMETER = 's_b_para.gif';
+    const PARAMETER_CHANGING = 's_b_parc.gif';
+    const PARAMETER_EXPORT = 's_b_pare.gif';
+    const PARAMETER_IMPORT = 's_b_pari.gif';
+    const PARAMETER_RESULT = 's_b_parr.gif';
+    const PARAMETER_TABLE = 's_b_part.gif';
+    const RFC = 's_clbltr.gif';
+    const TIME = 's_t_time.gif';
+    const WHERE_USED_LIST = 's_b_book.gif';
+    const WHERE_USING_LIST = 's_assign.gif';
+
+    public static function getIcon4Abap($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::ABAP, $url);
+    }
+
+    public static function getIcon4Alert($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::ALERT, $url);
+    }
+
+    public static function getIcon4Analytics($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::ANALYTICS, $url);
+    }
+
+    public static function getIcon4Date($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::DATE, $url);
+    }
+
+    public static function getIcon4Description($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::DESCRIPTION, $url);
+    }
+
+    public static function getIcon4FilePDF($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::FILE_PDF, $url);
+    }
+
+    public static function getIcon4FileXLSX($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::FILE_XLSX, $url);
+    }
+
+    public static function getIcon4Home($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::HOME, $url);
+    }
+
+    public static function getIcon4LightGreen($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::LIGHT_GREEN, $url);
+    }
+
+    public static function getIcon4LightOut($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::LIGHT_OUT, $url);
+    }
+
+    public static function getIcon4LightRed($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::LIGHT_RED, $url);
+    }
+
+    public static function getIcon4LightYellow($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::LIGHT_YELLOW, $url);
+    }
+
+    public static function getIcon4NamePrefix($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::NAMEPREFIX, $url);
+    }
+
+    public static function getIcon4Otype($otype, $url = FALSE) {
+        if (array_key_exists(strtoupper($otype), GLOBAL_ABAP_ICON::$_METHOD_OTYPES)) {
+            $methodName = GLOBAL_ABAP_ICON::_METHOD_PREFIX_OTYPE . $otype;
+            return GLOBAL_ABAP_ICON::$methodName($url);
+        } else {
+            return GLOBAL_ABAP_ICON::getIcon4Abap($url);
+        }
+    }
+
+    public static function getIcon4OtypeBMFR($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_BMFR, $url);
+    }
+
+    public static function getIcon4OtypeCLAS($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_CLAS, $url);
+    }
+
+    public static function getIcon4OtypeCUS0($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_CUS0, $url);
+    }
+
+    public static function getIcon4OtypeCVERS($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_CVERS, $url);
+    }
+
+    public static function getIcon4OtypeDEVC($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_DEVC, $url);
+    }
+
+    public static function getIcon4OtypeDOMA($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_DOMA, $url);
+    }
+
+    public static function getIcon4OtypeDTEL($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_DTEL, $url);
+    }
+
+    public static function getIcon4OtypeDTF($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_DTF, $url);
+    }
+
+    public static function getIcon4OtypeFUGR($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_FUGR, $url);
+    }
+
+    public static function getIcon4OtypeFUNC($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_FUNC, $url);
+    }
+
+    public static function getIcon4OtypeINTF($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_INTF, $url);
+    }
+
+    public static function getIcon4OtypeMENU($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_MENU, $url);
+    }
+
+    public static function getIcon4OtypeMSAG($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_MSAG, $url);
+    }
+
+    public static function getIcon4OtypeNN($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_NN, $url);
+    }
+
+    public static function getIcon4OtypeOM($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_OM, $url);
+    }
+
+    public static function getIcon4OtypePFCG($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_PFCG, $url);
+    }
+
+    public static function getIcon4OtypePROG($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_PROG, $url);
+    }
+
+    public static function getIcon4OtypeRZ10($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_RZ10, $url);
+    }
+
+    public static function getIcon4OtypeSEOC($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_SEOC, $url);
+    }
+
+    public static function getIcon4OtypeSHLP($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_SHLP, $url);
+    }
+
+    public static function getIcon4OtypeSQLT($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_SQLT, $url);
+    }
+
+    public static function getIcon4OtypeSU21($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_SU21, $url);
+    }
+
+    public static function getIcon4OtypeTABL($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_TABL, $url);
+    }
+
+    public static function getIcon4OtypeTRAN($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_TRAN, $url);
+    }
+
+    public static function getIcon4OtypeVIEW($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_VIEW, $url);
+    }
+
+    public static function getIcon4Parameter($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::PARAMETER, $url);
+    }
+
+    public static function getIcon4ParameterChanging($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::PARAMETER_CHANGING, $url);
+    }
+
+    public static function getIcon4ParameterExport($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::PARAMETER_EXPORT, $url);
+    }
+
+    public static function getIcon4ParameterImport($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::PARAMETER_IMPORT, $url);
+    }
+
+    public static function getIcon4ParameterResult($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::PARAMETER_RESULT, $url);
+    }
+
+    public static function getIcon4ParameterTable($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::PARAMETER_TABLE, $url);
+    }
+
+    public static function getIcon4Rfc($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::RFC, $url);
+    }
+
+    public static function getIcon4Time($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::TIME, $url);
+    }
+
+    public static function getIcon4WIL($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::WHERE_USING_LIST, $url);
+    }
+
+    public static function getIcon4WUL($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::WHERE_USED_LIST, $url);
+    }
+
+    /**
+     * Get Icon image link.
+     * Examples:
+     * <pre>
+     *   <img src='/abap/icon/s_b_area.gif'>
+     *   <img src='http://www.sapdatasheet.org/abap/icon/s_b_area.gif'>
+     * </pre>
+     */
+    public static function getIconLink($fname, $url = FALSE) {
+        $location = '/abap/icon/' . $fname;
+        if ($url == TRUE) {
+            $location = GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG . $location;
+        }
+
+        return "<img src='" . $location . "'>";
+    }
+
+}
+
+/** ABAP Object types and description. */
 class GLOBAL_ABAP_OTYPE {
 
     const BMFR_NAME = 'BMFR';
@@ -104,44 +407,6 @@ class GLOBAL_ABAP_OTYPE {
         } else {
             return $oType;
         }
-    }
-
-}
-
-/** ABAP Object types and description. */
-class GLOBAL_ABAP_ICON {
-
-    const ANALYTICS = 's_b_area.gif';
-    const FILE_PDF = 's_x__pdf.gif';
-    const FILE_XLSX = 's_x__xlv.gif';
-
-    public static function getIcon4Analytics($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::ANALYTICS, $url);
-    }
-
-    public static function getIcon4FilePDF($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::FILE_PDF, $url);
-    }
-
-    public static function getIcon4FileXLSX($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::FILE_XLSX, $url);
-    }
-
-    /**
-     * Get Icon image link.
-     * Examples:
-     * <pre>
-     *   <img src='/abap/icon/s_b_area.gif'>
-     *   <img src='http://www.sapdatasheet.org/abap/icon/s_b_area.gif'>
-     * </pre>
-     */
-    public static function getIconLink($fname, $url = FALSE) {
-        $location = '/abap/icon/' . $fname;
-        if ($url == TRUE) {
-            $location = GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG . $location;
-        }
-
-        return "<img src='" . $location . "'>";
     }
 
 }

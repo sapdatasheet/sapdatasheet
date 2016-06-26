@@ -3,6 +3,8 @@
 <?php
 $__ROOT__ = dirname(dirname(__FILE__));
 require_once($__ROOT__ . '/include/common/global.php');
+require_once ($__ROOT__ . '/include/common/abap_ui.php');
+
 GLOBAL_UTIL::UpdateSAPDescLangu();
 
 $GLOBALS['TITLE_TEXT'] = "SAP ABAP";
@@ -30,7 +32,7 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP";
         <div class="content">
             <!-- Content Navigator -->
             <div class="content_navi">
-                <a href="/">Home page</a> &gt; 
+                <a href="/"><?php echo GLOBAL_ABAP_ICON::getIcon4Home() ?> Home page</a> &gt; 
                 <a href="/abap/">ABAP Object</a>
             </div>
 
@@ -53,7 +55,8 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP";
                         $count++;
                         ?>
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                            <td class="alv"><a href="/abap/<?php echo strtolower($oType) ?>/"><?php echo $oType ?></a></td>
+                            <td class="alv"><?php echo GLOBAL_ABAP_ICON::getIcon4Otype($oType) ?>
+                                <a href="/abap/<?php echo strtolower($oType) ?>/"><?php echo $oType ?></a></td>
                             <td class="alv"><?php echo GLOBAL_ABAP_OTYPE::$OTYPES[$oType] ?></td>
                         </tr>
                     <?php } ?>

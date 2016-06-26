@@ -59,7 +59,7 @@ $list = ABAPANA_DB_TABLE::WILCOUNTER_Index($index);
         <div class="content">
             <!-- Content Navigator -->
             <div class="content_navi">
-                <a href="/">Home page</a> &gt;
+                <a href="/"><?php echo GLOBAL_ABAP_ICON::getIcon4Home() ?> Home page</a> &gt;
                 <a href="/wil/">Where Using List (WIL)</a> &gt;
                 <a href="/wil/abap/">WIL for ABAP Object</a>
             </div>

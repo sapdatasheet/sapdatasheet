@@ -51,7 +51,7 @@ $msag_list = ABAP_DB_TABLE_MSAG::T100A_List();
         <div class="content">
             <!-- Content Navigator -->
             <div class="content_navi">
-                <a href="/">Home page</a> &gt; 
+                <a href="/"><?php echo GLOBAL_ABAP_ICON::getIcon4Home() ?> Home page</a> &gt; 
                 <a href="/abap/">ABAP Object</a> &gt; 
                 <a href="/abap/msag/"><?php echo GLOBAL_ABAP_OTYPE::MSAG_DESC ?></a> 
             </div>
@@ -85,9 +85,11 @@ $msag_list = ABAP_DB_TABLE_MSAG::T100A_List();
                         $tadir = ABAP_DB_TABLE_HIER::TADIR(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, GLOBAL_ABAP_OTYPE::MSAG_NAME, $msag['ARBGB']);
                         ?>
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Msag($msag['ARBGB'], $msag_t) ?></td>
+                            <td class="alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeMSAG() ?>
+                                <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Msag($msag['ARBGB'], $msag_t) ?></td>
                             <td class="alv"><?php echo $msag_t ?></td>
-                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Devc($tadir['DEVCLASS'], NULL) ?>&nbsp;</td>
+                            <td class="alv"><?php echo (GLOBAL_UTIL::IsNotEmpty($tadir['DEVCLASS'])) ? GLOBAL_ABAP_ICON::getIcon4OtypeDEVC() : '' ?>
+                                <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Devc($tadir['DEVCLASS'], NULL) ?>&nbsp;</td>
                         </tr>
                     <?php } ?>
                 </table>

@@ -67,7 +67,7 @@ $tstc_list = ABAP_DB_TABLE_TRAN::TSTC_List($index);
         <div class="content">
             <!-- Content Navigator -->
             <div class="content_navi">
-                <a href="/">Home page</a> &gt; 
+                <a href="/"><?php echo GLOBAL_ABAP_ICON::getIcon4Home() ?> Home page</a> &gt; 
                 <a href="/abap/">ABAP Object</a> &gt; 
                 <a href="/abap/tran/"><?php echo GLOBAL_ABAP_OTYPE::TRAN_DESC ?></a> 
             </div>
@@ -138,9 +138,11 @@ $tstc_list = ABAP_DB_TABLE_TRAN::TSTC_List($index);
                         $tstc_desc = ABAP_DB_TABLE_TRAN::TSTCT($tstc['TCODE']);
                         ?>
                         <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tran($tstc['TCODE'], $tstc_desc) ?> </td>
+                            <td class="alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeTRAN() ?> 
+                                <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tran($tstc['TCODE'], $tstc_desc) ?> </td>
                             <td class="alv"><?php echo htmlentities($tstc_desc) ?></td>
-                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Prog($tstc['PGMNA'], '') ?></td></tr>
+                            <td class="alv"><?php echo (GLOBAL_UTIL::IsNotEmpty($tstc['PGMNA'])) ? GLOBAL_ABAP_ICON::getIcon4OtypePROG() : '' ?> 
+                                <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Prog($tstc['PGMNA'], '') ?></td></tr>
                         <?php } ?>
                 </table>
 
