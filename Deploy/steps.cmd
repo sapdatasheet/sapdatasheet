@@ -23,6 +23,9 @@ timeout 3
 cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
 call step4_compressor.cmd
 
+timeout 3
+cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
+call step5_zip.cmd
 
 timeout 60
 echo "All finished"

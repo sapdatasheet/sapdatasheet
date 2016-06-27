@@ -25,7 +25,8 @@ $abap_index_a0s = array('a', 'b', 'c', 'd', 'e', 'f', 'g'
     , 'o', 'p', 'q', 'r', 's', 't'
     , 'u', 'v', 'w', 'x', 'slash'
     , '0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
-// nuber list
+// cus0 list
+$abap_index_cus0 = array();
 for ($count = 1; $count <= ABAP_DBDATA::CUS_IMGACT_INDEX_MAX; $count++) {
     array_push($abap_index_cus0, $count);
 }
