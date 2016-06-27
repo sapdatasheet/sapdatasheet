@@ -2,5 +2,5 @@
 The Best Run SAP run SAP Datasheet
 
 Welcome to
-* www.sapdatasheet.org
-* www.sapdatasheet.com
+* https://www.sapdatasheet.org
+* https://www.sapdatasheet.net
