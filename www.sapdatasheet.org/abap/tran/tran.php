@@ -56,13 +56,13 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::TRAN_NA
                 <tbody>
                     <tr><td class="left_attribute">Software Component</td></tr>
                     <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeCVERS() ?>
-                        <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
+                            <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
                     <tr><td class="left_attribute"> Application Component</td></tr>
                     <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeBMFR() ?>
-                        <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
+                            <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
                     <tr><td class="left_attribute"> Package </td></tr>
                     <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDEVC() ?>
-                        <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Devc($hier->DEVCLASS, $hier->DEVCLASS_T) ?></td></tr>
+                            <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Devc($hier->DEVCLASS, $hier->DEVCLASS_T) ?></td></tr>
                     <tr><td class="left_attribute"> Object type </td></tr>
                     <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeTRAN() ?>
                             <a href="/abap/tran/"><?php echo GLOBAL_ABAP_OTYPE::TRAN_DESC ?></a></td></tr>
@@ -76,8 +76,8 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::TRAN_NA
             <table class="content_obj">
                 <tbody>
                     <tr><td class="left_value">
-                        <?php echo GLOBAL_ABAP_ICON::getIcon4Analytics() ?>
-                        <?php echo ABAP_UI_TCODES_Navigation::TCodeHyperlink($tstc['TCODE'], TRUE) ?> Analytics
+                            <?php echo GLOBAL_ABAP_ICON::getIcon4Analytics() ?>
+                            <?php echo ABAP_UI_TCODES_Navigation::TCodeHyperlink($tstc['TCODE'], TRUE) ?> Analytics
                         </td></tr>
                 </tbody>
             </table>
@@ -106,41 +106,47 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::TRAN_NA
 
                 <?php require $__ROOT__ . '/include/abap_oname_hier.php' ?>
 
-                <h4> Basic Data </h4>
+                <h4> <?php echo GLOBAL_ABAP_ICON::getIcon4Header() ?> Basic Data </h4>
                 <table class="content_obj">
                     <tbody>
                         <tr><td class="content_label"> Transaction Code        </td>
+                            <td><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeTRAN() ?> </td>
                             <td class="field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tran($tstc['TCODE'], $tstc_desc) ?> </td>
                             <td><?php echo GLOBAL_ABAP_ICON::getIcon4Analytics() ?> <a href="<?php echo ABAP_UI_TCODES_Navigation::TCode($tstc['TCODE'], TRUE) ?>" title="<?php echo $tstc_desc ?>" target="_blank">TCode <?php echo $tstc['TCODE'] ?> Analytics</a> <sup>&nearhk;</sup></td></tr>
                         <tr><td class="content_label"> Transaction Description </td>
+                            <td><?php echo GLOBAL_ABAP_ICON::getIcon4Description() ?> </td>
                             <td class="field"> <?php echo $tstc_desc ?> &nbsp;</td>
                             <td>&nbsp;</td></tr>
                         <tr><td class="content_label"> Transaction Type        </td>
+                            <td>&nbsp;</td>
                             <td class="field"> <?php echo $tstc['CINFO'] ?> </td>
                             <td><?php echo $tstc_cinfo_desc ?></td></tr>
                     </tbody>
                 </table>
 
                 <!-- Attributes - Screen Specific -->
-                <h4> Attribute </h4>
+                <h4> <?php echo GLOBAL_ABAP_ICON::getIcon4Header() ?> Attribute </h4>
                 <table class="content_obj">
                     <tbody>
                         <tr><td class="content_label"> Program       </td>
+                            <td><?php echo GLOBAL_ABAP_ICON::getIcon4OtypePROG() ?> </td>
                             <td class="field"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Prog($tstc['PGMNA'], $tstc_pgmna_desc) ?>&nbsp; </td>
                             <td><?php echo htmlentities($tstc_pgmna_desc) ?></td></tr>
                         <tr><td class="content_label"> Screen number </td>
+                            <td>&nbsp;</td>
                             <td class="field"><?php echo $tstc['DYPNO'] ?>&nbsp;</td>
                             <td>&nbsp;</td></tr>
                     </tbody>
                 </table>
 
                 <?php if (count($tstca_list) > 0) { ?>
-                    <h4>Authorization</h4>
+                    <h4><?php echo GLOBAL_ABAP_ICON::getIcon4OtypePFCG() ?> Authorization</h4>
                     <table class="alv">
                         <tbody>
                             <tr><th class="alv">Authorization Object</th><th class="alv">Authorization Field</th><th class="alv">Value</th></tr>
                             <?php foreach ($tstca_list as $tstca_item) { ?>
-                                <tr><td class="alv"><?php echo $tstca_item['OBJCT'] ?>&nbsp;</td>
+                                <tr><td class="alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeSU21() ?> 
+                                        <?php echo $tstca_item['OBJCT'] ?>&nbsp;</td>
                                     <td class="alv"><?php echo $tstca_item['FIELD'] ?></td>
                                     <td class="alv"><?php echo $tstca_item['VALUE'] ?>&nbsp;</td></tr>
                             <?php } ?>
@@ -149,7 +155,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::TRAN_NA
                     </table>
                 <?php } ?>
 
-                <h4>Parameter</h4>
+                <h4> <?php echo GLOBAL_ABAP_ICON::getIcon4Parameter() ?> Parameter</h4>
                 <table class="content_obj">
                     <tbody>
                         <tr><td class="content_label"> Transaction Code Parameter </td>
@@ -170,7 +176,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::TRAN_NA
                     </tbody>
                 </table>
 
-                <h4>GUI Support</h4>
+                <h4><?php echo GLOBAL_ABAP_ICON::getIcon4Sapgui() ?> GUI Support</h4>
                 <table class="content_obj">
                     <tbody>
                         <tr><td><?php echo ABAP_UI_TOOL::GetCheckBox("cb_sapgui_web", $tstcc['S_WEBGUI']) ?> SAPGUI for HTML</td></tr>
@@ -179,7 +185,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::TRAN_NA
                     </tbody>
                 </table>
 
-                <h4> History </h4>
+                <h4> <?php echo GLOBAL_ABAP_ICON::getIcon4History() ?> History </h4>
                 <table class="content_obj">
                     <tbody>
                         <tr><td class="content_label"> SAP Release Created in  </td><td class="field"><?php echo $hier->CRELEASE ?>&nbsp;</td><td>&nbsp;</td></tr>

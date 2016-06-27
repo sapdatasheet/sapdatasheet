@@ -92,7 +92,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::MSAG_NA
 
                 <?php require $__ROOT__ . '/include/abap_oname_hier.php' ?>
 
-                <h4> Attributes </h4>
+                <h4> <?php echo GLOBAL_ABAP_ICON::getIcon4Header() ?> Attributes </h4>
                 <table class="content_obj">
                     <tbody>
                         <tr><td class="content_label"> Message class </td>
@@ -114,7 +114,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::MSAG_NA
                     </tbody>
                 </table>
 
-                <h4> Messages </h4>
+                <h4> <?php echo GLOBAL_ABAP_ICON::getIcon4Folder() ?> Messages </h4>
                 <table class="alv">
                     <tr>
                         <th class="alv"> # </th>
@@ -141,7 +141,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::MSAG_NA
                     <?php } ?>
                 </table>
 
-                <h4> History </h4>
+                <h4> <?php echo GLOBAL_ABAP_ICON::getIcon4History() ?> History </h4>
                 <table class="content_obj">
                     <tbody>
                         <tr><td class="content_label"> Last changed on/by      </td>

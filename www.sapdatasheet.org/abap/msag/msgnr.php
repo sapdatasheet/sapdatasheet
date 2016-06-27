@@ -108,7 +108,7 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . GLOBAL_ABAP_OTYPE::MSAG_DESC . ' ' . $Obj
 
                 <?php require $__ROOT__ . '/include/abap_oname_hier.php' ?>
 
-                <h4> Attribute </h4>
+                <h4> <?php echo GLOBAL_ABAP_ICON::getIcon4Header() ?> Attribute </h4>
                 <table class="content_obj">
                     <tbody>
                         <tr><td class="content_label"> Message class </td>
@@ -144,14 +144,14 @@ $GLOBALS['TITLE_TEXT'] = 'SAP ABAP ' . GLOBAL_ABAP_OTYPE::MSAG_DESC . ' ' . $Obj
                     </tbody>
                 </table>
 
-                <h4> Message Text </h4>
+                <h4> <?php echo GLOBAL_ABAP_ICON::getIcon4DisplayText() ?> Message Text </h4>
                 <div class="f1doc"><?php echo $t100_nr_text ?></div>
                 <?php if (empty(trim($dok_na)) === FALSE) { ?>
                     <h4> Help Document </h4>
                     <div class="f1doc"><?php echo $dok_na ?></div>
                 <?php } ?>
 
-                <h4> History </h4>
+                <h4> <?php echo GLOBAL_ABAP_ICON::getIcon4History() ?>  History </h4>
                 <table class="content_obj">
                     <tbody>
                         <tr><td class="content_label"> Last changed on/by      </td>

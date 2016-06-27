@@ -1,5 +1,5 @@
 <?php if (isset($hier) && strlen(trim($hier->DLVUNIT)) > 0) { ?>
-    <h4> Hierarchy </h4>
+    <h4> <?php echo GLOBAL_ABAP_ICON::getIcon4DisplayTree() ?> Hierarchy </h4>
     <div class="hier">
         <?php $hier_spaces = 0; ?>
         <!-- Software Component -->
