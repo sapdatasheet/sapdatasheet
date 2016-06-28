@@ -127,7 +127,7 @@ $GLOBALS['TITLE_TEXT'] = "Where Used List for " . $title_name;
                                 <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Devc($wul['APPL_NAME']) ?>&nbsp;</td>
                             <td class="alv"><?php echo (GLOBAL_UTIL::IsNotEmpty($wul['APPL_PACKET'])) ? GLOBAL_ABAP_ICON::getIcon4OtypeDEVC() : '' ?>
                                 <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Devc($wul['APPL_PACKET']) ?>&nbsp;</td>
-                            <td class="alv"><?php echo (GLOBAL_UTIL::IsNotEmpty($wul['APPL_DLVUNIT'])) ? GLOBAL_ABAP_ICON::getIcon4OtypeDEVC() : '' ?>
+                            <td class="alv"><?php echo (GLOBAL_UTIL::IsNotEmpty($wul['APPL_DLVUNIT'])) ? GLOBAL_ABAP_ICON::getIcon4OtypeCVERS() : '' ?>
                                 <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Cvers($wul['APPL_DLVUNIT']) ?>&nbsp;</td>
                         </tr>
                         <?php
