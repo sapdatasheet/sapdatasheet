@@ -15,7 +15,7 @@ foreach ($list as $row) {
         SitemapStartOB();
     }
 
-    $wulurl = "http://www.sapdatasheet.org" . ABAP_UI_DS_Navigation::GetWulPath($row);
+    $wulurl = GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG . ABAP_UI_DS_Navigation::GetWulPath($row);
     SitemapEchoUrl($wulurl, '0.4');
 
     // Check if the Sitemap is full

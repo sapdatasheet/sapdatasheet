@@ -38,7 +38,7 @@
             </td>
             <!-- Search -->
             <td class="search">
-                <form method="get" action="http://www.google.com/search" target="_blank">
+                <form method="get" action="https://www.google.com/search" target="_blank">
                     <input type="text"   name="q" size="40" maxlength="255" value="<?php echo $GLOBALS['TITLE_TEXT']; ?>" />
                     <input type="hidden" name="sitesearch" value="sapdatasheet.org" />
                     <input type="submit" value="Search" /> 

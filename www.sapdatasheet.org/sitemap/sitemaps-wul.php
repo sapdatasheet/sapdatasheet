@@ -8,7 +8,7 @@ ob_start();
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <?php for ($i = 1; $i <= ABAP_DBDATA::SITEMAP_WUL_MAX; $i++) { ?>
         <sitemap>
-            <loc>http://www.sapdatasheet.org/sitemap/wul-abap<?php echo $i ?>.xml</loc>
+            <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/sitemap/wul-abap<?php echo $i ?>.xml</loc>
             <lastmod><?php echo date("Y-m-d") ?></lastmod>
         </sitemap>
     <?php } ?>

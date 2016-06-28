@@ -1,3 +1,5 @@
-Sitemap: http://www.sapdatasheet.org/sitemap/sitemaps.xml
+Sitemap: https://www.sapdatasheet.org/sitemap/sitemaps-abap.xml
+Sitemap: https://www.sapdatasheet.org/sitemap/sitemaps-wil.xml
+Sitemap: https://www.sapdatasheet.org/sitemap/sitemaps-wul.xml
 User-agent: *
 Disallow: /download/
