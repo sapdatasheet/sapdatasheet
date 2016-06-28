@@ -41,7 +41,7 @@ $GLOBALS['SearchTerm'] = "Company Code";
         </div>
         -->
         <div class="home_form">
-            <form method="get" action="http://www.google.com/search" target="_blank">
+            <form method="get" action="https://www.google.com/search" target="_blank">
                 <input class="home_search_input" name="q" type="text" size="60" maxlength="255" value="<?php echo $GLOBALS['SearchTerm'] ?>" />
                 <input type="hidden" name="sitesearch" value="sapdatasheet.org" />
                 <input class="home_search_submit" type="submit" value="Search" />

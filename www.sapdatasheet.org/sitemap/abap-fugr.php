@@ -21,7 +21,7 @@ foreach ($list as $row) {
         $prog = ABAP_DB_TABLE_PROG::GET_PROG_FUGR($row[$column_name]);
         $prog_meta = ABAP_DB_TABLE_PROG::YREPOSRCMETA(strtoupper($prog));
         if (!empty($prog_meta['PROGNAME'])) {
-            $abapurl = "http://www.sapdatasheet.org/abap/prog/" . strtolower($prog) . ".html";
+            $abapurl = GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG . "/abap/prog/" . strtolower($prog) . ".html";
             SitemapEchoUrl($abapurl);
         }
     }

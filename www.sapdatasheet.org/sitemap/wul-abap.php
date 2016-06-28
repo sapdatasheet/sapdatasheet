@@ -30,7 +30,7 @@ foreach ($list as $row) {
         $urls = ABAP_UI_DS_Navigation::GetWulPaths(
                 $row['SRC_OBJ_TYPE'], $row['SRC_OBJ_NAME'], $row['SRC_SUBOBJ'], $row['OBJ_TYPE'], $row['COUNTER']);
         foreach ($urls as $wulurl) {
-            SitemapEchoUrl("http://www.sapdatasheet.org" . $wulurl, '0.4');
+            SitemapEchoUrl(GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG . $wulurl, '0.4');
 
             // Check if the Sitemap is full
             $j++;

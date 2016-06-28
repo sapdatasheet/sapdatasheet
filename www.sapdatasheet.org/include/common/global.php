@@ -367,7 +367,7 @@ class GLOBAL_ABAP_ICON {
      * Examples:
      * <pre>
      *   <img src='/abap/icon/s_b_area.gif'>
-     *   <img src='http://www.sapdatasheet.org/abap/icon/s_b_area.gif'>
+     *   <img src='https://www.sapdatasheet.org/abap/icon/s_b_area.gif'>
      * </pre>
      */
     public static function getIconLink($fname, $url = FALSE) {

@@ -214,8 +214,8 @@ class ABAP_UI_DS_Navigation {
     /**
      * Get the domain name and the object path. Examples:
      * <pre>
-     * http://www.sapdatasheet.org/abap/tabl/bkpf.html
-     * http://www.sapdatasheet.org/abap/tabl/bkpf-mandt.html
+     * https://www.sapdatasheet.org/abap/tabl/bkpf.html
+     * https://www.sapdatasheet.org/abap/tabl/bkpf-mandt.html
      * </pre>
      */
     public static function GetObjectURL($objtype, $objname) {

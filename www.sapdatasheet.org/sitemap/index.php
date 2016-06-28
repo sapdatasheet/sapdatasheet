@@ -35,12 +35,12 @@ for ($count = 1; $count <= ABAP_DBDATA::CUS_IMGACT_INDEX_MAX; $count++) {
 <!-- Index files -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"> 
     <url>
-        <loc>http://www.sapdatasheet.org/index.html</loc> 
+        <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/index.html</loc> 
         <changefreq>monthly</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
-        <loc>http://www.sapdatasheet.org/abap/index.html</loc> 
+        <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/index.html</loc> 
         <changefreq>monthly</changefreq>
         <priority>1.0</priority>
     </url>
@@ -48,39 +48,39 @@ for ($count = 1; $count <= ABAP_DBDATA::CUS_IMGACT_INDEX_MAX; $count++) {
     <?php foreach ($sap_langus as $sap_langu) { ?>
         <!-- CLAS -->
         <url>
-            <loc>http://www.sapdatasheet.org/abap/clas<?php echo $sap_langu ?>/index.html</loc>
+            <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/clas<?php echo $sap_langu ?>/index.html</loc>
             <changefreq>monthly</changefreq>
             <priority>1.0</priority>
         </url>
         <?php for ($abap_index = 1; $abap_index <= ABAP_DBDATA::SEOCLASS_CLAS_INDEX_MAX; $abap_index++) { ?>
             <url>
-                <loc>http://www.sapdatasheet.org/abap/clas<?php echo $sap_langu ?>/index-<?php echo $abap_index ?>.html</loc>
+                <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/clas<?php echo $sap_langu ?>/index-<?php echo $abap_index ?>.html</loc>
                 <changefreq>monthly</changefreq>
                 <priority>1.0</priority>
             </url>
         <?php } ?>
         <!-- INTF -->
         <url>
-            <loc>http://www.sapdatasheet.org/abap/intf<?php echo $sap_langu ?>/index.html</loc>
+            <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/intf<?php echo $sap_langu ?>/index.html</loc>
             <changefreq>monthly</changefreq>
             <priority>1.0</priority>
         </url>
         <?php for ($abap_index = 1; $abap_index <= ABAP_DBDATA::SEOCLASS_INTF_INDEX_MAX; $abap_index++) { ?>
             <url>
-                <loc>http://www.sapdatasheet.org/abap/intf<?php echo $sap_langu ?>/index-<?php echo $abap_index ?>.html</loc>
+                <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/intf<?php echo $sap_langu ?>/index-<?php echo $abap_index ?>.html</loc>
                 <changefreq>monthly</changefreq>
                 <priority>1.0</priority>
             </url>
         <?php } ?>
         <!-- SHLP -->
         <url>
-            <loc>http://www.sapdatasheet.org/abap/shlp<?php echo $sap_langu ?>/index.html</loc>
+            <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/shlp<?php echo $sap_langu ?>/index.html</loc>
             <changefreq>monthly</changefreq>
             <priority>1.0</priority>
         </url>
         <?php for ($abap_index = 1; $abap_index <= ABAP_DBDATA::DD30L_INDEX_MAX; $abap_index++) { ?>
             <url>
-                <loc>http://www.sapdatasheet.org/abap/shlp<?php echo $sap_langu ?>/index-<?php echo $abap_index ?>.html</loc>
+                <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/shlp<?php echo $sap_langu ?>/index-<?php echo $abap_index ?>.html</loc>
                 <changefreq>monthly</changefreq>
                 <priority>1.0</priority>
             </url>
@@ -88,13 +88,13 @@ for ($count = 1; $count <= ABAP_DBDATA::CUS_IMGACT_INDEX_MAX; $count++) {
         
         <!-- Where Used List for ABAP -->
         <url>
-            <loc>http://www.sapdatasheet.org/wul/abap<?php echo $sap_langu ?>/index.html</loc>
+            <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/wul/abap<?php echo $sap_langu ?>/index.html</loc>
             <changefreq>monthly</changefreq>
             <priority>1.0</priority>
         </url>
         <?php for ($abap_index = 1; $abap_index <= ABAP_DBDATA::WULCOUNTER_INDEX_MAX; $abap_index++) { ?>
             <url>
-                <loc>http://www.sapdatasheet.org/wul/abap<?php echo $sap_langu ?>/index-<?php echo $abap_index ?>.html</loc>
+                <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/wul/abap<?php echo $sap_langu ?>/index-<?php echo $abap_index ?>.html</loc>
                 <changefreq>monthly</changefreq>
                 <priority>1.0</priority>
             </url>
@@ -102,13 +102,13 @@ for ($count = 1; $count <= ABAP_DBDATA::CUS_IMGACT_INDEX_MAX; $count++) {
 
         <!-- Where Using List for ABAP -->
         <url>
-            <loc>http://www.sapdatasheet.org/wil/abap<?php echo $sap_langu ?>/index.html</loc>
+            <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/wil/abap<?php echo $sap_langu ?>/index.html</loc>
             <changefreq>monthly</changefreq>
             <priority>1.0</priority>
         </url>
         <?php for ($abap_index = 1; $abap_index <= ABAP_DBDATA::WILCOUNTER_INDEX_MAX; $abap_index++) { ?>
             <url>
-                <loc>http://www.sapdatasheet.org/wil/abap<?php echo $sap_langu ?>/index-<?php echo $abap_index ?>.html</loc>
+                <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/wil/abap<?php echo $sap_langu ?>/index-<?php echo $abap_index ?>.html</loc>
                 <changefreq>monthly</changefreq>
                 <priority>1.0</priority>
             </url>
@@ -119,13 +119,13 @@ for ($count = 1; $count <= ABAP_DBDATA::CUS_IMGACT_INDEX_MAX; $count++) {
     <!-- INTF -->
     <?php foreach ($sap_langus as $sap_langu) { ?>
         <url>
-            <loc>http://www.sapdatasheet.org/abap/intf<?php echo $sap_langu ?>/index.html</loc>
+            <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/intf<?php echo $sap_langu ?>/index.html</loc>
             <changefreq>monthly</changefreq>
             <priority>1.0</priority>
         </url>
         <?php for ($abap_index = 1; $abap_index <= ABAP_DBDATA::SEOCLASS_INTF_INDEX_MAX; $abap_index++) { ?>
             <url>
-                <loc>http://www.sapdatasheet.org/abap/intf<?php echo $sap_langu ?>/index-<?php echo $abap_index ?>.html</loc>
+                <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/intf<?php echo $sap_langu ?>/index-<?php echo $abap_index ?>.html</loc>
                 <changefreq>monthly</changefreq>
                 <priority>1.0</priority>
             </url>
@@ -135,13 +135,13 @@ for ($count = 1; $count <= ABAP_DBDATA::CUS_IMGACT_INDEX_MAX; $count++) {
     <!-- CUS0 -->
     <?php foreach ($sap_langus as $sap_langu) { ?>
         <url>
-            <loc>http://www.sapdatasheet.org/abap/cus0<?php echo $sap_langu ?>/index.html</loc>
+            <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/cus0<?php echo $sap_langu ?>/index.html</loc>
             <changefreq>monthly</changefreq>
             <priority>1.0</priority>
         </url>
         <?php foreach ($abap_index_cus0 as $abap_index) { ?>
             <url>
-                <loc>http://www.sapdatasheet.org/abap/cus0<?php echo $sap_langu ?>/index-<?php echo $abap_index ?>.html</loc>
+                <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/cus0<?php echo $sap_langu ?>/index-<?php echo $abap_index ?>.html</loc>
                 <changefreq>monthly</changefreq>
                 <priority>1.0</priority>
             </url>
@@ -150,19 +150,19 @@ for ($count = 1; $count <= ABAP_DBDATA::CUS_IMGACT_INDEX_MAX; $count++) {
     <?php foreach ($sap_langus as $sap_langu) { ?>
         <!-- CVERS -->
         <url>
-            <loc>http://www.sapdatasheet.org/abap/cvers<?php echo $sap_langu ?>/index.html</loc> 
+            <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/cvers<?php echo $sap_langu ?>/index.html</loc> 
             <changefreq>monthly</changefreq>
             <priority>1.0</priority>
         </url>
         <!-- MSAG -->
         <url>
-            <loc>http://www.sapdatasheet.org/abap/msag<?php echo $sap_langu ?>/index.html</loc> 
+            <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/msag<?php echo $sap_langu ?>/index.html</loc> 
             <changefreq>monthly</changefreq>
             <priority>1.0</priority>
         </url>
         <!-- SQLT -->
         <url>
-            <loc>http://www.sapdatasheet.org/abap/sqlt<?php echo $sap_langu ?>/index.html</loc> 
+            <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/sqlt<?php echo $sap_langu ?>/index.html</loc> 
             <changefreq>monthly</changefreq>
             <priority>1.0</priority>
         </url>
@@ -170,18 +170,18 @@ for ($count = 1; $count <= ABAP_DBDATA::CUS_IMGACT_INDEX_MAX; $count++) {
     <!-- BMFR -->
     <?php foreach ($sap_langus as $sap_langu) { ?>
         <url>
-            <loc>http://www.sapdatasheet.org/abap/bmfr<?php echo $sap_langu ?>/index.html</loc>
+            <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/bmfr<?php echo $sap_langu ?>/index.html</loc>
             <changefreq>monthly</changefreq>
             <priority>1.0</priority>
         </url>
         <url>
-            <loc>http://www.sapdatasheet.org/abap/bmfr<?php echo $sap_langu ?>/index-top.html</loc>
+            <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/bmfr<?php echo $sap_langu ?>/index-top.html</loc>
             <changefreq>monthly</changefreq>
             <priority>1.0</priority>
         </url>
         <?php foreach ($abap_index_a as $abap_index) { ?>
             <url>
-                <loc>http://www.sapdatasheet.org/abap/bmfr<?php echo $sap_langu ?>/index-<?php echo $abap_index ?>.html</loc> 
+                <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/bmfr<?php echo $sap_langu ?>/index-<?php echo $abap_index ?>.html</loc> 
                 <changefreq>monthly</changefreq>
                 <priority>1.0</priority>
             </url>
@@ -190,24 +190,24 @@ for ($count = 1; $count <= ABAP_DBDATA::CUS_IMGACT_INDEX_MAX; $count++) {
     <!-- DEVC, PROG, TABL, VIEW, DTEL -->
     <?php foreach ($sap_langus as $sap_langu) { ?>
         <url>
-            <loc>http://www.sapdatasheet.org/abap/tabl<?php echo $sap_langu ?>/index-cluster.html</loc>
+            <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/tabl<?php echo $sap_langu ?>/index-cluster.html</loc>
             <changefreq>monthly</changefreq>
             <priority>1.0</priority>
         </url>
         <url>
-            <loc>http://www.sapdatasheet.org/abap/tabl<?php echo $sap_langu ?>/index-pool.html</loc>
+            <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/tabl<?php echo $sap_langu ?>/index-pool.html</loc>
             <changefreq>monthly</changefreq>
             <priority>1.0</priority>
         </url>
         <?php foreach ($abap_otpye_as as $abap_otype) { ?>
             <url>
-                <loc>http://www.sapdatasheet.org/abap/<?php echo $abap_otype ?><?php echo $sap_langu ?>/index.html</loc>
+                <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/<?php echo $abap_otype ?><?php echo $sap_langu ?>/index.html</loc>
                 <changefreq>monthly</changefreq>
                 <priority>1.0</priority>
             </url>
             <?php foreach ($abap_index_as as $abap_index) { ?>
                 <url>
-                    <loc>http://www.sapdatasheet.org/abap/<?php echo $abap_otype ?><?php echo $sap_langu ?>/index-<?php echo $abap_index ?>.html</loc>
+                    <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/<?php echo $abap_otype ?><?php echo $sap_langu ?>/index-<?php echo $abap_index ?>.html</loc>
                     <changefreq>monthly</changefreq>
                     <priority>1.0</priority>
                 </url>
@@ -218,19 +218,19 @@ for ($count = 1; $count <= ABAP_DBDATA::CUS_IMGACT_INDEX_MAX; $count++) {
     <!-- TRAN, FUGR, FUNC -->
     <?php foreach ($sap_langus as $sap_langu) { ?>
         <url>
-            <loc>http://www.sapdatasheet.org/abap/func<?php echo $sap_langu ?>/index-rfc.html</loc>
+            <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/func<?php echo $sap_langu ?>/index-rfc.html</loc>
             <changefreq>monthly</changefreq>
             <priority>1.0</priority>
         </url>
         <?php foreach ($abap_otpye_a0s as $abap_otype) { ?>
             <url>
-                <loc>http://www.sapdatasheet.org/abap/<?php echo $abap_otype ?><?php echo $sap_langu ?>/index.html</loc>
+                <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/<?php echo $abap_otype ?><?php echo $sap_langu ?>/index.html</loc>
                 <changefreq>monthly</changefreq>
                 <priority>1.0</priority>
             </url>
             <?php foreach ($abap_index_a0s as $abap_index) { ?>
                 <url>
-                    <loc>http://www.sapdatasheet.org/abap/<?php echo $abap_otype ?><?php echo $sap_langu ?>/index-<?php echo $abap_index ?>.html</loc>
+                    <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/<?php echo $abap_otype ?><?php echo $sap_langu ?>/index-<?php echo $abap_index ?>.html</loc>
                     <changefreq>monthly</changefreq>
                     <priority>1.0</priority>
                 </url>

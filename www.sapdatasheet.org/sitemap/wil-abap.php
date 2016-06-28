@@ -30,7 +30,7 @@ foreach ($list as $row) {
     if ($row['COUNTER'] > ABAP_DB_CONST::INDEX_PAGESIZE) {
         $urls = ABAP_UI_DS_Navigation::GetWilPaths($row['OBJ_TYPE'], $row['OBJ_NAME'], $row['SRC_OBJ_TYPE'], $row['COUNTER']);
         foreach ($urls as $wilurl) {
-            SitemapEchoUrl("http://www.sapdatasheet.org" . $wilurl, '0.4');
+            SitemapEchoUrl(GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG . $wilurl, '0.4');
 
             // Check if the Sitemap is full
             $j++;
