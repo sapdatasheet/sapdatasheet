@@ -26,6 +26,11 @@ call:BuffGenerateSitemap sitemaps-wul.php
 call:BuffGenerateSitemap wil-abap.php
 call:BuffGenerateSitemap wul-abap.php
 
+cd C:\Data\Business\SAPDatasheet\Runtime\www-root\sitemap
+del *.php
+cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
+
+
 timeout 60
 
 

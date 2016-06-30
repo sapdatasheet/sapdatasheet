@@ -1,6 +1,8 @@
 <?php
 $__ROOT__ = dirname(dirname(__FILE__));
+require_once($__ROOT__ . '/include/common/global.php');
 require_once($__ROOT__ . '/include/common/abap_db.php');
+
 ob_start();
 ?>
 <?xml version="1.0" encoding="UTF-8"?>
@@ -34,11 +36,6 @@ for ($count = 1; $count <= ABAP_DBDATA::CUS_IMGACT_INDEX_MAX; $count++) {
 
 <!-- Index files -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"> 
-    <url>
-        <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/index.html</loc> 
-        <changefreq>monthly</changefreq>
-        <priority>1.0</priority>
-    </url>
     <url>
         <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/index.html</loc> 
         <changefreq>monthly</changefreq>
