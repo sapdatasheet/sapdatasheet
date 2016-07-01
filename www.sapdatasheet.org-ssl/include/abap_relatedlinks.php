@@ -12,3 +12,5 @@
             </td></tr>
     </tbody>
 </table>
+
+<?php require $__ROOT__ . '/include/abap_ads_side.php' ?>
