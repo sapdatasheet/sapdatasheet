@@ -4,6 +4,7 @@ $__ROOT__ = dirname(dirname(dirname(__FILE__)));
 require_once ($__ROOT__ . '/include/common/global.php');
 require_once ($__ROOT__ . '/include/common/abap_db.php');
 require_once ($__ROOT__ . '/include/common/abap_ui.php');
+require_once ($__ROOT__ . '/include/common/schemaorg.php');
 GLOBAL_UTIL::UpdateSAPDescLangu();
 
 if (!isset($ObjID)) {
@@ -30,8 +31,14 @@ $wil_counter_list = ABAPANA_DB_TABLE::WILCOUNTER_List(GLOBAL_ABAP_OTYPE::TRAN_NA
 
 $hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, GLOBAL_ABAP_OTYPE::TRAN_NAME, $tstc['TCODE']);
 $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::TRAN_NAME, $tstc['TCODE']);
-?>
 
+$json_ld = new \OrgSchema\Thing();
+$json_ld->name = $tstc['TCODE'];
+$json_ld->alternateName = $tstc_desc;
+$json_ld->description = $GLOBALS['TITLE_TEXT'];
+$json_ld->image = GLOBAL_ABAP_ICON::getIconURL(GLOBAL_ABAP_ICON::OTYPE_TRAN, TRUE);
+$json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::TRAN_NAME, $json_ld->name);
+?>
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -42,11 +49,12 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::TRAN_NA
         <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC; ?>" />
         <meta name="author" content="SAP Datasheet" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <script type="application/ld+json"><?php echo $json_ld->toJson() ?></script>
     </head>
     <body>
 
         <!-- Header -->
-        <?php require $__ROOT__ . '/include/header.php' ?>
+<?php require $__ROOT__ . '/include/header.php' ?>
 
         <!-- Left -->
         <div class="left">
@@ -56,13 +64,13 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::TRAN_NA
                 <tbody>
                     <tr><td class="left_attribute">Software Component</td></tr>
                     <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeCVERS() ?>
-                            <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
+<?php echo ABAP_UI_DS_Navigation::GetHyperlink4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
                     <tr><td class="left_attribute"> Application Component</td></tr>
                     <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeBMFR() ?>
-                            <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
+<?php echo ABAP_UI_DS_Navigation::GetHyperlink4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
                     <tr><td class="left_attribute"> Package </td></tr>
                     <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDEVC() ?>
-                            <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Devc($hier->DEVCLASS, $hier->DEVCLASS_T) ?></td></tr>
+<?php echo ABAP_UI_DS_Navigation::GetHyperlink4Devc($hier->DEVCLASS, $hier->DEVCLASS_T) ?></td></tr>
                     <tr><td class="left_attribute"> Object type </td></tr>
                     <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeTRAN() ?>
                             <a href="/abap/tran/"><?php echo GLOBAL_ABAP_OTYPE::TRAN_DESC ?></a></td></tr>
@@ -77,13 +85,13 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::TRAN_NA
                 <tbody>
                     <tr><td class="left_value">
                             <?php echo GLOBAL_ABAP_ICON::getIcon4Analytics() ?>
-                            <?php echo ABAP_UI_TCODES_Navigation::TCodeHyperlink($tstc['TCODE'], TRUE) ?> Analytics
+<?php echo ABAP_UI_TCODES_Navigation::TCodeHyperlink($tstc['TCODE'], TRUE) ?> Analytics
                         </td></tr>
                 </tbody>
             </table>
 
             <?php require $__ROOT__ . '/include/abap_oname_wul.php' ?>
-            <?php require $__ROOT__ . '/include/abap_relatedlinks.php' ?>
+<?php require $__ROOT__ . '/include/abap_relatedlinks.php' ?>
             <h5>&nbsp;</h5>
         </div>
 
@@ -101,10 +109,10 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::TRAN_NA
             <div class="content_obj_title"><span><?php echo $GLOBALS['TITLE_TEXT'] ?></span></div>
             <div class="content_obj">
                 <div>
-                    <?php include $__ROOT__ . '/include/google/adsense-content-top.html' ?>
+<?php include $__ROOT__ . '/include/google/adsense-content-top.html' ?>
                 </div>
 
-                <?php require $__ROOT__ . '/include/abap_oname_hier.php' ?>
+<?php require $__ROOT__ . '/include/abap_oname_hier.php' ?>
 
                 <h4> <?php echo GLOBAL_ABAP_ICON::getIcon4Header() ?> Basic Data </h4>
                 <table class="content_obj">
@@ -139,21 +147,21 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::TRAN_NA
                     </tbody>
                 </table>
 
-                <?php if (count($tstca_list) > 0) { ?>
+<?php if (count($tstca_list) > 0) { ?>
                     <h4><?php echo GLOBAL_ABAP_ICON::getIcon4OtypePFCG() ?> Authorization</h4>
                     <table class="alv">
                         <tbody>
                             <tr><th class="alv">Authorization Object</th><th class="alv">Authorization Field</th><th class="alv">Value</th></tr>
-                            <?php foreach ($tstca_list as $tstca_item) { ?>
+                                    <?php foreach ($tstca_list as $tstca_item) { ?>
                                 <tr><td class="alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeSU21() ?> 
-                                        <?php echo $tstca_item['OBJCT'] ?>&nbsp;</td>
+        <?php echo $tstca_item['OBJCT'] ?>&nbsp;</td>
                                     <td class="alv"><?php echo $tstca_item['FIELD'] ?></td>
                                     <td class="alv"><?php echo $tstca_item['VALUE'] ?>&nbsp;</td></tr>
-                            <?php } ?>
+    <?php } ?>
                             <tr><td class="alv">&nbsp;</td><td class="alv">&nbsp;</td><td class="alv">&nbsp;</td></tr>
                         </tbody>
                     </table>
-                <?php } ?>
+<?php } ?>
 
                 <h4> <?php echo GLOBAL_ABAP_ICON::getIcon4Parameter() ?> Parameter</h4>
                 <table class="content_obj">
@@ -196,7 +204,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::TRAN_NA
         </div><!-- Content: End -->
 
         <!-- Footer -->
-        <?php require $__ROOT__ . '/include/footer.php' ?>
+<?php require $__ROOT__ . '/include/footer.php' ?>
 
     </body>
 </html>

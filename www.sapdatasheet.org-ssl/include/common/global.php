@@ -371,12 +371,24 @@ class GLOBAL_ABAP_ICON {
      * </pre>
      */
     public static function getIconLink($fname, $url = FALSE) {
+        $location = GLOBAL_ABAP_ICON::getIconURL($fname, $url);
+        return "<img src='" . $location . "'>";
+    }
+    
+    /**
+     * Get Icon image URL.
+     * Examples:
+     * <pre>
+     *   '/abap/icon/s_b_area.gif'
+     *   'https://www.sapdatasheet.org/abap/icon/s_b_area.gif'
+     * </pre>
+     */
+    public static function getIconURL($fname, $url = FALSE){
         $location = '/abap/icon/' . $fname;
         if ($url == TRUE) {
             $location = GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG . $location;
         }
-
-        return "<img src='" . $location . "'>";
+        return $location;
     }
 
 }

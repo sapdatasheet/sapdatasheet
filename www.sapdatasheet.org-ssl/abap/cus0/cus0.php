@@ -5,6 +5,7 @@ $__ROOT__ = dirname(dirname(dirname(__FILE__)));
 require_once ($__ROOT__ . '/include/common/global.php');
 require_once ($__ROOT__ . '/include/common/abap_db.php');
 require_once ($__ROOT__ . '/include/common/abap_ui.php');
+require_once ($__ROOT__ . '/include/common/schemaorg.php');
 GLOBAL_UTIL::UpdateSAPDescLangu();
 
 if (!isset($ObjID)) {
@@ -31,6 +32,13 @@ $actobj_list = ABAP_DB_TABLE_CUS0::CUS_ACTOBJ($imgach['C_ACTIVITY']);
 
 $hier = ABAP_DB_TABLE_HIER::Hier(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, GLOBAL_ABAP_OTYPE::CUS0_NAME, $imgach['ACTIVITY']);
 $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::CUS0_NAME, $imgach['ACTIVITY']);
+
+$json_ld = new \OrgSchema\Thing();
+$json_ld->name = $imgach['ACTIVITY'];
+$json_ld->alternateName = $imgach_t;
+$json_ld->description = $GLOBALS['TITLE_TEXT'];
+$json_ld->image = GLOBAL_ABAP_ICON::getIconURL(GLOBAL_ABAP_ICON::OTYPE_CUS0, TRUE);
+$json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::CUS0_NAME, $imgach['ACTIVITY']);
 ?>
 <html>
     <head>
@@ -42,6 +50,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::CUS0_NA
         <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC; ?>" />
         <meta name="author" content="SAP Datasheet" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <script type="application/ld+json"><?php echo $json_ld->toJson() ?></script>
     </head>
     <body>
 

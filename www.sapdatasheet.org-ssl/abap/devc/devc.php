@@ -5,6 +5,7 @@ $__ROOT__ = dirname(dirname(dirname(__FILE__)));
 require_once ($__ROOT__ . '/include/common/global.php');
 require_once ($__ROOT__ . '/include/common/abap_db.php');
 require_once ($__ROOT__ . '/include/common/abap_ui.php');
+require_once ($__ROOT__ . '/include/common/schemaorg.php');
 GLOBAL_UTIL::UpdateSAPDescLangu();
 
 if (!isset($ObjID)) {
@@ -27,6 +28,13 @@ $child_tabl = ABAP_DB_TABLE_HIER::TADIR_Child($tdevc['DEVCLASS'], ABAP_DB_TABLE_
 $child_tran = ABAP_DB_TABLE_HIER::TADIR_Child($tdevc['DEVCLASS'], ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, GLOBAL_ABAP_OTYPE::TRAN_NAME);
 
 $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::DEVC_NAME, $tdevc['DEVCLASS']);
+
+$json_ld = new \OrgSchema\Thing();
+$json_ld->name = $tdevc['DEVCLASS'];
+$json_ld->alternateName = $tdevc_desc;
+$json_ld->description = $GLOBALS['TITLE_TEXT'];
+$json_ld->image = GLOBAL_ABAP_ICON::getIconURL(GLOBAL_ABAP_ICON::OTYPE_DEVC, TRUE);
+$json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::DEVC_NAME, $json_ld->name);
 ?>
 <html>
     <head>
@@ -38,6 +46,7 @@ $GLOBALS['TITLE_TEXT'] = ABAP_UI_TOOL::GetObjectTitle(GLOBAL_ABAP_OTYPE::DEVC_NA
         <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC; ?>" />
         <meta name="author" content="SAP Datasheet" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <script type="application/ld+json"><?php echo $json_ld->toJson() ?></script>
     </head>
     <body>
 
