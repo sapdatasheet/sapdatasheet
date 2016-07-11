@@ -1,0 +1,9 @@
+/etc/apache2/sites-enabled$ ls -al
+total 8
+drwxr-xr-x 2 root root 4096 Jun 27 02:31 .
+drwxr-xr-x 8 root root 4096 Jun 26 19:43 ..
+lrwxrwxrwx 1 root root   44 Jan 21 23:13 www.sapdatasheet.com.conf -> ../sites-available/www.sapdatasheet.com.conf
+lrwxrwxrwx 1 root root   50 May 23 00:50 www.sapdatasheet.org-nossl.conf -> ../sites-available/www.sapdatasheet.org-nossl.conf
+lrwxrwxrwx 1 root root   48 Jun 27 02:31 www.sapdatasheet.org-ssl.conf -> ../sites-available/www.sapdatasheet.org-ssl.conf
+lrwxrwxrwx 1 root root   48 May 21 01:46 www.sap-tcodes.org-nossl.conf -> ../sites-available/www.sap-tcodes.org-nossl.conf
+lrwxrwxrwx 1 root root   49 May 23 01:12 www.sap-tcodes.org-ssl-ix.conf -> ../sites-available/www.sap-tcodes.org-ssl-ix.conf
