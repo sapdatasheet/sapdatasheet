@@ -207,6 +207,19 @@ class ABAP_UI_DS_Navigation {
         return ABAP_UI_DS_Navigation::GetHyperlink(GLOBAL_ABAP_OTYPE::TRAN_NAME, $tcode, $tcode, $desc, $newwin);
     }
 
+    public static function GetHyperlink4TranEx($tcode, $newwin = TRUE) {
+        $url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::TRAN_NAME, $tcode);
+        $desc = ABAP_UI_TOOL::GetObjectDescr(GLOBAL_ABAP_OTYPE::TRAN_NAME, $tcode);
+        $title = (empty($desc)) ? $tcode : $desc;
+        $newWindow = ($newwin === TRUE) ? 'target="_blank"' : '';
+
+        $result = '<a href="' . strtolower($url)
+                . '" title="' . htmlentities($title) . '" '
+                . $newWindow . '>'
+                . htmlentities($tcode) . '</a>';
+        return $result;
+    }
+
     public static function GetHyperlink4View($view, $desc = NULL, $newwin = TRUE) {
         return ABAP_UI_DS_Navigation::GetHyperlink(GLOBAL_ABAP_OTYPE::VIEW_NAME, $view, $view, $desc, $newwin);
     }

@@ -43,6 +43,7 @@ class GLOBAL_ABAP_ICON {
     const ANALYTICS = 's_b_area.gif';
     const DATE = 's_t_date.gif';
     const DESCRIPTION = 's_wdvlab.gif';
+    const DISPLAY_MORE = 's_bgmore.gif';
     const DISPLAY_TEXT = 's_b_txdp.gif';
     const DISPLAY_TREE = 's_distre.gif';
     const FILE_PDF = 's_x__pdf.gif';
@@ -66,7 +67,7 @@ class GLOBAL_ABAP_ICON {
     const ORDER = 's_b_pvre.gif';
     const OTYPE_BMFR = 's_b_tree.gif';
     const OTYPE_CLAS = 's_b_clas.gif';
-    const OTYPE_CUS0 = 's_b_exec.gif';
+    const OTYPE_CUS0 = 's_b_tsak.gif';
     const OTYPE_CVERS = 's_instal.gif'; // 's_wdcomp.gif';
     const OTYPE_DEVC = 's_pckstd.gif';
     const OTYPE_DOMA = 's_elemen.gif';
@@ -87,7 +88,7 @@ class GLOBAL_ABAP_ICON {
     const OTYPE_SQLT = 's_bwdata.gif';
     const OTYPE_SU21 = 's_x_role.gif';
     const OTYPE_TABL = 's_b_tvar.gif';
-    const OTYPE_TRAN = 's_b_tsak.gif';
+    const OTYPE_TRAN = 's_b_exec.gif';
     const OTYPE_VIEW = 's_b_bwrv.gif';
     const PARAMETER = 's_b_para.gif';
     const PARAMETER_CHANGING = 's_b_parc.gif';
@@ -123,6 +124,10 @@ class GLOBAL_ABAP_ICON {
 
     public static function getIcon4Description($url = FALSE) {
         return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::DESCRIPTION, $url);
+    }
+
+    public static function getIcon4DisplayMore($url = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::DISPLAY_MORE, $url);
     }
 
     public static function getIcon4DisplayText($url = FALSE) {
