@@ -101,6 +101,7 @@ class GLOBAL_ABAP_ICON {
     const TIME = 's_t_time.gif';
     const WHERE_USED_LIST = 's_b_book.gif';
     const WHERE_USING_LIST = 's_assign.gif';
+    const WORK_CENTER = 's_b_work.gif';
 
     public static function getIcon4Abap($url = FALSE) {
         return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::ABAP, $url);
