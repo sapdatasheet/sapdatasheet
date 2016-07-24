@@ -493,8 +493,7 @@ class ABAP_UI_TCODES_Navigation {
         }
 
         return $buf_value;
-    }    
-    
+    }
 
     /**
      * Get Path for Analytics by Component.
@@ -547,7 +546,6 @@ class ABAP_UI_TCODES_Navigation {
         return ($url) ? GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . $path : $path;
     }
 
-
     /**
      * Get Path for Analytics by Name.
      * Example:
@@ -563,18 +561,18 @@ class ABAP_UI_TCODES_Navigation {
         $path = ABAP_UI_TCODES_Navigation::PATH_ANALYTICS_NAME . strtolower($prefix) . '.html';
         return ($url) ? GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . $path : $path;
     }
-    
+
     /**
      * Get book name for an module.
      */
-    public static function BookName4Module($module){
+    public static function BookName4Module($module) {
         return ABAP_UI_TCODES_Navigation::BOOK_PREFIX_MODULE . strtoupper($module) . '-EN.pdf';
     }
-    
+
     /**
      * Get relative Distribution path.
      */
-    public static function DistPath($fileName){
+    public static function DistPath($fileName) {
         return 'dist' . DIRECTORY_SEPARATOR . $fileName;
     }
 
@@ -585,11 +583,11 @@ class ABAP_UI_TCODES_Navigation {
      *   /download/book/dist/dist/SAP-TCodes_Module_AC.pdf
      * </pre>
      */
-    public static function DownloadBookPath($bookName, $url = FALSE){
+    public static function DownloadBookPath($bookName, $url = FALSE) {
         $path = ABAP_UI_TCODES_Navigation::PATH_DOWNLOAD_BOOK_DIST . $bookName;
         return ($url) ? GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . $path : $path;
     }
-    
+
     /**
      * Get Path for downloading books.
      * Example:
@@ -598,7 +596,7 @@ class ABAP_UI_TCODES_Navigation {
      *   https://www.sap-tcodes.org/download/book/
      * </pre>
      */
-    public static function DownloadBooks($url = FALSE){
+    public static function DownloadBooks($url = FALSE) {
         return ($url) ? GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . ABAP_UI_TCODES_Navigation::PATH_DOWNLOAD_BOOK : ABAP_UI_TCODES_Navigation::PATH_DOWNLOAD_BOOK;
     }
 
@@ -609,11 +607,11 @@ class ABAP_UI_TCODES_Navigation {
      *   download.php?filter=module&id=fi&format=csv
      * </pre>
      */
-    public static function DownloadSheetPath($sheetName, $url = FALSE){
+    public static function DownloadSheetPath($sheetName, $url = FALSE) {
         $path = ABAP_UI_TCODES_Navigation::PATH_DOWNLOAD_SHEET_DIST . $sheetName;
         return ($url) ? GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . $path : $path;
     }
-    
+
     /**
      * Get Path for downloading sheets.
      * Example:
@@ -622,21 +620,21 @@ class ABAP_UI_TCODES_Navigation {
      *   https://www.sap-tcodes.org/download/sheet/
      * </pre>
      */
-    public static function DownloadSheets($url = FALSE){
+    public static function DownloadSheets($url = FALSE) {
         return ($url) ? GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . ABAP_UI_TCODES_Navigation::PATH_DOWNLOAD_SHEET : ABAP_UI_TCODES_Navigation::PATH_DOWNLOAD_SHEET;
     }
 
     /**
      * Get Sheet file name (no suffix).
      */
-    public static function SheetName($filter, $id, $format){
+    public static function SheetName($filter, $id, $format) {
         $name = str_replace('/', '', $id);
         return ABAP_UI_TCODES_Navigation::SHEET_PREFIX
                 . ucfirst(strtolower($filter)) . '_'
-                . strtoupper($name) 
+                . strtoupper($name)
                 . '-EN.' . strtolower($format);
     }
-    
+
     /**
      * Get Path for a Transaction Code.
      * Example:
@@ -648,7 +646,7 @@ class ABAP_UI_TCODES_Navigation {
      * @param string $tcode T-Code
      * @param boolean $url Add prefix for URL
      */
-    public static function TCode($tcode, $url = FALSE){
+    public static function TCode($tcode, $url = FALSE) {
         $path = ABAP_UI_TCODES_Navigation::PATH_TCODE . htmlentities(strtolower($tcode)) . '.html';
         return ($url) ? GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . $path : $path;
     }
@@ -663,7 +661,7 @@ class ABAP_UI_TCODES_Navigation {
      * @param string $tcode T-Code
      * @param boolean $url Add prefix for URL
      */
-    public static function TCodeHyperlink($tcode, $url = FALSE){
+    public static function TCodeHyperlink($tcode, $url = FALSE) {
         $href = ABAP_UI_TCODES_Navigation::TCode($tcode, $url);
         $title = htmlentities(ABAP_DB_TABLE_TRAN::TSTCT($tcode));
         if (GLOBAL_UTIL::IsEmpty($title)) {
@@ -672,7 +670,6 @@ class ABAP_UI_TCODES_Navigation {
         return '<a href="' . $href . '" target="_blank" title="' . $title . '">'
                 . htmlentities($tcode) . '</a>';
     }
-
 
 }
 
@@ -748,6 +745,16 @@ class ABAP_UI_CONST {
     const ANCHOR_SEOMETARELFL = "seometarel-fulllist";     // For class/interface meta rel
     const LABEL_F1Help = 'Help Document on this Field';
     const WUL_ROW_MINIMAL = 10;                            // Add empty rows to make web page looks better
+
+    public static function GetIndexes4Func() {
+        return array('a', 'b', 'c', 'd', 'e', 'f', 'g'
+            , 'h', 'i', 'j', 'k', 'l', 'm', 'n'
+            , 'o', 'p', 'q', 'r', 's', 't'
+            , 'u', 'v', 'w', 'x'
+            , 'slash'
+            , '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
+            , 'rfc');
+    }
 
 }
 
@@ -849,7 +856,7 @@ class ABAP_UI_CUS0 {
      * @return Array IMG Paths
      */
     public static function GetActivityPaths() {
-
+        
     }
 
     /**
@@ -949,15 +956,15 @@ class ABAP_UI_TOOL {
     /**
      * ABAP OO Paratmer Type icon.
      */
-    public static function GetOOParameterIcon($Type){
+    public static function GetOOParameterIcon($Type) {
         if ($Type == ABAP_DB_TABLE_SEO::SEOSUBCODF_PARDECLTYP_0) {
-           return GLOBAL_ABAP_ICON::getIcon4ParameterImport();
+            return GLOBAL_ABAP_ICON::getIcon4ParameterImport();
         } else if ($Type == ABAP_DB_TABLE_SEO::SEOSUBCODF_PARDECLTYP_1) {
-           return GLOBAL_ABAP_ICON::getIcon4ParameterExport();
+            return GLOBAL_ABAP_ICON::getIcon4ParameterExport();
         } else if ($Type == ABAP_DB_TABLE_SEO::SEOSUBCODF_PARDECLTYP_2) {
-           return GLOBAL_ABAP_ICON::getIcon4ParameterChanging();
+            return GLOBAL_ABAP_ICON::getIcon4ParameterChanging();
         } else if ($Type == ABAP_DB_TABLE_SEO::SEOSUBCODF_PARDECLTYP_3) {
-           return GLOBAL_ABAP_ICON::getIcon4ParameterResult();
+            return GLOBAL_ABAP_ICON::getIcon4ParameterResult();
         } else {
             return GLOBAL_ABAP_ICON::getIcon4Abap();
         }
@@ -1118,37 +1125,37 @@ class ABAP_UI_TOOL {
     public static function GetTCodeTypeDesc($TCodeType) {
         $desc = 'Transaction Code Type';
         if ($TCodeType == '00') {
-
+            
         } else if ($TCodeType == '01') {
-
+            
         } else if ($TCodeType == '02') {
-
+            
         } else if ($TCodeType == '04') {
-
+            
         } else if ($TCodeType == '05') {
-
+            
         } else if ($TCodeType == '06') {
-
+            
         } else if ($TCodeType == '08') {
-
+            
         } else if ($TCodeType == '0c') {
-
+            
         } else if ($TCodeType == '21') {
-
+            
         } else if ($TCodeType == '22') {
-
+            
         } else if ($TCodeType == '44') {
-
+            
         } else if ($TCodeType == '80') {
-
+            
         } else if ($TCodeType == '84') {
-
+            
         } else if ($TCodeType == '90') {
-
+            
         } else if ($TCodeType == '94') {
-
+            
         } else if ($TCodeType == 'a0') {
-
+            
         }
 
         return $desc;

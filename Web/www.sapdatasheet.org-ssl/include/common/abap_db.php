@@ -672,9 +672,14 @@ class ABAP_DB_TABLE_FUNC {
                     . " where FMODE = 'R' order by funcname";
             return ABAP_DB_TABLE::select($sql);
         } else {
+            // Avoid hacker
+            if (strlen(trim($index)) > 1) {
+                $index = ABAP_DB_CONST::INDEX_A;
+            }
+
             $sql = "SELECT FUNCNAME, FMODE FROM " . ABAP_DB_TABLE_FUNC::TFDIR
-                    . " where funcname LIKE '" . $index . "%' order by funcname";
-            return ABAP_DB_TABLE::select_1filter($sql, strtoupper($index));
+                    . " where funcname LIKE :id order by funcname";
+            return ABAP_DB_TABLE::select_1filter($sql, strtoupper($index . '%'));
         }
     }
 
@@ -975,8 +980,8 @@ class ABAP_DB_TABLE_HIER {
             return ABAP_DB_TABLE::select($sql);
         } else {
             $sql = "select * from " . ABAP_DB_TABLE_HIER::DF14L
-                    . " where PS_POSID like '" . $index . "%' AND trim(coalesce(PS_POSID, '')) <>'' ORDER BY PS_POSID";
-            return ABAP_DB_TABLE::select_1filter($sql, $index);
+                    . " where PS_POSID like :id AND trim(coalesce(PS_POSID, '')) <>'' ORDER BY PS_POSID";
+            return ABAP_DB_TABLE::select_1filter($sql, $index . '%');
         }
     }
 
@@ -2808,9 +2813,17 @@ class ABAPANA_DB_TABLE {
     /**
      * Get one record for a given posid.
      */
+    public static function ABAPBMFR_FCTR_ID($fctr_id) {
+        $sql = "SELECT * FROM " . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPBMFR
+                . " WHERE FCTR_ID = :id";
+        return ABAP_DB_TABLE::select_single($sql, $fctr_id);
+    }
+
+    /**
+     * Get one record for a given posid.
+     */
     public static function ABAPBMFR_POSID($posid) {
-        $sql = "SELECT * FROM "
-                . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPBMFR
+        $sql = "SELECT * FROM " . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPBMFR
                 . " WHERE ps_posid = :id";
         return ABAP_DB_TABLE::select_single($sql, $posid);
     }
@@ -2843,6 +2856,15 @@ class ABAPANA_DB_TABLE {
         } else {
             return ABAP_DB_TABLE_HIER::DF14T($bmfr);
         }
+    }
+
+    /**
+     * Load ABAP Package data.
+     */
+    public static function ABAPDEVC($devclass) {
+        $sql = "SELECT * FROM " . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPDEVC
+                . " where devclass = :id";
+        return ABAP_DB_TABLE::select_single($sql, $devclass);
     }
 
     /**

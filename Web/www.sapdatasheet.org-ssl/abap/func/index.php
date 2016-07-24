@@ -41,7 +41,12 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . GLOBAL_ABAP_OTYPE::FUNC_DESC . " - Index 
 if ($index === ABAP_DB_CONST::INDEX_SLASH) {
     $index = '/';
 }
-$fm_list = ABAP_DB_TABLE_FUNC::TFDIR_List($index);
+$indexes = ABAP_UI_CONST::GetIndexes4Func();
+if (in_array(strtolower($index), $indexes)) {
+    $fm_list = ABAP_DB_TABLE_FUNC::TFDIR_List($index);
+} else {
+    ABAP_UI_TOOL::Redirect404();
+}
 ?>
 <html>
     <head>
