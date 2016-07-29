@@ -43,8 +43,7 @@ timeout 60
 echo =====================================================================
 echo == Processing for Sitemap %~1
 
-start /min "BuffGenerate Sitemap Job" "C:\Data\Business\SAPDatasheet\Development\Repos\Deploy\bufferfile-generate-sitemap.cmd" %~1
-
+start /min "BuffGenerate Sitemap Job" "C:\Data\Business\SAPDatasheet\Repos\Deploy\bufferfile-generate-sitemap.cmd" %~1
 setlocal enableextensions enabledelayedexpansion
 :loop
   for /f "tokens=1,*" %%a in ('tasklist ^| find /I /C "cmd.exe"') do set cmd_count=%%a

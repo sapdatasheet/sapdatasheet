@@ -2,7 +2,7 @@ echo off
 
 cd C:\Data\Business\SAPDatasheet\Runtime\www-root
 del /S /Q *.php
-cd C:\Data\Business\SAPDatasheet\Development\Repos\www.sapdatasheet.org-ssl
+cd C:\Data\Business\SAPDatasheet\Repos\Web\www.sapdatasheet.org-ssl
 xcopy *.php      ..\..\..\Runtime\www-root /S /Y
 xcopy *.css      ..\..\..\Runtime\www-root /S /Y
 xcopy *.png      ..\..\..\Runtime\www-root /S /Y
