@@ -299,7 +299,8 @@ if (empty($ObjID) === FALSE) {
 
 // Logging
 // Only log for Debug purpose, do not log on production system
-// error_log('dispatcher: [' . $requri . '] --> [' . $target . ']');
+error_log('dispatcher: [' . $requri . '] --> [' . $target . ']');
+
 //  Navigation
 include $target;
 exit();
