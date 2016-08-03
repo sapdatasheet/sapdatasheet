@@ -286,10 +286,6 @@ if ($requri === '/wp/wp-admin/' || $requri === '/wp-admin/' || $requri === '/tes
     }
 }
 
-if (!isset($target)) {
-    $target = 'page404.php';
-}
-
 // Decode object-id in case of spcial characters
 if (empty($ObjID) === FALSE) {
     if (GLOBAL_UTIL::Contains($ObjID, '%')) {
@@ -297,8 +293,19 @@ if (empty($ObjID) === FALSE) {
     }
 }
 
-// Logging
-// Only log for Debug purpose, do not log on production system
+$target_valid = FALSE;
+if (isset($target) && GLOBAL_UTIL::IsNotEmpty($target)) {
+    // Avoid Hacking URI
+    if ($target == 'index.php' || GLOBAL_UTIL::StartsWith($target, 'abap') || GLOBAL_UTIL::StartsWith($target, 'wil') || GLOBAL_UTIL::StartsWith($target, 'wul')) {
+        $target_valid = TRUE;
+    }
+}
+if ($target_valid == FALSE) {
+    error_log('dispatcher: Attention!!! Invalid URI Found - ' . $requri);
+    $target = 'page404.php';
+}
+
+// Logging for Security Audit
 error_log('dispatcher: [' . $requri . '] --> [' . $target . ']');
 
 //  Navigation
