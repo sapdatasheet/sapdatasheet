@@ -517,6 +517,11 @@ class GLOBAL_BUFFER {
      * Buffer key prefix for sap-tcodes.com UI Navigation link for Module.
      */
     const KEYPREFIX_TCODES_UINAV_MODULE = 'tcodeunm-';
+    
+    /**
+     * Buffer key prefix for DB Table.
+     */
+    const KEYPREFIX_DB = 'db';
 
     /**
      * Set a value to the global buffer.
@@ -527,7 +532,7 @@ class GLOBAL_BUFFER {
         if (GLOBAL_UTIL::IsEmpty($key)) {
             return -1;
         }
-
+        
         GLOBAL_BUFFER::$buffer[$key] = $value;
         return 0;
     }

@@ -947,9 +947,17 @@ class ABAP_DB_TABLE_HIER {
      * Software Component text.
      */
     public static function CVERS_REF($SoftComp) {
-        $sql = "select desc_text as DESCR from " . ABAP_DB_TABLE_HIER::CVERS_REF
-                . " where COMPONENT = :id and LANGU = :lg";
-        return ABAP_DB_TABLE::descr_1filter($sql, $SoftComp);
+        $bufkey = GLOBAL_BUFFER::KEYPREFIX_DB . ABAP_DB_TABLE_HIER::CVERS_REF . $SoftComp;
+        $bufval = GLOBAL_BUFFER::Get($bufkey);
+        if (GLOBAL_UTIL::IsEmpty($bufval)) {
+            $sql = "select desc_text as DESCR from " . ABAP_DB_TABLE_HIER::CVERS_REF
+                    . " where COMPONENT = :id and LANGU = :lg";
+            $bufval = ABAP_DB_TABLE::descr_1filter($sql, $SoftComp);
+            // Set Buffer
+            GLOBAL_BUFFER::Set($bufkey, $bufval);
+        }
+
+        return $bufval;
     }
 
     /**
@@ -1057,9 +1065,16 @@ class ABAP_DB_TABLE_HIER {
      * Application Component text.
      */
     public static function DF14T($fctr) {
-        $sql = "select name as DESCR from " . ABAP_DB_TABLE_HIER::DF14T
-                . " where FCTR_ID = :id and LANGU = :lg";
-        return ABAP_DB_TABLE::descr_1filter($sql, strtoupper($fctr));
+        $bufkey = GLOBAL_BUFFER::KEYPREFIX_DB . ABAP_DB_TABLE_HIER::DF14T . strtoupper($fctr);
+        $bufval = GLOBAL_BUFFER::Get($bufkey);
+        if (GLOBAL_UTIL::IsEmpty($bufval)) {
+            $sql = "select name as DESCR from " . ABAP_DB_TABLE_HIER::DF14T
+                    . " where FCTR_ID = :id and LANGU = :lg";
+            $bufval = ABAP_DB_TABLE::descr_1filter($sql, strtoupper($fctr));
+            // Set Buffer
+            GLOBAL_BUFFER::Set($bufkey, $bufval);
+        }
+        return $bufval;
     }
 
     public static function Hier($Pgmid, $ObjType, $ObjName) {
@@ -2472,9 +2487,23 @@ class ABAP_DB_TABLE_TRAN {
      * </pre>
      */
     public static function TSTCT($TCode) {
-        $sql = "select ttext as DESCR from " . ABAP_DB_TABLE_TRAN::TSTCT
-                . " where TCODE = :id and SPRSL = :lg";
-        return ABAP_DB_TABLE::descr_1filter($sql, $TCode);
+        // Load from Buffer
+        $bufkey = GLOBAL_BUFFER::KEYPREFIX_DB . ABAP_DB_TABLE_TRAN::TSTCT . $TCode;
+        $bufval = GLOBAL_BUFFER::Get($bufkey);
+
+        if ($bufval == NULL) {
+            $sql = "select ttext as DESCR from " . ABAP_DB_TABLE_TRAN::TSTCT
+                    . " where TCODE = :id and SPRSL = :lg";
+            $bufval = ABAP_DB_TABLE::descr_1filter($sql, $TCode);
+            if (GLOBAL_UTIL::IsEmpty($bufval)) {
+                $bufval = '(empty)';
+            }
+
+            // Put to Buffer
+            GLOBAL_BUFFER::Set($bufkey, $bufval);
+        }
+
+        return $bufval;
     }
 
     /**
@@ -2823,9 +2852,17 @@ class ABAPANA_DB_TABLE {
      * Get one record for a given posid.
      */
     public static function ABAPBMFR_POSID($posid) {
-        $sql = "SELECT * FROM " . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPBMFR
-                . " WHERE ps_posid = :id";
-        return ABAP_DB_TABLE::select_single($sql, $posid);
+        $bufkey = GLOBAL_BUFFER::KEYPREFIX_DB . ABAPANA_DB_TABLE::ABAPBMFR . 'ps_posid' . $posid;
+        $bufval = GLOBAL_BUFFER::Get($bufkey);
+        if (!is_array($bufval)) {
+            $sql = "SELECT * FROM " . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPBMFR
+                    . " WHERE ps_posid = :id";
+            $bufval = ABAP_DB_TABLE::select_single($sql, $posid);
+            // Set Buffer
+            GLOBAL_BUFFER::Set($bufkey, $bufval);
+        }
+
+        return $bufval;
     }
 
     /**
@@ -3343,7 +3380,11 @@ class ABAP_DB_TABLE {
         if (ABAP_DB_TABLE::$conn_abap == null) {
             $dsn = 'mysql:host=' . ABAP_DB_CONFIG::host
                     . ';dbname=' . ABAP_DB_CONFIG::schema_abap;
-            ABAP_DB_TABLE::$conn_abap = new PDO($dsn, ABAP_DB_CONFIG::user, ABAP_DB_CONFIG::pass, array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
+            ABAP_DB_TABLE::$conn_abap = new PDO($dsn, ABAP_DB_CONFIG::user, ABAP_DB_CONFIG::pass, array(
+                PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
+                PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => TRUE,
+            ));
+            // ABAP_DB_TABLE::$conn_abap->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, TRUE); 
         }
 
         return ABAP_DB_TABLE::$conn_abap;
@@ -3358,7 +3399,11 @@ class ABAP_DB_TABLE {
         if (ABAP_DB_TABLE::$conn_abapana == null) {
             $dsn = 'mysql:host=' . ABAP_DB_CONFIG::host
                     . ';dbname=' . ABAP_DB_CONFIG::schema_abap;
-            ABAP_DB_TABLE::$conn_abapana = new PDO($dsn, ABAP_DB_CONFIG::user, ABAP_DB_CONFIG::pass, array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
+            ABAP_DB_TABLE::$conn_abapana = new PDO($dsn, ABAP_DB_CONFIG::user, ABAP_DB_CONFIG::pass, array(
+                PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
+                PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => TRUE,
+            ));
+            // ABAP_DB_TABLE::$conn_abapana->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, TRUE); 
         }
 
         return ABAP_DB_TABLE::$conn_abapana;
@@ -3377,13 +3422,9 @@ class ABAP_DB_TABLE {
      */
     public static function select($sql, $paras = null) {
         $conn = ABAP_DB_TABLE::get_conn_abap();
-        if ($paras === null) {
-            $res = $conn->query($sql);
-        } else {
-            $stmt = $conn->prepare($sql);
-            $stmt->execute($paras);
-            $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        }
+        $stmt = $conn->prepare($sql);
+        $stmt->execute($paras);
+        $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         return $res;
     }
