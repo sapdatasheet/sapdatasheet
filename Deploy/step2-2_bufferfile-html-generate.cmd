@@ -1,16 +1,16 @@
 echo off
 
-cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
+cd C:\Data\Business\SAPDatasheet\Repos\Deploy
 call:WILBuffGenerate                                       598
 
-cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
+cd C:\Data\Business\SAPDatasheet\Repos\Deploy
 call:WULBuffGenerate                                       839
 
-cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
+cd C:\Data\Business\SAPDatasheet\Repos\Deploy
 FOR /F %%i IN (config-a-x.txt)       DO @call:BuffGenerate bmfr  %%i
 call:BuffGenerate                                          bmfr  TOP
 
-cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
+cd C:\Data\Business\SAPDatasheet\Repos\Deploy
 call:BuffGenerate                                          clas  1
 call:BuffGenerate                                          clas  2
 call:BuffGenerate                                          clas  3
@@ -25,7 +25,7 @@ call:BuffGenerate                                          clas  11
 call:BuffGenerate                                          clas  12
 call:BuffGenerate                                          clas  13
 
-cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
+cd C:\Data\Business\SAPDatasheet\Repos\Deploy
 call:BuffGenerate                                          cus0  1
 call:BuffGenerate                                          cus0  2
 call:BuffGenerate                                          cus0  3
@@ -35,54 +35,54 @@ call:BuffGenerate                                          cus0  6
 call:BuffGenerate                                          cus0  7
 
 
-cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
+cd C:\Data\Business\SAPDatasheet\Repos\Deploy
 call:BuffGenerate                                          cvers ""
 
-cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
+cd C:\Data\Business\SAPDatasheet\Repos\Deploy
 FOR /F %%i IN (config-a-x-slash.txt) DO @call:BuffGenerate devc  %%i
 
-cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
+cd C:\Data\Business\SAPDatasheet\Repos\Deploy
 FOR /F %%i IN (config-a-x-slash.txt) DO @call:BuffGenerate doma  %%i
 
-cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
+cd C:\Data\Business\SAPDatasheet\Repos\Deploy
 FOR /F %%i IN (config-a-x-slash.txt) DO @call:BuffGenerate dtel  %%i
 
-cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
+cd C:\Data\Business\SAPDatasheet\Repos\Deploy
 FOR /F %%i IN (config-a-0-slash.txt) DO @call:BuffGenerate fugr  %%i
 
-cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
+cd C:\Data\Business\SAPDatasheet\Repos\Deploy
 FOR /F %%i IN (config-a-0-slash.txt) DO @call:BuffGenerate func  %%i
 call:BuffGenerate                                          func  rfc
 
-cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
+cd C:\Data\Business\SAPDatasheet\Repos\Deploy
 call:BuffGenerate                                          intf  1
 call:BuffGenerate                                          intf  2
 call:BuffGenerate                                          intf  3
 call:BuffGenerate                                          intf  4
 
-cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
+cd C:\Data\Business\SAPDatasheet\Repos\Deploy
 call:BuffGenerate                                          msag  ""
 
-cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
+cd C:\Data\Business\SAPDatasheet\Repos\Deploy
 FOR /F %%i IN (config-a-x-slash.txt) DO @call:BuffGenerate prog  %%i
 
-cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
+cd C:\Data\Business\SAPDatasheet\Repos\Deploy
 call:BuffGenerate                                          shlp  1
 call:BuffGenerate                                          shlp  2
 call:BuffGenerate                                          shlp  3
 
-cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
+cd C:\Data\Business\SAPDatasheet\Repos\Deploy
 call:BuffGenerate                                          sqlt  ""
 
-cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
+cd C:\Data\Business\SAPDatasheet\Repos\Deploy
 FOR /F %%i IN (config-a-x-slash.txt) DO @call:BuffGenerate tabl  %%i
 call:BuffGenerate                                          tabl  cluster
 call:BuffGenerate                                          tabl  pool
 
-cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
+cd C:\Data\Business\SAPDatasheet\Repos\Deploy
 FOR /F %%i IN (config-a-0-slash.txt) DO @call:BuffGenerate tran  %%i
 
-cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
+cd C:\Data\Business\SAPDatasheet\Repos\Deploy
 FOR /F %%i IN (config-a-x-slash.txt) DO @call:BuffGenerate view  %%i
 
 timeout 60
@@ -148,7 +148,7 @@ goto:eof
 echo =====================================================================
 echo == Processing for Language %~1  %~2  %~3
 
-start /min "BuffGenerate HTML Job" "C:\Data\Business\SAPDatasheet\Development\Repos\Deploy\bufferfile-generate-html.cmd" %~1 %~2 %~3
+start /min "BuffGenerate HTML Job" "C:\Data\Business\SAPDatasheet\Repos\Deploy\bufferfile-generate-html.cmd" %~1 %~2 %~3
 
 
 setlocal enableextensions enabledelayedexpansion
@@ -161,6 +161,6 @@ setlocal enableextensions enabledelayedexpansion
   )
 endlocal
   
-cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
+cd C:\Data\Business\SAPDatasheet\Repos\Deploy
 
 goto:eof

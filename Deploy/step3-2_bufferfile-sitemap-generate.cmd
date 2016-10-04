@@ -1,5 +1,7 @@
 echo off
 
+call:BuffGenerateSitemap wil-abap.php
+
 call:BuffGenerateSitemap abap-bmfr.php
 call:BuffGenerateSitemap abap-clas.php
 call:BuffGenerateSitemap abap-cus0.php
@@ -23,12 +25,12 @@ call:BuffGenerateSitemap index.php
 call:BuffGenerateSitemap sitemaps-abap.php
 call:BuffGenerateSitemap sitemaps-wil.php
 call:BuffGenerateSitemap sitemaps-wul.php
-call:BuffGenerateSitemap wil-abap.php
+
 call:BuffGenerateSitemap wul-abap.php
 
 cd C:\Data\Business\SAPDatasheet\Runtime\www-root\sitemap
 del *.php
-cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
+cd C:\Data\Business\SAPDatasheet\Repos\Deploy
 
 
 timeout 60

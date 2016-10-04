@@ -12,4 +12,4 @@ xcopy *.gif      ..\..\..\Runtime\www-root /S /Y
 xcopy *.js       ..\..\..\Runtime\www-root /S /Y
 xcopy *.html     ..\..\..\Runtime\www-root /S /Y
 
-cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
+cd C:\Data\Business\SAPDatasheet\Repos\Deploy

@@ -1,6 +1,6 @@
 echo off
 
-cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
+cd C:\Data\Business\SAPDatasheet\Repos\Deploy
 
 call:HtmlCompress                                               html C:\Data\Business\SAPDatasheet\Runtime\www-root\wil\abap
 FOR /F %%i IN (config-sap-desc-langu.txt) DO @call:HtmlCompress html C:\Data\Business\SAPDatasheet\Runtime\www-root\wil\abap\%%i
@@ -75,8 +75,8 @@ timeout 60
 echo =====================================================================
 echo == Processing for %~1  %~2
 
-cd C:\Data\Business\SAPDatasheet\Development\Repos\Deploy
-start /min "Compress Buffer Files Job" "C:\Data\Business\SAPDatasheet\Development\Repos\Deploy\bufferfile-compress.cmd" %~1 %~2
+cd C:\Data\Business\SAPDatasheet\Repos\Deploy
+start /min "Compress Buffer Files Job" "C:\Data\Business\SAPDatasheet\Repos\Deploy\bufferfile-compress.cmd" %~1 %~2
 
 setlocal enableextensions enabledelayedexpansion
 :loop
