@@ -6,6 +6,11 @@ require_once($__ROOT__ . '/include/common/abap_dbdata.php');
 
 class ABAP_DB_CONST {
 
+    /**
+     * Max rows limit for result set, to avoid load too many record to UI.
+     */
+    const MAX_ROWS_LIMIT = 200;
+    
     const INDEX_A = "A";                       // First page, start from 'A'
     const INDEX_LIST = "LIST";                 // List all contents, no paging
     const INDEX_SLASH = "SLASH";
@@ -2765,10 +2770,6 @@ class ABAP_DB_TABLE_CREF {
 
 class ABAPANA_DB_TABLE {
 
-    /**
-     * Max rows limit for result set, to avoid load too many record to UI.
-     */
-    const MAX_ROWS_LIMIT = 300;
     const WULCOUNTER = "wulcounter";
     const WILCOUNTER = "wilcounter";
     const ABAPBMFR = "abapbmfr";
@@ -2941,7 +2942,7 @@ class ABAPANA_DB_TABLE {
                 . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPTRAN
                 . " WHERE " . $col . ' = :id';
         if ($limit == TRUE) {
-            $sql = $sql . ' LIMIT ' . ABAPANA_DB_TABLE::MAX_ROWS_LIMIT;
+            $sql = $sql . ' LIMIT ' . ABAP_DB_CONST::MAX_ROWS_LIMIT;
         }
 
         return ABAP_DB_TABLE::select_1filter($sql, $value);
@@ -2984,7 +2985,7 @@ class ABAPANA_DB_TABLE {
                 . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::ABAPTRAN
                 . " WHERE TCODE like :id";
         if ($limit == TRUE) {
-            $sql = $sql . ' limit ' . ABAPANA_DB_TABLE::MAX_ROWS_LIMIT;
+            $sql = $sql . ' limit ' . ABAP_DB_CONST::MAX_ROWS_LIMIT;
         }
 
         return ABAP_DB_TABLE::select_1filter($sql, $pattern);
