@@ -5,15 +5,17 @@ require_once($__ROOT__ . '/include/common/abap_dbconfig.php');
 require_once($__ROOT__ . '/include/common/abap_dbdata.php');
 
 class ABAP_DB_CONST {
+    
+    const COUNTER = 'COUNTER';
 
     /**
      * Max rows limit for result set, to avoid load too many record to UI.
      */
-    const MAX_ROWS_LIMIT = 200;
+    const MAX_ROWS_LIMIT = 500;
     
-    const INDEX_A = "A";                       // First page, start from 'A'
-    const INDEX_LIST = "LIST";                 // List all contents, no paging
-    const INDEX_SLASH = "SLASH";
+    const INDEX_A = 'A';                       // First page, start from 'A'
+    const INDEX_LIST = 'LIST';                 // List all contents, no paging
+    const INDEX_SLASH = 'SLASH';
     const INDEX_TOP = "TOP";
     const INDEX_PAGE_1 = 1;                    // Page 1
     const INDEX_PAGESIZE = 10000;              // Page size
@@ -2680,7 +2682,20 @@ class ABAP_DB_TABLE_VIEW {
 /** Database table access for Basis. */
 class ABAP_DB_TABLE_BASIS {
 
-    const T002T = "t002t";
+    const T002T = 't002t';
+    
+    // Buffer - Index Counter table
+    const ZBUFFER_INDEX_COUNTER = 'zbuffer_index_counter';
+    const ZBUFFER_INDEX_COUNTER_ABAP_OTYPE = 'ABAP_OTYPE';
+    const ZBUFFER_INDEX_COUNTER_LEFT1 = 'LEFT1';
+    const ZBUFFER_INDEX_COUNTER_LEFT1_AT = '@';
+    const ZBUFFER_INDEX_COUNTER_LEFT1_SLASH = '/';
+    const ZBUFFER_INDEX_COUNTER_PAGE_COUNT = 'PAGE_COUNT';
+
+    public static function ZBUFFER_INDEX_COUNTER(string $oType) {
+        $sql = "SELECT * FROM " . self::ZBUFFER_INDEX_COUNTER . " where ABAP_OTYPE = :id";
+        return ABAP_DB_TABLE::select_1filter($sql, $oType);
+    }
 
 }
 
@@ -3148,7 +3163,7 @@ class ABAPANA_DB_TABLE {
         if (empty($row)) {
             return -1;
         } else {
-            return $row['COUNTER'];
+            return $row[ABAP_DB_CONST::COUNTER];
         }
     }
 
@@ -3222,7 +3237,7 @@ class ABAPANA_DB_TABLE {
         if (empty($row)) {
             return -1;
         } else {
-            return $row['COUNTER'];
+            return $row[ABAP_DB_CONST::COUNTER];
         }
     }
 

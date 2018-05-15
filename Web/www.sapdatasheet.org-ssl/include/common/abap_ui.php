@@ -3,6 +3,40 @@
 $__ROOT__ = dirname(dirname(dirname(__FILE__)));
 require_once($__ROOT__ . '/include/common/global.php');
 
+
+class ABAP_UI_Buffer_Index {
+    
+    /** File name, without the '.html' suffix */
+    const INDEX_FILENAME = 'index_filename';
+    const LINK_TEXT = 'link_text';
+    const LINK_TITLE = 'link_title';
+
+    public static function ZBUFFER_INDEX_COUNTER(string $oType) : array {
+        $ui_index_list = array();
+        $db_index_list = ABAP_DB_TABLE_BASIS::ZBUFFER_INDEX_COUNTER($oType);
+        foreach ($db_index_list as $db_index) {
+            if ($db_index[ABAP_DB_TABLE_BASIS::ZBUFFER_INDEX_COUNTER_LEFT1] == ABAP_DB_TABLE_BASIS::ZBUFFER_INDEX_COUNTER_LEFT1_SLASH) {
+                $filename_suffix = strtolower(ABAP_DB_CONST::INDEX_SLASH);
+            } else {
+                $filename_suffix = strtolower($db_index[ABAP_DB_TABLE_BASIS::ZBUFFER_INDEX_COUNTER_LEFT1]);
+            }
+            $db_index[self::INDEX_FILENAME] = 'index-' . $filename_suffix;
+            $db_index[self::LINK_TEXT] = $db_index[ABAP_DB_TABLE_BASIS::ZBUFFER_INDEX_COUNTER_LEFT1];
+            $db_index[self::LINK_TITLE] = "Object name starting with '" . $db_index[ABAP_DB_TABLE_BASIS::ZBUFFER_INDEX_COUNTER_LEFT1] . "', "
+                    . number_format($db_index[ABAP_DB_CONST::COUNTER]) . ' records';
+            if ($db_index[ABAP_DB_TABLE_BASIS::ZBUFFER_INDEX_COUNTER_PAGE_COUNT] > 1) {
+                $db_index[self::LINK_TITLE] = $db_index[self::LINK_TITLE] . ', shown in ' . number_format($db_index[ABAP_DB_TABLE_BASIS::ZBUFFER_INDEX_COUNTER_PAGE_COUNT]) . ' pages';
+            }
+            
+            array_push($ui_index_list, $db_index);
+        }
+
+        return $ui_index_list;
+    }
+    
+}
+
+
 class ABAP_UI_Hierarchy {
 
     /**

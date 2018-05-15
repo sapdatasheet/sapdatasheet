@@ -224,13 +224,44 @@ SELECT
 
 -- VIEW: View
 
-
+INSERT IGNORE INTO `abap`.`zbuffer_index_counter`
+  (`ABAP_OTYPE`, `LEFT1`, `COUNTER`, `PAGE_COUNT`)
+SELECT 
+    'VIEW' as abap_otype,
+    LEFT(VIEWNAME, 1) as left1, 
+    count(*) as counter, 
+    ceil(count(*) / 500) as page_count
+  FROM abap.dd25l
+  WHERE LEFT(VIEWNAME, 1) NOT IN (' ')
+  GROUP BY left1
+;
 
 
 -- DTEL: Data Element
 
+INSERT IGNORE INTO `abap`.`zbuffer_index_counter`
+  (`ABAP_OTYPE`, `LEFT1`, `COUNTER`, `PAGE_COUNT`)
+SELECT 
+    'DTEL' as abap_otype,
+    LEFT(ROLLNAME, 1) as left1, 
+    count(*) as counter, 
+    ceil(count(*) / 500) as page_count
+  FROM abap.dd04l
+  WHERE LEFT(ROLLNAME, 1) NOT IN ('Z')
+  GROUP BY left1
+;
+
 
 -- DOMA: Domain
 
-
+INSERT IGNORE INTO `abap`.`zbuffer_index_counter`
+  (`ABAP_OTYPE`, `LEFT1`, `COUNTER`, `PAGE_COUNT`)
+SELECT 
+    'DOMA' as abap_otype,
+    LEFT(DOMNAME, 1) as left1, 
+    count(*) as counter, 
+    ceil(count(*) / 500) as page_count
+  FROM abap.dd01l
+  GROUP BY left1
+;
 
