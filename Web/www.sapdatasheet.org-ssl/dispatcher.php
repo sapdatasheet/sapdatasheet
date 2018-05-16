@@ -16,6 +16,7 @@
 //   http://localhost/abap/bmfr/index-top.html
 //   http://localhost/abap/bmfr/index.php?index=top
 //   http://localhost/abap/bmfr/index-a.html
+//   http://localhost/abap/doma/index-a-3.html
 //   http://localhost/abap/bmfr/index.php?index=a
 //   http://localhost/abap/bmfr/HLB0009009.html
 //   http://localhost/abap/bmfr/bmfr.php?id=HLB0009009
@@ -73,7 +74,19 @@ if ($requri === '/wp/wp-admin/' || $requri === '/wp-admin/' || $requri === '/tes
 } else if ($requri === '/abap/tabl/index.html') {
     $target = 'abap/tabl/index.php';
 } else if (GLOBAL_UTIL::StartsWith($requri, '/abap/tabl/index-') && GLOBAL_UTIL::EndsWith($requri, '.html')) {
-    $index = substr($requri, 17, -5);
+    $index_fname = substr($requri, 17, -5);
+
+    // Copied from bellow - TODO Create a function/module for this
+    $index_parts = explode('-', $index_fname);
+    if (count($index_parts) == 2 && is_numeric($index_parts[1])) {
+        $index = $index_parts[0];
+        $index_page = $index_parts[1];
+    } else {
+        $index = $index_fname;
+        $index_page = 1;               // Default to page 1
+    }
+
+
     $target = 'abap/tabl/index.php';
 } else if (GLOBAL_UTIL::StartsWith($requri, '/abap/tabl/') && GLOBAL_UTIL::EndsWith($requri, '.html')) {
     $TablURI = substr($requri, 11, -5);
@@ -120,7 +133,17 @@ if ($requri === '/wp/wp-admin/' || $requri === '/wp-admin/' || $requri === '/tes
             $target = 'abap/' . $abap_uri[0] . '/index.php';
             break;
         } else if (GLOBAL_UTIL::StartsWith($requri, $abap_uri[2]) && GLOBAL_UTIL::EndsWith($requri, '.html')) {
-            $index = substr($requri, strlen($abap_uri[2]), -5);
+            $index_fname = substr($requri, strlen($abap_uri[2]), -5);
+
+            $index_parts = explode('-', $index_fname);
+            if (count($index_parts) == 2 && is_numeric($index_parts[1])) {
+                $index = $index_parts[0];
+                $index_page = $index_parts[1];
+            } else {
+                $index = $index_fname;
+                $index_page = 1;               // Default to page 1
+            }
+
             $target = 'abap/' . $abap_uri[0] . '/index.php';
             break;
         } else if (GLOBAL_UTIL::StartsWith($requri, $abap_uri[3]) && GLOBAL_UTIL::EndsWith($requri, '.html')) {

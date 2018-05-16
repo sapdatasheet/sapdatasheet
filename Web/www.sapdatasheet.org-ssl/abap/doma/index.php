@@ -36,12 +36,13 @@ ob_start();
 <!DOCTYPE html>
 <!-- DDIC Domain index. -->
 <?php
-$GLOBALS['TITLE_TEXT'] = "SAP ABAP " . GLOBAL_ABAP_OTYPE::DOMA_DESC . " - Index " . $index . " ";
+$GLOBALS['TITLE_TEXT'] = "SAP ABAP " . GLOBAL_ABAP_OTYPE::DOMA_DESC . " - Index " . $index
+        . (($index_page > 1) ? ', page ' . $index_page : '');
 
 if ($index === ABAP_DB_CONST::INDEX_SLASH) {
     $index = '/';
 }
-$dd01l = ABAP_DB_TABLE_DOMA::DD01L_List($index);
+$dd01l = ABAP_DB_TABLE_DOMA::DD01L_List($index, $index_page);
 $index_counter_list = ABAP_UI_Buffer_Index::ZBUFFER_INDEX_COUNTER(GLOBAL_ABAP_OTYPE::DOMA_NAME);
 ?>
 <html>
@@ -81,8 +82,8 @@ $index_counter_list = ABAP_UI_Buffer_Index::ZBUFFER_INDEX_COUNTER(GLOBAL_ABAP_OT
 
                 <div>
                     <?php
-                    $index_page_count = 1;
-                    $index_counter_current = array();
+                    $index_page_count = 1;              // Total page nubmers
+                    $index_counter_current = array();   // Current index, like: A, B, C, ...
                     foreach ($index_counter_list as $index_counter) {
                         if ($index === $index_counter[ABAP_DB_TABLE_BASIS::ZBUFFER_INDEX_COUNTER_LEFT1]) {
                             $index_page_count = $index_counter[ABAP_DB_TABLE_BASIS::ZBUFFER_INDEX_COUNTER_PAGE_COUNT];

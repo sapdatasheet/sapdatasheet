@@ -105,6 +105,13 @@ class ABAP_DB_CONST {
     const TFDIR_UTASK_4 = "4";                 // Update module - Coll.run.
     const TSTCC_S_WEBGUI_1 = "1";
     const TSTCC_S_WEBGUI_2 = "2";
+    
+
+
+    public static function SQL_LIMIT(int $page) : string {
+        $left = ((($page < 1) ? 1 : $page) - 1) * self::MAX_ROWS_LIMIT;
+        return ' LIMIT ' . $left . ', ' . self::MAX_ROWS_LIMIT;
+    }    
 
 }
 
@@ -428,10 +435,12 @@ class ABAP_DB_TABLE_DOMA {
      * SELECT * FROM dd01l where DOMNAME LIKE 'A%' order by DOMNAME
      * </pre>
      */
-    public static function DD01L_List($index) {
+    public static function DD01L_List(string $index, int $index_page = 1) {
         $sql = "SELECT DOMNAME, DATATYPE, LENG, DECIMALS, AS4DATE FROM "
                 . ABAP_DB_TABLE_DOMA::DD01L
-                . " where DOMNAME LIKE :id order by DOMNAME";
+                . " where DOMNAME LIKE :id"
+                . " order by DOMNAME"
+                . ABAP_DB_CONST::SQL_LIMIT($index_page);
         return ABAP_DB_TABLE::select_1filter($sql, $index . '%');
     }
 
@@ -535,9 +544,11 @@ class ABAP_DB_TABLE_DTEL {
      *     where ROLLNAME LIKE 'A%' order by ROLLNAME
      * </pre>
      */
-    public static function DD04L_List($index) {
+    public static function DD04L_List($index, int $index_page = 1) {
         $sql = "SELECT ROLLNAME, DOMNAME, DATATYPE, LENG, AS4DATE FROM " . ABAP_DB_TABLE_DTEL::DD04L
-                . " where ROLLNAME LIKE :id order by ROLLNAME";
+                . " where ROLLNAME LIKE :id"
+                . " order by ROLLNAME"
+                . ABAP_DB_CONST::SQL_LIMIT($index_page);
         return ABAP_DB_TABLE::select_1filter($sql, $index . '%');
     }
 
@@ -2170,7 +2181,7 @@ class ABAP_DB_TABLE_TABL {
      * SELECT TABNAME, TABCLASS, CONTFLAG FROM dd02l WHERE tabname like 'A%' order by TABNAME
      * </pre>
      */
-    public static function DD02L_List($index) {
+    public static function DD02L_List($index, int $index_page = 1) {
         if ($index == ABAP_DB_CONST::DD02L_TABCLASS_CLUSTER) {
             $sql = "SELECT TABNAME, TABCLASS, CONTFLAG FROM " . ABAP_DB_TABLE_TABL::DD02L
                     . " WHERE TABCLASS = '" . ABAP_DB_CONST::DD02L_TABCLASS_CLUSTER . "' order by TABNAME";
@@ -2184,7 +2195,9 @@ class ABAP_DB_TABLE_TABL {
                     . " WHERE tabname like :id and"
                     . " ( TABCLASS = '" . ABAP_DB_CONST::DD02L_TABCLASS_TRANSP
                     . "' OR TABCLASS = '" . ABAP_DB_CONST::DD02L_TABCLASS_CLUSTER
-                    . "' OR TABCLASS = '" . ABAP_DB_CONST::DD02L_TABCLASS_POOL . "' ) order by TABNAME";
+                    . "' OR TABCLASS = '" . ABAP_DB_CONST::DD02L_TABCLASS_POOL . "' )"
+                    . " order by TABNAME"
+                    . ABAP_DB_CONST::SQL_LIMIT($index_page);
             return ABAP_DB_TABLE::select_1filter($sql, $index . '%');
         }
     }
@@ -2583,9 +2596,11 @@ class ABAP_DB_TABLE_VIEW {
      * SELECT * FROM dd25l where VIEWNAME like 'A%' order by VIEWNAME
      * </pre>
      */
-    public static function DD25L_List($index) {
+    public static function DD25L_List($index, int $index_page = 1) {
         $sql = "SELECT VIEWNAME, VIEWCLASS, ROOTTAB FROM " . ABAP_DB_TABLE_VIEW::DD25L
-                . " where VIEWNAME LIKE :id order by VIEWNAME";
+                . " where VIEWNAME LIKE :id"
+                . " order by VIEWNAME"
+                . ABAP_DB_CONST::SQL_LIMIT($index_page);
         return ABAP_DB_TABLE::select_1filter($sql, $index . '%');
     }
 

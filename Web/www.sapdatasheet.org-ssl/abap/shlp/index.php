@@ -38,7 +38,9 @@ ob_start();
 <!-- ABAP DDIC Search Help. -->
 <?php
 $page_label = "Page " . $index . " of " . ABAP_DBDATA::DD30L_INDEX_MAX;
-$GLOBALS['TITLE_TEXT'] = "SAP ABAP " . GLOBAL_ABAP_OTYPE::SHLP_DESC . " - Index " . $page_label;
+$GLOBALS['TITLE_TEXT'] = "SAP ABAP " . GLOBAL_ABAP_OTYPE::SHLP_DESC . " - Index " . $index
+        . (($index_page > 1) ? ', page ' . $index_page : '');
+
 $shlp_list = ABAP_DB_TABLE_SHLP::DD30L_List($index);
 ?>
 <html>
