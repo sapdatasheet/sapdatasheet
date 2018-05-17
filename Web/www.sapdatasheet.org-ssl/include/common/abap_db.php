@@ -278,13 +278,13 @@ class ABAP_DB_TABLE_CUS0 {
         return ABAP_DB_TABLE::descr_1filter($sql, $attr_id);
     }
 
-    public static function CUS_IMGACH_List($page) {
-        $offset = ($page - 1) * ABAP_DB_CONST::INDEX_PAGESIZE;
+    public static function CUS_IMGACH_List($index, int $index_page) {
         $sql = 'select * from ' . ABAP_DB_TABLE_CUS0::CUS_IMGACH
+                . ' where activity like :id'
                 . ' order by activity'
-                . ' LIMIT ' . ABAP_DB_CONST::INDEX_PAGESIZE
-                . ' OFFSET ' . $offset;
-        return ABAP_DB_TABLE::select($sql);
+                . ABAP_DB_CONST::SQL_LIMIT($index_page);
+        $index = ($index == '_') ? '\_' : $index;
+        return ABAP_DB_TABLE::select_1filter($sql, $index . '%');
     }
 
     public static function CUS_IMGACH_Sitemap() {
@@ -659,6 +659,7 @@ class ABAP_DB_TABLE_FUNC {
      * Function Module.
      */
     const TFDIR = "tfdir";
+    const TFDIR_FMODE_RFC = 'RFC';
     const TFDIR_FUNCNAME_DTEL = "RS38L_FNAM";
 
     /**
@@ -684,10 +685,12 @@ class ABAP_DB_TABLE_FUNC {
      * SELECT funcname, fmode FROM tfdir where funcname LIKE 'A%' order by funcname
      * </pre>
      */
-    public static function TFDIR_List($index) {
-        if (strcmp($index, 'RFC') == 0) {
+    public static function TFDIR_List($index, int $index_page) {
+        if (strcmp($index, self::TFDIR_FMODE_RFC) == 0) {
             $sql = "SELECT FUNCNAME, FMODE FROM " . ABAP_DB_TABLE_FUNC::TFDIR
-                    . " where FMODE = 'R' order by funcname";
+                    . " where FMODE = 'R'"
+                    . " order by funcname"
+                    . ABAP_DB_CONST::SQL_LIMIT($index_page);
             return ABAP_DB_TABLE::select($sql);
         } else {
             // Avoid hacker
@@ -696,7 +699,10 @@ class ABAP_DB_TABLE_FUNC {
             }
 
             $sql = "SELECT FUNCNAME, FMODE FROM " . ABAP_DB_TABLE_FUNC::TFDIR
-                    . " where funcname LIKE :id order by funcname";
+                    . " where funcname LIKE :id"
+                    . " order by funcname"
+                    . ABAP_DB_CONST::SQL_LIMIT($index_page);
+            $index = ($index == '_') ? '\_' : $index;
             return ABAP_DB_TABLE::select_1filter($sql, strtoupper($index . '%'));
         }
     }
@@ -999,14 +1005,17 @@ class ABAP_DB_TABLE_HIER {
      * SELECT * FROM df14l where PS_POSID like '%s%s' AND trim(coalesce(PS_POSID, '')) <>'' ORDER BY PS_POSID
      * </pre>
      */
-    public static function DF14L_List($index) {
+    public static function DF14L_List($index, int $index_page) {
         if (ABAP_DB_CONST::INDEX_TOP == $index) {
             $sql = "select * from " . ABAP_DB_TABLE_HIER::DF14L
                     . " where PS_POSID not like '%-%' AND trim(coalesce(PS_POSID, '')) <>'' ORDER BY PS_POSID";
             return ABAP_DB_TABLE::select($sql);
         } else {
             $sql = "select * from " . ABAP_DB_TABLE_HIER::DF14L
-                    . " where PS_POSID like :id AND trim(coalesce(PS_POSID, '')) <>'' ORDER BY PS_POSID";
+                    . " where PS_POSID like :id"
+                    . " AND trim(coalesce(PS_POSID, '')) <>''"
+                    . " ORDER BY PS_POSID"
+                    . ABAP_DB_CONST::SQL_LIMIT($index_page);
             return ABAP_DB_TABLE::select_1filter($sql, $index . '%');
         }
     }
@@ -1173,11 +1182,12 @@ class ABAP_DB_TABLE_HIER {
     /**
      * Get function group list.
      */
-    public static function TADIR_FUGR_List($index) {
+    public static function TADIR_FUGR_List($index, int $index_page) {
         $sql = "SELECT OBJ_NAME, DEVCLASS, COMPONENT FROM " . ABAP_DB_TABLE_HIER::TADIR
                 . " WHERE pgmid = 'R3TR' and object = 'FUGR' "
                 . " and OBJ_NAME like :id"
-                . " order by OBJ_NAME";
+                . " order by OBJ_NAME"
+                . ABAP_DB_CONST::SQL_LIMIT($index_page);
         return ABAP_DB_TABLE::select_1filter($sql, $index . '%');
     }
 
@@ -1208,11 +1218,13 @@ class ABAP_DB_TABLE_HIER {
      *   order by obj_name
      * </pre>
      */
-    public static function TADIR_PROG_List($index) {
+    public static function TADIR_PROG_List($index, int $index_page) {
         $sql = "SELECT OBJ_NAME, DEVCLASS, COMPONENT FROM " . ABAP_DB_TABLE_HIER::TADIR
                 . " WHERE pgmid = 'R3TR' and object = 'PROG' "
                 . " and OBJ_NAME like :id"
-                . " order by OBJ_NAME";
+                . " order by OBJ_NAME"
+                . ABAP_DB_CONST::SQL_LIMIT($index_page);
+        $index = ($index == '_') ? '\_' : $index;
         return ABAP_DB_TABLE::select_1filter($sql, $index . '%');
     }
 
@@ -1253,9 +1265,11 @@ class ABAP_DB_TABLE_HIER {
      * SELECT * FROM tdevc where DEVCLASS LIKE 'A%' order by devclass
      * </pre>
      */
-    public static function TDEVC_List($index) {
+    public static function TDEVC_List($index, int $index_page) {
         $sql = "select * from " . ABAP_DB_TABLE_HIER::TDEVC
-                . " where devclass like :id order by devclass";
+                . " where devclass like :id"
+                . " order by devclass"
+                . ABAP_DB_CONST::SQL_LIMIT($index_page);
         return ABAP_DB_TABLE::select_1filter($sql, $index . '%');
     }
 
@@ -1369,10 +1383,12 @@ class ABAP_DB_TABLE_MSAG {
     /**
      * Message classes.
      */
-    public static function T100A_List() {
-        $sql = "select * from " . ABAP_DB_TABLE_MSAG::T100A
-                . " order by ARBGB";
-        return ABAP_DB_TABLE::select($sql);
+    public static function T100A_List($index, int $index_page) {
+        $sql = 'select * from ' . ABAP_DB_TABLE_MSAG::T100A
+                . ' where ARBGB like :id'
+                . ' order by ARBGB'
+                . ABAP_DB_CONST::SQL_LIMIT($index_page);
+        return ABAP_DB_TABLE::select_1filter($sql, $index . '%');
     }
 
     /**
@@ -1722,13 +1738,12 @@ class ABAP_DB_TABLE_SHLP {
      * List the search helps.
      */
 
-    public static function DD30L_List($page) {
-        $offset = ($page - 1) * ABAP_DB_CONST::INDEX_PAGESIZE;
-        $sql = 'select * from ' . ABAP_DB_TABLE_SHLP::DD30L
+    public static function DD30L_List($index, int $index_page = 1) {
+        $sql = 'SELECT * from ' . ABAP_DB_TABLE_SHLP::DD30L
+                . ' where SHLPNAME LIKE :id'
                 . ' ORDER BY SHLPNAME'
-                . ' LIMIT ' . ABAP_DB_CONST::INDEX_PAGESIZE
-                . ' OFFSET ' . $offset;
-        return ABAP_DB_TABLE::select($sql);
+                . ABAP_DB_CONST::SQL_LIMIT($index_page);
+        return ABAP_DB_TABLE::select_1filter($sql, $index . '%');
     }
 
     public static function DD30L_Sitemap() {
@@ -1868,14 +1883,14 @@ class ABAP_DB_TABLE_SEO {
      * List the classes/interfaces.
      */
 
-    public static function SEOCLASS_List($clstype, $page) {
-        $offset = ($page - 1) * ABAP_DB_CONST::INDEX_PAGESIZE;
+    public static function SEOCLASS_List($clstype, $index, int $index_page) {
         $sql = 'select * from ' . ABAP_DB_TABLE_SEO::SEOCLASS
-                . ' where `CLSTYPE` = :id'
+                . ' where `CLSTYPE` = ' . $clstype
+                . ' AND CLSNAME like :id'
                 . ' ORDER BY CLSNAME'
-                . ' LIMIT ' . ABAP_DB_CONST::INDEX_PAGESIZE
-                . ' OFFSET ' . $offset;
-        return ABAP_DB_TABLE::select_1filter($sql, $clstype);
+                . ABAP_DB_CONST::SQL_LIMIT($index_page);
+        $index = ($index == '_') ? '\_' : $index;
+        return ABAP_DB_TABLE::select_1filter($sql, $index . '%');
     }
 
     public static function SEOCLASS_Sitemap($clstype) {
@@ -2425,9 +2440,12 @@ class ABAP_DB_TABLE_TRAN {
      * SELECT * FROM tstc where TCODE LIKE 'A%' order by TCODE
      * </pre>
      */
-    public static function TSTC_List($index) {
-        $sql = "SELECT * FROM " . ABAP_DB_TABLE_TRAN::TSTC
-                . " where TCODE LIKE :id order by TCODE";
+    public static function TSTC_List($index, int $index_page) {
+        $sql = 'SELECT * FROM ' . ABAP_DB_TABLE_TRAN::TSTC
+                . ' where TCODE LIKE :id'
+                . ' order by TCODE'
+                . ABAP_DB_CONST::SQL_LIMIT($index_page);
+        $index = ($index == '_') ? '\_' : $index;
         return ABAP_DB_TABLE::select_1filter($sql, $index . '%');
     }
 

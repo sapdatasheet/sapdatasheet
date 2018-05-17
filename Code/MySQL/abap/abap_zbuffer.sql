@@ -12,32 +12,12 @@ CREATE TABLE `zbuffer_index_counter` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Buffer table for Index data counter';
 
 
-DROP TABLE IF EXISTS `zbuffer_index_data`;
-CREATE TABLE `zbuffer_index_data` (
-  `ABAP_OTYPE` varchar(6) CHARACTER SET utf8 NOT NULL COMMENT 'ABAP Object type: BMFR, CLAS, CUS0, CVERS, DEVC, DOMA, DTEL, FUGR, FUNC, INTF, MENU, MSAG, PROG, etc',
-  `INDEX_KEY` varchar(1) CHARACTER SET utf8 NOT NULL COMMENT 'Index key, Could be 1, 2, 3..., or A, B, C, ...',
-  `PAGE` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Page of the Index key. Example: 1, 2, 3, etc',
-  `data_count` int(11) DEFAULT NULL COMMENT 'Number of records of the data in data_json field',
-  `data_json` json DEFAULT NULL COMMENT 'Data in JSON format',
-  PRIMARY KEY (`ABAP_OTYPE`,`INDEX_KEY`,`PAGE`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Buffer table for Index pages';
-
-
 -- Prepare data for each Object Type
 
 -- BMFR: Application Component
 
 INSERT IGNORE INTO `abap`.`zbuffer_index_counter`
   (`ABAP_OTYPE`, `LEFT1`, `COUNTER`, `PAGE_COUNT`)
-SELECT 
-    'BMFR' as abap_otype,
-    '@' as left1,                            -- TOP level Appl-Comp
-    count(*) as counter, 
-    ceil(count(*) / 500) as page_count
-  FROM abap.df14l
-  WHERE PS_POSID not like '%-%'              -- Top level only
-    AND trim(coalesce(PS_POSID, '')) <> ''   -- Ignor Empty Appl-Comp
-UNION
 SELECT 
     'BMFR' as abap_otype,
     LEFT(PS_POSID, 1) as left1, 
@@ -119,7 +99,7 @@ SELECT
   FROM abap.tadir
   WHERE PGMID = 'R3TR'
     AND OBJECT = 'PROG'
-    AND LEFT(OBJ_NAME, 1) NOT IN (' ', '!', '$', 'Y')
+    AND LEFT(OBJ_NAME, 1) NOT IN (' ', '!', '$', '%', 'Y')
   GROUP BY left1
 ;
 

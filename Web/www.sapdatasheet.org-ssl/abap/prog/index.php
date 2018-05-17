@@ -17,8 +17,9 @@ if (!isset($index)) {
 
 if (strlen(trim($index)) == 0) {
     $index = ABAP_DB_CONST::INDEX_A;
+    $index_page = ABAP_DB_CONST::INDEX_PAGE_1;
 } else {
-    $index = strtoupper($index);
+    $index = strtoupper(urldecode($index));
 }
 
 // Check Buffer
@@ -36,12 +37,14 @@ ob_start();
 <!DOCTYPE html>
 <!-- Program index -->
 <?php
-$GLOBALS['TITLE_TEXT'] = "SAP ABAP " . GLOBAL_ABAP_OTYPE::PROG_DESC . " - Index " . $index . " ";
+$GLOBALS['TITLE_TEXT'] = "SAP ABAP " . GLOBAL_ABAP_OTYPE::PROG_DESC . " - Index " . $index
+        . (($index_page > 1) ? ', page ' . $index_page : '');
 
 if ($index === ABAP_DB_CONST::INDEX_SLASH) {
     $index = '/';
 }
-$prog_list = ABAP_DB_TABLE_HIER::TADIR_PROG_List($index);
+$prog_list = ABAP_DB_TABLE_HIER::TADIR_PROG_List($index, $index_page);
+$index_counter_list = ABAP_UI_Buffer_Index::ZBUFFER_INDEX_COUNTER(GLOBAL_ABAP_OTYPE::PROG_NAME);
 ?>
 <html>
     <head>
@@ -66,45 +69,42 @@ $prog_list = ABAP_DB_TABLE_HIER::TADIR_PROG_List($index);
         <div class="content">
             <!-- Content Navigator -->
             <div class="content_navi">
-                <a href="/"><?php echo GLOBAL_ABAP_ICON::getIcon4Home() ?> Home page</a> &gt; 
-                <a href="/abap/">ABAP Object</a> &gt; 
-                <a href="/abap/prog/"><?php echo GLOBAL_ABAP_OTYPE::PROG_DESC ?></a> 
+                <a href="/"><?php echo GLOBAL_ABAP_ICON::getIcon4Home() ?> Home page</a> &gt;
+                <a href="/abap/">ABAP Object</a> &gt;
+                <a href="/abap/prog/"><?php echo GLOBAL_ABAP_OTYPE::PROG_DESC ?></a>
             </div>
 
             <!-- Content Object -->
             <div class="content_obj_title"><span><?php echo $GLOBALS['TITLE_TEXT'] ?></span></div>
-            <div class="content_obj">        
+            <div class="content_obj">
                 <div>
                     <?php include $__ROOT__ . '/include/google/adsense-content-top.html' ?>
                 </div>
 
                 <div>
-                    <a href="index-a.html">A</a>&nbsp;
-                    <a href="index-b.html">B</a>&nbsp;
-                    <a href="index-c.html">C</a>&nbsp;
-                    <a href="index-d.html">D</a>&nbsp;
-                    <a href="index-e.html">E</a>&nbsp;
-                    <a href="index-f.html">F</a>&nbsp;
-                    <a href="index-g.html">G</a>&nbsp;
-                    <a href="index-h.html">H</a>&nbsp;
-                    <a href="index-i.html">I</a>&nbsp;
-                    <a href="index-j.html">J</a>&nbsp;
-                    <a href="index-k.html">K</a>&nbsp;
-                    <a href="index-l.html">L</a>&nbsp;
-                    <a href="index-m.html">M</a>&nbsp;
-                    <a href="index-n.html">N</a>&nbsp;
-                    <a href="index-o.html">O</a>&nbsp;
-                    <a href="index-p.html">P</a>&nbsp;
-                    <a href="index-q.html">Q</a>&nbsp;
-                    <a href="index-r.html">R</a>&nbsp;
-                    <a href="index-s.html">S</a>&nbsp;
-                    <a href="index-t.html">T</a>&nbsp;
-                    <a href="index-u.html">U</a>&nbsp;
-                    <a href="index-v.html">V</a>&nbsp;
-                    <a href="index-w.html">W</a>&nbsp;
-                    <a href="index-x.html">X</a>&nbsp;
-                    <a href="index-slash.html">/</a>&nbsp;
+                    <?php
+                    $index_page_count = 1;              // Total page nubmers
+                    $index_counter_current = array();   // Current index, like: A, B, C, ...
+                    foreach ($index_counter_list as $index_counter) {
+                        if ($index === $index_counter[ABAP_DB_TABLE_BASIS::ZBUFFER_INDEX_COUNTER_LEFT1]) {
+                            $index_page_count = $index_counter[ABAP_DB_TABLE_BASIS::ZBUFFER_INDEX_COUNTER_PAGE_COUNT];
+                            $index_counter_current = $index_counter;
+                        }
+                        ?>
+                        <a href="<?php echo $index_counter[ABAP_UI_Buffer_Index::INDEX_FILENAME] ?>.html"
+                           title="<?php echo $index_counter[ABAP_UI_Buffer_Index::LINK_TITLE] ?>" >
+                            <?php echo $index_counter[ABAP_UI_Buffer_Index::LINK_TEXT] ?></a>&nbsp;
+                    <?php } ?>
                 </div>
+                <?php if ($index_page_count > 1) { ?>
+                    <div><ul><li>
+                                <?php for ($page_loop = 1; $page_loop <= $index_counter_current[ABAP_DB_TABLE_BASIS::ZBUFFER_INDEX_COUNTER_PAGE_COUNT]; $page_loop++) { ?>
+                                    <a href="<?php echo $index_counter_current[ABAP_UI_Buffer_Index::INDEX_FILENAME] . '-' . $page_loop ?>.html"
+                                       title="Page <?php echo $page_loop ?> of <?php echo $index_page_count ?>" >
+                                        <?php echo $index_counter_current[ABAP_UI_Buffer_Index::LINK_TEXT] . '-' . $page_loop ?></a>&nbsp;
+                                <?php } ?>
+                            </li></ul></div>
+                <?php } ?>
 
                 <h4> <?php echo GLOBAL_ABAP_OTYPE::PROG_DESC ?> - <?php echo $index ?></h4>
                 <table class="alv">
@@ -138,11 +138,11 @@ $prog_list = ABAP_DB_TABLE_HIER::TADIR_PROG_List($index);
                             <td class="alv"><?php echo htmlspecialchars($prog_desc) ?> &nbsp; </td>
                         </tr>
                     <?php } ?>
-                </table>                
+                </table>
 
             </div>
-        </div><!-- Content: End -->        
-                
+        </div><!-- Content: End -->
+
         <!-- Footer -->
         <?php require $__ROOT__ . '/include/footer.php' ?>
 
@@ -157,7 +157,7 @@ file_put_contents($ob_fname, $ob_content);
 if ($index === ABAP_DB_CONST::INDEX_A) {
     $ob_fname = $ob_folder . "/index.html";
     file_put_contents($ob_fname, $ob_content);
-}       
+}
 
 // Close PDO Database Connection
 ABAP_DB_TABLE::close_conn();

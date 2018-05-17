@@ -16,12 +16,16 @@ class ABAP_UI_Buffer_Index {
         $db_index_list = ABAP_DB_TABLE_BASIS::ZBUFFER_INDEX_COUNTER($oType);
         foreach ($db_index_list as $db_index) {
             if ($db_index[ABAP_DB_TABLE_BASIS::ZBUFFER_INDEX_COUNTER_LEFT1] == ABAP_DB_TABLE_BASIS::ZBUFFER_INDEX_COUNTER_LEFT1_SLASH) {
-                $filename_suffix = strtolower(ABAP_DB_CONST::INDEX_SLASH);
+                $db_index[self::INDEX_FILENAME] = 'index-' . strtolower(ABAP_DB_CONST::INDEX_SLASH);
+                $db_index[self::LINK_TEXT] = ABAP_DB_CONST::INDEX_SLASH;
+            } else if ($oType == GLOBAL_ABAP_OTYPE::FUNC_NAME && $db_index[ABAP_DB_TABLE_BASIS::ZBUFFER_INDEX_COUNTER_LEFT1] == ABAP_DB_TABLE_BASIS::ZBUFFER_INDEX_COUNTER_LEFT1_AT) {
+                $db_index[self::INDEX_FILENAME] = 'index-' . strtolower(ABAP_DB_TABLE_FUNC::TFDIR_FMODE_RFC);
+                $db_index[self::LINK_TEXT] = ABAP_DB_TABLE_FUNC::TFDIR_FMODE_RFC;
             } else {
-                $filename_suffix = strtolower($db_index[ABAP_DB_TABLE_BASIS::ZBUFFER_INDEX_COUNTER_LEFT1]);
+                $db_index[self::INDEX_FILENAME] = 'index-' . strtolower($db_index[ABAP_DB_TABLE_BASIS::ZBUFFER_INDEX_COUNTER_LEFT1]);
+                $db_index[self::LINK_TEXT] = $db_index[ABAP_DB_TABLE_BASIS::ZBUFFER_INDEX_COUNTER_LEFT1];
             }
-            $db_index[self::INDEX_FILENAME] = 'index-' . $filename_suffix;
-            $db_index[self::LINK_TEXT] = $db_index[ABAP_DB_TABLE_BASIS::ZBUFFER_INDEX_COUNTER_LEFT1];
+
             $db_index[self::LINK_TITLE] = "Object name starting with '" . $db_index[ABAP_DB_TABLE_BASIS::ZBUFFER_INDEX_COUNTER_LEFT1] . "', "
                     . number_format($db_index[ABAP_DB_CONST::COUNTER]) . ' records';
             if ($db_index[ABAP_DB_TABLE_BASIS::ZBUFFER_INDEX_COUNTER_PAGE_COUNT] > 1) {
@@ -779,17 +783,6 @@ class ABAP_UI_CONST {
     const ANCHOR_SEOMETARELFL = "seometarel-fulllist";     // For class/interface meta rel
     const LABEL_F1Help = 'Help Document on this Field';
     const WUL_ROW_MINIMAL = 10;                            // Add empty rows to make web page looks better
-
-    public static function GetIndexes4Func() {
-        return array('a', 'b', 'c', 'd', 'e', 'f', 'g'
-            , 'h', 'i', 'j', 'k', 'l', 'm', 'n'
-            , 'o', 'p', 'q', 'r', 's', 't'
-            , 'u', 'v', 'w', 'x'
-            , 'slash'
-            , '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
-            , 'rfc');
-    }
-
 }
 
 class ABAP_UI_CUS0 {
@@ -1111,7 +1104,7 @@ class ABAP_UI_TOOL {
      */
     public static function GetObjectTitle($oType, $oName, $oNameDisp = NULL) {
         $title_name = ($oNameDisp === NULL) ? $oName : $oNameDisp;
-        $title_name = 'SAP ABAP ' . GLOBAL_ABAP_OTYPE::getOTypeDesc($oType) . ' ' . $title_name;
+        $title_name = 'SAP ABAP ' . GLOBAL_ABAP_OTYPE::getOTypeDesc($oType) . ' ' . htmlentities($title_name);
         $srcObjDesc = ABAP_UI_TOOL::GetObjectDescr($oType, $oName);
         if (!empty($srcObjDesc)) {
             $title_name = $title_name . ' (' . $srcObjDesc . ')';

@@ -16,7 +16,8 @@ if (!isset($index)) {
 }
 
 if (strlen(trim($index)) == 0) {
-    $index = ABAP_DB_CONST::INDEX_A;
+    $index = ABAP_DB_CONST::INDEX_SLASH;
+    $index_page = ABAP_DB_CONST::INDEX_PAGE_1;
 } else {
     $index = strtoupper($index);
 }

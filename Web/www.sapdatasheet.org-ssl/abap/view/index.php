@@ -16,7 +16,8 @@ if (!isset($index)) {
 }
 
 if (strlen(trim($index)) == 0) {
-    $index = ABAP_DB_CONST::INDEX_A;
+    $index = ABAP_DB_CONST::INDEX_SLASH;
+    $index_page = ABAP_DB_CONST::INDEX_PAGE_1;
 } else {
     $index = strtoupper($index);
 }
@@ -45,7 +46,6 @@ if ($index === ABAP_DB_CONST::INDEX_SLASH) {
 $dd25l_list = ABAP_DB_TABLE_VIEW::DD25L_List($index, $index_page);
 $index_counter_list = ABAP_UI_Buffer_Index::ZBUFFER_INDEX_COUNTER(GLOBAL_ABAP_OTYPE::VIEW_NAME);
 ?>
-
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">

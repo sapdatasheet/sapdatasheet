@@ -10,6 +10,14 @@ GLOBAL_UTIL::UpdateSAPDescLangu();
 if (php_sapi_name() == 'cli') {
     $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU] = $argv[1];
 }
+
+if (strlen(trim($index)) == 0) {
+    $index = ABAP_DB_CONST::INDEX_A;
+    $index_page = ABAP_DB_CONST::INDEX_PAGE_1;
+} else {
+    $index = strtoupper(urldecode($index));
+}
+
 // Check Buffer
 $ob_folder = GLOBAL_UTIL::GetObFolder(dirname(__FILE__));
 if (file_exists($ob_folder) == FALSE) {
@@ -25,8 +33,14 @@ if (file_exists($ob_fname)) {
 }
 ob_start();
 
-$GLOBALS['TITLE_TEXT'] = "SAP ABAP " . GLOBAL_ABAP_OTYPE::MSAG_DESC . " Index ";
-$msag_list = ABAP_DB_TABLE_MSAG::T100A_List();
+$GLOBALS['TITLE_TEXT'] = "SAP ABAP " . GLOBAL_ABAP_OTYPE::MSAG_DESC . " Index " . $index
+        . (($index_page > 1) ? ', page ' . $index_page : '');
+
+if ($index === ABAP_DB_CONST::INDEX_SLASH) {
+    $index = '/';
+}
+$msag_list = ABAP_DB_TABLE_MSAG::T100A_List($index, $index_page);
+$index_counter_list = ABAP_UI_Buffer_Index::ZBUFFER_INDEX_COUNTER(GLOBAL_ABAP_OTYPE::MSAG_NAME);
 ?>
 <html>
     <head>
@@ -63,7 +77,32 @@ $msag_list = ABAP_DB_TABLE_MSAG::T100A_List();
                     <?php include $__ROOT__ . '/include/google/adsense-content-top.html' ?>
                 </div>
 
-                <h4> <?php echo GLOBAL_ABAP_OTYPE::MSAG_DESC ?></h4>
+                <div>
+                    <?php
+                    $index_page_count = 1;              // Total page nubmers
+                    $index_counter_current = array();   // Current index, like: A, B, C, ...
+                    foreach ($index_counter_list as $index_counter) {
+                        if ($index === $index_counter[ABAP_DB_TABLE_BASIS::ZBUFFER_INDEX_COUNTER_LEFT1]) {
+                            $index_page_count = $index_counter[ABAP_DB_TABLE_BASIS::ZBUFFER_INDEX_COUNTER_PAGE_COUNT];
+                            $index_counter_current = $index_counter;
+                        }
+                        ?>
+                        <a href="<?php echo $index_counter[ABAP_UI_Buffer_Index::INDEX_FILENAME] ?>.html"
+                           title="<?php echo $index_counter[ABAP_UI_Buffer_Index::LINK_TITLE] ?>" >
+                            <?php echo $index_counter[ABAP_UI_Buffer_Index::LINK_TEXT] ?></a>&nbsp;
+                    <?php } ?>
+                </div>
+                <?php if ($index_page_count > 1) { ?>
+                    <div><ul><li>
+                                <?php for ($page_loop = 1; $page_loop <= $index_counter_current[ABAP_DB_TABLE_BASIS::ZBUFFER_INDEX_COUNTER_PAGE_COUNT]; $page_loop++) { ?>
+                                    <a href="<?php echo $index_counter_current[ABAP_UI_Buffer_Index::INDEX_FILENAME] . '-' . $page_loop ?>.html"
+                                       title="Page <?php echo $page_loop ?> of <?php echo $index_page_count ?>" >
+                                        <?php echo $index_counter_current[ABAP_UI_Buffer_Index::LINK_TEXT] . '-' . $page_loop ?></a>&nbsp;
+                                <?php } ?>
+                            </li></ul></div>
+                <?php } ?>
+                
+                <h4> <?php echo GLOBAL_ABAP_OTYPE::MSAG_DESC ?> - <?php echo $index ?></h4>
                 <table class="alv">
                     <tr>
                         <th class="alv"> # </th>

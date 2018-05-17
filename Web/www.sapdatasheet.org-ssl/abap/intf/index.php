@@ -16,7 +16,10 @@ if (!isset($index)) {
 }
 
 if (strlen(trim($index)) == 0) {
-    $index = ABAP_DB_CONST::INDEX_PAGE_1;
+    $index = ABAP_DB_CONST::INDEX_SLASH;
+    $index_page = ABAP_DB_CONST::INDEX_PAGE_1;
+} else {
+    $index = strtoupper($index);
 }
 
 // Check Buffer
@@ -37,9 +40,14 @@ ob_start();
 <!DOCTYPE html>
 <!-- ABAP OO Interface index. -->
 <?php
-$page_label = "Page " . $index . " of " . ABAP_DBDATA::SEOCLASS_INTF_INDEX_MAX;
-$GLOBALS['TITLE_TEXT'] = "SAP ABAP " . GLOBAL_ABAP_OTYPE::INTF_DESC . " - Index " . $page_label;
-$intf_list = ABAP_DB_TABLE_SEO::SEOCLASS_List(ABAP_DB_TABLE_SEO::SEOCLASS_CLSTYPE_INTF, $index);
+$GLOBALS['TITLE_TEXT'] = "SAP ABAP " . GLOBAL_ABAP_OTYPE::INTF_DESC . " - Index " . $index
+        . (($index_page > 1) ? ', page ' . $index_page : '');
+
+if ($index === ABAP_DB_CONST::INDEX_SLASH) {
+    $index = '/';
+}
+$intf_list = ABAP_DB_TABLE_SEO::SEOCLASS_List(ABAP_DB_TABLE_SEO::SEOCLASS_CLSTYPE_INTF, $index, $index_page);
+$index_counter_list = ABAP_UI_Buffer_Index::ZBUFFER_INDEX_COUNTER(GLOBAL_ABAP_OTYPE::INTF_NAME);
 ?>
 <html>
     <head>
@@ -77,12 +85,31 @@ $intf_list = ABAP_DB_TABLE_SEO::SEOCLASS_List(ABAP_DB_TABLE_SEO::SEOCLASS_CLSTYP
                 </div>
 
                 <div>
-                    <?php for ($count = 1; $count <= ABAP_DBDATA::SEOCLASS_INTF_INDEX_MAX; $count++) { ?>
-                        <a href="index-<?php echo $count ?>.html"><?php echo $count ?></a>&nbsp;
+                    <?php
+                    $index_page_count = 1;              // Total page nubmers
+                    $index_counter_current = array();   // Current index, like: A, B, C, ...
+                    foreach ($index_counter_list as $index_counter) {
+                        if ($index === $index_counter[ABAP_DB_TABLE_BASIS::ZBUFFER_INDEX_COUNTER_LEFT1]) {
+                            $index_page_count = $index_counter[ABAP_DB_TABLE_BASIS::ZBUFFER_INDEX_COUNTER_PAGE_COUNT];
+                            $index_counter_current = $index_counter;
+                        }
+                        ?>
+                        <a href="<?php echo $index_counter[ABAP_UI_Buffer_Index::INDEX_FILENAME] ?>.html"
+                           title="<?php echo $index_counter[ABAP_UI_Buffer_Index::LINK_TITLE] ?>" >
+                            <?php echo $index_counter[ABAP_UI_Buffer_Index::LINK_TEXT] ?></a>&nbsp;
                     <?php } ?>
                 </div>
+                <?php if ($index_page_count > 1) { ?>
+                    <div><ul><li>
+                                <?php for ($page_loop = 1; $page_loop <= $index_counter_current[ABAP_DB_TABLE_BASIS::ZBUFFER_INDEX_COUNTER_PAGE_COUNT]; $page_loop++) { ?>
+                                    <a href="<?php echo $index_counter_current[ABAP_UI_Buffer_Index::INDEX_FILENAME] . '-' . $page_loop ?>.html"
+                                       title="Page <?php echo $page_loop ?> of <?php echo $index_page_count ?>" >
+                                        <?php echo $index_counter_current[ABAP_UI_Buffer_Index::LINK_TEXT] . '-' . $page_loop ?></a>&nbsp;
+                                <?php } ?>
+                            </li></ul></div>
+                <?php } ?>
 
-                <h4> <?php echo GLOBAL_ABAP_OTYPE::INTF_DESC ?> - <?php echo $page_label ?></h4>
+                <h4> <?php echo GLOBAL_ABAP_OTYPE::INTF_DESC ?> - <?php echo $index ?></h4>
                 <table class="alv">
                     <tr>
                         <th class="alv"> # </th>

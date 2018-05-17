@@ -21,7 +21,10 @@
 //   http://localhost/abap/bmfr/HLB0009009.html
 //   http://localhost/abap/bmfr/bmfr.php?id=HLB0009009
 
-require_once(dirname(__FILE__) . '/include/common/global.php');
+$__ROOT__ = dirname(__FILE__);
+require_once ($__ROOT__ . '/include/common/global.php');
+require_once ($__ROOT__ . '/include/common/abap_db.php');
+
 
 $requri = html_entity_decode(strtolower($_SERVER['REQUEST_URI']));
 unset($target);
@@ -83,9 +86,8 @@ if ($requri === '/wp/wp-admin/' || $requri === '/wp-admin/' || $requri === '/tes
         $index_page = $index_parts[1];
     } else {
         $index = $index_fname;
-        $index_page = 1;               // Default to page 1
+        $index_page = ABAP_DB_CONST::INDEX_PAGE_1;               // Default to page 1
     }
-
 
     $target = 'abap/tabl/index.php';
 } else if (GLOBAL_UTIL::StartsWith($requri, '/abap/tabl/') && GLOBAL_UTIL::EndsWith($requri, '.html')) {
@@ -109,6 +111,20 @@ if ($requri === '/wp/wp-admin/' || $requri === '/wp-admin/' || $requri === '/tes
 //   http://localhost/abap/msag/a3-001.html
 //   http://localhost/abap/msag/a3-012.html
 } else if ($requri === '/abap/msag/index.html') {
+    $target = 'abap/msag/index.php';
+} else if (GLOBAL_UTIL::StartsWith($requri, '/abap/msag/index-') && GLOBAL_UTIL::EndsWith($requri, '.html')) {
+    $index_fname = substr($requri, 17, -5);
+
+    // Copied from bellow - TODO merge the logic for msag/tabl to the central table
+    $index_parts = explode('-', $index_fname);
+    if (count($index_parts) == 2 && is_numeric($index_parts[1])) {
+        $index = $index_parts[0];
+        $index_page = $index_parts[1];
+    } else {
+        $index = $index_fname;
+        $index_page = ABAP_DB_CONST::INDEX_PAGE_1;               // Default to page 1
+    }
+    
     $target = 'abap/msag/index.php';
 } else if (GLOBAL_UTIL::StartsWith($requri, '/abap/msag/') && GLOBAL_UTIL::EndsWith($requri, '.html')) {
     $MsagURI = substr($requri, 11, -5);
@@ -141,7 +157,7 @@ if ($requri === '/wp/wp-admin/' || $requri === '/wp-admin/' || $requri === '/tes
                 $index_page = $index_parts[1];
             } else {
                 $index = $index_fname;
-                $index_page = 1;               // Default to page 1
+                $index_page = ABAP_DB_CONST::INDEX_PAGE_1;               // Default to page 1
             }
 
             $target = 'abap/' . $abap_uri[0] . '/index.php';
