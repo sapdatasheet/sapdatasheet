@@ -17,8 +17,8 @@ ob_start();
         array("clas", 3),
         array("cus0", 2),
         array("cvers", 1),
-        array("doma", 3),
         array("devc", 1),
+        array("doma", 3),
         array("dtel", 11),
         array("fugr", 2),
         array("func", 11),
@@ -36,10 +36,7 @@ ob_start();
     ?>
     <?php foreach ($abap_type_count as $abap_type_item) { ?>
         <?php for ($i = 1; $i <= $abap_type_item[1]; $i++) { ?>
-            <sitemap>
-                <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/sitemap/abap-<?php echo $abap_type_item[0] ?><?php echo $i ?>.xml</loc>
-                <lastmod><?php echo date("Y-m-d") ?></lastmod>
-            </sitemap>
+            <sitemap><loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/sitemap/abap-<?php echo $abap_type_item[0] ?><?php echo $i ?>.xml</loc><lastmod><?php echo date("Y-m-d") ?></lastmod></sitemap>
         <?php } ?>
     <?php } ?>
 </sitemapindex>

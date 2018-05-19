@@ -18,7 +18,6 @@ class ABAP_DB_CONST {
     const INDEX_SLASH = 'SLASH';
     const INDEX_TOP = "TOP";
     const INDEX_PAGE_1 = 1;                    // Page 1
-    const INDEX_PAGESIZE = 10000;              // Page size
     const INDEX_SEQNO_DTEL = 'SEQNZ';          // Data Element for Sequence Number
     const USED_BY_LIMIT_DOMA = 15;
     const USED_BY_LIMIT_DTEL = 40;
@@ -1389,6 +1388,12 @@ class ABAP_DB_TABLE_MSAG {
                 . ' order by ARBGB'
                 . ABAP_DB_CONST::SQL_LIMIT($index_page);
         return ABAP_DB_TABLE::select_1filter($sql, $index . '%');
+    }
+    
+    public static function T100A_Sitemap() {
+        $sql = 'select ARBGB from ' . ABAP_DB_TABLE_MSAG::T100A
+                . ' order by ARBGB';
+        return ABAP_DB_TABLE::select($sql);
     }
 
     /**
@@ -2766,17 +2771,14 @@ class ABAP_DB_TABLE_CREF {
      *     and SRC_OBJ_NAME = 'MANDT'
      *     and SRC_SUBOBJ   = ''
      *     and OBJ_TYPE = 'DTEL'
-     *   limit 10
-     *   offset 30
+     *   limit 10, 30
      * </pre>
      */
     public static function YWUL($srcOType, $srcOName, $srcSubobj, $oType, $page) {
-        $offset = ($page - 1) * ABAP_DB_CONST::INDEX_PAGESIZE;
         $sql = 'SELECT * from ' . ABAP_DB_TABLE_CREF::YWUL
                 . ' where SRC_OBJ_TYPE = :sotype AND SRC_OBJ_NAME = :soname AND SRC_SUBOBJ = :ssubobj AND OBJ_TYPE = :otype'
                 . ' order by OBJ_NAME'
-                . ' LIMIT ' . ABAP_DB_CONST::INDEX_PAGESIZE
-                . ' OFFSET ' . $offset;
+                . ABAP_DB_CONST::SQL_LIMIT($page);
         $paras = array(
             'sotype' => $srcOType,
             'soname' => $srcOName,
@@ -2799,12 +2801,10 @@ class ABAP_DB_TABLE_CREF {
      * </pre>
      */
     public static function YWIL($oType, $oName, $srcOType, $page) {
-        $offset = ($page - 1) * ABAP_DB_CONST::INDEX_PAGESIZE;
         $sql = 'SELECT * from ' . ABAP_DB_TABLE_CREF::YWUL
                 . ' where OBJ_TYPE = :otype AND OBJ_NAME = :oname AND SRC_OBJ_TYPE = :sotyp'
                 . ' order by SRC_OBJ_NAME'
-                . ' LIMIT ' . ABAP_DB_CONST::INDEX_PAGESIZE
-                . ' OFFSET ' . $offset;
+                . ABAP_DB_CONST::SQL_LIMIT($page);
         $paras = array(
             'otype' => $oType,
             'oname' => $oName,
@@ -3210,11 +3210,9 @@ class ABAPANA_DB_TABLE {
      * </pre>
      */
     public static function WULCOUNTER_Index($page) {
-        $offset = ($page - 1) * ABAP_DB_CONST::INDEX_PAGESIZE;
         $sql = 'select * from ' . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::WULCOUNTER
 //              . ' ORDER BY SRC_OBJ_TYPE, SRC_OBJ_NAME, OBJ_TYPE'  -- Do not order for performance reason
-                . ' LIMIT ' . ABAP_DB_CONST::INDEX_PAGESIZE
-                . ' OFFSET ' . $offset;
+                . ABAP_DB_CONST::SQL_LIMIT($page);
         return ABAP_DB_TABLE::select($sql);
     }
 
@@ -3285,11 +3283,9 @@ class ABAPANA_DB_TABLE {
      * </pre>
      */
     public static function WILCOUNTER_Index($page) {
-        $offset = ($page - 1) * ABAP_DB_CONST::INDEX_PAGESIZE;
         $sql = 'select * from ' . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::WILCOUNTER
 //              . ' ORDER BY OBJ_TYPE, OBJ_NAME, SRC_OBJ_TYPE'
-                . ' LIMIT ' . ABAP_DB_CONST::INDEX_PAGESIZE
-                . ' OFFSET ' . $offset;
+                . ABAP_DB_CONST::SQL_LIMIT($page);
         return ABAP_DB_TABLE::select($sql);
     }
 

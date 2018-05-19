@@ -6,7 +6,7 @@ require_once ($__ROOT__ . '/include/common/abap_ui.php');
 require_once ($__ROOT__ . '/include/common/sitemap.php');
 
 $obj_type = 'msag';
-$list = ABAP_DB_TABLE_MSAG::T100A_List();
+$list = ABAP_DB_TABLE_MSAG::T100A_Sitemap();
 $column_name = 'ARBGB';
 
 Sitemap4ABAPOType($obj_type, $list, $column_name);

@@ -33,8 +33,9 @@ if (file_exists($ob_fname)) {
 }
 ob_start();
 
-$GLOBALS['TITLE_TEXT'] = "SAP ABAP Where Using List - Index " . $index . " of " . ABAP_DBDATA::WILCOUNTER_INDEX_MAX;
+$GLOBALS['TITLE_TEXT'] = "SAP ABAP Where Using List - Index " . number_format($index) . " of " . number_format(ABAP_DBDATA::WILCOUNTER_INDEX_MAX);
 $list = ABAPANA_DB_TABLE::WILCOUNTER_Index($index);
+$index_pages = ABAP_UI_TOOL::GetPagingList($index, ABAP_DBDATA::WILCOUNTER_INDEX_MAX);
 ?>
 <html>
     <head>
@@ -72,14 +73,12 @@ $list = ABAPANA_DB_TABLE::WILCOUNTER_Index($index);
                 </div>
 
                 <br />
-                <details>
-                    <summary>Index pages</summary>
-                    <div>
-                        <?php for ($count = 1; $count <= ABAP_DBDATA::WILCOUNTER_INDEX_MAX; $count++) { ?>
-                            <a href="index-<?php echo $count ?>.html"><?php echo $count ?></a>&nbsp;
-                        <?php } ?>
-                    </div>
-                </details>
+
+                <div>
+                    <?php foreach ($index_pages as $i) { ?>
+                        <a href="index-<?php echo $i ?>.html"><?php echo $i ?></a>&nbsp;
+                    <?php } ?>
+                </div>
 
                 <h4><?php echo $GLOBALS['TITLE_TEXT'] ?></h4>
                 <table class="alv">

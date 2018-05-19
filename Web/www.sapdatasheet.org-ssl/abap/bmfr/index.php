@@ -79,7 +79,7 @@ $index_counter_list = ABAP_UI_Buffer_Index::ZBUFFER_INDEX_COUNTER(GLOBAL_ABAP_OT
                 </div>
 
                 <div>
-                    <a href="index-top.html">Top</a>&nbsp;- 
+                    <a href="index-<?php echo strtolower(ABAP_DB_CONST::INDEX_TOP) ?>.html">Top</a>&nbsp;- 
 
                     <?php
                     $index_page_count = 1;              // Total page nubmers

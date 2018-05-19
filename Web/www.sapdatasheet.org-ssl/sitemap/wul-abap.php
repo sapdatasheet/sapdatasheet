@@ -26,7 +26,7 @@ foreach ($list as $row) {
         $j = 1;
     }
 
-    if ($row['COUNTER'] > ABAP_DB_CONST::INDEX_PAGESIZE) {
+    if ($row['COUNTER'] > ABAP_DB_CONST::MAX_ROWS_LIMIT) {
         $urls = ABAP_UI_DS_Navigation::GetWulPaths(
                 $row['SRC_OBJ_TYPE'], $row['SRC_OBJ_NAME'], $row['SRC_SUBOBJ'], $row['OBJ_TYPE'], $row['COUNTER']);
         foreach ($urls as $wulurl) {

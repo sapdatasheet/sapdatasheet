@@ -2,238 +2,73 @@
 $__ROOT__ = dirname(dirname(__FILE__));
 require_once($__ROOT__ . '/include/common/global.php');
 require_once($__ROOT__ . '/include/common/abap_db.php');
+require_once($__ROOT__ . '/include/common/abap_ui.php');
+
+// Index files
+// ABAP Object Types in the zbuffer_index_counter table
+$abap_buffered_otypes = array(
+    GLOBAL_ABAP_OTYPE::BMFR_NAME,
+    GLOBAL_ABAP_OTYPE::DEVC_NAME,
+    GLOBAL_ABAP_OTYPE::MSAG_NAME,
+    GLOBAL_ABAP_OTYPE::CUS0_NAME,
+    GLOBAL_ABAP_OTYPE::TRAN_NAME,
+    GLOBAL_ABAP_OTYPE::PROG_NAME,
+    GLOBAL_ABAP_OTYPE::FUGR_NAME,
+    GLOBAL_ABAP_OTYPE::FUNC_NAME,
+    GLOBAL_ABAP_OTYPE::CLAS_NAME,
+    GLOBAL_ABAP_OTYPE::INTF_NAME,
+    GLOBAL_ABAP_OTYPE::SHLP_NAME,
+    GLOBAL_ABAP_OTYPE::TABL_NAME,
+    GLOBAL_ABAP_OTYPE::VIEW_NAME,
+    GLOBAL_ABAP_OTYPE::DTEL_NAME,
+    GLOBAL_ABAP_OTYPE::DOMA_NAME
+);
+
 
 ob_start();
 ?>
 <?xml version="1.0" encoding="UTF-8"?>
-<?php
-$sap_langus = array('', '/1', '/3', '/D', '/F'
-    , '/I', '/J', '/L', '/M', '/N', '/P', '/R', '/S', '/T');
-// a - x
-$abap_index_a = array('a', 'b', 'c', 'd', 'e', 'f', 'g'
-    , 'h', 'i', 'j', 'k', 'l', 'm', 'n'
-    , 'o', 'p', 'q', 'r', 's', 't'
-    , 'u', 'v', 'w', 'x');
-// a - x, + slash
-$abap_otpye_as = array('devc', 'prog', 'tabl', 'view', 'dtel', 'doma');
-$abap_index_as = array('a', 'b', 'c', 'd', 'e', 'f', 'g'
-    , 'h', 'i', 'j', 'k', 'l', 'm', 'n'
-    , 'o', 'p', 'q', 'r', 's', 't'
-    , 'u', 'v', 'w', 'x', 'slash');
-// a - x, 0 - 9, + slash
-$abap_otpye_a0s = array('tran', 'fugr', 'func');
-$abap_index_a0s = array('a', 'b', 'c', 'd', 'e', 'f', 'g'
-    , 'h', 'i', 'j', 'k', 'l', 'm', 'n'
-    , 'o', 'p', 'q', 'r', 's', 't'
-    , 'u', 'v', 'w', 'x', 'slash'
-    , '0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
-// cus0 list
-$abap_index_cus0 = array();
-for ($count = 1; $count <= ABAP_DBDATA::CUS_IMGACT_INDEX_MAX; $count++) {
-    array_push($abap_index_cus0, $count);
-}
-?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url><loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
 
-<!-- Index files -->
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"> 
-    <url>
-        <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/index.html</loc> 
-        <changefreq>monthly</changefreq>
-        <priority>1.0</priority>
-    </url>
+    <url><loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG . '/abap/' . strtolower(GLOBAL_ABAP_OTYPE::CVERS_NAME) . '/' ?></loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+    <url><loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG . '/abap/' . strtolower(GLOBAL_ABAP_OTYPE::BMFR_NAME) . '/' ?>index-<?php echo strtolower(ABAP_DB_CONST::INDEX_TOP) ?>.html</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+    <url><loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG . '/abap/' . strtolower(GLOBAL_ABAP_OTYPE::TABL_NAME) . '/' ?>index-<?php echo strtolower(ABAP_DB_CONST::DD02L_TABCLASS_CLUSTER) ?>.html</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+    <url><loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG . '/abap/' . strtolower(GLOBAL_ABAP_OTYPE::TABL_NAME) . '/' ?>index-<?php echo strtolower(ABAP_DB_CONST::DD02L_TABCLASS_POOL) ?>.html</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+    <url><loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG . '/abap/' . strtolower(GLOBAL_ABAP_OTYPE::SQLT_NAME) . '/' ?></loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
 
-    <?php foreach ($sap_langus as $sap_langu) { ?>
-        <!-- CLAS -->
-        <url>
-            <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/clas<?php echo $sap_langu ?>/index.html</loc>
-            <changefreq>monthly</changefreq>
-            <priority>1.0</priority>
-        </url>
-        <?php for ($abap_index = 1; $abap_index <= ABAP_DBDATA::SEOCLASS_CLAS_INDEX_MAX; $abap_index++) { ?>
-            <url>
-                <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/clas<?php echo $sap_langu ?>/index-<?php echo $abap_index ?>.html</loc>
-                <changefreq>monthly</changefreq>
-                <priority>1.0</priority>
-            </url>
-        <?php } ?>
-        <!-- INTF -->
-        <url>
-            <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/intf<?php echo $sap_langu ?>/index.html</loc>
-            <changefreq>monthly</changefreq>
-            <priority>1.0</priority>
-        </url>
-        <?php for ($abap_index = 1; $abap_index <= ABAP_DBDATA::SEOCLASS_INTF_INDEX_MAX; $abap_index++) { ?>
-            <url>
-                <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/intf<?php echo $sap_langu ?>/index-<?php echo $abap_index ?>.html</loc>
-                <changefreq>monthly</changefreq>
-                <priority>1.0</priority>
-            </url>
-        <?php } ?>
-        <!-- SHLP -->
-        <url>
-            <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/shlp<?php echo $sap_langu ?>/index.html</loc>
-            <changefreq>monthly</changefreq>
-            <priority>1.0</priority>
-        </url>
-        <?php for ($abap_index = 1; $abap_index <= ABAP_DBDATA::DD30L_INDEX_MAX; $abap_index++) { ?>
-            <url>
-                <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/shlp<?php echo $sap_langu ?>/index-<?php echo $abap_index ?>.html</loc>
-                <changefreq>monthly</changefreq>
-                <priority>1.0</priority>
-            </url>
-        <?php } ?>
-        
-        <!-- Where Used List for ABAP -->
-        <url>
-            <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/wul/abap<?php echo $sap_langu ?>/index.html</loc>
-            <changefreq>monthly</changefreq>
-            <priority>1.0</priority>
-        </url>
-        <?php for ($abap_index = 1; $abap_index <= ABAP_DBDATA::WULCOUNTER_INDEX_MAX; $abap_index++) { ?>
-            <url>
-                <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/wul/abap<?php echo $sap_langu ?>/index-<?php echo $abap_index ?>.html</loc>
-                <changefreq>monthly</changefreq>
-                <priority>1.0</priority>
-            </url>
-        <?php } ?>
+    <?php foreach ($abap_buffered_otypes as $otype) { ?>
+    <url><loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG . '/abap/' . strtolower($otype) . '/' ?></loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+        <?php
+        $index_counter_list = ABAP_UI_Buffer_Index::ZBUFFER_INDEX_COUNTER($otype);
+        foreach ($index_counter_list as $index_counter) {
+            $index_page_count = $index_counter[ABAP_DB_TABLE_BASIS::ZBUFFER_INDEX_COUNTER_PAGE_COUNT];
+            ?>
+            <url><loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG . '/abap/' . strtolower($otype) . '/' . $index_counter[ABAP_UI_Buffer_Index::INDEX_FILENAME] ?>.html</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+            <?php
+            if ($index_page_count > 1) {
+                for ($page_loop = 1; $page_loop <= $index_page_count; $page_loop++) {
+                    ?>
+                    <url><loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG . '/abap/' . strtolower($otype) . '/' . $index_counter[ABAP_UI_Buffer_Index::INDEX_FILENAME] . '-' . $page_loop ?>.html</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+                    <?php
+                }
+            }
+        }
+    }
+    ?>
 
-        <!-- Where Using List for ABAP -->
-        <url>
-            <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/wil/abap<?php echo $sap_langu ?>/index.html</loc>
-            <changefreq>monthly</changefreq>
-            <priority>1.0</priority>
-        </url>
-        <?php for ($abap_index = 1; $abap_index <= ABAP_DBDATA::WILCOUNTER_INDEX_MAX; $abap_index++) { ?>
-            <url>
-                <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/wil/abap<?php echo $sap_langu ?>/index-<?php echo $abap_index ?>.html</loc>
-                <changefreq>monthly</changefreq>
-                <priority>1.0</priority>
-            </url>
-        <?php } ?>
-        
+    <!-- Where Used List for ABAP -->
+    <url><loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/wul/abap/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+    <?php for ($abap_index = 1; $abap_index <= ABAP_DBDATA::WULCOUNTER_INDEX_MAX; $abap_index++) { ?>
+        <url><loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/wul/abap/index-<?php echo $abap_index ?>.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
     <?php } ?>
 
-    <!-- INTF -->
-    <?php foreach ($sap_langus as $sap_langu) { ?>
-        <url>
-            <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/intf<?php echo $sap_langu ?>/index.html</loc>
-            <changefreq>monthly</changefreq>
-            <priority>1.0</priority>
-        </url>
-        <?php for ($abap_index = 1; $abap_index <= ABAP_DBDATA::SEOCLASS_INTF_INDEX_MAX; $abap_index++) { ?>
-            <url>
-                <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/intf<?php echo $sap_langu ?>/index-<?php echo $abap_index ?>.html</loc>
-                <changefreq>monthly</changefreq>
-                <priority>1.0</priority>
-            </url>
-        <?php } ?>
-    <?php } ?>    
-
-    <!-- CUS0 -->
-    <?php foreach ($sap_langus as $sap_langu) { ?>
-        <url>
-            <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/cus0<?php echo $sap_langu ?>/index.html</loc>
-            <changefreq>monthly</changefreq>
-            <priority>1.0</priority>
-        </url>
-        <?php foreach ($abap_index_cus0 as $abap_index) { ?>
-            <url>
-                <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/cus0<?php echo $sap_langu ?>/index-<?php echo $abap_index ?>.html</loc>
-                <changefreq>monthly</changefreq>
-                <priority>1.0</priority>
-            </url>
-        <?php } ?>
-    <?php } ?>
-    <?php foreach ($sap_langus as $sap_langu) { ?>
-        <!-- CVERS -->
-        <url>
-            <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/cvers<?php echo $sap_langu ?>/index.html</loc> 
-            <changefreq>monthly</changefreq>
-            <priority>1.0</priority>
-        </url>
-        <!-- MSAG -->
-        <url>
-            <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/msag<?php echo $sap_langu ?>/index.html</loc> 
-            <changefreq>monthly</changefreq>
-            <priority>1.0</priority>
-        </url>
-        <!-- SQLT -->
-        <url>
-            <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/sqlt<?php echo $sap_langu ?>/index.html</loc> 
-            <changefreq>monthly</changefreq>
-            <priority>1.0</priority>
-        </url>
-    <?php } ?>
-    <!-- BMFR -->
-    <?php foreach ($sap_langus as $sap_langu) { ?>
-        <url>
-            <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/bmfr<?php echo $sap_langu ?>/index.html</loc>
-            <changefreq>monthly</changefreq>
-            <priority>1.0</priority>
-        </url>
-        <url>
-            <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/bmfr<?php echo $sap_langu ?>/index-top.html</loc>
-            <changefreq>monthly</changefreq>
-            <priority>1.0</priority>
-        </url>
-        <?php foreach ($abap_index_a as $abap_index) { ?>
-            <url>
-                <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/bmfr<?php echo $sap_langu ?>/index-<?php echo $abap_index ?>.html</loc> 
-                <changefreq>monthly</changefreq>
-                <priority>1.0</priority>
-            </url>
-        <?php } ?>
-    <?php } ?>
-    <!-- DEVC, PROG, TABL, VIEW, DTEL -->
-    <?php foreach ($sap_langus as $sap_langu) { ?>
-        <url>
-            <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/tabl<?php echo $sap_langu ?>/index-cluster.html</loc>
-            <changefreq>monthly</changefreq>
-            <priority>1.0</priority>
-        </url>
-        <url>
-            <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/tabl<?php echo $sap_langu ?>/index-pool.html</loc>
-            <changefreq>monthly</changefreq>
-            <priority>1.0</priority>
-        </url>
-        <?php foreach ($abap_otpye_as as $abap_otype) { ?>
-            <url>
-                <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/<?php echo $abap_otype ?><?php echo $sap_langu ?>/index.html</loc>
-                <changefreq>monthly</changefreq>
-                <priority>1.0</priority>
-            </url>
-            <?php foreach ($abap_index_as as $abap_index) { ?>
-                <url>
-                    <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/<?php echo $abap_otype ?><?php echo $sap_langu ?>/index-<?php echo $abap_index ?>.html</loc>
-                    <changefreq>monthly</changefreq>
-                    <priority>1.0</priority>
-                </url>
-            <?php } ?>
-        <?php } ?>
+    <!-- Where Using List for ABAP -->
+    <url><loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/wil/abap/index.html</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+    <?php for ($abap_index = 1; $abap_index <= ABAP_DBDATA::WILCOUNTER_INDEX_MAX; $abap_index++) { ?>
+        <url><loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/wil/abap/index-<?php echo $abap_index ?>.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
     <?php } ?>
 
-    <!-- TRAN, FUGR, FUNC -->
-    <?php foreach ($sap_langus as $sap_langu) { ?>
-        <url>
-            <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/func<?php echo $sap_langu ?>/index-rfc.html</loc>
-            <changefreq>monthly</changefreq>
-            <priority>1.0</priority>
-        </url>
-        <?php foreach ($abap_otpye_a0s as $abap_otype) { ?>
-            <url>
-                <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/<?php echo $abap_otype ?><?php echo $sap_langu ?>/index.html</loc>
-                <changefreq>monthly</changefreq>
-                <priority>1.0</priority>
-            </url>
-            <?php foreach ($abap_index_a0s as $abap_index) { ?>
-                <url>
-                    <loc><?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/abap/<?php echo $abap_otype ?><?php echo $sap_langu ?>/index-<?php echo $abap_index ?>.html</loc>
-                    <changefreq>monthly</changefreq>
-                    <priority>1.0</priority>
-                </url>
-            <?php } ?>
-        <?php } ?>
-    <?php } ?>
 </urlset>
 <?php
 $ob_content = ob_get_contents();

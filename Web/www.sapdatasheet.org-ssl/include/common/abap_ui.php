@@ -389,8 +389,8 @@ class ABAP_UI_DS_Navigation {
      */
     public static function GetWilPaths($oType, $oName, $srcOType, $counter) {
         $paths = array();
-        if ($counter > ABAP_DB_CONST::INDEX_PAGESIZE) {
-            $pageCount = ceil($counter / ABAP_DB_CONST::INDEX_PAGESIZE);
+        if ($counter > ABAP_DB_CONST::MAX_ROWS_LIMIT) {
+            $pageCount = ceil($counter / ABAP_DB_CONST::MAX_ROWS_LIMIT);
             for ($i = 1; $i <= $pageCount; $i++) {
                 $path = '/wil/abap/'
                         . $oType
@@ -409,8 +409,8 @@ class ABAP_UI_DS_Navigation {
      */
     public static function GetWilHyperlinks($oType, $oName, $srcOType, $counter, $newwin = TRUE) {
         $result = '';
-        if ($counter > ABAP_DB_CONST::INDEX_PAGESIZE) {
-            $pageCount = ceil($counter / ABAP_DB_CONST::INDEX_PAGESIZE);
+        if ($counter > ABAP_DB_CONST::MAX_ROWS_LIMIT) {
+            $pageCount = ceil($counter / ABAP_DB_CONST::MAX_ROWS_LIMIT);
             $newWindow = ($newwin === TRUE) ? 'target="_blank"' : '';
             $result = $result . ' pages: ';
             $urls = ABAP_UI_DS_Navigation::GetWilPaths($oType, $oName, $srcOType, $counter);
@@ -455,8 +455,8 @@ class ABAP_UI_DS_Navigation {
 
     public static function GetWulPaths($srcOType, $srcOName, $srcSubobj, $oType, $counter) {
         $paths = array();
-        if ($counter > ABAP_DB_CONST::INDEX_PAGESIZE) {
-            $pageCount = ceil($counter / ABAP_DB_CONST::INDEX_PAGESIZE);
+        if ($counter > ABAP_DB_CONST::MAX_ROWS_LIMIT) {
+            $pageCount = ceil($counter / ABAP_DB_CONST::MAX_ROWS_LIMIT);
             for ($i = 1; $i <= $pageCount; $i++) {
                 $urlObj = (strlen(trim($srcSubobj)) > 0) ? '-' . GLOBAL_UTIL::Clear4Url($srcSubobj) : '';
                 $path = '/wul/abap/'
@@ -476,9 +476,9 @@ class ABAP_UI_DS_Navigation {
      */
     public static function GetWulHyperlinks($srcOType, $srcOName, $srcSubobj, $oType, $counter, $newwin = TRUE) {
         $result = '';
-        if ($counter > ABAP_DB_CONST::INDEX_PAGESIZE) {
+        if ($counter > ABAP_DB_CONST::MAX_ROWS_LIMIT) {
             $newWindow = ($newwin === TRUE) ? 'target="_blank"' : '';
-            $pageCount = ceil($counter / ABAP_DB_CONST::INDEX_PAGESIZE);
+            $pageCount = ceil($counter / ABAP_DB_CONST::MAX_ROWS_LIMIT);
             $result = $result . ' pages: ';
             $urls = ABAP_UI_DS_Navigation::GetWulPaths($srcOType, $srcOName, $srcSubobj, $oType, $counter);
             $i = 1;
@@ -941,6 +941,23 @@ class ABAP_UI_TOOL {
      */
     public static function GetClassMethodAnchorName($method) {
         return strtolower(ABAP_DB_TABLE_SEO::SEOCOMPO . '-' . $method);
+    }
+
+    /**
+     * Get page number index.
+     */
+    public static function GetPagingList(int $currentPage, int $maxPage): array {
+        $min = $currentPage - 10;
+        $min = ($min < 1) ? 1 : $min;
+        $max = $currentPage + 10;
+        $max = ($max > $maxPage) ? $maxPage : $max;
+
+        $list = array();
+        for ($i = $min; $i <= $max; $i++) {
+            array_push($list, $i);
+        }
+
+        return $list;
     }
 
     /**

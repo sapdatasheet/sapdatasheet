@@ -27,7 +27,7 @@ foreach ($list as $row) {
     }
 
     // If several pages exists ...
-    if ($row['COUNTER'] > ABAP_DB_CONST::INDEX_PAGESIZE) {
+    if ($row['COUNTER'] > ABAP_DB_CONST::MAX_ROWS_LIMIT) {
         $urls = ABAP_UI_DS_Navigation::GetWilPaths($row['OBJ_TYPE'], $row['OBJ_NAME'], $row['SRC_OBJ_TYPE'], $row['COUNTER']);
         foreach ($urls as $wilurl) {
             SitemapEchoUrl(GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG . $wilurl, '0.4');

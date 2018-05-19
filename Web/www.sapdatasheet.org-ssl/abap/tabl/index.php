@@ -83,8 +83,8 @@ $index_counter_list = ABAP_UI_Buffer_Index::ZBUFFER_INDEX_COUNTER(GLOBAL_ABAP_OT
 
 
                 <div>
-                    <a href="index-cluster.html">CLUSTER</a>&nbsp;
-                    <a href="index-pool.html">POOL</a>&nbsp; - &nbsp;
+                    <a href="index-<?php echo strtolower(ABAP_DB_CONST::DD02L_TABCLASS_CLUSTER) ?>.html"><?php echo ABAP_DB_CONST::DD02L_TABCLASS_CLUSTER ?></a>&nbsp;
+                    <a href="index-<?php echo strtolower(ABAP_DB_CONST::DD02L_TABCLASS_POOL) ?>.html"><?php echo ABAP_DB_CONST::DD02L_TABCLASS_POOL ?></a>&nbsp; - &nbsp;
 
                     <?php
                     $index_page_count = 1;              // Total page nubmers
