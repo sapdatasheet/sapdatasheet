@@ -1,4 +1,6 @@
 #!/bin/sh
 
 cd /var/www/html
-zip -r release.zip *
+sudo rm     release.zip
+sudo zip -r release.zip *
+
