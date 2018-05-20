@@ -1,8 +1,8 @@
 <?php
 
-$__ROOT__ = dirname(dirname(dirname(__FILE__)));
-require_once ($__ROOT__ . '/include/3rdparty/php-export-data/php-export-data.class.php');
-include_once ($__ROOT__ . "/include/3rdparty/php_xlsxwriter/xlsxwriter.class.php");
+$__COMMON_ROOT__ = dirname(__FILE__, 2);
+require_once ($__COMMON_ROOT__ . '/3rdparty/php-export-data/php-export-data.class.php');
+include_once ($__COMMON_ROOT__ . "/3rdparty/php_xlsxwriter/xlsxwriter.class.php");
 
 /**
  * Download file Format

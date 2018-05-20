@@ -1,8 +1,8 @@
 <?php
 
-$__ROOT__ = dirname(dirname(dirname(__FILE__)));
-require_once($__ROOT__ . '/include/common/abap_dbconfig.php');
-require_once($__ROOT__ . '/include/common/abap_dbdata.php');
+$__COMMON_ROOT__ = dirname(__FILE__, 2);
+require_once($__COMMON_ROOT__ . '/library/abap_dbconfig.php');
+require_once($__COMMON_ROOT__ . '/library/abap_dbdata.php');
 
 class ABAP_DB_CONST {
     

@@ -1,7 +1,7 @@
 <?php
 
-$__ROOT__ = dirname(dirname(dirname(__FILE__)));
-require_once($__ROOT__ . '/include/common/global.php');
+$__COMMON_ROOT__ = dirname(__FILE__, 2);
+require_once($__COMMON_ROOT__ . '/library/global.php');
 
 
 class ABAP_UI_Buffer_Index {
