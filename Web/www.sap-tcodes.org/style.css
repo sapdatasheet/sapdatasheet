@@ -1,0 +1,52 @@
+/* References to bootstrap example: navbar-static-top, sticky-footer-navbar */
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+body {
+    margin-bottom: 8em;                /* Margin bottom by footer height */
+}
+.navbar-static-top {
+    margin-bottom: 1.2em;
+}
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 8em;                       /* Set the fixed height of the footer here */
+}
+.text-muted {
+    text-align: center;
+    margin: 0.625em 0;
+}
+div.footer_note
+{
+    margin-top:1em;
+    text-align:left;
+    font-size:x-small;
+    color: Gray;
+}
+
+/** 
+ * Container for D3 Charts
+ */
+div.d3chartarea_main{
+    background-color: wheat;
+}
+
+/**
+ * Addtional CSS for Bootstrap 
+ */
+/* Navigation bar at page Top, see http://jsfiddle.net/DTcHh/541/  */
+#topnavbar {
+    margin: 0;
+}
+#topnavbar.affix {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+#banner {
+     font-family:verdana;
+}

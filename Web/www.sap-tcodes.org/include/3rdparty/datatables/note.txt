@@ -1,0 +1,8 @@
+Download - https://datatables.net/download/packages
+
+DataTables	1.10.11
+
+Examples
+* https://datatables.net/examples/styling/bootstrap.html
+* https://www.datatables.net/extensions/buttons/examples/html5/simple.html
+

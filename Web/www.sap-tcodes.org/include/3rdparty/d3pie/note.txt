@@ -1,0 +1,10 @@
+Download        - http://d3pie.org/#download
+Source code     - https://github.com/benkeen/d3pie
+Curernt version - 0.1.8, April 2015
+
+About
+
+d3pie is a simple, highly configurable script built on d3.js 
+for creating simple, attractive pie charts. 
+
+It's free, open source, and found on github.
