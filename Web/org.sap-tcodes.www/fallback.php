@@ -1,8 +1,8 @@
 <?php
 
 $__ROOT__ = dirname(__FILE__);
-require_once($__ROOT__ . '/include/common/global.php');
-require_once($__ROOT__ . '/include/common/abap_ui.php');
+require_once($__WS_ROOT__ . '/common-php/library/global.php');
+require_once($__WS_ROOT__ . '/common-php/library/abap_ui.php');
 
 $fb_requri = html_entity_decode(strtolower($_SERVER['REQUEST_URI']));
 unset($fb_target);

@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <!-- IMG Activity object. -->
 <?php
-$__ROOT__ = dirname(dirname(dirname(__FILE__)));
+$__WS_ROOT__ = dirname(__FILE__, 4);
+$__ROOT__ = dirname(__FILE__, 3);
 
-require_once ($__ROOT__ . '/include/common/global.php');
-require_once ($__ROOT__ . '/include/common/abap_db.php');
-require_once ($__ROOT__ . '/include/common/abap_ui.php');
-require_once ($__ROOT__ . '/include/common/schemaorg.php');
+require_once ($__WS_ROOT__ . '/common-php/library/global.php');
+require_once ($__WS_ROOT__ . '/common-php/library/abap_db.php');
+require_once ($__WS_ROOT__ . '/common-php/library/abap_ui.php');
+require_once ($__WS_ROOT__ . '/common-php/library/schemaorg.php');
 GLOBAL_UTIL::UpdateSAPDescLangu();
 
 if (empty($ObjID)) {

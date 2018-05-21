@@ -1,10 +1,10 @@
 <?php
+$__WS_ROOT__ = dirname(__FILE__, 3);
 
-$__ROOT__ = dirname(dirname(__FILE__));
-require_once ($__ROOT__ . '/include/common/global.php');
-require_once ($__ROOT__ . '/include/common/abap_db.php');
-require_once ($__ROOT__ . '/include/common/abap_ui.php');
-require_once ($__ROOT__ . '/include/common/sitemap.php');
+require_once ($__WS_ROOT__ . '/common-php/library/global.php');
+require_once ($__WS_ROOT__ . '/common-php/library/abap_db.php');
+require_once ($__WS_ROOT__ . '/common-php/library/abap_ui.php');
+require_once ($__WS_ROOT__ . '/common-php/library/sitemap.php');
 
 $list = ABAP_DB_TABLE_HIER::TADIR_FUGR_Sitemap();
 $column_name = 'OBJ_NAME';

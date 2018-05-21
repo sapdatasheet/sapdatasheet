@@ -1,5 +1,4 @@
 <?php
-
 $__WS_ROOT__ = dirname(__FILE__, 4);
 $__ROOT__ = dirname(__FILE__, 3);
 

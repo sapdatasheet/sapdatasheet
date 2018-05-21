@@ -21,9 +21,9 @@
 //   http://localhost/abap/bmfr/HLB0009009.html
 //   http://localhost/abap/bmfr/bmfr.php?id=HLB0009009
 
-$__ROOT__ = dirname(dirname(__FILE__));
-require_once ($__ROOT__ . '/common-php/library/global.php');
-require_once ($__ROOT__ . '/common-php/library/abap_db.php');
+$__WS_ROOT__ = dirname(__FILE__, 2);
+require_once ($__WS_ROOT__ . '/common-php/library/global.php');
+require_once ($__WS_ROOT__ . '/common-php/library/abap_db.php');
 
 
 $requri = html_entity_decode(strtolower($_SERVER['REQUEST_URI']));
@@ -49,7 +49,7 @@ $abap_uris = array(
 
 // - Hacker URL
 if ($requri === '/wp/wp-admin/' || $requri === '/wp-admin/' || $requri === '/test/wp-admin/' || $requri === '/blog/wp-admin/') {
-    $target = 'page404.php';
+    $target = $__WS_ROOT__ . '/common-php/library/page404.php';
 
 // - Root path
 } else if ($requri === '/') {
@@ -341,7 +341,7 @@ if (isset($target) && GLOBAL_UTIL::IsNotEmpty($target)) {
 }
 if ($target_valid == FALSE) {
     error_log('dispatcher: Attention!!! Invalid URI Found - ' . $requri);
-    $target = 'page404.php';
+    $target = $__WS_ROOT__ . '/common-php/library/page404.php';
 }
 
 // Logging for Security Audit

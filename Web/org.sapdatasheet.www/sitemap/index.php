@@ -1,8 +1,9 @@
 <?php
-$__ROOT__ = dirname(dirname(__FILE__));
-require_once($__ROOT__ . '/include/common/global.php');
-require_once($__ROOT__ . '/include/common/abap_db.php');
-require_once($__ROOT__ . '/include/common/abap_ui.php');
+$__WS_ROOT__ = dirname(__FILE__, 3);
+
+require_once($__WS_ROOT__ . '/common-php/library/global.php');
+require_once($__WS_ROOT__ . '/common-php/library/abap_db.php');
+require_once($__WS_ROOT__ . '/common-php/library/abap_ui.php');
 
 // Index files
 // ABAP Object Types in the zbuffer_index_counter table

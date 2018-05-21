@@ -4,7 +4,6 @@
 
 $__WS_ROOT__ = dirname(__FILE__, 3);
 $__ROOT__ = dirname(__FILE__, 2);
-print_r($__WS_ROOT__);
 
 require_once ($__WS_ROOT__ . '/common-php/library/global.php');
 require_once ($__WS_ROOT__ . '/common-php/library/abap_ui.php');

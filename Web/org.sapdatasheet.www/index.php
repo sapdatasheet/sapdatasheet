@@ -2,6 +2,7 @@
 <?php
 $__WS_ROOT__ = dirname(__FILE__, 2);           // Root folder for the Workspace
 $__ROOT__ = dirname(__FILE__, 1);              // Root folder for Current web site
+
 require_once($__WS_ROOT__ . '/common-php/library/global.php');
 
 $GLOBALS['SearchTerm'] = "Company Code";

@@ -2,9 +2,9 @@
 // Script Generator for Books
 
 $__ROOT__ = dirname(dirname(dirname(__FILE__)));
-require_once ($__ROOT__ . '/include/common/global.php');
-require_once ($__ROOT__ . '/include/common/abap_db.php');
-require_once ($__ROOT__ . '/include/common/abap_ui.php');
+require_once ($__WS_ROOT__ . '/common-php/library/global.php');
+require_once ($__WS_ROOT__ . '/common-php/library/abap_db.php');
+require_once ($__WS_ROOT__ . '/common-php/library/abap_ui.php');
 
 
 $module_l1_list = ABAPANA_DB_TABLE::ABAPTRAN_ANALYTICS_PS_POSID_L1();

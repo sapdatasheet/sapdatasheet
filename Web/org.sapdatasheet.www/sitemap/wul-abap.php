@@ -1,10 +1,11 @@
 <!-- Where Used List for ABAP Objects -->
 <?php
-$__ROOT__ = dirname(dirname(__FILE__));
-require_once ($__ROOT__ . '/include/common/global.php');
-require_once ($__ROOT__ . '/include/common/abap_db.php');
-require_once ($__ROOT__ . '/include/common/abap_ui.php');
-require_once ($__ROOT__ . '/include/common/sitemap.php');
+$__WS_ROOT__ = dirname(__FILE__, 3);
+
+require_once ($__WS_ROOT__ . '/common-php/library/global.php');
+require_once ($__WS_ROOT__ . '/common-php/library/abap_db.php');
+require_once ($__WS_ROOT__ . '/common-php/library/abap_ui.php');
+require_once ($__WS_ROOT__ . '/common-php/library/sitemap.php');
 
 $fname_prefix = 'wul-abap';
 $list = ABAPANA_DB_TABLE::WULCOUNTER_Sitemap();

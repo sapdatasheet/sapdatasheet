@@ -1,16 +1,17 @@
 <div class="footer">
     <!-- Google Adsense: bottom -->
     <div>
-        <?php include dirname(dirname(__FILE__)) . '/include/google/adsense-bottom.html' ?>
+        <?php include $__WS_ROOT__ . '/common-php/google/adsense-bottom.html' ?>
     </div>
     <div>&nbsp;</div>
 
     <div>
-        <a target="_blank" href="/site/privacy.html"><b>PRIVACY</b></a> -
-        <a target="_blank" href="/site/term.html"><b>TERMS OF USE</b></a> -
-        <a target="_blank" href="/site/about.html"><b>ABOUT</b></a>
+        <a target="_blank" href="/site/about.html"><b>About</b></a> -
+        <a target="_blank" href="/site/term.html"><b>Terms of Use</b></a> -
+        <a target="_blank" href="/site/privacy.html"><b>Cookie Privacy</b></a> -
+        <a target="_blank" href="https://github.com/sapdatasheet/sapdatasheet/issues"><b>Report Issues</b></a>
     </div>
-    &copy; Copyright 2014 - <?php echo date("Y"); ?> SAPDatasheet.org All Rights Reserved.
+    &copy; Copyright 2014 - <?php echo date("Y"); ?>, www.SAPDatasheet.org All Rights Reserved.
 </div>
 <div class="footer_note">
     SAP Datasheet web site content is based on our knowledge of SAP system, and it is constantly reviewed to avoid errors; 
@@ -28,5 +29,5 @@
 
 <!-- Google Analytics Tracking -->
 <div>
-    <?php include dirname(dirname(__FILE__)) . '/include/google/analyticstracking-sapds-org.html' ?>
+    <?php include dirname(__FILE__, 2) . '/include/google/analyticstracking-sapds-org.html' ?>
 </div>
