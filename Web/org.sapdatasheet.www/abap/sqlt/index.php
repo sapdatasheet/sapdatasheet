@@ -1,12 +1,12 @@
 <?php
 $__ROOT__ = dirname(dirname(dirname(__FILE__)));
+
 require_once ($__ROOT__ . '/include/common/global.php');
 require_once ($__ROOT__ . '/include/common/abap_db.php');
 require_once ($__ROOT__ . '/include/common/abap_ui.php');
 GLOBAL_UTIL::UpdateSAPDescLangu();
 
 $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . GLOBAL_ABAP_OTYPE::SQLT_DESC;
-
 $dd06l = ABAP_DB_TABLE_TABL::DD06L_List();
 ?>
 <!DOCTYPE html>
@@ -43,7 +43,7 @@ $dd06l = ABAP_DB_TABLE_TABL::DD06L_List();
             <div class="content_obj_title"><span><?php echo $GLOBALS['TITLE_TEXT'] ?></span></div>
             <div class="content_obj">        
                 <div>
-                    <?php include $__ROOT__ . '/include/google/adsense-content-top.html' ?>
+                    <?php include $__WS_ROOT__ . '/common-php/google/adsense-content-top.html' ?>
                 </div>
 
                 <h4> <?php echo GLOBAL_ABAP_OTYPE::SQLT_DESC ?> </h4>

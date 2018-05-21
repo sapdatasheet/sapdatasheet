@@ -84,7 +84,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::BMFR_NAME
             <div class="content_obj_title"><span><?php echo $GLOBALS['TITLE_TEXT'] ?></span></div>
             <div class="content_obj">
                 <div>
-                    <?php include $__ROOT__ . '/include/google/adsense-content-top.html' ?>
+                    <?php include $__WS_ROOT__ . '/common-php/google/adsense-content-top.html' ?>
                 </div>
                 <h4> Basic Data </h4>
                 <table class="content_obj">

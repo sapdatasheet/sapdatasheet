@@ -1,7 +1,6 @@
-<!DOCTYPE html>
-<!-- Search Help object. -->
 <?php
 $__ROOT__ = dirname(dirname(dirname(__FILE__)));
+
 require_once ($__ROOT__ . '/include/common/global.php');
 require_once ($__ROOT__ . '/include/common/abap_db.php');
 require_once ($__ROOT__ . '/include/common/abap_ui.php');
@@ -56,6 +55,8 @@ $json_ld->description = $GLOBALS['TITLE_TEXT'];
 $json_ld->image = GLOBAL_ABAP_ICON::getIconURL(GLOBAL_ABAP_ICON::OTYPE_SHLP, TRUE);
 $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::SHLP_NAME, $json_ld->name);
 ?>
+<!DOCTYPE html>
+<!-- Search Help object. -->
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -116,7 +117,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::SHLP_NAME
             <div class="content_obj_title"><span><?php echo $GLOBALS['TITLE_TEXT'] ?></span></div>
             <div class="content_obj">
                 <div>
-                    <?php include $__ROOT__ . '/include/google/adsense-content-top.html' ?>
+                    <?php include $__WS_ROOT__ . '/common-php/google/adsense-content-top.html' ?>
                 </div>
 
                 <?php require $__ROOT__ . '/include/abap_oname_hier.php' ?>

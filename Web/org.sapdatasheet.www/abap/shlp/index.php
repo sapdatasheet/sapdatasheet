@@ -13,11 +13,6 @@ if (strlen(trim($index)) == 0) {
     $index = strtoupper($index);
 }
 
-?>
-<!DOCTYPE html>
-<!-- ABAP DDIC Search Help. -->
-<?php
-$page_label = "Page " . $index . " of " . ABAP_DBDATA::DD30L_INDEX_MAX;
 $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . GLOBAL_ABAP_OTYPE::SHLP_DESC . " - Index " . $index
         . (($index_page > 1) ? ', page ' . $index_page : '');
 
@@ -27,6 +22,8 @@ if ($index === ABAP_DB_CONST::INDEX_SLASH) {
 $shlp_list = ABAP_DB_TABLE_SHLP::DD30L_List($index, $index_page);
 $index_counter_list = ABAP_UI_Buffer_Index::ZBUFFER_INDEX_COUNTER(GLOBAL_ABAP_OTYPE::SHLP_NAME);
 ?>
+<!DOCTYPE html>
+<!-- ABAP DDIC Search Help. -->
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -59,7 +56,7 @@ $index_counter_list = ABAP_UI_Buffer_Index::ZBUFFER_INDEX_COUNTER(GLOBAL_ABAP_OT
             <div class="content_obj_title"><span><?php echo $GLOBALS['TITLE_TEXT'] ?></span></div>
             <div class="content_obj">        
                 <div>
-                    <?php include $__ROOT__ . '/include/google/adsense-content-top.html' ?>
+                    <?php include $__WS_ROOT__ . '/common-php/google/adsense-content-top.html' ?>
                 </div>
 
                 <div>

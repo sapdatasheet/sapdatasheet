@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <!-- ABAP Object Types List -->
 <?php
-$__ROOT__ = dirname(dirname(__FILE__));
-require_once($__ROOT__ . '/include/common/global.php');
-require_once ($__ROOT__ . '/include/common/abap_ui.php');
 
+$__WS_ROOT__ = dirname(__FILE__, 3);
+$__ROOT__ = dirname(__FILE__, 2);
+print_r($__WS_ROOT__);
+
+require_once ($__WS_ROOT__ . '/common-php/library/global.php');
+require_once ($__WS_ROOT__ . '/common-php/library/abap_ui.php');
 GLOBAL_UTIL::UpdateSAPDescLangu();
 
 $GLOBALS['TITLE_TEXT'] = "SAP ABAP";
@@ -40,7 +43,7 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP";
             <div class="content_obj_title"><span>SAP ABAP Objects</span></div>
             <div class="content_obj">        
                 <div>
-                    <?php include $__ROOT__ . '/include/google/adsense-content-top.html' ?>
+                    <?php include $__WS_ROOT__ . '/common-php/google/adsense-content-top.html' ?>
                 </div>
                 <h4> ABAP Object </h4>
                 <table class="alv">

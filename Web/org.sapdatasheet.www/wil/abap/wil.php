@@ -1,6 +1,6 @@
-<!DOCTYPE html>
 <?php
 $__ROOT__ = dirname(dirname(dirname(__FILE__)));
+
 require_once($__ROOT__ . '/include/common/global.php');
 require_once($__ROOT__ . '/include/common/abap_db.php');
 require_once($__ROOT__ . '/include/common/abap_ui.php');
@@ -20,6 +20,7 @@ $objDesc = ABAP_UI_TOOL::GetObjectDescr($dpOType, $dpOName);
 $title_name = ABAP_UI_TOOL::GetObjectTitle($dpOType, $dpOName);
 $GLOBALS['TITLE_TEXT'] = "Where Using List for " . $title_name;
 ?>
+<!DOCTYPE html>
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -51,7 +52,7 @@ $GLOBALS['TITLE_TEXT'] = "Where Using List for " . $title_name;
             <div class="content_obj_title"><span><?php echo $GLOBALS['TITLE_TEXT'] ?></span></div>
             <div class="content_obj">
                 <div>
-                    <?php include $__ROOT__ . '/include/google/adsense-content-top.html' ?>
+                    <?php include $__WS_ROOT__ . '/common-php/google/adsense-content-top.html' ?>
                 </div>
 
                 <?php

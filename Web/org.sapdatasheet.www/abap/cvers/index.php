@@ -41,7 +41,7 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . GLOBAL_ABAP_OTYPE::CVERS_DESC;
             <div class="content_obj_title"><span>SAP ABAP <?php echo GLOBAL_ABAP_OTYPE::CVERS_DESC ?></span></div>
             <div class="content_obj">
                 <div>
-                    <?php include $__ROOT__ . '/include/google/adsense-content-top.html' ?>
+                    <?php include $__WS_ROOT__ . '/common-php/google/adsense-content-top.html' ?>
                 </div>
 
                 <h4> <?php echo GLOBAL_ABAP_OTYPE::CVERS_DESC ?> </h4>

@@ -1,42 +1,21 @@
-<!DOCTYPE html>
-<!-- Where Using List index -->
 <?php
 $__ROOT__ = dirname(dirname(dirname(__FILE__)));
+
 require_once ($__ROOT__ . '/include/common/global.php');
 require_once ($__ROOT__ . '/include/common/abap_db.php');
 require_once ($__ROOT__ . '/include/common/abap_ui.php');
 GLOBAL_UTIL::UpdateSAPDescLangu();
 
-// Get Index
-if (!isset($index)) {
-    if (php_sapi_name() == 'cli') {
-        $index = $argv[1];
-        $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU] = $argv[2];
-    } else {
-        $index = filter_input(INPUT_GET, 'index');
-    }
-}
-
 if (strlen(trim($index)) == 0) {
     $index = ABAP_DB_CONST::INDEX_PAGE_1;
 }
-
-// Check Buffer
-$ob_folder = GLOBAL_UTIL::GetObFolder(dirname(__FILE__));
-$ob_fname = $ob_folder . "/index-" . strtolower($index) . ".html";
-if (file_exists($ob_fname)) {
-    $ob_file_content = file_get_contents($ob_fname);
-    if ($ob_file_content !== FALSE) {
-        echo $ob_file_content;
-        exit();
-    }
-}
-ob_start();
 
 $GLOBALS['TITLE_TEXT'] = "SAP ABAP Where Using List - Index " . number_format($index) . " of " . number_format(ABAP_DBDATA::WILCOUNTER_INDEX_MAX);
 $list = ABAPANA_DB_TABLE::WILCOUNTER_Index($index);
 $index_pages = ABAP_UI_TOOL::GetPagingList($index, ABAP_DBDATA::WILCOUNTER_INDEX_MAX);
 ?>
+<!DOCTYPE html>
+<!-- Where Using List index -->
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -69,7 +48,7 @@ $index_pages = ABAP_UI_TOOL::GetPagingList($index, ABAP_DBDATA::WILCOUNTER_INDEX
             <div class="content_obj_title"><span><?php echo $GLOBALS['TITLE_TEXT'] ?></span></div>
             <div class="content_obj">
                 <div>
-                    <?php include $__ROOT__ . '/include/google/adsense-content-top.html' ?>
+                    <?php include $__WS_ROOT__ . '/common-php/google/adsense-content-top.html' ?>
                 </div>
 
                 <br />
@@ -123,20 +102,5 @@ $index_pages = ABAP_UI_TOOL::GetPagingList($index, ABAP_DBDATA::WILCOUNTER_INDEX
     </body>
 </html>
 <?php
-$ob_content = ob_get_contents();
-ob_end_flush();
-
-if (file_exists($ob_folder) === FALSE) {
-    // If the folder does not exit, crate it
-    mkdir($ob_folder);
-}
-file_put_contents($ob_fname, $ob_content);
-
-// Make default index file
-if ($index == ABAP_DB_CONST::INDEX_PAGE_1) {
-    $ob_fname = $ob_folder . "/index.html";
-    file_put_contents($ob_fname, $ob_content);
-}
-
 // Close PDO Database Connection
 ABAP_DB_TABLE::close_conn();
