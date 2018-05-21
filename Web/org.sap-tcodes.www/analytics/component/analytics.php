@@ -1,17 +1,14 @@
 <!DOCTYPE html>
 <?php
-$__ROOT__ = dirname(dirname(dirname(__FILE__)));
+$__WS_ROOT__ = dirname(__FILE__, 4);           // Root folder for the Workspace
+$__ROOT__ = dirname(__FILE__, 3);              // Root folder for Current web site
+
 require_once ($__WS_ROOT__ . '/common-php/library/global.php');
 require_once ($__WS_ROOT__ . '/common-php/library/abap_db.php');
 require_once ($__WS_ROOT__ . '/common-php/library/abap_ui.php');
 require_once ($__ROOT__ . '/include/site/site_global.php');
 require_once ($__ROOT__ . '/include/site/site_ui.php');
-
 GLOBAL_UTIL::UpdateSAPDescLangu();
-
-if (!isset($fb_ObjID)) {
-    $fb_ObjID = filter_input(INPUT_GET, 'id');
-}
 
 if (empty($fb_ObjID)) {
     ABAP_UI_TOOL::Redirect404();
@@ -58,7 +55,7 @@ $title = 'SAP TCodes in Component ' . $softcomp;
                         <h3><?php echo $title ?><?php echo ABAP_UI_DS_Navigation::GetObjectHyperlink4DS(GLOBAL_ABAP_OTYPE::CVERS_NAME, $softcomp) ?></h3>
                     </div>
                     <div>
-                        <?php include $__ROOT__ . '/include/google/adsense-content-top.html' ?><br/>
+                        <?php include $__WS_ROOT__ . '/common-php/google/adsense-content-top.html' ?>
                     </div>
 
                     <div class="panel panel-info">

@@ -1,18 +1,16 @@
 <!DOCTYPE html>
 <?php
-$__ROOT__ = dirname(dirname(__FILE__));
+$__WS_ROOT__ = dirname(__FILE__, 3);           // Root folder for the Workspace
+$__ROOT__ = dirname(__FILE__, 2);              // Root folder for Current web site
+
 require_once ($__WS_ROOT__ . '/common-php/library/global.php');
 require_once ($__WS_ROOT__ . '/common-php/library/abap_db.php');
 require_once ($__WS_ROOT__ . '/common-php/library/abap_ui.php');
 require_once ($__WS_ROOT__ . '/common-php/library/schemaorg.php');
 require_once ($__ROOT__ . '/include/site/site_global.php');
 require_once ($__ROOT__ . '/include/site/site_ui.php');
-
 GLOBAL_UTIL::UpdateSAPDescLangu();
 
-if (!isset($fb_ObjID)) {
-    $fb_ObjID = filter_input(INPUT_GET, 'id');
-}
 if (empty($fb_ObjID)) {
     ABAP_UI_TOOL::Redirect404();
 }
@@ -96,7 +94,7 @@ $json_ld->url = ABAP_UI_TCODES_Navigation::TCode($abaptran['TCODE'], TRUE);
                             <br/><small><?php echo $tstc_desc ?></small></h3>
                     </div>
                     <div>
-                        <?php include $__ROOT__ . '/include/google/adsense-content-top.html' ?><br/>
+                        <?php include $__WS_ROOT__ . '/common-php/google/adsense-content-top.html' ?><br/>
                     </div>
 
                     <div class="panel panel-info">

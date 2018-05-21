@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <?php
-$__ROOT__ = dirname(dirname(__FILE__));
+$__WS_ROOT__ = dirname(__FILE__, 3);           // Root folder for the Workspace
+$__ROOT__ = dirname(__FILE__, 2);              // Root folder for Current web site
+
 require_once ($__ROOT__ . '/include/site/site_global.php');
 ?>
 <html lang="en">

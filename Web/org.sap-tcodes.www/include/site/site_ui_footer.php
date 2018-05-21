@@ -2,14 +2,16 @@
 <footer class="footer">
     <!-- Google Adsense: bottom -->
     <div class="text-center">
-        <?php include $__ROOT__ . '/include/google/adsense-bottom.html' ?>
+        <?php include $__WS_ROOT__ . '/common-php/google/adsense-bottom.html' ?>
     </div>
     <div>&nbsp;</div>
     <div class="container-fluid">
         <p class="text-muted">
-            <a target="_blank" href="<?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/site/privacy.html"><b>PRIVACY</b></a> - 
-            <a target="_blank" href="<?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/site/term.html"><b>TERMS OF USE</b></a> - 
-            <a target="_blank" href="<?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/site/about.html"><b>ABOUT</b></a><br/>
+            <a target="_blank" href="<?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/site/about.html"><b>About</b></a> -
+            <a target="_blank" href="<?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/site/term.html"><b>Terms of Use</b></a> - 
+            <a target="_blank" href="<?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/site/privacy.html"><b>Cookie Privacy</b></a> - 
+            <a target="_blank" href="https://github.com/sapdatasheet/sapdatasheet/issues"><b>Report Issues</b></a>
+            <br/>
             &copy; 2016 <a href="<?php echo GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG ?>" target="_blank" title="The Best Online SAP Transaction Code Analytics">SAP-TCodes.org</a>, The Best Online SAP Transaction Code Analytics </p>
     </div>
     <div class="footer_note">

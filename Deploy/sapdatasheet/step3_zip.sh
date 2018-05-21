@@ -1,6 +1,7 @@
 #!/bin/sh
 
-cd /var/www/html
-sudo rm     release.zip
-sudo zip -r release.zip *
-
+cd /var/www
+sudo mv     html org.sapdatasheet.www
+sudo rm     *.zip
+sudo zip -r "sapdatasheet_$(date '+%Y-%m-%d_%H.%M.%S').zip" common-php org.sapdatasheet.www
+sudo mv     org.sapdatasheet.www html

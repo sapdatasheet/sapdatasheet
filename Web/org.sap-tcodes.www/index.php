@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <?php
-$__ROOT__ = dirname(__FILE__);
+$__WS_ROOT__ = dirname(__FILE__, 2);           // Root folder for the Workspace
+$__ROOT__ = dirname(__FILE__, 1);              // Root folder for Current web site
+
 require_once ($__WS_ROOT__ . '/common-php/library/global.php');
 require_once ($__WS_ROOT__ . '/common-php/library/abap_db.php');
 require_once ($__WS_ROOT__ . '/common-php/library/abap_ui.php');
 require_once ($__ROOT__ . '/include/site/site_global.php');
 require_once ($__ROOT__ . '/include/site/site_ui.php');
-
 GLOBAL_UTIL::UpdateSAPDescLangu();
 
 $search = 'SAP TCode Analytics';
