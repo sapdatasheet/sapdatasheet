@@ -7,16 +7,6 @@ require_once ($__ROOT__ . '/include/common/abap_ui.php');
 require_once ($__ROOT__ . '/include/common/schemaorg.php');
 GLOBAL_UTIL::UpdateSAPDescLangu();
 
-if (!isset($Table)) {
-    $Table = filter_input(INPUT_GET, 'table');
-}
-if (!isset($Field)) {
-    $Field = strtoupper(filter_input(INPUT_GET, 'field'));
-}
-if (!isset($Position)) {
-    $Position = strtoupper(filter_input(INPUT_GET, 'position'));
-}
-
 if (empty($Table) || (strlen(trim($Field)) + strlen(trim($Position)) == 0)) {
     ABAP_UI_TOOL::Redirect404();
 }

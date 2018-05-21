@@ -6,10 +6,6 @@ require_once ($__ROOT__ . '/include/common/abap_ui.php');
 require_once ($__ROOT__ . '/include/common/schemaorg.php');
 GLOBAL_UTIL::UpdateSAPDescLangu();
 
-if (!isset($ObjID)) {
-    $ObjID = filter_input(INPUT_GET, 'id');
-}
-
 if (empty($ObjID)) {
     ABAP_UI_TOOL::Redirect404();
 }
@@ -17,6 +13,7 @@ $prog = ABAP_DB_TABLE_PROG::YREPOSRCMETA(strtoupper($ObjID));
 if (empty($prog['PROGNAME'])) {
     ABAP_UI_TOOL::Redirect404();
 }
+
 $prog_desc = htmlentities(ABAP_DB_TABLE_PROG::TRDIRT($prog['PROGNAME']));
 $reposrc_subc_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_REPOSRC_SUBC, $prog['SUBC']);
 $reposrc_rstat_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_REPOSRC_RSTAT, $prog['RSTAT']);

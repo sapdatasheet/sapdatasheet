@@ -7,24 +7,11 @@ require_once ($__ROOT__ . '/include/common/abap_ui.php');
 require_once ($__ROOT__ . '/include/common/schemaorg.php');
 GLOBAL_UTIL::UpdateSAPDescLangu();
 
-if (!isset($ObjID)) {
-    $ObjID = filter_input(INPUT_GET, 'id');
-}
-if (!isset($MsgNr)) {
-    $MsgNr = strtoupper(filter_input(INPUT_GET, 'msgnr'));
-}
-
-if (empty($ObjID) || empty($MsgNr)) {
-    ABAP_UI_TOOL::Redirect404();
-}
-$ObjID = trim($ObjID);
-$MsgNr = trim($MsgNr);
-if (strlen($ObjID) == 0 || strlen($MsgNr) == 0) {
+if (strlen(trim($ObjID)) == 0 || strlen(trim($MsgNr)) == 0) {
     ABAP_UI_TOOL::Redirect404();
 }
 
 $ObjID = strtoupper($ObjID);
-
 $t100a = ABAP_DB_TABLE_MSAG::T100A(strtoupper($ObjID));
 if (empty($t100a['ARBGB'])) {
     ABAP_UI_TOOL::Redirect404();
