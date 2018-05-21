@@ -6,20 +6,6 @@ require_once ($__ROOT__ . '/include/common/abap_ui.php');
 GLOBAL_UTIL::UpdateSAPDescLangu();
 
 $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . GLOBAL_ABAP_OTYPE::CVERS_DESC;
-
-if (php_sapi_name() == 'cli') {
-    $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU] = $argv[1];
-}
-$ob_folder = GLOBAL_UTIL::GetObFolder(dirname(__FILE__));
-$ob_fname = $ob_folder . "/index.html";
-if (file_exists($ob_fname)) {
-    $ob_file_content = file_get_contents($ob_fname);
-    if ($ob_file_content !== FALSE) {
-        echo $ob_file_content;
-        exit();
-    }
-}
-ob_start();
 ?>
 <!DOCTYPE html>
 <!-- Software component index. -->
@@ -102,9 +88,5 @@ ob_start();
     </body>
 </html>
 <?php
-$ob_content = ob_get_contents();
-ob_end_flush();
-file_put_contents($ob_fname, $ob_content);
-
 // Close PDO Database Connection
 ABAP_DB_TABLE::close_conn();

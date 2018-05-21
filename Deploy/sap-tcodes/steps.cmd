@@ -1,8 +1,5 @@
 
 cd C:\Data\Business\SAP-TCodes\Repos\Deploy
-call step0_sync-include.cmd
-
-cd C:\Data\Business\SAP-TCodes\Repos\Deploy
 call step1_copyfiles.cmd
 
 cd C:\Data\Business\SAP-TCodes\Repos\Deploy

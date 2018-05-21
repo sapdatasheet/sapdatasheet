@@ -6,15 +6,6 @@ require_once ($__ROOT__ . '/include/common/abap_ui.php');
 GLOBAL_UTIL::UpdateSAPDescLangu();
 
 // Get Index
-if (!isset($index)) {
-    if (php_sapi_name() == 'cli') {
-        $index = $argv[1];
-        $GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU] = $argv[2];
-    } else {
-        $index = filter_input(INPUT_GET, 'index');
-    }
-}
-
 if (strlen(trim($index)) == 0) {
     $index = ABAP_DB_CONST::INDEX_A;
     $index_page = ABAP_DB_CONST::INDEX_PAGE_1;
@@ -22,20 +13,6 @@ if (strlen(trim($index)) == 0) {
     $index = strtoupper($index);
 }
 
-// Check Buffer
-$ob_folder = GLOBAL_UTIL::GetObFolder(dirname(__FILE__));
-if (file_exists($ob_folder) == FALSE) {
-    mkdir($ob_folder);
-}
-$ob_fname = $ob_folder . "/index-" . strtolower($index) . ".html";
-if (file_exists($ob_fname)) {
-    $ob_file_content = file_get_contents($ob_fname);
-    if ($ob_file_content !== FALSE) {
-        echo $ob_file_content;
-        exit();
-    }
-}
-ob_start();
 ?>
 <!DOCTYPE html>
 <!-- Function Module index -->
@@ -149,15 +126,5 @@ $index_counter_list = ABAP_UI_Buffer_Index::ZBUFFER_INDEX_COUNTER(GLOBAL_ABAP_OT
     </body>
 </html>
 <?php
-$ob_content = ob_get_contents();
-ob_end_flush();
-file_put_contents($ob_fname, $ob_content);
-
-// Make default index file
-if ($index == ABAP_DB_CONST::INDEX_PAGE_1) {
-    $ob_fname = $ob_folder . "/index.html";
-    file_put_contents($ob_fname, $ob_content);
-}
-
 // Close Database Connection
 ABAP_DB_TABLE::close_conn();

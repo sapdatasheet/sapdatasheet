@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <?php
-$__ROOT__ = dirname(__FILE__, 2);
-require_once($__ROOT__ . '/common-php/library/global.php');
+$__WS_ROOT__ = dirname(__FILE__, 2);           // Root folder for the Workspace
+$__ROOT__ = dirname(__FILE__, 1);              // Root folder for Current web site
+require_once($__WS_ROOT__ . '/common-php/library/global.php');
+
 $GLOBALS['SearchTerm'] = "Company Code";
 ?>
 <html>
@@ -55,7 +57,7 @@ $GLOBALS['SearchTerm'] = "Company Code";
                 <a target="_blank" href="/site/term.html"><b>TERMS OF USE</b></a> -
                 <a target="_blank" href="/site/about.html"><b>ABOUT</b></a>
             </div>
-            &copy; Copyright 2014 SAPDatasheet.org
+            &copy; Copyright 2014 - <?php echo date("Y"); ?> www.SAPDatasheet.org
         </div>
 
         <!-- Google Analytics Tracking -->
