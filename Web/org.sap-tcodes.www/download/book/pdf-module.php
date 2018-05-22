@@ -137,8 +137,9 @@ class MYPDF extends TCPDF {
     private function CalcLineNumbers($w, $txt) {
         //Computes the number of lines a MultiCell of width w will take
         $cw = &$this->CurrentFont['cw'];
-        if ($w == 0)
+        if ($w == 0){
             $w = $this->w - $this->rMargin - $this->x;
+        }
         //$wmax = ($w - 2 * $this->cMargin) * 1000 / $this->FontSize;
         $wmax = ($w - 2 * $this->cell_padding['L']) * 1000 / $this->FontSize;
         $s = str_replace("\r", '', $txt);
@@ -368,7 +369,7 @@ $pdf->writeHTML($html, true, false, true, false, '');
 $pdf->SetFont('helvetica', '', 14);
 
 $pdf->Ln(10);
-$pdf->writeHTML('Copyleft &copy; ' . date("Y") . SITE_GLOBAL::URL_DISPLAY, true, false, true, false, '');
+$pdf->writeHTML('Copyleft &copy; ' . date("Y") . ' ' . SITE_GLOBAL::URL_DISPLAY, true, false, true, false, '');
 $pdf->Ln(2);
 $pdf->writeHTML('This book is delivered under <a href="https://en.wikipedia.org/wiki/MIT_License">MIT License</a>, as bellow', true, false, true, false, '');
 $pdf->Ln(2);

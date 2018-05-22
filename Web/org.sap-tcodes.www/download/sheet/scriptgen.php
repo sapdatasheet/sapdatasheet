@@ -10,6 +10,9 @@ require_once ($__WS_ROOT__ . '/common-php/library/abap_ui.php');
 require_once ($__WS_ROOT__ . '/common-php/library/download.php');
 require_once ($__ROOT__ . '/include/site/site_ui.php');
 
+echo "#!/bin/sh";
+echo "\n";
+
 $module_l1_list = ABAPANA_DB_TABLE::ABAPTRAN_ANALYTICS_PS_POSID_L1();
 foreach ($module_l1_list as $item) {
     echo_cmd(ABAP_UI_TCODES_Navigation::SHEET_PARAMETER_FILTER_MODULE, $item['PS_POSID_L1'], DOWNLOAD::FORMAT_CSV);
@@ -35,6 +38,8 @@ foreach ($name_list as $item) {
 
 function echo_cmd($filter, $id, $format) {
     $filename = ABAP_UI_TCODES_Navigation::SheetName($filter, $id, $format);
-    echo 'php download.php ' . $filter . ' ' . $id . ' ' . $format . ' >> ' . ABAP_UI_TCODES_Navigation::DistPath($filename);
-    echo "\r\n";
+    echo 'echo "Generating data sheet file for ' . $filter . ' ' . $id . ' as ' . $format . '"';
+    echo "\n";
+    echo 'sudo php download.php ' . $filter . ' ' . $id . ' ' . $format . ' >> ' . ABAP_UI_TCODES_Navigation::DistPath($filename);
+    echo "\n";
 }
