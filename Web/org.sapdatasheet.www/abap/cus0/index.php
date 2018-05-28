@@ -75,11 +75,15 @@ $index_counter_list = ABAP_UI_Buffer_Index::ZBUFFER_INDEX_COUNTER(GLOBAL_ABAP_OT
                         if ($index === $index_counter[ABAP_DB_TABLE_BASIS::ZBUFFER_INDEX_COUNTER_LEFT1]) {
                             $index_page_count = $index_counter[ABAP_DB_TABLE_BASIS::ZBUFFER_INDEX_COUNTER_PAGE_COUNT];
                             $index_counter_current = $index_counter;
+                                        $pagination_active = ' active';
+                                    } else {
+                                        $pagination_active = '';
                         }
                         ?>
+                    <li class="page-item <?php echo $pagination_active ?>">
                         <a class="page-link" href="<?php echo $index_counter[ABAP_UI_Buffer_Index::INDEX_FILENAME] ?>.html"
                            title="<?php echo $index_counter[ABAP_UI_Buffer_Index::LINK_TITLE] ?>" >
-                            <?php echo $index_counter[ABAP_UI_Buffer_Index::LINK_TEXT] ?></a>&nbsp;
+                            <?php echo $index_counter[ABAP_UI_Buffer_Index::LINK_TEXT] ?></a></li>
                     <?php } ?>
                 </ul>
                 <?php if ($index_page_count > 1) { ?>

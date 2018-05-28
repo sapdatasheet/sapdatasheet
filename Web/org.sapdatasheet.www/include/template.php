@@ -21,6 +21,7 @@
             <div class="row">
                 <div  class="col-xl-2 col-lg-2 col-md-3  col-sm-3    bd-sidebar bg-light">
                     <!-- Left Side bar -->
+                    <?php require $__ROOT__ . '/include/abap_index_left.php' ?>
                     <h6 class="pt-4">Object Hierarchy</h6>
                 </div>
 
@@ -35,7 +36,7 @@
                     </nav>
 
                     <div class="card shadow">
-                        <div class="card-header sapds-card-header">Page Header</div>
+                        <div class="card-header sapds-card-header">Header</div>
                         <div class="card-body table-responsive sapds-card-body">
                             <div><?php include $__WS_ROOT__ . '/common-php/google/adsense-content-top.html' ?></div>
 
@@ -58,6 +59,7 @@
 
                 <div  class="col-xl-2 col-lg-2 d-md-3    col-sm-none" >
                     <!-- Right Side bar -->
+                    <?php require $__ROOT__ . '/include/abap_relatedlinks.php' ?>
                 </div>
             </div><!-- End of row -->
             <hr>
