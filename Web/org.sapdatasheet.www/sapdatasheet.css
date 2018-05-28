@@ -1,0 +1,68 @@
+/**
+ *  Site Customized Style.
+ *
+ *  SAP Color https://experience.sap.com/fiori-design-web/colors/ & SAP GUI
+ */
+
+
+/* ---- Hover menu - https://bootsnipp.com/snippets/Vm7d */
+.navbar-default .navbar-nav > li.dropdown:hover > a, 
+.navbar-default .navbar-nav > li.dropdown:hover > a:hover,
+.navbar-default .navbar-nav > li.dropdown:hover > a:focus {
+    background-color: rgb(231, 231, 231);
+    color: rgb(85, 85, 85);
+}
+li.dropdown:hover > .dropdown-menu {
+    display: block;
+}
+
+
+body {
+    background-color:#FBFCFD;
+    /* padding-bottom: 3em; */
+}
+
+/* Header */
+
+.sapds-header {
+    padding-top: 1em;
+    padding-right: 1em;
+    padding-bottom: 0.5em;
+    padding-left: 0.1em;
+}
+
+.sapds-slogan {
+    padding-top:10px;
+    padding-bottom:10px;
+}
+
+.sapds-menu {
+    background-color: #F2AA00;
+}
+
+/* Side bar */
+
+
+/* Main Card */
+
+.sapds-card-header {
+    background-color:#B9CEDF;
+    border-style:solid;
+    border-width:1px;
+    border-color:#678EB7;
+    box-shadow:2px 2px 1px #A8B8C7;
+}
+
+.sapds-card-body {
+    background-color: #DFEBF5;
+}
+
+th.sapds-alv {
+    background-color:#F2E1AD;
+    border:2px solid #69655C;
+    box-shadow:2px 2px #69655C;
+}
+td.sapds-alv {
+    background-color:#DBE4F3;
+    border:1px solid #A5AEB7;
+}
