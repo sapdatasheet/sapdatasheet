@@ -4,7 +4,7 @@
     <div class="clearfix sapds-header">
 
         <span class="float-left">
-            <img src="/sapdatasheet-big.png" width="240" height="26" alt="SAP Datasheet logo" title="<?php echo GLOBAL_WEBSITE_SAPDS::DESC ?>" /><br>
+            <a href="/"><img src="/sapdatasheet-big.png" width="240" height="26" alt="SAP Datasheet logo" title="<?php echo GLOBAL_WEBSITE_SAPDS::DESC ?>" /></a><br>
             <span class="text-nowrap text-muted text-monospace font-weight-bold sapds-slogan"><?php echo GLOBAL_WEBSITE_SAPDS::DESC ?></span>
         </span><!-- End float-left -->
 

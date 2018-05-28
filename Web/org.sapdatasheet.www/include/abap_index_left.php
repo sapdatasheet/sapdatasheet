@@ -1,7 +1,6 @@
 
 <div class="container">
-    <br>
-    <h6>ABAP Types</h6>
+    <h6 class="pt-4">ABAP Types</h6>
     <table>
         <tbody>
             <tr><td><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeCVERS() ?>

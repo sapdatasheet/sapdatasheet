@@ -24,8 +24,7 @@
                 </div>
 
                 <main class="col-xl-8 col-lg-8 col-md-6  col-sm-9    col-12 bd-content" role="main">
-                    <br>
-                    <nav aria-label="breadcrumb">
+                    <nav class="pt-3" aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/"><?php echo GLOBAL_ABAP_ICON::getIcon4Home() ?> Home</a></li>
                             <li class="breadcrumb-item active"><a href="/abap/">ABAP Object Types</a></li>
@@ -37,7 +36,6 @@
                         <div class="card-body table-responsive sapds-card-body">
                             <div><?php include $__WS_ROOT__ . '/common-php/google/adsense-content-top.html' ?></div>
 
-                            <br>
                             <table class="table table-sm">
                                 <tr><th class="sapds-alv"> # </th>
                                     <th class="sapds-alv"> AAA </th>

@@ -57,6 +57,20 @@ body {
     background-color: #DFEBF5;
 }
 
+caption.sapds-alv {
+    background-color:#BACFDF;
+    border-color:#A5AEB7;
+    border-style:solid;
+    border-width:1px;
+    caption-side: top;
+    font-size:1em;
+    padding-bottom: .1em;
+    padding-left: .5em;
+    padding-top: .1em;
+    text-align:left;
+    white-space:nowrap;
+}
+
 th.sapds-alv {
     background-color:#F2E1AD;
     border:2px solid #69655C;
@@ -65,4 +79,20 @@ th.sapds-alv {
 td.sapds-alv {
     background-color:#DBE4F3;
     border:1px solid #A5AEB7;
+}
+
+td.sapds-gui-label {
+    border-bottom-style:solid;
+    border-bottom-color:#A5AEB7;
+    border-width:1px;
+    min-width:15em;
+}
+
+td.sapds-gui-field {
+    background-color:#DBE5F1;
+    border-width:1px;
+    border-style:solid;
+    border-color:#A5AEB7;
+    font-size:1em;
+    padding:2px 7px 2px 7px;
 }
