@@ -74,7 +74,7 @@ $index_counter_list = ABAP_UI_Buffer_Index::ZBUFFER_INDEX_COUNTER(GLOBAL_ABAP_OT
                             $index_counter_current = $index_counter;
                         }
                         ?>
-                        <a href="<?php echo $index_counter[ABAP_UI_Buffer_Index::INDEX_FILENAME] ?>.html"
+                        <a class="page-link" href="<?php echo $index_counter[ABAP_UI_Buffer_Index::INDEX_FILENAME] ?>.html"
                            title="<?php echo $index_counter[ABAP_UI_Buffer_Index::LINK_TITLE] ?>" >
                             <?php echo $index_counter[ABAP_UI_Buffer_Index::LINK_TEXT] ?></a>&nbsp;
                     <?php } ?>
@@ -90,7 +90,7 @@ $index_counter_list = ABAP_UI_Buffer_Index::ZBUFFER_INDEX_COUNTER(GLOBAL_ABAP_OT
                 <?php } ?>
 
                 <h4> <?php echo GLOBAL_ABAP_OTYPE::FUGR_DESC ?> - <?php echo $index ?></h4>
-                <table class="sapds-alv">
+                <table class="table table-sm">
                     <tr>
                         <th class="sapds-alv"> # </th>
                         <th class="sapds-alv"> <?php echo GLOBAL_ABAP_OTYPE::FUGR_DESC ?> </th>
@@ -112,7 +112,7 @@ $index_counter_list = ABAP_UI_Buffer_Index::ZBUFFER_INDEX_COUNTER(GLOBAL_ABAP_OT
                         $prog = ABAP_DB_TABLE_PROG::GET_PROG_FUGR($fugr['OBJ_NAME']);
                         $prog_desc = ABAP_DB_TABLE_FUNC::TLIBT($fugr['OBJ_NAME']);
                         ?>
-                        <tr><td class="sapds-alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                        <tr><td class="sapds-alv text-right"><?php echo number_format($count) ?> </td>
                             <td class="sapds-alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeFUGR() ?>
                                 <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Prog($prog, '', $fugr['OBJ_NAME']) ?> </td>
                             <td class="sapds-alv"><?php echo (GLOBAL_UTIL::IsNotEmpty($fugr['DEVCLASS'])) ? GLOBAL_ABAP_ICON::getIcon4OtypeDEVC() : '' ?>

@@ -2,7 +2,7 @@
                 <?php if (!tabl . FKFD . isEmpty()) { ?>
                     <h4> Foreign Keys </h4>
                     <?php for (TABL.ForeignKey fk : tabl.FKFD) { ?>
-                        <table class="sapds-alv">
+                        <table class="table table-sm">
                             <caption class="sapds-alv"> Foreign Key for Field <?php echo tabl . TABNAME ?>-<?php echo fk . FIELDNAME ?> </caption>
                             <thead>
                                 <tr>
@@ -82,7 +82,7 @@
                 <!-- Index -->
                 <?php if (!tabl . INDX . isEmpty()) { ?><!-- Index section: begin -->
                     <h4>Indexes</h4>
-                    <table class="sapds-alv"><!-- Index list begin -->
+                    <table class="table table-sm"><!-- Index list begin -->
                         <thead>
                             <tr>
                                 <th class="sapds-alv">Index<br/>Name</th>
@@ -117,7 +117,7 @@
                             <?php for (TABL.Index idx : tabl.INDX) { ?><!-- Index: begin -->
                                 <tr><td class="caption" colspan="2"> Index <?php echo tabl . TABNAME ?>-<?php echo idx . INDEXNAME ?> </td></tr>
                                 <tr><td colspan="2">
-                                        <table class="sapds-alv">
+                                        <table class="table table-sm">
                                             <thead>
                                                 <tr>
                                                     <th class="sapds-alv">#</th>
@@ -153,14 +153,14 @@
                                 <?php if (idx . DBINDEX_DBDEP) { ?><!-- DB-Specific Index: Begin -->
                                     <tr><td>&nbsp;</td><td>
                                             <h4>Database-specific Index </h4>
-                                            <table class="sapds-alv">
+                                            <table class="table table-sm">
                                                 <caption class="sapds-alv"> Create Index for Selected Database Systems</caption>
                                                 <tbody>
                                                     <tr><td class="sapds-gui-field"><?php echo Navigation . getRadioButton("idx_dbdep" + idx . INDEXNAME, idx . DBINCLEXCL_I) ?> Selection List </td></tr>
                                                     <tr><td class="sapds-gui-field"><?php echo Navigation . getRadioButton("idx_dbdep" + idx . INDEXNAME, idx . DBINCLEXCL_E) ?> Exclusion List </td></tr>
                                                 </tbody>
                                             </table>
-                                            <table class="sapds-alv">
+                                            <table class="table table-sm">
                                                 <caption class="sapds-alv"> Database Systems</caption>
                                                 <thead>
                                                     <tr><th class="sapds-alv">DB Name</th><th class="sapds-alv">Short Description</th></tr>
@@ -185,7 +185,7 @@
                 <!-- Append Structure -->
                 <?php if (!tabl . ASTR . isEmpty()) { ?>
                     <h4>Append Structure </h4>
-                    <table class="sapds-alv">
+                    <table class="table table-sm">
                         <caption class="sapds-alv"> Appends for <?php echo id ?> </caption>
                         <thead>
                             <tr><th class="sapds-alv">Object Name</th><th class="sapds-alv">Short text</th></tr>

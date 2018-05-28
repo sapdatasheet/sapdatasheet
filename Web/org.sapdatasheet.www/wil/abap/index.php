@@ -64,7 +64,7 @@ $index_pages = ABAP_UI_TOOL::GetPagingList($index, ABAP_DBDATA::WILCOUNTER_INDEX
                 </div>
 
                 <h4><?php echo $GLOBALS['TITLE_TEXT'] ?></h4>
-                <table class="sapds-alv">
+                <table class="table table-sm">
                     <tr>
                         <th class="sapds-alv"><img src='/abap/icon/s_b_pvre.gif'></th>
                         <th class="sapds-alv" colspan="2" > Where Used List for </th>
@@ -87,7 +87,7 @@ $index_pages = ABAP_UI_TOOL::GetPagingList($index, ABAP_DBDATA::WILCOUNTER_INDEX
                     foreach ($list as $item) {
                         $count++;
                         ?>
-                        <tr><td class="sapds-alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                        <tr><td class="sapds-alv text-right"><?php echo number_format($count) ?> </td>
                             <td class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetOTypeHyperlink($item['OBJ_TYPE']) ?>&nbsp;</td>
                             <td class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetObjectHyperlink($item['OBJ_TYPE'], $item['OBJ_NAME']) ?>&nbsp;</td>
                             <td class="sapds-alv">

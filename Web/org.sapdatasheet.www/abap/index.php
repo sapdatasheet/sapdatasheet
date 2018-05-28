@@ -63,7 +63,7 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP";
                                 foreach (array_keys(GLOBAL_ABAP_OTYPE::$OTYPES) as $oType) {
                                     $count++;
                                     ?>
-                                    <tr><td class="sapds-alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                                    <tr><td class="sapds-alv text-right"><?php echo number_format($count) ?> </td>
                                         <td class="sapds-alv"><?php echo GLOBAL_ABAP_ICON::getIcon4Otype($oType) ?>
                                             <a href="/abap/<?php echo strtolower($oType) ?>/"><?php echo $oType ?></a></td>
                                         <td class="sapds-alv"><?php echo GLOBAL_ABAP_OTYPE::$OTYPES[$oType] ?></td>

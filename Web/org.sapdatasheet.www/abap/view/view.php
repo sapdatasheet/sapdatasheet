@@ -140,7 +140,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::VIEW_NAME
 
                 <!-- Table & Join Conditions -->
                 <h4>Table</h4>
-                <table class="sapds-alv">
+                <table class="table table-sm">
                     <thead>
                         <tr><th class="sapds-alv">#</th>
                             <th class="sapds-alv">Table Name</th>
@@ -167,7 +167,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::VIEW_NAME
                 </table>                
 
                 <h4>Join Conditions</h4>
-                <table class="sapds-alv">
+                <table class="table table-sm">
                     <thead>
                         <tr><th class="sapds-alv">#</th>
                             <th class="sapds-alv">Table Name</th>
@@ -221,7 +221,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::VIEW_NAME
 
                 <!-- View Fields -->
                 <h4>View Fields </h4>
-                <table class="sapds-alv">
+                <table class="table table-sm">
                     <thead>
                         <tr>
                             <th class="sapds-alv">#</th>

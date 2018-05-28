@@ -112,7 +112,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::SQLT_NAME
 
                 <!-- Components -->
                 <h4> Components </h4>
-                <table class="sapds-alv">
+                <table class="table table-sm">
                     <thead>
                         <tr><th class="sapds-alv">#</th>
                             <th class="sapds-alv">Field name</th>
@@ -129,7 +129,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::SQLT_NAME
                         foreach ($dd16s as $dd16s_item) { 
                             $count++;
                             ?>
-                            <tr><td class="sapds-alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                            <tr><td class="sapds-alv text-right"><?php echo number_format($count) ?> </td>
                                 <td class="sapds-alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDTF() ?>
                                     <?php echo $dd16s_item['FIELDNAME'] ?></td>
                                 <td class="sapds-alv"><?php echo ABAP_UI_TOOL::GetCheckBox($dd16s_item['FIELDNAME'], $dd16s_item['KEYFLAG']) ?></td>
@@ -144,7 +144,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::SQLT_NAME
 
                 <!-- Contained table -->
                 <h4> Contained table </h4>
-                <table class="sapds-alv">
+                <table class="table table-sm">
                     <thead>
                         <tr><th class="sapds-alv">Table name</th>
                             <th class="sapds-alv">Short description</th>

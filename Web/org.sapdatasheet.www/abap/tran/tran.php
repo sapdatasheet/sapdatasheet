@@ -151,7 +151,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::TRAN_NAME
 
                 <?php if (count($tstca_list) > 0) { ?>
                     <h4><?php echo GLOBAL_ABAP_ICON::getIcon4OtypePFCG() ?> Authorization</h4>
-                    <table class="sapds-alv">
+                    <table class="table table-sm">
                         <tbody>
                             <tr><th class="sapds-alv">Authorization Object</th><th class="sapds-alv">Authorization Field</th><th class="sapds-alv">Value</th></tr>
                             <?php foreach ($tstca_list as $tstca_item) { ?>

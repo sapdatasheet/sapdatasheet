@@ -51,7 +51,7 @@ $dd06l = ABAP_DB_TABLE_TABL::DD06L_List();
                 </div>
 
                 <h4> <?php echo GLOBAL_ABAP_OTYPE::SQLT_DESC ?> </h4>
-                <table class="sapds-alv">
+                <table class="table table-sm">
                     <tr>
                         <th class="sapds-alv"> # </th>
                         <th class="sapds-alv"> Table Name </th>
@@ -73,7 +73,7 @@ $dd06l = ABAP_DB_TABLE_TABL::DD06L_List();
                         $dd06l_item_t = ABAP_DB_TABLE_TABL::DD06T($dd06l_item['SQLTAB']);
                         $dd06l_sqlclass_t = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_TABL::DD06L_SQLCLASS_DOMAIN, $dd06l_item['SQLCLASS']);
                         ?>
-                        <tr><td class="sapds-alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                        <tr><td class="sapds-alv text-right"><?php echo number_format($count) ?> </td>
                             <td class="sapds-alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeSQLT() ?>
                                 <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Sqlt($dd06l_item['SQLTAB'], $dd06l_item_t) ?> </td>
                             <td class="sapds-alv"><?php echo htmlentities($dd06l_item_t) ?></td>

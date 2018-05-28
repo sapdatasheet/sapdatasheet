@@ -83,7 +83,7 @@ $GLOBALS['TITLE_TEXT'] = "Where Used List for " . $title_name;
                 <h4><?php echo GLOBAL_ABAP_OTYPE::getOTypeDesc($dpOType) ?>
                     <?php echo ABAP_UI_DS_Navigation::GetWulHyperlinks($dpSrcOType, $dpSrcOName, $dpSrcSubobj, $dpOType, $counter_value, FALSE) ?>
                 </h4>
-                <table class="sapds-alv">
+                <table class="table table-sm">
                     <tr>
                         <th class="sapds-alv"> # </th>
                         <th class="sapds-alv"> Object Type </th>
@@ -107,7 +107,7 @@ $GLOBALS['TITLE_TEXT'] = "Where Used List for " . $title_name;
                     foreach ($wul_list as $wul) {
                         $count++;
                         ?>
-                        <tr><td class="sapds-alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                        <tr><td class="sapds-alv text-right"><?php echo number_format($count) ?> </td>
                             <td class="sapds-alv"><?php echo GLOBAL_ABAP_ICON::getIcon4Otype($wul['OBJ_TYPE']) ?>
                                 <?php echo ABAP_UI_DS_Navigation::GetOTypeHyperlink($wul['OBJ_TYPE']) ?>&nbsp;</td>
                             <td class="sapds-alv">

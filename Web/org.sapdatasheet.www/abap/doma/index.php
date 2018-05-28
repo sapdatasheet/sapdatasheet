@@ -74,7 +74,7 @@ $index_counter_list = ABAP_UI_Buffer_Index::ZBUFFER_INDEX_COUNTER(GLOBAL_ABAP_OT
                             $index_counter_current = $index_counter;
                         }
                         ?>
-                        <a href="<?php echo $index_counter[ABAP_UI_Buffer_Index::INDEX_FILENAME] ?>.html"
+                        <a class="page-link" href="<?php echo $index_counter[ABAP_UI_Buffer_Index::INDEX_FILENAME] ?>.html"
                            title="<?php echo $index_counter[ABAP_UI_Buffer_Index::LINK_TITLE] ?>" >
                             <?php echo $index_counter[ABAP_UI_Buffer_Index::LINK_TEXT] ?></a>&nbsp;
                     <?php } ?>
@@ -91,7 +91,7 @@ $index_counter_list = ABAP_UI_Buffer_Index::ZBUFFER_INDEX_COUNTER(GLOBAL_ABAP_OT
                 <?php } ?>
 
                 <h4> <?php echo GLOBAL_ABAP_OTYPE::DOMA_DESC ?> - <?php echo $index ?></h4>
-                <table class="sapds-alv">
+                <table class="table table-sm">
                     <tr>
                         <th class="sapds-alv"> # </th>
                         <th class="sapds-alv"> Domain Name </th>
@@ -114,12 +114,12 @@ $index_counter_list = ABAP_UI_Buffer_Index::ZBUFFER_INDEX_COUNTER(GLOBAL_ABAP_OT
                         $count++;
                         $dd01l_item_t = ABAP_DB_TABLE_DOMA::DD01T($dd01l_item['DOMNAME'])
                         ?>
-                        <tr><td class="sapds-alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                        <tr><td class="sapds-alv text-right"><?php echo number_format($count) ?> </td>
                             <td class="sapds-alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDOMA() ?>
                                 <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Doma($dd01l_item['DOMNAME'], $dd01l_item_t) ?> </td>
                             <td class="sapds-alv"><?php echo htmlentities($dd01l_item_t) ?></td>
                             <td class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_DATATYPE, $dd01l_item['DATATYPE'], '') ?></td>
-                            <td class="sapds-alv" style="text-align: right;"><?php echo intval($dd01l_item['LENG']) ?>&nbsp;</td>
+                            <td class="sapds-alv text-right"><?php echo intval($dd01l_item['LENG']) ?>&nbsp;</td>
                             <td class="sapds-alv"><?php echo ABAP_UI_TOOL::ClearZero(intval($dd01l_item['DECIMALS'])) ?>&nbsp;</td>
                         </tr>
                     <?php } ?>

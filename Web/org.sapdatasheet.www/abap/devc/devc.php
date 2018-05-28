@@ -123,7 +123,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::DEVC_NAME
                 <h4> Package Content</h4>
                 <!-- Contained Tables or Views -->
                 <?php if (count($child_tabl) > 0) { ?>
-                    <table class="sapds-alv">
+                    <table class="table table-sm">
                         <caption class="sapds-alv">Contained Tables / Views</caption>
                         <tr>
                             <th class="sapds-alv"> Table Name </th>
@@ -155,7 +155,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::DEVC_NAME
                 <?php } ?>
                 <!-- Contained T-Codes -->
                 <?php if (count($child_tran) > 0) { ?>
-                    <table class="sapds-alv">
+                    <table class="table table-sm">
                         <caption class="sapds-alv">Contained Transaction Codes</caption>
                         <tr>
                             <th class="sapds-alv"> Transaction Code </th>

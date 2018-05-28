@@ -136,7 +136,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::FUNC_NAME
 
                 <!-- Parameters: Import, Export, Changing, Tables, Exceptions -->
                 <h4> Parameters </h4>
-                <table class="sapds-alv">
+                <table class="table table-sm">
                     <thead>
                         <tr>
                             <th class="sapds-alv"> Type </th>

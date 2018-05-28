@@ -78,7 +78,7 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . GLOBAL_ABAP_OTYPE::CVERS_DESC;
                                     $cvers_comp_type = $row['COMP_TYPE'];
                                     $cvers_comp_type_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_TADIR_COMP_TYPE, $row['COMP_TYPE']);
                                     ?>
-                                    <tr><td class="sapds-alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                                    <tr><td class="sapds-alv text-right"><?php echo number_format($count) ?> </td>
                                         <td class="sapds-alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeCVERS() ?>
                                             <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Cvers($cvers_component, $cvers_desc) ?></td>
                                         <td class="sapds-alv"><?php echo htmlentities($cvers_desc) ?></td>

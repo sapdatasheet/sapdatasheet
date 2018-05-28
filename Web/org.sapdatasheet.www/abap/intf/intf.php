@@ -121,7 +121,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::INTF_NAME
                 <!-- Meta Relationship (top 50) -->
                 <?php if (empty($metarel_refs) === FALSE) { ?>
                     <h4> Meta Relationship - Used By </h4>
-                    <table class="sapds-alv">
+                    <table class="table table-sm">
                         <tr>
                             <th class="sapds-alv"> # </th>
                             <th class="sapds-alv"> Relationship type </th>
@@ -143,7 +143,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::INTF_NAME
                             $reltype_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SEO::SEOMETAREL_RELTYPE_DOMAIN, $metarel_ref['RELTYPE']);
                             $metarel_cls_desc = ABAP_DB_TABLE_SEO::SEOCLASSTX($metarel_ref['CLSNAME']);
                             ?>
-                            <tr><td class="sapds-alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                            <tr><td class="sapds-alv text-right"><?php echo number_format($count) ?> </td>
                                 <td class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_SEO::SEOMETAREL_RELTYPE_DOMAIN, $reltype_desc, $metarel_ref['RELTYPE']) ?>&nbsp;</td>
                                 <td class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetObjectHyperlink(GLOBAL_ABAP_OTYPE::SEOC_NAME, $metarel_ref['CLSNAME']) ?></td>
                                 <td class="sapds-alv"><?php echo $metarel_cls_desc ?></td>
@@ -151,7 +151,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::INTF_NAME
                             </tr>
                         <?php } ?>
                         <?php if ($metarel_ref_exceeded === TRUE) { ?>
-                            <tr><td class="sapds-alv" style="text-align: right;">...</td>
+                            <tr><td class="sapds-alv text-right">...</td>
                                 <td  class="sapds-alv" colspan="4">Click <a href="#<?php echo ABAP_UI_CONST::ANCHOR_SEOMETARELFL ?>">here</a> to see Used By full list (<?php echo count($metarel_refs) ?> items)</td>
                             </tr>
                         <?php } ?>
@@ -203,7 +203,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::INTF_NAME
 
                 <h4> Forward declarations </h4>
                 <?php if (empty($typepls) === FALSE) { ?>
-                    <table class="sapds-alv">
+                    <table class="table table-sm">
                         <tr>
                             <th class="sapds-alv"> # </th>
                             <th class="sapds-alv"> Type group / Object type </th>
@@ -221,7 +221,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::INTF_NAME
                                 $typepl_type = $typepl['TYPEGROUP'];
                             }
                             ?>
-                            <tr><td class="sapds-alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                            <tr><td class="sapds-alv text-right"><?php echo number_format($count) ?> </td>
                                 <td class="sapds-alv"><?php echo $typepl_type ?></td>
                                 <td class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_SEO::SEOTYPEPLS_TPUTYPE_DOMAIN, $typepl_type_desc, $typepl['TPUTYPE']) ?>&nbsp;</td>
                                 <td class="sapds-alv"><?php echo $typepl_type_desc ?></td>
@@ -234,7 +234,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::INTF_NAME
 
                 <h4> Interfaces </h4>
                 <?php if (empty($interfaces) === FALSE) { ?>
-                    <table class="sapds-alv">
+                    <table class="table table-sm">
                         <tr>
                             <th class="sapds-alv"> # </th>
                             <th class="sapds-alv"> Interface </th>
@@ -249,7 +249,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::INTF_NAME
                             $count++;
                             $interface_tx = ABAP_DB_TABLE_SEO::SEOCLASSTX($interface['REFCLSNAME']);
                             ?>
-                            <tr><td class="sapds-alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                            <tr><td class="sapds-alv text-right"><?php echo number_format($count) ?> </td>
                                 <td class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Intf($interface['REFCLSNAME'], $interface_tx) ?></td>
                                 <td class="sapds-alv"><?php echo ABAP_UI_TOOL::GetCheckBox("IMPABSTRCT", $interface['IMPABSTRCT']) ?></td>
                                 <td class="sapds-alv"><?php echo ABAP_UI_TOOL::GetCheckBox("IMPFINAL", $interface['IMPFINAL']) ?></td>
@@ -264,7 +264,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::INTF_NAME
 
                 <h4> Friends </h4>
                 <?php if (empty($friends) === FALSE) { ?>
-                    <table class="sapds-alv">
+                    <table class="table table-sm">
                         <tr>
                             <th class="sapds-alv"> # </th>
                             <th class="sapds-alv"> Friend </th>
@@ -279,7 +279,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::INTF_NAME
                             $friend_tx = ABAP_DB_TABLE_SEO::SEOCLASSTX($friend['REFCLSNAME']);
                             $friend_state = ($friend['STATE'] == 1) ? '' : 'X';
                             ?>
-                            <tr><td class="sapds-alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                            <tr><td class="sapds-alv text-right"><?php echo number_format($count) ?> </td>
                                 <td class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Clas($friend['REFCLSNAME'], $friend_tx) ?></td>
                                 <td class="sapds-alv"><?php echo ABAP_UI_TOOL::GetCheckBox("FRIEND_STATE", $friend_state) ?></td>
                                 <td class="sapds-alv"><?php echo $friend['CREATEDON'] ?></td>
@@ -293,7 +293,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::INTF_NAME
 
                 <h4> Attributes </h4>
                 <?php if (empty($attributes) === FALSE) { ?>
-                    <table class="sapds-alv">
+                    <table class="table table-sm">
                         <tr>
                             <th class="sapds-alv"> # </th>
                             <th class="sapds-alv"> Attribute </th>
@@ -316,7 +316,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::INTF_NAME
                             $seocomp_visibility_tx = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SEO::SEOCOMPODF_EXPOSURE_DOMAIN, $seocomp_df['EXPOSURE']);
                             $seocomp_typing_tx = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SEO::SEOCOMPODF_TYPTYPE_DOMAIN, $seocomp_df['TYPTYPE']);
                             ?>
-                            <tr><td class="sapds-alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                            <tr><td class="sapds-alv text-right"><?php echo number_format($count) ?> </td>
                                 <td class="sapds-alv"><?php echo $seocomp_df['CMPNAME'] ?></td>
                                 <td class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_ATTDECLTYP_DOMAIN, $attribute_level_tx, $seocomp_df['ATTDECLTYP']) ?></td>
                                 <td class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_EXPOSURE_DOMAIN, $seocomp_visibility_tx, $seocomp_df['EXPOSURE']) ?></td>
@@ -346,7 +346,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::INTF_NAME
 
                 <h4> Methods </h4>
                 <?php if (empty($methods) === FALSE) { ?>
-                    <table class="sapds-alv">
+                    <table class="table table-sm">
                         <tr>
                             <th class="sapds-alv"> # </th>
                             <th class="sapds-alv"> Method </th>
@@ -366,7 +366,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::INTF_NAME
                             $seocomp_visibility_tx = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SEO::SEOCOMPODF_EXPOSURE_DOMAIN, $seocomp_df['EXPOSURE']);
                             $method_type_tx = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SEO::SEOCOMPO_MTDTYPE_DOMAIN, $method['MTDTYPE']);
                             ?>
-                            <tr><td class="sapds-alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                            <tr><td class="sapds-alv text-right"><?php echo number_format($count) ?> </td>
                                 <td class="sapds-alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OOClassMethod() ?>
                                     <a href="#<?php echo ABAP_UI_TOOL::GetClassMethodAnchorName($seocomp_df['CMPNAME']) ?>"><?php echo $seocomp_df['CMPNAME'] ?></a></td>
                                 <td class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_MTDDECLTYP_DOMAIN, $method_level_tx, $seocomp_df['MTDDECLTYP']) ?></td>
@@ -383,7 +383,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::INTF_NAME
 
                 <h4> Events </h4>
                 <?php if (empty($events) === FALSE) { ?>
-                    <table class="sapds-alv">
+                    <table class="table table-sm">
                         <tr>
                             <th class="sapds-alv"> # </th>
                             <th class="sapds-alv"> Event </th>
@@ -401,7 +401,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::INTF_NAME
                             $event_type_tx = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SEO::SEOCOMPODF_EVTDECLTYP_DOMAIN, $seocomp_df['EVTDECLTYP']);
                             $seocomp_visibility_tx = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SEO::SEOCOMPODF_EXPOSURE_DOMAIN, $seocomp_df['EXPOSURE']);
                             ?>
-                            <tr><td class="sapds-alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                            <tr><td class="sapds-alv text-right"><?php echo number_format($count) ?> </td>
                                 <td class="sapds-alv"><a href="#<?php echo ABAP_UI_TOOL::GetClassMethodAnchorName($seocomp_df['CMPNAME']) ?>"><?php echo $seocomp_df['CMPNAME'] ?></a></td>
                                 <td class="sapds-alv"><?php echo $event_type_tx ?>
                                     <br/>(<?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_EVTDECLTYP_DOMAIN, $seocomp_df['EVTDECLTYP'], $event_type_tx) ?>)
@@ -421,7 +421,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::INTF_NAME
 
                 <h4> Types </h4>
                 <?php if (empty($types) === FALSE) { ?>
-                    <table class="sapds-alv">
+                    <table class="table table-sm">
                         <tr>
                             <th class="sapds-alv"> # </th>
                             <th class="sapds-alv"> Type </th>
@@ -441,7 +441,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::INTF_NAME
                             $seocomp_visibility_tx = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SEO::SEOCOMPODF_EXPOSURE_DOMAIN, $seocomp_df['EXPOSURE']);
                             $seocomp_typing_tx = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SEO::SEOCOMPODF_TYPTYPE_DOMAIN, $seocomp_df['TYPTYPE']);
                             ?>
-                            <tr><td class="sapds-alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                            <tr><td class="sapds-alv text-right"><?php echo number_format($count) ?> </td>
                                 <td class="sapds-alv"><?php echo $seocomp_df['CMPNAME'] ?></td>
                                 <td class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_EXPOSURE_DOMAIN, $seocomp_visibility_tx, $seocomp_df['EXPOSURE']) ?></td>
                                 <td class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_SEO::SEOCOMPODF_TYPTYPE_DOMAIN, $seocomp_typing_tx, $seocomp_df['TYPTYPE']) ?></td>
@@ -466,7 +466,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::INTF_NAME
                         ?>
                         <p><strong id="<?php echo ABAP_UI_TOOL::GetClassMethodAnchorName($method['CMPNAME']) ?>"><code>Method <?php echo $method['CMPNAME'] ?> Signature</code></strong></p>
                         <?php if (empty($method_paras) === FALSE) { ?>
-                            <table class="sapds-alv">
+                            <table class="table table-sm">
                                 <tr>
                                     <th class="sapds-alv"> # </th>
                                     <th class="sapds-alv"> Type </th>
@@ -489,7 +489,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::INTF_NAME
                                     $subco_passvalue_tx = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SEO::SEOSUBCODF_PARPASSTYP_DOMAIN, $subco_df['PARPASSTYP']);
                                     $subco_typing_tx = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SEO::SEOSUBCODF_TYPTYPE_DOMAIN, $subco_df['TYPTYPE']);
                                     ?>
-                                    <tr><td class="sapds-alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                                    <tr><td class="sapds-alv text-right"><?php echo number_format($count) ?> </td>
                                         <td class="sapds-alv"><?php echo ABAP_UI_TOOL::GetOOParameterIcon($subco_df['PARDECLTYP']) ?>
                                             <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_SEO::SEOSUBCODF_PARDECLTYP_DOMAIN, $subco_decltype_tx, $subco_df['PARDECLTYP']) ?></td>
                                         <td class="sapds-alv"><?php echo $method_para['SCONAME'] ?></td>
@@ -509,7 +509,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::INTF_NAME
 
 
                         <?php if (empty($method_excps) === FALSE) { ?>
-                            <table class="sapds-alv">
+                            <table class="table table-sm">
                                 <tr>
                                     <th class="sapds-alv"> # </th>
                                     <th class="sapds-alv"> Exception </th>
@@ -527,7 +527,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::INTF_NAME
                                     $subco_passvalue_tx = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SEO::SEOSUBCODF_PARPASSTYP_DOMAIN, $subco_df['PARPASSTYP']);
                                     $subco_typing_tx = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SEO::SEOSUBCODF_TYPTYPE_DOMAIN, $subco_df['TYPTYPE']);
                                     ?>
-                                    <tr><td class="sapds-alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                                    <tr><td class="sapds-alv text-right"><?php echo number_format($count) ?> </td>
                                         <td class="sapds-alv"><?php echo GLOBAL_ABAP_ICON::getIcon4Alert() ?>
                                             <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Clas($method_para['SCONAME'], $subco_tx) ?></td>
                                         <td class="sapds-alv"><?php echo ABAP_UI_TOOL::GetCheckBox('IS_RESUMABLE', $subco_df['IS_RESUMABLE']) ?></td>
@@ -551,7 +551,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::INTF_NAME
                         ?>
                         <br /><strong id="<?php echo ABAP_UI_TOOL::GetClassMethodAnchorName($event['CMPNAME']) ?>"><code>Event <?php echo $event['CMPNAME'] ?> Signature</code></strong>
                         <?php if (empty($event_paras) === FALSE) { ?>
-                            <table class="sapds-alv">
+                            <table class="table table-sm">
                                 <tr>
                                     <th class="sapds-alv"> # </th>
                                     <th class="sapds-alv"> Parameter </th>
@@ -574,7 +574,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::INTF_NAME
                                     $subco_passvalue_tx = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SEO::SEOSUBCODF_PARPASSTYP_DOMAIN, $subco_df['PARPASSTYP']);
                                     $subco_typing_tx = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SEO::SEOSUBCODF_TYPTYPE_DOMAIN, $subco_df['TYPTYPE']);
                                     ?>
-                                    <tr><td class="sapds-alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                                    <tr><td class="sapds-alv text-right"><?php echo number_format($count) ?> </td>
                                         <td class="sapds-alv"><?php echo $event_para['SCONAME'] ?></td>
                                         <td class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_SEO::SEOSUBCODF_PARDECLTYP_DOMAIN, $subco_decltype_tx, $subco_df['PARDECLTYP']) ?></td>
                                         <td class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_SEO::SEOSUBCODF_PARPASSTYP_DOMAIN, $subco_passvalue_tx, $subco_df['PARPASSTYP']) ?></td>
@@ -597,7 +597,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::INTF_NAME
                 <?php if (isset($metarel_ref_exceeded) && $metarel_ref_exceeded === TRUE) { ?>
                     <h4> Meta Relationship - Used By (full list) </h4>
                     <a id="<?php echo ABAP_UI_CONST::ANCHOR_SEOMETARELFL ?>"></a>
-                    <table class="sapds-alv">
+                    <table class="table table-sm">
                         <tr>
                             <th class="sapds-alv"> # </th>
                             <th class="sapds-alv"> Relationship type </th>
@@ -612,7 +612,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::INTF_NAME
                             $reltype_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SEO::SEOMETAREL_RELTYPE_DOMAIN, $metarel_ref['RELTYPE']);
                             $metarel_cls_desc = ABAP_DB_TABLE_SEO::SEOCLASSTX($metarel_ref['CLSNAME']);
                             ?>
-                            <tr><td class="sapds-alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                            <tr><td class="sapds-alv text-right"><?php echo number_format($count) ?> </td>
                                 <td class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_SEO::SEOMETAREL_RELTYPE_DOMAIN, $reltype_desc, $metarel_ref['RELTYPE']) ?>&nbsp;</td>
                                 <td class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetObjectHyperlink(GLOBAL_ABAP_OTYPE::SEOC_NAME, $metarel_ref['CLSNAME']) ?></td>
                                 <td class="sapds-alv"><?php echo $metarel_cls_desc ?></td>

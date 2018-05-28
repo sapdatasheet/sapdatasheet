@@ -75,7 +75,7 @@ $index_counter_list = ABAP_UI_Buffer_Index::ZBUFFER_INDEX_COUNTER(GLOBAL_ABAP_OT
                             $index_counter_current = $index_counter;
                         }
                         ?>
-                        <a href="<?php echo $index_counter[ABAP_UI_Buffer_Index::INDEX_FILENAME] ?>.html"
+                        <a class="page-link" href="<?php echo $index_counter[ABAP_UI_Buffer_Index::INDEX_FILENAME] ?>.html"
                            title="<?php echo $index_counter[ABAP_UI_Buffer_Index::LINK_TITLE] ?>" >
                             <?php echo $index_counter[ABAP_UI_Buffer_Index::LINK_TEXT] ?></a>&nbsp;
                     <?php } ?>
@@ -92,7 +92,7 @@ $index_counter_list = ABAP_UI_Buffer_Index::ZBUFFER_INDEX_COUNTER(GLOBAL_ABAP_OT
                 
 
                 <h4> <?php echo GLOBAL_ABAP_OTYPE::FUNC_DESC ?> - <?php echo $index ?></h4>
-                <table class="sapds-alv">
+                <table class="table table-sm">
                     <tr>
                         <th class="sapds-alv"> # </th>
                         <th class="sapds-alv"> Function Module </th>
@@ -111,7 +111,7 @@ $index_counter_list = ABAP_UI_Buffer_Index::ZBUFFER_INDEX_COUNTER(GLOBAL_ABAP_OT
                         $count++;
                         $fm_desc = ABAP_DB_TABLE_FUNC::TFTIT($fm['FUNCNAME']);
                         ?>
-                        <tr><td class="sapds-alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                        <tr><td class="sapds-alv text-right"><?php echo number_format($count) ?> </td>
                             <td class="sapds-alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeFUNC() ?>
                                 <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Func($fm['FUNCNAME'], $fm_desc) ?> </td>
                             <td class="sapds-alv"><?php echo ($fm['FMODE'] == ABAP_DB_CONST::TFDIR_FMODE_R) ? GLOBAL_ABAP_ICON::getIcon4Rfc() : '' ?>

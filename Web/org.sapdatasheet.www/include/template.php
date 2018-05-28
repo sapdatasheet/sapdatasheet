@@ -39,6 +39,7 @@
                         <div class="card-body table-responsive sapds-card-body">
                             <div><?php include $__WS_ROOT__ . '/common-php/google/adsense-content-top.html' ?></div>
 
+                            <h5 class="pt-2"> Index </h5>
                             <h5 class="pt-4"> Basic Data </h5>
                             <table class="table table-sm">
                                 <tr><th class="sapds-alv"> # </th>

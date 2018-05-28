@@ -173,7 +173,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::CUS0_NAME
                     </tbody>
                 </table>
                 <?php if (count($atrcou_list) > 0) { ?>
-                    <table class="sapds-alv">
+                    <table class="table table-sm">
                         <tr>
                             <th class="sapds-alv"> Customizing Attributes </th>
                             <th class="sapds-alv"> Country Key </th>
@@ -191,7 +191,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::CUS0_NAME
 
                 <?php if (count($tfm18_list) > 0) { ?>
                     <h4> Assigned Application Components</h4>
-                    <table class="sapds-alv">
+                    <table class="table table-sm">
                         <tr>
                             <th class="sapds-alv"> Documentation Object Class </th>
                             <th class="sapds-alv"> Documentation Object Name </th>
@@ -223,7 +223,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::CUS0_NAME
                     </tbody>
                 </table>
                 <?php if (count($actobj_list) > 0) { ?>
-                    <table class="sapds-alv">
+                    <table class="table table-sm">
                         <th>Assigned objects</th>
                         <tr>
                             <th class="sapds-alv"> Customizing Object </th>

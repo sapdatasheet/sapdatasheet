@@ -248,7 +248,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::TABL_NAME
                 </table>
                 <?php if (count($dd17s_list) > 0) { ?>
                     <h4> Contained in Index </h4>
-                    <table class="sapds-alv">
+                    <table class="table table-sm">
                         <tr>
                             <th class="sapds-alv"> Table Name </th>
                             <th class="sapds-alv"> Index Name </th>

@@ -224,7 +224,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::SHLP_NAME
 
                 <h4> Parameter </h4>
                 <?php if (empty($dd32s_list) === FALSE) { ?>
-                <table class="sapds-alv">
+                <table class="table table-sm">
                     <tr>
                         <th class="sapds-alv"> # </th>
                         <th class="sapds-alv"> Search Help Parameter </th>
@@ -255,7 +255,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::SHLP_NAME
                     foreach ($dd32s_list as $dd32s) {
                         $dd32s_DEFAULTTYP_t = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_SHLP::DD32S_DEFAULTTYP_DOMAIN, $dd32s['DEFAULTTYP']);
                         ?>
-                        <tr><td class="sapds-alv" style="text-align: right;"><?php echo number_format($dd32s['FLPOSITION']) ?> </td>
+                        <tr><td class="sapds-alv text-right"><?php echo number_format($dd32s['FLPOSITION']) ?> </td>
                             <td class="sapds-alv"><?php echo GLOBAL_ABAP_ICON::getIcon4Parameter() ?>
                                 <?php echo $dd32s['FIELDNAME'] ?></td>
                             <td class="sapds-alv"><?php echo ABAP_UI_TOOL::GetCheckBox('SHLPINPUT', $dd32s['SHLPINPUT']) ?></td>

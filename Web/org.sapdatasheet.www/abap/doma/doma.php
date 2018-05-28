@@ -167,7 +167,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::DOMA_NAME
                 <?php if (empty($doma_vall) === FALSE) { ?>
                     <h4>Value Range</h4>
                     <a id="<?php echo ABAP_UI_CONST::ANCHOR_VALUES ?>"></a>
-                    <table class="sapds-alv">
+                    <table class="table table-sm">
                         <tbody>
                             <tr><th class="sapds-alv">#</th>
                                 <th class="sapds-alv">Lower Limit</th>
