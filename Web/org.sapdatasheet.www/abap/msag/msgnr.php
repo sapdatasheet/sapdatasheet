@@ -42,14 +42,18 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::MSAG_NAME
 <!-- IMG Activity object. -->
 <html>
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-        <link rel="stylesheet" href="/abap.css" type="text/css" />
         <title><?php echo $GLOBALS['TITLE_TEXT'] . GLOBAL_WEBSITE_SAPDS::TITLE ?> </title>
-        <meta name="keywords" content="SAP,<?php echo GLOBAL_ABAP_OTYPE::MSAG_DESC ?>,<?php echo $ObjID ?>,<?php echo $MsgNr ?>,<?php echo $t100t ?>,<?php echo $t100_nr_text ?>" />
-        <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC; ?>" />
         <meta name="author" content="SAP Datasheet" />
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC; ?>" />
+        <meta name="keywords" content="SAP,<?php echo GLOBAL_ABAP_OTYPE::MSAG_DESC ?>,<?php echo $ObjID ?>,<?php echo $MsgNr ?>,<?php echo $t100t ?>,<?php echo $t100_nr_text ?>" />
+
+        <link rel="stylesheet" type="text/css"  href="/3rdparty/bootstrap/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css"  href="/sapdatasheet.css"/>
+
         <script type="application/ld+json"><?php echo $json_ld->toJson() ?></script>
     </head>
     <body>
@@ -61,22 +65,22 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::MSAG_NAME
         <div class="left">
             <h5>&nbsp;</h5>
             <h5>Object Hierarchy</h5>
-            <table class="content_obj">
+            <table>
                 <tbody>
-                    <tr><td class="left_attribute">Software Component</td></tr>
-                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeCVERS() ?>
+                    <tr><td>Software Component</td></tr>
+                    <tr><td><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeCVERS() ?>
                             <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
-                    <tr><td class="left_attribute"> Application Component ID</td></tr>
-                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeBMFR() ?>
+                    <tr><td> Application Component ID</td></tr>
+                    <tr><td><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeBMFR() ?>
                             <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
-                    <tr><td class="left_attribute"> Package </td></tr>
-                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDEVC() ?>
+                    <tr><td> Package </td></tr>
+                    <tr><td><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDEVC() ?>
                             <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Devc($hier->DEVCLASS, $hier->DEVCLASS_T) ?></td></tr>
-                    <tr><td class="left_attribute"> Object type </td></tr>
-                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeMSAG() ?>
+                    <tr><td> Object type </td></tr>
+                    <tr><td><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeMSAG() ?>
                             <a href="/abap/msag/"><?php echo GLOBAL_ABAP_OTYPE::MSAG_DESC ?></a></td></tr>
-                    <tr><td class="left_attribute"> Object name </td></tr>
-                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeNN() ?>
+                    <tr><td> Object name </td></tr>
+                    <tr><td><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeNN() ?>
                             <a href="#" title="<?php echo $t100_nr_text ?>"><?php echo $ObjID . '-' . $MsgNr ?></a> </td></tr>
                 </tbody>
             </table>
@@ -107,36 +111,36 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::MSAG_NAME
                 <?php require $__ROOT__ . '/include/abap_oname_hier.php' ?>
 
                 <h4> <?php echo GLOBAL_ABAP_ICON::getIcon4Header() ?> Attribute </h4>
-                <table class="content_obj">
+                <table>
                     <tbody>
-                        <tr><td class="content_label"> Message class </td>
+                        <tr><td class="sapds-gui-label"> Message class </td>
                             <td><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeMSAG() ?></td>
-                            <td class="field"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Msag($ObjID, $t100t, FALSE); ?> </td>
+                            <td class="sapds-gui-field"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Msag($ObjID, $t100t, FALSE); ?> </td>
                             <td> &nbsp;</td>
                         </tr>
-                        <tr><td class="content_label"> Short Description</td>
+                        <tr><td class="sapds-gui-label"> Short Description</td>
                             <td><?php echo GLOBAL_ABAP_ICON::getIcon4Description() ?></td>
-                            <td class="field"><?php echo $t100t ?> &nbsp;</td>
+                            <td class="sapds-gui-field"><?php echo $t100t ?> &nbsp;</td>
                             <td> &nbsp; </td>
                         </tr>
-                        <tr><td class="content_label"> Message Number </td>
+                        <tr><td class="sapds-gui-label"> Message Number </td>
                             <td> <?php echo GLOBAL_ABAP_ICON::getIcon4OtypeNN() ?></td>
-                            <td class="field"><a href="#" title="<?php echo $t100_nr_text ?>"><?php echo $MsgNr ?></a> </td>
+                            <td class="sapds-gui-field"><a href="#" title="<?php echo $t100_nr_text ?>"><?php echo $MsgNr ?></a> </td>
                             <td> &nbsp;</td>
                         </tr>
-                        <tr><td class="content_label"> Documentation status</td>
+                        <tr><td class="sapds-gui-label"> Documentation status</td>
                             <td> &nbsp;</td>
-                            <td class="field"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_MSAG::T100U_SELFDEF_DOMAIN, $t100u['SELFDEF'], $t100u_t) ?> &nbsp;</td>
+                            <td class="sapds-gui-field"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_MSAG::T100U_SELFDEF_DOMAIN, $t100u['SELFDEF'], $t100u_t) ?> &nbsp;</td>
                             <td><?php echo GLOBAL_ABAP_ICON::getIcon4Description() ?> <?php echo $t100u_t ?> </td>
                         </tr>
-                        <tr><td class="content_label"> Authorization check Error Message</td>
+                        <tr><td class="sapds-gui-label"> Authorization check Error Message</td>
                             <td> &nbsp;</td>
                             <td> <?php echo ABAP_UI_TOOL::GetCheckBox('AUTH_CHECK', $t100x['AUTH_CHECK']) ?> &nbsp;</td>
                             <td> &nbsp; </td>
                         </tr>
-                        <tr><td class="content_label"> Changed On</td>
+                        <tr><td class="sapds-gui-label"> Changed On</td>
                             <td><?php echo GLOBAL_ABAP_ICON::getIcon4Date() ?></td>
-                            <td class="field"><?php echo $t100u['DATUM'] ?>&nbsp;</td>
+                            <td class="sapds-gui-field"><?php echo $t100u['DATUM'] ?>&nbsp;</td>
                             <td>&nbsp; </td>
                         </tr>
                     </tbody>
@@ -150,15 +154,15 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::MSAG_NAME
                 <?php } ?>
 
                 <h4> <?php echo GLOBAL_ABAP_ICON::getIcon4History() ?>  History </h4>
-                <table class="content_obj">
+                <table>
                     <tbody>
-                        <tr><td class="content_label"> Last changed on/by      </td>
+                        <tr><td class="sapds-gui-label"> Last changed on/by      </td>
                             <td><?php echo GLOBAL_ABAP_ICON::getIcon4Date() ?></td>
-                            <td class="field"><?php echo $t100a['LDATE'] ?>&nbsp;</td>
+                            <td class="sapds-gui-field"><?php echo $t100a['LDATE'] ?>&nbsp;</td>
                             <td> <?php echo $t100a['LASTUSER'] ?>&nbsp;</td></tr>
-                        <tr><td class="content_label"> SAP Release Created in  </td>
+                        <tr><td class="sapds-gui-label"> SAP Release Created in  </td>
                             <td>&nbsp; </td>
-                            <td class="field"><?php echo $hier->CRELEASE ?>&nbsp;</td>
+                            <td class="sapds-gui-field"><?php echo $hier->CRELEASE ?>&nbsp;</td>
                             <td>&nbsp;</td></tr>
                     </tbody>
                 </table>

@@ -40,14 +40,18 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::TABL_NAME
 <!-- DDIC Table -->
 <html>
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-        <link rel="stylesheet" href="/abap.css" type="text/css" />
         <title><?php echo $GLOBALS['TITLE_TEXT'] . GLOBAL_WEBSITE_SAPDS::TITLE ?> </title>
-        <meta name="keywords" content="SAP,<?php echo GLOBAL_ABAP_OTYPE::TABL_DESC ?>,<?php echo $dd02l['TABNAME'] ?>,<?php echo $dd02l_desc ?>" />
-        <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC; ?>" />
         <meta name="author" content="SAP Datasheet" />
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC; ?>" />
+        <meta name="keywords" content="SAP,<?php echo GLOBAL_ABAP_OTYPE::TABL_DESC ?>,<?php echo $dd02l['TABNAME'] ?>,<?php echo $dd02l_desc ?>" />
+
+        <link rel="stylesheet" type="text/css"  href="/3rdparty/bootstrap/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css"  href="/sapdatasheet.css"/>
+
         <script type="application/ld+json"><?php echo $json_ld->toJson() ?></script>
     </head>
     <body>
@@ -59,22 +63,22 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::TABL_NAME
         <div class="left">
             <h5>&nbsp;</h5>
             <h5>Object Hierarchy</h5>
-            <table class="content_obj">
+            <table>
                 <tbody>
-                    <tr><td class="left_attribute">Software Component</td></tr>
-                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeCVERS() ?>
+                    <tr><td>Software Component</td></tr>
+                    <tr><td><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeCVERS() ?>
                             <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
-                    <tr><td class="left_attribute"> Application Component ID</td></tr>
-                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeBMFR() ?>
+                    <tr><td> Application Component ID</td></tr>
+                    <tr><td><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeBMFR() ?>
                             <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
-                    <tr><td class="left_attribute"> Package </td></tr>
-                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDEVC() ?>
+                    <tr><td> Package </td></tr>
+                    <tr><td><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDEVC() ?>
                             <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Devc($hier->DEVCLASS, $hier->DEVCLASS_T) ?></td></tr>
-                    <tr><td class="left_attribute"> Object type </td></tr>
-                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeTABL() ?>
+                    <tr><td> Object type </td></tr>
+                    <tr><td><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeTABL() ?>
                             <a href="/abap/tabl/"><?php echo $dd02l_tabclass_desc ?></a></td></tr>
-                    <tr><td class="left_attribute"> Object name </td></tr>
-                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeTABL() ?>
+                    <tr><td> Object name </td></tr>
+                    <tr><td><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeTABL() ?>
                             <a href="#" title="<?php echo $dd02l['TABNAME'] ?>"><?php echo $dd02l['TABNAME'] ?></a> </td></tr>
                 </tbody>
             </table>
@@ -103,40 +107,40 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::TABL_NAME
 
                 <?php require $__ROOT__ . '/include/abap_oname_hier.php' ?>
 
-                <h4> Basic Data </h4>
-                <table class="content_obj">
+                <h5 class="pt-4"> Basic Data </h5>
+                <table>
                     <tbody>
-                        <tr><td class="content_label"> Table Category        </td>
-                            <td class="field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_TABL::DD02L_TABCLASS_DOMAIN, $dd02l['TABCLASS'], $dd02l_tabclass_desc) ?> &nbsp;</td>
+                        <tr><td class="sapds-gui-label"> Table Category        </td>
+                            <td class="sapds-gui-field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_TABL::DD02L_TABCLASS_DOMAIN, $dd02l['TABCLASS'], $dd02l_tabclass_desc) ?> &nbsp;</td>
                             <td><?php echo htmlentities($dd02l_tabclass_desc) ?>&nbsp;</td></tr>
-                        <tr><td class="content_label"> <?php echo htmlentities($dd02l_tabclass_desc) ?> </td>
-                            <td class="field"><a href="#"><?php echo $dd02l['TABNAME'] ?></a></td>
+                        <tr><td class="sapds-gui-label"> <?php echo htmlentities($dd02l_tabclass_desc) ?> </td>
+                            <td class="sapds-gui-field"><a href="#"><?php echo $dd02l['TABNAME'] ?></a></td>
                             <td>&nbsp;</td></tr>
-                        <tr><td class="content_label"> Short Description     </td>
-                            <td class="field"> <?php echo htmlentities($dd02l_desc) ?> &nbsp;</td>
+                        <tr><td class="sapds-gui-label"> Short Description     </td>
+                            <td class="sapds-gui-field"> <?php echo htmlentities($dd02l_desc) ?> &nbsp;</td>
                             <td>&nbsp;</td></tr>
                     </tbody>
                 </table>
 
                 <!-- Delivery and Maintenance -->
                 <h4> Delivery and Maintenance </h4>
-                <table class="content_obj">
+                <table>
                     <tbody>
-                        <tr><td class="content_label"> Pool/cluster </td>
-                            <td class="field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Sqlt($dd02l['SQLTAB'], '') ?> &nbsp;</td>
+                        <tr><td class="sapds-gui-label"> Pool/cluster </td>
+                            <td class="sapds-gui-field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Sqlt($dd02l['SQLTAB'], '') ?> &nbsp;</td>
                             <td>&nbsp;</td></tr>
-                        <tr><td class="content_label"> Delivery Class </td>
-                            <td class="field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_TABL::DD02L_CONTFLAG_DOMAIN, $dd02l['CONTFLAG'], $dd02l_contflag_desc) ?> &nbsp;</td>
+                        <tr><td class="sapds-gui-label"> Delivery Class </td>
+                            <td class="sapds-gui-field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_TABL::DD02L_CONTFLAG_DOMAIN, $dd02l['CONTFLAG'], $dd02l_contflag_desc) ?> &nbsp;</td>
                             <td><?php echo htmlentities($dd02l_contflag_desc) ?>&nbsp;</td></tr>
-                        <tr><td class="content_label"> Data Browser/Table View Maintenance </td>
-                            <td class="field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_TABL::DD02L_MAINFLAG_DOMAIN, $dd02l['MAINFLAG'], $dd02l_mainflag_desc) ?> &nbsp;</td>
+                        <tr><td class="sapds-gui-label"> Data Browser/Table View Maintenance </td>
+                            <td class="sapds-gui-field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_TABL::DD02L_MAINFLAG_DOMAIN, $dd02l['MAINFLAG'], $dd02l_mainflag_desc) ?> &nbsp;</td>
                             <td><?php echo htmlentities($dd02l_mainflag_desc) ?>&nbsp;</td></tr>
                     </tbody>
                 </table>
 
                 <!-- Components -->
                 <h4> Components </h4>
-                <table class="alv">
+                <table class="sapds-alv">
                     <caption class="right">
                         <a href="/download/abap-tabl-component.php?format=<?php echo strtolower(DOWNLOAD::FORMAT_CSV) ?>&tabname=<?php echo $dd02l['TABNAME'] ?>"
                            title="Download components as <?php echo DOWNLOAD::FORMAT_CSV_Title ?>.&#10;The downloaded file contains more columns than displayed here."
@@ -153,16 +157,16 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::TABL_NAME
                     </caption>
                     <thead>
                         <tr>
-                            <th class="alv"> <img src='/abap/icon/s_b_pvre.gif'> </th>
-                            <th class="alv"> Field </th>
-                            <th class="alv"> Key </th>
-                            <th class="alv"> Data Element</th>
-                            <th class="alv"> Domain</th>
-                            <th class="alv"> Data<br/>Type</th>
-                            <th class="alv"> Length</th>
-                            <th class="alv"> Decimal<br/>Places</th>
-                            <th class="alv"> Short Description</th>
-                            <th class="alv"> Check<br/>table</th>
+                            <th class="sapds-alv"> <img src='/abap/icon/s_b_pvre.gif'> </th>
+                            <th class="sapds-alv"> Field </th>
+                            <th class="sapds-alv"> Key </th>
+                            <th class="sapds-alv"> Data Element</th>
+                            <th class="sapds-alv"> Domain</th>
+                            <th class="sapds-alv"> Data<br/>Type</th>
+                            <th class="sapds-alv"> Length</th>
+                            <th class="sapds-alv"> Decimal<br/>Places</th>
+                            <th class="sapds-alv"> Short Description</th>
+                            <th class="sapds-alv"> Check<br/>table</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -179,17 +183,17 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::TABL_NAME
                             $dd03l_rollname_url = ABAP_UI_DS_Navigation::GetHyperlink4Dtel($dd03l_item['ROLLNAME'], '');
                             ?>
                             <tr>
-                                <td class="alv"> <a id="<?php echo $anchor_name ?>"></a> <?php echo $dd03l_item['POSITION'] ?> </td>
-                                <td class="alv"> <?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDTF() ?>
+                                <td class="sapds-alv"> <a id="<?php echo $anchor_name ?>"></a> <?php echo $dd03l_item['POSITION'] ?> </td>
+                                <td class="sapds-alv"> <?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDTF() ?>
                                      <?php echo $dd03l_fieldname_url ?> </td>
                                 <td class="alv_center"> <?php echo ABAP_UI_TOOL::GetCheckBox('field_' . $dd03l_item['FIELDNAME'], $dd03l_item['KEYFLAG']) ?> </td>
-                                <td class="alv"> <?php echo $dd03l_rollname_url ?> </td>
-                                <td class="alv"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Doma($dd03l_item['DOMNAME'], '') ?> </td>
-                                <td class="alv"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_DATATYPE, $dd03l_item['DATATYPE'], '') ?> </td>
+                                <td class="sapds-alv"> <?php echo $dd03l_rollname_url ?> </td>
+                                <td class="sapds-alv"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Doma($dd03l_item['DOMNAME'], '') ?> </td>
+                                <td class="sapds-alv"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_DATATYPE, $dd03l_item['DATATYPE'], '') ?> </td>
                                 <td class="alv_right"> <?php echo intval($dd03l_item['LENG']) ?> &nbsp; </td>
                                 <td class="alv_right"> <?php echo intval($dd03l_item['DECIMALS']) ?> &nbsp; </td>
-                                <td class="alv"> <?php echo htmlentities($dd03l_fieldname_desc) ?> </td>
-                                <td class="alv"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tabl($dd03l_item['CHECKTABLE'], '') ?> </td>
+                                <td class="sapds-alv"> <?php echo htmlentities($dd03l_fieldname_desc) ?> </td>
+                                <td class="sapds-alv"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tabl($dd03l_item['CHECKTABLE'], '') ?> </td>
                             </tr>
                         <?php } ?>
                     </tbody>
@@ -202,10 +206,10 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::TABL_NAME
                 <h4> Enhancement category </h4>
 
                 <h4> History </h4>
-                <table class="content_obj">
+                <table>
                     <tbody>
-                        <tr><td class="content_label"> Last changed by/on      </td><td class="field"><?php echo $dd02l['AS4USER'] ?>&nbsp;</td><td> <?php echo $dd02l['AS4DATE'] ?>&nbsp;</td></tr>
-                        <tr><td class="content_label"> SAP Release Created in  </td><td class="field"><?php echo $hier->CRELEASE ?>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td class="sapds-gui-label"> Last changed by/on      </td><td class="sapds-gui-field"><?php echo $dd02l['AS4USER'] ?>&nbsp;</td><td> <?php echo $dd02l['AS4DATE'] ?>&nbsp;</td></tr>
+                        <tr><td class="sapds-gui-label"> SAP Release Created in  </td><td class="sapds-gui-field"><?php echo $hier->CRELEASE ?>&nbsp;</td><td>&nbsp;</td></tr>
                     </tbody>
                 </table>
 

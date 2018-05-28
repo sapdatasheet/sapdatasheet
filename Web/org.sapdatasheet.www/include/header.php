@@ -42,7 +42,7 @@
             <li class="nav-item active"><a class="nav-link" href="/abap/" title="ABAP Object Types">ABAP</a></li>
 
             <li class="nav-item active dropdown">
-                <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Hierarchy</a>
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Hierarchy</a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="/abap/cvers/"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeCVERS() ?>&nbsp; Software Component</a>
                     <a class="dropdown-item" href="/abap/bmfr/"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeBMFR() ?>&nbsp; Application Component</a>
@@ -51,7 +51,7 @@
             </li>
 
             <li class="nav-item active dropdown">
-                <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">DDIC</a>
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">DDIC</a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="/abap/doma/"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDOMA() ?>&nbsp; Domain</a>
                     <a class="dropdown-item" href="/abap/dtel/"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDTEL() ?>&nbsp; Data Element</a>
@@ -63,7 +63,7 @@
             </li>
 
             <li class="nav-item active dropdown">
-                <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Code</a>
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Code</a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="/abap/intf/"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeINTF() ?>&nbsp; ABAP Interface</a>
                     <a class="dropdown-item" href="/abap/clas/"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeCLAS() ?>&nbsp; ABAP Class</a>
@@ -74,7 +74,7 @@
             </li>
 
             <li class="nav-item active dropdown">
-                <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Entrance</a>
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Entrance</a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="/abap/tran/"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeTRAN() ?>&nbsp; Transaction Code</a>
                     <a class="dropdown-item" href="/abap/cus0/"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeCUS0() ?>&nbsp; IMG Activity</a>
@@ -83,7 +83,7 @@
             </li>
 
             <li class="nav-item active dropdown">
-                <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">XRef</a>
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">XRef</a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="/wul/abap/"><?php echo GLOBAL_ABAP_ICON::getIcon4WUL() ?>&nbsp; Where Used List</a>
                     <a class="dropdown-item" href="/wil/abap/"><?php echo GLOBAL_ABAP_ICON::getIcon4WIL() ?>&nbsp; Where Using List</a>

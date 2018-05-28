@@ -21,12 +21,15 @@
             <div class="row">
                 <div  class="col-xl-2 col-lg-2 col-md-3  col-sm-3    bd-sidebar bg-light">
                     <!-- Left Side bar -->
+                    <h6 class="pt-4">Object Hierarchy</h6>
                 </div>
 
                 <main class="col-xl-8 col-lg-8 col-md-6  col-sm-9    col-12 bd-content" role="main">
                     <nav class="pt-3" aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/"><?php echo GLOBAL_ABAP_ICON::getIcon4Home() ?> Home</a></li>
+                            <li class="breadcrumb-item"><a href="/abap/">ABAP Object Types</a></li>
+                            <li class="breadcrumb-item"></li>
                             <li class="breadcrumb-item active"><a href="/abap/">ABAP Object Types</a></li>
                         </ol>
                     </nav>
@@ -36,6 +39,7 @@
                         <div class="card-body table-responsive sapds-card-body">
                             <div><?php include $__WS_ROOT__ . '/common-php/google/adsense-content-top.html' ?></div>
 
+                            <h5 class="pt-4"> Basic Data </h5>
                             <table class="table table-sm">
                                 <tr><th class="sapds-alv"> # </th>
                                     <th class="sapds-alv"> AAA </th>

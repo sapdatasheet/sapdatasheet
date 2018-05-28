@@ -44,14 +44,18 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::FUNC_NAME
 <!-- Function Module object. -->
 <html>
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-        <link rel="stylesheet" href="/abap.css" type="text/css" />
         <title><?php echo $GLOBALS['TITLE_TEXT'] . GLOBAL_WEBSITE_SAPDS::TITLE ?> </title>
-        <meta name="keywords" content="SAP,<?php echo GLOBAL_ABAP_OTYPE::FUNC_DESC ?>,<?php echo $func['FUNCNAME'] ?>,<?php echo $func_desc ?>" />
-        <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC; ?>" />
         <meta name="author" content="SAP Datasheet" />
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC; ?>" />
+        <meta name="keywords" content="SAP,<?php echo GLOBAL_ABAP_OTYPE::FUNC_DESC ?>,<?php echo $func['FUNCNAME'] ?>,<?php echo $func_desc ?>" />
+
+        <link rel="stylesheet" type="text/css"  href="/3rdparty/bootstrap/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css"  href="/sapdatasheet.css"/>
+
         <script type="application/ld+json"><?php echo $json_ld->toJson() ?></script>
     </head>
     <body>
@@ -63,22 +67,22 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::FUNC_NAME
         <div class="left">
             <h5>&nbsp;</h5>
             <h5>Object Hierarchy</h5>
-            <table class="content_obj">
+            <table>
                 <tbody>
-                    <tr><td class="left_attribute">Software Component</td></tr>
-                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeCVERS() ?>
+                    <tr><td>Software Component</td></tr>
+                    <tr><td><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeCVERS() ?>
                         <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
-                    <tr><td class="left_attribute"> Application Component ID</td></tr>
-                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeBMFR() ?>
+                    <tr><td> Application Component ID</td></tr>
+                    <tr><td><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeBMFR() ?>
                         <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
-                    <tr><td class="left_attribute"> Package </td></tr>
-                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDEVC() ?>
+                    <tr><td> Package </td></tr>
+                    <tr><td><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDEVC() ?>
                         <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Devc($hier->DEVCLASS, $hier->DEVCLASS_T) ?></td></tr>
-                    <tr><td class="left_attribute"> Object type </td></tr>
-                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeFUNC() ?>
+                    <tr><td> Object type </td></tr>
+                    <tr><td><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeFUNC() ?>
                             <a href="/abap/func/"><?php echo GLOBAL_ABAP_OTYPE::FUNC_DESC ?></a></td></tr>
-                    <tr><td class="left_attribute"> Object name </td></tr>
-                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeFUNC() ?>
+                    <tr><td> Object name </td></tr>
+                    <tr><td><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeFUNC() ?>
                             <a href="#" title="<?php echo $func_desc ?>"><?php echo $func['FUNCNAME'] ?></a> </td></tr>
                 </tbody>
             </table>
@@ -107,23 +111,23 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::FUNC_NAME
 
                 <?php require $__ROOT__ . '/include/abap_oname_hier.php' ?>
 
-                <h4> Basic data </h4>
-                <table class="content_obj">
+                <h5 class="pt-4"> Basic Data </h5>
+                <table>
                     <tbody>
-                        <tr><td class="content_label"> Function Module </td>
-                            <td class="field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Func($func['FUNCNAME'], $func_desc); ?> </td>
+                        <tr><td class="sapds-gui-label"> Function Module </td>
+                            <td class="sapds-gui-field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Func($func['FUNCNAME'], $func_desc); ?> </td>
                             <td> <?php echo htmlentities($func_desc) ?> &nbsp;</td>
                         </tr>
-                        <tr><td class="content_label"> Function Group </td>
-                            <td class="field"> <?php echo $enlfdir['AREA'] ?> &nbsp;</td>
+                        <tr><td class="sapds-gui-label"> Function Group </td>
+                            <td class="sapds-gui-field"> <?php echo $enlfdir['AREA'] ?> &nbsp;</td>
                             <td> <?php echo htmlentities($funcgrp_desc) ?> &nbsp;</td>
                         </tr>
-                        <tr><td class="content_label"> Program Name </td>
-                            <td class="field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Prog($func['PNAME'], $prog_desc); ?> &nbsp;</td>
+                        <tr><td class="sapds-gui-label"> Program Name </td>
+                            <td class="sapds-gui-field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Prog($func['PNAME'], $prog_desc); ?> &nbsp;</td>
                             <td> <?php echo $prog_desc ?>&nbsp;</td>
                         </tr>
-                        <tr><td class="content_label"> INCLUDE Name </td>
-                            <td class="field"> <?php echo $include ?> &nbsp;</td>
+                        <tr><td class="sapds-gui-label"> INCLUDE Name </td>
+                            <td class="sapds-gui-field"> <?php echo $include ?> &nbsp;</td>
                             <td> &nbsp;</td>
                         </tr>
                     </tbody>
@@ -132,18 +136,18 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::FUNC_NAME
 
                 <!-- Parameters: Import, Export, Changing, Tables, Exceptions -->
                 <h4> Parameters </h4>
-                <table class="alv">
+                <table class="sapds-alv">
                     <thead>
                         <tr>
-                            <th class="alv"> Type </th>
-                            <th class="alv"> Parameter Name </th>
-                            <th class="alv"> Typing </th>
-                            <th class="alv"> Associated Type </th>
-                            <th class="alv"> Default value </th>
-                            <th class="alv"> Optional </th>
-                            <th class="alv"> Pass Value </th>
-                            <th class="alv"> Short text </th>
-                            <!-- <th class="alv"> Long Text </th> -->
+                            <th class="sapds-alv"> Type </th>
+                            <th class="sapds-alv"> Parameter Name </th>
+                            <th class="sapds-alv"> Typing </th>
+                            <th class="sapds-alv"> Associated Type </th>
+                            <th class="sapds-alv"> Default value </th>
+                            <th class="sapds-alv"> Optional </th>
+                            <th class="sapds-alv"> Pass Value </th>
+                            <th class="sapds-alv"> Short text </th>
+                            <!-- <th class="sapds-alv"> Long Text </th> -->
                         </tr>
                     </thead>
                     <tbody>
@@ -159,67 +163,67 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::FUNC_NAME
                             $param_stext = ABAP_DB_TABLE_FUNC::FUNCT($fupararef_item['FUNCNAME'], $fupararef_item['PARAMETER'], $fupararef_item['PARAMTYPE']);
                             ?>
                             <tr>
-                                <td class="alv"> <?php echo ABAP_UI_TOOL::GetFunctionModuleParameterType($fupararef_item['PARAMTYPE']) ?> </td>
-                                <td class="alv"> <?php echo $fupararef_item['PARAMETER'] ?> </td>
-                                <td class="alv"> <?php echo ABAP_UI_TOOL::GetFunctionModuleTyping($fupararef_item['REF_CLASS']) ?> </td>
-                                <td class="alv"> <?php echo $param_link ?> </td>
-                                <td class="alv"> <?php echo $fupararef_item['DEFAULTVAL'] ?> </td>
-                                <td class="alv"> <?php echo ABAP_UI_TOOL::GetCheckBox("optional", $fupararef_item['OPTIONAL']) ?> </td>
-                                <td class="alv"> <?php echo ABAP_UI_TOOL::GetCheckBox("passval", $para_passvalue) ?> </td>
-                                <td class="alv"> <?php echo htmlentities($param_stext) ?> </td>
-                                <!-- <td class="alv"> Long Text </td> -->
+                                <td class="sapds-alv"> <?php echo ABAP_UI_TOOL::GetFunctionModuleParameterType($fupararef_item['PARAMTYPE']) ?> </td>
+                                <td class="sapds-alv"> <?php echo $fupararef_item['PARAMETER'] ?> </td>
+                                <td class="sapds-alv"> <?php echo ABAP_UI_TOOL::GetFunctionModuleTyping($fupararef_item['REF_CLASS']) ?> </td>
+                                <td class="sapds-alv"> <?php echo $param_link ?> </td>
+                                <td class="sapds-alv"> <?php echo $fupararef_item['DEFAULTVAL'] ?> </td>
+                                <td class="sapds-alv"> <?php echo ABAP_UI_TOOL::GetCheckBox("optional", $fupararef_item['OPTIONAL']) ?> </td>
+                                <td class="sapds-alv"> <?php echo ABAP_UI_TOOL::GetCheckBox("passval", $para_passvalue) ?> </td>
+                                <td class="sapds-alv"> <?php echo htmlentities($param_stext) ?> </td>
+                                <!-- <td class="sapds-alv"> Long Text </td> -->
                             </tr>
                         <?php } ?>
                         <tr>
-                            <td class="alv"> &nbsp; </td>
-                            <td class="alv"> &nbsp; </td>
-                            <td class="alv"> &nbsp; </td>
-                            <td class="alv"> &nbsp; </td>
-                            <td class="alv"> &nbsp; </td>
-                            <td class="alv"> &nbsp; </td>
-                            <td class="alv"> &nbsp; </td>
-                            <td class="alv"> &nbsp; </td>
-                            <!-- <td class="alv"> &nbsp; </td> -->
+                            <td class="sapds-alv"> &nbsp; </td>
+                            <td class="sapds-alv"> &nbsp; </td>
+                            <td class="sapds-alv"> &nbsp; </td>
+                            <td class="sapds-alv"> &nbsp; </td>
+                            <td class="sapds-alv"> &nbsp; </td>
+                            <td class="sapds-alv"> &nbsp; </td>
+                            <td class="sapds-alv"> &nbsp; </td>
+                            <td class="sapds-alv"> &nbsp; </td>
+                            <!-- <td class="sapds-alv"> &nbsp; </td> -->
                         </tr>
                     </tbody>
                 </table>
 
 
                 <h4> Processing Type </h4>
-                <table class="content_obj">
+                <table>
                     <tbody>
-                        <tr><td class="field"> <?php echo ABAP_UI_TOOL::GetRadioBox("pType", $ptype->CHK_NORMAL) ?> Normal Function Module </td>
+                        <tr><td class="sapds-gui-field"> <?php echo ABAP_UI_TOOL::GetRadioBox("pType", $ptype->CHK_NORMAL) ?> Normal Function Module </td>
                             <td> &nbsp; </td>
                         </tr>
-                        <tr><td class="field"> <?php echo ABAP_UI_TOOL::GetRadioBox("pType", $ptype->CHK_REMOTE) ?> Remote-Enabled Module </td>
-                            <td class="field"> <?php echo ABAP_UI_TOOL::GetCheckBox("BaseXML", $ptype->CHK_BASXML_ENABLED) ?> BaseXML supported </td>
+                        <tr><td class="sapds-gui-field"> <?php echo ABAP_UI_TOOL::GetRadioBox("pType", $ptype->CHK_REMOTE) ?> Remote-Enabled Module </td>
+                            <td class="sapds-gui-field"> <?php echo ABAP_UI_TOOL::GetCheckBox("BaseXML", $ptype->CHK_BASXML_ENABLED) ?> BaseXML supported </td>
                         </tr>
                         <tr><td class="field" rowspan="4"> <?php echo ABAP_UI_TOOL::GetRadioBox("pType", $ptype->CHK_VERBUCHER) ?> Update Module </td>
-                            <td class="field"> <?php echo ABAP_UI_TOOL::GetRadioBox("updateType", $ptype->CHK_UKIND1) ?> Start immediately </td>
+                            <td class="sapds-gui-field"> <?php echo ABAP_UI_TOOL::GetRadioBox("updateType", $ptype->CHK_UKIND1) ?> Start immediately </td>
                         </tr>
-                        <tr><td class="field"> <?php echo ABAP_UI_TOOL::GetRadioBox("updateType", $ptype->CHK_UKIND3) ?> Immediate Start, No Restart </td>
+                        <tr><td class="sapds-gui-field"> <?php echo ABAP_UI_TOOL::GetRadioBox("updateType", $ptype->CHK_UKIND3) ?> Immediate Start, No Restart </td>
                         </tr>
-                        <tr><td class="field"> <?php echo ABAP_UI_TOOL::GetRadioBox("updateType", $ptype->CHK_UKIND2) ?> Start Delayed </td>
+                        <tr><td class="sapds-gui-field"> <?php echo ABAP_UI_TOOL::GetRadioBox("updateType", $ptype->CHK_UKIND2) ?> Start Delayed </td>
                         </tr>
-                        <tr><td class="field"> <?php echo ABAP_UI_TOOL::GetRadioBox("updateType", $ptype->CHK_UKIND4) ?> Coll.run </td>
+                        <tr><td class="sapds-gui-field"> <?php echo ABAP_UI_TOOL::GetRadioBox("updateType", $ptype->CHK_UKIND4) ?> Coll.run </td>
                         </tr>
-                        <tr><td class="field"> <?php echo ABAP_UI_TOOL::GetRadioBox("pType", $ptype->CHK_ABAP2JAVA) ?> JAVA Module Callable from ABAP </td>
+                        <tr><td class="sapds-gui-field"> <?php echo ABAP_UI_TOOL::GetRadioBox("pType", $ptype->CHK_ABAP2JAVA) ?> JAVA Module Callable from ABAP </td>
                             <td> &nbsp; </td>
                         </tr>
-                        <tr><td class="field"> <?php echo ABAP_UI_TOOL::GetRadioBox("pType", $ptype->CHK_REMOTE_JAVA) ?> Remote-Enabled JAVA Module </td>
+                        <tr><td class="sapds-gui-field"> <?php echo ABAP_UI_TOOL::GetRadioBox("pType", $ptype->CHK_REMOTE_JAVA) ?> Remote-Enabled JAVA Module </td>
                             <td> &nbsp; </td>
                         </tr>
-                        <tr><td class="field"> <?php echo ABAP_UI_TOOL::GetRadioBox("pType", $ptype->CHK_JAVA2ABAP) ?> Module Callable from JAVA </td>
+                        <tr><td class="sapds-gui-field"> <?php echo ABAP_UI_TOOL::GetRadioBox("pType", $ptype->CHK_JAVA2ABAP) ?> Module Callable from JAVA </td>
                             <td> &nbsp; </td>
                         </tr>
                     </tbody>
                 </table>
 
                 <h4> History </h4>
-                <table class="content_obj">
+                <table>
                     <tbody>
-                        <tr><td class="content_label"> Last changed by/on      </td><td class="field"><?php echo $progmeta['CNAM'] ?>&nbsp;</td><td> <?php echo $progmeta['CDAT'] ?>&nbsp;</td></tr>
-                        <tr><td class="content_label"> SAP Release Created in  </td><td class="field"><?php echo $hier->CRELEASE ?>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td class="sapds-gui-label"> Last changed by/on      </td><td class="sapds-gui-field"><?php echo $progmeta['CNAM'] ?>&nbsp;</td><td> <?php echo $progmeta['CDAT'] ?>&nbsp;</td></tr>
+                        <tr><td class="sapds-gui-label"> SAP Release Created in  </td><td class="sapds-gui-field"><?php echo $hier->CRELEASE ?>&nbsp;</td><td>&nbsp;</td></tr>
                     </tbody>
                 </table>
             </div>

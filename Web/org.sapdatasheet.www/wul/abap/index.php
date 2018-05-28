@@ -20,14 +20,17 @@ $index_pages = ABAP_UI_TOOL::GetPagingList($index, ABAP_DBDATA::WULCOUNTER_INDEX
 <!-- Where Used List index -->
 <html>
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-        <link rel="stylesheet" href="/abap.css" type="text/css" />
         <title><?php echo $GLOBALS['TITLE_TEXT'] ?> <?php echo GLOBAL_WEBSITE_SAPDS::TITLE ?> </title>
-        <meta name="keywords" content="SAP,ABAP,Where Used List" />
-        <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC ?>" />
         <meta name="author" content="SAP Datasheet" />
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC ?>" />
+        <meta name="keywords" content="SAP,ABAP,Where Used List" />
+
+        <link rel="stylesheet" type="text/css"  href="/3rdparty/bootstrap/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css"  href="/sapdatasheet.css"/>
     </head>
     <body>
 
@@ -61,33 +64,33 @@ $index_pages = ABAP_UI_TOOL::GetPagingList($index, ABAP_DBDATA::WULCOUNTER_INDEX
                 </div>
 
                 <h4><?php echo $GLOBALS['TITLE_TEXT'] ?></h4>
-                <table class="alv">
+                <table class="sapds-alv">
                     <tr>
-                        <th class="alv"><img src='/abap/icon/s_b_pvre.gif'></th>
-                        <th class="alv" colspan="2" > Where Used List for </th>
-                        <th class="alv"> Used by </th>
+                        <th class="sapds-alv"><img src='/abap/icon/s_b_pvre.gif'></th>
+                        <th class="sapds-alv" colspan="2" > Where Used List for </th>
+                        <th class="sapds-alv"> Used by </th>
                     </tr>
                     <tr>
-                        <th class="alv"> # </th>
-                        <th class="alv">ABAP Type</th>
-                        <th class="alv">ABAP Object</th>
-                        <th class="alv">ABAP Type</th>
+                        <th class="sapds-alv"> # </th>
+                        <th class="sapds-alv">ABAP Type</th>
+                        <th class="sapds-alv">ABAP Object</th>
+                        <th class="sapds-alv">ABAP Type</th>
                     </tr>
                     <tr>
-                        <th class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument('TROBJTYPE', '?') ?></th>
-                        <th class="alv">&nbsp;</th>
-                        <th class="alv">&nbsp;</th>
+                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
+                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument('TROBJTYPE', '?') ?></th>
+                        <th class="sapds-alv">&nbsp;</th>
+                        <th class="sapds-alv">&nbsp;</th>
                     </tr>
                     <?php
                     $count = 0;
                     foreach ($list as $item) {
                         $count++;
                         ?>
-                        <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetOTypeHyperlink($item['SRC_OBJ_TYPE']) ?>&nbsp;</td>
-                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetObjectHyperlink($item['SRC_OBJ_TYPE'], $item['SRC_OBJ_NAME'], $item['SRC_SUBOBJ']) ?>&nbsp;</td>
-                            <td class="alv">
+                        <tr><td class="sapds-alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                            <td class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetOTypeHyperlink($item['SRC_OBJ_TYPE']) ?>&nbsp;</td>
+                            <td class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetObjectHyperlink($item['SRC_OBJ_TYPE'], $item['SRC_OBJ_NAME'], $item['SRC_SUBOBJ']) ?>&nbsp;</td>
+                            <td class="sapds-alv">
                                 <?php echo ABAP_UI_DS_Navigation::GetWulHyperlink($item) ?>
                                 <?php echo ABAP_UI_DS_Navigation::GetWulHyperlinks($item['SRC_OBJ_TYPE'], $item['SRC_OBJ_NAME'], $item['SRC_SUBOBJ'], $item['OBJ_TYPE'], $item['COUNTER'], TRUE) ?>
                                 &nbsp;</td>

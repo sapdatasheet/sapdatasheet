@@ -1,25 +1,16 @@
 /**
  *  Site Customized Style.
  *
- *  SAP Color https://experience.sap.com/fiori-design-web/colors/ & SAP GUI
+ *  SAP Color   - https://experience.sap.com/fiori-design-web/colors/ & SAP GUI
  */
 
-
-/* ---- Hover menu - https://bootsnipp.com/snippets/Vm7d */
-.navbar-default .navbar-nav > li.dropdown:hover > a, 
-.navbar-default .navbar-nav > li.dropdown:hover > a:hover,
-.navbar-default .navbar-nav > li.dropdown:hover > a:focus {
-    background-color: rgb(231, 231, 231);
-    color: rgb(85, 85, 85);
-}
-li.dropdown:hover > .dropdown-menu {
-    display: block;
-}
-
+/*  Resize font - https://stackoverflow.com/questions/45999420/how-to-increase-bootstrap-4-font-size  */
+html {
+    font-size: 14px;
+} 
 
 body {
     background-color:#FBFCFD;
-    /* padding-bottom: 3em; */
 }
 
 /* Header */
@@ -39,6 +30,18 @@ body {
 .sapds-menu {
     background-color: #F2AA00;
 }
+
+/* Hover menu - https://bootsnipp.com/snippets/Vm7d */
+.navbar-default .navbar-nav > li.dropdown:hover > a, 
+.navbar-default .navbar-nav > li.dropdown:hover > a:hover,
+.navbar-default .navbar-nav > li.dropdown:hover > a:focus {
+    background-color: rgb(231, 231, 231);
+    color: rgb(85, 85, 85);
+}
+li.dropdown:hover > .dropdown-menu {
+    display: block;
+}
+
 
 /* Side bar */
 

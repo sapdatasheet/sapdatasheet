@@ -14,14 +14,17 @@ $dd06l = ABAP_DB_TABLE_TABL::DD06L_List();
 <!-- SQLT index. -->
 <html>
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-        <link rel="stylesheet" href="/abap.css" type="text/css" />
         <title><?php echo $GLOBALS['TITLE_TEXT'] ?> <?php echo GLOBAL_WEBSITE_SAPDS::TITLE ?> </title>
-        <meta name="keywords" content="SAP,ABAP,<?php echo GLOBAL_ABAP_OTYPE::SQLT_DESC ?>" />
-        <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC ?>" />
         <meta name="author" content="SAP Datasheet" />
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC ?>" />
+        <meta name="keywords" content="SAP,ABAP,<?php echo GLOBAL_ABAP_OTYPE::SQLT_DESC ?>" />
+
+        <link rel="stylesheet" type="text/css"  href="/3rdparty/bootstrap/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css"  href="/sapdatasheet.css"/>
     </head>
     <body>
 
@@ -48,20 +51,20 @@ $dd06l = ABAP_DB_TABLE_TABL::DD06L_List();
                 </div>
 
                 <h4> <?php echo GLOBAL_ABAP_OTYPE::SQLT_DESC ?> </h4>
-                <table class="alv">
+                <table class="sapds-alv">
                     <tr>
-                        <th class="alv"> # </th>
-                        <th class="alv"> Table Name </th>
-                        <th class="alv"> Short Description </th>
-                        <th class="alv"> Table Category </th>
-                        <th class="alv"> Created on </th>
+                        <th class="sapds-alv"> # </th>
+                        <th class="sapds-alv"> Table Name </th>
+                        <th class="sapds-alv"> Short Description </th>
+                        <th class="sapds-alv"> Table Category </th>
+                        <th class="sapds-alv"> Created on </th>
                     </tr>
                     <tr>
-                        <th class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_TABL::DD06L_SQLTAB_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_TABL::DD06T_DDTEXT_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_TABL::DD06L_SQLCLASS_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_TABL::DD06L_AS4DATE_DTEL, '?') ?></th>
+                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
+                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_TABL::DD06L_SQLTAB_DTEL, '?') ?></th>
+                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_TABL::DD06T_DDTEXT_DTEL, '?') ?></th>
+                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_TABL::DD06L_SQLCLASS_DTEL, '?') ?></th>
+                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_TABL::DD06L_AS4DATE_DTEL, '?') ?></th>
                     </tr>
                     <?php
                     $count = 0;
@@ -70,12 +73,12 @@ $dd06l = ABAP_DB_TABLE_TABL::DD06L_List();
                         $dd06l_item_t = ABAP_DB_TABLE_TABL::DD06T($dd06l_item['SQLTAB']);
                         $dd06l_sqlclass_t = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_TABL::DD06L_SQLCLASS_DOMAIN, $dd06l_item['SQLCLASS']);
                         ?>
-                        <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                            <td class="alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeSQLT() ?>
+                        <tr><td class="sapds-alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                            <td class="sapds-alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeSQLT() ?>
                                 <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Sqlt($dd06l_item['SQLTAB'], $dd06l_item_t) ?> </td>
-                            <td class="alv"><?php echo htmlentities($dd06l_item_t) ?></td>
-                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_TABL::DD06L_SQLCLASS_DOMAIN, $dd06l_item['SQLCLASS'], $dd06l_sqlclass_t) ?></td>
-                            <td class="alv"><?php echo $dd06l_item['AS4DATE'] ?></td>
+                            <td class="sapds-alv"><?php echo htmlentities($dd06l_item_t) ?></td>
+                            <td class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_TABL::DD06L_SQLCLASS_DOMAIN, $dd06l_item['SQLCLASS'], $dd06l_sqlclass_t) ?></td>
+                            <td class="sapds-alv"><?php echo $dd06l_item['AS4DATE'] ?></td>
                         </tr>
                         <?php } ?>
                 </table>

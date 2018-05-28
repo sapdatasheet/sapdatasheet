@@ -38,14 +38,18 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::DOMA_NAME
 <!-- DDIC Domain object. -->
 <html>
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-        <link rel="stylesheet" href="/abap.css" type="text/css" />
         <title><?php echo $GLOBALS['TITLE_TEXT'] . GLOBAL_WEBSITE_SAPDS::TITLE ?> </title>
-        <meta name="keywords" content="SAP,<?php echo GLOBAL_ABAP_OTYPE::DOMA_DESC ?>,<?php echo $doma['DOMNAME'] ?>,<?php echo $doma_desc ?>" />
-        <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC; ?>" />
         <meta name="author" content="SAP Datasheet" />
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC; ?>" />
+        <meta name="keywords" content="SAP,<?php echo GLOBAL_ABAP_OTYPE::DOMA_DESC ?>,<?php echo $doma['DOMNAME'] ?>,<?php echo $doma_desc ?>" />
+
+        <link rel="stylesheet" type="text/css"  href="/3rdparty/bootstrap/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css"  href="/sapdatasheet.css"/>
+        
         <script type="application/ld+json"><?php echo $json_ld->toJson() ?></script>
     </head>
     <body>
@@ -57,31 +61,31 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::DOMA_NAME
         <div class="left">
             <h5>&nbsp;</h5>
             <h5>Object Hierarchy</h5>
-            <table class="content_obj">
+            <table>
                 <tbody>
-                    <tr><td class="left_attribute">Software Component</td></tr>
-                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeCVERS() ?>
+                    <tr><td>Software Component</td></tr>
+                    <tr><td><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeCVERS() ?>
                             <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
-                    <tr><td class="left_attribute"> Application Component ID</td></tr>
-                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeBMFR() ?>
+                    <tr><td> Application Component ID</td></tr>
+                    <tr><td><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeBMFR() ?>
                             <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
-                    <tr><td class="left_attribute"> Package </td></tr>
-                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDEVC() ?>
+                    <tr><td> Package </td></tr>
+                    <tr><td><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDEVC() ?>
                             <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Devc($hier->DEVCLASS, $hier->DEVCLASS_T) ?></td></tr>
-                    <tr><td class="left_attribute"> Object type </td></tr>
-                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDOMA() ?>
+                    <tr><td> Object type </td></tr>
+                    <tr><td><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDOMA() ?>
                             <a href="/abap/doma/"><?php echo GLOBAL_ABAP_OTYPE::DOMA_DESC ?></a></td></tr>
-                    <tr><td class="left_attribute"> Object name </td></tr>
-                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDOMA() ?>
+                    <tr><td> Object name </td></tr>
+                    <tr><td><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDOMA() ?>
                             <a href="#" title="<?php echo $doma_desc ?>"><?php echo $doma['DOMNAME'] ?></a> </td></tr>
                 </tbody>
             </table>
             <?php if (strlen(trim($doma['ENTITYTAB'])) > 0) { ?>
                 <h5>Relationship</h5>
-                <table class="content_obj">
+                <table>
                     <tbody>
                         <tr><td>Value table</td></tr>
-                        <tr><td class="left_value"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tabl($doma['ENTITYTAB'], '') ?>&nbsp;</td></tr>
+                        <tr><td><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tabl($doma['ENTITYTAB'], '') ?>&nbsp;</td></tr>
                     </tbody>
                 </table>
             <?php } ?>
@@ -89,15 +93,15 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::DOMA_NAME
             <?php require $__ROOT__ . '/include/abap_oname_wul.php' ?>
 
             <h5>Used by Data Element</h5>
-            <table class="content_obj">
+            <table>
                 <tbody>
                     <?php if (empty($wul_list) === FALSE) { ?>
                         <?php foreach ($wul_list as $wul_item) { ?>
-                            <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDTEL() ?>
+                            <tr><td><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDTEL() ?>
                                     <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Dtel($wul_item['ROLLNAME'], ABAP_DB_TABLE_DTEL::DD04T($wul_item['ROLLNAME'])) ?>&nbsp;</td></tr>
                         <?php } ?>
                     <?php } else { ?>
-                        <tr><td class="left_value">Not Used by Anyone</td></tr>
+                        <tr><td>Not Used by Anyone</td></tr>
                     <?php } ?>
                 </tbody>
             </table>
@@ -125,24 +129,24 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::DOMA_NAME
 
                 <?php require $__ROOT__ . '/include/abap_oname_hier.php' ?>
 
-                <h4> Basic Data </h4>
-                <table class="content_obj">
+                <h5 class="pt-4"> Basic Data </h5>
+                <table>
                     <tbody>
-                        <tr><td class="content_label"> Domain Name       </td><td class="field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Doma($doma['DOMNAME'], $doma_desc) ?> </td></tr>
-                        <tr><td class="content_label"> Short Description </td><td class="field"> <?php echo htmlentities($doma_desc) ?> &nbsp;</td></tr>
+                        <tr><td class="sapds-gui-label"> Domain Name       </td><td class="sapds-gui-field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Doma($doma['DOMNAME'], $doma_desc) ?> </td></tr>
+                        <tr><td class="sapds-gui-label"> Short Description </td><td class="sapds-gui-field"> <?php echo htmlentities($doma_desc) ?> &nbsp;</td></tr>
                     </tbody>
                 </table>
 
                 <h4> Definition </h4>
-                <table class="content_obj">
+                <table>
                     <tbody>
-                        <tr><td class="content_label"> Data Type          </td><td class="field"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_DATATYPE, $doma['DATATYPE'], $doma_datatype_desc) ?> </td><td> <?php echo $doma_datatype_desc ?> </td></tr>
-                        <tr><td class="content_label"> No. Characters     </td><td class="field_right"><?php echo intval($doma['LENG']) ?>&nbsp;</td><td>&nbsp;</td></tr>
-                        <tr><td class="content_label"> Decimal Places     </td><td class="field_right"><?php echo ABAP_UI_TOOL::ClearZero(intval($doma['DECIMALS'])) ?>&nbsp;</td><td>&nbsp;</td></tr>
-                        <tr><td class="content_label"> Output Length      </td><td class="field_right"><?php echo intval($doma['OUTPUTLEN']) ?>&nbsp;</td><td>&nbsp;</td></tr>
-                        <tr><td class="content_label"> Conversion Routine </td><td class="field"><?php echo $doma['CONVEXIT'] ?>&nbsp;</td><td>&nbsp;</td></tr>
-                        <tr><td class="content_label"> Sign               </td><td class="right"><?php echo ABAP_UI_TOOL::GetCheckBox('SIGNFLAG', $doma['SIGNFLAG']) ?></td><td>&nbsp;</td></tr>
-                        <tr><td class="content_label"> Lower Case         </td><td class="right"><?php echo ABAP_UI_TOOL::GetCheckBox('LOWERCASE', $doma['LOWERCASE']) ?></td><td>&nbsp;</td></tr>
+                        <tr><td class="sapds-gui-label"> Data Type          </td><td class="sapds-gui-field"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_DATATYPE, $doma['DATATYPE'], $doma_datatype_desc) ?> </td><td> <?php echo $doma_datatype_desc ?> </td></tr>
+                        <tr><td class="sapds-gui-label"> No. Characters     </td><td class="field_right"><?php echo intval($doma['LENG']) ?>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td class="sapds-gui-label"> Decimal Places     </td><td class="field_right"><?php echo ABAP_UI_TOOL::ClearZero(intval($doma['DECIMALS'])) ?>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td class="sapds-gui-label"> Output Length      </td><td class="field_right"><?php echo intval($doma['OUTPUTLEN']) ?>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td class="sapds-gui-label"> Conversion Routine </td><td class="sapds-gui-field"><?php echo $doma['CONVEXIT'] ?>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td class="sapds-gui-label"> Sign               </td><td class="right"><?php echo ABAP_UI_TOOL::GetCheckBox('SIGNFLAG', $doma['SIGNFLAG']) ?></td><td>&nbsp;</td></tr>
+                        <tr><td class="sapds-gui-label"> Lower Case         </td><td class="right"><?php echo ABAP_UI_TOOL::GetCheckBox('LOWERCASE', $doma['LOWERCASE']) ?></td><td>&nbsp;</td></tr>
                     </tbody>
                 </table>
 
@@ -151,10 +155,10 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::DOMA_NAME
                     $entitytab_desc = ABAP_DB_TABLE_TABL::DD02T($doma['ENTITYTAB']);
                     ?>
                     <h4> Value Table</h4>
-                    <table class="content_obj">
+                    <table>
                         <tbody>
-                            <tr><td class="content_label"> Value Table </td>
-                                <td class="field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tabl($doma['ENTITYTAB'], $entitytab_desc) ?> &nbsp; </td>
+                            <tr><td class="sapds-gui-label"> Value Table </td>
+                                <td class="sapds-gui-field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tabl($doma['ENTITYTAB'], $entitytab_desc) ?> &nbsp; </td>
                                 <td><?php echo $entitytab_desc ?></td> </tr>
                         </tbody>
                     </table>
@@ -163,12 +167,12 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::DOMA_NAME
                 <?php if (empty($doma_vall) === FALSE) { ?>
                     <h4>Value Range</h4>
                     <a id="<?php echo ABAP_UI_CONST::ANCHOR_VALUES ?>"></a>
-                    <table class="alv">
+                    <table class="sapds-alv">
                         <tbody>
-                            <tr><th class="alv">#</th>
-                                <th class="alv">Lower Limit</th>
-                                <th class="alv">Upper Limit</th>
-                                <th class="alv">Short Description</th> </tr>
+                            <tr><th class="sapds-alv">#</th>
+                                <th class="sapds-alv">Lower Limit</th>
+                                <th class="sapds-alv">Upper Limit</th>
+                                <th class="sapds-alv">Short Description</th> </tr>
                             <?php
                             foreach ($doma_vall as $doma_vall_item) {
                                 $doma_vall_item_text = ABAP_DB_TABLE_DOMA::DD07T($doma['DOMNAME'], $doma_vall_item['DOMVALUE_L']);
@@ -176,21 +180,21 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::DOMA_NAME
                                 <tr><td class="alv_center"> <?php echo intval($doma_vall_item['VALPOS']) ?> </td>
                                     <td class="alv_right"> <?php echo $doma_vall_item['DOMVALUE_L'] ?> &nbsp; </td>
                                     <td class="alv_right"> <?php echo $doma_vall_item['DOMVALUE_H'] ?> &nbsp; </td>
-                                    <td class="alv"><?php echo htmlentities($doma_vall_item_text) ?></td> </tr>
+                                    <td class="sapds-alv"><?php echo htmlentities($doma_vall_item_text) ?></td> </tr>
                             <?php } ?>
                             <tr><td class="alv_center"> &nbsp; </td>
                                 <td class="alv_right">  &nbsp; </td>
                                 <td class="alv_right">  &nbsp; </td>
-                                <td class="alv"> &nbsp; </td> </tr>
+                                <td class="sapds-alv"> &nbsp; </td> </tr>
                         </tbody>
                     </table>
                 <?php } ?>
 
                 <h4> History </h4>
-                <table class="content_obj">
+                <table>
                     <tbody>
-                        <tr><td class="content_label"> Last changed by/on      </td><td class="field"><?php echo $doma['AS4USER'] ?>&nbsp;</td><td> <?php echo $doma['AS4DATE'] ?>&nbsp;</td></tr>
-                        <tr><td class="content_label"> SAP Release Created in  </td><td class="field"><?php echo $hier->CRELEASE ?>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td class="sapds-gui-label"> Last changed by/on      </td><td class="sapds-gui-field"><?php echo $doma['AS4USER'] ?>&nbsp;</td><td> <?php echo $doma['AS4DATE'] ?>&nbsp;</td></tr>
+                        <tr><td class="sapds-gui-label"> SAP Release Created in  </td><td class="sapds-gui-field"><?php echo $hier->CRELEASE ?>&nbsp;</td><td>&nbsp;</td></tr>
                     </tbody>
                 </table>
 

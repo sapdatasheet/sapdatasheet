@@ -28,14 +28,17 @@ $index_counter_list = ABAP_UI_Buffer_Index::ZBUFFER_INDEX_COUNTER(GLOBAL_ABAP_OT
 <!-- Function Group index -->
 <html>
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-        <link rel="stylesheet" href="/abap.css" type="text/css" />
         <title><?php echo $GLOBALS['TITLE_TEXT'] ?> <?php echo GLOBAL_WEBSITE_SAPDS::TITLE ?> </title>
-        <meta name="keywords" content="SAP,ABAP,<?php echo GLOBAL_ABAP_OTYPE::FUGR_DESC ?>" />
-        <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC ?>" />
         <meta name="author" content="SAP Datasheet" />
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC ?>" />
+        <meta name="keywords" content="SAP,ABAP,<?php echo GLOBAL_ABAP_OTYPE::FUGR_DESC ?>" />
+
+        <link rel="stylesheet" type="text/css"  href="/3rdparty/bootstrap/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css"  href="/sapdatasheet.css"/>
     </head>
     <body>
 
@@ -87,20 +90,20 @@ $index_counter_list = ABAP_UI_Buffer_Index::ZBUFFER_INDEX_COUNTER(GLOBAL_ABAP_OT
                 <?php } ?>
 
                 <h4> <?php echo GLOBAL_ABAP_OTYPE::FUGR_DESC ?> - <?php echo $index ?></h4>
-                <table class="alv">
+                <table class="sapds-alv">
                     <tr>
-                        <th class="alv"> # </th>
-                        <th class="alv"> <?php echo GLOBAL_ABAP_OTYPE::FUGR_DESC ?> </th>
-                        <th class="alv"> <?php echo GLOBAL_ABAP_OTYPE::DEVC_DESC ?> </th>
-                        <th class="alv"> <?php echo GLOBAL_ABAP_OTYPE::CVERS_DESC ?> </th>
-                        <th class="alv"> Short Description </th>
+                        <th class="sapds-alv"> # </th>
+                        <th class="sapds-alv"> <?php echo GLOBAL_ABAP_OTYPE::FUGR_DESC ?> </th>
+                        <th class="sapds-alv"> <?php echo GLOBAL_ABAP_OTYPE::DEVC_DESC ?> </th>
+                        <th class="sapds-alv"> <?php echo GLOBAL_ABAP_OTYPE::CVERS_DESC ?> </th>
+                        <th class="sapds-alv"> Short Description </th>
                     </tr>
                     <tr>
-                        <th class="alv"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
-                        <th class="alv"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_FUNC::TLIBG_AREA_DTEL, '?') ?></th>
-                        <th class="alv"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_HIER::TDEVC_DEVCLASS_DTEL, '?') ?></th>
-                        <th class="alv"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_HIER::CVERS_REF_DESC_TEXT_DTEL, '?') ?></th>
-                        <th class="alv"> &nbsp; </th>
+                        <th class="sapds-alv"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
+                        <th class="sapds-alv"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_FUNC::TLIBG_AREA_DTEL, '?') ?></th>
+                        <th class="sapds-alv"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_HIER::TDEVC_DEVCLASS_DTEL, '?') ?></th>
+                        <th class="sapds-alv"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_HIER::CVERS_REF_DESC_TEXT_DTEL, '?') ?></th>
+                        <th class="sapds-alv"> &nbsp; </th>
                     </tr>
                     <?php
                     $count = 0;
@@ -109,14 +112,14 @@ $index_counter_list = ABAP_UI_Buffer_Index::ZBUFFER_INDEX_COUNTER(GLOBAL_ABAP_OT
                         $prog = ABAP_DB_TABLE_PROG::GET_PROG_FUGR($fugr['OBJ_NAME']);
                         $prog_desc = ABAP_DB_TABLE_FUNC::TLIBT($fugr['OBJ_NAME']);
                         ?>
-                        <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                            <td class="alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeFUGR() ?>
+                        <tr><td class="sapds-alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                            <td class="sapds-alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeFUGR() ?>
                                 <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Prog($prog, '', $fugr['OBJ_NAME']) ?> </td>
-                            <td class="alv"><?php echo (GLOBAL_UTIL::IsNotEmpty($fugr['DEVCLASS'])) ? GLOBAL_ABAP_ICON::getIcon4OtypeDEVC() : '' ?>
+                            <td class="sapds-alv"><?php echo (GLOBAL_UTIL::IsNotEmpty($fugr['DEVCLASS'])) ? GLOBAL_ABAP_ICON::getIcon4OtypeDEVC() : '' ?>
                                 <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Devc($fugr['DEVCLASS'], '') ?> </td>
-                            <td class="alv"><?php echo (GLOBAL_UTIL::IsNotEmpty($fugr['COMPONENT'])) ? GLOBAL_ABAP_ICON::getIcon4OtypeCVERS() : '' ?>
+                            <td class="sapds-alv"><?php echo (GLOBAL_UTIL::IsNotEmpty($fugr['COMPONENT'])) ? GLOBAL_ABAP_ICON::getIcon4OtypeCVERS() : '' ?>
                                 <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Cvers($fugr['COMPONENT'], '') ?>&nbsp;</td>
-                            <td class="alv"><?php echo htmlspecialchars($prog_desc) ?> &nbsp; </td>
+                            <td class="sapds-alv"><?php echo htmlspecialchars($prog_desc) ?> &nbsp; </td>
                         </tr>
                     <?php } ?>
                 </table>                

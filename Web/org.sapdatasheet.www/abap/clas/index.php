@@ -28,14 +28,17 @@ $index_counter_list = ABAP_UI_Buffer_Index::ZBUFFER_INDEX_COUNTER(GLOBAL_ABAP_OT
 <!-- ABAP OO Class index. -->
 <html>
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-        <link rel="stylesheet" href="/abap.css" type="text/css" />
         <title><?php echo $GLOBALS['TITLE_TEXT'] ?> <?php echo GLOBAL_WEBSITE_SAPDS::TITLE ?> </title>
-        <meta name="keywords" content="SAP,ABAP,<?php echo GLOBAL_ABAP_OTYPE::CLAS_DESC ?>" />
-        <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC ?>" />
         <meta name="author" content="SAP Datasheet" />
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC ?>" />
+        <meta name="keywords" content="SAP,ABAP,<?php echo GLOBAL_ABAP_OTYPE::CLAS_DESC ?>" />
+
+        <link rel="stylesheet" type="text/css"  href="/3rdparty/bootstrap/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css"  href="/sapdatasheet.css"/>
     </head>
     <body>
 
@@ -87,18 +90,18 @@ $index_counter_list = ABAP_UI_Buffer_Index::ZBUFFER_INDEX_COUNTER(GLOBAL_ABAP_OT
                 <?php } ?>
 
                 <h4> <?php echo GLOBAL_ABAP_OTYPE::CLAS_DESC ?> - <?php echo $index ?></h4>
-                <table class="alv">
+                <table class="sapds-alv">
                     <tr>
-                        <th class="alv"> # </th>
-                        <th class="alv"> Class Name </th>
-                        <th class="alv"> Short Description </th>
-                        <th class="alv"> Package </th>
+                        <th class="sapds-alv"> # </th>
+                        <th class="sapds-alv"> Class Name </th>
+                        <th class="sapds-alv"> Short Description </th>
+                        <th class="sapds-alv"> Package </th>
                     </tr>
                     <tr>
-                        <th class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_SEO::SEOCLASS_CLSNAME_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_SEO::SEOCLASSTX_DESCRIPT_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_HIER::TADIR_DEVCLASS_DTEL, '?') ?></th>
+                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
+                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_SEO::SEOCLASS_CLSNAME_DTEL, '?') ?></th>
+                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_SEO::SEOCLASSTX_DESCRIPT_DTEL, '?') ?></th>
+                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_HIER::TADIR_DEVCLASS_DTEL, '?') ?></th>
                     </tr>
                     <?php
                     $count = 0;
@@ -107,11 +110,11 @@ $index_counter_list = ABAP_UI_Buffer_Index::ZBUFFER_INDEX_COUNTER(GLOBAL_ABAP_OT
                         $clas_tx = ABAP_DB_TABLE_SEO::SEOCLASSTX($clas['CLSNAME']);
                         $tadir = ABAP_DB_TABLE_HIER::TADIR(ABAP_DB_TABLE_HIER::TADIR_PGMID_R3TR, GLOBAL_ABAP_OTYPE::CLAS_NAME, $clas['CLSNAME']);
                         ?>
-                        <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                            <td class="alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeCLAS() ?>
+                        <tr><td class="sapds-alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                            <td class="sapds-alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeCLAS() ?>
                                 <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Clas($clas['CLSNAME'], $clas_tx) ?></td>
-                            <td class="alv"><?php echo $clas_tx ?></td>
-                            <td class="alv"><?php echo (GLOBAL_UTIL::IsNotEmpty($tadir['DEVCLASS'])) ? GLOBAL_ABAP_ICON::getIcon4OtypeDEVC() : '' ?>
+                            <td class="sapds-alv"><?php echo $clas_tx ?></td>
+                            <td class="sapds-alv"><?php echo (GLOBAL_UTIL::IsNotEmpty($tadir['DEVCLASS'])) ? GLOBAL_ABAP_ICON::getIcon4OtypeDEVC() : '' ?>
                                 <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Devc($tadir['DEVCLASS'], NULL) ?>&nbsp;</td>
                         </tr>
                     <?php } ?>

@@ -34,14 +34,18 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::SQLT_NAME
 <!-- DDIC Cluster/Pool table object. -->
 <html>
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-        <link rel="stylesheet" href="/abap.css" type="text/css" />
         <title><?php echo $GLOBALS['TITLE_TEXT'] . GLOBAL_WEBSITE_SAPDS::TITLE ?> </title>
-        <meta name="keywords" content="SAP,<?php echo GLOBAL_ABAP_OTYPE::SQLT_DESC ?>,<?php echo $sqlt_sqlcalss_desc ?>,<?php echo $sqlt['SQLTAB'] ?>,<?php echo $sqlt_desc ?>" />
-        <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC; ?>" />
         <meta name="author" content="SAP Datasheet" />
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC; ?>" />
+        <meta name="keywords" content="SAP,<?php echo GLOBAL_ABAP_OTYPE::SQLT_DESC ?>,<?php echo $sqlt_sqlcalss_desc ?>,<?php echo $sqlt['SQLTAB'] ?>,<?php echo $sqlt_desc ?>" />
+
+        <link rel="stylesheet" type="text/css"  href="/3rdparty/bootstrap/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css"  href="/sapdatasheet.css"/>
+
         <script type="application/ld+json"><?php echo $json_ld->toJson() ?></script>
     </head>
     <body>
@@ -53,22 +57,22 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::SQLT_NAME
         <div class="left">
             <h5>&nbsp;</h5>
             <h5>Object Hierarchy</h5>
-            <table class="content_obj">
+            <table>
                 <tbody>
-                    <tr><td class="left_attribute">Software Component</td></tr>
-                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeCVERS() ?>
+                    <tr><td>Software Component</td></tr>
+                    <tr><td><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeCVERS() ?>
                         <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
-                    <tr><td class="left_attribute"> Application Component ID</td></tr>
-                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeBMFR() ?>
+                    <tr><td> Application Component ID</td></tr>
+                    <tr><td><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeBMFR() ?>
                         <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
-                    <tr><td class="left_attribute"> Package </td></tr>
-                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDEVC() ?>
+                    <tr><td> Package </td></tr>
+                    <tr><td><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDEVC() ?>
                         <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Devc($hier->DEVCLASS, $hier->DEVCLASS_T) ?></td></tr>
-                    <tr><td class="left_attribute"> Object type </td></tr>
-                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeSQLT() ?>
+                    <tr><td> Object type </td></tr>
+                    <tr><td><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeSQLT() ?>
                             <a href="/abap/sqlt/"><?php echo $sqlt_sqlcalss_desc; ?></a></td></tr>
-                    <tr><td class="left_attribute"> Object name </td></tr>
-                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeSQLT() ?>
+                    <tr><td> Object name </td></tr>
+                    <tr><td><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeSQLT() ?>
                             <a href="#" title="<?php echo $sqlt_desc ?>"><?php echo $sqlt['SQLTAB'] ?></a> </td></tr>
                 </tbody>
             </table>
@@ -97,26 +101,26 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::SQLT_NAME
 
                 <?php require $__ROOT__ . '/include/abap_oname_hier.php' ?>
 
-                <h4> Basic Data </h4>
-                <table class="content_obj">
+                <h5 class="pt-4"> Basic Data </h5>
+                <table>
                     <tbody>
-                        <tr><td class="content_label"> Category              </td><td class="field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_TABL::DD06L_SQLCLASS_DOMAIN, $sqlt['SQLCLASS'], $sqlt_sqlcalss_desc) ?> &nbsp;</td><td><?php echo $sqlt_sqlcalss_desc ?>&nbsp;</td></tr>
-                        <tr><td class="content_label"> <?php echo $sqlt_sqlcalss_desc; ?> </td><td class="field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Sqlt($sqlt['SQLTAB'], $sqlt_desc) ?> &nbsp;</td><td>&nbsp;</td></tr>
-                        <tr><td class="content_label"> Short Description     </td><td class="field"> <?php echo htmlentities($sqlt_desc) ?> &nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td class="sapds-gui-label"> Category              </td><td class="sapds-gui-field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_TABL::DD06L_SQLCLASS_DOMAIN, $sqlt['SQLCLASS'], $sqlt_sqlcalss_desc) ?> &nbsp;</td><td><?php echo $sqlt_sqlcalss_desc ?>&nbsp;</td></tr>
+                        <tr><td class="sapds-gui-label"> <?php echo $sqlt_sqlcalss_desc; ?> </td><td class="sapds-gui-field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Sqlt($sqlt['SQLTAB'], $sqlt_desc) ?> &nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td class="sapds-gui-label"> Short Description     </td><td class="sapds-gui-field"> <?php echo htmlentities($sqlt_desc) ?> &nbsp;</td><td>&nbsp;</td></tr>
                     </tbody>
                 </table>
 
                 <!-- Components -->
                 <h4> Components </h4>
-                <table class="alv">
+                <table class="sapds-alv">
                     <thead>
-                        <tr><th class="alv">#</th>
-                            <th class="alv">Field name</th>
-                            <th class="alv">Key</th>
-                            <th class="alv">Data type</th>
-                            <th class="alv">Length</th>
-                            <th class="alv">Internal type</th>
-                            <th class="alv">Internal length</th>
+                        <tr><th class="sapds-alv">#</th>
+                            <th class="sapds-alv">Field name</th>
+                            <th class="sapds-alv">Key</th>
+                            <th class="sapds-alv">Data type</th>
+                            <th class="sapds-alv">Length</th>
+                            <th class="sapds-alv">Internal type</th>
+                            <th class="sapds-alv">Internal length</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -125,14 +129,14 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::SQLT_NAME
                         foreach ($dd16s as $dd16s_item) { 
                             $count++;
                             ?>
-                            <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                                <td class="alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDTF() ?>
+                            <tr><td class="sapds-alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                                <td class="sapds-alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDTF() ?>
                                     <?php echo $dd16s_item['FIELDNAME'] ?></td>
-                                <td class="alv"><?php echo ABAP_UI_TOOL::GetCheckBox($dd16s_item['FIELDNAME'], $dd16s_item['KEYFLAG']) ?></td>
-                                <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_DATATYPE, $dd16s_item['DATATYPE'], '') ?></td>
-                                <td class="alv"><?php echo intval($dd16s_item['LENG']) ?></td>
-                                <td class="alv"><?php echo $dd16s_item['INTTYPE'] ?></td>
-                                <td class="alv"><?php echo intval($dd16s_item['INTLEN']) ?></td>
+                                <td class="sapds-alv"><?php echo ABAP_UI_TOOL::GetCheckBox($dd16s_item['FIELDNAME'], $dd16s_item['KEYFLAG']) ?></td>
+                                <td class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_DATATYPE, $dd16s_item['DATATYPE'], '') ?></td>
+                                <td class="sapds-alv"><?php echo intval($dd16s_item['LENG']) ?></td>
+                                <td class="sapds-alv"><?php echo $dd16s_item['INTTYPE'] ?></td>
+                                <td class="sapds-alv"><?php echo intval($dd16s_item['INTLEN']) ?></td>
                             </tr>
                         <?php } ?>
                     </tbody>
@@ -140,11 +144,11 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::SQLT_NAME
 
                 <!-- Contained table -->
                 <h4> Contained table </h4>
-                <table class="alv">
+                <table class="sapds-alv">
                     <thead>
-                        <tr><th class="alv">Table name</th>
-                            <th class="alv">Short description</th>
-                            <th class="alv">Date of Last Change</th></tr>
+                        <tr><th class="sapds-alv">Table name</th>
+                            <th class="sapds-alv">Short description</th>
+                            <th class="sapds-alv">Date of Last Change</th></tr>
                     </thead>
                     <tbody>
                         <?php
@@ -153,20 +157,20 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::SQLT_NAME
                             $dd02l_sqlt_item_desc = ABAP_DB_TABLE_TABL::DD02T($dd02l_sqlt_item['TABNAME']);
                             ?>
                             <tr>
-                                <td class="alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeTABL() ?>
+                                <td class="sapds-alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeTABL() ?>
                                     <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tabl($dd02l_sqlt_item['TABNAME'], $dd02l_sqlt_item_desc) ?></td>
-                                <td class="alv"><?php echo htmlentities($dd02l_sqlt_item_desc) ?></td>
-                                <td class="alv"><?php echo $dd02l_sqlt_item['AS4DATE'] ?></td>
+                                <td class="sapds-alv"><?php echo htmlentities($dd02l_sqlt_item_desc) ?></td>
+                                <td class="sapds-alv"><?php echo $dd02l_sqlt_item['AS4DATE'] ?></td>
                             </tr>
                         <?php } ?>
                     </tbody>
                 </table>
 
                 <h4> History </h4>
-                <table class="content_obj">
+                <table>
                     <tbody>
-                        <tr><td class="content_label"> Last changed by/on      </td><td class="field"><?php echo $sqlt['AS4USER'] ?>&nbsp;</td><td> <?php echo $sqlt['AS4DATE'] ?>&nbsp;</td></tr>
-                        <tr><td class="content_label"> SAP Release Created in  </td><td class="field"><?php echo $hier->CRELEASE ?>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td class="sapds-gui-label"> Last changed by/on      </td><td class="sapds-gui-field"><?php echo $sqlt['AS4USER'] ?>&nbsp;</td><td> <?php echo $sqlt['AS4DATE'] ?>&nbsp;</td></tr>
+                        <tr><td class="sapds-gui-label"> SAP Release Created in  </td><td class="sapds-gui-field"><?php echo $hier->CRELEASE ?>&nbsp;</td><td>&nbsp;</td></tr>
                     </tbody>
                 </table>
 

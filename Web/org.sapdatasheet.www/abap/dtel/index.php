@@ -28,14 +28,17 @@ $index_counter_list = ABAP_UI_Buffer_Index::ZBUFFER_INDEX_COUNTER(GLOBAL_ABAP_OT
 <!-- DDIC Data Element index. -->
 <html>
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-        <link rel="stylesheet" href="/abap.css" type="text/css" />
         <title><?php echo $GLOBALS['TITLE_TEXT'] ?> <?php echo GLOBAL_WEBSITE_SAPDS::TITLE ?> </title>
-        <meta name="keywords" content="SAP,ABAP,<?php echo GLOBAL_ABAP_OTYPE::DTEL_DESC ?>" />
-        <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC ?>" />
         <meta name="author" content="SAP Datasheet" />
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC ?>" />
+        <meta name="keywords" content="SAP,ABAP,<?php echo GLOBAL_ABAP_OTYPE::DTEL_DESC ?>" />
+
+        <link rel="stylesheet" type="text/css"  href="/3rdparty/bootstrap/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css"  href="/sapdatasheet.css"/>
     </head>
     <body>
 
@@ -87,20 +90,20 @@ $index_counter_list = ABAP_UI_Buffer_Index::ZBUFFER_INDEX_COUNTER(GLOBAL_ABAP_OT
                 <?php } ?>
 
                 <h4> <?php echo GLOBAL_ABAP_OTYPE::DTEL_DESC ?> - <?php echo $index ?></h4>
-                <table class="alv">
+                <table class="sapds-alv">
                     <tr>
-                        <th class="alv"> # </th>
-                        <th class="alv"> Data Element </th>
-                        <th class="alv"> Short Description </th>
-                        <th class="alv"> Domain </th>
-                        <th class="alv"> Data Type </th>
+                        <th class="sapds-alv"> # </th>
+                        <th class="sapds-alv"> Data Element </th>
+                        <th class="sapds-alv"> Short Description </th>
+                        <th class="sapds-alv"> Domain </th>
+                        <th class="sapds-alv"> Data Type </th>
                     </tr>
                     <tr>
-                        <th class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_DTEL::DD04L_ROLLNAME_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_DTEL::DD04T_DDTEXT_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_DTEL::DD04L_DOMNAME_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_DTEL::DD04L_DATATYPE_DTEL, '?') ?></th>
+                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
+                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_DTEL::DD04L_ROLLNAME_DTEL, '?') ?></th>
+                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_DTEL::DD04T_DDTEXT_DTEL, '?') ?></th>
+                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_DTEL::DD04L_DOMNAME_DTEL, '?') ?></th>
+                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_DTEL::DD04L_DATATYPE_DTEL, '?') ?></th>
                     </tr>
                     <?php
                     $count = 0;
@@ -108,13 +111,13 @@ $index_counter_list = ABAP_UI_Buffer_Index::ZBUFFER_INDEX_COUNTER(GLOBAL_ABAP_OT
                         $count++;
                         $dd04l_item_t = ABAP_DB_TABLE_DTEL::DD04T($dd04l_item['ROLLNAME']);
                         ?>
-                        <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                            <td class="alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDTEL() ?>
+                        <tr><td class="sapds-alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                            <td class="sapds-alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDTEL() ?>
                                 <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Dtel($dd04l_item['ROLLNAME'], $dd04l_item_t) ?> </td>
-                            <td class="alv"><?php echo htmlentities($dd04l_item_t) ?></td>
-                            <td class="alv"><?php echo (GLOBAL_UTIL::IsNotEmpty($dd04l_item['DOMNAME'])) ? GLOBAL_ABAP_ICON::getIcon4OtypeDOMA() : '' ?>
+                            <td class="sapds-alv"><?php echo htmlentities($dd04l_item_t) ?></td>
+                            <td class="sapds-alv"><?php echo (GLOBAL_UTIL::IsNotEmpty($dd04l_item['DOMNAME'])) ? GLOBAL_ABAP_ICON::getIcon4OtypeDOMA() : '' ?>
                                 <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Doma($dd04l_item['DOMNAME'], '') ?> </td>
-                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_DATATYPE, $dd04l_item['DATATYPE'], '') ?>&nbsp;</td>
+                            <td class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_DATATYPE, $dd04l_item['DATATYPE'], '') ?>&nbsp;</td>
                         </tr>
                     <?php } ?>
                 </table>

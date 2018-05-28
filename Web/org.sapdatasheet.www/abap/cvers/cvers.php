@@ -52,7 +52,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::CVERS_NAM
                 <div  class="col-xl-2 col-lg-2 col-md-3  col-sm-3    bd-sidebar bg-light">
                     <!-- Left Side bar -->
                     <h6 class="pt-4">Object Hierarchy</h6>
-                    <table class="content_obj">
+                    <table>
                         <tbody>
                             <tr><td><small><strong>Software Component</strong></small></td></tr>
                             <tr><td><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeCVERS() ?>
@@ -79,7 +79,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::CVERS_NAM
                             ?>
                         </tbody>
                     </table>
-                    
+
                     <?php require $__ROOT__ . '/include/abap_ads_side.php' ?>
                 </div><!-- End - Left Side bar -->
 

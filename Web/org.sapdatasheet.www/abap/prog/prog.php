@@ -43,14 +43,18 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::PROG_NAME
 <!-- Program object. -->
 <html>
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-        <link rel="stylesheet" href="/abap.css" type="text/css" />
         <title><?php echo $GLOBALS['TITLE_TEXT'] . GLOBAL_WEBSITE_SAPDS::TITLE ?> </title>
-        <meta name="keywords" content="SAP,<?php echo GLOBAL_ABAP_OTYPE::PROG_DESC ?>,<?php echo $prog['PROGNAME'] ?>,<?php echo $prog_desc ?>" />
+`        <meta name="author" content="SAP Datasheet" />
         <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC; ?>" />
-        <meta name="author" content="SAP Datasheet" />
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="keywords" content="SAP,<?php echo GLOBAL_ABAP_OTYPE::PROG_DESC ?>,<?php echo $prog['PROGNAME'] ?>,<?php echo $prog_desc ?>" />
+
+        <link rel="stylesheet" type="text/css"  href="/3rdparty/bootstrap/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css"  href="/sapdatasheet.css"/>
+ 
         <script type="application/ld+json"><?php echo $json_ld->toJson() ?></script>
     </head>
     <body>
@@ -62,22 +66,22 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::PROG_NAME
         <div class="left">
             <h5>&nbsp;</h5>
             <h5>Object Hierarchy</h5>
-            <table class="content_obj">
+            <table>
                 <tbody>
-                    <tr><td class="left_attribute">Software Component</td></tr>
-                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeCVERS() ?>
+                    <tr><td>Software Component</td></tr>
+                    <tr><td><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeCVERS() ?>
                             <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Cvers($hier->DLVUNIT, $hier->DLVUNIT_T) ?>&nbsp;</td></tr>
-                    <tr><td class="left_attribute"> Application Component</td></tr>
-                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeBMFR() ?>
+                    <tr><td> Application Component</td></tr>
+                    <tr><td><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeBMFR() ?>
                             <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
-                    <tr><td class="left_attribute"> Package </td></tr>
-                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDEVC() ?>
+                    <tr><td> Package </td></tr>
+                    <tr><td><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDEVC() ?>
                             <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Devc($hier->DEVCLASS, $hier->DEVCLASS_T) ?></td></tr>
-                    <tr><td class="left_attribute"> Object type </td></tr>
-                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypePROG() ?>
+                    <tr><td> Object type </td></tr>
+                    <tr><td><?php echo GLOBAL_ABAP_ICON::getIcon4OtypePROG() ?>
                             <a href="/abap/prog/"><?php echo GLOBAL_ABAP_OTYPE::PROG_DESC ?></a></td></tr>
-                    <tr><td class="left_attribute"> Object name </td></tr>
-                    <tr><td class="left_value"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypePROG() ?>
+                    <tr><td> Object name </td></tr>
+                    <tr><td><?php echo GLOBAL_ABAP_ICON::getIcon4OtypePROG() ?>
                             <a href="#" title="<?php echo $prog_desc ?>"><?php echo $prog['PROGNAME'] ?></a> </td></tr>
                 </tbody>
             </table>
@@ -106,51 +110,51 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::PROG_NAME
 
                 <?php require $__ROOT__ . '/include/abap_oname_hier.php' ?>
 
-                <h4> Basic data </h4>
-                <table class="content_obj">
+                <h5 class="pt-4"> Basic Data </h5>
+                <table>
                     <tbody>
-                        <tr><td class="content_label"> Program </td>
-                            <td class="field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Prog($prog['PROGNAME'], $prog_desc); ?> </td>
+                        <tr><td class="sapds-gui-label"> Program </td>
+                            <td class="sapds-gui-field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Prog($prog['PROGNAME'], $prog_desc); ?> </td>
                             <td> <?php echo $prog_desc ?> &nbsp;</td>
                         </tr>
-                        <tr><td class="content_label"> Program Type </td>
-                            <td class="field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_REPOSRC_SUBC, $prog['SUBC'], $reposrc_subc_desc); ?> </td>
+                        <tr><td class="sapds-gui-label"> Program Type </td>
+                            <td class="sapds-gui-field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_REPOSRC_SUBC, $prog['SUBC'], $reposrc_subc_desc); ?> </td>
                             <td> <?php echo htmlentities($reposrc_subc_desc) ?> &nbsp;</td>
                         </tr>
                     </tbody>
                 </table>
 
                 <h4> Attributes </h4>
-                <table class="content_obj">
+                <table>
                     <tbody>
-                        <tr><td class="content_label"> Status </td>
-                            <td class="field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_REPOSRC_RSTAT, $prog['RSTAT'], $reposrc_rstat_desc); ?> </td>
+                        <tr><td class="sapds-gui-label"> Status </td>
+                            <td class="sapds-gui-field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_REPOSRC_RSTAT, $prog['RSTAT'], $reposrc_rstat_desc); ?> </td>
                             <td> <?php echo htmlentities($reposrc_rstat_desc) ?> &nbsp;</td>
                         </tr>
-                        <tr><td class="content_label"> Application </td>
-                            <td class="field"> <?php echo $prog['APPL'] ?> </td>
+                        <tr><td class="sapds-gui-label"> Application </td>
+                            <td class="sapds-gui-field"> <?php echo $prog['APPL'] ?> </td>
                             <td> <?php echo htmlentities($reposrc_appl_desc) ?> &nbsp;</td>
                         </tr>
-                        <tr><td class="content_label"> Authorization Group </td>
-                            <td class="field"> <?php echo $prog['SECU'] ?> </td> <!-- TODO: Add link -->
+                        <tr><td class="sapds-gui-label"> Authorization Group </td>
+                            <td class="sapds-gui-field"> <?php echo $prog['SECU'] ?> </td> <!-- TODO: Add link -->
                             <td> &nbsp;</td>
                         </tr>
-                        <tr><td class="content_label"> Logical database </td>
-                            <td class="field"> <?php echo $prog['LDBNAME'] ?> </td> <!-- TODO: Add link -->
+                        <tr><td class="sapds-gui-label"> Logical database </td>
+                            <td class="sapds-gui-field"> <?php echo $prog['LDBNAME'] ?> </td> <!-- TODO: Add link -->
                             <td> <?php echo htmlentities($reposrc_ldbname_desc) ?> &nbsp;</td>
                         </tr>
-                        <tr><td class="content_label">Selection screen </td>
-                            <td class="field"> <?php echo $prog['TYPE'] ?> </td>
+                        <tr><td class="sapds-gui-label">Selection screen </td>
+                            <td class="sapds-gui-field"> <?php echo $prog['TYPE'] ?> </td>
                             <td> &nbsp;</td>
                         </tr>
                         <tr>
-                            <td class="content_label"> <?php echo ABAP_UI_TOOL::GetCheckBox("PROG", $prog['EDTX']) ?> Editor lock </td>
-                            <td class="content_label"> <?php echo ABAP_UI_TOOL::GetCheckBox("PROG", $prog['FIXPT']) ?> Fixed point arithmetic </td>
+                            <td class="sapds-gui-label"> <?php echo ABAP_UI_TOOL::GetCheckBox("PROG", $prog['EDTX']) ?> Editor lock </td>
+                            <td class="sapds-gui-label"> <?php echo ABAP_UI_TOOL::GetCheckBox("PROG", $prog['FIXPT']) ?> Fixed point arithmetic </td>
                             <td> &nbsp;</td>
                         </tr>
                         <tr>
-                            <td class="content_label"> <?php echo ABAP_UI_TOOL::GetCheckBox("PROG", $prog['UCCHECK']) ?> Unicode checks active</td>
-                            <td class="content_label"> <?php echo ABAP_UI_TOOL::GetCheckBox("PROG", $prog['SSET']) ?> Start using variant </td>
+                            <td class="sapds-gui-label"> <?php echo ABAP_UI_TOOL::GetCheckBox("PROG", $prog['UCCHECK']) ?> Unicode checks active</td>
+                            <td class="sapds-gui-label"> <?php echo ABAP_UI_TOOL::GetCheckBox("PROG", $prog['SSET']) ?> Start using variant </td>
                             <td> &nbsp;</td>
                         </tr>
                     </tbody>
@@ -162,12 +166,12 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::PROG_NAME
                     $tfdir_list = ABAP_DB_TABLE_FUNC::TFDIR_PGMNA($prog['PROGNAME']);
                     ?>
                     <h4>Function Group </h4>
-                    <table class="alv">
+                    <table class="sapds-alv">
                         <thead>
-                            <tr><th class="alv"> Include </th>
-                                <th class="alv"> Function Module </th>
-                                <th class="alv"> Short Description </th>
-                                <th class="alv"> Mode </th>
+                            <tr><th class="sapds-alv"> Include </th>
+                                <th class="sapds-alv"> Function Module </th>
+                                <th class="sapds-alv"> Short Description </th>
+                                <th class="sapds-alv"> Mode </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -176,18 +180,18 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::PROG_NAME
                                 $tfdir_desc = ABAP_DB_TABLE_FUNC::TFTIT($tfdir['FUNCNAME']);
                                 ?>
                                 <tr>
-                                    <td class="alv"> <?php echo $tfdir['INCLUDE'] ?> &nbsp;</td>
-                                    <td class="alv"> <?php echo GLOBAL_ABAP_ICON::getIcon4OtypeFUNC() ?>
+                                    <td class="sapds-alv"> <?php echo $tfdir['INCLUDE'] ?> &nbsp;</td>
+                                    <td class="sapds-alv"> <?php echo GLOBAL_ABAP_ICON::getIcon4OtypeFUNC() ?>
                                         <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Func($tfdir['FUNCNAME'], $tfdir_desc) ?> &nbsp;</td>
-                                    <td class="alv"> <?php echo htmlentities($tfdir_desc) ?> &nbsp;</td>
-                                    <td class="alv"> <?php echo $tfdir['FMODE'] ?> &nbsp;</td>
+                                    <td class="sapds-alv"> <?php echo htmlentities($tfdir_desc) ?> &nbsp;</td>
+                                    <td class="sapds-alv"> <?php echo $tfdir['FMODE'] ?> &nbsp;</td>
                                 </tr>
                             <?php } ?>
                             <tr>
-                                <td class="alv"> &nbsp; </td>
-                                <td class="alv"> &nbsp; </td>
-                                <td class="alv"> &nbsp; </td>
-                                <td class="alv"> &nbsp; </td>
+                                <td class="sapds-alv"> &nbsp; </td>
+                                <td class="sapds-alv"> &nbsp; </td>
+                                <td class="sapds-alv"> &nbsp; </td>
+                                <td class="sapds-alv"> &nbsp; </td>
                             </tr>
                         </tbody>
                     </table>
@@ -197,12 +201,12 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::PROG_NAME
                 <!-- Transaction Code -->
                 <h4>Transaction Code </h4>
                 <?php if (count($tcode_list) > 0) { ?>
-                    <table class="alv">
-                        <caption>Transactions reference to this program</caption>
+                    <table class="sapds-alv">
+                        <caption class="sapds-alv">Transactions reference to this program</caption>
                         <tr>
-                            <th class="alv"> # </th>
-                            <th class="alv"> Transaction Code </th>
-                            <th class="alv"> Short Description </th>
+                            <th class="sapds-alv"> # </th>
+                            <th class="sapds-alv"> Transaction Code </th>
+                            <th class="sapds-alv"> Short Description </th>
                         </tr>                        
                         <?php
                         $count = 0;
@@ -210,20 +214,20 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::PROG_NAME
                             $count++;
                             $tcode_desc = ABAP_DB_TABLE_TRAN::TSTCT($tcode['TCODE']);
                             ?>
-                            <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                                <td class="alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeTRAN() ?>
+                            <tr><td class="sapds-alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                                <td class="sapds-alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeTRAN() ?>
                                     <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tran($tcode['TCODE'], $tcode_desc) ?></td>
-                                <td class="alv"><?php echo htmlentities($tcode_desc) ?>&nbsp;</td>
+                                <td class="sapds-alv"><?php echo htmlentities($tcode_desc) ?>&nbsp;</td>
                             </tr>
                         <?php } ?>
-                        <tr><td class="alv">&nbsp;</td>
-                            <td class="alv">&nbsp;</td>
-                            <td class="alv">&nbsp;</td>
+                        <tr><td class="sapds-alv">&nbsp;</td>
+                            <td class="sapds-alv">&nbsp;</td>
+                            <td class="sapds-alv">&nbsp;</td>
                         </tr>
                     </table>
                 <?php } else { ?>
-                    <table class="alv">
-                        <caption>There is no transaction reference to this program &nbsp;</caption>
+                    <table class="sapds-alv">
+                        <caption class="sapds-alv">There is no transaction reference to this program &nbsp;</caption>
                     </table>
                 <?php } ?>
                 <!-- Transaction Code: End -->
@@ -231,11 +235,11 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::PROG_NAME
                 <!-- Screen -->
                 <?php if (count($dynr_list) > 0) { ?>
                     <h4>Screens </h4>
-                    <table class="alv">
+                    <table class="sapds-alv">
                         <tr>
-                            <th class="alv"> # </th>
-                            <th class="alv"> Screen </th>
-                            <th class="alv"> Short Description </th>
+                            <th class="sapds-alv"> # </th>
+                            <th class="sapds-alv"> Screen </th>
+                            <th class="sapds-alv"> Short Description </th>
                         </tr>
                         <?php
                         $count = 0;
@@ -243,14 +247,14 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::PROG_NAME
                             $count++;
                             $dynr_desc = ABAP_DB_TABLE_PROG::D020T($prog['PROGNAME'], $dynr['DNUM']);
                             ?>
-                            <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                                <td class="alv"><?php echo $dynr['DNUM'] ?>&nbsp;</td>
-                                <td class="alv"><?php echo htmlentities($dynr_desc) ?>&nbsp;</td>
+                            <tr><td class="sapds-alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                                <td class="sapds-alv"><?php echo $dynr['DNUM'] ?>&nbsp;</td>
+                                <td class="sapds-alv"><?php echo htmlentities($dynr_desc) ?>&nbsp;</td>
                             </tr>
                         <?php } ?>
-                        <tr><td class="alv">&nbsp;</td>
-                            <td class="alv">&nbsp;</td>
-                            <td class="alv">&nbsp;</td>
+                        <tr><td class="sapds-alv">&nbsp;</td>
+                            <td class="sapds-alv">&nbsp;</td>
+                            <td class="sapds-alv">&nbsp;</td>
                         </tr>
                     </table>
                 <?php } ?>
@@ -260,60 +264,60 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::PROG_NAME
                 <?php $rsmptexts_list_status = ABAP_DB_TABLE_PROG::RSMPTEXTS($prog['PROGNAME'], ABAP_DB_CONST::DOMAINVALUE_MP_OBJTYPE_C); ?>
                 <?php if (count($rsmptexts_list_status) > 0) { ?>
                     <h4>GUI Status </h4>
-                    <table class="alv">
+                    <table class="sapds-alv">
                         <tr>
-                            <th class="alv"> # </th>
-                            <th class="alv"> GUI Status </th>
-                            <th class="alv"> Short Description </th>
+                            <th class="sapds-alv"> # </th>
+                            <th class="sapds-alv"> GUI Status </th>
+                            <th class="sapds-alv"> Short Description </th>
                         </tr>
                         <?php
                         $count = 0;
                         foreach ($rsmptexts_list_status as $rsmptexts) {
                             $count++;
                             ?>
-                            <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                                <td class="alv"><?php echo $rsmptexts['OBJ_CODE'] ?>&nbsp;</td>
-                                <td class="alv"><?php echo htmlentities($rsmptexts['TEXT']) ?>&nbsp;</td>
+                            <tr><td class="sapds-alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                                <td class="sapds-alv"><?php echo $rsmptexts['OBJ_CODE'] ?>&nbsp;</td>
+                                <td class="sapds-alv"><?php echo htmlentities($rsmptexts['TEXT']) ?>&nbsp;</td>
                             </tr>
                         <?php } ?>
-                        <tr><td class="alv">&nbsp;</td>
-                            <td class="alv">&nbsp;</td>
-                            <td class="alv">&nbsp;</td>
+                        <tr><td class="sapds-alv">&nbsp;</td>
+                            <td class="sapds-alv">&nbsp;</td>
+                            <td class="sapds-alv">&nbsp;</td>
                         </tr>
                     </table>
                 <?php } ?>
                 <?php $rsmptexts_list_title = ABAP_DB_TABLE_PROG::RSMPTEXTS($prog['PROGNAME'], ABAP_DB_CONST::DOMAINVALUE_MP_OBJTYPE_T); ?>
                 <?php if (count($rsmptexts_list_title) > 0) { ?>
                     <h4>GUI Title </h4>
-                    <table class="alv">
+                    <table class="sapds-alv">
                         <tr>
-                            <th class="alv"> # </th>
-                            <th class="alv"> GUI Title </th>
-                            <th class="alv"> Short Description </th>
+                            <th class="sapds-alv"> # </th>
+                            <th class="sapds-alv"> GUI Title </th>
+                            <th class="sapds-alv"> Short Description </th>
                         </tr>
                         <?php
                         $count = 0;
                         foreach ($rsmptexts_list_title as $rsmptexts) {
                             $count++;
                             ?>
-                            <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                                <td class="alv"><?php echo $rsmptexts['OBJ_CODE'] ?>&nbsp;</td>
-                                <td class="alv"><?php echo htmlentities($rsmptexts['TEXT']) ?>&nbsp;</td>
+                            <tr><td class="sapds-alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                                <td class="sapds-alv"><?php echo $rsmptexts['OBJ_CODE'] ?>&nbsp;</td>
+                                <td class="sapds-alv"><?php echo htmlentities($rsmptexts['TEXT']) ?>&nbsp;</td>
                             </tr>
                         <?php } ?>
-                        <tr><td class="alv">&nbsp;</td>
-                            <td class="alv">&nbsp;</td>
-                            <td class="alv">&nbsp;</td>
+                        <tr><td class="sapds-alv">&nbsp;</td>
+                            <td class="sapds-alv">&nbsp;</td>
+                            <td class="sapds-alv">&nbsp;</td>
                         </tr>
                     </table>
                 <?php } ?>
                 <!-- Report Texts: End  -->
 
                 <h4> History </h4>
-                <table class="content_obj">
+                <table>
                     <tbody>
-                        <tr><td class="content_label"> Last changed by/on      </td><td class="field"><?php echo $prog['CNAM'] ?>&nbsp;</td><td> <?php echo $prog['CDAT'] ?>&nbsp;</td></tr>
-                        <tr><td class="content_label"> SAP Release Created in  </td><td class="field"><?php echo $hier->CRELEASE ?>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td class="sapds-gui-label"> Last changed by/on      </td><td class="sapds-gui-field"><?php echo $prog['CNAM'] ?>&nbsp;</td><td> <?php echo $prog['CDAT'] ?>&nbsp;</td></tr>
+                        <tr><td class="sapds-gui-label"> SAP Release Created in  </td><td class="sapds-gui-field"><?php echo $hier->CRELEASE ?>&nbsp;</td><td>&nbsp;</td></tr>
                     </tbody>
                 </table>
             </div>

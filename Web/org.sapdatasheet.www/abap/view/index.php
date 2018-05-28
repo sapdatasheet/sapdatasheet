@@ -28,14 +28,17 @@ $index_counter_list = ABAP_UI_Buffer_Index::ZBUFFER_INDEX_COUNTER(GLOBAL_ABAP_OT
 <!-- DDIC View index. -->
 <html>
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-        <link rel="stylesheet" href="/abap.css" type="text/css" />
         <title><?php echo $GLOBALS['TITLE_TEXT'] ?> <?php echo GLOBAL_WEBSITE_SAPDS::TITLE ?> </title>
-        <meta name="keywords" content="SAP,ABAP,<?php echo GLOBAL_ABAP_OTYPE::VIEW_DESC ?>" />
-        <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC ?>" />
         <meta name="author" content="SAP Datasheet" />
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC ?>" />
+        <meta name="keywords" content="SAP,ABAP,<?php echo GLOBAL_ABAP_OTYPE::VIEW_DESC ?>" />
+
+        <link rel="stylesheet" type="text/css"  href="/3rdparty/bootstrap/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css"  href="/sapdatasheet.css"/>
     </head>
     <body>
 
@@ -88,20 +91,20 @@ $index_counter_list = ABAP_UI_Buffer_Index::ZBUFFER_INDEX_COUNTER(GLOBAL_ABAP_OT
 
 
                 <h4> <?php echo GLOBAL_ABAP_OTYPE::VIEW_DESC ?> - <?php echo $index ?></h4>
-                <table class="alv">
+                <table class="sapds-alv">
                     <tr>
-                        <th class="alv"> # </th>
-                        <th class="alv"> View Name </th>
-                        <th class="alv"> Short Description </th>
-                        <th class="alv"> View Type </th>
-                        <th class="alv"> Basis Table </th>
+                        <th class="sapds-alv"> # </th>
+                        <th class="sapds-alv"> View Name </th>
+                        <th class="sapds-alv"> Short Description </th>
+                        <th class="sapds-alv"> View Type </th>
+                        <th class="sapds-alv"> Basis Table </th>
                     </tr>
                     <tr>
-                        <th class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_VIEW::DD25L_VIEWNAME_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_VIEW::DD25T_DDTEXT_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_VIEW::DD25L_VIEWCLASS_DTEL, '?') ?></th>
-                        <th class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_VIEW::DD25L_ROOTTAB_DTEL, '?') ?></th>
+                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL, '?') ?></th>
+                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_VIEW::DD25L_VIEWNAME_DTEL, '?') ?></th>
+                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_VIEW::DD25T_DDTEXT_DTEL, '?') ?></th>
+                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_VIEW::DD25L_VIEWCLASS_DTEL, '?') ?></th>
+                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_VIEW::DD25L_ROOTTAB_DTEL, '?') ?></th>
                     </tr>
                     <?php
                     $count = 0;
@@ -109,12 +112,12 @@ $index_counter_list = ABAP_UI_Buffer_Index::ZBUFFER_INDEX_COUNTER(GLOBAL_ABAP_OT
                         $count++;
                         $dd25l_desc = ABAP_DB_TABLE_VIEW::DD25T($dd25l['VIEWNAME']);
                         ?>
-                        <tr><td class="alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
-                            <td class="alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeVIEW() ?>
+                        <tr><td class="sapds-alv" style="text-align: right;"><?php echo number_format($count) ?> </td>
+                            <td class="sapds-alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeVIEW() ?>
                                 <?php echo ABAP_UI_DS_Navigation::GetHyperlink4View($dd25l['VIEWNAME'], $dd25l_desc) ?> </td>
-                            <td class="alv"><?php echo htmlentities($dd25l_desc) ?></td>
-                            <td class="alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_DD25L_VIEWCLASS, $dd25l['VIEWCLASS'], '') ?> </td>
-                            <td class="alv"><?php echo (GLOBAL_UTIL::IsNotEmpty($dd25l['ROOTTAB'])) ? GLOBAL_ABAP_ICON::getIcon4OtypeTABL() : '' ?>
+                            <td class="sapds-alv"><?php echo htmlentities($dd25l_desc) ?></td>
+                            <td class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_DD25L_VIEWCLASS, $dd25l['VIEWCLASS'], '') ?> </td>
+                            <td class="sapds-alv"><?php echo (GLOBAL_UTIL::IsNotEmpty($dd25l['ROOTTAB'])) ? GLOBAL_ABAP_ICON::getIcon4OtypeTABL() : '' ?>
                                 <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tabl($dd25l['ROOTTAB'], '') ?>&nbsp;</td></tr>
                         <?php } ?>
                 </table>
