@@ -27,68 +27,77 @@ $dd06l = ABAP_DB_TABLE_TABL::DD06L_List();
         <link rel="stylesheet" type="text/css"  href="/sapdatasheet.css"/>
     </head>
     <body>
-
         <!-- Header -->
         <?php require $__ROOT__ . '/include/header.php' ?>
 
-        <!-- Left -->
-        <?php require $__ROOT__ . '/include/abap_index_left.php' ?>
-
-        <!-- Content -->
-        <div class="content">
-            <!-- Content Navigator -->
-            <div class="content_navi">
-                <a href="/"><?php echo GLOBAL_ABAP_ICON::getIcon4Home() ?> Home page</a> &gt; 
-                <a href="/abap/">ABAP Object</a> &gt; 
-                <a href="/abap/sqlt/"><?php echo GLOBAL_ABAP_OTYPE::SQLT_DESC ?></a> 
-            </div>
-
-            <!-- Content Object -->
-            <div class="content_obj_title"><span><?php echo $GLOBALS['TITLE_TEXT'] ?></span></div>
-            <div class="content_obj">        
-                <div>
-                    <?php include $__WS_ROOT__ . '/common-php/google/adsense-content-top.html' ?>
+        <div class="container-fluid">
+            <div class="row">
+                <div  class="col-xl-2 col-lg-2 col-md-3  col-sm-3    bd-sidebar bg-light">
+                    <!-- Left Side bar -->
+                    <?php require $__ROOT__ . '/include/abap_index_left.php' ?>
                 </div>
 
-                <h4> <?php echo GLOBAL_ABAP_OTYPE::SQLT_DESC ?> </h4>
-                <table class="table table-sm">
-                    <tr>
-                        <th class="sapds-alv"> # </th>
-                        <th class="sapds-alv"> Table Name </th>
-                        <th class="sapds-alv"> Short Description </th>
-                        <th class="sapds-alv"> Table Category </th>
-                        <th class="sapds-alv"> Created on </th>
-                    </tr>
-                    <tr>
-                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL) ?></th>
-                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_TABL::DD06L_SQLTAB_DTEL) ?></th>
-                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_TABL::DD06T_DDTEXT_DTEL) ?></th>
-                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_TABL::DD06L_SQLCLASS_DTEL) ?></th>
-                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_TABL::DD06L_AS4DATE_DTEL) ?></th>
-                    </tr>
-                    <?php
-                    $count = 0;
-                    foreach ($dd06l as $dd06l_item) {
-                        $count++;
-                        $dd06l_item_t = ABAP_DB_TABLE_TABL::DD06T($dd06l_item['SQLTAB']);
-                        $dd06l_sqlclass_t = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_TABL::DD06L_SQLCLASS_DOMAIN, $dd06l_item['SQLCLASS']);
-                        ?>
-                        <tr><td class="sapds-alv text-right"><?php echo number_format($count) ?> </td>
-                            <td class="sapds-alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeSQLT() ?>
-                                <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Sqlt($dd06l_item['SQLTAB'], $dd06l_item_t) ?> </td>
-                            <td class="sapds-alv"><?php echo htmlentities($dd06l_item_t) ?></td>
-                            <td class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_TABL::DD06L_SQLCLASS_DOMAIN, $dd06l_item['SQLCLASS'], $dd06l_sqlclass_t) ?></td>
-                            <td class="sapds-alv"><?php echo $dd06l_item['AS4DATE'] ?></td>
-                        </tr>
-                        <?php } ?>
-                </table>
+                <main class="col-xl-8 col-lg-8 col-md-6  col-sm-9    col-12 bd-content" role="main">
+                    <nav class="pt-3" aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/"><?php echo GLOBAL_ABAP_ICON::getIcon4Home() ?> Home</a></li>
+                            <li class="breadcrumb-item"><a href="/abap/">ABAP Object Types</a></li>
+                            <li class="breadcrumb-item active"><a href="/abap/sqlt/"><?php echo GLOBAL_ABAP_OTYPE::SQLT_DESC ?></a></li>
+                        </ol>
+                    </nav>
 
-            </div>
-        </div><!-- Content: End -->        
+                    <div class="card shadow">
+                        <div class="card-header sapds-card-header"><?php echo $GLOBALS['TITLE_TEXT'] ?></div>
+                        <div class="card-body table-responsive sapds-card-body">
+                            <div><?php include $__WS_ROOT__ . '/common-php/google/adsense-content-top.html' ?></div>
+
+                            <h5 class="pt-2"> <?php echo GLOBAL_ABAP_OTYPE::SQLT_DESC ?> </h5>
+                            <table class="table table-sm">
+                                <tr>
+                                    <th class="sapds-alv"> # </th>
+                                    <th class="sapds-alv"> Table Name </th>
+                                    <th class="sapds-alv"> Short Description </th>
+                                    <th class="sapds-alv"> Table Category </th>
+                                    <th class="sapds-alv"> Created on </th>
+                                </tr>
+                                <tr>
+                                    <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL) ?></th>
+                                    <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_TABL::DD06L_SQLTAB_DTEL) ?></th>
+                                    <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_TABL::DD06T_DDTEXT_DTEL) ?></th>
+                                    <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_TABL::DD06L_SQLCLASS_DTEL) ?></th>
+                                    <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_TABL::DD06L_AS4DATE_DTEL) ?></th>
+                                </tr>
+                                <?php
+                                $count = 0;
+                                foreach ($dd06l as $dd06l_item) {
+                                    $count++;
+                                    $dd06l_item_t = ABAP_DB_TABLE_TABL::DD06T($dd06l_item['SQLTAB']);
+                                    $dd06l_sqlclass_t = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_TABL::DD06L_SQLCLASS_DOMAIN, $dd06l_item['SQLCLASS']);
+                                    ?>
+                                    <tr><td class="sapds-alv text-right"><?php echo number_format($count) ?> </td>
+                                        <td class="sapds-alv"><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeSQLT() ?>
+                                            <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Sqlt($dd06l_item['SQLTAB'], $dd06l_item_t) ?> </td>
+                                        <td class="sapds-alv"><?php echo htmlentities($dd06l_item_t) ?></td>
+                                        <td class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_TABL::DD06L_SQLCLASS_DOMAIN, $dd06l_item['SQLCLASS'], $dd06l_sqlclass_t) ?></td>
+                                        <td class="sapds-alv"><?php echo $dd06l_item['AS4DATE'] ?></td>
+                                    </tr>
+                                <?php } ?>
+                            </table>
+
+                        </div> 
+                    </div><!-- End Card -->
+                </main>
+
+                <div  class="col-xl-2 col-lg-2 d-md-3    col-sm-none" >
+                    <!-- Right Side bar -->
+                    <?php require $__ROOT__ . '/include/abap_relatedlinks.php' ?>
+                </div>
+            </div><!-- End of row -->
+            <hr>
+        </div><!-- End container-fluid, main content -->
 
         <!-- Footer -->
         <?php require $__ROOT__ . '/include/footer.php' ?>
-
     </body>
 </html>
 <?php
