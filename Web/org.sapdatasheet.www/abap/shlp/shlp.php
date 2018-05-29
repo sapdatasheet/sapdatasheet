@@ -177,45 +177,45 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::SHLP_NAME
                         </tr>
                         <tr><td class="sapds-gui-label"> Selection Method</td>
                             <td class="sapds-gui-field"><?php echo $dd30l_selmethod_url ?>&nbsp;</td>
-                            <td><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_SHLP::DD30L_SELMETHOD_DTEL, '?') ?> &nbsp;
+                            <td><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_SHLP::DD30L_SELMETHOD_DTEL) ?> &nbsp;
                                 <?php echo $dd30l_selmethod_t ?>&nbsp; 
                             </td>
                         </tr>
                         <tr><td class="sapds-gui-label"> Text Table</td>
                             <td class="sapds-gui-field"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tabl($dd30l['TEXTTAB'], $dd30l_texttab_t) ?>&nbsp;</td>
-                            <td><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_SHLP::DD30L_TEXTTAB_DTEL, '?') ?> &nbsp;
+                            <td><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_SHLP::DD30L_TEXTTAB_DTEL) ?> &nbsp;
                                 <?php echo $dd30l_texttab_t ?>&nbsp; 
                             </td>
                         </tr>
                         <tr><td class="sapds-gui-label"> Dialog Type </td>
                             <td class="sapds-gui-field"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_SHLP::DD30L_DIALOGTYPE_DOMAIN, $dd30l['DIALOGTYPE'], $dd30l_DDSHDIATYP_t) ?>&nbsp;</td>
-                            <td><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_SHLP::DD30L_DIALOGTYPE_DTEL, '?') ?> &nbsp;
+                            <td><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_SHLP::DD30L_DIALOGTYPE_DTEL) ?> &nbsp;
                                 <?php echo $dd30l_DDSHDIATYP_t ?> 
                             </td>
                         </tr>
                         <tr><td class="sapds-gui-label"> Hot Key</td>
                             <td class="sapds-gui-field"><?php echo $dd30l['AS4USER'] ?>&nbsp;</td>
-                            <td><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_SHLP::DD30L_HOTKEY_DTEL, '?') ?>&nbsp; </td>
+                            <td><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_SHLP::DD30L_HOTKEY_DTEL) ?>&nbsp; </td>
                         </tr>
                         <tr><td class="sapds-gui-label"> Proposal Search for Input Fields </td>
                             <td class="sapds-gui-field"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_SHLP::DD30L_AUTOSUGGEST_DOMAIN, $dd30l['AUTOSUGGEST'], $dd30l_AUTOSUGGEST_t)  ?>&nbsp;</td>
-                            <td><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_SHLP::DD30L_AUTOSUGGEST_DTEL, '?') ?>&nbsp; 
+                            <td><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_SHLP::DD30L_AUTOSUGGEST_DTEL) ?>&nbsp; 
                                 <?php echo $dd30l_AUTOSUGGEST_t ?>
                             </td>
                         </tr>
                         <tr><td class="sapds-gui-label"> Full Text Fuzzy Search (Database-Specific) </td>
                             <td class="sapds-gui-field"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_SHLP::DD30L_FUZZY_SEARCH_DOMAIN, $dd30l['FUZZY_SEARCH'], $dd30l_FUZZY_SEARCH_t)  ?>&nbsp;</td>
-                            <td><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_SHLP::DD30L_FUZZY_SEARCH_DTEL, '?') ?>&nbsp; 
+                            <td><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_SHLP::DD30L_FUZZY_SEARCH_DTEL) ?>&nbsp; 
                                 <?php echo $dd30l_FUZZY_SEARCH_t ?>
                             </td>
                         </tr>
                         <tr><td class="sapds-gui-label"> Accuracy Value for Error-Tolerant Full Text Search </td>
                             <td class="sapds-gui-field"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_SHLP::DD30L_FUZZY_SIMILARITY_DOMAIN, $dd30l['FUZZY_SIMILARITY'], $dd30l['FUZZY_SIMILARITY'])  ?>&nbsp;</td>
-                            <td><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_SHLP::DD30L_FUZZY_SIMILARITY_DTEL, '?') ?>&nbsp; </td>
+                            <td><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_SHLP::DD30L_FUZZY_SIMILARITY_DTEL) ?>&nbsp; </td>
                         </tr>
                         <tr><td class="sapds-gui-label"> Search Help Exit </td>
                             <td class="sapds-gui-field"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Func($dd30l['SELMEXIT'], $dd30l_selmexit_t) ?>&nbsp;</td>
-                            <td><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_SHLP::DD30L_SELMEXIT_DTEL, '?') ?> &nbsp; 
+                            <td><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_SHLP::DD30L_SELMEXIT_DTEL) ?> &nbsp; 
                                 <?php echo $dd30l_selmexit_t ?>&nbsp; 
                             </td>
                         </tr>
@@ -240,16 +240,16 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::SHLP_NAME
                     </tr>
                     <tr>
                         <th class="sapds-alv"> &nbsp; </th>
-                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument('SHLPFIELD', '?') ?></th>
-                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument('SHLPINPUT', '?') ?></th>
-                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument('SHLPOUTPUT', '?') ?></th>
-                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument('SHLPLISPOS', '?') ?></th>
-                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument('SHLPSELPOS', '?') ?></th>
-                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument('SHLPSELDIS', '?') ?></th>
-                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument('MCNOUPPER', '?') ?></th>
-                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument('SHLPSPARDE', '?') ?></th>
+                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument('SHLPFIELD') ?></th>
+                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument('SHLPINPUT') ?></th>
+                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument('SHLPOUTPUT') ?></th>
+                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument('SHLPLISPOS') ?></th>
+                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument('SHLPSELPOS') ?></th>
+                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument('SHLPSELDIS') ?></th>
+                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument('MCNOUPPER') ?></th>
+                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument('SHLPSPARDE') ?></th>
                         <th class="sapds-alv"> &nbsp; </th>
-                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument('DDSHDEFVAL', '?') ?></th>
+                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument('DDSHDEFVAL') ?></th>
                     </tr>
                     <?php
                     foreach ($dd32s_list as $dd32s) {

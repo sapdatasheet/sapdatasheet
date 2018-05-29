@@ -98,274 +98,279 @@ class GLOBAL_ABAP_ICON {
     const PARAMETER_TABLE = 's_b_part.gif';
     const RFC = 's_clbltr.gif';
     const SAPGUI = 's_logsap.gif';
+    const SYSTEM_HELP = 's_f_help.gif';
     const TIME = 's_t_time.gif';
     const WHERE_USED_LIST = 's_b_book.gif';
     const WHERE_USING_LIST = 's_assign.gif';
     const WORK_CENTER = 's_b_work.gif';
 
-    public static function getIcon4Abap($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::ABAP, $url);
+    public static function getIcon4Abap($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::ABAP, $fullUrl);
     }
 
-    public static function getIcon4Abaplocal($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::ABAPLOCAL, $url);
+    public static function getIcon4Abaplocal($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::ABAPLOCAL, $fullUrl);
     }
 
-    public static function getIcon4Alert($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::ALERT, $url);
+    public static function getIcon4Alert($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::ALERT, $fullUrl);
     }
 
-    public static function getIcon4Analytics($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::ANALYTICS, $url);
+    public static function getIcon4Analytics($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::ANALYTICS, $fullUrl);
     }
 
-    public static function getIcon4Date($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::DATE, $url);
+    public static function getIcon4Date($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::DATE, $fullUrl);
     }
 
-    public static function getIcon4Description($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::DESCRIPTION, $url);
+    public static function getIcon4Description($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::DESCRIPTION, $fullUrl);
     }
 
-    public static function getIcon4DisplayMore($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::DISPLAY_MORE, $url);
+    public static function getIcon4DisplayMore($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::DISPLAY_MORE, $fullUrl);
     }
 
-    public static function getIcon4DisplayText($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::DISPLAY_TEXT, $url);
+    public static function getIcon4DisplayText($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::DISPLAY_TEXT, $fullUrl);
     }
 
-    public static function getIcon4DisplayTree($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::DISPLAY_TREE, $url);
+    public static function getIcon4DisplayTree($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::DISPLAY_TREE, $fullUrl);
     }
 
-    public static function getIcon4FilePDF($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::FILE_PDF, $url);
+    public static function getIcon4FilePDF($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::FILE_PDF, $fullUrl);
     }
 
-    public static function getIcon4FileXLSX($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::FILE_XLSX, $url);
+    public static function getIcon4FileXLSX($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::FILE_XLSX, $fullUrl);
     }
 
-    public static function getIcon4Folder($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::FOLDER, $url);
+    public static function getIcon4Folder($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::FOLDER, $fullUrl);
     }
 
-    public static function getIcon4Header($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::HEADER, $url);
+    public static function getIcon4Header($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::HEADER, $fullUrl);
     }
 
-    public static function getIcon4History($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::HISTORY, $url);
+    public static function getIcon4History($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::HISTORY, $fullUrl);
     }
 
-    public static function getIcon4Home($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::HOME, $url);
+    public static function getIcon4Home($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::HOME, $fullUrl);
     }
 
-    public static function getIcon4LightGreen($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::LIGHT_GREEN, $url);
+    public static function getIcon4LightGreen($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::LIGHT_GREEN, $fullUrl);
     }
 
-    public static function getIcon4LightOut($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::LIGHT_OUT, $url);
+    public static function getIcon4LightOut($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::LIGHT_OUT, $fullUrl);
     }
 
-    public static function getIcon4LightRed($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::LIGHT_RED, $url);
+    public static function getIcon4LightRed($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::LIGHT_RED, $fullUrl);
     }
 
-    public static function getIcon4LightYellow($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::LIGHT_YELLOW, $url);
+    public static function getIcon4LightYellow($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::LIGHT_YELLOW, $fullUrl);
     }
 
-    public static function getIcon4NamePrefix($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::NAMEPREFIX, $url);
+    public static function getIcon4NamePrefix($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::NAMEPREFIX, $fullUrl);
     }
 
-    public static function getIcon4OOClassAttribute($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OO_CLASS_ATTRIBUTE, $url);
+    public static function getIcon4OOClassAttribute($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OO_CLASS_ATTRIBUTE, $fullUrl);
     }
 
-    public static function getIcon4OOClassEvent($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OO_CLASS_EVENT, $url);
+    public static function getIcon4OOClassEvent($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OO_CLASS_EVENT, $fullUrl);
     }
 
-    public static function getIcon4OOClassMethod($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OO_CLASS_METHOD, $url);
+    public static function getIcon4OOClassMethod($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OO_CLASS_METHOD, $fullUrl);
     }
 
-    public static function getIcon4OOConnection($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OO_CONNECTION, $url);
+    public static function getIcon4OOConnection($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OO_CONNECTION, $fullUrl);
     }
 
-    public static function getIcon4OOConstant($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OO_CONSTANT, $url);
+    public static function getIcon4OOConstant($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OO_CONSTANT, $fullUrl);
     }
 
-    public static function getIcon4OOEvent($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OO_EVENT, $url);
+    public static function getIcon4OOEvent($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OO_EVENT, $fullUrl);
     }
 
-    public static function getIcon4OOInheritance($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OO_INHERITANCE, $url);
+    public static function getIcon4OOInheritance($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OO_INHERITANCE, $fullUrl);
     }
 
-    public static function getIcon4Order($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::ORDER, $url);
+    public static function getIcon4Order($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::ORDER, $fullUrl);
     }
 
-    public static function getIcon4Otype($otype, $url = FALSE) {
+    public static function getIcon4Otype($otype, $fullUrl = FALSE) {
         if (array_key_exists(strtoupper($otype), GLOBAL_ABAP_ICON::$_METHOD_OTYPES)) {
             $methodName = GLOBAL_ABAP_ICON::_METHOD_PREFIX_OTYPE . $otype;
-            return GLOBAL_ABAP_ICON::$methodName($url);
+            return GLOBAL_ABAP_ICON::$methodName($fullUrl);
         } else {
-            return GLOBAL_ABAP_ICON::getIcon4Abap($url);
+            return GLOBAL_ABAP_ICON::getIcon4Abap($fullUrl);
         }
     }
 
-    public static function getIcon4OtypeBMFR($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_BMFR, $url);
+    public static function getIcon4OtypeBMFR($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_BMFR, $fullUrl);
     }
 
-    public static function getIcon4OtypeCLAS($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_CLAS, $url);
+    public static function getIcon4OtypeCLAS($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_CLAS, $fullUrl);
     }
 
-    public static function getIcon4OtypeCUS0($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_CUS0, $url);
+    public static function getIcon4OtypeCUS0($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_CUS0, $fullUrl);
     }
 
-    public static function getIcon4OtypeCVERS($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_CVERS, $url);
+    public static function getIcon4OtypeCVERS($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_CVERS, $fullUrl);
     }
 
-    public static function getIcon4OtypeDEVC($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_DEVC, $url);
+    public static function getIcon4OtypeDEVC($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_DEVC, $fullUrl);
     }
 
-    public static function getIcon4OtypeDOMA($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_DOMA, $url);
+    public static function getIcon4OtypeDOMA($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_DOMA, $fullUrl);
     }
 
-    public static function getIcon4OtypeDTEL($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_DTEL, $url);
+    public static function getIcon4OtypeDTEL($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_DTEL, $fullUrl);
     }
 
-    public static function getIcon4OtypeDTF($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_DTF, $url);
+    public static function getIcon4OtypeDTF($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_DTF, $fullUrl);
     }
 
-    public static function getIcon4OtypeFUGR($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_FUGR, $url);
+    public static function getIcon4OtypeFUGR($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_FUGR, $fullUrl);
     }
 
-    public static function getIcon4OtypeFUNC($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_FUNC, $url);
+    public static function getIcon4OtypeFUNC($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_FUNC, $fullUrl);
     }
 
-    public static function getIcon4OtypeINTF($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_INTF, $url);
+    public static function getIcon4OtypeINTF($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_INTF, $fullUrl);
     }
 
-    public static function getIcon4OtypeMENU($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_MENU, $url);
+    public static function getIcon4OtypeMENU($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_MENU, $fullUrl);
     }
 
-    public static function getIcon4OtypeMSAG($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_MSAG, $url);
+    public static function getIcon4OtypeMSAG($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_MSAG, $fullUrl);
     }
 
-    public static function getIcon4OtypeNN($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_NN, $url);
+    public static function getIcon4OtypeNN($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_NN, $fullUrl);
     }
 
-    public static function getIcon4OtypeOM($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_OM, $url);
+    public static function getIcon4OtypeOM($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_OM, $fullUrl);
     }
 
-    public static function getIcon4OtypePFCG($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_PFCG, $url);
+    public static function getIcon4OtypePFCG($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_PFCG, $fullUrl);
     }
 
-    public static function getIcon4OtypePROG($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_PROG, $url);
+    public static function getIcon4OtypePROG($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_PROG, $fullUrl);
     }
 
-    public static function getIcon4OtypeRZ10($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_RZ10, $url);
+    public static function getIcon4OtypeRZ10($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_RZ10, $fullUrl);
     }
 
-    public static function getIcon4OtypeSEOC($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_SEOC, $url);
+    public static function getIcon4OtypeSEOC($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_SEOC, $fullUrl);
     }
 
-    public static function getIcon4OtypeSHLP($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_SHLP, $url);
+    public static function getIcon4OtypeSHLP($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_SHLP, $fullUrl);
     }
 
-    public static function getIcon4OtypeSQLT($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_SQLT, $url);
+    public static function getIcon4OtypeSQLT($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_SQLT, $fullUrl);
     }
 
-    public static function getIcon4OtypeSU21($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_SU21, $url);
+    public static function getIcon4OtypeSU21($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_SU21, $fullUrl);
     }
 
-    public static function getIcon4OtypeTABL($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_TABL, $url);
+    public static function getIcon4OtypeTABL($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_TABL, $fullUrl);
     }
 
-    public static function getIcon4OtypeTRAN($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_TRAN, $url);
+    public static function getIcon4OtypeTRAN($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_TRAN, $fullUrl);
     }
 
-    public static function getIcon4OtypeVIEW($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_VIEW, $url);
+    public static function getIcon4OtypeVIEW($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OTYPE_VIEW, $fullUrl);
     }
 
-    public static function getIcon4Parameter($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::PARAMETER, $url);
+    public static function getIcon4Parameter($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::PARAMETER, $fullUrl);
     }
 
-    public static function getIcon4ParameterChanging($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::PARAMETER_CHANGING, $url);
+    public static function getIcon4ParameterChanging($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::PARAMETER_CHANGING, $fullUrl);
     }
 
-    public static function getIcon4ParameterExport($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::PARAMETER_EXPORT, $url);
+    public static function getIcon4ParameterExport($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::PARAMETER_EXPORT, $fullUrl);
     }
 
-    public static function getIcon4ParameterImport($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::PARAMETER_IMPORT, $url);
+    public static function getIcon4ParameterImport($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::PARAMETER_IMPORT, $fullUrl);
     }
 
-    public static function getIcon4ParameterResult($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::PARAMETER_RESULT, $url);
+    public static function getIcon4ParameterResult($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::PARAMETER_RESULT, $fullUrl);
     }
 
-    public static function getIcon4ParameterTable($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::PARAMETER_TABLE, $url);
+    public static function getIcon4ParameterTable($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::PARAMETER_TABLE, $fullUrl);
     }
 
-    public static function getIcon4Rfc($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::RFC, $url);
+    public static function getIcon4Rfc($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::RFC, $fullUrl);
     }
 
-    public static function getIcon4Sapgui($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::SAPGUI, $url);
+    public static function getIcon4Sapgui($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::SAPGUI, $fullUrl);
     }
 
-    public static function getIcon4Time($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::TIME, $url);
+    public static function getIcon4SystemHelp($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::SYSTEM_HELP, $fullUrl);
+    }
+    
+    public static function getIcon4Time($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::TIME, $fullUrl);
     }
 
-    public static function getIcon4WIL($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::WHERE_USING_LIST, $url);
+    public static function getIcon4WIL($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::WHERE_USING_LIST, $fullUrl);
     }
 
-    public static function getIcon4WUL($url = FALSE) {
-        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::WHERE_USED_LIST, $url);
+    public static function getIcon4WUL($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::WHERE_USED_LIST, $fullUrl);
     }
 
     /**
@@ -376,8 +381,8 @@ class GLOBAL_ABAP_ICON {
      *   <img src='https://www.sapdatasheet.org/abap/icon/s_b_area.gif'>
      * </pre>
      */
-    public static function getIconLink($fname, $url = FALSE) {
-        $location = GLOBAL_ABAP_ICON::getIconURL($fname, $url);
+    public static function getIconLink($fname, $fullUrl = FALSE) {
+        $location = GLOBAL_ABAP_ICON::getIconURL($fname, $fullUrl);
         return "<img src='" . $location . "'>";
     }
     
@@ -389,9 +394,9 @@ class GLOBAL_ABAP_ICON {
      *   'https://www.sapdatasheet.org/abap/icon/s_b_area.gif'
      * </pre>
      */
-    public static function getIconURL($fname, $url = FALSE){
+    public static function getIconURL($fname, $fullUrl = FALSE){
         $location = '/abap/icon/' . $fname;
-        if ($url == TRUE) {
+        if ($fullUrl == TRUE) {
             $location = GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG . $location;
         }
         return $location;

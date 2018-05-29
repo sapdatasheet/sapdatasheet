@@ -131,11 +131,18 @@ class ABAP_UI_DS_Navigation {
         } else {
             $sTitle = $linkTitle;
         }
+        
+        // Speical logic: for the F1 help filed, we will show an Image as the label, so no html escape needed
+        if ($linkTitle == ABAP_UI_CONST::LABEL_F1Help) {
+            $finalLabel = $linkLabel;
+        } else {
+            $finalLabel = htmlentities($linkLabel);
+        }
 
         $result = '<a href="' . strtolower($path)
                 . '" title="' . htmlentities($sTitle) . '" '
                 . $newWindow . '>'
-                . htmlentities($linkLabel) . '</a>';
+                . $finalLabel . '</a>';
         return $result;
     }
 
@@ -159,8 +166,8 @@ class ABAP_UI_DS_Navigation {
         return ABAP_UI_DS_Navigation::GetHyperlink(GLOBAL_ABAP_OTYPE::DTEL_NAME, $rollname, $rollname, $desc, $newwin);
     }
 
-    public static function GetHyperlink4DtelDocument($rollname = NULL, $label = '?', $newwin = TRUE) {
-        return ABAP_UI_DS_Navigation::GetHyperlink(GLOBAL_ABAP_OTYPE::DTEL_NAME, $rollname, $label, ABAP_UI_CONST::LABEL_F1Help, $newwin, ABAP_UI_CONST::ANCHOR_DOCUMENT);
+    public static function GetHyperlink4DtelDocument($rollname = NULL, $newwin = TRUE) {
+        return ABAP_UI_DS_Navigation::GetHyperlink(GLOBAL_ABAP_OTYPE::DTEL_NAME, $rollname, GLOBAL_ABAP_ICON::getIcon4SystemHelp(), ABAP_UI_CONST::LABEL_F1Help, $newwin, ABAP_UI_CONST::ANCHOR_DOCUMENT);
     }
 
     public static function GetHyperlink4Func($fm, $desc = NULL, $newwin = TRUE) {
