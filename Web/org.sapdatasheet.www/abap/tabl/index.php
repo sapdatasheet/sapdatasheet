@@ -65,8 +65,9 @@ $index_counter_list = ABAP_UI_Buffer_Index::ZBUFFER_INDEX_COUNTER(GLOBAL_ABAP_OT
                         <div class="card-header sapds-card-header"><?php echo $GLOBALS['TITLE_TEXT'] ?></div>
                         <div class="card-body table-responsive sapds-card-body">
                             <div><?php include $__WS_ROOT__ . '/common-php/google/adsense-content-top.html' ?></div>
+                            <?php require $__ROOT__ . '/include/abap_desc_language.php' ?>
 
-                            <ul class="pagination pagination-sm pt-3">
+                            <ul class="pagination pagination-sm">
                                 <li class="page-item <?php echo ($index == ABAP_DB_CONST::DD02L_TABCLASS_CLUSTER) ? ' active' : '' ?>">
                                     <a class="page-link" href="index-<?php echo strtolower(ABAP_DB_CONST::DD02L_TABCLASS_CLUSTER) ?>.html"><?php echo ABAP_DB_CONST::DD02L_TABCLASS_CLUSTER ?></a></li>
                                 <li class="page-item <?php echo ($index == ABAP_DB_CONST::DD02L_TABCLASS_POOL) ? ' active' : '' ?>">

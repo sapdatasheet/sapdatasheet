@@ -97,8 +97,9 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::CVERS_NAM
                         <div class="card-header sapds-card-header"><?php echo $GLOBALS['TITLE_TEXT'] ?></div>
                         <div class="card-body table-responsive sapds-card-body">
                             <div><?php include $__WS_ROOT__ . '/common-php/google/adsense-content-top.html' ?></div>
+                            <?php require $__ROOT__ . '/include/abap_desc_language.php' ?>
 
-                            <h5 class="pt-4"> Basic Data </h5>
+                            <h5> Basic Data </h5>
                             <table>
                                 <tbody>
                                     <tr><td class="sapds-gui-label"> Software Component </td>

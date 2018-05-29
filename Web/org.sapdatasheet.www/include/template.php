@@ -41,8 +41,8 @@
                             <div class="align-content-start"><?php include $__WS_ROOT__ . '/common-php/google/adsense-content-top.html' ?></div>
                             <?php require $__ROOT__ . '/include/abap_desc_language.php' ?>
 
-                            <h5 class="pt-2"> Index </h5>
-                            <h5 class="pt-4"> Basic Data </h5>
+                            <h5> Index </h5>
+                            <h5> Basic Data </h5>
                             <table class="table table-sm">
                                 <tr><th class="sapds-alv"> # </th>
                                     <th class="sapds-alv"> AAA </th>

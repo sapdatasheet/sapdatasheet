@@ -50,8 +50,9 @@ $dd06l = ABAP_DB_TABLE_TABL::DD06L_List();
                         <div class="card-header sapds-card-header"><?php echo $GLOBALS['TITLE_TEXT'] ?></div>
                         <div class="card-body table-responsive sapds-card-body">
                             <div><?php include $__WS_ROOT__ . '/common-php/google/adsense-content-top.html' ?></div>
+                            <?php require $__ROOT__ . '/include/abap_desc_language.php' ?>
 
-                            <h5 class="pt-2"> <?php echo GLOBAL_ABAP_OTYPE::SQLT_DESC ?> </h5>
+                            <h5> <?php echo GLOBAL_ABAP_OTYPE::SQLT_DESC ?> </h5>
                             <table class="table table-sm">
                                 <tr>
                                     <th class="sapds-alv"> # </th>
