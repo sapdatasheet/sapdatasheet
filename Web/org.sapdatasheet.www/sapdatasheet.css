@@ -13,18 +13,11 @@ body {
     background-color:#FBFCFD;
 }
 
-/* Header */
-
-.sapds-header {
-    padding-top: 1em;
-    padding-right: 1em;
-    padding-bottom: 0.5em;
-    padding-left: 0.1em;
-}
+/* Heading */
 
 .sapds-slogan {
-    padding-top:10px;
-    padding-bottom:10px;
+    padding-top:5px;
+    padding-bottom:0px;
 }
 
 .sapds-menu {

@@ -84,8 +84,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::CVERS_NAM
                 </div><!-- End - Left Side bar -->
 
                 <main class="col-xl-8 col-lg-8 col-md-6  col-sm-9    col-12 bd-content" role="main">
-                    <br>
-                    <nav aria-label="breadcrumb">
+                    <nav class="pt-2" aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/"><?php echo GLOBAL_ABAP_ICON::getIcon4Home() ?> Home</a></li>
                             <li class="breadcrumb-item"><a href="/abap/">ABAP Object Types</a></li>

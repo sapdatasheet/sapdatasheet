@@ -50,7 +50,7 @@ $index_counter_list = ABAP_UI_Buffer_Index::ZBUFFER_INDEX_COUNTER(GLOBAL_ABAP_OT
                 </div>
 
                 <main class="col-xl-8 col-lg-8 col-md-6  col-sm-9    col-12 bd-content" role="main">
-                    <nav class="pt-3" aria-label="breadcrumb">
+                    <nav class="pt-2" aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/"><?php echo GLOBAL_ABAP_ICON::getIcon4Home() ?> Home</a></li>
                             <li class="breadcrumb-item"><a href="/abap/">ABAP Object Types</a></li>

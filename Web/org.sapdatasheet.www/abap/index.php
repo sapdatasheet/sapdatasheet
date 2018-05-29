@@ -51,8 +51,7 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP";
                         <div class="card-body table-responsive sapds-card-body">
                             <div><?php include $__WS_ROOT__ . '/common-php/google/adsense-content-top.html' ?></div>
 
-                            <br>
-                            <table class="table table-sm table-hover">
+                            <table class="table table-sm table-hover pt-2">
                                 <tr>
                                     <th class="sapds-alv"> # </th>
                                     <th class="sapds-alv"> Object Type </th>

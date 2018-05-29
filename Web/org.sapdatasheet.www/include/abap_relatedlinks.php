@@ -1,6 +1,5 @@
 <!-- Related Links at the page left -->
-<br>
-<h6>Related Links</h6>
+<h6 class="pt-4">Related Links</h6>
 <table>
     <tbody>
         <tr><td class="text-nowrap"><?php echo GLOBAL_ABAP_ICON::getIcon4FilePDF() ?>
@@ -12,6 +11,5 @@
     </tbody>
 </table>
 
-<br>
-<h6>Advertise Links</h6>
+<h6 class="pt-4">Advertise Links</h6>
 <?php include $__WS_ROOT__ . '/common-php/google/adsense-bottom.html' ?>

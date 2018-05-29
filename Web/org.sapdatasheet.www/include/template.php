@@ -38,7 +38,8 @@
                     <div class="card shadow">
                         <div class="card-header sapds-card-header">Header</div>
                         <div class="card-body table-responsive sapds-card-body">
-                            <div><?php include $__WS_ROOT__ . '/common-php/google/adsense-content-top.html' ?></div>
+                            <div class="align-content-start"><?php include $__WS_ROOT__ . '/common-php/google/adsense-content-top.html' ?></div>
+                            <?php require $__ROOT__ . '/include/abap_desc_language.php' ?>
 
                             <h5 class="pt-2"> Index </h5>
                             <h5 class="pt-4"> Basic Data </h5>

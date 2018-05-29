@@ -37,8 +37,8 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . GLOBAL_ABAP_OTYPE::CVERS_DESC;
                 </div>
 
                 <main class="col-xl-8 col-lg-8 col-md-6  col-sm-9    col-12 bd-content" role="main">
-                    <br>
-                    <nav aria-label="breadcrumb">
+
+                    <nav class="pt-2" aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/"><?php echo GLOBAL_ABAP_ICON::getIcon4Home() ?> Home</a></li>
                             <li class="breadcrumb-item"><a href="/abap/">ABAP Object Types</a></li>
@@ -49,9 +49,9 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . GLOBAL_ABAP_OTYPE::CVERS_DESC;
                     <div class="card shadow">
                         <div class="card-header sapds-card-header">SAP ABAP <?php echo GLOBAL_ABAP_OTYPE::CVERS_DESC ?></div>
                         <div class="card-body table-responsive sapds-card-body">
-                            <div><?php include $__WS_ROOT__ . '/common-php/google/adsense-content-top.html' ?></div>
+                            <div class="align-content-start"><?php include $__WS_ROOT__ . '/common-php/google/adsense-content-top.html' ?></div>
+                            <?php require $__ROOT__ . '/include/abap_desc_language.php' ?>
 
-                            <br>
                             <h5><?php echo GLOBAL_ABAP_OTYPE::CVERS_DESC ?></h5>
                             <table class="table table-sm table-hover">
                                 <tr>
@@ -88,7 +88,7 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . GLOBAL_ABAP_OTYPE::CVERS_DESC;
                             </table>
 
 
-                        </div> 
+                        </div>
                     </div><!-- End Card -->
                 </main>
 
