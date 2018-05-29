@@ -68,6 +68,8 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::BMFR_NAME
                                     <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Bmfr($hier->FCTR_ID, $hier->POSID, $hier->POSID_T) ?>&nbsp;</td></tr>
                         </tbody>
                     </table>
+
+                    <?php require $__ROOT__ . '/include/abap_ads_side.php' ?>
                 </div>
 
                 <main class="col-xl-8 col-lg-8 col-md-6  col-sm-9    col-12 bd-content" role="main">
@@ -84,8 +86,9 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::BMFR_NAME
                         <div class="card-header sapds-card-header"><?php echo $GLOBALS['TITLE_TEXT'] ?></div>
                         <div class="card-body table-responsive sapds-card-body">
                             <div><?php include $__WS_ROOT__ . '/common-php/google/adsense-content-top.html' ?></div>
+                            <?php require $__ROOT__ . '/include/abap_desc_language.php' ?>
 
-                            <h5 class="pt-4"> Basic Data </h5>
+                            <h5> Basic Data </h5>
                             <table><tbody>
                                     <tr><td class="sapds-gui-label"> Application Component    </td>
                                         <td><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeBMFR() ?></td>

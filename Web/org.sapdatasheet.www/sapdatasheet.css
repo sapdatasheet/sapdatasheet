@@ -92,3 +92,24 @@ td.sapds-gui-field {
     font-size:1em;
     padding:2px 7px 2px 7px;
 }
+
+/* Hierarchy Information Box */
+div.sapds-hier {
+    background-color:#F0F4F0;
+    border-style:groove;
+    padding-top:0.5em;
+    padding-left:0.5em;
+    padding-right:0.5em;
+    padding-bottom:0.5em;
+    font-size:small;
+}
+
+/* F1 Help Document Box */
+div.sapds-f1doc {
+    background-color:#FEFEEE;
+    border-style:groove;
+    padding-top:0.5em;
+    padding-left:0.5em;
+    padding-right:0.5em;
+    padding-bottom:1em;
+}

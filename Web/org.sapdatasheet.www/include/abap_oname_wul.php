@@ -1,5 +1,5 @@
 <?php if (isset($wil_enabled) && $wil_enabled) { ?>
-    <h5>Using</h5>
+<h6 class="pt-4">Using</h6>
     <table>
         <tbody>
             <?php if (empty($wil_counter_list) === FALSE) { ?>
@@ -14,7 +14,7 @@
     </table>
 <?php } ?>
 
-<h5>Used by</h5>
+<h6 class="pt-4">Used by</h6>
 <table>
     <tbody>
         <?php if (empty($wul_counter_list) === FALSE) { ?>
