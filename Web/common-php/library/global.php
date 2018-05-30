@@ -90,12 +90,13 @@ class GLOBAL_ABAP_ICON {
     const OTYPE_TABL = 's_b_tvar.gif';
     const OTYPE_TRAN = 's_b_exec.gif';
     const OTYPE_VIEW = 's_b_bwrv.gif';
-    const PARAMETER = 's_b_para.gif';
+    const PARAMETER = 's_x__eff.gif';
     const PARAMETER_CHANGING = 's_b_parc.gif';
     const PARAMETER_EXPORT = 's_b_pare.gif';
     const PARAMETER_IMPORT = 's_b_pari.gif';
     const PARAMETER_RESULT = 's_b_parr.gif';
     const PARAMETER_TABLE = 's_b_part.gif';
+    const PROCESS_TYPE = 's_roreso.gif';
     const RFC = 's_clbltr.gif';
     const SAPGUI = 's_logsap.gif';
     const SYSTEM_HELP = 's_f_help.gif';
@@ -347,6 +348,10 @@ class GLOBAL_ABAP_ICON {
 
     public static function getIcon4ParameterTable($fullUrl = FALSE) {
         return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::PARAMETER_TABLE, $fullUrl);
+    }
+
+    public static function getIcon4ProcessType($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::PROCESS_TYPE, $fullUrl);
     }
 
     public static function getIcon4Rfc($fullUrl = FALSE) {

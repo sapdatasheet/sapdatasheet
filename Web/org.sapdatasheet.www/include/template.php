@@ -31,7 +31,7 @@
                             <li class="breadcrumb-item"><a href="/"><?php echo GLOBAL_ABAP_ICON::getIcon4Home() ?> Home</a></li>
                             <li class="breadcrumb-item"><a href="/abap/">ABAP Object Types</a></li>
                             <li class="breadcrumb-item"></li>
-                            <li class="breadcrumb-item active"><a href="/abap/">ABAP Object Types</a></li>
+                            <li class="breadcrumb-item active"></li>
                         </ol>
                     </nav>
 
