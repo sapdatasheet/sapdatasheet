@@ -102,11 +102,11 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::CUS0_NAME
                         <div class="card-body table-responsive sapds-card-body">
                             <div class="align-content-start"><?php include $__WS_ROOT__ . '/common-php/google/adsense-content-top.html' ?></div>
                             <?php require $__ROOT__ . '/include/abap_desc_language.php' ?>
-
-
                             <?php require $__ROOT__ . '/include/abap_oname_hier.php' ?>
 
+                            <!-- TODO: to implement
                             <h5> IMG Tree </h5>
+                            -->
 
                             <h5 class="pt-4"><?php echo GLOBAL_ABAP_ICON::getIcon4Header() ?> IMG Activity </h5>
                             <table>

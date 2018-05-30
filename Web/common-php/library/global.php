@@ -41,23 +41,28 @@ class GLOBAL_ABAP_ICON {
     const ABAPLOCAL = 's_b_abal.gif';
     const ALERT = 's_b_alet.gif';
     const ANALYTICS = 's_b_area.gif';
+    const CONNECT = 's_connec.gif';
     const DATE = 's_t_date.gif';
     const DESCRIPTION = 's_wdvlab.gif';
     const DISPLAY_MORE = 's_bgmore.gif';
     const DISPLAY_TEXT = 's_b_txdp.gif';
     const DISPLAY_TREE = 's_distre.gif';
+    const FIELD = 's_simfld.gif';
     const FILE_PDF = 's_x__pdf.gif';
     const FILE_XLSX = 's_x__xlv.gif';
     const FOLDER = 's_folder.gif';
     const HEADER = 's_b_head.gif';
     const HISTORY = 's_b_rkhi.gif';
     const HOME = 's_b_life.gif';
+    const IINCLUDE = 's_incobj.gif';
     const LIGHT_GREEN = 's_s_tl_g.gif';
     const LIGHT_RED = 's_s_tl_r.gif';
     const LIGHT_OUT = 's_outlig.gif';
     const LIGHT_YELLOW = 's_s_tl_y.gif';
+    const MAINTENANCE_STATUS = 's_transl.gif';
     const NAMEPREFIX = 's_b_renm.gif';
     const OO_CLASS_ATTRIBUTE = 's_b_klat.gif';
+    const OO_CLASS_FRIENDS = 's_manfem.gif';
     const OO_CLASS_EVENT = 's_b_clev.gif';
     const OO_CLASS_METHOD = 's_b_klme.gif';
     const OO_CONNECTION = 's_b_conn.gif';
@@ -121,6 +126,10 @@ class GLOBAL_ABAP_ICON {
         return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::ANALYTICS, $fullUrl);
     }
 
+    public static function getIcon4Connect($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::CONNECT, $fullUrl);
+    }
+
     public static function getIcon4Date($fullUrl = FALSE) {
         return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::DATE, $fullUrl);
     }
@@ -139,6 +148,10 @@ class GLOBAL_ABAP_ICON {
 
     public static function getIcon4DisplayTree($fullUrl = FALSE) {
         return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::DISPLAY_TREE, $fullUrl);
+    }
+
+    public static function getIcon4Field($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::FIELD, $fullUrl);
     }
 
     public static function getIcon4FilePDF($fullUrl = FALSE) {
@@ -165,6 +178,10 @@ class GLOBAL_ABAP_ICON {
         return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::HOME, $fullUrl);
     }
 
+    public static function getIcon4Include ($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::IINCLUDE, $fullUrl);
+    }
+
     public static function getIcon4LightGreen($fullUrl = FALSE) {
         return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::LIGHT_GREEN, $fullUrl);
     }
@@ -180,6 +197,10 @@ class GLOBAL_ABAP_ICON {
     public static function getIcon4LightYellow($fullUrl = FALSE) {
         return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::LIGHT_YELLOW, $fullUrl);
     }
+    
+    public static function getIcon4MaintenanceStatus($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::MAINTENANCE_STATUS, $fullUrl);
+    }
 
     public static function getIcon4NamePrefix($fullUrl = FALSE) {
         return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::NAMEPREFIX, $fullUrl);
@@ -191,6 +212,10 @@ class GLOBAL_ABAP_ICON {
 
     public static function getIcon4OOClassEvent($fullUrl = FALSE) {
         return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OO_CLASS_EVENT, $fullUrl);
+    }
+
+    public static function getIcon4OOClassFriend($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::OO_CLASS_FRIENDS, $fullUrl);
     }
 
     public static function getIcon4OOClassMethod($fullUrl = FALSE) {
