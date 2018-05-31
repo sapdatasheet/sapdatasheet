@@ -178,18 +178,6 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::MSAG_NAME
             <hr>
         </div><!-- End container-fluid, main content -->
 
-
-
-        <!-- Content -->
-        <div class="content">
-            <div class="content_obj">
-                <div>
-                    <?php include $__WS_ROOT__ . '/common-php/google/adsense-content-top.html' ?>
-                </div>
-
-            </div>
-        </div>
-
         <!-- Footer -->
         <?php require $__ROOT__ . '/include/footer.php' ?>
 

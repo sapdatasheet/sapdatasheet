@@ -127,7 +127,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::VIEW_NAME
                             </table>
 
                             <?php if (!empty($dm25l['ENTID'])) { ?>
-                                <table  class="content_obj">
+                                <table class="table table-sm">
                                     <tbody>
                                         <tr><td class="sapds-gui-label">Entity Type</td><td class="sapds-gui-field"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tabl("DM02L", $dm25l['ENTID']) ?>&nbsp;</td></tr>
                                         <tr><td class="sapds-gui-label">Short text </td><td class="sapds-gui-field"><?php echo htmlentities($dm25l_entid_desc) ?></td></tr>
