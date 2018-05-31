@@ -367,47 +367,13 @@ class ABAP_UI_DS_Navigation {
      */
     public static function GetWilHyperlink($counter, $newwin = TRUE) {
         $newWindow = ($newwin === TRUE) ? 'target="_blank"' : '';
-        $linkLabel = GLOBAL_ABAP_OTYPE::getOTypeDesc($counter['SRC_OBJ_TYPE']);
-        $path = ABAP_UI_DS_Navigation::GetWilPath($counter);
+        $linkLabel = self::GetWilLabel($counter);
+        $path = self::GetWilPath($counter);
         return GLOBAL_ABAP_ICON::getIcon4Otype($counter['SRC_OBJ_TYPE']) .
                 ' <a href="' . $path . '" '
                 . 'title="' . htmlentities($linkLabel) . '" '
                 . $newWindow . ' >'
-                . $linkLabel
-                . ' (' . $counter['COUNTER'] . ')</a>';
-    }
-
-    public static function GetWilPath($counter) {
-        $path = '/wil/abap/'
-                . $counter['OBJ_TYPE']
-                . '/' . GLOBAL_UTIL::Clear4Url($counter['OBJ_NAME'])
-                . '/' . $counter['SRC_OBJ_TYPE']
-                . '.html';
-        return strtolower($path);
-    }
-
-    public static function GetWilURL($counter) {
-        return GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG . ABAP_UI_DS_Navigation::GetWilPath($counter);
-    }
-
-    /**
-     * Get URLs list for pages.
-     */
-    public static function GetWilPaths($oType, $oName, $srcOType, $counter) {
-        $paths = array();
-        if ($counter > ABAP_DB_CONST::MAX_ROWS_LIMIT) {
-            $pageCount = ceil($counter / ABAP_DB_CONST::MAX_ROWS_LIMIT);
-            for ($i = 1; $i <= $pageCount; $i++) {
-                $path = '/wil/abap/'
-                        . $oType
-                        . '/' . GLOBAL_UTIL::Clear4Url($oName)
-                        . '/' . $srcOType . '-' . $i
-                        . '.html';
-                array_push($paths, strtolower($path));
-            }
-        }
-
-        return $paths;
+                . $linkLabel . '</a>';
     }
 
     /**
@@ -430,51 +396,55 @@ class ABAP_UI_DS_Navigation {
         }
         return $result;
     }
+    
+    public static function GetWilLabel($counter) {
+        return GLOBAL_ABAP_OTYPE::getOTypeDesc($counter['SRC_OBJ_TYPE']) . ' (' . $counter['COUNTER'] . ')';
+    }
+
+    public static function GetWilPath($counter) {
+        $path = '/wil/abap/'
+                . $counter['OBJ_TYPE']
+                . '/' . GLOBAL_UTIL::Clear4Url($counter['OBJ_NAME'])
+                . '/' . $counter['SRC_OBJ_TYPE']
+                . '.html';
+        return strtolower($path);
+    }
 
     /**
-     * Get Where-Used-List URL.
+     * Get URLs list for pages.
      */
-    public static function GetWulHyperlink($counter, $newwin = TRUE) {
-        $newWindow = ($newwin === TRUE) ? 'target="_blank"' : '';
-        $linkLabel = GLOBAL_ABAP_OTYPE::getOTypeDesc($counter['OBJ_TYPE']);
-        $url = ABAP_UI_DS_Navigation::GetWulPath($counter);
-        return GLOBAL_ABAP_ICON::getIcon4Otype($counter['OBJ_TYPE'])
-                . ' <a href="' . $url . '" '
-                . 'title="' . htmlentities($linkLabel) . '" '
-                . $newWindow . ' >'
-                . $linkLabel . ' (' . $counter['COUNTER'] . ')</a>';
-    }
-
-    public static function GetWulPath($counter) {
-        $url_subobj = (strlen(trim($counter['SRC_SUBOBJ'])) > 0) ? '-' . GLOBAL_UTIL::Clear4Url($counter['SRC_SUBOBJ']) : '';
-        $url = '/wul/abap/'
-                . $counter['SRC_OBJ_TYPE']
-                . '/' . GLOBAL_UTIL::Clear4Url($counter['SRC_OBJ_NAME']) . $url_subobj
-                . '/' . $counter['OBJ_TYPE']
-                . '.html';
-        return strtolower($url);
-    }
-
-    public static function GetWulURL($counter) {
-        return GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG . ABAP_UI_DS_Navigation::GetWulPath($counter);
-    }
-
-    public static function GetWulPaths($srcOType, $srcOName, $srcSubobj, $oType, $counter) {
+    public static function GetWilPaths($oType, $oName, $srcOType, $counter) {
         $paths = array();
         if ($counter > ABAP_DB_CONST::MAX_ROWS_LIMIT) {
             $pageCount = ceil($counter / ABAP_DB_CONST::MAX_ROWS_LIMIT);
             for ($i = 1; $i <= $pageCount; $i++) {
-                $urlObj = (strlen(trim($srcSubobj)) > 0) ? '-' . GLOBAL_UTIL::Clear4Url($srcSubobj) : '';
-                $path = '/wul/abap/'
-                        . $srcOType
-                        . '/' . GLOBAL_UTIL::Clear4Url($srcOName) . $urlObj
-                        . '/' . $oType . '-' . $i
+                $path = '/wil/abap/'
+                        . $oType
+                        . '/' . GLOBAL_UTIL::Clear4Url($oName)
+                        . '/' . $srcOType . '-' . $i
                         . '.html';
                 array_push($paths, strtolower($path));
             }
         }
 
         return $paths;
+    }
+
+    public static function GetWilURL($counter) {
+        return GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG . ABAP_UI_DS_Navigation::GetWilPath($counter);
+    }
+
+    /**
+     * Get Where-Used-List URL.
+     */
+    public static function GetWulHyperlink($counter, $newwin = TRUE) {
+        $newWindow = ($newwin === TRUE) ? 'target="_blank"' : '';
+        $linkLabel = self::GetWulLabel($counter);
+        $url = ABAP_UI_DS_Navigation::GetWulPath($counter);
+        return GLOBAL_ABAP_ICON::getIcon4Otype($counter['OBJ_TYPE'])
+                . ' <a href="' . $url . '" '
+                . 'title="' . htmlentities($linkLabel) . '" '
+                . $newWindow . ' >' . $linkLabel  . '</a>';
     }
 
     /**
@@ -497,6 +467,42 @@ class ABAP_UI_DS_Navigation {
             }
         }
         return $result;
+    }
+    
+    public static function GetWulLabel($counter) {
+        return GLOBAL_ABAP_OTYPE::getOTypeDesc($counter['OBJ_TYPE']) . ' (' . $counter['COUNTER'] . ')';
+    }
+
+    public static function GetWulPath($counter) {
+        $url_subobj = (strlen(trim($counter['SRC_SUBOBJ'])) > 0) ? '-' . GLOBAL_UTIL::Clear4Url($counter['SRC_SUBOBJ']) : '';
+        $url = '/wul/abap/'
+                . $counter['SRC_OBJ_TYPE']
+                . '/' . GLOBAL_UTIL::Clear4Url($counter['SRC_OBJ_NAME']) . $url_subobj
+                . '/' . $counter['OBJ_TYPE']
+                . '.html';
+        return strtolower($url);
+    }
+
+    public static function GetWulPaths($srcOType, $srcOName, $srcSubobj, $oType, $counter) {
+        $paths = array();
+        if ($counter > ABAP_DB_CONST::MAX_ROWS_LIMIT) {
+            $pageCount = ceil($counter / ABAP_DB_CONST::MAX_ROWS_LIMIT);
+            for ($i = 1; $i <= $pageCount; $i++) {
+                $urlObj = (strlen(trim($srcSubobj)) > 0) ? '-' . GLOBAL_UTIL::Clear4Url($srcSubobj) : '';
+                $path = '/wul/abap/'
+                        . $srcOType
+                        . '/' . GLOBAL_UTIL::Clear4Url($srcOName) . $urlObj
+                        . '/' . $oType . '-' . $i
+                        . '.html';
+                array_push($paths, strtolower($path));
+            }
+        }
+
+        return $paths;
+    }
+
+    public static function GetWulURL($counter) {
+        return GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG . ABAP_UI_DS_Navigation::GetWulPath($counter);
     }
 
 }

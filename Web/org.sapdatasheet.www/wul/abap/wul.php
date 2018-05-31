@@ -72,33 +72,18 @@ $GLOBALS['TITLE_TEXT'] = "Where Used List for " . $title_name;
                             }
                             ?>
                             <h5><?php echo $wulSrcTitle ?> is used by</h5>
-                            <?php
-                            foreach ($counter_list as $counter) {
-                                echo ABAP_UI_DS_Navigation::GetWulHyperlink($counter, FALSE);
-                                echo '&nbsp;';
-                            }
-                            ?>
-
-                            <!--
                             <ul class="nav nav-pills">
+                                <?php foreach ($counter_list as $counter) { ?>
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="#">Active</a>
+                                    <a class="nav-link <?php echo ($dpOType == $counter['OBJ_TYPE']) ? 'active' : '' ?>"
+                                       href="<?php echo ABAP_UI_DS_Navigation::GetWulPath($counter) ?>">
+                                        <?php echo GLOBAL_ABAP_ICON::getIcon4Otype($counter['OBJ_TYPE']) ?>
+                                        <?php echo ABAP_UI_DS_Navigation::GetWulLabel($counter) ?></a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Link</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Link</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link disabled" href="#">Disabled</a>
-                                </li>
+                                <?php } ?>
                             </ul>
-                            -->
 
-                            <h5 class="pt-4"><?php echo GLOBAL_ABAP_OTYPE::getOTypeDesc($dpOType) ?>
-                                <?php echo ABAP_UI_DS_Navigation::GetWulHyperlinks($dpSrcOType, $dpSrcOName, $dpSrcSubobj, $dpOType, $counter_value, FALSE) ?>
-                            </h5>
+                            <h5><?php echo ABAP_UI_DS_Navigation::GetWulHyperlinks($dpSrcOType, $dpSrcOName, $dpSrcSubobj, $dpOType, $counter_value, FALSE) ?></h5>
                             <table class="table table-sm">
                                 <tr>
                                     <th class="sapds-alv"> # </th>

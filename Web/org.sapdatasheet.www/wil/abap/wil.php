@@ -70,16 +70,18 @@ $GLOBALS['TITLE_TEXT'] = "Where Using List for " . $title_name;
                             }
                             ?>
                             <h5><?php echo $wilTitle ?> is using</h5>
-                            <?php
-                            foreach ($counter_list as $counter) {
-                                echo ABAP_UI_DS_Navigation::GetWilHyperlink($counter, FALSE);
-                                echo '&nbsp;';
-                            }
-                            ?>
+                            <ul class="nav nav-pills">
+                                <?php foreach ($counter_list as $counter) { ?>
+                                <li class="nav-item">
+                                    <a class="nav-link <?php echo ($dpSrcOType == $counter['SRC_OBJ_TYPE']) ? 'active' : '' ?>"
+                                       href="<?php echo ABAP_UI_DS_Navigation::GetWilPath($counter) ?>">
+                                        <?php echo GLOBAL_ABAP_ICON::getIcon4Otype($counter['SRC_OBJ_TYPE']) ?>
+                                        <?php echo ABAP_UI_DS_Navigation::GetWilLabel($counter) ?></a>
+                                </li>
+                                <?php } ?>
+                            </ul>
 
-                            <h5><?php echo GLOBAL_ABAP_OTYPE::getOTypeDesc($dpOType) ?>
-                                <?php echo ABAP_UI_DS_Navigation::GetWilHyperlinks($dpOType, $dpOName, $dpSrcOType, $counter_value, FALSE) ?>
-                            </h5>
+                            <h5><?php echo ABAP_UI_DS_Navigation::GetWilHyperlinks($dpOType, $dpOName, $dpSrcOType, $counter_value, FALSE) ?> </h5>
                             <table class="table table-sm">
                                 <tr>
                                     <th class="sapds-alv"> # </th>
