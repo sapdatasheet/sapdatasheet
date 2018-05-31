@@ -7,7 +7,7 @@
             &middot; <a target="_blank" href="/site/about.html"><b>About</b></a>
             &middot; <a target="_blank" href="/site/term.html"><b>Terms of Use</b></a>
             &middot; <a target="_blank" href="/site/privacy.html"><b>Cookie Privacy</b></a>
-            &middot; <a target="_blank" href="https://github.com/sapdatasheet/sapdatasheet/issues"><b>Report Issues</b></a>
+            &middot; <a target="_blank" href="https://github.com/sapdatasheet/sapdatasheet/issues"><b>Feedback</b></a>
             <br>
             &copy; Copyright 2014 - <?php echo date("Y"); ?>, www.SAPDatasheet.org All Rights Reserved.
             <br>
