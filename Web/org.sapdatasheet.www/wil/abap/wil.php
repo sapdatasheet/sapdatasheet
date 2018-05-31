@@ -37,96 +37,104 @@ $GLOBALS['TITLE_TEXT'] = "Where Using List for " . $title_name;
         <link rel="stylesheet" type="text/css"  href="/sapdatasheet.css"/>
     </head>
     <body>
-
         <!-- Header -->
         <?php require $__ROOT__ . '/include/header.php' ?>
 
-        <!-- Left -->
-        <?php require $__ROOT__ . '/include/abap_index_left.php' ?>
-
-        <!-- Content -->
-        <div class="content">
-            <!-- Content Navigator -->
-            <div class="content_navi">
-                <a href="/"><?php echo GLOBAL_ABAP_ICON::getIcon4Home() ?> Home page</a> &gt;
-                <a href="/abap/">ABAP Object</a>
-            </div>
-
-            <!-- Content Object -->
-            <div class="content_obj_title"><span><?php echo $GLOBALS['TITLE_TEXT'] ?></span></div>
-            <div class="content_obj">
-                <div>
-                    <?php include $__WS_ROOT__ . '/common-php/google/adsense-content-top.html' ?>
+        <div class="container-fluid">
+            <div class="row">
+                <div  class="col-xl-2 col-lg-2 col-md-3  col-sm-3    bd-sidebar bg-light">
+                    <!-- Left Side bar -->
+                    <?php require $__ROOT__ . '/include/abap_index_left.php' ?>
                 </div>
 
-                <?php
-                $wilTitle = 'SAP ABAP ' . GLOBAL_ABAP_OTYPE::getOTypeDesc($dpOType) . ' '
-                        . GLOBAL_ABAP_ICON::getIcon4Otype($dpOType) . ' '
-                        . ABAP_UI_DS_Navigation::GetObjectHyperlink($dpOType, $dpOName);
-                if (!empty($objDesc)) {
-                    $wilTitle = $wilTitle . ' (' . $objDesc . ')';
-                }
-                ?>
-                <h4><?php echo $wilTitle ?> is using</h4>
-                <?php
+                <main class="col-xl-8 col-lg-8 col-md-6  col-sm-9    col-12 bd-content" role="main">
+                    <nav class="pt-3" aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/"><?php echo GLOBAL_ABAP_ICON::getIcon4Home() ?> Home</a></li>
+                            <li class="breadcrumb-item active"><a href="/abap/">ABAP Object Types</a></li>
+                        </ol>
+                    </nav>
 
-                foreach ($counter_list as $counter) {
-                    echo GLOBAL_ABAP_ICON::getIcon4Otype($counter['SRC_OBJ_TYPE']) . ' ';
-                    echo ABAP_UI_DS_Navigation::GetWilHyperlink($counter, FALSE);
-                    echo '&nbsp;';
-                }
-                ?>
+                    <div class="card shadow">
+                        <div class="card-header sapds-card-header"><?php echo $GLOBALS['TITLE_TEXT'] ?></div>
+                        <div class="card-body table-responsive sapds-card-body">
+                            <div class="align-content-start"><?php include $__WS_ROOT__ . '/common-php/google/adsense-content-top.html' ?></div>
+                            <?php require $__ROOT__ . '/include/abap_desc_language.php' ?>
 
-                <h4><?php echo GLOBAL_ABAP_OTYPE::getOTypeDesc($dpOType) ?>
-                    <?php echo ABAP_UI_DS_Navigation::GetWilHyperlinks($dpOType, $dpOName, $dpSrcOType, $counter_value, FALSE) ?>
-                </h4>
-                <table class="table table-sm">
-                    <tr>
-                        <th class="sapds-alv"> # </th>
-                        <th class="sapds-alv"> Object Type </th>
-                        <th class="sapds-alv"> Object Name </th>
-                        <th class="sapds-alv"> Object Description </th>
-                        <th class="sapds-alv"> Note </th>
-                    </tr>
-                    <tr>
-                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL) ?></th>
-                        <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument('TROBJTYPE') ?></th>
-                        <th class="sapds-alv">&nbsp;</th>
-                        <th class="sapds-alv">&nbsp;</th>
-                        <th class="sapds-alv">&nbsp;</th>
-                    </tr>
-                    <?php
-                    $count = 0;
-                    foreach ($wil_list as $wil) {
-                        $count++;
-                        ?>
-                        <tr><td class="sapds-alv text-right"><?php echo number_format($count) ?> </td>
-                            <td class="sapds-alv"><?php echo GLOBAL_ABAP_ICON::getIcon4Otype($wil['SRC_OBJ_TYPE']) ?>
-                                <?php echo ABAP_UI_DS_Navigation::GetOTypeHyperlink($wil['SRC_OBJ_TYPE']) ?>&nbsp;</td>
-                            <td class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetObjectHyperlink($wil['SRC_OBJ_TYPE'], $wil['SRC_OBJ_NAME'], $wil['SRC_SUBOBJ']) ?></td>
-                            <td class="sapds-alv"><?php echo ABAP_UI_TOOL::GetObjectDescr($wil['SRC_OBJ_TYPE'], $wil['SRC_OBJ_NAME'], $wil['SRC_SUBOBJ']) ?></td>
-                            <td class="sapds-alv"><?php
-                                if (empty(trim($wil['SOURCE'])) === FALSE) {
-                                    echo '<code>SOURCE</code> ' . $wil['SOURCE'];
+                            <?php
+                            $wilTitle = 'SAP ABAP ' . GLOBAL_ABAP_OTYPE::getOTypeDesc($dpOType) . ' '
+                                    . GLOBAL_ABAP_ICON::getIcon4Otype($dpOType) . ' '
+                                    . ABAP_UI_DS_Navigation::GetObjectHyperlink($dpOType, $dpOName);
+                            if (!empty($objDesc)) {
+                                $wilTitle = $wilTitle . ' (' . $objDesc . ')';
+                            }
+                            ?>
+                            <h5><?php echo $wilTitle ?> is using</h5>
+                            <?php
+                            foreach ($counter_list as $counter) {
+                                echo ABAP_UI_DS_Navigation::GetWilHyperlink($counter, FALSE);
+                                echo '&nbsp;';
+                            }
+                            ?>
+
+                            <h5><?php echo GLOBAL_ABAP_OTYPE::getOTypeDesc($dpOType) ?>
+                                <?php echo ABAP_UI_DS_Navigation::GetWilHyperlinks($dpOType, $dpOName, $dpSrcOType, $counter_value, FALSE) ?>
+                            </h5>
+                            <table class="table table-sm">
+                                <tr>
+                                    <th class="sapds-alv"> # </th>
+                                    <th class="sapds-alv"> Object Type </th>
+                                    <th class="sapds-alv"> Object Name </th>
+                                    <th class="sapds-alv"> Object Description </th>
+                                    <th class="sapds-alv"> Note </th>
+                                </tr>
+                                <tr>
+                                    <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL) ?></th>
+                                    <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument('TROBJTYPE') ?></th>
+                                    <th class="sapds-alv">&nbsp;</th>
+                                    <th class="sapds-alv">&nbsp;</th>
+                                    <th class="sapds-alv">&nbsp;</th>
+                                </tr>
+                                <?php
+                                $count = 0;
+                                foreach ($wil_list as $wil) {
+                                    $count++;
+                                    ?>
+                                    <tr><td class="sapds-alv text-right"><?php echo number_format($count) ?> </td>
+                                        <td class="sapds-alv"><?php echo GLOBAL_ABAP_ICON::getIcon4Otype($wil['SRC_OBJ_TYPE']) ?>
+                                            <?php echo ABAP_UI_DS_Navigation::GetOTypeHyperlink($wil['SRC_OBJ_TYPE']) ?>&nbsp;</td>
+                                        <td class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetObjectHyperlink($wil['SRC_OBJ_TYPE'], $wil['SRC_OBJ_NAME'], $wil['SRC_SUBOBJ']) ?></td>
+                                        <td class="sapds-alv"><?php echo ABAP_UI_TOOL::GetObjectDescr($wil['SRC_OBJ_TYPE'], $wil['SRC_OBJ_NAME'], $wil['SRC_SUBOBJ']) ?></td>
+                                        <td class="sapds-alv"><?php
+                                        if (empty(trim($wil['SOURCE'])) === FALSE) {
+                                            echo '<code>SOURCE</code> ' . $wil['SOURCE'];
+                                        }
+                                            ?></td>
+                                    </tr>
+                                    <?php
                                 }
-                                ?></td>
-                        </tr>
-                        <?php
-                    }
-                    while ($count <= ABAP_UI_CONST::WUL_ROW_MINIMAL) {
-                        $count++;
-                        ?>
-                        <tr><td colspan="5">&nbsp;</td></tr>
-                    <?php } ?>
+                                while ($count <= ABAP_UI_CONST::WUL_ROW_MINIMAL) {
+                                    $count++;
+                                    ?>
+                                    <tr><td colspan="5">&nbsp;</td></tr>
+                                <?php } ?>
 
-                </table>
+                            </table>
 
-            </div>
-        </div><!-- Content: End -->
+                        </div> 
+                    </div><!-- End Card -->
+                </main>
+
+                <div  class="col-xl-2 col-lg-2 d-md-3    col-sm-none" >
+                    <!-- Right Side bar -->
+                    <?php require $__ROOT__ . '/include/abap_relatedlinks.php' ?>
+                </div>
+            </div><!-- End of row -->
+            <hr>
+        </div><!-- End container-fluid, main content -->
 
         <!-- Footer -->
         <?php require $__ROOT__ . '/include/footer.php' ?>
-
     </body>
 </html>
 <?php

@@ -3,15 +3,14 @@
 $__COMMON_ROOT__ = dirname(__FILE__, 2);
 require_once($__COMMON_ROOT__ . '/library/global.php');
 
-
 class ABAP_UI_Buffer_Index {
-    
+
     /** File name, without the '.html' suffix */
     const INDEX_FILENAME = 'index_filename';
     const LINK_TEXT = 'link_text';
     const LINK_TITLE = 'link_title';
 
-    public static function ZBUFFER_INDEX_COUNTER(string $oType) : array {
+    public static function ZBUFFER_INDEX_COUNTER(string $oType): array {
         $ui_index_list = array();
         $db_index_list = ABAP_DB_TABLE_BASIS::ZBUFFER_INDEX_COUNTER($oType);
         foreach ($db_index_list as $db_index) {
@@ -31,15 +30,14 @@ class ABAP_UI_Buffer_Index {
             if ($db_index[ABAP_DB_TABLE_BASIS::ZBUFFER_INDEX_COUNTER_PAGE_COUNT] > 1) {
                 $db_index[self::LINK_TITLE] = $db_index[self::LINK_TITLE] . ', shown in ' . number_format($db_index[ABAP_DB_TABLE_BASIS::ZBUFFER_INDEX_COUNTER_PAGE_COUNT]) . ' pages';
             }
-            
+
             array_push($ui_index_list, $db_index);
         }
 
         return $ui_index_list;
     }
-    
-}
 
+}
 
 class ABAP_UI_Hierarchy {
 
@@ -131,7 +129,7 @@ class ABAP_UI_DS_Navigation {
         } else {
             $sTitle = $linkTitle;
         }
-        
+
         // Speical logic: for the F1 help filed, we will show an Image as the label, so no html escape needed
         if ($linkTitle == ABAP_UI_CONST::LABEL_F1Help) {
             $finalLabel = $linkLabel;
@@ -371,7 +369,8 @@ class ABAP_UI_DS_Navigation {
         $newWindow = ($newwin === TRUE) ? 'target="_blank"' : '';
         $linkLabel = GLOBAL_ABAP_OTYPE::getOTypeDesc($counter['SRC_OBJ_TYPE']);
         $path = ABAP_UI_DS_Navigation::GetWilPath($counter);
-        return '<a href="' . $path . '" '
+        return GLOBAL_ABAP_ICON::getIcon4Otype($counter['SRC_OBJ_TYPE']) .
+                ' <a href="' . $path . '" '
                 . 'title="' . htmlentities($linkLabel) . '" '
                 . $newWindow . ' >'
                 . $linkLabel
@@ -439,11 +438,11 @@ class ABAP_UI_DS_Navigation {
         $newWindow = ($newwin === TRUE) ? 'target="_blank"' : '';
         $linkLabel = GLOBAL_ABAP_OTYPE::getOTypeDesc($counter['OBJ_TYPE']);
         $url = ABAP_UI_DS_Navigation::GetWulPath($counter);
-        return '<a href="' . $url . '" '
+        return GLOBAL_ABAP_ICON::getIcon4Otype($counter['OBJ_TYPE'])
+                . ' <a href="' . $url . '" '
                 . 'title="' . htmlentities($linkLabel) . '" '
                 . $newWindow . ' >'
-                . $linkLabel
-                . ' (' . $counter['COUNTER'] . ')</a>';
+                . $linkLabel . ' (' . $counter['COUNTER'] . ')</a>';
     }
 
     public static function GetWulPath($counter) {
@@ -790,6 +789,7 @@ class ABAP_UI_CONST {
     const ANCHOR_SEOMETARELFL = "seometarel-fulllist";     // For class/interface meta rel
     const LABEL_F1Help = 'Help Document on this Field';
     const WUL_ROW_MINIMAL = 10;                            // Add empty rows to make web page looks better
+
 }
 
 class ABAP_UI_CUS0 {
