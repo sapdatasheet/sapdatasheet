@@ -1,7 +1,7 @@
 <div class="container-fluid sticky-top bg-light">
     <div class="row">
         <div class="col-md-auto pt-2">
-            <img class="" src="/sapdatasheet-big.png" width="200" height="21" class="d-inline-block align-top" alt="">
+            <a href="/"><img class="" src="/sapdatasheet-big.png" width="200" height="21" class="d-inline-block align-top" alt=""></a>
             <br><span class="text-nowrap text-muted text-monospace font-weight-bold sapds-slogan"><?php echo GLOBAL_WEBSITE_SAPDS::DESC ?></span>
         </div>
         <div class="col">
@@ -68,7 +68,8 @@
                         <input class="form-control mr-sm-2" type="text" name="q" placeholder="Search" aria-label="Search"
                                value="<?php echo $GLOBALS['TITLE_TEXT']; ?>">
                         <input type="hidden" name="sitesearch" value="sapdatasheet.org" />
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">&#128269;</button>
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-3"><circle cx="10.5" cy="10.5" r="7.5"></circle><line x1="21" y1="21" x2="15.8" y2="15.8"></line></svg></button>
                     </form>
                 </div>
             </nav>
