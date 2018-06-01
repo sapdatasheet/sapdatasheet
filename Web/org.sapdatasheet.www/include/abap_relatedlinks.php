@@ -2,10 +2,10 @@
 <h6 class="pt-4">Related Links</h6>
 <table>
     <tbody>
-        <tr><td class="text-nowrap"><?php echo GLOBAL_ABAP_ICON::getIcon4FilePDF() ?>
+        <tr><td><?php echo GLOBAL_ABAP_ICON::getIcon4FilePDF() ?>
                 <a href="<?php echo ABAP_UI_TCODES_Navigation::DownloadBooks(TRUE) ?>" target="_blank">Download TCode Books</a>
             </td></tr>
-        <tr><td class="text-nowrap"><?php echo GLOBAL_ABAP_ICON::getIcon4FileXLSX() ?>
+        <tr><td><?php echo GLOBAL_ABAP_ICON::getIcon4FileXLSX() ?>
                 <a href="<?php echo ABAP_UI_TCODES_Navigation::DownloadSheets(TRUE) ?>" target="_blank">Download TCode Excels</a>
             </td></tr>
     </tbody>

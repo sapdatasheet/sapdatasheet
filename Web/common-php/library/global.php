@@ -51,6 +51,7 @@ class GLOBAL_ABAP_ICON {
     const FILE_PDF = 's_x__pdf.gif';
     const FILE_XLSX = 's_x__xlv.gif';
     const FOLDER = 's_folder.gif';
+    const FOREIGN_KEY = 's_b_fkey.gif';
     const HEADER = 's_b_head.gif';
     const HISTORY = 's_b_rkhi.gif';
     const HOME = 's_b_life.gif';
@@ -166,6 +167,10 @@ class GLOBAL_ABAP_ICON {
         return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::FOLDER, $fullUrl);
     }
 
+    public static function getIcon4ForeignKey($fullUrl = FALSE) {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::FOREIGN_KEY, $fullUrl);
+    }
+    
     public static function getIcon4Header($fullUrl = FALSE) {
         return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::HEADER, $fullUrl);
     }

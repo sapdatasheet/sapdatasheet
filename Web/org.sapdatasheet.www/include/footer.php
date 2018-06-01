@@ -2,7 +2,7 @@
     <!-- Google Adsense: bottom -->
     <div class="text-center"><?php include $__WS_ROOT__ . '/common-php/google/adsense-bottom.html' ?></div>
 
-    <footer class="container">
+    <footer class="container pt-4">
         <p class="text-center">
             &middot; <a target="_blank" href="/site/about.html"><b>About</b></a>
             &middot; <a target="_blank" href="/site/term.html"><b>Terms of Use</b></a>
@@ -25,8 +25,6 @@
                 as <a href="http://www.w3.org/TR/html5/" target="_blank" title="">HTML5</a>. 
             </small></p>
     </footer>
-    
-    <br><br><br><br>
 </div>
 <!-- Java Script - https://getbootstrap.com/docs/4.1/getting-started/introduction/ -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

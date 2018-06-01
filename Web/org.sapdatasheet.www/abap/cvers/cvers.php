@@ -60,6 +60,8 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::CVERS_NAM
                         </tbody>
                     </table>
 
+                    <?php require $__ROOT__ . '/include/abap_ads_side.php' ?>
+
                     <h6 class="pt-3">Top Level Application Component</h6>
                     <table>
                         <tbody>
@@ -79,8 +81,6 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::CVERS_NAM
                             ?>
                         </tbody>
                     </table>
-
-                    <?php require $__ROOT__ . '/include/abap_ads_side.php' ?>
                 </div><!-- End - Left Side bar -->
 
                 <main class="col-xl-8 col-lg-8 col-md-6  col-sm-9    col-12 bd-content" role="main">

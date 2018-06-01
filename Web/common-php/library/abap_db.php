@@ -42,6 +42,10 @@ class ABAP_DB_CONST {
     const DOMAIN_DD03L_SHLPORIGIN = "SHLPORIGIN";
     const DOMAIN_DD03L_TABLETYPE = "DDFLAG";
     const DOMAIN_DD03L_REFTYPE = "DDREFTYPE";
+    
+    const DOMAIN_DD08L_CARD = "CARD";
+    const DOMAIN_DD08L_CARDLEFT = "CARDLEFT";
+
     const DOMAIN_DD04L_REFKIND = "TYPEKIND";
     const DOMAIN_DD04L_REFTYPE = "DDREFTYPE";
     const DOMAIN_DD25L_CUSTOMAUTH = "CONTFLAG";
@@ -2109,11 +2113,17 @@ class ABAP_DB_TABLE_TABL {
      * Table Fields.
      */
     const DD03L = "dd03l";
+    const DD03L_FIELDNAME_DTEL = "FIELDNAME";
 
     /**
      * Foreign key fields.
      */
     const DD05S = "dd05s";
+
+    /**
+     * Map FIELDNAME column as CHECKFIELDNAME.
+     */
+    const DD05S_V_CHECKFIELDNAME = 'CHECKFIELDNAME';
 
     /**
      * Pool/cluster structures.
@@ -2134,6 +2144,9 @@ class ABAP_DB_TABLE_TABL {
      * R/3 DD: relationship definitions.
      */
     const DD08L = "dd08l";
+    const DD08L_CARD_DTEL = 'CARD';
+    const DD08L_CARDLEFT_DTEL = 'CARDLEFT';
+    const DD08L_FRKART_DTEL = 'FRKART';
 
     /**
      * Texts on the relationship definitions.
@@ -2340,18 +2353,6 @@ class ABAP_DB_TABLE_TABL {
     }
 
     /**
-     * Foreign Key Fields.
-     * <pre>
-     * SELECT * FROM dd05s WHERE tabname = 'BKPF' order by FIELDNAME, PRIMPOS;
-     * </pre>
-     */
-    public static function DD05S($TableName) {
-        $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD05S
-                . " WHERE tabname = :id order by FIELDNAME, PRIMPOS";
-        return ABAP_DB_TABLE::select_1filter($sql, $TableName);
-    }
-
-    /**
      * Cluster/Pool Table List.
      * <pre>
      * SELECT * FROM dd06l order by SQLTAB
@@ -2377,6 +2378,36 @@ class ABAP_DB_TABLE_TABL {
         $sql = "select DDTEXT as DESCR from " . ABAP_DB_TABLE_TABL::DD06T
                 . " where SQLTAB = :id and DDLANGUAGE = :lg";
         return ABAP_DB_TABLE::descr_1filter($sql, $Sqltab);
+    }
+    
+    /**
+     *  R/3 DD: relationship definitions / Foreign key fields.
+     * <pre>
+     * SELECT dd08l.*,
+     * 	      dd05s_v.PRIMPOS,
+     *        dd05s_v.FIELDNAME AS 'CHECKFIELDNAME'  -- TODO: Fixme - this field is not correct
+     *   FROM dd08l
+     *   LEFT join (
+     *     SELECT * FROM dd05s WHERE TABNAME = 'MSEG' and FIELDNAME = FORKEY
+     *   ) dd05s_v
+     *      on dd08l.TABNAME = dd05s_v.FORTABLE
+     *     and dd08l.FIELDNAME = dd05s_v.FIELDNAME
+     *   where dd08l.TABNAME = 'MSEG'
+     * </pre>
+     */
+    public static function DD08L_DD05S($TableName) {
+        $sql = "SELECT " . self::DD08L . ".*,"
+                . " dd05s_v.PRIMPOS,"
+                . " dd05s_v.FIELDNAME AS " . self::DD05S_V_CHECKFIELDNAME
+                . " FROM " . ABAP_DB_TABLE_TABL::DD08L
+                . " LEFT join ("
+                . "  SELECT * FROM " . self::DD05S
+                . "  WHERE TABNAME = :id and FIELDNAME = FORKEY"
+                . " ) dd05s_v"
+                . "  on " . self::DD08L . ".TABNAME   = dd05s_v.FORTABLE"
+                . " and " . self::DD08L . ".FIELDNAME = dd05s_v.FIELDNAME"
+                . " where dd08l.TABNAME = :id";
+        return ABAP_DB_TABLE::select_1filter($sql, $TableName);
     }
 
     /**

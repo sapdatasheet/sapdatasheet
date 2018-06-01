@@ -15,8 +15,9 @@ if (strlen(trim($index)) == 0) {
     $index = strtoupper($index);
 }
 
-$GLOBALS['TITLE_TEXT'] = "SAP ABAP " . GLOBAL_ABAP_OTYPE::BMFR_DESC . " - Index " . $index
-        . (($index_page > 1) ? ', page ' . $index_page : '');
+$title_short = GLOBAL_ABAP_OTYPE::BMFR_DESC . " - Index " . $index
+        . (($index_page > 1) ? ', page ' . $index_page : '') . ' ';
+$GLOBALS['TITLE_TEXT'] = "SAP ABAP " . $title_short;
 
 $bmfr = ABAP_DB_TABLE_HIER::DF14L_List($index, $index_page);
 $index_counter_list = ABAP_UI_Buffer_Index::ZBUFFER_INDEX_COUNTER(GLOBAL_ABAP_OTYPE::BMFR_NAME);
@@ -97,7 +98,7 @@ $index_counter_list = ABAP_UI_Buffer_Index::ZBUFFER_INDEX_COUNTER(GLOBAL_ABAP_OT
                             <?php } ?>
 
 
-                            <h5 class="pt-2"> <?php echo GLOBAL_ABAP_OTYPE::BMFR_DESC ?> - <?php echo $index ?></h5>
+                            <h5 class="pt-2"> <?php echo $title_short ?><small>(<?php echo count($bmfr) ?> records shown)</small></h5>
                             <table class="table table-sm">
                                 <tr>
                                     <th class="sapds-alv"> # </th>

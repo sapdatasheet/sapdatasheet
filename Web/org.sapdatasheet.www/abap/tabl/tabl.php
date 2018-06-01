@@ -21,6 +21,7 @@ $dd02l_tabclass_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_TABL::DD02L_TABCL
 $dd02l_contflag_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_TABL::DD02L_CONTFLAG_DOMAIN, $dd02l['CONTFLAG']);
 $dd02l_mainflag_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_TABL::DD02L_MAINFLAG_DOMAIN, $dd02l['MAINFLAG']);
 $dd03l = ABAP_DB_TABLE_TABL::DD03L_List($dd02l['TABNAME']);
+$dd08l_dd05s_list = ABAP_DB_TABLE_TABL::DD08L_DD05S($dd02l['TABNAME']);
 
 $wul_counter_list = ABAPANA_DB_TABLE::WULCOUNTER_List(GLOBAL_ABAP_OTYPE::TABL_NAME, $dd02l['TABNAME']);
 $wil_enabled = TRUE;
@@ -138,7 +139,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::TABL_NAME
                             <!-- Components -->
                             <h5 class="pt-4"><?php echo GLOBAL_ABAP_ICON::getIcon4Field() ?> Components </h5>
                             <table class="table table-sm">
-                                <caption class="text-right">
+                                <caption class="text-right sapds-alv">
                                     <a href="/download/abap-tabl-component.php?format=<?php echo strtolower(DOWNLOAD::FORMAT_CSV) ?>&tabname=<?php echo $dd02l['TABNAME'] ?>"
                                        title="Download components as <?php echo DOWNLOAD::FORMAT_CSV_Title ?>.&#10;The downloaded file contains more columns than displayed here."
                                        target="_blank">
@@ -195,6 +196,61 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::TABL_NAME
                                     <?php } ?>
                                 </tbody>
                             </table>
+
+                            <?php if (count($dd08l_dd05s_list) > 0) { ?>
+                                <!-- Foreign Keys -->
+                                <h5 class="pt-4"><?php echo GLOBAL_ABAP_ICON::getIcon4ForeignKey() ?> Foreign Keys </h5>
+                                <table class="table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th class="sapds-alv"> <img src='/abap/icon/s_b_pvre.gif'> </th>
+                                            <th class="sapds-alv"> Source Table </th>
+                                            <th class="sapds-alv"> Source Column </th>
+                                            <th class="sapds-alv"> Foreign Table</th>
+                                            <th class="sapds-alv"> Foreign Column</th>
+                                            <th class="sapds-alv"> Dependency Factor</th>
+                                            <th class="sapds-alv"> Cardinality left</th>
+                                            <th class="sapds-alv"> Cardinality right</th>
+                                        </tr>
+                                        <tr>
+                                            <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_CONST::INDEX_SEQNO_DTEL) ?></th>
+                                            <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_TABL::DD02L_TABNAME_DTEL) ?></th>
+                                            <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_TABL::DD03L_FIELDNAME_DTEL) ?></th>
+                                            <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_TABL::DD02L_TABNAME_DTEL) ?></th>
+                                            <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_TABL::DD03L_FIELDNAME_DTEL) ?></th>
+                                            <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_TABL::DD08L_FRKART_DTEL) ?></th>
+                                            <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_TABL::DD08L_CARDLEFT_DTEL) ?></th>
+                                            <th class="sapds-alv"><?php echo ABAP_UI_DS_Navigation::GetHyperlink4DtelDocument(ABAP_DB_TABLE_TABL::DD08L_CARD_DTEL) ?></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $item_counter = 0;
+                                        foreach ($dd08l_dd05s_list as $dd08l_dd05s_item) {
+                                            $item_counter++;
+                                            $dd02l_desc_tabname = ABAP_DB_TABLE_TABL::DD02T($dd08l_dd05s_item['TABNAME']);
+                                            $dd02l_desc_checktab = ABAP_DB_TABLE_TABL::DD02T($dd08l_dd05s_item['CHECKTABLE']);
+                                            ?>
+                                            <tr>
+                                                <td class="sapds-alv"> <?php echo $item_counter ?> </td>
+                                                <td class="sapds-alv"> <a href="#"><?php echo $dd08l_dd05s_item['TABNAME'] ?></a> </td>
+                                                <td class="sapds-alv"> <a href="#FIELD_<?php echo $dd08l_dd05s_item['FIELDNAME'] ?>"><?php echo $dd08l_dd05s_item['FIELDNAME'] ?></a></td>
+                                                <td class="sapds-alv"> <?php echo GLOBAL_ABAP_ICON::getIcon4OtypeTABL() ?>
+                                                    <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tabl($dd08l_dd05s_item['CHECKTABLE'], $dd02l_desc_checktab); ?> </td>
+                                                <td class="sapds-alv"> <?php echo GLOBAL_ABAP_ICON::getIcon4OtypeDTF() ?>
+                                                    <?php echo ABAP_UI_DS_Navigation::GetHyperlink4TablField($dd08l_dd05s_item['CHECKTABLE'], $dd08l_dd05s_item['CHECKFIELDNAME']) ?> </td>
+                                                <td class="sapds-alv"> <?php echo $dd08l_dd05s_item['FRKART'] ?> </td>
+                                                <td class="sapds-alv">
+                                                    <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_DD08L_CARDLEFT, $dd08l_dd05s_item['CARDLEFT'], '') ?>
+                                                     </td>
+                                                <td class="sapds-alv">
+                                                    <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_DD08L_CARD, $dd08l_dd05s_item['CARD'], '') ?>
+                                                </td>
+                                            </tr>
+                                        <?php } ?>
+                                    </tbody>
+                                </table>
+                            <?php } ?>
 
                             <!--
                             <h5 class="pt-4"> Index </h5>
