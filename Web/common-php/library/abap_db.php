@@ -5,14 +5,13 @@ require_once($__COMMON_ROOT__ . '/library/abap_dbconfig.php');
 require_once($__COMMON_ROOT__ . '/library/abap_dbdata.php');
 
 class ABAP_DB_CONST {
-    
+
     const COUNTER = 'COUNTER';
 
     /**
      * Max rows limit for result set, to avoid load too many record to UI.
      */
     const MAX_ROWS_LIMIT = 500;
-    
     const INDEX_A = 'A';                       // First page, start from 'A'
     const INDEX_LIST = 'LIST';                 // List all contents, no paging
     const INDEX_SLASH = 'SLASH';
@@ -42,10 +41,8 @@ class ABAP_DB_CONST {
     const DOMAIN_DD03L_SHLPORIGIN = "SHLPORIGIN";
     const DOMAIN_DD03L_TABLETYPE = "DDFLAG";
     const DOMAIN_DD03L_REFTYPE = "DDREFTYPE";
-    
     const DOMAIN_DD08L_CARD = "CARD";
     const DOMAIN_DD08L_CARDLEFT = "CARDLEFT";
-
     const DOMAIN_DD04L_REFKIND = "TYPEKIND";
     const DOMAIN_DD04L_REFTYPE = "DDREFTYPE";
     const DOMAIN_DD25L_CUSTOMAUTH = "CONTFLAG";
@@ -108,13 +105,11 @@ class ABAP_DB_CONST {
     const TFDIR_UTASK_4 = "4";                 // Update module - Coll.run.
     const TSTCC_S_WEBGUI_1 = "1";
     const TSTCC_S_WEBGUI_2 = "2";
-    
 
-
-    public static function SQL_LIMIT(int $page) : string {
+    public static function SQL_LIMIT(int $page): string {
         $left = ((($page < 1) ? 1 : $page) - 1) * self::MAX_ROWS_LIMIT;
         return ' LIMIT ' . $left . ', ' . self::MAX_ROWS_LIMIT;
-    }    
+    }
 
 }
 
@@ -1393,7 +1388,7 @@ class ABAP_DB_TABLE_MSAG {
                 . ABAP_DB_CONST::SQL_LIMIT($index_page);
         return ABAP_DB_TABLE::select_1filter($sql, $index . '%');
     }
-    
+
     public static function T100A_Sitemap() {
         $sql = 'select ARBGB from ' . ABAP_DB_TABLE_MSAG::T100A
                 . ' order by ARBGB';
@@ -2364,6 +2359,71 @@ class ABAP_DB_TABLE_TABL {
     }
 
     /**
+     *  R/3 DD: relationship definitions / Foreign key fields.
+     */
+    public static function DD05S_DD08L_DD03L($TableName) {
+        /*
+          SELECT v_dd08l_dd03l.*
+          FROM dd05s
+          LEFT JOIN (
+          SELECT DD08L.TABNAME,
+          DD08L.FIELDNAME,
+          DD08L.CHECKTABLE,
+          DD08L.FRKART,
+          DD08L.CARDLEFT,
+          DD08L.CARD,
+          DD03L.FIELDNAME AS CHECKFIELDNAME,
+          DD03L.POSITION,
+          DD03L.ROLLNAME,
+          DD03L.DOMNAME,
+          DD03L.DATATYPE,
+          DD03L.LENG,
+          DD03L.DECIMALS
+          FROM DD08L
+          LEFT JOIN DD03L ON DD08L.CHECKTABLE = DD03L.TABNAME
+          WHERE DD08L.TABNAME = 'BKPF'
+          AND DD03L.KEYFLAG = 'X'
+          ) v_dd08l_dd03l
+
+          ON dd05s.TABNAME = v_dd08l_dd03l.TABNAME
+          AND dd05s.FIELDNAME = v_dd08l_dd03l.FIELDNAME
+          AND dd05s.PRIMPOS = v_dd08l_dd03l.POSITION
+
+          WHERE dd05s.TABNAME = 'BKPF'
+          AND dd05s.FIELDNAME = dd05s.FORKEY
+         */
+        $sql = "SELECT v_dd08l_dd03l.*"
+                . " FROM dd05s"
+                . " LEFT JOIN ("
+                . "  SELECT"
+                . " " . self::DD08L .".TABNAME,"
+                . " " . self::DD08L .".FIELDNAME,"
+                . " " . self::DD08L .".CHECKTABLE,"
+                . " " . self::DD08L .".FRKART,"
+                . " " . self::DD08L .".CARDLEFT,"
+                . " " . self::DD08L .".CARD,"
+                . " " . self::DD03L .".FIELDNAME AS " . self::DD05S_V_CHECKFIELDNAME . ","
+                . " " . self::DD03L .".POSITION,"
+                . " " . self::DD03L .".ROLLNAME,"
+                . " " . self::DD03L .".DOMNAME,"
+                . " " . self::DD03L .".DATATYPE,"
+                . " " . self::DD03L .".LENG,"
+                . " " . self::DD03L .".DECIMALS"
+                . "  FROM " . self::DD08L
+                . "  LEFT JOIN " . self::DD03L
+                . "   ON " . self::DD08L . ".CHECKTABLE = " . self::DD03L . ".TABNAME"
+                . "  WHERE " . self::DD08L . ".TABNAME = :id"
+                . "  AND " . self::DD03L . ".KEYFLAG = 'X' ) v_dd08l_dd03l"
+                . " ON  " . self::DD05S . ".TABNAME = v_dd08l_dd03l.TABNAME"
+                . " AND " . self::DD05S . ".FIELDNAME = v_dd08l_dd03l.FIELDNAME"
+                . " AND " . self::DD05S . ".PRIMPOS = v_dd08l_dd03l.POSITION"
+                . " WHERE " . self::DD05S . ".TABNAME = :id"
+                . "   AND " . self::DD05S . ".FIELDNAME = " . self::DD05S . ".FORKEY";
+
+        return ABAP_DB_TABLE::select_1filter($sql, $TableName);
+    }
+
+    /**
      * Cluster/Pool table.
      */
     public static function DD06L($Sqltab) {
@@ -2378,36 +2438,6 @@ class ABAP_DB_TABLE_TABL {
         $sql = "select DDTEXT as DESCR from " . ABAP_DB_TABLE_TABL::DD06T
                 . " where SQLTAB = :id and DDLANGUAGE = :lg";
         return ABAP_DB_TABLE::descr_1filter($sql, $Sqltab);
-    }
-    
-    /**
-     *  R/3 DD: relationship definitions / Foreign key fields.
-     * <pre>
-     * SELECT dd08l.*,
-     * 	      dd05s_v.PRIMPOS,
-     *        dd05s_v.FIELDNAME AS 'CHECKFIELDNAME'  -- TODO: Fixme - this field is not correct
-     *   FROM dd08l
-     *   LEFT join (
-     *     SELECT * FROM dd05s WHERE TABNAME = 'MSEG' and FIELDNAME = FORKEY
-     *   ) dd05s_v
-     *      on dd08l.TABNAME = dd05s_v.FORTABLE
-     *     and dd08l.FIELDNAME = dd05s_v.FIELDNAME
-     *   where dd08l.TABNAME = 'MSEG'
-     * </pre>
-     */
-    public static function DD08L_DD05S($TableName) {
-        $sql = "SELECT " . self::DD08L . ".*,"
-                . " dd05s_v.PRIMPOS,"
-                . " dd05s_v.FIELDNAME AS " . self::DD05S_V_CHECKFIELDNAME
-                . " FROM " . ABAP_DB_TABLE_TABL::DD08L
-                . " LEFT join ("
-                . "  SELECT * FROM " . self::DD05S
-                . "  WHERE TABNAME = :id and FIELDNAME = FORKEY"
-                . " ) dd05s_v"
-                . "  on " . self::DD08L . ".TABNAME   = dd05s_v.FORTABLE"
-                . " and " . self::DD08L . ".FIELDNAME = dd05s_v.FIELDNAME"
-                . " where dd08l.TABNAME = :id";
-        return ABAP_DB_TABLE::select_1filter($sql, $TableName);
     }
 
     /**
@@ -2752,7 +2782,6 @@ class ABAP_DB_TABLE_VIEW {
 class ABAP_DB_TABLE_BASIS {
 
     const T002T = 't002t';
-    
     // Buffer - Index Counter table
     const ZBUFFER_INDEX_COUNTER = 'zbuffer_index_counter';
     const ZBUFFER_INDEX_COUNTER_ABAP_OTYPE = 'ABAP_OTYPE';
