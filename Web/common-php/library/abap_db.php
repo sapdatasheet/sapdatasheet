@@ -25,6 +25,11 @@ class ABAP_DB_CONST {
     const LANGU_DE = "D";
     const FLAG_TRUE = "X";
     const FLAG_FALSE = "";
+    
+    /**
+     * Description column.
+     */
+    const COLUMN_V_DESCR = 'DESCR';
 
     /** Domain names OR Domain values */
     const DOMAIN_DATATYPE = "DATATYPE";
@@ -225,7 +230,8 @@ class ABAP_DB_TABLE_CUS0 {
      * Customizing Activity Text Table.
      */
     public static function CUS_ACTT($act_id) {
-        $sql = 'select TEXT as DESCR from ' . ABAP_DB_TABLE_CUS0::CUS_ACTT
+        $sql = 'select TEXT as ' . ABAP_DB_CONST::COLUMN_V_DESCR
+                . ' from ' . ABAP_DB_TABLE_CUS0::CUS_ACTT
                 . ' where `act_id` = :id and spras = :lg';
         return ABAP_DB_TABLE::descr_1filter($sql, $act_id);
     }
@@ -237,7 +243,8 @@ class ABAP_DB_TABLE_CUS0 {
     }
 
     public static function CUS_ACTOBT($actobj) {
-        $sql = 'select TEXT as DESCR from ' . ABAP_DB_TABLE_CUS0::CUS_ACTOBT
+        $sql = 'select TEXT as ' . ABAP_DB_CONST::COLUMN_V_DESCR
+                . ' from ' . ABAP_DB_TABLE_CUS0::CUS_ACTOBT
                 . ' where `act_id` = :id'
                 . ' and objecttype = :objtype'
                 . ' and objectname = :objname'
@@ -271,7 +278,8 @@ class ABAP_DB_TABLE_CUS0 {
     }
 
     public static function CUS_ATRT($attr_id) {
-        $sql = 'select TEXT as DESCR from ' . ABAP_DB_TABLE_CUS0::CUS_ATRT
+        $sql = 'select TEXT as ' . ABAP_DB_CONST::COLUMN_V_DESCR
+                . ' from ' . ABAP_DB_TABLE_CUS0::CUS_ATRT
                 . ' where `attr_id` = :id and spras = :lg';
         return ABAP_DB_TABLE::descr_1filter($sql, $attr_id);
     }
@@ -298,7 +306,8 @@ class ABAP_DB_TABLE_CUS0 {
     }
 
     public static function CUS_IMGACT($activity) {
-        $sql = 'select TEXT as DESCR from ' . ABAP_DB_TABLE_CUS0::CUS_IMGACT
+        $sql = 'select TEXT as ' . ABAP_DB_CONST::COLUMN_V_DESCR
+                . ' from ' . ABAP_DB_TABLE_CUS0::CUS_IMGACT
                 . ' where `activity` = :id and spras = :lg';
         return ABAP_DB_TABLE::descr_1filter($sql, $activity);
     }
@@ -307,7 +316,8 @@ class ABAP_DB_TABLE_CUS0 {
      * Get country name.
      */
     public static function T005T($land1) {
-        $sql = 'select LANDX as DESCR from ' . ABAP_DB_TABLE_CUS0::T005T
+        $sql = 'select LANDX as ' . ABAP_DB_CONST::COLUMN_V_DESCR
+                . ' from ' . ABAP_DB_TABLE_CUS0::T005T
                 . ' where `land1` = :id and spras = :lg';
         return ABAP_DB_TABLE::descr_1filter($sql, $land1);
     }
@@ -378,19 +388,22 @@ class ABAP_DB_TABLE_CUS0 {
     }
 
     public static function TNODEIMGT($node_id) {
-        $sql = 'select TEXT as DESCR from ' . ABAP_DB_TABLE_CUS0::TNODEIMGT
+        $sql = 'select TEXT as ' . ABAP_DB_CONST::COLUMN_V_DESCR
+                . ' from ' . ABAP_DB_TABLE_CUS0::TNODEIMGT
                 . ' where `node_id` = :id and spras = :lg';
         return ABAP_DB_TABLE::descr_1filter($sql, $node_id);
     }
 
     public static function TROADMAPT($roadmap_id) {
-        $sql = 'select TEXT as DESCR from ' . ABAP_DB_TABLE_CUS0::TROADMAPT
+        $sql = 'select TEXT as ' . ABAP_DB_CONST::COLUMN_V_DESCR
+                . ' from ' . ABAP_DB_TABLE_CUS0::TROADMAPT
                 . ' where `roadmap_id` = :id and spras = :lg';
         return ABAP_DB_TABLE::descr_1filter($sql, $roadmap_id);
     }
 
     public static function YDOK_HY($object) {
-        $sql = "select HTMLTEXT as DESCR from " . ABAP_DB_TABLE_CUS0::YDOK_HY
+        $sql = "select HTMLTEXT as " . ABAP_DB_CONST::COLUMN_V_DESCR
+                . " from " . ABAP_DB_TABLE_CUS0::YDOK_HY
                 . " where `id` = '" . ABAP_DB_CONST::DOKHL_ID_HY
                 . "' and object = :id and langu = :lg";
         return ABAP_DB_TABLE::descr_1filter($sql, $object);
@@ -467,7 +480,8 @@ class ABAP_DB_TABLE_DOMA {
      * Domain text.
      */
     public static function DD01T($Domain) {
-        $sql = "select DDTEXT as DESCR from " . ABAP_DB_TABLE_DOMA::DD01T
+        $sql = "select DDTEXT as " . ABAP_DB_CONST::COLUMN_V_DESCR
+                . " from " . ABAP_DB_TABLE_DOMA::DD01T
                 . " where DOMNAME = :id and DDLANGUAGE = :lg";
         return ABAP_DB_TABLE::descr_1filter($sql, $Domain);
     }
@@ -589,7 +603,8 @@ class ABAP_DB_TABLE_DTEL {
      * </pre>
      */
     public static function DD04T($Rollname) {
-        $sql = "select DDTEXT as DESCR from " . ABAP_DB_TABLE_DTEL::DD04T
+        $sql = "select DDTEXT as " . ABAP_DB_CONST::COLUMN_V_DESCR
+                . " from " . ABAP_DB_TABLE_DTEL::DD04T
                 . " where ROLLNAME = :id and DDLANGUAGE = :lg";
         return ABAP_DB_TABLE::descr_1filter($sql, $Rollname);
     }
@@ -2204,6 +2219,17 @@ class ABAP_DB_TABLE_TABL {
     const YTDDAT = "ytddat";
 
     /**
+     * Table Attributes.
+     * <pre>
+     * SELECT * FROM dd02l WHERE tabname = 'BKPF'
+     * </pre>
+     */
+    public static function DD02L($TableName) {
+        $sql = "SELECT * FROM " . self::DD02L . " WHERE tabname = :id";
+        return ABAP_DB_TABLE::select_single($sql, $TableName);
+    }
+    
+    /**
      * Table List.
      * <pre>
      * SELECT TABNAME, TABCLASS, CONTFLAG FROM dd02l WHERE tabname like 'A%' order by TABNAME
@@ -2211,15 +2237,15 @@ class ABAP_DB_TABLE_TABL {
      */
     public static function DD02L_List($index, int $index_page = 1) {
         if ($index == ABAP_DB_CONST::DD02L_TABCLASS_CLUSTER) {
-            $sql = "SELECT TABNAME, TABCLASS, CONTFLAG FROM " . ABAP_DB_TABLE_TABL::DD02L
+            $sql = "SELECT TABNAME, TABCLASS, CONTFLAG FROM " . self::DD02L
                     . " WHERE TABCLASS = '" . ABAP_DB_CONST::DD02L_TABCLASS_CLUSTER . "' order by TABNAME";
             return ABAP_DB_TABLE::select($sql);
         } else if ($index == ABAP_DB_CONST::DD02L_TABCLASS_POOL) {
-            $sql = "SELECT TABNAME, TABCLASS, CONTFLAG FROM " . ABAP_DB_TABLE_TABL::DD02L
+            $sql = "SELECT TABNAME, TABCLASS, CONTFLAG FROM " . self::DD02L
                     . " WHERE TABCLASS = '" . ABAP_DB_CONST::DD02L_TABCLASS_POOL . "' order by TABNAME";
             return ABAP_DB_TABLE::select($sql);
         } else {
-            $sql = "SELECT TABNAME, TABCLASS, CONTFLAG FROM " . ABAP_DB_TABLE_TABL::DD02L
+            $sql = "SELECT TABNAME, TABCLASS, CONTFLAG FROM " . self::DD02L
                     . " WHERE tabname like :id and"
                     . " ( TABCLASS = '" . ABAP_DB_CONST::DD02L_TABCLASS_TRANSP
                     . "' OR TABCLASS = '" . ABAP_DB_CONST::DD02L_TABCLASS_CLUSTER
@@ -2237,7 +2263,7 @@ class ABAP_DB_TABLE_TABL {
      * </pre>
      */
     public static function DD02L_Sitemap() {
-        $sql = "select TABNAME from " . ABAP_DB_TABLE_TABL::DD02L
+        $sql = "select TABNAME from " . self::DD02L
                 . " where TABNAME not like 'Y%' and TABNAME not like 'Z%'";
         return ABAP_DB_TABLE::select($sql);
     }
@@ -2249,20 +2275,9 @@ class ABAP_DB_TABLE_TABL {
      * </pre>
      */
     public static function DD02L_SQLTAB($Sqltab) {
-        $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD02L
+        $sql = "SELECT * FROM " . self::DD02L
                 . " WHERE SQLTAB = :id order by TABNAME";
         return ABAP_DB_TABLE::select_1filter($sql, $Sqltab);
-    }
-
-    /**
-     * Table Attributes.
-     * <pre>
-     * SELECT * FROM dd02l WHERE tabname = 'BKPF'
-     * </pre>
-     */
-    public static function DD02L($TableName) {
-        $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD02L . " WHERE tabname = :id";
-        return ABAP_DB_TABLE::select_single($sql, $TableName);
     }
 
     /**
@@ -2272,9 +2287,33 @@ class ABAP_DB_TABLE_TABL {
      * </pre>
      */
     public static function DD02T($TableName) {
-        $sql = "select DDTEXT as DESCR from " . ABAP_DB_TABLE_TABL::DD02T
+        $sql = "select DDTEXT as " . ABAP_DB_CONST::COLUMN_V_DESCR
+                . " from " . self::DD02T
                 . " where tabname = :id and DDLANGUAGE = :lg";
         return ABAP_DB_TABLE::descr_1filter($sql, $TableName);
+    }
+
+    /**
+     * Select the columns for Entity-Relationship-Diagram only.
+     * To avoid show too many columns in the ERD, we only show the PK and FK columns.
+     */
+    public static function DD03L_Erd($TableName) {
+        /*
+          SELECT * FROM dd03l
+          WHERE TABNAME = 'DD04L'
+          AND ( KEYFLAG = 'X' OR FIELDNAME in (
+          SELECT FIELDNAME FROM dd08l where TABNAME = 'DD04L'
+          ))
+          ORDER BY POSITION
+         */
+        
+        $sql = "SELECT *"
+                . " FROM " . self::DD03L
+                . " WHERE TABNAME = :id"
+                . " AND ( KEYFLAG = 'X' OR FIELDNAME in ("
+                . "  SELECT FIELDNAME FROM " . self::DD08L . "  WHERE TABNAME = :id ))"
+                . " ORDER BY POSITION";
+        return ABAP_DB_TABLE::select_1filter($sql, $TableName);
     }
 
     /**
@@ -2284,11 +2323,23 @@ class ABAP_DB_TABLE_TABL {
      * </pre>
      */
     public static function DD03L_List($TableName) {
-        $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD03L
+        $sql = "SELECT * FROM " . self::DD03L
                 . " WHERE tabname = :id order by POSITION";
         return ABAP_DB_TABLE::select_1filter($sql, $TableName);
     }
 
+    /**
+     * Table primary key fields.
+     */
+    public static function DD03L_PK($TableName) {
+        $sql = "SELECT * FROM " . self::DD03L
+                . " WHERE tabname = :id"
+                . "   AND KEYFLAG = 'X'"
+                . " order by POSITION";
+        return ABAP_DB_TABLE::select_1filter($sql, $TableName);
+    }
+    
+    
     /**
      * Table Field Sitemap.
      * <pre>
@@ -2309,7 +2360,7 @@ class ABAP_DB_TABLE_TABL {
      * </pre>
      */
     public static function DD03L($TableName, $FieldName) {
-        $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD03L
+        $sql = "SELECT * FROM " . self::DD03L
                 . " WHERE TABNAME = :tname"
                 . " AND FIELDNAME = :fname";
         $paras = array(
@@ -2326,7 +2377,7 @@ class ABAP_DB_TABLE_TABL {
      * </pre>
      */
     public static function DD03L_POSITION($TableName, $Position) {
-        $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD03L
+        $sql = "SELECT * FROM " . self::DD03L
                 . " WHERE TABNAME = :tname"
                 . " AND POSITION = :pos";
         $paras = array(
@@ -2341,7 +2392,7 @@ class ABAP_DB_TABLE_TABL {
      */
     public static function DD03L_ROLLNAME($rollname) {
         /*  No distinct, No order by  */
-        $sql = "SELECT TABNAME FROM " . ABAP_DB_TABLE_TABL::DD03L
+        $sql = "SELECT TABNAME FROM " . self::DD03L
                 . " where ROLLNAME = :id limit "
                 . ABAP_DB_CONST::USED_BY_LIMIT_DTEL;
         return ABAP_DB_TABLE::select_1filter($sql, strtoupper($rollname));
@@ -2354,7 +2405,7 @@ class ABAP_DB_TABLE_TABL {
      * </pre>
      */
     public static function DD06L_List() {
-        $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD06L . " order by SQLTAB";
+        $sql = "SELECT * FROM " . self::DD06L . " order by SQLTAB";
         return ABAP_DB_TABLE::select($sql);
     }
 
@@ -2396,19 +2447,19 @@ class ABAP_DB_TABLE_TABL {
                 . " FROM dd05s"
                 . " LEFT JOIN ("
                 . "  SELECT"
-                . " " . self::DD08L .".TABNAME,"
-                . " " . self::DD08L .".FIELDNAME,"
-                . " " . self::DD08L .".CHECKTABLE,"
-                . " " . self::DD08L .".FRKART,"
-                . " " . self::DD08L .".CARDLEFT,"
-                . " " . self::DD08L .".CARD,"
-                . " " . self::DD03L .".FIELDNAME AS " . self::DD05S_V_CHECKFIELDNAME . ","
-                . " " . self::DD03L .".POSITION,"
-                . " " . self::DD03L .".ROLLNAME,"
-                . " " . self::DD03L .".DOMNAME,"
-                . " " . self::DD03L .".DATATYPE,"
-                . " " . self::DD03L .".LENG,"
-                . " " . self::DD03L .".DECIMALS"
+                . " " . self::DD08L . ".TABNAME,"
+                . " " . self::DD08L . ".FIELDNAME,"
+                . " " . self::DD08L . ".CHECKTABLE,"
+                . " " . self::DD08L . ".FRKART,"
+                . " " . self::DD08L . ".CARDLEFT,"
+                . " " . self::DD08L . ".CARD,"
+                . " " . self::DD03L . ".FIELDNAME AS " . self::DD05S_V_CHECKFIELDNAME . ","
+                . " " . self::DD03L . ".POSITION,"
+                . " " . self::DD03L . ".ROLLNAME,"
+                . " " . self::DD03L . ".DOMNAME,"
+                . " " . self::DD03L . ".DATATYPE,"
+                . " " . self::DD03L . ".LENG,"
+                . " " . self::DD03L . ".DECIMALS"
                 . "  FROM " . self::DD08L
                 . "  LEFT JOIN " . self::DD03L
                 . "   ON " . self::DD08L . ".CHECKTABLE = " . self::DD03L . ".TABNAME"
@@ -2427,7 +2478,7 @@ class ABAP_DB_TABLE_TABL {
      * Cluster/Pool table.
      */
     public static function DD06L($Sqltab) {
-        $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD06L . " where SQLTAB = :id";
+        $sql = "SELECT * FROM " . self::DD06L . " where SQLTAB = :id";
         return ABAP_DB_TABLE::select_single($sql, $Sqltab);
     }
 
@@ -2435,9 +2486,17 @@ class ABAP_DB_TABLE_TABL {
      * Cluster/Pool table text.
      */
     public static function DD06T($Sqltab) {
-        $sql = "select DDTEXT as DESCR from " . ABAP_DB_TABLE_TABL::DD06T
+        $sql = "select DDTEXT as " . ABAP_DB_CONST::COLUMN_V_DESCR
+                . " from " . self::DD06T
                 . " where SQLTAB = :id and DDLANGUAGE = :lg";
         return ABAP_DB_TABLE::descr_1filter($sql, $Sqltab);
+    }
+    
+    public static function DD08L_Erd($TableName) {
+        $sql = "SELECT distinct CHECKTABLE FROM " . self::DD08L
+                . " WHERE tabname = :id"
+                . " ORDER BY CHECKTABLE";
+        return ABAP_DB_TABLE::select_1filter($sql, $TableName);
     }
 
     /**
@@ -2447,7 +2506,7 @@ class ABAP_DB_TABLE_TABL {
      * </pre>
      */
     public static function DD16S($Sqltable) {
-        $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD16S
+        $sql = "SELECT * FROM " . self::DD16S
                 . " where SQLTAB = :id order by position";
         return ABAP_DB_TABLE::select_1filter($sql, $Sqltable);
     }
@@ -2459,7 +2518,7 @@ class ABAP_DB_TABLE_TABL {
      * </pre>
      */
     public static function DD17S_FIELDNAME($Sqltab, $FieldName) {
-        $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD17S
+        $sql = "SELECT * FROM " . self::DD17S
                 . " WHERE SQLTAB = :sqlt"
                 . " AND FIELDNAME = :fname order by INDEXNAME";
         $paras = array(
@@ -2507,7 +2566,7 @@ class ABAP_DB_TABLE_TRAN {
      * </pre>
      */
     public static function TSTC_List($index, int $index_page) {
-        $sql = 'SELECT * FROM ' . ABAP_DB_TABLE_TRAN::TSTC
+        $sql = 'SELECT * FROM ' . self::TSTC
                 . ' where TCODE LIKE :id'
                 . ' order by TCODE'
                 . ABAP_DB_CONST::SQL_LIMIT($index_page);
@@ -2522,7 +2581,7 @@ class ABAP_DB_TABLE_TRAN {
      * </pre>
      */
     public static function TSTC_Sitemap() {
-        $sql = "select TCODE from " . ABAP_DB_TABLE_TRAN::TSTC
+        $sql = "select TCODE from " . self::TSTC
                 . " where TCODE not like 'Y%' and TCODE not like 'Z%'";
         return ABAP_DB_TABLE::select($sql);
     }
@@ -2596,7 +2655,8 @@ class ABAP_DB_TABLE_TRAN {
         $bufval = GLOBAL_BUFFER::Get($bufkey);
 
         if ($bufval == NULL) {
-            $sql = "select ttext as DESCR from " . ABAP_DB_TABLE_TRAN::TSTCT
+            $sql = "select ttext as " . ABAP_DB_CONST::COLUMN_V_DESCR
+                    . " from " . ABAP_DB_TABLE_TRAN::TSTCT
                     . " where TCODE = :id and SPRSL = :lg";
             $bufval = ABAP_DB_TABLE::descr_1filter($sql, $TCode);
             if (GLOBAL_UTIL::IsEmpty($bufval)) {
@@ -2712,7 +2772,8 @@ class ABAP_DB_TABLE_VIEW {
      * View text.
      */
     public static function DD25T($ViewName) {
-        $sql = "select DDTEXT as DESCR from " . ABAP_DB_TABLE_VIEW::DD25T
+        $sql = "select DDTEXT as " . ABAP_DB_CONST::COLUMN_V_DESCR
+                . " from " . ABAP_DB_TABLE_VIEW::DD25T
                 . " where VIEWNAME = :id and DDLANGUAGE = :lg";
         return ABAP_DB_TABLE::descr_1filter($sql, strtoupper($ViewName));
     }
@@ -2760,7 +2821,8 @@ class ABAP_DB_TABLE_VIEW {
      * </pre>
      */
     public static function DM02T($Entid) {
-        $sql = "select LANGBEZ as DESCR from " . ABAP_DB_TABLE_VIEW::DM02T
+        $sql = "select LANGBEZ as " . ABAP_DB_CONST::COLUMN_V_DESCR
+                . " from " . ABAP_DB_TABLE_VIEW::DM02T
                 . " where entid = :id and SPRACHE = :lg";
         return ABAP_DB_TABLE::descr_1filter($sql, strtoupper($Entid));
     }
@@ -3570,18 +3632,18 @@ class ABAP_DB_TABLE {
      */
     public static function descr($sql, $paras) {
         $record = current(ABAP_DB_TABLE::select($sql, $paras));
-        $text = $record['DESCR'];
+        $text = $record[ABAP_DB_CONST::COLUMN_V_DESCR];
         // If we cannot find the text in logon language, then use English
         if (empty($text)) {
             $paras['lg'] = ABAP_DB_CONST::LANGU_EN;
             $record = current(ABAP_DB_TABLE::select($sql, $paras));
-            $text = $record['DESCR'];
+            $text = $record[ABAP_DB_CONST::COLUMN_V_DESCR];
         }
         // If we cannot find the text in English, then use Germany
         if (empty($text)) {
             $paras['lg'] = ABAP_DB_CONST::LANGU_DE;
             $record = current(ABAP_DB_TABLE::select($sql, $paras));
-            $text = $record['DESCR'];
+            $text = $record[ABAP_DB_CONST::COLUMN_V_DESCR];
         }
 
         return $text;

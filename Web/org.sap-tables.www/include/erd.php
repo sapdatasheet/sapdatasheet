@@ -1,67 +1,162 @@
 <?php
-//
-// Wrapper for the ERD tool - https://github.com/BurntSushi/erd
-//
+
+$__WS_ROOT__ = dirname(__FILE__, 3);
+$__ROOT__ = dirname(__FILE__, 2);
+
+require_once ($__WS_ROOT__ . '/common-php/library/global.php');
+require_once ($__WS_ROOT__ . '/common-php/library/abap_db.php');
+require_once ($__WS_ROOT__ . '/common-php/library/abap_ui.php');
 
 /**
- * E-R Diagram wrapper.
+ * E-R Diagram wrapper based on https://github.com/BurntSushi/erd.
  */
 class ERD {
+
+    const file_prefix = 'sap-tables-erd-';
+    const file_extension = '.er';
+    const dd03l_scope_erd = 'erd';
+    const dd03l_scope_pk = 'pk';
+
     protected $table_name;
     protected $output_fmt;
-    
+    protected $db_dd02l;
+    protected $db_dd02t;
+
     /**
      * Constructor of an ERD project.
-     * 
+     *
      * @param string $table_name ABAP Database Table name
      * @param string $output_fmt ERD output file format, example: png | pdf
      */
     function __construct(string $table_name, string $output_fmt) {
-        $this->table_name  = $table_name;
-        $this->output_fmt  = $output_fmt;
+        if (in_array($output_fmt, ERD_Format::enabledFormats()) == FALSE) {
+            throw new Exception('Unrecognized output format: (' . $output_fmt . ')');
+        }
+
+        $this->db_dd02l = ABAP_DB_TABLE_TABL::DD02L(strtoupper($table_name));
+        if (empty($this->db_dd02l) || empty($this->db_dd02l['TABNAME'])) {
+            throw new Exception('Unrecognized table name: (' . $table_name . ')');
+        }
+
+        $this->output_fmt = $output_fmt;
+        $this->table_name = $this->db_dd02l['TABNAME'];
+
+        $this->db_dd02t = ABAP_DB_TABLE_TABL::DD02T($this->table_name);
     }
-    
-    private function process_header() {
-        
+
+    public function process(): string {
+        $er_file = $this->process_header()
+                . $this->process_entities()
+                . $this->process_relationship();
+        return $er_file;
     }
-    
-    private function process_entity() {
+
+    private function process_header(): string {
+        $title = ERD_Keyword::title(
+                        $this->table_name . ': ' . $this->db_dd02t . ' (condensed)', 20);
+        return $title . PHP_EOL . PHP_EOL;
+    }
+
+    private function process_entities(): string {
+        // Primary table
+        $entities = $this->process_entity($this->table_name, self::dd03l_scope_erd);
+
+        // Check tables
+        foreach (ABAP_DB_TABLE_TABL::DD08L_Erd($this->table_name) as $dd08l) {
+            $entities = $entities . $this->process_entity($dd08l['CHECKTABLE'], self::dd03l_scope_pk);
+        }
+
+        return $entities;
+    }
+
+    private function process_entity(string $table_name, $scope = self::dd03l_scope_erd): string {
         // Generate the entity for the main Table
-        
-        // Generate the entities for the check tables
-        
+
+        $entity = '# Entities' . PHP_EOL . PHP_EOL;
+
+        $entity = $entity . ERD_Keyword::entity($table_name) . PHP_EOL;
+        if ($scope == self::dd03l_scope_pk) {
+            $dd03l_list = ABAP_DB_TABLE_TABL::DD03L_PK($table_name);
+        } else {
+            $dd03l_list = ABAP_DB_TABLE_TABL::DD03L_Erd($table_name);
+        }
+
+        foreach ($dd03l_list as $dd03l) {
+            $pk = ($dd03l['KEYFLAG'] == 'X') ? ERD_Keyword::column_pk : '';
+            $fk = (strlen(trim($dd03l['CHECKTABLE'])) > 1) ? ERD_Keyword::column_fk : '';
+            $label = ERD_Keyword::label($dd03l['DATATYPE'] . ' (' . $dd03l['LENG'] . ')');
+
+            $fieldName = str_replace('/', '_', $dd03l['FIELDNAME']);
+            $column = $pk . $fk . $fieldName . $label . PHP_EOL;
+            $entity = $entity . $column;
+        }
+
+        return $entity . PHP_EOL;
     }
-    
-    private function process_entity_checktables() {
-        
+
+    private function process_relationship(): string {
+        $relation = '# Relationships' . PHP_EOL . PHP_EOL;
+
+        foreach (ABAP_DB_TABLE_TABL::DD05S_DD08L_DD03L($this->table_name) as $dd08l_dd05s_item) {
+            $row = $dd08l_dd05s_item['TABNAME'] . ' *--1 ' . $dd08l_dd05s_item['CHECKTABLE'];
+            $relation = $relation . $row . PHP_EOL;
+        }
+
+        return $relation;
     }
-    
-    private function process_relationship() {
-        
-    }
-    
+
     /**
      * Execute the ERD command, and return the result.
+     *
+     * @return string Empty string ('') if failed, else the output file full path.
      */
-    public function run() : string {
+    public function run(): string {
         // Prepare the ER file
-        $this->process_header();
-        $this->process_entity();
-        $this->process_entity_checktables();
-        $this->process_relationship();
-        
-        // Execute the ER command
+        $er_file = $this->process();
 
+        /*
+          $er_file = "[Person]" . PHP_EOL
+          . "*name" . PHP_EOL
+          . "height" . PHP_EOL
+          . "weight" . PHP_EOL
+          . "+birth_location_id" . PHP_EOL . PHP_EOL
+          . "[Location]" . PHP_EOL
+          . "*id" . PHP_EOL
+          . "city" . PHP_EOL
+          . "state" . PHP_EOL
+          . "country" . PHP_EOL . PHP_EOL
+          . "Person *--1 Location";
+         */
 
-        // Return the result
-        
+        // Execute the ER command:
+        //  - echo "abc" | erd -f png
+        //  - erd -i something.er -o something.dot
+
+        $tempDir = sys_get_temp_dir() . DIRECTORY_SEPARATOR;
+        $fname = self::file_prefix . getmypid();
+
+        $tempFileEr = $fname . self::file_extension;
+        $tempFileOutput = $fname . '.' . $this->output_fmt;
+        file_put_contents($tempDir . $tempFileEr, $er_file);
+
+        $cmd = 'cd ' . $tempDir . ' && erd -i ' . $tempFileEr . ' -o ' . $tempFileOutput;
+        shell_exec($cmd);
+        // unlink($tempDir . $tempFileEr);
+
+        if (file_exists($tempDir . $tempFileOutput)) {
+            return $tempDir . $tempFileOutput;
+        } else {
+            return "";
+        }
     }
+
 }
 
 /**
  * ERD supported output file formats.
  */
-class ERD_FMT {
+class ERD_Format {
+
     const bmp = 'bmp';
     const dot = 'dot';
     const eps = 'eps';
@@ -74,4 +169,50 @@ class ERD_FMT {
     const ps2 = 'ps2';
     const svg = 'svg';
     const tiff = 'tiff';
+
+    /**
+     * We only enable limited export file formats as of now.
+     */
+    public static function enabledFormats(): array {
+        return array(self::pdf, self::png);
+    }
+
+}
+
+/**
+ * ERD Keywrods
+ */
+class ERD_Keyword {
+
+    const bgcolor = 'bgcolor';
+    const comment = '# ';
+    const column_fk = '+';
+    const column_pk = '*';
+    const label = 'label';
+    const title = 'title';
+    const size = 'size';
+    const cardinality_0_or_1 = '?';
+    const cardinality_exactly_1 = '1';
+    const cardinality_0_or_more = '*';
+    const cardinality_1_or_more = '+';
+
+    public static function entity(string $entity_name): string {
+        return '[' . $entity_name . ']';
+    }
+
+    public static function label(string $label): string {
+        return ' {' . self::label . ': "' . $label . '"}';
+    }
+
+    /**
+     * Generate a relation text. The <code>$left</code> or <code>$right</code> is one of the cardinality.
+     */
+    public static function relation(string $left, string $right): string {
+        return ' ' . $left . '--' . $right;
+    }
+
+    public static function title(string $lable, int $size): string {
+        return self::title . ' {' . self::label . ': "' . $lable . '", size: "' . $size . '"}';
+    }
+
 }
