@@ -25,10 +25,10 @@ class ERD {
     /**
      * Constructor of an ERD project.
      *
-     * @param string $table_name ABAP Database Table name
      * @param string $output_fmt ERD output file format, example: png | pdf
+     * @param string $table_name ABAP Database Table name
      */
-    function __construct(string $table_name, string $output_fmt) {
+    function __construct(string $output_fmt, string $table_name) {
         if (in_array($output_fmt, ERD_Format::enabledFormats()) == FALSE) {
             throw new Exception('Unrecognized output format: (' . $output_fmt . ')');
         }
@@ -40,7 +40,6 @@ class ERD {
 
         $this->output_fmt = $output_fmt;
         $this->table_name = $this->db_dd02l['TABNAME'];
-
         $this->db_dd02t = ABAP_DB_TABLE_TABL::DD02T($this->table_name);
     }
 
