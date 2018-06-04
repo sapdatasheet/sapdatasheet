@@ -59,6 +59,16 @@ class ABAP_DB_CONST {
     const DOMAIN_REPOSRC_SUBC = "SUBC";
     const DOMAIN_TADIR_COMP_TYPE = "RELC_TYPE";
     const DOMAIN_TDEVC_MAINPACK = "MAINPACK";
+    
+    /** Each record in check table has any no. of dependent records. */
+    const DOMAINVALUE_CARD_CN = 'CN';
+    /** Each record in check table has max. of one dependent record */
+    const DOMAINVALUE_CARD_C = 'C';
+    /** Each record in check table has at least one dependent record */
+    const DOMAINVALUE_CARD_N = 'N';
+    /** Each record in check table has exactly one dependent record */
+    const DOMAINVALUE_CARD_1 = '1';
+    
     const DOMAINVALUE_MP_OBJTYPE_M = "M";            // Menu
     const DOMAINVALUE_MP_OBJTYPE_F = "F";            // Function
     const DOMAINVALUE_MP_OBJTYPE_T = "T";            // Title

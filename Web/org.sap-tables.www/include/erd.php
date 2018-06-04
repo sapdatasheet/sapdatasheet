@@ -44,6 +44,33 @@ class ERD {
         $this->db_dd02t = ABAP_DB_TABLE_TABL::DD02T($this->table_name);
     }
 
+    /**
+     * Convert an ABAP Card value to an ERD cardinality value.
+     * 
+     */
+    private function card2cardinality(string $abap_card) {
+        switch ($abap_card) {
+            case ABAP_DB_CONST::DOMAINVALUE_CARD_CN:
+                $result = ERD_Keyword::cardinality_0_or_more;
+                break;
+            case ABAP_DB_CONST::DOMAINVALUE_CARD_C:
+                $result = ERD_Keyword::cardinality_0_or_1;
+                break;
+            case ABAP_DB_CONST::DOMAINVALUE_CARD_N:
+                $result = ERD_Keyword::cardinality_1_or_more;
+                break;
+            case ABAP_DB_CONST::DOMAINVALUE_CARD_1:
+                $result = ERD_Keyword::cardinality_exactly_1;
+                break;
+
+            default:
+                $result = ERD_Keyword::cardinality_0_or_more;
+                break;
+        }
+
+        return $result;
+    }
+
     public function process(): string {
         $er_file = $this->process_header()
                 . $this->process_entities()
@@ -53,7 +80,7 @@ class ERD {
 
     private function process_header(): string {
         $title = ERD_Keyword::title(
-                        $this->table_name . ': ' . $this->db_dd02t . ' (condensed)', 20);
+                        'Foreign Key(s) for table ' . $this->table_name . ' (' . $this->db_dd02t . ')', 20);
         return $title . PHP_EOL . PHP_EOL;
     }
 
@@ -74,13 +101,15 @@ class ERD {
 
         $entity = '# Entities' . PHP_EOL . PHP_EOL;
 
-        $entity = $entity . ERD_Keyword::entity($table_name) . PHP_EOL;
         if ($scope == self::dd03l_scope_pk) {
             $dd03l_list = ABAP_DB_TABLE_TABL::DD03L_PK($table_name);
+            $bgcolor = ERD_Keyword::bgcolor('#d0e0d0');
         } else {
             $dd03l_list = ABAP_DB_TABLE_TABL::DD03L_Erd($table_name);
+            $bgcolor = ERD_Keyword::bgcolor('tomato');
         }
 
+        $entity = $entity . ERD_Keyword::entity($table_name) . $bgcolor . PHP_EOL;
         foreach ($dd03l_list as $dd03l) {
             $pk = ($dd03l['KEYFLAG'] == 'X') ? ERD_Keyword::column_pk : '';
             $fk = (strlen(trim($dd03l['CHECKTABLE'])) > 1) ? ERD_Keyword::column_fk : '';
@@ -98,9 +127,15 @@ class ERD {
         $relation = '# Relationships' . PHP_EOL . PHP_EOL;
 
         foreach (ABAP_DB_TABLE_TABL::DD05S_DD08L_DD03L($this->table_name) as $dd08l_dd05s_item) {
-            $row = $dd08l_dd05s_item['TABNAME'] . ' *--1 ' . $dd08l_dd05s_item['CHECKTABLE'];
+            $conn = ERD_Keyword::relation(
+                            $this->card2cardinality($dd08l_dd05s_item['CARDLEFT']), $this->card2cardinality($dd08l_dd05s_item['CARD']));
+            $label = $dd08l_dd05s_item['TABNAME'] . '-' . $dd08l_dd05s_item['FIELDNAME']
+                    . ' = ' . $dd08l_dd05s_item['CHECKTABLE'] . '-' . $dd08l_dd05s_item['CHECKFIELDNAME'];
+
+            $row = $dd08l_dd05s_item['TABNAME'] . $conn . $dd08l_dd05s_item['CHECKTABLE'] . ERD_Keyword::label($label);
             $relation = $relation . $row . PHP_EOL;
         }
+
 
         return $relation;
     }
@@ -113,20 +148,6 @@ class ERD {
     public function run(): string {
         // Prepare the ER file
         $er_file = $this->process();
-
-        /*
-          $er_file = "[Person]" . PHP_EOL
-          . "*name" . PHP_EOL
-          . "height" . PHP_EOL
-          . "weight" . PHP_EOL
-          . "+birth_location_id" . PHP_EOL . PHP_EOL
-          . "[Location]" . PHP_EOL
-          . "*id" . PHP_EOL
-          . "city" . PHP_EOL
-          . "state" . PHP_EOL
-          . "country" . PHP_EOL . PHP_EOL
-          . "Person *--1 Location";
-         */
 
         // Execute the ER command:
         //  - echo "abc" | erd -f png
@@ -196,6 +217,10 @@ class ERD_Keyword {
     const cardinality_0_or_more = '*';
     const cardinality_1_or_more = '+';
 
+    public static function bgcolor(string $color): string {
+        return ' {' . self::bgcolor . ': "' . $color . '"}';
+    }
+
     public static function entity(string $entity_name): string {
         return '[' . $entity_name . ']';
     }
@@ -208,7 +233,7 @@ class ERD_Keyword {
      * Generate a relation text. The <code>$left</code> or <code>$right</code> is one of the cardinality.
      */
     public static function relation(string $left, string $right): string {
-        return ' ' . $left . '--' . $right;
+        return ' ' . $left . '--' . $right . ' ';
     }
 
     public static function title(string $lable, int $size): string {
