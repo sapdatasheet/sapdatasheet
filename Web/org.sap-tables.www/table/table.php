@@ -30,6 +30,12 @@ $title = 'ABAP Table Foreign Key'
         <h1 class="pt-2"><?php echo $title ?></h1>
 
         <div class="container">
+            <?php if (count(ABAP_DB_TABLE_TABL::DD08L_Erd($table_name)) < 1) { ?>
+                <div class="alert alert-warning" role="alert">
+                    The table <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tabl($table_name) ?> does not have foreign key table.
+                </div>
+            <?php } ?>
+
             <h2>The E-R file</h2>
             <textarea readonly rows="16" cols="100">
                 <?php

@@ -7,5 +7,9 @@ sudo cp    -r  /data/github/sapdatasheet/Web/common-php/.           /var/www/com
 sudo rm    -rf /var/www/html/*
 sudo cp    -r  /data/github/sapdatasheet/Web/org.sap-tables.www/.   /var/www/html/
 
+# Open the permission for the test folder.
+# - This folder does not exists in production system for security.
+sudo chmod -R 777 /var/www/html/test
+
 echo "Deploy finished"
 sleep 1

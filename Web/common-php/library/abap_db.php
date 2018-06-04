@@ -25,7 +25,7 @@ class ABAP_DB_CONST {
     const LANGU_DE = "D";
     const FLAG_TRUE = "X";
     const FLAG_FALSE = "";
-    
+
     /**
      * Description column.
      */
@@ -59,16 +59,18 @@ class ABAP_DB_CONST {
     const DOMAIN_REPOSRC_SUBC = "SUBC";
     const DOMAIN_TADIR_COMP_TYPE = "RELC_TYPE";
     const DOMAIN_TDEVC_MAINPACK = "MAINPACK";
-    
+
     /** Each record in check table has any no. of dependent records. */
     const DOMAINVALUE_CARD_CN = 'CN';
+
     /** Each record in check table has max. of one dependent record */
     const DOMAINVALUE_CARD_C = 'C';
+
     /** Each record in check table has at least one dependent record */
     const DOMAINVALUE_CARD_N = 'N';
+
     /** Each record in check table has exactly one dependent record */
     const DOMAINVALUE_CARD_1 = '1';
-    
     const DOMAINVALUE_MP_OBJTYPE_M = "M";            // Menu
     const DOMAINVALUE_MP_OBJTYPE_F = "F";            // Function
     const DOMAINVALUE_MP_OBJTYPE_T = "T";            // Title
@@ -2238,7 +2240,7 @@ class ABAP_DB_TABLE_TABL {
         $sql = "SELECT * FROM " . self::DD02L . " WHERE tabname = :id";
         return ABAP_DB_TABLE::select_single($sql, $TableName);
     }
-    
+
     /**
      * Table List.
      * <pre>
@@ -2274,7 +2276,12 @@ class ABAP_DB_TABLE_TABL {
      */
     public static function DD02L_Sitemap() {
         $sql = "select TABNAME from " . self::DD02L
-                . " where TABNAME not like 'Y%' and TABNAME not like 'Z%'";
+                . " where TABNAME not like 'Y%'"
+                . "   and TABNAME not like 'Z%'"
+                . "   and TABCLASS in ("
+                . "'" . ABAP_DB_CONST::DD02L_TABCLASS_TRANSP . "', "
+                . "'" . ABAP_DB_CONST::DD02L_TABCLASS_CLUSTER . "', "
+                . "'" . ABAP_DB_CONST::DD02L_TABCLASS_POOL . "')";
         return ABAP_DB_TABLE::select($sql);
     }
 
@@ -2314,14 +2321,16 @@ class ABAP_DB_TABLE_TABL {
           AND ( KEYFLAG = 'X' OR FIELDNAME in (
           SELECT FIELDNAME FROM dd08l where TABNAME = 'DD04L'
           ))
+          AND FIELDNAME <> '.INCLUDE'
           ORDER BY POSITION
          */
-        
+
         $sql = "SELECT *"
                 . " FROM " . self::DD03L
                 . " WHERE TABNAME = :id"
                 . " AND ( KEYFLAG = 'X' OR FIELDNAME in ("
                 . "  SELECT FIELDNAME FROM " . self::DD08L . "  WHERE TABNAME = :id ))"
+                . " AND FIELDNAME <> '.INCLUDE'"
                 . " ORDER BY POSITION";
         return ABAP_DB_TABLE::select_1filter($sql, $TableName);
     }
@@ -2345,11 +2354,11 @@ class ABAP_DB_TABLE_TABL {
         $sql = "SELECT * FROM " . self::DD03L
                 . " WHERE tabname = :id"
                 . "   AND KEYFLAG = 'X'"
+                . "   AND FIELDNAME <> '.INCLUDE'"
                 . " order by POSITION";
         return ABAP_DB_TABLE::select_1filter($sql, $TableName);
     }
-    
-    
+
     /**
      * Table Field Sitemap.
      * <pre>
@@ -2501,10 +2510,17 @@ class ABAP_DB_TABLE_TABL {
                 . " where SQLTAB = :id and DDLANGUAGE = :lg";
         return ABAP_DB_TABLE::descr_1filter($sql, $Sqltab);
     }
-    
+
     public static function DD08L_Erd($TableName) {
+        /*
+          SELECT * FROM abap.dd08l
+          where TABNAME = '/1BEA/IPMI_DLSK'
+          AND trim(CHECKTABLE) <> '*'
+          ORDER BY CHECKTABLE
+         */
         $sql = "SELECT distinct CHECKTABLE FROM " . self::DD08L
                 . " WHERE tabname = :id"
+                . " AND trim(CHECKTABLE) <> '*'"
                 . " ORDER BY CHECKTABLE";
         return ABAP_DB_TABLE::select_1filter($sql, $TableName);
     }

@@ -43,6 +43,10 @@ class ERD {
         $this->db_dd02t = ABAP_DB_TABLE_TABL::DD02T($this->table_name);
     }
 
+    public static function escape(string $name): string {
+        return str_replace('/', '_', $name);
+    }
+
     /**
      * Convert an ABAP Card value to an ERD cardinality value.
      * 
@@ -84,8 +88,11 @@ class ERD {
     }
 
     private function process_entities(): string {
+
+        $entities = '# Entities' . PHP_EOL . PHP_EOL;
+
         // Primary table
-        $entities = $this->process_entity($this->table_name, self::dd03l_scope_erd);
+        $entities = $entities . $this->process_entity($this->table_name, self::dd03l_scope_erd);
 
         // Check tables
         foreach (ABAP_DB_TABLE_TABL::DD08L_Erd($this->table_name) as $dd08l) {
@@ -98,8 +105,6 @@ class ERD {
     private function process_entity(string $table_name, $scope = self::dd03l_scope_erd): string {
         // Generate the entity for the main Table
 
-        $entity = '# Entities' . PHP_EOL . PHP_EOL;
-
         if ($scope == self::dd03l_scope_pk) {
             $dd03l_list = ABAP_DB_TABLE_TABL::DD03L_PK($table_name);
             $bgcolor = ERD_Keyword::bgcolor('#d0e0d0');
@@ -108,13 +113,13 @@ class ERD {
             $bgcolor = ERD_Keyword::bgcolor('tomato');
         }
 
-        $entity = $entity . ERD_Keyword::entity($table_name) . $bgcolor . PHP_EOL;
+        $entity = ERD_Keyword::entity(self::escape($table_name)) . $bgcolor . PHP_EOL;
         foreach ($dd03l_list as $dd03l) {
             $pk = ($dd03l['KEYFLAG'] == 'X') ? ERD_Keyword::column_pk : '';
             $fk = (strlen(trim($dd03l['CHECKTABLE'])) > 1) ? ERD_Keyword::column_fk : '';
             $label = ERD_Keyword::label($dd03l['DATATYPE'] . ' (' . $dd03l['LENG'] . ')');
 
-            $fieldName = str_replace('/', '_', $dd03l['FIELDNAME']);
+            $fieldName = self::escape($dd03l['FIELDNAME']);
             $column = $pk . $fk . $fieldName . $label . PHP_EOL;
             $entity = $entity . $column;
         }
@@ -131,10 +136,10 @@ class ERD {
             $label = $dd08l_dd05s_item['TABNAME'] . '-' . $dd08l_dd05s_item['FIELDNAME']
                     . ' = ' . $dd08l_dd05s_item['CHECKTABLE'] . '-' . $dd08l_dd05s_item['CHECKFIELDNAME'];
 
-            $row = $dd08l_dd05s_item['TABNAME'] . $conn . $dd08l_dd05s_item['CHECKTABLE'] . ERD_Keyword::label($label);
+            $row = self::escape($dd08l_dd05s_item['TABNAME']) . $conn . self::escape($dd08l_dd05s_item['CHECKTABLE'])
+                    . ERD_Keyword::label($label);
             $relation = $relation . $row . PHP_EOL;
         }
-
 
         return $relation;
     }
@@ -161,7 +166,7 @@ class ERD {
 
         $cmd = 'cd ' . $tempDir . ' && erd -i ' . $tempFileEr . ' -o ' . $tempFileOutput;
         shell_exec($cmd);
-        // unlink($tempDir . $tempFileEr);
+        unlink($tempDir . $tempFileEr);
 
         if (file_exists($tempDir . $tempFileOutput)) {
             return $tempDir . $tempFileOutput;
