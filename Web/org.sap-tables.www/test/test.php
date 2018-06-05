@@ -24,23 +24,28 @@ foreach ($dd02l_list as $dd02l) {
     $filename = ERD::escape($dd02l['TABNAME']);
 
     foreach (ERD_Format::enabledFormats() as $format) {
+
+        if ($count < 40500) {
+            continue;
+        }
+
         echo number_format($count) . '-' . $format . ' ('
-                . number_format( $count * 100 / $dd02l_list_count, 4) . '%)'
-                . '. Table {' . $dd02l['TABNAME'] . '} Processing started. ';
-        
+        . number_format($count * 100 / $dd02l_list_count, 4) . '%)'
+        . '. Table {' . $dd02l['TABNAME'] . '} Processing started. ';
+
         $erd = new ERD($format, $dd02l['TABNAME']);
         $er_file = $filename . '-' . $format . '.er';
         file_put_contents($er_file, $erd->process());
 
         $output_file_path = $erd->run();
-        $log_text =  'format [' . $format . '] result ';
+        $log_text = 'format [' . $format . '] result ';
         if (strlen($output_file_path) > 0) {
             // We do not have to copy the result files
             // 
             // $cmd_cp = 'cp ' . $output_file_path . ' ' . $filename . '.' . $format;
             // shell_exec($cmd_cp);
             echo $log_text . ' Succeed ' . PHP_EOL;
-            
+
             // Clear the E-R file if succeed
             unlink($er_file);
         } else {

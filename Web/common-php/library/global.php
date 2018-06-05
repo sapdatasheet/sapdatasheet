@@ -727,7 +727,7 @@ class GLOBAL_UTIL {
     }
 
     /**
-     * Get OB Folder based on the langeuage.
+     * Get OB Folder based on the language.
      */
     public static function GetObFolder($dirname) {
         if ($GLOBALS[GLOBAL_UTIL::SAP_DESC_LANGU] == ABAP_DB_CONST::LANGU_EN) {
@@ -779,12 +779,18 @@ class GLOBAL_WEBSITE {
 
     const URLPREFIX_SAPDS_ORG = "https://www.sapdatasheet.org";
     const URLPREFIX_SAPTCODES_ORG = "https://www.sap-tcodes.org";
+    
+    const SAP_TABLES_ORG_URL = 'https://www.sap-tables.org';
+    const SAP_TABLES_ORG_NAME = 'SAP Tables';
+    const SAP_TABLES_ORG_DESC = 'The best online document for SAP ABAP Tables';
+    const SAP_TABLES_ORG_TITLE = ', sap-tables.org - The best online document for SAP ABAP Tables';
+    const SAP_TABLES_ORG_META_DESC = 'Document for All SAP Tables, including table basic information, relationship diagrams, books, etc';
 
     public static function GetFullUrl_SAPDS_ORG($uri) {
         return GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG . $uri;
     }
 
-    public static function GetFullUrl_SAPTABLES_ORG($uri) {
+    public static function GetFullUrl_SAP_TCODES_ORG($uri) {
         return GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . $uri;
     }
 
@@ -796,6 +802,6 @@ class GLOBAL_WEBSITE_SAPDS {
     const NAME = 'SAP Datasheet';
     const DESC = 'The Best Online SAP Object Repository';
     const TITLE = ' - SAP Datasheet - The Best Online SAP Object Repository';
-    const META_DESC = 'Datasheet for all SAP objects: domain, data element, table, view, class, function module, report, transaction code, IMG nodes, SAP Menu, etc';
+    const META_DESC = 'SAP Datasheet for all ABAP objects: Tables, Transaction codes, Implementation Guide (IMG), Function modules, Domains, Data elements, Views, Class and Interfaces, ABAP Report, SAP Menu, etc';
 
 }

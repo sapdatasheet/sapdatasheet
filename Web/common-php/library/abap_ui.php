@@ -116,7 +116,7 @@ class ABAP_UI_DS_Navigation {
         $anchorTag = (strlen(trim($anchor)) > 0) ? '#' . $anchor : '';
 
         // Get the Path
-        $path = ABAP_UI_DS_Navigation::GetObjectPath($objtype, $objname) . $anchorTag;
+        $path = self::GetObjectPath($objtype, $objname) . $anchorTag;
 
         // Open in a New Window or not
         $newWindow = ($newwin === TRUE) ? 'target="_blank"' : '';
@@ -145,39 +145,39 @@ class ABAP_UI_DS_Navigation {
     }
 
     public static function GetHyperlink4Bmfr($fctr_id, $posid, $desc = NULL, $newwin = TRUE) {
-        return ABAP_UI_DS_Navigation::GetHyperlink(GLOBAL_ABAP_OTYPE::BMFR_NAME, $fctr_id, $posid, $desc, $newwin);
+        return self::GetHyperlink(GLOBAL_ABAP_OTYPE::BMFR_NAME, $fctr_id, $posid, $desc, $newwin);
     }
 
     public static function GetHyperlink4Clas($class, $desc = NULL, $newwin = TRUE) {
-        return ABAP_UI_DS_Navigation::GetHyperlink(GLOBAL_ABAP_OTYPE::CLAS_NAME, $class, $class, $desc, $newwin);
+        return self::GetHyperlink(GLOBAL_ABAP_OTYPE::CLAS_NAME, $class, $class, $desc, $newwin);
     }
 
     public static function GetHyperlink4Doma($domain, $desc = NULL, $newwin = TRUE) {
-        return ABAP_UI_DS_Navigation::GetHyperlink(GLOBAL_ABAP_OTYPE::DOMA_NAME, $domain, $domain, $desc, $newwin);
+        return self::GetHyperlink(GLOBAL_ABAP_OTYPE::DOMA_NAME, $domain, $domain, $desc, $newwin);
     }
 
     public static function GetHyperlink4DomainValue($domain, $domainValue, $desc, $newwin = TRUE) {
-        return ABAP_UI_DS_Navigation::GetHyperlink(GLOBAL_ABAP_OTYPE::DOMA_NAME, $domain, $domainValue, $desc, $newwin, ABAP_UI_CONST::ANCHOR_VALUES);
+        return self::GetHyperlink(GLOBAL_ABAP_OTYPE::DOMA_NAME, $domain, $domainValue, $desc, $newwin, ABAP_UI_CONST::ANCHOR_VALUES);
     }
 
     public static function GetHyperlink4Dtel($rollname, $desc = NULL, $newwin = TRUE) {
-        return ABAP_UI_DS_Navigation::GetHyperlink(GLOBAL_ABAP_OTYPE::DTEL_NAME, $rollname, $rollname, $desc, $newwin);
+        return self::GetHyperlink(GLOBAL_ABAP_OTYPE::DTEL_NAME, $rollname, $rollname, $desc, $newwin);
     }
 
     public static function GetHyperlink4DtelDocument($rollname = NULL, $newwin = TRUE) {
-        return ABAP_UI_DS_Navigation::GetHyperlink(GLOBAL_ABAP_OTYPE::DTEL_NAME, $rollname, GLOBAL_ABAP_ICON::getIcon4SystemHelp(), ABAP_UI_CONST::LABEL_F1Help, $newwin, ABAP_UI_CONST::ANCHOR_DOCUMENT);
+        return self::GetHyperlink(GLOBAL_ABAP_OTYPE::DTEL_NAME, $rollname, GLOBAL_ABAP_ICON::getIcon4SystemHelp(), ABAP_UI_CONST::LABEL_F1Help, $newwin, ABAP_UI_CONST::ANCHOR_DOCUMENT);
     }
 
     public static function GetHyperlink4Func($fm, $desc = NULL, $newwin = TRUE) {
-        return ABAP_UI_DS_Navigation::GetHyperlink(GLOBAL_ABAP_OTYPE::FUNC_NAME, $fm, $fm, $desc, $newwin);
+        return self::GetHyperlink(GLOBAL_ABAP_OTYPE::FUNC_NAME, $fm, $fm, $desc, $newwin);
     }
 
     public static function GetHyperlink4Intf($intf, $desc = NULL, $newwin = TRUE) {
-        return ABAP_UI_DS_Navigation::GetHyperlink(GLOBAL_ABAP_OTYPE::INTF_NAME, $intf, $intf, $desc, $newwin);
+        return self::GetHyperlink(GLOBAL_ABAP_OTYPE::INTF_NAME, $intf, $intf, $desc, $newwin);
     }
 
     public static function GetHyperlink4Fugr($fg, $desc, $newwin = TRUE) {
-        return ABAP_UI_DS_Navigation::GetHyperlink(GLOBAL_ABAP_OTYPE::FUGR_NAME, $fg, $fg, $desc, $newwin);
+        return self::GetHyperlink(GLOBAL_ABAP_OTYPE::FUGR_NAME, $fg, $fg, $desc, $newwin);
     }
 
     public static function GetHyperlink4Msag($msgcls, $desc = NULL, $newwin = TRUE) {
@@ -186,7 +186,7 @@ class ABAP_UI_DS_Navigation {
         } else {
             $msgcls_url = urlencode($msgcls);
         }
-        return ABAP_UI_DS_Navigation::GetHyperlink(GLOBAL_ABAP_OTYPE::MSAG_NAME, $msgcls_url, $msgcls, $desc, $newwin);
+        return self::GetHyperlink(GLOBAL_ABAP_OTYPE::MSAG_NAME, $msgcls_url, $msgcls, $desc, $newwin);
     }
 
     public static function GetHyperlink4Msgnr($msgcls, $msgnr, $newwin = TRUE) {
@@ -196,38 +196,38 @@ class ABAP_UI_DS_Navigation {
         $objname = htmlentities(strtolower($msgcls)) . "-" . htmlentities(strtolower($msgnr));
         // $title = htmlentities($msgcls . ' - ' . $msgnr);
         $title = ABAP_DB_TABLE_MSAG::T100_NR($msgcls, $msgnr);
-        return ABAP_UI_DS_Navigation::GetHyperlink(GLOBAL_ABAP_OTYPE::MSAG_NAME, $objname, $msgnr, $title, $newwin);
+        return self::GetHyperlink(GLOBAL_ABAP_OTYPE::MSAG_NAME, $objname, $msgnr, $title, $newwin);
     }
 
     public static function GetHyperlink4Devc($package, $desc = NULL, $newwin = TRUE) {
-        return ABAP_UI_DS_Navigation::GetHyperlink(GLOBAL_ABAP_OTYPE::DEVC_NAME, $package, $package, $desc, $newwin);
+        return self::GetHyperlink(GLOBAL_ABAP_OTYPE::DEVC_NAME, $package, $package, $desc, $newwin);
     }
 
     public static function GetHyperlink4Prog($program, $desc = NULL, $value = "", $newwin = TRUE) {
         if ($value === "") {
             $value = $program;
         }
-        return ABAP_UI_DS_Navigation::GetHyperlink(GLOBAL_ABAP_OTYPE::PROG_NAME, $program, $value, $desc, $newwin);
+        return self::GetHyperlink(GLOBAL_ABAP_OTYPE::PROG_NAME, $program, $value, $desc, $newwin);
     }
 
     public static function GetHyperlink4Shlp($shlp, $desc = NULL, $newwin = TRUE) {
-        return ABAP_UI_DS_Navigation::GetHyperlink(GLOBAL_ABAP_OTYPE::SHLP_NAME, $shlp, $shlp, $desc, $newwin);
+        return self::GetHyperlink(GLOBAL_ABAP_OTYPE::SHLP_NAME, $shlp, $shlp, $desc, $newwin);
     }
 
     public static function GetHyperlink4Cvers($compName, $desc = NULL, $newwin = TRUE) {
-        return ABAP_UI_DS_Navigation::GetHyperlink(GLOBAL_ABAP_OTYPE::CVERS_NAME, $compName, $compName, $desc, $newwin);
+        return self::GetHyperlink(GLOBAL_ABAP_OTYPE::CVERS_NAME, $compName, $compName, $desc, $newwin);
     }
 
     public static function GetHyperlink4Cus0IMGActivity($img, $desc = NULL, $newwin = TRUE) {
-        return ABAP_UI_DS_Navigation::GetHyperlink(GLOBAL_ABAP_OTYPE::CUS0_NAME, $img, $img, $desc, $newwin);
+        return self::GetHyperlink(GLOBAL_ABAP_OTYPE::CUS0_NAME, $img, $img, $desc, $newwin);
     }
 
     public static function GetHyperlink4Sqlt($sqlTable, $desc = NULL, $newwin = TRUE) {
-        return ABAP_UI_DS_Navigation::GetHyperlink(GLOBAL_ABAP_OTYPE::SQLT_NAME, $sqlTable, $sqlTable, $desc, $newwin);
+        return self::GetHyperlink(GLOBAL_ABAP_OTYPE::SQLT_NAME, $sqlTable, $sqlTable, $desc, $newwin);
     }
 
     public static function GetHyperlink4Tabl($table, $desc = NULL, $newwin = TRUE) {
-        return ABAP_UI_DS_Navigation::GetHyperlink(GLOBAL_ABAP_OTYPE::TABL_NAME, $table, $table, $desc, $newwin);
+        return self::GetHyperlink(GLOBAL_ABAP_OTYPE::TABL_NAME, $table, $table, $desc, $newwin);
     }
 
     public static function GetHyperlink4TablField($table, $field, $newwin = TRUE) {
@@ -235,7 +235,7 @@ class ABAP_UI_DS_Navigation {
             return '&nbsp;';
         }
         $objname = GLOBAL_UTIL::Clear4Url($table) . "-" . GLOBAL_UTIL::Clear4Url($field);
-        return ABAP_UI_DS_Navigation::GetHyperlink(GLOBAL_ABAP_OTYPE::TABL_NAME, $objname, $field, $field, $newwin);
+        return self::GetHyperlink(GLOBAL_ABAP_OTYPE::TABL_NAME, $objname, $field, $field, $newwin);
     }
 
     public static function GetHyperlink4TablInclude($table, $field, $position, $newwin = TRUE) {
@@ -243,15 +243,15 @@ class ABAP_UI_DS_Navigation {
             return '&nbsp;';
         }
         $objname = htmlentities(strtolower($table)) . "-" . htmlentities($position);
-        return ABAP_UI_DS_Navigation::GetHyperlink(GLOBAL_ABAP_OTYPE::TABL_NAME, $objname, $field, $position, $newwin);
+        return self::GetHyperlink(GLOBAL_ABAP_OTYPE::TABL_NAME, $objname, $field, $position, $newwin);
     }
 
     public static function GetHyperlink4Tran($tcode, $desc = NULL, $newwin = TRUE) {
-        return ABAP_UI_DS_Navigation::GetHyperlink(GLOBAL_ABAP_OTYPE::TRAN_NAME, $tcode, $tcode, $desc, $newwin);
+        return self::GetHyperlink(GLOBAL_ABAP_OTYPE::TRAN_NAME, $tcode, $tcode, $desc, $newwin);
     }
 
     public static function GetHyperlink4TranEx($tcode, $newwin = TRUE) {
-        $url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::TRAN_NAME, $tcode);
+        $url = self::GetObjectURL(GLOBAL_ABAP_OTYPE::TRAN_NAME, $tcode);
         $desc = ABAP_UI_TOOL::GetObjectDescr(GLOBAL_ABAP_OTYPE::TRAN_NAME, $tcode);
         $title = (empty($desc)) ? $tcode : $desc;
         $newWindow = ($newwin === TRUE) ? 'target="_blank"' : '';
@@ -264,7 +264,7 @@ class ABAP_UI_DS_Navigation {
     }
 
     public static function GetHyperlink4View($view, $desc = NULL, $newwin = TRUE) {
-        return ABAP_UI_DS_Navigation::GetHyperlink(GLOBAL_ABAP_OTYPE::VIEW_NAME, $view, $view, $desc, $newwin);
+        return self::GetHyperlink(GLOBAL_ABAP_OTYPE::VIEW_NAME, $view, $view, $desc, $newwin);
     }
 
     /**
@@ -275,7 +275,7 @@ class ABAP_UI_DS_Navigation {
      * </pre>
      */
     public static function GetObjectURL($objtype, $objname) {
-        return GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG . ABAP_UI_DS_Navigation::GetObjectPath($objtype, $objname);
+        return GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG . self::GetObjectPath($objtype, $objname);
     }
 
     /**
@@ -293,14 +293,16 @@ class ABAP_UI_DS_Navigation {
      */
     public static function GetObjectHyperlink4DS($oType, $oName, $subName = NULL, $withDesc = TRUE) {
         $objname = ($subName === NULL) ? GLOBAL_UTIL::Clear4Url($oName) : GLOBAL_UTIL::Clear4Url($oName) . '-' . GLOBAL_UTIL::Clear4Url($subName);
-        $url = ABAP_UI_DS_Navigation::GetObjectURL($oType, $objname);
+        $url = self::GetObjectURL($oType, $objname);
         $desc = ABAP_UI_TOOL::GetObjectDescr($oType, $oName, $subName);
 
         $result = '<sup>'
                 . '<a href="' . strtolower($url)
-                . '" title="' . $desc . ' - ' . GLOBAL_WEBSITE_SAPDS::NAME . '" '
-                . 'target="_blank">ds</a>'    // data-toggle="tooltip" data-placement="bottom"
-                . '&nearhk; </sup> &nbsp;';
+                . '" title="' . $desc . ' - ' . GLOBAL_WEBSITE_SAPDS::NAME . '"'
+                . ' target="_blank">'
+                . '<img src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22%3E %3Cpath fill=%22%23fff%22 stroke=%22%2336c%22 d=%22M1.5 4.518h5.982V10.5H1.5z%22/%3E %3Cpath fill=%22%2336c%22 d=%22M5.765 1H11v5.39L9.427 7.937l-1.31-1.31L5.393 9.35l-2.69-2.688 2.81-2.808L4.2 2.544z%22/%3E %3Cpath fill=%22%23fff%22 d=%22M9.995 2.004l.022 4.885L8.2 5.07 5.32 7.95 4.09 6.723l2.882-2.88-1.85-1.852z%22/%3E %3C/svg%3E">'
+                . '</a>'    // data-toggle="tooltip" data-placement="bottom"
+                . '</sup> &nbsp;';
         if ($withDesc && GLOBAL_UTIL::IsNotEmpty($desc)) {
             $result = $result . '(' . $desc . ')';
         }
@@ -317,23 +319,23 @@ class ABAP_UI_DS_Navigation {
      */
     public static function GetObjectHyperlink($oType, $oName, $subName = NULL) {
         if (($oType == GLOBAL_ABAP_OTYPE::TABL_NAME && strlen(trim($subName)) > 0) || ($oType == GLOBAL_ABAP_OTYPE::DTF_NAME)) {
-            return ABAP_UI_DS_Navigation::GetHyperlink4Tabl($oName)
+            return self::GetHyperlink4Tabl($oName)
                     . ' - '
-                    . ABAP_UI_DS_Navigation::GetHyperlink4TablField($oName, $subName);
+                    . self::GetHyperlink4TablField($oName, $subName);
         } else if (array_key_exists($oType, GLOBAL_ABAP_OTYPE::$OTYPES)) {
-            return ABAP_UI_DS_Navigation::GetHyperlink($oType, $oName, $oName, NULL, TRUE);
+            return self::GetHyperlink($oType, $oName, $oName, NULL, TRUE);
         } else if ($oType == GLOBAL_ABAP_OTYPE::OM_NAME) {
-            return ABAP_UI_DS_Navigation::GetHyperlink4Clas($oName) . ' - ' . $subName;
+            return self::GetHyperlink4Clas($oName) . ' - ' . $subName;
         } else if ($oType == GLOBAL_ABAP_OTYPE::NN_NAME) {
-            return ABAP_UI_DS_Navigation::GetHyperlink4Msag($oName)
+            return self::GetHyperlink4Msag($oName)
                     . ' - '
-                    . ABAP_UI_DS_Navigation::GetHyperlink4Msgnr($oName, $subName);
+                    . self::GetHyperlink4Msgnr($oName, $subName);
         } else if ($oType == GLOBAL_ABAP_OTYPE::SEOC_NAME) {
             $seoclass = ABAP_DB_TABLE_SEO::SEOCLASS($oName);
             if ($seoclass['CLSTYPE'] == ABAP_DB_TABLE_SEO::SEOCLASS_CLSTYPE_CLAS) {
-                return ABAP_UI_DS_Navigation::GetHyperlink4Clas($oName);
+                return self::GetHyperlink4Clas($oName);
             } else if ($seoclass['CLSTYPE'] == ABAP_DB_TABLE_SEO::SEOCLASS_CLSTYPE_INTF) {
-                return ABAP_UI_DS_Navigation::GetHyperlink4Intf($oName);
+                return self::GetHyperlink4Intf($oName);
             }
         }
 
@@ -431,7 +433,7 @@ class ABAP_UI_DS_Navigation {
     }
 
     public static function GetWilURL($counter) {
-        return GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG . ABAP_UI_DS_Navigation::GetWilPath($counter);
+        return GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG . self::GetWilPath($counter);
     }
 
     /**
@@ -440,7 +442,7 @@ class ABAP_UI_DS_Navigation {
     public static function GetWulHyperlink($counter, $newwin = TRUE) {
         $newWindow = ($newwin === TRUE) ? 'target="_blank"' : '';
         $linkLabel = self::GetWulLabel($counter);
-        $url = ABAP_UI_DS_Navigation::GetWulPath($counter);
+        $url = self::GetWulPath($counter);
         return GLOBAL_ABAP_ICON::getIcon4Otype($counter['OBJ_TYPE'])
                 . ' <a href="' . $url . '" '
                 . 'title="' . htmlentities($linkLabel) . '" '
@@ -456,7 +458,7 @@ class ABAP_UI_DS_Navigation {
             $newWindow = ($newwin === TRUE) ? 'target="_blank"' : '';
             $pageCount = ceil($counter / ABAP_DB_CONST::MAX_ROWS_LIMIT);
             $result = $result . ' pages: ';
-            $urls = ABAP_UI_DS_Navigation::GetWulPaths($srcOType, $srcOName, $srcSubobj, $oType, $counter);
+            $urls = self::GetWulPaths($srcOType, $srcOName, $srcSubobj, $oType, $counter);
             $i = 1;
             foreach ($urls as $url) {
                 $title = 'title="' . 'Page ' . $i . ' of ' . $pageCount . '" ';
@@ -502,7 +504,7 @@ class ABAP_UI_DS_Navigation {
     }
 
     public static function GetWulURL($counter) {
-        return GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG . ABAP_UI_DS_Navigation::GetWulPath($counter);
+        return GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG . self::GetWulPath($counter);
     }
 
 }

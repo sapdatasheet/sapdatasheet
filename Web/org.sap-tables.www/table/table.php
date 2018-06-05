@@ -6,59 +6,54 @@ require_once ($__ROOT__ . '/include/erd.php');
 require_once ($__ROOT__ . '/include/site_tables_ui.php');
 GLOBAL_UTIL::UpdateSAPDescLangu();
 
-$table_name = 'BKPF';
+$table_name = $fbk_table_name;
+$table_desc = ABAP_DB_TABLE_TABL::DD02T($table_name);
 
-$query_pdf = array(
-    SITE_TABLES_UI_CONST::HTTP_GET_TABLE => $table_name,
-    SITE_TABLES_UI_CONST::HTTP_GET_FORMAT => ERD_Format::pdf,
-);
-$query_png = array(
-    SITE_TABLES_UI_CONST::HTTP_GET_TABLE => $table_name,
-    SITE_TABLES_UI_CONST::HTTP_GET_FORMAT => ERD_Format::png,
-);
+$uri_erd_pdf = SITE_TABLES_UI_CONST::uri_table_erd_pdf($table_name);
+$uri_erd_png = SITE_TABLES_UI_CONST::uri_table_erd_png($table_name);
 
-$title = 'ABAP Table Foreign Key'
+$title = 'SAP ABAP Table ' . $table_name . ' (' . $table_desc .  ')'
 ?>
 <!DOCTYPE html>
 <html>
     <head>
-        <title><?php echo $title ?></title>
+        <title><?php echo $title ?><?php echo GLOBAL_WEBSITE::SAP_TABLES_ORG_TITLE ?></title>
         <link rel="stylesheet" type="text/css"  href="/3rdparty/bootstrap/css/bootstrap.min.css"/>
     </head>
     <body>
 
-        <h1 class="pt-2"><?php echo $title ?></h1>
-
-        <div class="container">
-            <?php if (count(ABAP_DB_TABLE_TABL::DD08L_Erd($table_name)) < 1) { ?>
-                <div class="alert alert-warning" role="alert">
-                    The table <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tabl($table_name) ?> does not have foreign key table.
-                </div>
-            <?php } ?>
-
-            <h2>The E-R file</h2>
-            <textarea readonly rows="16" cols="100">
+        <div class="container-fluid">
+            <h2 class="pt-4">ABAP Table <code><abbr title="<?php echo htmlentities($table_desc) ?>"><?php echo $table_name ?></abbr></code> <?php echo ABAP_UI_DS_Navigation::GetObjectHyperlink4DS(GLOBAL_ABAP_OTYPE::TABL_NAME, $table_name, NULL, FALSE) ?><br><small></small></h2>
+        
+            <!-- The E-R file, the text area bellow is invisible, for debugging purpose only -->
+            <textarea  class="d-none" readonly rows="16" cols="100">
                 <?php
                 $erd = new ERD(ERD_Format::png, $table_name);
                 echo $erd->process();
                 ?>
             </textarea>
 
-            <h2 class="pt-4">The E-R Diagram for ABAP Table</h2>
+            <h4 class="pt-4">The E-R Diagram</h4>
             <ul class="nav nav-pills">
                 <li class="nav-item">
                     <a class="nav-link bg-light" target="_blank"
-                       href="/table/table-erd.php?<?php echo http_build_query($query_png) ?>">
+                       href="<?php echo $uri_erd_png ?>">
                         <img src="https://www.sapdatasheet.org/abap/icon/s_wdvimg.gif"> View Full Image</a></li>
                 <li class="nav-item">
                     <a class="nav-link bg-light" target="_blank"
-                       href="/table/table-erd.php?<?php echo http_build_query($query_pdf) ?>">
+                       href="<?php echo $uri_erd_pdf ?>">
                         <img src="https://www.sapdatasheet.org/abap/icon/s_x__pdf.gif"> View in PDF</a></li>
             </ul>
-
-            <div class="pt-4">
+            
+            <div class="pt-2">
+            <?php if (count(ABAP_DB_TABLE_TABL::DD08L_Erd($table_name)) < 1) { ?>
+                <div class="alert alert-warning" role="alert">
+                    The table <code><?php echo $table_name ?></code> does not have foreign key table.
+                </div>
+            <?php } ?>
+                
                 <img class="img-fluid img-thumbnail mx-auto d-block"
-                     src="/table/table-erd.php?<?php echo http_build_query($query_png) ?>"
+                     src="<?php echo $uri_erd_png ?>"
                      alt="Entity Relationship Diagram for Table Foreign Key">
             </div>
         </div>

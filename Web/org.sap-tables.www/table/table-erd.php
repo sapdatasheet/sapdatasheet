@@ -7,8 +7,8 @@ require_once ($__ROOT__ . '/include/erd.php');
 require_once ($__ROOT__ . '/include/site_tables_ui.php');
 GLOBAL_UTIL::UpdateSAPDescLangu();
 
-$format = strtolower(filter_input(INPUT_GET, SITE_TABLES_UI_CONST::HTTP_GET_FORMAT));
-$table_name = strtoupper(filter_input(INPUT_GET, SITE_TABLES_UI_CONST::HTTP_GET_TABLE));
+$format = $fbk_format;
+$table_name = $fbk_table_name;
 if (strlen($format) < 1 || strlen($table_name) < 1) {
     // Invalid parameter
     exit(-1);

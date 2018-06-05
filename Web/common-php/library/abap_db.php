@@ -2321,7 +2321,7 @@ class ABAP_DB_TABLE_TABL {
           AND ( KEYFLAG = 'X' OR FIELDNAME in (
           SELECT FIELDNAME FROM dd08l where TABNAME = 'DD04L'
           ))
-          AND FIELDNAME <> '.INCLUDE'
+          AND LENG > 0
           ORDER BY POSITION
          */
 
@@ -2330,7 +2330,7 @@ class ABAP_DB_TABLE_TABL {
                 . " WHERE TABNAME = :id"
                 . " AND ( KEYFLAG = 'X' OR FIELDNAME in ("
                 . "  SELECT FIELDNAME FROM " . self::DD08L . "  WHERE TABNAME = :id ))"
-                . " AND FIELDNAME <> '.INCLUDE'"
+                . " AND LENG > 0"
                 . " ORDER BY POSITION";
         return ABAP_DB_TABLE::select_1filter($sql, $TableName);
     }
@@ -2354,7 +2354,7 @@ class ABAP_DB_TABLE_TABL {
         $sql = "SELECT * FROM " . self::DD03L
                 . " WHERE tabname = :id"
                 . "   AND KEYFLAG = 'X'"
-                . "   AND FIELDNAME <> '.INCLUDE'"
+                . "   AND LENG > 0"
                 . " order by POSITION";
         return ABAP_DB_TABLE::select_1filter($sql, $TableName);
     }
@@ -2430,12 +2430,15 @@ class ABAP_DB_TABLE_TABL {
 
     /**
      *  R/3 DD: relationship definitions / Foreign key fields.
+     * 
+     *  Special case.
+     *   Table FINBTEST_T1T has foreign key to FINBTEST_T1, but FINBTEST_T1 does not exist.
+     *   So, in the SQL we ask v_dd08l_dd03l to join DD05s, since v_dd08l_dd03l already checks the DD03L table
      */
     public static function DD05S_DD08L_DD03L($TableName) {
         /*
           SELECT v_dd08l_dd03l.*
-          FROM dd05s
-          LEFT JOIN (
+          FROM (
           SELECT DD08L.TABNAME,
           DD08L.FIELDNAME,
           DD08L.CHECKTABLE,
@@ -2451,20 +2454,21 @@ class ABAP_DB_TABLE_TABL {
           DD03L.DECIMALS
           FROM DD08L
           LEFT JOIN DD03L ON DD08L.CHECKTABLE = DD03L.TABNAME
-          WHERE DD08L.TABNAME = 'BKPF'
+          WHERE DD08L.TABNAME = 'FINBTEST_T1T'
           AND DD03L.KEYFLAG = 'X'
+          AND DD03L.LENG > 0
           ) v_dd08l_dd03l
+          LEFT JOIN dd05s
 
           ON dd05s.TABNAME = v_dd08l_dd03l.TABNAME
           AND dd05s.FIELDNAME = v_dd08l_dd03l.FIELDNAME
           AND dd05s.PRIMPOS = v_dd08l_dd03l.POSITION
 
-          WHERE dd05s.TABNAME = 'BKPF'
-          AND dd05s.FIELDNAME = dd05s.FORKEY
-         */
+          WHERE dd05s.TABNAME = 'FINBTEST_T1T'
+          AND dd05s.FIELDNAME = dd05s.FORKEY        
+        */
         $sql = "SELECT v_dd08l_dd03l.*"
-                . " FROM dd05s"
-                . " LEFT JOIN ("
+                . " FROM ( "
                 . "  SELECT"
                 . " " . self::DD08L . ".TABNAME,"
                 . " " . self::DD08L . ".FIELDNAME,"
@@ -2483,7 +2487,10 @@ class ABAP_DB_TABLE_TABL {
                 . "  LEFT JOIN " . self::DD03L
                 . "   ON " . self::DD08L . ".CHECKTABLE = " . self::DD03L . ".TABNAME"
                 . "  WHERE " . self::DD08L . ".TABNAME = :id"
-                . "  AND " . self::DD03L . ".KEYFLAG = 'X' ) v_dd08l_dd03l"
+                . "  AND " . self::DD03L . ".KEYFLAG = 'X'"
+                . "  AND " . self::DD03L . ".LENG > 0"
+                . " ) v_dd08l_dd03l "
+                . "LEFT JOIN " . self::DD05S
                 . " ON  " . self::DD05S . ".TABNAME = v_dd08l_dd03l.TABNAME"
                 . " AND " . self::DD05S . ".FIELDNAME = v_dd08l_dd03l.FIELDNAME"
                 . " AND " . self::DD05S . ".PRIMPOS = v_dd08l_dd03l.POSITION"
@@ -3613,7 +3620,7 @@ class ABAP_DB_TABLE {
     /**
      * Run an Select statement.
      */
-    public static function select($sql, $paras = null) {
+    public static function select($sql, $paras = null) : array {
         $conn = ABAP_DB_TABLE::get_conn_abap();
         $stmt = $conn->prepare($sql);
         $stmt->execute($paras);
@@ -3629,7 +3636,7 @@ class ABAP_DB_TABLE {
      * SELECT * FROM table WHERE OBJID_COLUMN = :id
      * </pre>
      */
-    public static function select_1filter($sql, $id) {
+    public static function select_1filter($sql, $id) : array {
         $paras = array(
             'id' => $id,
         );

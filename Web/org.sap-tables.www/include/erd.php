@@ -17,8 +17,8 @@ class ERD {
     const dd03l_scope_erd = 'erd';
     const dd03l_scope_pk = 'pk';
 
-    protected $table_name;
     protected $output_fmt;
+    protected $table_name;
     protected $db_dd02l;
     protected $db_dd02t;
 
@@ -40,7 +40,15 @@ class ERD {
 
         $this->output_fmt = $output_fmt;
         $this->table_name = $this->db_dd02l['TABNAME'];
-        $this->db_dd02t = ABAP_DB_TABLE_TABL::DD02T($this->table_name);
+        $this->db_dd02t = $this->clean_desc(ABAP_DB_TABLE_TABL::DD02T($this->table_name));
+    }
+    
+    private function clean_desc(string $desc = NULL) : string {
+        if (GLOBAL_UTIL::IsNotEmpty($desc)) {
+            return str_replace('"', "'", $desc);
+        } else {
+            return "";
+        }
     }
 
     public static function escape(string $name): string {
@@ -50,8 +58,9 @@ class ERD {
     /**
      * Convert an ABAP Card value to an ERD cardinality value.
      * 
+     * @param string $abap_card ABAP DDIC cardinality value, it could be NULL.
      */
-    private function card2cardinality(string $abap_card) {
+    private function card2cardinality(string $abap_card = NULL) {
         switch ($abap_card) {
             case ABAP_DB_CONST::DOMAINVALUE_CARD_CN:
                 $result = ERD_Keyword::cardinality_0_or_more;
@@ -83,7 +92,7 @@ class ERD {
 
     private function process_header(): string {
         $title = ERD_Keyword::title(
-                        'Foreign Key(s) for table ' . $this->table_name . ' (' . $this->db_dd02t . ')', 20);
+                        'SAP ABAP table ' . $this->table_name . ' (' . $this->db_dd02t . ')', 20);
         return $title . PHP_EOL . PHP_EOL;
     }
 
@@ -168,8 +177,9 @@ class ERD {
         shell_exec($cmd);
         unlink($tempDir . $tempFileEr);
 
-        if (file_exists($tempDir . $tempFileOutput)) {
-            return $tempDir . $tempFileOutput;
+        $tempFileOutputFullname = $tempDir . $tempFileOutput;
+        if (file_exists($tempFileOutputFullname) && filesize($tempFileOutputFullname) > 0) {
+            return $tempFileOutputFullname;
         } else {
             return "";
         }
