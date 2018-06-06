@@ -9,7 +9,6 @@ require_once ($__ROOT__ . '/include/site_tables_ui.php');
 // URL Strucutre Overview for this site
 //
 //   /index.php
-//   /ranking/                  -->  TODO
 //   /table/index.php           -->  Table List by Modules
 //   /table/tablename.html      -->  /table/table.php         Table data page
 //   /table/tablename/erd.png   -->  /table/table-erd.php     ER diagram of the table in picture format
@@ -22,15 +21,15 @@ unset($fbk_target);
 
 const TABLE_URI = array(
     //    Prefix     Tail  PHP-File                 Format(optional)
-    array(SITE_TABLES_UI_CONST::URI_SUFFIX_HTML   , -5, '/table/table.php'     , ''),
-    array(SITE_TABLES_UI_CONST::URI_SUFFIX_ERD_PDF, -8, '/table/table-erd.php' , ERD_Format::pdf),
-    array(SITE_TABLES_UI_CONST::URI_SUFFIX_ERD_PNG, -8, '/table/table-erd.php' , ERD_Format::png),
+    array(SITE_UI_TABLES::URI_SUFFIX_HTML   , -5, '/table/table.php'     , ''),
+    array(SITE_UI_TABLES::URI_SUFFIX_ERD_PDF, -8, '/table/table-erd.php' , ERD_Format::pdf),
+    array(SITE_UI_TABLES::URI_SUFFIX_ERD_PNG, -8, '/table/table-erd.php' , ERD_Format::png),
  // array('/book.pdf', -9, '/table/table-book.php', 'pdf'),    // TODO Not ready yet
 );
 
 
-if (GLOBAL_UTIL::StartsWith($fb_requri, SITE_TABLES_UI_CONST::URI_PREFIX_TABLE)) {
-    $rest = substr($fb_requri, strlen(SITE_TABLES_UI_CONST::URI_PREFIX_TABLE));
+if (GLOBAL_UTIL::StartsWith($fb_requri, SITE_UI_TABLES::URI_PREFIX_TABLE)) {
+    $rest = substr($fb_requri, strlen(SITE_UI_TABLES::URI_PREFIX_TABLE));
     
     foreach (TABLE_URI as $row) {
         if (GLOBAL_UTIL::EndsWith($rest, $row[0])) {

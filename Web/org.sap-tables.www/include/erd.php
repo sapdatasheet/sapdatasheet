@@ -92,7 +92,7 @@ class ERD {
 
     private function process_header(): string {
         $title = ERD_Keyword::title(
-                        'SAP ABAP table ' . $this->table_name . ' (' . $this->db_dd02t . ')', 20);
+                        'SAP ABAP table ' . $this->table_name . ' {' . $this->db_dd02t . '}', 20);
         return $title . PHP_EOL . PHP_EOL;
     }
 
@@ -105,7 +105,10 @@ class ERD {
 
         // Check tables
         foreach (ABAP_DB_TABLE_TABL::DD08L_Erd($this->table_name) as $dd08l) {
-            $entities = $entities . $this->process_entity($dd08l['CHECKTABLE'], self::dd03l_scope_pk);
+            // Whent FK table is current table itself, we ignore it
+            if ($dd08l['CHECKTABLE'] != $this->table_name) {
+                $entities = $entities . $this->process_entity($dd08l['CHECKTABLE'], self::dd03l_scope_pk);
+            }
         }
 
         return $entities;

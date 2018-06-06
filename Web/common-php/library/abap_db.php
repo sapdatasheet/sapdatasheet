@@ -12,6 +12,7 @@ class ABAP_DB_CONST {
      * Max rows limit for result set, to avoid load too many record to UI.
      */
     const MAX_ROWS_LIMIT = 500;
+    const MAX_ROWS_LIMIT_SMALL = 100;
     const INDEX_A = 'A';                       // First page, start from 'A'
     const INDEX_LIST = 'LIST';                 // List all contents, no paging
     const INDEX_SLASH = 'SLASH';
@@ -128,6 +129,11 @@ class ABAP_DB_CONST {
         return ' LIMIT ' . $left . ', ' . self::MAX_ROWS_LIMIT;
     }
 
+    public static function SQL_LIMIT_SMALL(int $page): string {
+        $left = ((($page < 1) ? 1 : $page) - 1) * self::MAX_ROWS_LIMIT_SMALL;
+        return ' LIMIT ' . $left . ', ' . self::MAX_ROWS_LIMIT_SMALL;
+    }
+    
 }
 
 /** Database table access for - SPRO - Customizing - Edit Project. */
@@ -2465,8 +2471,8 @@ class ABAP_DB_TABLE_TABL {
           AND dd05s.PRIMPOS = v_dd08l_dd03l.POSITION
 
           WHERE dd05s.TABNAME = 'FINBTEST_T1T'
-          AND dd05s.FIELDNAME = dd05s.FORKEY        
-        */
+          AND dd05s.FIELDNAME = dd05s.FORKEY
+         */
         $sql = "SELECT v_dd08l_dd03l.*"
                 . " FROM ( "
                 . "  SELECT"
@@ -3390,11 +3396,44 @@ class ABAPANA_DB_TABLE {
             'ssubob' => $srcSubobj,
         );
 
-        // print_r($paras);
         return ABAP_DB_TABLE::select($sql, $paras);
     }
 
-    public static function WULCOUNTER_Sitemap() {
+    /**
+     * Top 100 most used Table object.
+     */
+    public static function WULCOUNTER_Ranking_TABL(int $page = 1): array {
+        /*
+          SELECT
+          SRC_OBJ_NAME, SUM(COUNTER) as COUNTER
+          FROM abapanalytics.wulcounter
+          WHERE SRC_OBJ_TYPE = 'TABL'
+          AND SRC_OBJ_NAME in (SELECT TABNAME FROM abap.dd02l where TABCLASS IN ('TRANSP', 'CLUSTER', 'POOL'))
+          GROUP BY SRC_OBJ_NAME
+          ORDER BY COUNTER DESC
+         */
+        
+        $sql = "SELECT"
+                . " SRC_OBJ_NAME as TABNAME,"
+                . " SUM(COUNTER) as " . ABAP_DB_CONST::COUNTER
+                . " FROM " . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::WULCOUNTER
+                . " WHERE SRC_OBJ_TYPE = '" . GLOBAL_ABAP_OTYPE::TABL_NAME . "'"
+                . "   AND SRC_OBJ_NAME in ("
+                . "     SELECT TABNAME"
+                . "     FROM " . ABAP_DB_CONFIG::schema_abap . '.' . ABAP_DB_TABLE_TABL::DD02L
+                . "     WHERE TABCLASS IN ("
+                . " '" . ABAP_DB_CONST::DOMAINVALUE_TABCLASS_TRANSP . "',"
+                . " '" . ABAP_DB_CONST::DOMAINVALUE_TABCLASS_CLUSTER . "',"
+                . " '" . ABAP_DB_CONST::DOMAINVALUE_TABCLASS_POOL . "')"
+                . "   )"
+                . " GROUP BY SRC_OBJ_NAME"
+                . " ORDER BY COUNTER DESC"
+                . " " . ABAP_DB_CONST::SQL_LIMIT_SMALL($page) ;
+        
+        return ABAP_DB_TABLE::select($sql);
+    }
+
+    public static function WULCOUNTER_Sitemap(): array {
         $sql = "select * from "
                 . ABAP_DB_CONFIG::schema_abapana . '.' . ABAPANA_DB_TABLE::WULCOUNTER;
         return ABAP_DB_TABLE::select($sql);
@@ -3620,7 +3659,7 @@ class ABAP_DB_TABLE {
     /**
      * Run an Select statement.
      */
-    public static function select($sql, $paras = null) : array {
+    public static function select($sql, $paras = null): array {
         $conn = ABAP_DB_TABLE::get_conn_abap();
         $stmt = $conn->prepare($sql);
         $stmt->execute($paras);
@@ -3636,7 +3675,7 @@ class ABAP_DB_TABLE {
      * SELECT * FROM table WHERE OBJID_COLUMN = :id
      * </pre>
      */
-    public static function select_1filter($sql, $id) : array {
+    public static function select_1filter($sql, $id): array {
         $paras = array(
             'id' => $id,
         );

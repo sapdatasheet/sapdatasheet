@@ -25,10 +25,6 @@ foreach ($dd02l_list as $dd02l) {
 
     foreach (ERD_Format::enabledFormats() as $format) {
 
-        if ($count < 40500) {
-            continue;
-        }
-
         echo number_format($count) . '-' . $format . ' ('
         . number_format($count * 100 / $dd02l_list_count, 4) . '%)'
         . '. Table {' . $dd02l['TABNAME'] . '} Processing started. ';
