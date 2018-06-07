@@ -17,7 +17,7 @@ $title = 'SAP ABAP Tables'
         <link rel="stylesheet" type="text/css"  href="/3rdparty/bootstrap/css/bootstrap.min.css"/>
     </head>
     <body>
-        <div class="container-fluid">
+        <div class="container-fluid bg-light">
             <h3 class="text-monospace pt-4">SAP ABAP Tables 
                 <small><small><?php echo GLOBAL_WEBSITE::SAP_TABLES_ORG_DESC ?></small></small>
             </h3>

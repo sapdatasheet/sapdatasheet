@@ -1,0 +1,2 @@
+Sitemap: https://www.sap-tables.org/sitemap/sitemap-1.xml
+User-agent: *

@@ -25,10 +25,10 @@ $dd08l_list = ABAP_DB_TABLE_TABL::DD08L_Erd($table_name);
         <link rel="stylesheet" type="text/css"  href="/3rdparty/bootstrap/css/bootstrap.min.css"/>
     </head>
     <body>
-        <div class="container-fluid">
+        <div class="container-fluid bg-light">
             <div class="clearfix">
                 <span class="float-left">
-                    <h3 class="text-monospace pt-4">ABAP Table <code><abbr title="<?php echo htmlentities($table_desc) ?>"><?php echo $table_name ?></abbr></code> 
+                    <h3 class="text-monospace pt-4">SAP ABAP Table <code><abbr title="<?php echo htmlentities($table_desc) ?>"><?php echo $table_name ?></abbr></code> 
                         <?php echo ABAP_UI_DS_Navigation::GetObjectHyperlink4DS(GLOBAL_ABAP_OTYPE::TABL_NAME, $table_name, NULL, FALSE) ?>
                         <small>{<?php echo $table_desc ?>}</small>
                     </h3>
