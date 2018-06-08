@@ -7,6 +7,7 @@ require_once ($__WS_ROOT__ . '/common-php/library/global.php');
 require_once ($__WS_ROOT__ . '/common-php/library/abap_db.php');
 require_once ($__WS_ROOT__ . '/common-php/library/abap_ui.php');
 require_once ($__WS_ROOT__ . '/common-php/library/sitemap.php');
+require_once ($__ROOT__ . '/include/erd.php');
 require_once ($__ROOT__ . '/include/site_tables_ui.php');
 GLOBAL_UTIL::UpdateSAPDescLangu();
 

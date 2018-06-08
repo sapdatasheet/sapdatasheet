@@ -33,7 +33,14 @@ if (GLOBAL_UTIL::StartsWith($fb_requri, SITE_UI_TABLES::URI_PREFIX_TABLE)) {
     
     foreach (TABLE_URI as $row) {
         if (GLOBAL_UTIL::EndsWith($rest, $row[0])) {
-            $fbk_table_name = strtoupper(substr($rest, 0, $row[1]));
+            if ($row[0] == SITE_UI_TABLES::URI_SUFFIX_HTML) {
+                $table_name = substr($rest, 0, $row[1]);
+            } else {
+                error_log(strrpos($rest, '/'));
+                $table_name = substr($rest, 0, strrpos($rest, '/'));
+            }
+            
+            $fbk_table_name = strtoupper($table_name);
             $fbk_target = $__ROOT__ . $row[2];
             $fbk_format = $row[3];
         }

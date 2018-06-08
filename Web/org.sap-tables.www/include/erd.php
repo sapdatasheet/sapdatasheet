@@ -51,6 +51,11 @@ class ERD {
         }
     }
 
+    /**
+     * Remove the un-recognized '/' character.
+     * 
+     * @param string $name The table name to be escaped 
+     */
     public static function escape(string $name): string {
         return str_replace('/', '_', $name);
     }
