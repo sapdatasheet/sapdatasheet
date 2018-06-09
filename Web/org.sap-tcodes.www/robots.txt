@@ -1,2 +1,2 @@
-Sitemap: https://www.sap-tcodes.org/sitemap/sitemaps.xml
+Sitemap: https://www.sap-tcodes.org/sitemap/sitemap-1.xml
 User-agent: *

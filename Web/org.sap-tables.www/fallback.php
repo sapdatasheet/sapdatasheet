@@ -3,8 +3,8 @@ $__WS_ROOT__ = dirname(__FILE__, 2);
 $__ROOT__ = dirname(__FILE__, 1);
 require_once ($__WS_ROOT__ . '/common-php/library/global.php');
 require_once ($__WS_ROOT__ . '/common-php/library/abap_db.php');
-require_once ($__ROOT__ . '/include/erd.php');
-require_once ($__ROOT__ . '/include/site_tables_ui.php');
+require_once ($__WS_ROOT__ . '/common-php/library/abap_ui.php');
+require_once ($__WS_ROOT__ . '/common-php/library/erd.php');
 
 // URL Strucutre Overview for this site
 //
@@ -21,19 +21,19 @@ unset($fbk_target);
 
 const TABLE_URI = array(
     //    Prefix     Tail  PHP-File                 Format(optional)
-    array(SITE_UI_TABLES::URI_SUFFIX_HTML   , -5, '/table/table.php'     , ''),
-    array(SITE_UI_TABLES::URI_SUFFIX_ERD_PDF, -8, '/table/table-erd.php' , ERD_Format::pdf),
-    array(SITE_UI_TABLES::URI_SUFFIX_ERD_PNG, -8, '/table/table-erd.php' , ERD_Format::png),
+    array(ABAP_UI_TABLES_Navigation::URI_SUFFIX_HTML   , -5, '/table/table.php'     , ''),
+    array(ABAP_UI_TABLES_Navigation::URI_SUFFIX_ERD_PDF, -8, '/table/table-erd.php' , ERD_Format::pdf),
+    array(ABAP_UI_TABLES_Navigation::URI_SUFFIX_ERD_PNG, -8, '/table/table-erd.php' , ERD_Format::png),
  // array('/book.pdf', -9, '/table/table-book.php', 'pdf'),    // TODO Not ready yet
 );
 
 
-if (GLOBAL_UTIL::StartsWith($fb_requri, SITE_UI_TABLES::URI_PREFIX_TABLE)) {
-    $rest = substr($fb_requri, strlen(SITE_UI_TABLES::URI_PREFIX_TABLE));
+if (GLOBAL_UTIL::StartsWith($fb_requri, ABAP_UI_TABLES_Navigation::URI_PREFIX_TABLE)) {
+    $rest = substr($fb_requri, strlen(ABAP_UI_TABLES_Navigation::URI_PREFIX_TABLE));
     
     foreach (TABLE_URI as $row) {
         if (GLOBAL_UTIL::EndsWith($rest, $row[0])) {
-            if ($row[0] == SITE_UI_TABLES::URI_SUFFIX_HTML) {
+            if ($row[0] == ABAP_UI_TABLES_Navigation::URI_SUFFIX_HTML) {
                 $table_name = substr($rest, 0, $row[1]);
             } else {
                 error_log(strrpos($rest, '/'));

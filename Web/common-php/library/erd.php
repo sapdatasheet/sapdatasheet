@@ -1,11 +1,9 @@
 <?php
 
-$__WS_ROOT__ = dirname(__FILE__, 3);
-$__ROOT__ = dirname(__FILE__, 2);
+$__COMMON_ROOT__ = dirname(__FILE__, 2);
+require_once($__COMMON_ROOT__ . '/library/global.php');
+require_once($__COMMON_ROOT__ . '/library/abap_db.php');
 
-require_once ($__WS_ROOT__ . '/common-php/library/global.php');
-require_once ($__WS_ROOT__ . '/common-php/library/abap_db.php');
-require_once ($__WS_ROOT__ . '/common-php/library/abap_ui.php');
 
 /**
  * E-R Diagram wrapper based on https://github.com/BurntSushi/erd.
@@ -49,15 +47,6 @@ class ERD {
         } else {
             return "";
         }
-    }
-
-    /**
-     * Remove the un-recognized '/' character.
-     * 
-     * @param string $name The table name to be escaped 
-     */
-    public static function escape(string $name): string {
-        return str_replace('/', '_', $name);
     }
 
     /**
@@ -130,13 +119,13 @@ class ERD {
             $bgcolor = ERD_Keyword::bgcolor('tomato');
         }
 
-        $entity = ERD_Keyword::entity(self::escape($table_name)) . $bgcolor . PHP_EOL;
+        $entity = ERD_Keyword::entity(GLOBAL_UTIL::SlashEscape($table_name)) . $bgcolor . PHP_EOL;
         foreach ($dd03l_list as $dd03l) {
             $pk = ($dd03l['KEYFLAG'] == 'X') ? ERD_Keyword::column_pk : '';
             $fk = (strlen(trim($dd03l['CHECKTABLE'])) > 1) ? ERD_Keyword::column_fk : '';
             $label = ERD_Keyword::label($dd03l['DATATYPE'] . ' (' . $dd03l['LENG'] . ')');
 
-            $fieldName = self::escape($dd03l['FIELDNAME']);
+            $fieldName = GLOBAL_UTIL::SlashEscape($dd03l['FIELDNAME']);
             $column = $pk . $fk . $fieldName . $label . PHP_EOL;
             $entity = $entity . $column;
         }
@@ -153,7 +142,7 @@ class ERD {
             $label = $dd08l_dd05s_item['TABNAME'] . '-' . $dd08l_dd05s_item['FIELDNAME']
                     . ' = ' . $dd08l_dd05s_item['CHECKTABLE'] . '-' . $dd08l_dd05s_item['CHECKFIELDNAME'];
 
-            $row = self::escape($dd08l_dd05s_item['TABNAME']) . $conn . self::escape($dd08l_dd05s_item['CHECKTABLE'])
+            $row = GLOBAL_UTIL::SlashEscape($dd08l_dd05s_item['TABNAME']) . $conn . GLOBAL_UTIL::SlashEscape($dd08l_dd05s_item['CHECKTABLE'])
                     . ERD_Keyword::label($label);
             $relation = $relation . $row . PHP_EOL;
         }

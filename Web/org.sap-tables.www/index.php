@@ -2,9 +2,9 @@
 $__WS_ROOT__ = dirname(__FILE__, 2);
 $__ROOT__ = dirname(__FILE__, 1);
 require_once ($__WS_ROOT__ . '/common-php/library/global.php');
+require_once ($__WS_ROOT__ . '/common-php/library/erd.php');
 require_once ($__WS_ROOT__ . '/common-php/library/abap_db.php');
-require_once ($__ROOT__ . '/include/erd.php');
-require_once ($__ROOT__ . '/include/site_tables_ui.php');
+require_once ($__WS_ROOT__ . '/common-php/library/abap_ui.php');
 GLOBAL_UTIL::UpdateSAPDescLangu();
 
 
@@ -50,7 +50,7 @@ $title = 'SAP ABAP Tables'
                         <tr>
                             <td class="border-0"><?php echo $rank_id++ ?></td>
                             <td class="border-0 text-monospace">
-                                <a href="<?php echo SITE_UI_TABLES::url_table($rank['TABNAME']) ?>"><span class="text-danger"><?php echo $rank['TABNAME'] ?></span></a>
+                                <a href="<?php echo ABAP_UI_TABLES_Navigation::url_table($rank['TABNAME']) ?>"><span class="text-danger"><?php echo $rank['TABNAME'] ?></span></a>
                                 <?php echo ABAP_UI_DS_Navigation::GetObjectHyperlink4DS(GLOBAL_ABAP_OTYPE::TABL_NAME, $rank['TABNAME'], NULL, FALSE) ?>
                             </td>
                             <td class="border-0 text-monospace"><?php echo ABAP_DB_TABLE_TABL::DD02T($rank['TABNAME']) ?></td>

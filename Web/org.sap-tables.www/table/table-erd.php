@@ -3,8 +3,7 @@
 $__WS_ROOT__ = dirname(__FILE__, 3);
 $__ROOT__ = dirname(__FILE__, 2);
 
-require_once ($__ROOT__ . '/include/erd.php');
-require_once ($__ROOT__ . '/include/site_tables_ui.php');
+require_once ($__WS_ROOT__ . '/common-php/library/erd.php');
 GLOBAL_UTIL::UpdateSAPDescLangu();
 
 $format = $fbk_format;

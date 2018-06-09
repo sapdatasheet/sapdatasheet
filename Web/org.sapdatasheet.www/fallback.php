@@ -25,8 +25,10 @@ $__WS_ROOT__ = dirname(__FILE__, 2);
 require_once ($__WS_ROOT__ . '/common-php/library/global.php');
 require_once ($__WS_ROOT__ . '/common-php/library/abap_db.php');
 
+// $requri = html_entity_decode(strtolower($_SERVER['REQUEST_URI']));
+// $requri = strtolower(urldecode($_SERVER['REQUEST_URI']));
+$requri = urldecode(html_entity_decode(strtolower($_SERVER['REQUEST_URI'])));
 
-$requri = html_entity_decode(strtolower($_SERVER['REQUEST_URI']));
 unset($target);
 
 $abap_uris = array(

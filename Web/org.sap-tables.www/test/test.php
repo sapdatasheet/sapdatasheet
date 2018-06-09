@@ -6,8 +6,7 @@
 $__WS_ROOT__ = dirname(__FILE__, 3);
 $__ROOT__ = dirname(__FILE__, 2);
 
-require_once ($__ROOT__ . '/include/erd.php');
-require_once ($__ROOT__ . '/include/site_tables_ui.php');
+require_once ($__WS_ROOT__ . '/common-php/library/erd.php');
 GLOBAL_UTIL::UpdateSAPDescLangu();
 
 $count = 0;
@@ -21,7 +20,7 @@ foreach ($dd02l_list as $dd02l) {
     //    break;
     //}
 
-    $filename = ERD::escape($dd02l['TABNAME']);
+    $filename = GLOBAL_UTIL::SlashEscape($dd02l['TABNAME']);
 
     foreach (ERD_Format::enabledFormats() as $format) {
 

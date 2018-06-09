@@ -7,30 +7,31 @@ require_once ($__WS_ROOT__ . '/common-php/library/abap_db.php');
 require_once ($__WS_ROOT__ . '/common-php/library/abap_ui.php');
 require_once ($__WS_ROOT__ . '/common-php/library/sitemap.php');
 
-$fname = pathinfo(__FILE__, PATHINFO_FILENAME);
+$fname_analytics = 'analytics';
 
-SitemapStartOB();
+$sitemap_analytics = new SITEMAP($fname);
+$sitemap_analytics->StartOB();
 
-SitemapEchoUrl(GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . ABAP_UI_TCODES_Navigation::PATH_ANALYTICS_COMP, '0.9');
-SitemapEchoUrl(GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . ABAP_UI_TCODES_Navigation::PATH_ANALYTICS_MODULE, '0.9');
-SitemapEchoUrl(GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . ABAP_UI_TCODES_Navigation::PATH_ANALYTICS_NAME, '0.9');
+$sitemap_analytics->EchoUrl(GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . ABAP_UI_TCODES_Navigation::PATH_ANALYTICS_COMP, SITEMAP::changefreq_yearly, SITEMAP::priority_09);
+$sitemap_analytics->EchoUrl(GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . ABAP_UI_TCODES_Navigation::PATH_ANALYTICS_MODULE, SITEMAP::changefreq_yearly, SITEMAP::priority_09);
+$sitemap_analytics->EchoUrl(GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . ABAP_UI_TCODES_Navigation::PATH_ANALYTICS_NAME, SITEMAP::changefreq_yearly, SITEMAP::priority_09);
 
 $component_list = ABAPANA_DB_TABLE::ABAPTRAN_ANALYTICS_SOFTCOMP();
 foreach ($component_list as $item) {
     $url = ABAP_UI_TCODES_Navigation::AnalyticsCompPath($item['SOFTCOMP'], TRUE);
-    SitemapEchoUrl($url, '0.9');
+    $sitemap_analytics->EchoUrl($url, SITEMAP::changefreq_yearly, SITEMAP::priority_09);
 }
 
 $module_list = ABAPANA_DB_TABLE::ABAPTRAN_Sitemap_Module();
 foreach ($module_list as $item) {
     $url = ABAP_UI_TCODES_Navigation::AnalyticsModulePath($item['MODULE'], TRUE);
-    SitemapEchoUrl($url, '0.9');
+    $sitemap_analytics->EchoUrl($url, SITEMAP::changefreq_yearly, SITEMAP::priority_09);
 }
 
 $name_list = ABAPANA_DB_TABLE::ABAPTRAN_ANALYTICS_NAME_LEFT2();
 foreach ($name_list as $item) {
     $url = ABAP_UI_TCODES_Navigation::AnalyticsNamePath($item['TCODEPREFIX'], TRUE);
-    SitemapEchoUrl($url, '0.9');
+    $sitemap_analytics->EchoUrl($url, SITEMAP::changefreq_yearly, SITEMAP::priority_09);
 }
 
-SitemapEndOB($fname);
+$sitemap_analytics->EndOB();

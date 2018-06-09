@@ -2,15 +2,15 @@
 $__WS_ROOT__ = dirname(__FILE__, 3);
 $__ROOT__ = dirname(__FILE__, 2);
 
-require_once ($__ROOT__ . '/include/erd.php');
-require_once ($__ROOT__ . '/include/site_tables_ui.php');
+require_once ($__WS_ROOT__ . '/common-php/library/erd.php');
+require_once ($__WS_ROOT__ . '/common-php/library/abap_ui.php');
 GLOBAL_UTIL::UpdateSAPDescLangu();
 
 $table_name = $fbk_table_name;
 $table_desc = ABAP_DB_TABLE_TABL::DD02T($table_name);
 
-$uri_erd_pdf = SITE_UI_TABLES::uri_table_erd_pdf($table_name);
-$uri_erd_png = SITE_UI_TABLES::uri_table_erd_png($table_name);
+$uri_erd_pdf = ABAP_UI_TABLES_Navigation::uri_table_erd_pdf($table_name);
+$uri_erd_png = ABAP_UI_TABLES_Navigation::uri_table_erd_png($table_name);
 
 $title = 'SAP ABAP Table ' . $table_name . ' (' . $table_desc . ')';
 $img_desc = 'E-R Diagram for table ' . $table_name . ' (' . $table_desc . ')';
@@ -35,9 +35,7 @@ $dd08l_list = ABAP_DB_TABLE_TABL::DD08L_Erd($table_name);
                 </span>
                 <span class="float-right">
                     <ul class="nav pt-3">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/" title="Back to home page">Home</a>
-                        </li>
+                        <li class="nav-item"><a class="nav-link" href="/" title="Back to home page">Home</a></li>
                     </ul>                    
                 </span>
             </div>            
@@ -96,10 +94,10 @@ $dd08l_list = ABAP_DB_TABLE_TABL::DD08L_Erd($table_name);
                                         <li class="list-group-item list-group-item-action text-monospace border-0"
                                             title="<?php echo $checktable_hint ?>">
                                                 <?php echo GLOBAL_ABAP_ICON::getIcon4OtypeTABL(TRUE) ?>
-                                            <a href="<?php echo SITE_UI_TABLES::url_table($dd08l_item['CHECKTABLE']) ?>">
+                                            <a href="<?php echo ABAP_UI_TABLES_Navigation::url_table($dd08l_item['CHECKTABLE']) ?>">
                                                 <span class="text-danger"><?php echo $dd08l_item['CHECKTABLE'] ?></span></a>
-                                                <?php echo $checktable_desc_brackets ?>
                                                 <?php echo ABAP_UI_DS_Navigation::GetObjectHyperlink4DS(GLOBAL_ABAP_OTYPE::TABL_NAME, $dd08l_item['CHECKTABLE'], NULL, FALSE) ?>
+                                                <?php echo $checktable_desc_brackets ?>
                                         </li>
                                     <?php } ?>
                                 </ul>

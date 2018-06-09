@@ -5,7 +5,7 @@ $__ROOT__ = dirname(__FILE__, 1);              // Root folder for Current web si
 require_once($__WS_ROOT__ . '/common-php/library/global.php');
 require_once($__WS_ROOT__ . '/common-php/library/abap_ui.php');
 
-$fb_requri = html_entity_decode(strtolower($_SERVER['REQUEST_URI']));
+$fb_requri = strtolower(urldecode($_SERVER['REQUEST_URI']));
 unset($fb_target);
 
 // - Hacker URL

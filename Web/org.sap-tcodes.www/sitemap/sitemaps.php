@@ -5,6 +5,18 @@ $__ROOT__ = dirname(__FILE__, 2);              // Root folder for Current web si
 require_once ($__WS_ROOT__ . '/common-php/library/global.php');
 require_once ($__WS_ROOT__ . '/common-php/library/abap_db.php');
 require_once ($__WS_ROOT__ . '/common-php/library/abap_ui.php');
+
+
+$sitemapIndex = new SITEMAP_Index('sitemap');
+$sitemapIndex->StartOB();
+for ($i = 1; $i <= $filenameSeq; $i++) {
+    $url = GLOBAL_WEBSITE::SAP_TABLES_ORG_URL . '/sitemap/' . SITEMAP_FILE_PREFIX . '-' . $i . '.xml';
+    $sitemapIndex->EchoUrl4Index($url);
+}
+$sitemapIndex->EndOB();
+
+
+
 ?>
 <?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

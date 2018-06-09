@@ -75,20 +75,30 @@ class SITEMAP {
      * End the sitemap xml file.
      */
     public function EndOB() {
+        if ($this->counter < 1) {
+            return;
+        }
+
         echo '</urlset>';
         $ob_content = ob_get_contents();
         ob_end_flush();
-        // Get the new file name, Add the file name sequence
+        // Add the file name sequence, Get the new file name
         $this->file_nameseq++;
-        $filename = "./" . $this->file_nameprefix . '-' . $this->file_nameseq . ".xml";
+        $filename = "./" . self::GetSitemapFilename($this->file_nameprefix, $this->file_nameseq);
         // Write the file. Any existing file will be overwritten.
         file_put_contents($filename, $ob_content);
     }
-    
-    public function GetFilenameSeq() : int {
+
+    public function GetFilenameSeq(): int {
         return $this->file_nameseq;
     }
 
+    /**
+     * Get the site map file name. Example result name: <code>abap-1.xml</code>
+     */
+    public static function GetSitemapFilename(string $name_prefix, int $seq): string {
+        return $name_prefix . '-' . $seq . ".xml";
+    }
 
     /**
      * Start a new sitemap xml file.
@@ -99,10 +109,8 @@ class SITEMAP {
         echo "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">";
         echo "\r\n";
     }
-    
+
 }
-
-
 
 /**
  * Tools to generate site map index.
@@ -114,6 +122,7 @@ class SITEMAP_Index extends SITEMAP {
     function __construct(string $prefix) {
         parent::__construct($prefix);
     }
+
     /**
      * Echo one URL for the sitemapindex file.
      */
@@ -132,6 +141,7 @@ class SITEMAP_Index extends SITEMAP {
             $this->StartOB();
         }
     }
+
     /**
      * Start a new sitemapindex xml file.
      */
@@ -142,6 +152,7 @@ class SITEMAP_Index extends SITEMAP {
         echo "<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">";
         echo "\r\n";
     }
+
     /**
      * End the sitemap xml file.
      */
@@ -149,16 +160,15 @@ class SITEMAP_Index extends SITEMAP {
         echo '</sitemapindex>';
         $ob_content = ob_get_contents();
         ob_end_flush();
-        
+
         // Get the new file name, Add the file name sequence
         $this->file_nameseq++;
         $filename = "./" . $this->file_nameprefix . '-' . $this->file_nameseq . ".xml";
         // Write the file. Any existing file will be overwritten.
         file_put_contents($filename, $ob_content);
     }
+
 }
-
-
 
 /**
  * Start a new sitemap xml file.

@@ -7,29 +7,30 @@ require_once ($__WS_ROOT__ . '/common-php/library/abap_db.php');
 require_once ($__WS_ROOT__ . '/common-php/library/abap_ui.php');
 require_once ($__WS_ROOT__ . '/common-php/library/sitemap.php');
 
-$fname = pathinfo(__FILE__, PATHINFO_FILENAME);
+$fname_dw = 'download';
 
-SitemapStartOB();
+$sitemap_dw = new SITEMAP($fname);
+$sitemap_dw->StartOB();
 
-SitemapEchoUrl(GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . '/download/book/', '0.9');
-SitemapEchoUrl(GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . '/download/sheet/', '0.9');
-SitemapEchoUrl(GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . ABAP_UI_TCODES_Navigation::PATH_DOWNLOAD_BOOK_DIST, '0.9');
-SitemapEchoUrl(GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . ABAP_UI_TCODES_Navigation::PATH_DOWNLOAD_SHEET_DIST, '0.9');
+$sitemap_dw->EchoUrl(GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . ABAP_UI_TCODES_Navigation::PATH_DOWNLOAD_BOOK, SITEMAP::changefreq_yearly, SITEMAP::priority_09);
+$sitemap_dw->EchoUrl(GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . ABAP_UI_TCODES_Navigation::PATH_DOWNLOAD_SHEET, SITEMAP::changefreq_yearly, SITEMAP::priority_09);
+$sitemap_dw->EchoUrl(GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . ABAP_UI_TCODES_Navigation::PATH_DOWNLOAD_BOOK_DIST, SITEMAP::changefreq_yearly, SITEMAP::priority_09);
+$sitemap_dw->EchoUrl(GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . ABAP_UI_TCODES_Navigation::PATH_DOWNLOAD_SHEET_DIST, SITEMAP::changefreq_yearly, SITEMAP::priority_09);
 
-$dir = new DirectoryIterator('C:\Data\Business\SAP-TCodes\Runtime\www-root\download\book\dist');
+$dir = new DirectoryIterator($__ROOT__ . ABAP_UI_TCODES_Navigation::PATH_DOWNLOAD_BOOK_DIST);
 foreach ($dir as $fileinfo) {
     if (!$fileinfo->isDot()) {
         $url = ABAP_UI_TCODES_Navigation::DownloadBookPath($fileinfo->getFilename(), TRUE);
-        SitemapEchoUrl($url, '0.9');
+        $sitemap_dw->EchoUrl($url, SITEMAP::changefreq_yearly, SITEMAP::priority_09);
     }
 }
 
-$dir = new DirectoryIterator('C:\Data\Business\SAP-TCodes\Runtime\www-root\download\sheet\dist');
+$dir = new DirectoryIterator($__ROOT__ . ABAP_UI_TCODES_Navigation::PATH_DOWNLOAD_SHEET_DIST);
 foreach ($dir as $fileinfo) {
     if (!$fileinfo->isDot()) {
         $url = ABAP_UI_TCODES_Navigation::DownloadSheetPath($fileinfo->getFilename(), TRUE);
-        SitemapEchoUrl($url, '0.9');
+        $sitemap_dw->EchoUrl($url, SITEMAP::changefreq_yearly, SITEMAP::priority_09);
     }
 }
 
-SitemapEndOB($fname);
+$sitemap_dw->EndOB();

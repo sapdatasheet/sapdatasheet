@@ -72,7 +72,7 @@ class SITE_UI_ANALYTICS {
         return $ui_list;
     }
 
-    public static function AnaModuleBreadcrumbs($posid) {
+    public static function AnaModuleBreadcrumbs(string $posid) {
         $abapbmfr = ABAPANA_DB_TABLE::ABAPBMFR_POSID($posid);
 
         $result = array();
