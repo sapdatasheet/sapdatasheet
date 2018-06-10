@@ -43,9 +43,9 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::TRAN_NAME
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-        <title><?php echo $GLOBALS['TITLE_TEXT'] . GLOBAL_WEBSITE::SAPDS_ORG_URL_TITLE ?> </title>
+        <title><?php echo $GLOBALS['TITLE_TEXT'] . GLOBAL_WEBSITE::SAPDS_ORG_TITLE ?> </title>
         <meta name="author" content="SAP Datasheet" />
-        <meta name="description" content="<?php echo GLOBAL_WEBSITE::SAPDS_ORG_URL_META_DESC; ?>" />
+        <meta name="description" content="<?php echo GLOBAL_WEBSITE::SAPDS_ORG_META_DESC; ?>" />
         <meta name="keywords" content="SAP,<?php echo GLOBAL_ABAP_OTYPE::TRAN_DESC ?>,<?php echo $tstc['TCODE']; ?>,<?php echo $tstc_desc ?>" />
 
         <link rel="stylesheet" type="text/css"  href="/3rdparty/bootstrap/css/bootstrap.min.css"/>
@@ -82,15 +82,6 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::TRAN_NAME
                         </tbody>
                     </table>
 
-                    <h6 class="pt-4">Analytics</h6>
-                    <table>
-                        <tbody>
-                            <tr><td><?php echo GLOBAL_ABAP_ICON::getIcon4Analytics() ?>
-                                    <?php echo ABAP_UI_TCODES_Navigation::TCodeHyperlink($tstc['TCODE'], TRUE) ?> Analytics
-                                </td></tr>
-                        </tbody>
-                    </table>
-
                     <?php require $__ROOT__ . '/include/abap_oname_wul.php' ?>
                     <?php require $__ROOT__ . '/include/abap_ads_side.php' ?>
                 </div>
@@ -118,7 +109,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::TRAN_NAME
                                     <tr><td class="sapds-gui-label"> Transaction Code        </td>
                                         <td><?php echo GLOBAL_ABAP_ICON::getIcon4OtypeTRAN() ?> </td>
                                         <td class="sapds-gui-field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tran($tstc['TCODE'], $tstc_desc) ?> </td>
-                                        <td><?php echo GLOBAL_ABAP_ICON::getIcon4Analytics() ?> <a href="<?php echo ABAP_UI_TCODES_Navigation::TCode($tstc['TCODE'], TRUE) ?>" title="<?php echo $tstc_desc ?>" target="_blank">TCode <?php echo $tstc['TCODE'] ?> Analytics</a> <sup>&nearhk;</sup></td></tr>
+                                        <td>&nbsp; <?php echo GLOBAL_ABAP_ICON::getIcon4Analytics() ?> <a href="<?php echo ABAP_UI_TCODES_Navigation::TCode($tstc['TCODE'], TRUE) ?>" title="<?php echo $tstc_desc ?>" target="_blank">TCode <?php echo $tstc['TCODE'] ?> Analytics</a> <sup><img src="<?php echo ABAP_UI_CONST::ICON_EXTERNAL_LINK ?>"></sup></td></tr>
                                     <tr><td class="sapds-gui-label"> Transaction Description </td>
                                         <td><?php echo GLOBAL_ABAP_ICON::getIcon4Description() ?> </td>
                                         <td class="sapds-gui-field"> <?php echo $tstc_desc ?> &nbsp;</td>
@@ -203,6 +194,13 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::TRAN_NAME
 
                 <div  class="col-xl-2 col-lg-2 d-md-3    col-sm-none" >
                     <!-- Right Side bar -->
+                    <h6 class="pt-4">SAP T-Code Analytics</h6>
+                    <div>
+                        <?php echo GLOBAL_ABAP_ICON::getIcon4Analytics() ?>
+                        <?php echo ABAP_UI_TCODES_Navigation::TCodeHyperlink($tstc['TCODE'], TRUE) ?>
+                        <sup><img src="<?php echo ABAP_UI_CONST::ICON_EXTERNAL_LINK ?>"></sup>
+                    </div>
+
                     <?php require $__ROOT__ . '/include/abap_relatedlinks.php' ?>
                 </div>
             </div><!-- End of row -->

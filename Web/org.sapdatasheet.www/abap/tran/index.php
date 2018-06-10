@@ -32,9 +32,9 @@ $index_counter_list = ABAP_UI_Buffer_Index::ZBUFFER_INDEX_COUNTER(GLOBAL_ABAP_OT
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-        <title><?php echo $GLOBALS['TITLE_TEXT'] ?> <?php echo GLOBAL_WEBSITE::SAPDS_ORG_URL_TITLE ?> </title>
+        <title><?php echo $GLOBALS['TITLE_TEXT'] ?> <?php echo GLOBAL_WEBSITE::SAPDS_ORG_TITLE ?> </title>
         <meta name="author" content="SAP Datasheet" />
-        <meta name="description" content="<?php echo GLOBAL_WEBSITE::SAPDS_ORG_URL_META_DESC ?>" />
+        <meta name="description" content="<?php echo GLOBAL_WEBSITE::SAPDS_ORG_META_DESC ?>" />
         <meta name="keywords" content="SAP,ABAP,<?php echo GLOBAL_ABAP_OTYPE::TRAN_DESC ?>" />
 
         <link rel="stylesheet" type="text/css"  href="/3rdparty/bootstrap/css/bootstrap.min.css"/>
@@ -132,6 +132,15 @@ $index_counter_list = ABAP_UI_Buffer_Index::ZBUFFER_INDEX_COUNTER(GLOBAL_ABAP_OT
 
                 <div  class="col-xl-2 col-lg-2 d-md-3    col-sm-none" >
                     <!-- Right Side bar -->
+                    <h6 class="pt-4">Affinity Site</h6>
+                    <div>
+                        <?php echo GLOBAL_ABAP_ICON::getIcon4OtypeTRAN() ?>
+                        <a href="<?php echo GLOBAL_WEBSITE::SAP_TCODES_ORG_URL ?>" target="_blank" title="<?php echo GLOBAL_WEBSITE::SAP_TCODES_ORG_DESC ?>">
+                            <?php echo GLOBAL_WEBSITE::SAP_TCODES_ORG_URL_DISPLAY ?>
+                            <sup><img src="<?php echo ABAP_UI_CONST::ICON_EXTERNAL_LINK ?>"></sup>
+                        </a>
+                    </div>
+                    
                     <?php require $__ROOT__ . '/include/abap_relatedlinks.php' ?>
                 </div>
             </div><!-- End of row -->

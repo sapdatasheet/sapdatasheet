@@ -64,9 +64,9 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::TABL_NAME
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-        <title><?php echo $GLOBALS['TITLE_TEXT'] . GLOBAL_WEBSITE::SAPDS_ORG_URL_TITLE ?> </title>
+        <title><?php echo $GLOBALS['TITLE_TEXT'] . GLOBAL_WEBSITE::SAPDS_ORG_TITLE ?> </title>
         <meta name="author" content="SAP Datasheet" />
-        <meta name="description" content="<?php echo GLOBAL_WEBSITE::SAPDS_ORG_URL_META_DESC; ?>" />
+        <meta name="description" content="<?php echo GLOBAL_WEBSITE::SAPDS_ORG_META_DESC; ?>" />
         <meta name="keywords" content="SAP,Table Field,<?php echo $dd02l['TABNAME'] . '-' . $dd03l['FIELDNAME'] ?>" />
 
         <link rel="stylesheet" type="text/css"  href="/3rdparty/bootstrap/css/bootstrap.min.css"/>
@@ -133,15 +133,15 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::TABL_NAME
                                 <tbody>
                                     <tr><td class="sapds-gui-label"> Table </td>
                                         <td class="sapds-gui-field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tabl($dd02l['TABNAME'], $dd02l_desc) ?> &nbsp;</td>
-                                        <td> <?php echo htmlentities($dd02l_desc) ?> &nbsp;</td>
+                                        <td>&nbsp; <?php echo htmlentities($dd02l_desc) ?></td>
                                     </tr>
                                     <tr><td class="sapds-gui-label"> Field </td>
                                         <td class="sapds-gui-field"> <a href="#"><?php echo $dd03l['FIELDNAME'] ?></a> &nbsp;</td>
-                                        <td> <?php echo $dd03l_fieldname_desc ?> &nbsp;</td>
+                                        <td>&nbsp; <?php echo $dd03l_fieldname_desc ?></td>
                                     </tr>
                                     <tr><td class="sapds-gui-label"> Position </td>
                                         <td class="sapds-gui-field"> <?php echo $dd03l['POSITION'] ?> &nbsp;</td>
-                                        <td> &nbsp;</td>
+                                        <td>&nbsp; </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -159,11 +159,11 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::TABL_NAME
                                     </tr>
                                     <tr><td class="sapds-gui-label"> Data Element </td>
                                         <td class="sapds-gui-field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Dtel($dd03l['ROLLNAME'], $dd03l_fieldname_desc) ?> &nbsp;</td>
-                                        <td> <?php echo htmlentities($dd03l_fieldname_desc) ?> &nbsp;</td>
+                                        <td>&nbsp; <?php echo htmlentities($dd03l_fieldname_desc) ?></td>
                                     </tr>
                                     <tr><td class="sapds-gui-label"> Check Table </td>
                                         <td class="sapds-gui-field"> <?php echo (trim($dd03l['CHECKTABLE']) == '*') ? '*' : ABAP_UI_DS_Navigation::GetHyperlink4Tabl($dd03l['CHECKTABLE'], $dd03l_checktable_desc) ?> &nbsp;</td>
-                                        <td> <?php echo htmlentities($dd03l_checktable_desc) ?> &nbsp;</td>
+                                        <td>&nbsp; <?php echo htmlentities($dd03l_checktable_desc) ?></td>
                                     </tr>
                                     <tr><td class="sapds-gui-label"> Nesting depth for includes </td>
                                         <td class="sapds-gui-field"> <?php echo $dd03l['ADMINFIELD'] ?> &nbsp;</td>
@@ -171,7 +171,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::TABL_NAME
                                     </tr>
                                     <tr><td class="sapds-gui-label"> Internal ABAP Type </td>
                                         <td class="sapds-gui-field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_INTTYPE, $dd03l['INTTYPE'], $dd03l_inttype_desc) ?> &nbsp;</td>
-                                        <td> <?php echo htmlentities($dd03l_inttype_desc) ?> &nbsp;</td>
+                                        <td>&nbsp; <?php echo htmlentities($dd03l_inttype_desc) ?></td>
                                     </tr>
                                     <tr><td class="sapds-gui-label"> Internal Length in Bytes </td>
                                         <td class="sapds-gui-field"> <?php echo $dd03l['INTLEN'] ?> &nbsp;</td>
@@ -179,11 +179,11 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::TABL_NAME
                                     </tr>
                                     <tr><td class="sapds-gui-label"> Reference table </td>
                                         <td class="sapds-gui-field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tabl($dd03l['REFTABLE'], $dd03l_reftable_desc) ?> &nbsp;</td>
-                                        <td> <?php echo htmlentities($dd03l_reftable_desc) ?> &nbsp;</td>
+                                        <td>&nbsp; <?php echo htmlentities($dd03l_reftable_desc) ?></td>
                                     </tr>
                                     <tr><td class="sapds-gui-label"> Name of Include </td>
                                         <td class="sapds-gui-field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tabl($dd03l['PRECFIELD'], $dd03l_precfield_desc) ?> &nbsp;</td>
-                                        <td> <?php echo htmlentities($dd03l_precfield_desc) ?> &nbsp;</td>
+                                        <td>&nbsp; <?php echo htmlentities($dd03l_precfield_desc) ?></td>
                                     </tr>
                                     <tr><td class="sapds-gui-label"> Reference Field (CURR or QTY) </td>
                                         <td class="sapds-gui-field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4TablField($dd03l['REFTABLE'], $dd03l['REFFIELD']) ?> &nbsp;</td>
@@ -195,11 +195,11 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::TABL_NAME
                                     </tr> 
                                     <tr><td class="sapds-gui-label"> NOT NULL forced </td>
                                         <td class="sapds-gui-field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_DD03L_NOTNULL, $dd03l['NOTNULL'], $dd03l_notnull_desc) ?> &nbsp;</td>
-                                        <td> <?php echo htmlentities($dd03l_notnull_desc) ?> &nbsp;</td>
+                                        <td>&nbsp; <?php echo htmlentities($dd03l_notnull_desc) ?></td>
                                     </tr> 
                                     <tr><td class="sapds-gui-label"> Data Type in ABAP Dictionary </td>
                                         <td class="sapds-gui-field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_DATATYPE, $dd03l['DATATYPE'], $dd03l_datatype_desc) ?> &nbsp;</td>
-                                        <td> <?php echo htmlentities($dd03l_datatype_desc) ?> &nbsp;</td>
+                                        <td>&nbsp; <?php echo htmlentities($dd03l_datatype_desc) ?></td>
                                     </tr> 
                                     <tr><td class="sapds-gui-label"> Length (No. of Characters) </td>
                                         <td class="sapds-gui-field"> <?php echo $dd03l['LENG'] ?> &nbsp;</td>
@@ -211,15 +211,15 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::TABL_NAME
                                     </tr> 
                                     <tr><td class="sapds-gui-label"> Domain name </td>
                                         <td class="sapds-gui-field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Doma($dd03l['DOMNAME'], $dd03l_domname_desc) ?> &nbsp;</td>
-                                        <td> <?php echo htmlentities($dd03l_domname_desc) ?> &nbsp;</td>
+                                        <td>&nbsp; <?php echo htmlentities($dd03l_domname_desc) ?></td>
                                     </tr> 
                                     <tr><td class="sapds-gui-label"> Origin of an input help (F4) </td>
                                         <td class="sapds-gui-field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_DD03L_SHLPORIGIN, $dd03l['SHLPORIGIN'], $dd03l_shlporigin_desc) ?> &nbsp;</td>
-                                        <td> <?php echo htmlentities($dd03l_shlporigin_desc) ?> &nbsp;</td>
+                                        <td>&nbsp; <?php echo htmlentities($dd03l_shlporigin_desc) ?> </td>
                                     </tr> 
                                     <tr><td class="sapds-gui-label"> DD: Flag if it is a table </td>
                                         <td class="sapds-gui-field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_DD03L_TABLETYPE, $dd03l['TABLETYPE'], $dd03l_tabletype_desc) ?> &nbsp;</td>
-                                        <td> <?php echo htmlentities($dd03l_tabletype_desc) ?> &nbsp;</td>
+                                        <td>&nbsp; <?php echo htmlentities($dd03l_tabletype_desc) ?> </td>
                                     </tr> 
                                     <tr><td class="sapds-gui-label"> DD: Depth for structured types </td>
                                         <td class="sapds-gui-field"> <?php echo $dd03l['DEPTH'] ?> &nbsp;</td>
@@ -227,15 +227,15 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::TABL_NAME
                                     </tr> 
                                     <tr><td class="sapds-gui-label"> DD: Component Type </td>
                                         <td class="sapds-gui-field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_DD03L_COMPTYPE, $dd03l['COMPTYPE'], $dd03l_comptype_desc) ?> &nbsp;</td>
-                                        <td> <?php echo htmlentities($dd03l_comptype_desc) ?> &nbsp;</td>
+                                        <td>&nbsp; <?php echo htmlentities($dd03l_comptype_desc) ?> </td>
                                     </tr> 
                                     <tr><td class="sapds-gui-label"> Type of Object Referenced </td>
                                         <td class="sapds-gui-field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_DD03L_REFTYPE, $dd03l['REFTYPE'], $dd03l_reftype_desc) ?> &nbsp;</td>
-                                        <td> <?php echo htmlentities($dd03l_reftype_desc) ?> &nbsp;</td>
+                                        <td>&nbsp; <?php echo htmlentities($dd03l_reftype_desc) ?> </td>
                                     </tr> 
                                     <tr><td class="sapds-gui-label"> DD: Indicator for a Language Field </td>
                                         <td class="sapds-gui-field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_DD03L_LANGUFLAG, $dd03l['LANGUFLAG'], $dd03l_languflag_desc) ?> &nbsp;</td>
-                                        <td> <?php echo htmlentities($dd03l_languflag_desc) ?> &nbsp;</td>
+                                        <td>&nbsp; <?php echo htmlentities($dd03l_languflag_desc) ?> </td>
                                     </tr> 
                                     <tr><td class="sapds-gui-label"> Position of the field in the table </td>
                                         <td class="sapds-gui-field"> <?php echo $dd03l['DBPOSITION'] ?> &nbsp;</td>
@@ -284,6 +284,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::TABL_NAME
 
                 <div  class="col-xl-2 col-lg-2 d-md-3    col-sm-none" >
                     <!-- Right Side bar -->
+                    <?php require $__ROOT__ . '/include/abap_tabl_diagram_side.php' ?>
                     <?php require $__ROOT__ . '/include/abap_relatedlinks.php' ?>
                 </div>
             </div><!-- End of row -->

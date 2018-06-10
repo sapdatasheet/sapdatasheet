@@ -103,6 +103,7 @@ class GLOBAL_ABAP_ICON {
     const PARAMETER_RESULT = 's_b_parr.gif';
     const PARAMETER_TABLE = 's_b_part.gif';
     const PROCESS_TYPE = 's_roreso.gif';
+    const RELATION = 's_psrela.gif';
     const RFC = 's_clbltr.gif';
     const SAPGUI = 's_logsap.gif';
     const SYSTEM_HELP = 's_f_help.gif';
@@ -382,6 +383,10 @@ class GLOBAL_ABAP_ICON {
 
     public static function getIcon4ProcessType(bool $fullUrl = FALSE): string {
         return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::PROCESS_TYPE, $fullUrl);
+    }
+
+    public static function getIcon4Relation(bool $fullUrl = FALSE): string {
+        return GLOBAL_ABAP_ICON::getIconLink(GLOBAL_ABAP_ICON::RELATION, $fullUrl);
     }
 
     public static function getIcon4Rfc(bool $fullUrl = FALSE): string {
@@ -784,17 +789,19 @@ class GLOBAL_UTIL {
 
 class GLOBAL_WEBSITE {
 
-    const SAPDS_ORG_URL_DESC = 'The Best Online SAP Object Repository';
-    const SAPDS_ORG_URL_META_DESC = 'SAP Datasheet for all ABAP objects: Tables, Transaction codes, Implementation Guide (IMG), Function modules, Domains, Data elements, Views, Class and Interfaces, ABAP Report, SAP Menu, etc';
-    const SAPDS_ORG_URL_NAME = 'SAP Datasheet';
-    const SAPDS_ORG_URL_TITLE = ' - SAP Datasheet - The Best Online SAP Object Repository';
+    const SAPDS_ORG_DESC = 'The Best Online SAP Object Repository';
+    const SAPDS_ORG_META_DESC = 'SAP Datasheet for all ABAP objects: Tables, Transaction codes, Implementation Guide (IMG), Function modules, Domains, Data elements, Views, Class and Interfaces, ABAP Report, SAP Menu, etc';
+    const SAPDS_ORG_NAME = 'SAP Datasheet';
+    const SAPDS_ORG_TITLE = ' - SAP Datasheet - The Best Online SAP Object Repository';
     const SAPDS_ORG_URL = "https://www.sapdatasheet.org";
+    const SAPDS_ORG_URL_DISPLAY = 'www.SAPDatasheet.org';
 
-    const SAP_TABLES_ORG_DESC = 'The best online document for SAP ABAP Tables';
+    const SAP_TABLES_ORG_DESC = 'The Best online document for SAP ABAP Tables';
     const SAP_TABLES_ORG_META_DESC = 'Document for All SAP Tables, including table basic information, relationship diagrams, books, etc';
     const SAP_TABLES_ORG_NAME = 'SAP Tables';
-    const SAP_TABLES_ORG_TITLE = ', sap-tables.org - The best online document for SAP ABAP Tables';
+    const SAP_TABLES_ORG_TITLE = ', sap-tables.org - The Best online document for SAP ABAP Tables';
     const SAP_TABLES_ORG_URL = 'https://www.sap-tables.org';
+    const SAP_TABLES_ORG_URL_DISPLAY = 'www.SAP-Tables.org';
 
     const SAP_TCODES_ORG_DESC = 'The Best Online SAP Transaction Code Analytics';
     const SAP_TCODES_ORG_NAME = 'SAP TCodes';

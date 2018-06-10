@@ -16,9 +16,9 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP";
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-        <title>SAP ABAP Objects <?php echo GLOBAL_WEBSITE::SAPDS_ORG_URL_TITLE ?> </title>
+        <title>SAP ABAP Objects <?php echo GLOBAL_WEBSITE::SAPDS_ORG_TITLE ?> </title>
         <meta name="author" content="SAP Datasheet" />
-        <meta name="description" content="<?php echo GLOBAL_WEBSITE::SAPDS_ORG_URL_META_DESC ?>" />
+        <meta name="description" content="<?php echo GLOBAL_WEBSITE::SAPDS_ORG_META_DESC ?>" />
         <meta name="keywords" content="SAP,ABAP" />
 
         <link rel="stylesheet" type="text/css"  href="/3rdparty/bootstrap/css/bootstrap.min.css"/>
@@ -34,8 +34,8 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP";
             <div class="container-fluid pt-2">
                 <div class="jumbotron text-white rounded bg-info">
                     <div class="container">
-                        <h1 class="display-3">Perfect SAP Datasheet!</h1>
-                        <p>WWW.SAPDatasheet.org is the BEST online SAP object repository. </p>
+                        <h1 class="display-3">The #1 Online SAP Datasheet!</h1>
+                        <p>WWW.SAPDatasheet.org is the <b>BEST</b> online SAP object repository. </p>
                         <p>The URL for each ABAP object is well formatted, and we can guess the location of your favorite object. Example: 
                         <ul>
                             <li><mark>https://www.sapdatasheet.org/abap/tabl/<code>bkpf</code>.html</mark> is the location for ABAP database table <mark><code>BKPF</code></mark>, while</li>

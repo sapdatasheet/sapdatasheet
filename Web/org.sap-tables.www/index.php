@@ -13,6 +13,10 @@ $title = 'SAP ABAP Tables'
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <title><?php echo $title ?><?php echo GLOBAL_WEBSITE::SAP_TABLES_ORG_TITLE ?></title>
         <link rel="stylesheet" type="text/css"  href="/3rdparty/bootstrap/css/bootstrap.min.css"/>
     </head>
@@ -28,9 +32,13 @@ $title = 'SAP ABAP Tables'
 
         <main class="container-fluid table-responsive">
             <!-- Adver here -->
-            
+
             <h5>Top Used SAP ABAP Tabys by Reference Count</h5>
             <p>For the <b><?php echo number_format(113102) ?></b> SAP tables, We count the total number of <code>where used list</code> for each of them, and rank the top <b><?php echo ABAP_DB_CONST::MAX_ROWS_LIMIT_SMALL ?></b> popular used SAP ABAP tables.</p>
+
+            <div class="bg-light" title="Advertisement">
+                <?php include $__WS_ROOT__ . '/common-php/google/adsense-content-top.html' ?>
+            </div>
 
             <table class="table table-hover">
                 <thead>

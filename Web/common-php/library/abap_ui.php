@@ -334,7 +334,7 @@ class ABAP_UI_DS_Navigation {
 
         $result = '<sup>'
                 . '<a href="' . strtolower($url)
-                . '" title="' . $desc . ' - ' . GLOBAL_WEBSITE::SAPDS_ORG_URL_NAME . '"'
+                . '" title="' . $desc . ' - ' . GLOBAL_WEBSITE::SAPDS_ORG_NAME . '"'
                 . ' target="_blank">'
                 . '<img src="' . ABAP_UI_CONST::ICON_EXTERNAL_LINK . '">'
                 . '</a>'    // data-toggle="tooltip" data-placement="bottom"

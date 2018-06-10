@@ -21,6 +21,10 @@ $dd08l_list = ABAP_DB_TABLE_TABL::DD08L_Erd($table_name);
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <title><?php echo $title ?><?php echo GLOBAL_WEBSITE::SAP_TABLES_ORG_TITLE ?></title>
         <link rel="stylesheet" type="text/css"  href="/3rdparty/bootstrap/css/bootstrap.min.css"/>
     </head>
@@ -54,8 +58,11 @@ $dd08l_list = ABAP_DB_TABLE_TABL::DD08L_Erd($table_name);
             <div class="row">
                 <div class="col-md-9">
                     <!-- Adver Here -->
+                    <div class="bg-light" title="Advertisement">
+                        <?php include $__WS_ROOT__ . '/common-php/google/adsense-content-top.html' ?>
+                    </div>
 
-                    <ul class="nav nav-pills">
+                    <ul class="nav nav-pills pt-2">
                         <li class="nav-item">
                             <a class="nav-link bg-light" target="_blank" href="<?php echo $uri_erd_png ?>">
                                 <img src="https://www.sapdatasheet.org/abap/icon/s_wdvimg.gif"> View Full Image</a></li>&nbsp;&nbsp;
@@ -103,7 +110,7 @@ $dd08l_list = ABAP_DB_TABLE_TABL::DD08L_Erd($table_name);
                                 </ul>
                             </div></div>
                     <?php } ?>
-                    
+
                     <!-- TODO: Add Used By Table List (top 10 only) -->
                     <!-- TODO: Add TCode Books links -->
                 </div><!-- End col right -->

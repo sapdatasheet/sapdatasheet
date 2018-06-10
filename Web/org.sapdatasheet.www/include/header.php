@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-auto pt-2">
             <a href="/"><img class="" src="/sapdatasheet-big.png" width="200" height="21" class="d-inline-block align-top" alt=""></a>
-            <br><span class="text-nowrap text-muted text-monospace font-weight-bold sapds-slogan"><?php echo GLOBAL_WEBSITE::SAPDS_ORG_URL_DESC ?></span>
+            <br><span class="text-nowrap text-muted text-monospace font-weight-bold sapds-slogan"><?php echo GLOBAL_WEBSITE::SAPDS_ORG_DESC ?></span>
         </div>
         <div class="col">
 

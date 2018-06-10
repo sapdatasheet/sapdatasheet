@@ -45,9 +45,9 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::TABL_NAME
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-        <title><?php echo $GLOBALS['TITLE_TEXT'] . GLOBAL_WEBSITE::SAPDS_ORG_URL_TITLE ?> </title>
+        <title><?php echo $GLOBALS['TITLE_TEXT'] . GLOBAL_WEBSITE::SAPDS_ORG_TITLE ?> </title>
         <meta name="author" content="SAP Datasheet" />
-        <meta name="description" content="<?php echo GLOBAL_WEBSITE::SAPDS_ORG_URL_META_DESC; ?>" />
+        <meta name="description" content="<?php echo GLOBAL_WEBSITE::SAPDS_ORG_META_DESC; ?>" />
         <meta name="keywords" content="SAP,<?php echo GLOBAL_ABAP_OTYPE::TABL_DESC ?>,<?php echo $dd02l['TABNAME'] ?>,<?php echo $dd02l_desc ?>" />
 
         <link rel="stylesheet" type="text/css"  href="/3rdparty/bootstrap/css/bootstrap.min.css"/>
@@ -110,10 +110,16 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::TABL_NAME
                                 <tbody>
                                     <tr><td class="sapds-gui-label"> Table Category        </td>
                                         <td class="sapds-gui-field"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_TABLE_TABL::DD02L_TABCLASS_DOMAIN, $dd02l['TABCLASS'], $dd02l_tabclass_desc) ?> &nbsp;</td>
-                                        <td><?php echo htmlentities($dd02l_tabclass_desc) ?>&nbsp;</td></tr>
+                                        <td>&nbsp;<?php echo htmlentities($dd02l_tabclass_desc) ?>&nbsp;</td></tr>
                                     <tr><td class="sapds-gui-label"> <?php echo htmlentities($dd02l_tabclass_desc) ?> </td>
                                         <td class="sapds-gui-field"><a href="#"><?php echo $dd02l['TABNAME'] ?></a></td>
-                                        <td>&nbsp;</td></tr>
+                                        <td>&nbsp;
+                                            <?php echo GLOBAL_ABAP_ICON::getIcon4Relation() ?>
+                                            <a target="_blank" href="<?php echo ABAP_UI_TABLES_Navigation::url_table($dd02l['TABNAME'], TRUE) ?>"
+                                               title="Dispaly SAP Table Relationship Diagram" >
+                                                Table Relationship Diagram <sup><img src="<?php echo ABAP_UI_CONST::ICON_EXTERNAL_LINK ?>"></sup>
+                                            </a>
+                                        </td></tr>
                                     <tr><td class="sapds-gui-label"> Short Description     </td>
                                         <td class="sapds-gui-field"> <?php echo htmlentities($dd02l_desc) ?> &nbsp;</td>
                                         <td>&nbsp;</td></tr>
@@ -242,7 +248,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::TABL_NAME
                                                 <td class="sapds-alv"> <?php echo $dd08l_dd05s_item['FRKART'] ?> </td>
                                                 <td class="sapds-alv">
                                                     <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_DD08L_CARDLEFT, $dd08l_dd05s_item['CARDLEFT'], '') ?>
-                                                     </td>
+                                                </td>
                                                 <td class="sapds-alv">
                                                     <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_DD08L_CARD, $dd08l_dd05s_item['CARD'], '') ?>
                                                 </td>
@@ -274,6 +280,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::TABL_NAME
 
                 <div  class="col-xl-2 col-lg-2 d-md-3    col-sm-none" >
                     <!-- Right Side bar -->
+                    <?php require $__ROOT__ . '/include/abap_tabl_diagram_side.php' ?>
                     <?php require $__ROOT__ . '/include/abap_relatedlinks.php' ?>
                 </div>
             </div><!-- End of row -->
