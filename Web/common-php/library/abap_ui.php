@@ -447,7 +447,7 @@ class ABAP_UI_DS_Navigation {
     /**
      * Get URLs list for pages.
      */
-    public static function GetWilPaths(string $oType, string $oName, string $srcOType, int $counter): string {
+    public static function GetWilPaths(string $oType, string $oName, string $srcOType, int $counter): array {
         $paths = array();
         if ($counter > ABAP_DB_CONST::MAX_ROWS_LIMIT) {
             $pageCount = ceil($counter / ABAP_DB_CONST::MAX_ROWS_LIMIT);
@@ -519,7 +519,7 @@ class ABAP_UI_DS_Navigation {
     }
 
     public static function GetWulPaths(
-    string $srcOType, string $srcOName, string $srcSubobj, string $oType, int $counter): string {
+    string $srcOType, string $srcOName, string $srcSubobj, string $oType, int $counter): array {
         $paths = array();
         if ($counter > ABAP_DB_CONST::MAX_ROWS_LIMIT) {
             $pageCount = ceil($counter / ABAP_DB_CONST::MAX_ROWS_LIMIT);
