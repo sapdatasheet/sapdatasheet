@@ -3,9 +3,9 @@
     <p class="text-center">
         Affinities: <a href="<?php echo GLOBAL_WEBSITE::SAP_TCODES_ORG_URL ?>" target="_blank" title="<?php echo GLOBAL_WEBSITE::SAP_TCODES_ORG_DESC ?>"><?php echo GLOBAL_WEBSITE::SAP_TCODES_ORG_URL_DISPLAY ?></a>
         &middot; <a href="<?php echo GLOBAL_WEBSITE::SAPDS_ORG_URL ?>" target="_blank" title="<?php echo GLOBAL_WEBSITE::SAPDS_ORG_DESC ?>"><?php echo GLOBAL_WEBSITE::SAPDS_ORG_URL_DISPLAY ?></a>
-        | <a target="_blank" href="<?php echo GLOBAL_WEBSITE::SAPDS_ORG_URL ?>/site/about.html"><b>About</b></a>
-        &middot; <a target="_blank" href="<?php echo GLOBAL_WEBSITE::SAPDS_ORG_URL ?>/site/term.html"><b>Terms</b></a>
-        &middot; <a target="_blank" href="<?php echo GLOBAL_WEBSITE::SAPDS_ORG_URL ?>/site/privacy.html"><b>Privacy</b></a>
+        | <a target="_blank" href="<?php echo GLOBAL_WEBSITE::SAPDS_ORG_URL ?>/site/about.php"><b>About</b></a>
+        &middot; <a target="_blank" href="<?php echo GLOBAL_WEBSITE::SAPDS_ORG_URL ?>/site/term.php"><b>Terms</b></a>
+        &middot; <a target="_blank" href="<?php echo GLOBAL_WEBSITE::SAPDS_ORG_URL ?>/site/privacy.php"><b>Privacy</b></a>
         &middot; <a target="_blank" href="https://github.com/sapdatasheet/sapdatasheet/issues"><b>Feedback</b></a>
         <br>
         &copy; Copyright <?php echo date("Y"); ?>, <a href="<?php echo GLOBAL_WEBSITE::SAP_TABLES_ORG_URL ?>" target="_blank" title="<?php echo GLOBAL_WEBSITE::SAP_TABLES_ORG_DESC ?>"><?php echo GLOBAL_WEBSITE::SAP_TABLES_ORG_URL_DISPLAY ?></a>, <?php echo GLOBAL_WEBSITE::SAP_TABLES_ORG_DESC ?>

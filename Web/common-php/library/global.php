@@ -789,6 +789,9 @@ class GLOBAL_UTIL {
 
 class GLOBAL_WEBSITE {
 
+    const C4HANA_ORG_URL = 'https://www.c4hana.org';
+    const S4HANA_ORG_URL = 'https://www.s4hana.org';
+
     const SAPDS_ORG_DESC = 'The Best Online SAP Object Repository';
     const SAPDS_ORG_META_DESC = 'SAP Datasheet for all ABAP objects: Tables, Transaction codes, Implementation Guide (IMG), Function modules, Domains, Data elements, Views, Class and Interfaces, ABAP Report, SAP Menu, etc';
     const SAPDS_ORG_NAME = 'SAP Datasheet';
@@ -796,10 +799,10 @@ class GLOBAL_WEBSITE {
     const SAPDS_ORG_URL = "https://www.sapdatasheet.org";
     const SAPDS_ORG_URL_DISPLAY = 'www.SAPDatasheet.org';
 
-    const SAP_TABLES_ORG_DESC = 'The Best online document for SAP ABAP Tables';
+    const SAP_TABLES_ORG_DESC = 'The Best Online document for SAP ABAP Tables';
     const SAP_TABLES_ORG_META_DESC = 'Document for All SAP Tables, including table basic information, relationship diagrams, books, etc';
     const SAP_TABLES_ORG_NAME = 'SAP Tables';
-    const SAP_TABLES_ORG_TITLE = ', sap-tables.org - The Best online document for SAP ABAP Tables';
+    const SAP_TABLES_ORG_TITLE = ', sap-tables.org - The Best Online document for SAP ABAP Tables';
     const SAP_TABLES_ORG_URL = 'https://www.sap-tables.org';
     const SAP_TABLES_ORG_URL_DISPLAY = 'www.SAP-Tables.org';
 

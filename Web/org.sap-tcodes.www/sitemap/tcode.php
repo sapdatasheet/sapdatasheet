@@ -93,7 +93,6 @@ $sitemaps[$fname_tcode] = $sitemap_tcode->GetFilenameSeq();
 //
 // Sitemaps list
 //
-
 $sitemapIndex = new SITEMAP_Index('sitemap');
 $sitemapIndex->StartOB();
 

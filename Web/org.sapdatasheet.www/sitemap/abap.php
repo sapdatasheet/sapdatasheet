@@ -27,9 +27,7 @@ function sitemap4_fugr(array &$result, string $column_name, array $list) {
     }
     $sitemap_otype->EndOB();
 
-    return array(
-        $fname => $sitemap_otype->GetFilenameSeq()
-    );
+    $result[$fname] = $sitemap_otype->GetFilenameSeq();
 }
 
 /**
@@ -125,9 +123,7 @@ function sitemap4otype(array &$result, string $otype, string $column_name, array
     }
     $sitemap_otype->EndOB();
 
-    return array(
-        $fname => $sitemap_otype->GetFilenameSeq()
-    );
+    $result[$fname] = $sitemap_otype->GetFilenameSeq();
 }
 
 function sitemap4wil(array &$result) {
