@@ -47,6 +47,10 @@ class ABAP_UI_CONST {
     const ANCHOR_SEOMETAFL = "seometa-fulllist";           // For class/interface meta
     const ANCHOR_SEOMETARELFL = "seometarel-fulllist";     // For class/interface meta rel
     const LABEL_F1Help = 'Help Document on this Field';
+    /**
+     * SVG icon, for external link.
+     */
+    const ICON_EXTERNAL_LINK = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22%3E %3Cpath fill=%22%23fff%22 stroke=%22%2336c%22 d=%22M1.5 4.518h5.982V10.5H1.5z%22/%3E %3Cpath fill=%22%2336c%22 d=%22M5.765 1H11v5.39L9.427 7.937l-1.31-1.31L5.393 9.35l-2.69-2.688 2.81-2.808L4.2 2.544z%22/%3E %3Cpath fill=%22%23fff%22 d=%22M9.995 2.004l.022 4.885L8.2 5.07 5.32 7.95 4.09 6.723l2.882-2.88-1.85-1.852z%22/%3E %3C/svg%3E';
     const WUL_ROW_MINIMAL = 10;                            // Add empty rows to make web page looks better
 
 }
@@ -307,7 +311,7 @@ class ABAP_UI_DS_Navigation {
      * </pre>
      */
     public static function GetObjectURL(string $objtype, string $objname): string {
-        return GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG . self::GetObjectPath($objtype, $objname);
+        return GLOBAL_WEBSITE::SAPDS_ORG_URL . self::GetObjectPath($objtype, $objname);
     }
 
     /**
@@ -330,9 +334,9 @@ class ABAP_UI_DS_Navigation {
 
         $result = '<sup>'
                 . '<a href="' . strtolower($url)
-                . '" title="' . $desc . ' - ' . GLOBAL_WEBSITE_SAPDS::NAME . '"'
+                . '" title="' . $desc . ' - ' . GLOBAL_WEBSITE::SAPDS_ORG_URL_NAME . '"'
                 . ' target="_blank">'
-                . '<img src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22%3E %3Cpath fill=%22%23fff%22 stroke=%22%2336c%22 d=%22M1.5 4.518h5.982V10.5H1.5z%22/%3E %3Cpath fill=%22%2336c%22 d=%22M5.765 1H11v5.39L9.427 7.937l-1.31-1.31L5.393 9.35l-2.69-2.688 2.81-2.808L4.2 2.544z%22/%3E %3Cpath fill=%22%23fff%22 d=%22M9.995 2.004l.022 4.885L8.2 5.07 5.32 7.95 4.09 6.723l2.882-2.88-1.85-1.852z%22/%3E %3C/svg%3E">'
+                . '<img src="' . ABAP_UI_CONST::ICON_EXTERNAL_LINK . '">'
                 . '</a>'    // data-toggle="tooltip" data-placement="bottom"
                 . '</sup>&nbsp;';
         if ($withDesc && GLOBAL_UTIL::IsNotEmpty($desc)) {
@@ -465,7 +469,7 @@ class ABAP_UI_DS_Navigation {
     }
 
     public static function GetWilURL(array $counter): string {
-        return GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG . self::GetWilPath($counter);
+        return GLOBAL_WEBSITE::SAPDS_ORG_URL . self::GetWilPath($counter);
     }
 
     /**
@@ -538,7 +542,7 @@ class ABAP_UI_DS_Navigation {
     }
 
     public static function GetWulURL(array $counter): string {
-        return GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG . self::GetWulPath($counter);
+        return GLOBAL_WEBSITE::SAPDS_ORG_URL . self::GetWulPath($counter);
     }
 
 }
@@ -689,7 +693,7 @@ class ABAP_UI_TCODES_Navigation {
      */
     public static function AnalyticsCompPath(string $comp, bool $url = FALSE): string {
         $path = self::PATH_ANALYTICS_COMP . GLOBAL_UTIL::Clear4Url($comp) . '.html';
-        return ($url) ? GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . $path : $path;
+        return ($url) ? GLOBAL_WEBSITE::SAP_TCODES_ORG_URL . $path : $path;
     }
 
     /**
@@ -724,7 +728,7 @@ class ABAP_UI_TCODES_Navigation {
      */
     public static function AnalyticsModulePath(string $posid, bool $url = FALSE): string {
         $path = self::PATH_ANALYTICS_MODULE . GLOBAL_UTIL::Clear4Url($posid) . '.html';
-        return ($url) ? GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . $path : $path;
+        return ($url) ? GLOBAL_WEBSITE::SAP_TCODES_ORG_URL . $path : $path;
     }
 
     /**
@@ -740,7 +744,7 @@ class ABAP_UI_TCODES_Navigation {
      */
     public static function AnalyticsNamePath(string $prefix, bool $url = FALSE): string {
         $path = self::PATH_ANALYTICS_NAME . GLOBAL_UTIL::Clear4Url($prefix) . '.html';
-        return ($url) ? GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . $path : $path;
+        return ($url) ? GLOBAL_WEBSITE::SAP_TCODES_ORG_URL . $path : $path;
     }
 
     /**
@@ -766,7 +770,7 @@ class ABAP_UI_TCODES_Navigation {
      */
     public static function DownloadBookPath(string $bookName, bool $url = FALSE): string {
         $path = self::PATH_DOWNLOAD_BOOK_DIST . $bookName;
-        return ($url) ? GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . $path : $path;
+        return ($url) ? GLOBAL_WEBSITE::SAP_TCODES_ORG_URL . $path : $path;
     }
 
     /**
@@ -778,7 +782,7 @@ class ABAP_UI_TCODES_Navigation {
      * </pre>
      */
     public static function DownloadBooks(bool $url = FALSE): string {
-        return ($url) ? GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . self::PATH_DOWNLOAD_BOOK : self::PATH_DOWNLOAD_BOOK;
+        return ($url) ? GLOBAL_WEBSITE::SAP_TCODES_ORG_URL . self::PATH_DOWNLOAD_BOOK : self::PATH_DOWNLOAD_BOOK;
     }
 
     /**
@@ -790,7 +794,7 @@ class ABAP_UI_TCODES_Navigation {
      */
     public static function DownloadSheetPath(string $sheetName, bool $url = FALSE): string {
         $path = self::PATH_DOWNLOAD_SHEET_DIST . $sheetName;
-        return ($url) ? GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . $path : $path;
+        return ($url) ? GLOBAL_WEBSITE::SAP_TCODES_ORG_URL . $path : $path;
     }
 
     /**
@@ -802,7 +806,7 @@ class ABAP_UI_TCODES_Navigation {
      * </pre>
      */
     public static function DownloadSheets(bool $url = FALSE): string {
-        return ($url) ? GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . self::PATH_DOWNLOAD_SHEET : self::PATH_DOWNLOAD_SHEET;
+        return ($url) ? GLOBAL_WEBSITE::SAP_TCODES_ORG_URL . self::PATH_DOWNLOAD_SHEET : self::PATH_DOWNLOAD_SHEET;
     }
 
     /**
@@ -829,7 +833,7 @@ class ABAP_UI_TCODES_Navigation {
      */
     public static function TCode(string $tcode, bool $url = FALSE): string {
         $path = self::PATH_TCODE . GLOBAL_UTIL::Clear4Url($tcode) . '.html';
-        return ($url) ? GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . $path : $path;
+        return ($url) ? GLOBAL_WEBSITE::SAP_TCODES_ORG_URL . $path : $path;
     }
 
     /**

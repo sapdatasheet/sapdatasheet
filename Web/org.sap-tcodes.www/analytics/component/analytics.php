@@ -6,7 +6,6 @@ $__ROOT__ = dirname(__FILE__, 3);              // Root folder for Current web si
 require_once ($__WS_ROOT__ . '/common-php/library/global.php');
 require_once ($__WS_ROOT__ . '/common-php/library/abap_db.php');
 require_once ($__WS_ROOT__ . '/common-php/library/abap_ui.php');
-require_once ($__ROOT__ . '/include/site/site_global.php');
 require_once ($__ROOT__ . '/include/site/site_ui.php');
 GLOBAL_UTIL::UpdateSAPDescLangu();
 
@@ -25,11 +24,11 @@ $title = 'SAP TCodes in Component ' . $softcomp;
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Other meta -->
-        <meta name="author" content="<?php echo SITE_GLOBAL::URL_DISPLAY ?>">
+        <meta name="author" content="<?php echo GLOBAL_WEBSITE::SAP_TCODES_ORG_URL_DISPLAY ?>">
         <meta name="description" content="<?php echo $title ?>">
         <meta name="keywords" content="SAP,ABAP,TCode,Transaction Code,<?php echo $softcomp ?>,<?php echo $softcomp_desc ?>">
         <link rel="icon" href="/favicon.ico">
-        <title><?php echo $title . ' ' . $softcomp_desc ?><?php echo SITE_GLOBAL::TITLE_SUFFIX ?></title>
+        <title><?php echo $title . ' ' . $softcomp_desc ?><?php echo GLOBAL_WEBSITE::SAP_TCODES_ORG_TITLE ?></title>
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="/include/3rdparty/bootstrap/css/bootstrap.min.css">
         <!-- Custom styles for this template -->

@@ -7,7 +7,6 @@ require_once ($__WS_ROOT__ . '/common-php/library/global.php');
 require_once ($__WS_ROOT__ . '/common-php/library/abap_db.php');
 require_once ($__WS_ROOT__ . '/common-php/library/abap_ui.php');
 require_once ($__WS_ROOT__ . '/common-php/library/schemaorg.php');
-require_once ($__ROOT__ . '/include/site/site_global.php');
 require_once ($__ROOT__ . '/include/site/site_ui.php');
 GLOBAL_UTIL::UpdateSAPDescLangu();
 
@@ -28,7 +27,7 @@ $wil_list = SITE_UI_TCODE::LoadWil($abaptran['TCODE']);
 $wul_list = SITE_UI_TCODE::LoadWul($abaptran['TCODE']);
 
 $title = 'SAP TCode ' . $abaptran['TCODE'] . ' - ' . $tstc_desc;
-$search = $abaptran['TCODE'] . ' ' . $tstc_desc . ' ' . SITE_GLOBAL::NAME;
+$search = $abaptran['TCODE'] . ' ' . $tstc_desc . ' ' . GLOBAL_WEBSITE::SAP_TCODES_ORG_NAME;
 
 $json_ld = new \OrgSchema\Thing();
 $json_ld->name = $abaptran['TCODE'];
@@ -44,11 +43,11 @@ $json_ld->url = ABAP_UI_TCODES_Navigation::TCode($abaptran['TCODE'], TRUE);
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Other meta -->
-        <meta name="author" content="<?php echo SITE_GLOBAL::URL_DISPLAY ?>">
+        <meta name="author" content="<?php echo GLOBAL_WEBSITE::SAP_TCODES_ORG_URL_DISPLAY ?>">
         <meta name="description" content="<?php echo $title ?>">
         <meta name="keywords" content="SAP,ABAP,TCode,Transaction Code,<?php echo $abaptran['TCODE'] ?>,<?php echo $tstc_desc ?>">
         <link rel="icon" href="/favicon.ico">
-        <title><?php echo $title ?><?php echo SITE_GLOBAL::TITLE_SUFFIX ?></title>
+        <title><?php echo $title ?><?php echo GLOBAL_WEBSITE::SAP_TCODES_ORG_TITLE ?></title>
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="/include/3rdparty/bootstrap/css/bootstrap.min.css">
         <!-- Custom styles for this template -->

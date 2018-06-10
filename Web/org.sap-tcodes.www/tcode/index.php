@@ -12,10 +12,10 @@ require_once ($__ROOT__ . '/include/site/site_global.php');
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Other meta -->
-        <meta name="author" content="<?php echo SITE_GLOBAL::URL_DISPLAY ?>">
+        <meta name="author" content="<?php echo GLOBAL_WEBSITE::SAP_TCODES_ORG_URL_DISPLAY ?>">
         <meta name="keywords" content="SAP,ABAP,TCode,Transaction Code">
         <link rel="icon" href="/favicon.ico">
-       <title><?php echo SITE_GLOBAL::NAME ?> - <?php echo SITE_GLOBAL::DESC ?></title>
+       <title><?php echo GLOBAL_WEBSITE::SAP_TCODES_ORG_NAME ?> - <?php echo GLOBAL_WEBSITE::SAP_TCODES_ORG_DESC ?></title>
          <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="/include/3rdparty/bootstrap/css/bootstrap.min.css">
         <!-- Custom styles for this template -->

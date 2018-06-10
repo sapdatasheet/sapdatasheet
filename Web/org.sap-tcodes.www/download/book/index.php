@@ -6,12 +6,11 @@ $__ROOT__ = dirname(__FILE__, 3);              // Root folder for Current web si
 require_once ($__WS_ROOT__ . '/common-php/library/global.php');
 require_once ($__WS_ROOT__ . '/common-php/library/abap_db.php');
 require_once ($__WS_ROOT__ . '/common-php/library/abap_ui.php');
-require_once ($__ROOT__ . '/include/site/site_global.php');
 require_once ($__ROOT__ . '/include/site/site_ui.php');
 GLOBAL_UTIL::UpdateSAPDescLangu();
 
 $search = 'Download SAP TCode Books (PDF)';
-$title = $search . SITE_GLOBAL::TITLE_SUFFIX;
+$title = $search . GLOBAL_WEBSITE::SAP_TCODES_ORG_TITLE;
 ?>
 <html lang="en">
     <head>

@@ -17,8 +17,8 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . GLOBAL_ABAP_OTYPE::CVERS_DESC;
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-        <title>SAP ABAP <?php echo GLOBAL_ABAP_OTYPE::CVERS_DESC ?> <?php echo GLOBAL_WEBSITE_SAPDS::TITLE ?> </title>
-        <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC ?>" />
+        <title>SAP ABAP <?php echo GLOBAL_ABAP_OTYPE::CVERS_DESC ?> <?php echo GLOBAL_WEBSITE::SAPDS_ORG_URL_TITLE ?> </title>
+        <meta name="description" content="<?php echo GLOBAL_WEBSITE::SAPDS_ORG_URL_META_DESC ?>" />
         <meta name="author" content="SAP Datasheet" />
         <meta name="keywords" content="SAP,ABAP,<?php echo GLOBAL_ABAP_OTYPE::CVERS_DESC ?>" />
 

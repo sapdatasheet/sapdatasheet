@@ -7,15 +7,15 @@
     <div>&nbsp;</div>
     <div class="container-fluid">
         <p class="text-muted">
-            <a target="_blank" href="<?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/site/about.html"><b>About</b></a> -
-            <a target="_blank" href="<?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/site/term.html"><b>Terms of Use</b></a> - 
-            <a target="_blank" href="<?php echo GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG ?>/site/privacy.html"><b>Cookie Privacy</b></a> - 
+            <a target="_blank" href="<?php echo GLOBAL_WEBSITE::SAPDS_ORG_URL ?>/site/about.html"><b>About</b></a> -
+            <a target="_blank" href="<?php echo GLOBAL_WEBSITE::SAPDS_ORG_URL ?>/site/term.html"><b>Terms of Use</b></a> - 
+            <a target="_blank" href="<?php echo GLOBAL_WEBSITE::SAPDS_ORG_URL ?>/site/privacy.html"><b>Cookie Privacy</b></a> - 
             <a target="_blank" href="https://github.com/sapdatasheet/sapdatasheet/issues"><b>Report Issues</b></a>
             <br/>
-            &copy; 2016 <a href="<?php echo GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG ?>" target="_blank" title="The Best Online SAP Transaction Code Analytics">SAP-TCodes.org</a>, The Best Online SAP Transaction Code Analytics </p>
+            &copy; 2016 <a href="<?php echo GLOBAL_WEBSITE::SAP_TCODES_ORG_URL ?>" target="_blank" title="The Best Online SAP Transaction Code Analytics">SAP-TCodes.org</a>, The Best Online SAP Transaction Code Analytics </p>
     </div>
     <div class="footer_note">
-        <a href="<?php echo GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG ?>" target="_blank" title="The Best Online SAP Transaction Code Analytics">SAP-TCodes.org</a> web site content is based on our knowledge of SAP system, and it is constantly reviewed to avoid errors;
+        <a href="<?php echo GLOBAL_WEBSITE::SAP_TCODES_ORG_URL ?>" target="_blank" title="The Best Online SAP Transaction Code Analytics">SAP-TCodes.org</a> web site content is based on our knowledge of SAP system, and it is constantly reviewed to avoid errors;
         well we cannot warrant full correctness of all content.
         While using this site, you agree to have read and accepted our terms of use, cookie and privacy policy.
         Use the information and content on this web site at your own risk.

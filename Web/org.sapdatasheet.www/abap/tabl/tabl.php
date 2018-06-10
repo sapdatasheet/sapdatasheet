@@ -45,9 +45,9 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::TABL_NAME
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-        <title><?php echo $GLOBALS['TITLE_TEXT'] . GLOBAL_WEBSITE_SAPDS::TITLE ?> </title>
+        <title><?php echo $GLOBALS['TITLE_TEXT'] . GLOBAL_WEBSITE::SAPDS_ORG_URL_TITLE ?> </title>
         <meta name="author" content="SAP Datasheet" />
-        <meta name="description" content="<?php echo GLOBAL_WEBSITE_SAPDS::META_DESC; ?>" />
+        <meta name="description" content="<?php echo GLOBAL_WEBSITE::SAPDS_ORG_URL_META_DESC; ?>" />
         <meta name="keywords" content="SAP,<?php echo GLOBAL_ABAP_OTYPE::TABL_DESC ?>,<?php echo $dd02l['TABNAME'] ?>,<?php echo $dd02l_desc ?>" />
 
         <link rel="stylesheet" type="text/css"  href="/3rdparty/bootstrap/css/bootstrap.min.css"/>

@@ -418,7 +418,7 @@ class GLOBAL_ABAP_ICON {
      */
     public static function getIconLink(string $fname, bool $fullUrl = FALSE): string {
         $location = GLOBAL_ABAP_ICON::getIconURL($fname, $fullUrl);
-        return "<img src='" . $location . "'>";
+        return "<img src='" . $location . "'> "; // Note. the last space ' ' is on purpose, do not delete it
     }
 
     /**
@@ -432,7 +432,7 @@ class GLOBAL_ABAP_ICON {
     public static function getIconURL(string $fname, bool $fullUrl = FALSE): string {
         $location = '/abap/icon/' . $fname;
         if ($fullUrl == TRUE) {
-            $location = GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG . $location;
+            $location = GLOBAL_WEBSITE::SAPDS_ORG_URL . $location;
         }
         return $location;
     }
@@ -784,30 +784,21 @@ class GLOBAL_UTIL {
 
 class GLOBAL_WEBSITE {
 
-    const URLPREFIX_SAPDS_ORG = "https://www.sapdatasheet.org";
-    const URLPREFIX_SAPTCODES_ORG = "https://www.sap-tcodes.org";
-    const SAP_TABLES_ORG_URL = 'https://www.sap-tables.org';
-    const SAP_TABLES_ORG_NAME = 'SAP Tables';
+    const SAPDS_ORG_URL_DESC = 'The Best Online SAP Object Repository';
+    const SAPDS_ORG_URL_META_DESC = 'SAP Datasheet for all ABAP objects: Tables, Transaction codes, Implementation Guide (IMG), Function modules, Domains, Data elements, Views, Class and Interfaces, ABAP Report, SAP Menu, etc';
+    const SAPDS_ORG_URL_NAME = 'SAP Datasheet';
+    const SAPDS_ORG_URL_TITLE = ' - SAP Datasheet - The Best Online SAP Object Repository';
+    const SAPDS_ORG_URL = "https://www.sapdatasheet.org";
+
     const SAP_TABLES_ORG_DESC = 'The best online document for SAP ABAP Tables';
-    const SAP_TABLES_ORG_TITLE = ', sap-tables.org - The best online document for SAP ABAP Tables';
     const SAP_TABLES_ORG_META_DESC = 'Document for All SAP Tables, including table basic information, relationship diagrams, books, etc';
+    const SAP_TABLES_ORG_NAME = 'SAP Tables';
+    const SAP_TABLES_ORG_TITLE = ', sap-tables.org - The best online document for SAP ABAP Tables';
+    const SAP_TABLES_ORG_URL = 'https://www.sap-tables.org';
 
-    public static function GetFullUrl_SAPDS_ORG(string $uri): string {
-        return GLOBAL_WEBSITE::URLPREFIX_SAPDS_ORG . $uri;
-    }
-
-    public static function GetFullUrl_SAP_TCODES_ORG(string $uri): string {
-        return GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . $uri;
-    }
-
-}
-
-/** Web Site Constants. */
-class GLOBAL_WEBSITE_SAPDS {
-
-    const NAME = 'SAP Datasheet';
-    const DESC = 'The Best Online SAP Object Repository';
-    const TITLE = ' - SAP Datasheet - The Best Online SAP Object Repository';
-    const META_DESC = 'SAP Datasheet for all ABAP objects: Tables, Transaction codes, Implementation Guide (IMG), Function modules, Domains, Data elements, Views, Class and Interfaces, ABAP Report, SAP Menu, etc';
-
+    const SAP_TCODES_ORG_DESC = 'The Best Online SAP Transaction Code Analytics';
+    const SAP_TCODES_ORG_NAME = 'SAP TCodes';
+    const SAP_TCODES_ORG_TITLE = ' - SAP TCodes - The Best Online SAP Transaction Code Analytics';
+    const SAP_TCODES_ORG_URL = "https://www.sap-tcodes.org";
+    const SAP_TCODES_ORG_URL_DISPLAY = 'www.SAP-TCodes.org';
 }

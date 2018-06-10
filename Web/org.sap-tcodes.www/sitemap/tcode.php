@@ -19,9 +19,9 @@ $fname_analytics = 'analytics';
 $sitemap_analytics = new SITEMAP($fname_analytics);
 $sitemap_analytics->StartOB();
 
-$sitemap_analytics->EchoUrl(GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . ABAP_UI_TCODES_Navigation::PATH_ANALYTICS_COMP, SITEMAP::changefreq_yearly, SITEMAP::priority_09);
-$sitemap_analytics->EchoUrl(GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . ABAP_UI_TCODES_Navigation::PATH_ANALYTICS_MODULE, SITEMAP::changefreq_yearly, SITEMAP::priority_09);
-$sitemap_analytics->EchoUrl(GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . ABAP_UI_TCODES_Navigation::PATH_ANALYTICS_NAME, SITEMAP::changefreq_yearly, SITEMAP::priority_09);
+$sitemap_analytics->EchoUrl(GLOBAL_WEBSITE::SAP_TCODES_ORG_URL . ABAP_UI_TCODES_Navigation::PATH_ANALYTICS_COMP, SITEMAP::changefreq_yearly, SITEMAP::priority_09);
+$sitemap_analytics->EchoUrl(GLOBAL_WEBSITE::SAP_TCODES_ORG_URL . ABAP_UI_TCODES_Navigation::PATH_ANALYTICS_MODULE, SITEMAP::changefreq_yearly, SITEMAP::priority_09);
+$sitemap_analytics->EchoUrl(GLOBAL_WEBSITE::SAP_TCODES_ORG_URL . ABAP_UI_TCODES_Navigation::PATH_ANALYTICS_NAME, SITEMAP::changefreq_yearly, SITEMAP::priority_09);
 
 foreach (ABAPANA_DB_TABLE::ABAPTRAN_ANALYTICS_SOFTCOMP() as $item) {
     $url = ABAP_UI_TCODES_Navigation::AnalyticsCompPath($item['SOFTCOMP'], TRUE);
@@ -49,10 +49,10 @@ $fname_dw = 'download';
 $sitemap_dw = new SITEMAP($fname_dw);
 $sitemap_dw->StartOB();
 
-$sitemap_dw->EchoUrl(GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . ABAP_UI_TCODES_Navigation::PATH_DOWNLOAD_BOOK, SITEMAP::changefreq_yearly, SITEMAP::priority_09);
-$sitemap_dw->EchoUrl(GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . ABAP_UI_TCODES_Navigation::PATH_DOWNLOAD_BOOK_DIST, SITEMAP::changefreq_yearly, SITEMAP::priority_09);
-$sitemap_dw->EchoUrl(GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . ABAP_UI_TCODES_Navigation::PATH_DOWNLOAD_SHEET, SITEMAP::changefreq_yearly, SITEMAP::priority_09);
-$sitemap_dw->EchoUrl(GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . ABAP_UI_TCODES_Navigation::PATH_DOWNLOAD_SHEET_DIST, SITEMAP::changefreq_yearly, SITEMAP::priority_09);
+$sitemap_dw->EchoUrl(GLOBAL_WEBSITE::SAP_TCODES_ORG_URL . ABAP_UI_TCODES_Navigation::PATH_DOWNLOAD_BOOK, SITEMAP::changefreq_yearly, SITEMAP::priority_09);
+$sitemap_dw->EchoUrl(GLOBAL_WEBSITE::SAP_TCODES_ORG_URL . ABAP_UI_TCODES_Navigation::PATH_DOWNLOAD_BOOK_DIST, SITEMAP::changefreq_yearly, SITEMAP::priority_09);
+$sitemap_dw->EchoUrl(GLOBAL_WEBSITE::SAP_TCODES_ORG_URL . ABAP_UI_TCODES_Navigation::PATH_DOWNLOAD_SHEET, SITEMAP::changefreq_yearly, SITEMAP::priority_09);
+$sitemap_dw->EchoUrl(GLOBAL_WEBSITE::SAP_TCODES_ORG_URL . ABAP_UI_TCODES_Navigation::PATH_DOWNLOAD_SHEET_DIST, SITEMAP::changefreq_yearly, SITEMAP::priority_09);
 
 foreach (new DirectoryIterator($__ROOT__ . ABAP_UI_TCODES_Navigation::PATH_DOWNLOAD_BOOK_DIST) as $fileinfo) {
     if (!$fileinfo->isDot()) {

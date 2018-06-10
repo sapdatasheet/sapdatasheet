@@ -28,9 +28,9 @@ $GLOBALS['TITLE_TEXT'] = "Where Using List for " . $title_name;
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-        <title><?php echo $GLOBALS['TITLE_TEXT'] . GLOBAL_WEBSITE_SAPDS::TITLE ?> </title>
+        <title><?php echo $GLOBALS['TITLE_TEXT'] . GLOBAL_WEBSITE::SAPDS_ORG_URL_TITLE ?> </title>
         <meta name="author" content="SAP Datasheet" />
-        <meta name="description" content="<?php echo $title_name . ' - ' . GLOBAL_WEBSITE_SAPDS::META_DESC ?>" />
+        <meta name="description" content="<?php echo $title_name . ' - ' . GLOBAL_WEBSITE::SAPDS_ORG_URL_META_DESC ?>" />
         <meta name="keywords" content="SAP,ABAP,<?php $dpOType ?>,<?php $dpOName ?>,<?php $objDesc ?>" />
 
         <link rel="stylesheet" type="text/css"  href="/3rdparty/bootstrap/css/bootstrap.min.css"/>

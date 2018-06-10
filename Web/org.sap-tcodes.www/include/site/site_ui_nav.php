@@ -5,7 +5,7 @@
 -->
 <div class="container-fluid" id="banner">
     <div class="row">
-        <h3>&nbsp;<?php echo SITE_GLOBAL::NAME ?><small>&nbsp;&nbsp;&nbsp;<?php echo SITE_GLOBAL::DESC ?></small></h3>
+        <h3>&nbsp;<?php echo GLOBAL_WEBSITE::SAP_TCODES_ORG_NAME ?><small>&nbsp;&nbsp;&nbsp;<?php echo GLOBAL_WEBSITE::SAP_TCODES_ORG_DESC ?></small></h3>
     </div>
 </div>
 <nav class="navbar navbar-inverse navbar-static-top" id="topnavbar">
@@ -18,7 +18,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand tooltip-custom-color" href="/" data-toggle="tooltip" data-placement="bottom"
-               title="<?php echo SITE_GLOBAL::DESC ?>"><span class="glyphicon glyphicon-home"></span></a>
+               title="<?php echo GLOBAL_WEBSITE::SAP_TCODES_ORG_DESC ?>"><span class="glyphicon glyphicon-home"></span></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">

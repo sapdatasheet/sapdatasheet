@@ -6,12 +6,11 @@ $__ROOT__ = dirname(__FILE__, 3);              // Root folder for Current web si
 require_once ($__WS_ROOT__ . '/common-php/library/global.php');
 require_once ($__WS_ROOT__ . '/common-php/library/abap_db.php');
 require_once ($__WS_ROOT__ . '/common-php/library/abap_ui.php');
-require_once ($__ROOT__ . '/include/site/site_global.php');
 require_once ($__ROOT__ . '/include/site/site_ui.php');
 GLOBAL_UTIL::UpdateSAPDescLangu();
 
 $search = 'SAP TCode Analytics by Name';
-$title = $search . SITE_GLOBAL::TITLE_SUFFIX;
+$title = $search . GLOBAL_WEBSITE::SAP_TCODES_ORG_TITLE;
 ?>
 <html lang="en">
     <head>
@@ -20,7 +19,7 @@ $title = $search . SITE_GLOBAL::TITLE_SUFFIX;
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Other meta -->
-        <meta name="author" content="<?php echo SITE_GLOBAL::URL_DISPLAY ?>">
+        <meta name="author" content="<?php echo GLOBAL_WEBSITE::SAP_TCODES_ORG_URL_DISPLAY ?>">
         <meta name="description" content="<?php echo $title ?>">
         <meta name="keywords" content="SAP,ABAP,TCode,Transaction Code">
         <link rel="icon" href="/favicon.ico">

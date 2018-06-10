@@ -5,7 +5,6 @@ $__ROOT__ = dirname(__FILE__, 3);              // Root folder for Current web si
 require_once ($__WS_ROOT__ . '/common-php/library/global.php');
 require_once ($__WS_ROOT__ . '/common-php/library/abap_db.php');
 require_once ($__WS_ROOT__ . '/common-php/library/abap_ui.php');
-require_once ($__ROOT__ . '/include/site/site_global.php');
 require_once ($__ROOT__ . '/include/site/site_ui.php');
 require_once ($__ROOT__ . '/include/3rdparty/tcpdf/tcpdf_import.php');
 
@@ -215,16 +214,16 @@ $pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8',
 
 // set document information
 $pdf->SetCreator(PDF_CREATOR);
-$pdf->SetAuthor(SITE_GLOBAL::URL_DISPLAY);
-$pdf->SetTitle(SITE_GLOBAL::NAME . ' - ' . SITE_GLOBAL::DESC);
+$pdf->SetAuthor(GLOBAL_WEBSITE::SAP_TCODES_ORG_URL_DISPLAY);
+$pdf->SetTitle(GLOBAL_WEBSITE::SAP_TCODES_ORG_NAME . ' - ' . GLOBAL_WEBSITE::SAP_TCODES_ORG_DESC);
 $pdf->SetSubject($module_l1 . ' - ' . $module_l1_text);
 $pdf->SetKeywords($module_l1_text);
 
 // set default header data
 $pdf->SetHeaderData(
-        null, 0, SITE_GLOBAL::NAME, SITE_GLOBAL::DESC
+        null, 0, GLOBAL_WEBSITE::SAP_TCODES_ORG_NAME, GLOBAL_WEBSITE::SAP_TCODES_ORG_DESC
         . '                                                            '
-        . GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG);
+        . GLOBAL_WEBSITE::SAP_TCODES_ORG_URL);
 
 // set header and footer fonts
 $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
@@ -271,7 +270,7 @@ $pdf->setPageMark();
 // Print a text
 $pdf->Ln(10);
 $html = '<span style="color:white;text-align:center;font-weight:bold;font-size:40pt;">'
-        . SITE_GLOBAL::NAME
+        . GLOBAL_WEBSITE::SAP_TCODES_ORG_NAME
         . '</span>';
 $pdf->writeHTML($html, true, false, true, false, '');
 $pdf->Ln(20);
@@ -283,7 +282,7 @@ $pdf->writeHTML($html, true, false, true, false, '');
 
 // Botton Web Site
 $html = '<span style="color:white;text-align:center;font-weight:bold;font-size:20pt;">'
-        . SITE_GLOBAL::URL_DISPLAY
+        . GLOBAL_WEBSITE::SAP_TCODES_ORG_URL_DISPLAY
         . '</span>';
 $pdf->writeHTMLCell(0, 0, 0, 260, $html);
 
@@ -317,12 +316,12 @@ $pdf->Bookmark($title, 1, 0, '', '', array(128, 0, 0));
 
 // Print Header
 $pdf->SetFont('courierB', '', 36);
-$html = '<span style="color:blue;">' . SITE_GLOBAL::NAME . '</span>';
+$html = '<span style="color:blue;">' . GLOBAL_WEBSITE::SAP_TCODES_ORG_NAME . '</span>';
 $pdf->writeHTML($html, true, false, true, false, '');
 $pdf->Ln(3);
 
 $html = '<span stroke="0.2" fill="true" strokecolor="yellow" color="blue" style="font-family:helvetica;font-weight:bold;font-size:21pt;">'
-        . SITE_GLOBAL::DESC
+        . GLOBAL_WEBSITE::SAP_TCODES_ORG_DESC
         . '</span>';
 $pdf->writeHTML($html, true, false, true, false, '');
 $pdf->Ln(40);
@@ -336,7 +335,7 @@ $pdf->writeHTML($html, true, false, true, false, '');
 
 // Print Bottom
 $html = '<span stroke="0.2" fill="true" strokecolor="yellow" color="blue" style="font-family:helvetica;font-weight:bold;font-size:21pt;text-align:center;">'
-        . SITE_GLOBAL::URL_DISPLAY
+        . GLOBAL_WEBSITE::SAP_TCODES_ORG_URL_DISPLAY
         . '</span>';
 $pdf->writeHTMLCell(0, 0, 0, 260, $html);
 
@@ -349,7 +348,7 @@ $pdf->Ln(30);
 
 $pdf->SetFont('times', '', 14);
 
-$html = 'This book is based on <a href="' . GLOBAL_WEBSITE::URLPREFIX_SAPTCODES_ORG . '">our</a> knowledge of SAP system, and it is constantly reviewed to avoid errors; '
+$html = 'This book is based on <a href="' . GLOBAL_WEBSITE::SAP_TCODES_ORG_URL . '">our</a> knowledge of SAP system, and it is constantly reviewed to avoid errors; '
         . 'well we cannot warrant full correctness of all content. '
         . 'Use the information and content on this book at your own risk.';
 $pdf->writeHTML($html, true, false, true, false, '');
@@ -359,7 +358,7 @@ $pdf->writeHTML('Published by:', true, false, true, false, '');
 $pdf->Ln(2);
 $pdf->writeHTML('book@sap-tcodes.org', true, false, true, false, '');
 $pdf->Ln(1);
-$pdf->writeHTML(SITE_GLOBAL::URL_DISPLAY, true, false, true, false, '');
+$pdf->writeHTML(GLOBAL_WEBSITE::SAP_TCODES_ORG_URL_DISPLAY, true, false, true, false, '');
 
 $pdf->Ln(1);
 date_default_timezone_set('UTC');
@@ -369,7 +368,7 @@ $pdf->writeHTML($html, true, false, true, false, '');
 $pdf->SetFont('helvetica', '', 14);
 
 $pdf->Ln(10);
-$pdf->writeHTML('Copyleft &copy; ' . date("Y") . ' ' . SITE_GLOBAL::URL_DISPLAY, true, false, true, false, '');
+$pdf->writeHTML('Copyleft &copy; ' . date("Y") . ' ' . GLOBAL_WEBSITE::SAP_TCODES_ORG_URL_DISPLAY, true, false, true, false, '');
 $pdf->Ln(2);
 $pdf->writeHTML('This book is delivered under <a href="https://en.wikipedia.org/wiki/MIT_License">MIT License</a>, as bellow', true, false, true, false, '');
 $pdf->Ln(2);
@@ -496,7 +495,7 @@ $pdf->setPrintFooter(false);
 
 // Print Bottom
 $html = '<span stroke="0.2" fill="true" strokecolor="yellow" color="blue" style="font-family:helvetica;font-weight:bold;font-size:21pt;text-align:center;">'
-        . SITE_GLOBAL::URL_DISPLAY
+        . GLOBAL_WEBSITE::SAP_TCODES_ORG_URL_DISPLAY
         . '</span>';
 $pdf->writeHTMLCell(0, 0, 0, 260, $html);
 

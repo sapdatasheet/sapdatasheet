@@ -13,7 +13,7 @@
             <br>
         </p>
         <p><small>
-                SAP Datasheet web site content is based on our knowledge of SAP system, and it is constantly reviewed to avoid errors; 
+                SAP Datasheet web site and its affinity sites content is based on our knowledge of SAP system, and it is constantly reviewed to avoid errors; 
                 well we cannot warrant full correctness of all content. 
                 While using this site, you agree to have read and accepted our terms of use, cookie and privacy policy. 
                 Use the information and content on this web site at your own risk.
