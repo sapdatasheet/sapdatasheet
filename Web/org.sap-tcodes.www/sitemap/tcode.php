@@ -99,7 +99,7 @@ $sitemapIndex->StartOB();
 
 foreach ($sitemaps as $key => $value) {
     for ($i = 1; $i <= $value; $i++) {
-        $url = GLOBAL_WEBSITE::SAP_TABLES_ORG_URL . '/sitemap/' . SITEMAP::GetSitemapFilename($key, $i);
+        $url = GLOBAL_WEBSITE::SAP_TCODES_ORG_URL . '/sitemap/' . SITEMAP::GetSitemapFilename($key, $i);
         $sitemapIndex->EchoUrl4Index($url);
     }
 }
