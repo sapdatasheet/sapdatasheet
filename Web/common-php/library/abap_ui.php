@@ -22,7 +22,7 @@ class ABAP_UI_Buffer_Index {
                 $db_index[self::INDEX_FILENAME] = 'index-' . strtolower(ABAP_DB_TABLE_FUNC::TFDIR_FMODE_RFC);
                 $db_index[self::LINK_TEXT] = ABAP_DB_TABLE_FUNC::TFDIR_FMODE_RFC;
             } else {
-                $db_index[self::INDEX_FILENAME] = 'index-' . strtolower($db_index[ABAP_DB_TABLE_BASIS::ZBUFFER_INDEX_COUNTER_LEFT1]);
+                $db_index[self::INDEX_FILENAME] = 'index-' . strtolower(GLOBAL_UTIL::Clear4Url($db_index[ABAP_DB_TABLE_BASIS::ZBUFFER_INDEX_COUNTER_LEFT1]) );
                 $db_index[self::LINK_TEXT] = $db_index[ABAP_DB_TABLE_BASIS::ZBUFFER_INDEX_COUNTER_LEFT1];
             }
 

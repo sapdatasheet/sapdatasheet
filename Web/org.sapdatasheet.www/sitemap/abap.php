@@ -140,7 +140,7 @@ function sitemap4wil(array &$result) {
         if ($row['COUNTER'] > ABAP_DB_CONST::MAX_ROWS_LIMIT) {
             $urls = ABAP_UI_DS_Navigation::GetWilPaths($row['OBJ_TYPE'], $row['OBJ_NAME'], $row['SRC_OBJ_TYPE'], $row['COUNTER']);
             foreach ($urls as $wilurl) {
-                $sitemap_wil->EchoUrl($wilurl, SITEMAP::changefreq_yearly, SITEMAP::priority_04);
+                $sitemap_wil->EchoUrl(GLOBAL_WEBSITE::SAPDS_ORG_URL . $wilurl, SITEMAP::changefreq_yearly, SITEMAP::priority_04);
             }
         }
     }
@@ -163,7 +163,7 @@ function sitemap4wul(array &$result) {
         if ($row['COUNTER'] > ABAP_DB_CONST::MAX_ROWS_LIMIT) {
             $urls = ABAP_UI_DS_Navigation::GetWulPaths($row['SRC_OBJ_TYPE'], $row['SRC_OBJ_NAME'], $row['SRC_SUBOBJ'], $row['OBJ_TYPE'], $row['COUNTER']);
             foreach ($urls as $wulurl) {
-                $sitemap_wul->EchoUrl($wulurl, SITEMAP::changefreq_yearly, SITEMAP::priority_04);
+                $sitemap_wul->EchoUrl(GLOBAL_WEBSITE::SAPDS_ORG_URL . $wulurl, SITEMAP::changefreq_yearly, SITEMAP::priority_04);
             }
         }
     }
