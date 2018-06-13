@@ -26,6 +26,10 @@ $dd08l_list = ABAP_DB_TABLE_TABL::DD08L_Erd($table_name);
 
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <title><?php echo $title ?><?php echo GLOBAL_WEBSITE::SAP_TABLES_ORG_TITLE ?></title>
+        <meta name="author" content="SAP Datasheet" />
+        <meta name="description" content="<?php echo GLOBAL_WEBSITE::SAP_TABLES_ORG_META_DESC ?>" />
+        <meta name="keywords" content="SAP,ABAP,<?php echo $table_name ?>,<?php echo $table_desc ?>" />
+
         <link rel="stylesheet" type="text/css"  href="/3rdparty/bootstrap/css/bootstrap.min.css"/>
     </head>
     <body>
