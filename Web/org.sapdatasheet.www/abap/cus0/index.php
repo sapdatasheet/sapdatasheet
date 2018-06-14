@@ -32,9 +32,9 @@ $index_counter_list = ABAP_UI_Buffer_Index::ZBUFFER_INDEX_COUNTER(GLOBAL_ABAP_OT
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-        <title><?php echo $GLOBALS['TITLE_TEXT'] ?> <?php echo GLOBAL_WEBSITE::SAPDS_ORG_TITLE ?> </title>
+        <title><?php echo $GLOBALS['TITLE_TEXT'] . GLOBAL_WEBSITE::SAPDS_ORG_TITLE ?> </title>
         <meta name="author" content="SAP Datasheet" />
-        <meta name="description" content="<?php echo GLOBAL_WEBSITE::SAPDS_ORG_META_DESC ?>" />
+        <meta name="description" content="<?php echo $GLOBALS['TITLE_TEXT'] . GLOBAL_WEBSITE::SAPDS_ORG_TITLE ?>" />
         <meta name="keywords" content="SAP,ABAP,<?php echo GLOBAL_ABAP_OTYPE::CUS0_DESC ?>" />
 
         <link rel="stylesheet" type="text/css"  href="/3rdparty/bootstrap/css/bootstrap.min.css"/>

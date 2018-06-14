@@ -18,8 +18,7 @@ $counter_value = ABAPANA_DB_TABLE::WILCOUNTER($dpOType, $dpOName, $dpSrcOType);
 $wil_list = ABAP_DB_TABLE_CREF::YWIL($dpOType, $dpOName, $dpSrcOType, $dpPage);
 
 $objDesc = ABAP_UI_TOOL::GetObjectDescr($dpOType, $dpOName);
-$title_name = ABAP_UI_TOOL::GetObjectTitle($dpOType, $dpOName);
-$GLOBALS['TITLE_TEXT'] = "Where Using List for " . $title_name;
+$GLOBALS['TITLE_TEXT'] =  GLOBAL_ABAP_OTYPE::getOTypeDesc($dpSrcOType) . " list used by " . ABAP_UI_TOOL::GetObjectTitle($dpOType, $dpOName);
 ?>
 <!DOCTYPE html>
 <html>
@@ -30,8 +29,8 @@ $GLOBALS['TITLE_TEXT'] = "Where Using List for " . $title_name;
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <title><?php echo $GLOBALS['TITLE_TEXT'] . GLOBAL_WEBSITE::SAPDS_ORG_TITLE ?> </title>
         <meta name="author" content="SAP Datasheet" />
-        <meta name="description" content="<?php echo $title_name . ' - ' . GLOBAL_WEBSITE::SAPDS_ORG_META_DESC ?>" />
-        <meta name="keywords" content="SAP,ABAP,<?php $dpOType ?>,<?php $dpOName ?>,<?php $objDesc ?>" />
+        <meta name="description" content="<?php echo $GLOBALS['TITLE_TEXT'] . GLOBAL_WEBSITE::SAPDS_ORG_TITLE ?>" />
+        <meta name="keywords" content="SAP,ABAP,<?php echo GLOBAL_ABAP_OTYPE::getOTypeDesc($dpOType) ?>,<?php echo $dpOName ?>,<?php echo $objDesc ?>" />
 
         <link rel="stylesheet" type="text/css"  href="/3rdparty/bootstrap/css/bootstrap.min.css"/>
         <link rel="stylesheet" type="text/css"  href="/sapdatasheet.css"/>

@@ -8,7 +8,7 @@ require_once ($__WS_ROOT__ . '/common-php/library/global.php');
 require_once ($__WS_ROOT__ . '/common-php/library/abap_ui.php');
 GLOBAL_UTIL::UpdateSAPDescLangu();
 
-$GLOBALS['TITLE_TEXT'] = "SAP ABAP";
+$GLOBALS['TITLE_TEXT'] = "SAP ABAP Object Types";
 ?>
 <html>
     <head>
@@ -16,9 +16,9 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP";
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-        <title>SAP ABAP Objects <?php echo GLOBAL_WEBSITE::SAPDS_ORG_TITLE ?> </title>
+        <title><?php echo $GLOBALS['TITLE_TEXT'] . GLOBAL_WEBSITE::SAPDS_ORG_TITLE ?> </title>
         <meta name="author" content="SAP Datasheet" />
-        <meta name="description" content="<?php echo GLOBAL_WEBSITE::SAPDS_ORG_META_DESC ?>" />
+        <meta name="description" content="<?php echo $GLOBALS['TITLE_TEXT'] . ', ' . GLOBAL_WEBSITE::SAPDS_ORG_META_DESC ?>" />
         <meta name="keywords" content="SAP,ABAP" />
 
         <link rel="stylesheet" type="text/css"  href="/3rdparty/bootstrap/css/bootstrap.min.css"/>
@@ -47,7 +47,7 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP";
                     </nav>
 
                     <div class="card shadow">
-                        <div class="card-header sapds-card-header">SAP ABAP Object Types</div>
+                        <div class="card-header sapds-card-header"><?php echo $GLOBALS['TITLE_TEXT'] ?></div>
                         <div class="card-body table-responsive sapds-card-body">
                             <div><?php include $__WS_ROOT__ . '/common-php/google/adsense-content-top.html' ?></div>
 

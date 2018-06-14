@@ -17,8 +17,8 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . GLOBAL_ABAP_OTYPE::CVERS_DESC;
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-        <title>SAP ABAP <?php echo GLOBAL_ABAP_OTYPE::CVERS_DESC ?> <?php echo GLOBAL_WEBSITE::SAPDS_ORG_TITLE ?> </title>
-        <meta name="description" content="<?php echo GLOBAL_WEBSITE::SAPDS_ORG_META_DESC ?>" />
+        <title><?php echo $GLOBALS['TITLE_TEXT'] . GLOBAL_WEBSITE::SAPDS_ORG_TITLE ?> </title>
+        <meta name="description" content="<?php echo $GLOBALS['TITLE_TEXT'] . GLOBAL_WEBSITE::SAPDS_ORG_TITLE ?>" />
         <meta name="author" content="SAP Datasheet" />
         <meta name="keywords" content="SAP,ABAP,<?php echo GLOBAL_ABAP_OTYPE::CVERS_DESC ?>" />
 
@@ -47,7 +47,7 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP " . GLOBAL_ABAP_OTYPE::CVERS_DESC;
                     </nav>
 
                     <div class="card shadow">
-                        <div class="card-header sapds-card-header">SAP ABAP <?php echo GLOBAL_ABAP_OTYPE::CVERS_DESC ?></div>
+                        <div class="card-header sapds-card-header"><?php echo $GLOBALS['TITLE_TEXT'] ?></div>
                         <div class="card-body table-responsive sapds-card-body">
                             <div class="align-content-start"><?php include $__WS_ROOT__ . '/common-php/google/adsense-content-top.html' ?></div>
                             <?php require $__ROOT__ . '/include/abap_desc_language.php' ?>
