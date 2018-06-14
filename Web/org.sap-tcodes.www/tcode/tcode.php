@@ -26,7 +26,7 @@ $analytics_list = SITE_UI_TCODE::LoadAnalytics($abaptran);
 $wil_list = SITE_UI_TCODE::LoadWil($abaptran['TCODE']);
 $wul_list = SITE_UI_TCODE::LoadWul($abaptran['TCODE']);
 
-$title = 'SAP TCode ' . $abaptran['TCODE'] . ' - ' . $tstc_desc;
+$title = 'SAP ' . GLOBAL_ABAP_OTYPE::TRAN_DESC . ' ' . $abaptran['TCODE'] . ' (' . $tstc_desc . ')';
 $search = $abaptran['TCODE'] . ' ' . $tstc_desc . ' ' . GLOBAL_WEBSITE::SAP_TCODES_ORG_NAME;
 
 $json_ld = new \OrgSchema\Thing();
@@ -44,10 +44,10 @@ $json_ld->url = ABAP_UI_TCODES_Navigation::TCode($abaptran['TCODE'], TRUE);
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Other meta -->
         <meta name="author" content="<?php echo GLOBAL_WEBSITE::SAP_TCODES_ORG_URL_DISPLAY ?>">
-        <meta name="description" content="<?php echo $title ?>">
+        <meta name="description" content="<?php echo $title . GLOBAL_WEBSITE::SAP_TCODES_ORG_TITLE ?>">
         <meta name="keywords" content="SAP,ABAP,TCode,Transaction Code,<?php echo $abaptran['TCODE'] ?>,<?php echo $tstc_desc ?>">
         <link rel="icon" href="/favicon.ico">
-        <title><?php echo $title ?><?php echo GLOBAL_WEBSITE::SAP_TCODES_ORG_TITLE ?></title>
+        <title><?php echo $title . GLOBAL_WEBSITE::SAP_TCODES_ORG_TITLE ?></title>
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="/include/3rdparty/bootstrap/css/bootstrap.min.css">
         <!-- Custom styles for this template -->

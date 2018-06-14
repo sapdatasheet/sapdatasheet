@@ -27,10 +27,10 @@ $search = 'SAP TCode ' . $prefix;
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Other meta -->
         <meta name="author" content="<?php echo GLOBAL_WEBSITE::SAP_TCODES_ORG_URL_DISPLAY ?>">
-        <meta name="description" content="<?php echo $title ?>">
+        <meta name="description" content="<?php echo $title . GLOBAL_WEBSITE::SAP_TCODES_ORG_TITLE ?>">
         <meta name="keywords" content="SAP,ABAP,TCode,Transaction Code,<?php echo $prefix ?>">
         <link rel="icon" href="/favicon.ico">
-        <title><?php echo $title ?><?php echo GLOBAL_WEBSITE::SAP_TCODES_ORG_TITLE ?></title>
+        <title><?php echo $title . GLOBAL_WEBSITE::SAP_TCODES_ORG_TITLE ?></title>
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="/include/3rdparty/bootstrap/css/bootstrap.min.css">
         <!-- Custom styles for this template -->

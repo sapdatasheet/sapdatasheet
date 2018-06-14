@@ -15,7 +15,7 @@ if (empty($fb_ObjID)) {
 $softcomp = strtoupper($fb_ObjID);
 $softcomp_desc = ABAP_DB_TABLE_HIER::CVERS_REF($softcomp);
 $search = 'SAP TCode in ' . $softcomp . ' (' . GLOBAL_ABAP_OTYPE::CVERS_DESC . ')';
-$title = 'SAP TCodes in Component ' . $softcomp;
+$title = 'SAP TCodes in Component ' . $softcomp . ' (' . $softcomp_desc . ')';
 ?>
 <html lang="en">
     <head>
@@ -25,10 +25,10 @@ $title = 'SAP TCodes in Component ' . $softcomp;
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Other meta -->
         <meta name="author" content="<?php echo GLOBAL_WEBSITE::SAP_TCODES_ORG_URL_DISPLAY ?>">
-        <meta name="description" content="<?php echo $title ?>">
+        <meta name="description" content="<?php echo $title . GLOBAL_WEBSITE::SAP_TCODES_ORG_TITLE ?>">
         <meta name="keywords" content="SAP,ABAP,TCode,Transaction Code,<?php echo $softcomp ?>,<?php echo $softcomp_desc ?>">
         <link rel="icon" href="/favicon.ico">
-        <title><?php echo $title . ' ' . $softcomp_desc ?><?php echo GLOBAL_WEBSITE::SAP_TCODES_ORG_TITLE ?></title>
+        <title><?php echo $title . GLOBAL_WEBSITE::SAP_TCODES_ORG_TITLE ?></title>
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="/include/3rdparty/bootstrap/css/bootstrap.min.css">
         <!-- Custom styles for this template -->
