@@ -22,7 +22,7 @@ if (strlen(trim($tabname)) > 0) {
     $result = ABAP_DB_TABLE::select_1filter($sql, $tabname);
 
     // Download
-    $filename = 'sap-table-' . $tabname . strtolower($format);
+    $filename = 'sap-table-' . $tabname . '.' . strtolower($format);
     download_query($format, $result, $filename);
 } else {
     exit('The table name is invalid');
