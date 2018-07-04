@@ -1,6 +1,6 @@
 <?php
-$__WS_ROOT__ = dirname(__FILE__, 4);
-$__ROOT__ = dirname(__FILE__, 3);
+$__WS_ROOT__ = dirname(__FILE__, 3);
+$__ROOT__ = dirname(__FILE__, 2);
 
 require_once ($__WS_ROOT__ . '/common-php/library/global.php');
 require_once ($__WS_ROOT__ . '/common-php/library/abap_db.php');
