@@ -1168,22 +1168,11 @@ class ABAP_UI_TOOL {
     }
 
     /**
-     * Get Table Filed description.
-     */
-    public static function GetTablFieldDesc($PrecField, $RollName): string {
-        if (strlen(trim($PrecField)) > 0) {
-            return ABAP_DB_TABLE_TABL::DD02T($PrecField);
-        } else {
-            return ABAP_DB_TABLE_DTEL::DD04T($RollName);
-        }
-    }
-
-    /**
      * Get Table Filed description directly.
      */
     public static function GetTablFieldDescDirect($table, $field): string {
         $dd03l = ABAP_DB_TABLE_TABL::DD03L(strtoupper($table), strtoupper($field));
-        return htmlentities(ABAP_UI_TOOL::GetTablFieldDesc($dd03l['PRECFIELD'], $dd03l['ROLLNAME']));
+        return htmlentities(ABAP_DB_TABLE_TABL::GetTablFieldDesc($dd03l['PRECFIELD'], $dd03l['ROLLNAME']));
     }
 
     /**

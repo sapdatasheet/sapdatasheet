@@ -3136,7 +3136,11 @@ class ABAP_DB_TABLE_TABL {
     public static function DD03L_List($TableName) {
         $sql = "SELECT * FROM " . self::DD03L
                 . " WHERE tabname = :id order by POSITION";
-        return ABAP_DB_TABLE::select_1filter($sql, $TableName);
+        $fields = ABAP_DB_TABLE::select_1filter($sql, $TableName);
+        foreach ($fields as $key => $value) {
+            $fields[$key]['DDTEXT'] = self::GetTablFieldDesc($value['PRECFIELD'], $value['ROLLNAME']);
+        }
+        return $fields;
     }
 
     /**
@@ -3351,6 +3355,17 @@ class ABAP_DB_TABLE_TABL {
             'fname' => $FieldName,
         );
         return ABAP_DB_TABLE::select($sql, $paras);
+    }
+    
+    /**
+     * Get Table Filed description.
+     */
+    public static function GetTablFieldDesc($PrecField, $RollName): string {
+        if (strlen(trim($PrecField)) > 0) {
+            return self::DD02T($PrecField);
+        } else {
+            return ABAP_DB_TABLE_DTEL::DD04T($RollName);
+        }
     }
 
 }

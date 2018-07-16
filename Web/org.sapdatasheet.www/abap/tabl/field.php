@@ -27,7 +27,7 @@ $dd02l = ABAP_DB_TABLE_TABL::DD02L(strtoupper($Table));
 $dd02l_desc = ABAP_DB_TABLE_TABL::DD02T($dd02l['TABNAME']);
 $dd02l_tabclass_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_TABLE_TABL::DD02L_TABCLASS_DOMAIN, $dd02l['TABCLASS']);
 
-$dd03l_fieldname_desc = htmlentities(ABAP_UI_TOOL::GetTablFieldDesc($dd03l['PRECFIELD'], $dd03l['ROLLNAME']));
+$dd03l_fieldname_desc = htmlentities(ABAP_DB_TABLE_TABL::GetTablFieldDesc($dd03l['PRECFIELD'], $dd03l['ROLLNAME']));
 $dd03l_checktable_desc = ABAP_DB_TABLE_TABL::DD02T($dd03l['CHECKTABLE']);
 $dd03l_inttype_desc = ABAP_DB_TABLE_DOMA::DD07T(ABAP_DB_CONST::DOMAIN_INTTYPE, $dd03l['INTTYPE']);
 $dd03l_reftable_desc = ABAP_DB_TABLE_TABL::DD02T($dd03l['REFTABLE']);

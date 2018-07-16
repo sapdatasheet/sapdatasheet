@@ -6,6 +6,7 @@ require_once ($__WS_ROOT__ . '/common-php/library/global.php');
 require_once ($__WS_ROOT__ . '/common-php/library/abap_db.php');
 require_once ($__WS_ROOT__ . '/common-php/library/abap_ui.php');
 require_once ($__WS_ROOT__ . '/common-php/library/download.php');
+GLOBAL_UTIL::UpdateSAPDescLangu();
 
 $tabname = strtoupper(filter_input(INPUT_GET, 'tabname'));
 $format = strtoupper(filter_input(INPUT_GET, 'format'));
@@ -14,24 +15,20 @@ if ($format != DOWNLOAD::FORMAT_XLS && $format != DOWNLOAD::FORMAT_XLSX) {
 }
 
 if (strlen(trim($tabname)) > 0) {
-    // Download the file
     // Load Data
-    // SELECT * FROM abap.dd03l where TABNAME = 'BKPF' ORDER BY POSITION;
-    $sql = "SELECT * FROM " . ABAP_DB_TABLE_TABL::DD03L
-            . " where TABNAME = :id ORDER BY POSITION";
-    $result = ABAP_DB_TABLE::select_1filter($sql, $tabname);
+    $result = ABAP_DB_TABLE_TABL::DD03L_List($tabname);
 
-    // Download
-    $filename = 'sap-table-' . $tabname . '.' . strtolower($format);
+    // Download the file
+    $filename = 'sap-table-' . GLOBAL_UTIL::SlashEscape($tabname) . '.' . strtolower($format);
     download_query($format, $result, $filename);
 } else {
     exit('The table name is invalid');
 }
 
 /**
- * Download the query resutl as a file.
+ * Download the query result as a file.
  */
-function download_query($format, $result, $filename) {
+function download_query(string $format, array $result, string $filename) {
     if (count($result) > 0) {
         if ($format === DOWNLOAD::FORMAT_XLS) {
             DOWNLOAD::AsXLS($result, $filename);

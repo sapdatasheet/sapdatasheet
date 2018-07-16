@@ -54,8 +54,8 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP";
                         <h2>SAP Object Repository</h2>
                         <p>A site contains the major SAP ABAP Objects, including
                             <a href="/abap/cus0/"><b><?php echo GLOBAL_ABAP_OTYPE::CUS0_DESC ?></b></a>,
-                            <a href="/abap/tran/"><b><?php echo GLOBAL_ABAP_OTYPE::TRAN_DESC ?></b></a>,
-                            <a href="/abap/tabl/"><b><?php echo GLOBAL_ABAP_OTYPE::TABL_DESC ?></b></a>,
+                            <a href="/abap/tran/"><b><span class="text-success"><?php echo GLOBAL_ABAP_OTYPE::TRAN_DESC ?></span></b></a>,
+                            <a href="/abap/tabl/"><b><span class="text-success"><?php echo GLOBAL_ABAP_OTYPE::TABL_DESC ?></span></b></a>,
                             <a href="/abap/sqlt/"><b><?php echo GLOBAL_ABAP_OTYPE::SQLT_DESC ?></b></a>,
                             <a href="/abap/func/"><b><?php echo GLOBAL_ABAP_OTYPE::FUNC_DESC ?></b></a>,
                             <a href="/abap/dtel/"><b><?php echo GLOBAL_ABAP_OTYPE::DTEL_DESC ?></b></a>,
@@ -67,7 +67,7 @@ $GLOBALS['TITLE_TEXT'] = "SAP ABAP";
                     <div class="col-md-6">
                         <h2>SAP Transaction Codes</h2>
                         <p>The Best Online SAP Transaction Code Analytics; Analytic on SAP TCodes by Module, Component, or Name; We can download SAP TCode Books and Sheets: 
-                            <span class="text-nowrap"><?php echo GLOBAL_ABAP_ICON::getIcon4FilePDF() ?><a href="<?php echo ABAP_UI_TCODES_Navigation::DownloadBooks(TRUE) ?>" target="_blank">Download TCode Books</a></span>,
+                            <span class="text-nowrap"><?php echo GLOBAL_ABAP_ICON::getIcon4FilePDF() ?><a href="<?php echo ABAP_UI_TCODES_Navigation::DownloadBooks(TRUE) ?>" target="_blank"><b><span class="text-success">Download TCode Books</span></b></a></span>,
                             <span class="text-nowrap"><?php echo GLOBAL_ABAP_ICON::getIcon4FileXLSX() ?><a href="<?php echo ABAP_UI_TCODES_Navigation::DownloadSheets(TRUE) ?>" target="_blank">Download TCode Excels</a></span>.
                         </p>
                         <p><a class="btn btn-secondary" role="button" href="https://www.sap-tcodes.org/" target="_blank">View details &raquo;</a></p>

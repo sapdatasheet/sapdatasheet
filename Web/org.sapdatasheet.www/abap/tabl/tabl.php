@@ -183,7 +183,6 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::TABL_NAME
                                             $dd03l_fieldname_url = ABAP_UI_DS_Navigation::GetHyperlink4TablField($dd02l['TABNAME'], $dd03l_item['FIELDNAME']);
                                             $anchor_name = 'FIELD_' . $dd03l_item['FIELDNAME'];
                                         }
-                                        $dd03l_fieldname_desc = ABAP_UI_TOOL::GetTablFieldDesc($dd03l_item['PRECFIELD'], $dd03l_item['ROLLNAME']);
                                         $dd03l_rollname_url = ABAP_UI_DS_Navigation::GetHyperlink4Dtel($dd03l_item['ROLLNAME'], '');
                                         ?>
                                         <tr>
@@ -196,7 +195,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::TABL_NAME
                                             <td class="sapds-alv"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4DomainValue(ABAP_DB_CONST::DOMAIN_DATATYPE, $dd03l_item['DATATYPE'], '') ?> </td>
                                             <td class="sapds-alv text-right"> <?php echo intval($dd03l_item['LENG']) ?> &nbsp; </td>
                                             <td class="sapds-alv text-right"> <?php echo intval($dd03l_item['DECIMALS']) ?> &nbsp; </td>
-                                            <td class="sapds-alv"> <?php echo htmlentities($dd03l_fieldname_desc) ?> </td>
+                                            <td class="sapds-alv"> <?php echo htmlentities($dd03l_item['DDTEXT']) ?> </td>
                                             <td class="sapds-alv"> <?php echo ABAP_UI_DS_Navigation::GetHyperlink4Tabl($dd03l_item['CHECKTABLE'], '') ?> </td>
                                         </tr>
                                     <?php } ?>
