@@ -13,7 +13,7 @@ $uri_erd_pdf = ABAP_UI_TABLES_Navigation::uri_table_erd_pdf($table_name);
 $uri_erd_png = ABAP_UI_TABLES_Navigation::uri_table_erd_png($table_name);
 
 $title = 'SAP ABAP Table ' . $table_name . ' (' . $table_desc . ')';
-$img_desc = 'E-R Diagram for table ' . $table_name . ' (' . $table_desc . ')';
+$img_desc = ABAP_UI_TABLES_Navigation::desc_erd_png($table_name);
 
 // Foreign Key tables
 $dd08l_list = ABAP_DB_TABLE_TABL::DD08L_Erd($table_name);

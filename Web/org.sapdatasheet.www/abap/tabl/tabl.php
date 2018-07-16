@@ -61,7 +61,7 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::TABL_NAME
 
         <div class="container-fluid">
             <div class="row">
-                <div  class="col-xl-2 col-lg-2 col-md-3  col-sm-3    bd-sidebar bg-light">
+                <div  class="col-xl-2 col-lg-2 col-md-3 col-sm-3 bd-sidebar bg-light">
                     <!-- Left Side bar -->
                     <h6 class="pt-4">Object Hierarchy</h6>
                     <table>

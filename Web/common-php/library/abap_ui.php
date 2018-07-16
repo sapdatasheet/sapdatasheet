@@ -623,6 +623,11 @@ class ABAP_UI_TABLES_Navigation {
     const URI_SUFFIX_ERD_PNG = '-erd.png';
     const URI_SUFFIX_HTML = '.html';
 
+    public static function desc_erd_png(string $table_name): string{
+        $table_desc = ABAP_DB_TABLE_TABL::DD02T($table_name);
+        return 'E-R Diagram for table ' . $table_name . ' (' . $table_desc . ')';
+    }
+
     public static function uri_table_erd_pdf(string $table_name, bool $with_domain = FALSE): string {
         $url = self::URI_PREFIX_TABLE . strtolower(GLOBAL_UTIL::Clear4Url($table_name))
                 . self:: ERD_FILENAME_PREFIX . GLOBAL_UTIL::SlashEscape($table_name) . self::URI_SUFFIX_ERD_PDF;
@@ -639,7 +644,8 @@ class ABAP_UI_TABLES_Navigation {
         $url = self::URI_PREFIX_TABLE . strtolower(GLOBAL_UTIL::Clear4Url($table_name)) . self::URI_SUFFIX_HTML;
         return ($with_domain) ? GLOBAL_WEBSITE::SAP_TABLES_ORG_URL . $url : $url;
     }
-
+    
+    
 }
 
 class ABAP_UI_TCODES_Navigation {
