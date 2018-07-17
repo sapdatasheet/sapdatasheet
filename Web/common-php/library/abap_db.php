@@ -886,7 +886,6 @@ class ABAP_DB_TABLE {
         if (empty($text)) {
             $text = '';
         }
-        error_log($text);
         
         return $text;
     }

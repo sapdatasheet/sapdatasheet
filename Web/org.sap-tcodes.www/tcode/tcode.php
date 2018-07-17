@@ -15,7 +15,7 @@ if (empty($fb_ObjID)) {
 }
 
 $abaptran = ABAPANA_DB_TABLE::ABAPTRAN(strtoupper($fb_ObjID));
-if (empty($abaptran['TCODE'])) {
+if (empty($abaptran['TCODE']) || $abaptran['TCODE'] == NULL) {
     ABAP_UI_TOOL::Redirect404();
 }
 

@@ -36,7 +36,6 @@ if (GLOBAL_UTIL::StartsWith($fb_requri, ABAP_UI_TABLES_Navigation::URI_PREFIX_TA
             if ($row[0] == ABAP_UI_TABLES_Navigation::URI_SUFFIX_HTML) {
                 $table_name = substr($rest, 0, $row[1]);
             } else {
-                error_log(strrpos($rest, '/'));
                 $table_name = substr($rest, 0, strrpos($rest, '/'));
             }
             
@@ -46,7 +45,7 @@ if (GLOBAL_UTIL::StartsWith($fb_requri, ABAP_UI_TABLES_Navigation::URI_PREFIX_TA
         }
     }
     
-    if (GLOBAL_UTIL::IsEmpty($fbk_table_name) || empty(ABAP_DB_TABLE_TABL::DD02L($fbk_table_name))) {
+    if (isset($fbk_table_name) == FALSE || GLOBAL_UTIL::IsEmpty($fbk_table_name) || empty(ABAP_DB_TABLE_TABL::DD02L($fbk_table_name))) {
         // The table name is not valid
         unset($fbk_target);
     }
