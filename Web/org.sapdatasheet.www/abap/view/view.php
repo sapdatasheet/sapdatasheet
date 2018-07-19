@@ -12,7 +12,7 @@ if (empty($ObjID)) {
     ABAP_UI_TOOL::Redirect404();
 }
 $dd25l = ABAP_DB_TABLE_VIEW::DD25L(strtoupper($ObjID));
-if (empty($dd25l['VIEWNAME'])) {
+if (is_null($dd25l['VIEWNAME']) || GLOBAL_UTIL::IsEmpty($dd25l['VIEWNAME'])) {
     ABAP_UI_TOOL::Redirect404();
 }
 $dd25l_desc = ABAP_DB_TABLE_VIEW::DD25T($dd25l['VIEWNAME']);
