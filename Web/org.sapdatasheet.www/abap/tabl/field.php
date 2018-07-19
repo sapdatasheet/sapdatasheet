@@ -8,7 +8,9 @@ require_once ($__WS_ROOT__ . '/common-php/library/abap_ui.php');
 require_once ($__WS_ROOT__ . '/common-php/library/schemaorg.php');
 GLOBAL_UTIL::UpdateSAPDescLangu();
 
-if (empty($Table) || (strlen(trim($Field)) + strlen(trim($Position)) == 0)) {
+$field_len =  isset($Field) ? strlen(trim($Field)) : 0;
+$position_len = isset($Position) ? strlen(trim($Position)) : 0;
+if (empty($Table) || ($field_len + $position_len) == 0 ) {
     ABAP_UI_TOOL::Redirect404();
 }
 
