@@ -12,7 +12,7 @@
             | <a target="_blank" href="<?php echo GLOBAL_WEBSITE::SAPDS_ORG_URL ?>/site/about.php"><b>About</b></a>
             &middot; <a target="_blank" href="<?php echo GLOBAL_WEBSITE::SAPDS_ORG_URL ?>/site/term.php"><b>Terms</b></a>
             &middot; <a target="_blank" href="<?php echo GLOBAL_WEBSITE::SAPDS_ORG_URL ?>/site/privacy.php"><b>Privacy</b></a>
-            &middot; <a target="_blank" href="https://github.com/sapdatasheet/sapdatasheet/issues"><b>Feedback</b></a>
+            &middot; <a target="_blank" href="https://github.com/sapdatasheet/sapdatasheet/issues"><img src="<?php echo GLOBAL_WEBSITE::SAPDS_ORG_URL ?>/3rdparty/github/GitHub-Mark-32px.png" alt="Github Mark" width="16" height="16">&nbsp;<b>Feedback</b></a>
             <br/>
             &copy; 2016 - <?php echo date("Y"); ?>, <a href="<?php echo GLOBAL_WEBSITE::SAP_TCODES_ORG_URL ?>" target="_blank" title="<?php echo GLOBAL_WEBSITE::SAP_TCODES_ORG_DESC ?>"><?php echo GLOBAL_WEBSITE::SAP_TCODES_ORG_URL_DISPLAY ?></a>, <?php echo GLOBAL_WEBSITE::SAP_TCODES_ORG_DESC ?>
         </p>
