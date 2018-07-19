@@ -14,7 +14,7 @@ if (empty($ObjID)) {
     ABAP_UI_TOOL::Redirect404();
 }
 $imgach = ABAP_DB_TABLE_CUS0::CUS_IMGACH(strtoupper($ObjID));
-if (empty($imgach['ACTIVITY'])) {
+if (is_null($imgach['ACTIVITY']) || GLOBAL_UTIL::IsEmpty($imgach['ACTIVITY'])) {
     ABAP_UI_TOOL::Redirect404();
 }
 

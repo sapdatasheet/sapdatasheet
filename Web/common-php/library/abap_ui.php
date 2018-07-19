@@ -133,7 +133,7 @@ class ABAP_UI_CUS0 {
      *
      * @return string IMG Activity Type Description
      */
-    public static function GetImgActivityTypeDesc(string $act_type): string {
+    public static function GetImgActivityTypeDesc(string $act_type = NULL): string {
         $desc = '';
         if ($act_type === ABAP_DB_CONST::CUS_ACTH_ACT_TYPE_C) {
             $desc = 'Customizing Object';

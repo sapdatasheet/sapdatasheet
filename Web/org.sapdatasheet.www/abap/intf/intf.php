@@ -13,7 +13,7 @@ if (empty($ObjID)) {
 }
 $ObjID = strtoupper($ObjID);
 $classdef = ABAP_DB_TABLE_SEO::SEOCLASSDF(strtoupper($ObjID));
-if (empty($classdef['CLSNAME'])) {
+if (is_null($classdef['CLSNAME']) || GLOBAL_UTIL::IsEmpty($classdef['CLSNAME'])) {
     ABAP_UI_TOOL::Redirect404();
 }
 
