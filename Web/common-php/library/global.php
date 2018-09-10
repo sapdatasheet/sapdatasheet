@@ -481,6 +481,8 @@ class GLOBAL_ABAP_OTYPE {
     const TABL_DESC = 'Table';
     const TRAN_NAME = 'TRAN';
     const TRAN_DESC = 'Transaction Code';
+    const VCLS_NAME = 'VCLS';
+    const VCLS_DESC = 'View Cluster';
     const VIEW_NAME = 'VIEW';
     const VIEW_DESC = 'View';
     const SHLP_NAME = 'SHLP';
@@ -704,6 +706,13 @@ class GLOBAL_UTIL {
         }
 
         return (substr($haystack, -$length) === $needle);
+    }
+
+    /**
+     * Change the un-recognized minus ('-') character as '_'.
+     */
+    public static function MinusEscape(string $name): string {
+        return str_replace('-', '_', $name);
     }
 
     /**

@@ -1,38 +1,5 @@
 <?php
 
-class SITE_UI_CONST {
-
-    const KEY_ABAP_OBJTYPE = 'abapobjtype';          // ABAP Object Type
-    const KEY_ABAP_OBJNAME = 'abapobjname';          // ABAP Object Name
-    const KEY_ABAP_DESC = 'description';             // ABAP Description
-    const KEY_ABAP_DSLINK = 'abapdslink';            // ABAP Datasheet Link
-    const KEY_ARRAY_DATA = 'data';                   // Array Data
-    const KEY_CAPTION = 'caption';                   // HTML Hink Hint Caption
-    const KEY_CSS_CLASS = 'class';                   // CSS Class
-    const KEY_HIGHLIGHT = 'highlight';               // Flag to Highlight an item
-    const KEY_HTML_ID = 'htmlid';                    // HTML id value
-    const KEY_ICON_LINK = 'iconlink';                // Link for Icon link
-    const KEY_LABEL = 'label';                       // Label/Name in a field
-    const KEY_URL = 'url';                           // URL for <a> link
-    const KEY_VALUE = 'value';                       // Count value of TCodes
-    //
-    const CSS_CLASS_ACTIVE = 'class="active"';
-    //
-    const JSON_NAME = 'name';
-    const JSON_TILE = 'title';
-    const JSON_GROUP = 'group';
-    const JSON_URL = 'url';                          // https://www.sapdatasheet.org/abap/prog/name.html | #panel-ana-package
-    const JSON_NEW_WINDOW = 'newwin';                // Yes / No
-    const JSON_ICON_URL = 'icon_url';
-    //
-    const JSON_SOURCE = 'source';
-    const JSON_TARGET = 'target';
-    //
-    const YES = 'Yes';
-    const NO = 'No';
-
-}
-
 /** Web Site UI Class for Analytics Data */
 class SITE_UI_ANALYTICS {
 
@@ -180,6 +147,42 @@ class SITE_UI_ANALYTICS {
 
 }
 
+class SITE_UI_CONST {
+
+    const CSS_CLASS_ACTIVE = 'class="active"';
+    //
+    const GRAPHVIZ_NODE_ID = 'gid';
+    const GRAPHVIZ_SOURCE = 'gid';
+    //
+    const JSON_GROUP = 'group';
+    const JSON_ICON_URL = 'icon_url';
+    const JSON_NAME = 'name';
+    const JSON_NEW_WINDOW = 'newwin';                // Yes / No
+    const JSON_SOURCE = 'source';
+    const JSON_TARGET = 'target';
+    const JSON_TILE = 'title';
+    const JSON_URL = 'url';                          // https://www.sapdatasheet.org/abap/prog/name.html | #panel-ana-package
+    //
+    const KEY_ABAP_DESC = 'description';             // ABAP Description
+    const KEY_ABAP_DSLINK = 'abapdslink';            // ABAP Datasheet Link
+    const KEY_ABAP_OBJNAME = 'abapobjname';          // ABAP Object Name
+    const KEY_ABAP_OBJTYPE = 'abapobjtype';          // ABAP Object Type
+    const KEY_ARRAY_DATA = 'data';                   // Array Data
+    const KEY_CAPTION = 'caption';                   // HTML Hink Hint Caption
+    const KEY_CSS_CLASS = 'class';                   // CSS Class
+    const KEY_HIGHLIGHT = 'highlight';               // Flag to Highlight an item
+    const KEY_HTML_ID = 'htmlid';                    // HTML id value
+    const KEY_ICON_LINK = 'iconlink';                // Link for Icon link
+    const KEY_LABEL = 'label';                       // Label/Name in a field
+    const KEY_OTYPE = 'otype';                       // URL for <a> link
+    const KEY_URL = 'url';                           // URL for <a> link
+    const KEY_VALUE = 'value';                       // Count value of TCodes
+    //
+    const NO = 'No';
+    const YES = 'Yes';
+
+}
+
 /** Web Site UI Class for TCode Page. */
 class SITE_UI_TCODE {
 
@@ -240,7 +243,7 @@ class SITE_UI_TCODE {
 
                     array_push($nodes, array(
                         SITE_UI_CONST::JSON_NAME => $tcode_item['TCODE'],
-                        SITE_UI_CONST::JSON_TILE => GLOBAL_ABAP_OTYPE::TRAN_DESC . ' ' .  html_entity_decode(ABAP_UI_TOOL::GetObjectDescr(GLOBAL_ABAP_OTYPE::TRAN_NAME, $tcode_item['TCODE'])),
+                        SITE_UI_CONST::JSON_TILE => GLOBAL_ABAP_OTYPE::TRAN_DESC . ' ' . html_entity_decode(ABAP_UI_TOOL::GetObjectDescr(GLOBAL_ABAP_OTYPE::TRAN_NAME, $tcode_item['TCODE'])),
                         SITE_UI_CONST::JSON_GROUP => $index,
                         SITE_UI_CONST::JSON_URL => ABAP_UI_TCODES_Navigation::TCode($tcode_item['TCODE']),
                         SITE_UI_CONST::JSON_NEW_WINDOW => SITE_UI_CONST::YES,
@@ -265,6 +268,13 @@ class SITE_UI_TCODE {
     }
 
     /**
+     * Calculate graphviz node id for an ABAP object.
+     */
+    public static function Graphviz_id(string $otype, string $id) {
+        return strtolower($otype) . '_' . GLOBAL_UTIL::SlashEscape($id);
+    }
+
+    /**
      * Load T-Code Analytics data.
      *
      * @param string $abaptran Transaction Code Analytics Data
@@ -274,6 +284,8 @@ class SITE_UI_TCODE {
         $result = array();
         $count = 0;
 
+        $root_graphviz_id = self::Graphviz_id(GLOBAL_ABAP_OTYPE::TRAN_NAME, $abaptran['TCODE']);
+
         // Program
         if (GLOBAL_UTIL::IsNotEmpty($abaptran['PGMNA'])) {
             $count = ABAPANA_DB_TABLE::ABAPTRAN_COUNT(ABAPANA_DB_TABLE::ABAPTRAN_PGMNA, $abaptran['PGMNA']);
@@ -282,6 +294,9 @@ class SITE_UI_TCODE {
                 $url = '#panel-' . $html_id;
                 $data = ABAPANA_DB_TABLE::ABAPTRAN_LOAD(ABAPANA_DB_TABLE::ABAPTRAN_PGMNA, $abaptran['PGMNA']);
                 array_push($result, array(
+                    SITE_UI_CONST::GRAPHVIZ_NODE_ID => self::Graphviz_id(GLOBAL_ABAP_OTYPE::PROG_NAME, $abaptran['PGMNA']),
+                    SITE_UI_CONST::GRAPHVIZ_SOURCE => $root_graphviz_id,
+                    SITE_UI_CONST::KEY_OTYPE => GLOBAL_ABAP_OTYPE::PROG_NAME,
                     SITE_UI_CONST::KEY_LABEL => GLOBAL_ABAP_OTYPE::PROG_DESC,
                     SITE_UI_CONST::KEY_ABAP_OBJNAME => GLOBAL_ABAP_ICON::getIcon4OtypePROG(TRUE) . ' <a href="' . $url . '">' . $abaptran['PGMNA'] . '</a>',
                     SITE_UI_CONST::KEY_ABAP_DSLINK => ABAP_UI_DS_Navigation::GetObjectHyperlink4DS(GLOBAL_ABAP_OTYPE::PROG_NAME, $abaptran['PGMNA']),
@@ -305,6 +320,9 @@ class SITE_UI_TCODE {
                 $html_id = 'ana-ctcode';
                 $data = ABAPANA_DB_TABLE::ABAPTRAN_LOAD(ABAPANA_DB_TABLE::ABAPTRAN_CALLEDTCODE, $abaptran['CALLEDTCODE']);
                 array_push($result, array(
+                    SITE_UI_CONST::GRAPHVIZ_NODE_ID => self::Graphviz_id(GLOBAL_ABAP_OTYPE::TRAN_NAME, $abaptran['CALLEDTCODE']),
+                    SITE_UI_CONST::GRAPHVIZ_SOURCE => $root_graphviz_id,
+                    SITE_UI_CONST::KEY_OTYPE => GLOBAL_ABAP_OTYPE::TRAN_NAME,
                     SITE_UI_CONST::KEY_LABEL => 'Called TCode',
                     SITE_UI_CONST::KEY_ABAP_OBJNAME => GLOBAL_ABAP_ICON::getIcon4OtypeTRAN(TRUE) . ' <a href="#panel-' . $html_id . '">' . $abaptran['CALLEDTCODE'] . '</a>',
                     SITE_UI_CONST::KEY_ABAP_DSLINK => ABAP_UI_DS_Navigation::GetObjectHyperlink4DS(GLOBAL_ABAP_OTYPE::TRAN_NAME, $abaptran['CALLEDTCODE']),
@@ -329,6 +347,9 @@ class SITE_UI_TCODE {
                 $url = '#panel-' . $html_id;
                 $data = ABAPANA_DB_TABLE::ABAPTRAN_LOAD(ABAPANA_DB_TABLE::ABAPTRAN_CALLEDVIEW, $abaptran['CALLEDVIEW']);
                 array_push($result, array(
+                    SITE_UI_CONST::GRAPHVIZ_NODE_ID => self::Graphviz_id(GLOBAL_ABAP_OTYPE::VIEW_NAME, $abaptran['CALLEDVIEW']),
+                    SITE_UI_CONST::GRAPHVIZ_SOURCE => $root_graphviz_id,
+                    SITE_UI_CONST::KEY_OTYPE => GLOBAL_ABAP_OTYPE::VIEW_NAME,
                     SITE_UI_CONST::KEY_LABEL => 'Called View',
                     SITE_UI_CONST::KEY_ABAP_OBJNAME => GLOBAL_ABAP_ICON::getIcon4OtypeVIEW(TRUE) . ' <a href="' . $url . '">' . $abaptran['CALLEDVIEW'] . '</a>',
                     SITE_UI_CONST::KEY_ABAP_DSLINK => ABAP_UI_DS_Navigation::GetObjectHyperlink4DS(GLOBAL_ABAP_OTYPE::VIEW_NAME, $abaptran['CALLEDVIEW']),
@@ -353,6 +374,9 @@ class SITE_UI_TCODE {
                 $url = '#panel-' . $html_id;
                 $data = ABAPANA_DB_TABLE::ABAPTRAN_LOAD(ABAPANA_DB_TABLE::ABAPTRAN_CALLEDVIEWC, $abaptran['CALLEDVIEWC']);
                 array_push($result, array(
+                    SITE_UI_CONST::GRAPHVIZ_NODE_ID => self::Graphviz_id(GLOBAL_ABAP_OTYPE::VIEW_NAME, $abaptran['CALLEDVIEWC']),
+                    SITE_UI_CONST::GRAPHVIZ_SOURCE => $root_graphviz_id,
+                    SITE_UI_CONST::KEY_OTYPE => GLOBAL_ABAP_OTYPE::VIEW_NAME,
                     SITE_UI_CONST::KEY_LABEL => 'Called View Cluster',
                     SITE_UI_CONST::KEY_ABAP_OBJNAME => GLOBAL_ABAP_ICON::getIcon4OtypeVIEW(TRUE) . ' <a href="' . $url . '">' . $abaptran['CALLEDVIEWC'] . '</a>',
                     SITE_UI_CONST::KEY_ABAP_DSLINK => '',
@@ -370,13 +394,18 @@ class SITE_UI_TCODE {
         }
 
         // Package
+        $package_graphviz_id = '';
         if (GLOBAL_UTIL::IsNotEmpty($abaptran['PACKAGE'])) {
             $count = ABAPANA_DB_TABLE::ABAPTRAN_COUNT(ABAPANA_DB_TABLE::ABAPTRAN_PACKAGE, $abaptran['PACKAGE']);
             if ($count > 1) {
                 $html_id = 'ana-package';
                 $url = '#panel-' . $html_id;
                 $data = ABAPANA_DB_TABLE::ABAPTRAN_LOAD(ABAPANA_DB_TABLE::ABAPTRAN_PACKAGE, $abaptran['PACKAGE']);
+                $package_graphviz_id = self::Graphviz_id(GLOBAL_ABAP_OTYPE::DEVC_NAME, $abaptran['PACKAGE']);
                 array_push($result, array(
+                    SITE_UI_CONST::GRAPHVIZ_NODE_ID => $package_graphviz_id,
+                    SITE_UI_CONST::GRAPHVIZ_SOURCE => $root_graphviz_id,
+                    SITE_UI_CONST::KEY_OTYPE => GLOBAL_ABAP_OTYPE::DEVC_NAME,
                     SITE_UI_CONST::KEY_LABEL => GLOBAL_ABAP_OTYPE::DEVC_DESC,
                     SITE_UI_CONST::KEY_ABAP_OBJNAME => GLOBAL_ABAP_ICON::getIcon4OtypeDEVC(TRUE) . ' <a href="' . $url . '">' . $abaptran['PACKAGE'] . '</a>',
                     SITE_UI_CONST::KEY_ABAP_DSLINK => ABAP_UI_DS_Navigation::GetObjectHyperlink4DS(GLOBAL_ABAP_OTYPE::DEVC_NAME, $abaptran['PACKAGE']),
@@ -394,19 +423,19 @@ class SITE_UI_TCODE {
         }
 
         // Name Pattern: SE11 --> SE11_OLD
-        SITE_UI_TCODE::LoadAnalytics4NamePattern($result, $abaptran['TCODE'], strlen($abaptran['TCODE']), 'ana-npmatch');
+        SITE_UI_TCODE::LoadAnalytics4NamePattern($result, $abaptran['TCODE'], strlen($abaptran['TCODE']), 'ana-npmatch', $root_graphviz_id);
 
         // Name Pattern: CHARnn
         preg_match_all("/.*?(\d+)$/", $abaptran['TCODE'], $matches);
         if (count($matches) == 2 && is_array($matches[1]) && count($matches[1]) > 0) {              // In case of SE11, there will be: SE11, 11
             $pos_end = strlen($abaptran['TCODE']) - strlen($matches[1][0]);
-            SITE_UI_TCODE::LoadAnalytics4NamePattern($result, $abaptran['TCODE'], $pos_end, 'ana-npcharnn');
+            SITE_UI_TCODE::LoadAnalytics4NamePattern($result, $abaptran['TCODE'], $pos_end, 'ana-npcharnn', $root_graphviz_id);
         }
 
         // Simple Name Pattern: ABC-def, ABC_def, ABC.def
-        SITE_UI_TCODE::LoadAnalytics4SimpleNamePattern($result, $abaptran['TCODE'], '-');
-        SITE_UI_TCODE::LoadAnalytics4SimpleNamePattern($result, $abaptran['TCODE'], '_');
-        SITE_UI_TCODE::LoadAnalytics4SimpleNamePattern($result, $abaptran['TCODE'], '.');
+        SITE_UI_TCODE::LoadAnalytics4SimpleNamePattern($result, $abaptran['TCODE'], '-', $root_graphviz_id);
+        SITE_UI_TCODE::LoadAnalytics4SimpleNamePattern($result, $abaptran['TCODE'], '_', $root_graphviz_id);
+        SITE_UI_TCODE::LoadAnalytics4SimpleNamePattern($result, $abaptran['TCODE'], '.', $root_graphviz_id);
 
         // Parent Packge
         if (GLOBAL_UTIL::IsNotEmpty($abaptran['PACKAGEP'])) {
@@ -416,6 +445,9 @@ class SITE_UI_TCODE {
                 $url = '#panel-' . $html_id;
                 $data = ABAPANA_DB_TABLE::ABAPTRAN_LOAD(ABAPANA_DB_TABLE::ABAPTRAN_PACKAGEP, $abaptran['PACKAGEP']);
                 array_push($result, array(
+                    SITE_UI_CONST::GRAPHVIZ_NODE_ID => self::Graphviz_id(GLOBAL_ABAP_OTYPE::DEVC_NAME, $abaptran['PACKAGEP']),
+                    SITE_UI_CONST::GRAPHVIZ_SOURCE => strlen($package_graphviz_id) > 0 ? $package_graphviz_id : $root_graphviz_id,
+                    SITE_UI_CONST::KEY_OTYPE => GLOBAL_ABAP_OTYPE::DEVC_NAME,
                     SITE_UI_CONST::KEY_LABEL => 'Parant Package',
                     SITE_UI_CONST::KEY_ABAP_OBJNAME => GLOBAL_ABAP_ICON::getIcon4OtypeDEVC(TRUE) . ' <a href="' . $url . '">' . $abaptran['PACKAGEP'] . '</a>',
                     SITE_UI_CONST::KEY_ABAP_DSLINK => ABAP_UI_DS_Navigation::GetObjectHyperlink4DS(GLOBAL_ABAP_OTYPE::DEVC_NAME, $abaptran['PACKAGEP']),
@@ -433,30 +465,24 @@ class SITE_UI_TCODE {
         }
 
         // Application Components
-        SITE_UI_TCODE::LoadAnalytics4ApplComp(
-                $result, $abaptran['FCTR_ID_L9'], $abaptran['PS_POSID_L9'], ABAPANA_DB_TABLE::ABAPTRAN_FCTR_ID_L9);
-        SITE_UI_TCODE::LoadAnalytics4ApplComp(
-                $result, $abaptran['FCTR_ID_L8'], $abaptran['PS_POSID_L8'], ABAPANA_DB_TABLE::ABAPTRAN_FCTR_ID_L8);
-        SITE_UI_TCODE::LoadAnalytics4ApplComp(
-                $result, $abaptran['FCTR_ID_L7'], $abaptran['PS_POSID_L7'], ABAPANA_DB_TABLE::ABAPTRAN_FCTR_ID_L7);
-        SITE_UI_TCODE::LoadAnalytics4ApplComp(
-                $result, $abaptran['FCTR_ID_L6'], $abaptran['PS_POSID_L6'], ABAPANA_DB_TABLE::ABAPTRAN_FCTR_ID_L6);
-        SITE_UI_TCODE::LoadAnalytics4ApplComp(
-                $result, $abaptran['FCTR_ID_L5'], $abaptran['PS_POSID_L5'], ABAPANA_DB_TABLE::ABAPTRAN_FCTR_ID_L5);
-        SITE_UI_TCODE::LoadAnalytics4ApplComp(
-                $result, $abaptran['FCTR_ID_L4'], $abaptran['PS_POSID_L4'], ABAPANA_DB_TABLE::ABAPTRAN_FCTR_ID_L4);
-        SITE_UI_TCODE::LoadAnalytics4ApplComp(
-                $result, $abaptran['FCTR_ID_L3'], $abaptran['PS_POSID_L3'], ABAPANA_DB_TABLE::ABAPTRAN_FCTR_ID_L3);
-        SITE_UI_TCODE::LoadAnalytics4ApplComp(
-                $result, $abaptran['FCTR_ID_L2'], $abaptran['PS_POSID_L2'], ABAPANA_DB_TABLE::ABAPTRAN_FCTR_ID_L2);
-        SITE_UI_TCODE::LoadAnalytics4ApplComp(
-                $result, $abaptran['FCTR_ID_L1'], $abaptran['PS_POSID_L1'], ABAPANA_DB_TABLE::ABAPTRAN_FCTR_ID_L1);
+        $applcomp_graphviz_id = SITE_UI_TCODE::LoadAnalytics4ApplComp($result, $abaptran['FCTR_ID_L9'], $abaptran['PS_POSID_L9'], ABAPANA_DB_TABLE::ABAPTRAN_FCTR_ID_L9, $root_graphviz_id);
+        $applcomp_graphviz_id = SITE_UI_TCODE::LoadAnalytics4ApplComp($result, $abaptran['FCTR_ID_L8'], $abaptran['PS_POSID_L8'], ABAPANA_DB_TABLE::ABAPTRAN_FCTR_ID_L8, $applcomp_graphviz_id);
+        $applcomp_graphviz_id = SITE_UI_TCODE::LoadAnalytics4ApplComp($result, $abaptran['FCTR_ID_L7'], $abaptran['PS_POSID_L7'], ABAPANA_DB_TABLE::ABAPTRAN_FCTR_ID_L7, $applcomp_graphviz_id);
+        $applcomp_graphviz_id = SITE_UI_TCODE::LoadAnalytics4ApplComp($result, $abaptran['FCTR_ID_L6'], $abaptran['PS_POSID_L6'], ABAPANA_DB_TABLE::ABAPTRAN_FCTR_ID_L6, $applcomp_graphviz_id);
+        $applcomp_graphviz_id = SITE_UI_TCODE::LoadAnalytics4ApplComp($result, $abaptran['FCTR_ID_L5'], $abaptran['PS_POSID_L5'], ABAPANA_DB_TABLE::ABAPTRAN_FCTR_ID_L5, $applcomp_graphviz_id);
+        $applcomp_graphviz_id = SITE_UI_TCODE::LoadAnalytics4ApplComp($result, $abaptran['FCTR_ID_L4'], $abaptran['PS_POSID_L4'], ABAPANA_DB_TABLE::ABAPTRAN_FCTR_ID_L4, $applcomp_graphviz_id);
+        $applcomp_graphviz_id = SITE_UI_TCODE::LoadAnalytics4ApplComp($result, $abaptran['FCTR_ID_L3'], $abaptran['PS_POSID_L3'], ABAPANA_DB_TABLE::ABAPTRAN_FCTR_ID_L3, $applcomp_graphviz_id);
+        $applcomp_graphviz_id = SITE_UI_TCODE::LoadAnalytics4ApplComp($result, $abaptran['FCTR_ID_L2'], $abaptran['PS_POSID_L2'], ABAPANA_DB_TABLE::ABAPTRAN_FCTR_ID_L2, $applcomp_graphviz_id);
+        $applcomp_graphviz_id = SITE_UI_TCODE::LoadAnalytics4ApplComp($result, $abaptran['FCTR_ID_L1'], $abaptran['PS_POSID_L1'], ABAPANA_DB_TABLE::ABAPTRAN_FCTR_ID_L1, $applcomp_graphviz_id);
 
         // Software Component
         if (GLOBAL_UTIL::IsNotEmpty($abaptran['SOFTCOMP'])) {
             $count = ABAPANA_DB_TABLE::ABAPTRAN_COUNT(ABAPANA_DB_TABLE::ABAPTRAN_SOFTCOMP, $abaptran['SOFTCOMP']);
             if ($count > 1) {
                 array_push($result, array(
+                    SITE_UI_CONST::GRAPHVIZ_NODE_ID => self::Graphviz_id(GLOBAL_ABAP_OTYPE::CVERS_NAME, $abaptran['SOFTCOMP']),
+                    SITE_UI_CONST::GRAPHVIZ_SOURCE => $root_graphviz_id,
+                    SITE_UI_CONST::KEY_OTYPE => GLOBAL_ABAP_OTYPE::CVERS_NAME,
                     SITE_UI_CONST::KEY_LABEL => GLOBAL_ABAP_OTYPE::CVERS_DESC,
                     SITE_UI_CONST::KEY_ABAP_OBJNAME => GLOBAL_ABAP_ICON::getIcon4OtypeCVERS(TRUE) . ' ' . ABAP_UI_TCODES_Navigation::AnalyticsCompHyperlink($abaptran['SOFTCOMP']),
                     SITE_UI_CONST::KEY_ABAP_DSLINK => ABAP_UI_DS_Navigation::GetObjectHyperlink4DS(GLOBAL_ABAP_OTYPE::CVERS_NAME, $abaptran['SOFTCOMP']),
@@ -476,11 +502,19 @@ class SITE_UI_TCODE {
         return $result;
     }
 
-    private static function LoadAnalytics4ApplComp(&$result, $fctr, $posid, $column) {
+    /**
+     * Load Analytics Data for a parent application component.
+     */
+    private static function LoadAnalytics4ApplComp(&$result, $fctr, $posid, $column, string $graphviz_id_parent): string {
+        $graphviz_id = $graphviz_id_parent;
         if (GLOBAL_UTIL::IsNotEmpty($fctr)) {
             $count = ABAPANA_DB_TABLE::ABAPTRAN_COUNT($column, $fctr);
             if ($count > 1) {
+                $graphviz_id = self::Graphviz_id(GLOBAL_ABAP_OTYPE::BMFR_NAME, GLOBAL_UTIL::MinusEscape($posid));
                 array_push($result, array(
+                    SITE_UI_CONST::GRAPHVIZ_NODE_ID => $graphviz_id,
+                    SITE_UI_CONST::GRAPHVIZ_SOURCE => $graphviz_id_parent,
+                    SITE_UI_CONST::KEY_OTYPE => GLOBAL_ABAP_OTYPE::BMFR_NAME,
                     SITE_UI_CONST::KEY_LABEL => GLOBAL_ABAP_OTYPE::BMFR_DESC,
                     SITE_UI_CONST::KEY_ABAP_OBJNAME => GLOBAL_ABAP_ICON::getIcon4OtypeBMFR(TRUE) . ' ' . ABAP_UI_TCODES_Navigation::AnalyticsModuleHyperlink($posid),
                     SITE_UI_CONST::KEY_ABAP_DSLINK => ABAP_UI_DS_Navigation::GetObjectHyperlink4DS(GLOBAL_ABAP_OTYPE::BMFR_NAME, $fctr),
@@ -496,9 +530,11 @@ class SITE_UI_TCODE {
                 ));
             }
         }
+
+        return $graphviz_id;
     }
 
-    private static function LoadAnalytics4NamePattern(&$result, $tcode, $pos_end, $html_id) {
+    private static function LoadAnalytics4NamePattern(&$result, $tcode, $pos_end, $html_id, string $root_graphviz_id) {
         $prefix = substr($tcode, 0, $pos_end);
         $pattern = $prefix . '%';
         $count = ABAPANA_DB_TABLE::ABAPTRAN_NAMEPATTERN_COUNT($pattern);
@@ -506,6 +542,9 @@ class SITE_UI_TCODE {
             $url = '#panel-' . $html_id;
             $data = ABAPANA_DB_TABLE::ABAPTRAN_NAMEPATTERN_LOAD($pattern);
             array_push($result, array(
+                SITE_UI_CONST::GRAPHVIZ_NODE_ID => self::Graphviz_id(ABAP_UI_TCODES_Navigation::PATH_ANALYTICS_NAME, $prefix),
+                SITE_UI_CONST::GRAPHVIZ_SOURCE => $root_graphviz_id,
+                SITE_UI_CONST::KEY_OTYPE => ABAP_UI_TCODES_Navigation::PATH_ANALYTICS_NAME,
                 SITE_UI_CONST::KEY_LABEL => 'Name Starts With',
                 SITE_UI_CONST::KEY_ABAP_OBJNAME => GLOBAL_ABAP_ICON::getIcon4NamePrefix(TRUE) . ' <a href="' . $url . '">' . $pattern . '</a>',
                 SITE_UI_CONST::KEY_ABAP_DSLINK => '',
@@ -522,11 +561,11 @@ class SITE_UI_TCODE {
         }
     }
 
-    private static function LoadAnalytics4SimpleNamePattern(&$result, $tcode, $needle) {
+    private static function LoadAnalytics4SimpleNamePattern(&$result, $tcode, $needle, string $root_graphviz_id) {
         $np_pos = strrpos($tcode, $needle);
         if ((!($np_pos === FALSE)) && (is_numeric(substr($tcode, $np_pos + 1)) == FALSE)) {
             $html_id = 'ana-npprefix' . $needle . 'match';
-            SITE_UI_TCODE::LoadAnalytics4NamePattern($result, $tcode, $np_pos + 1, $html_id);
+            SITE_UI_TCODE::LoadAnalytics4NamePattern($result, $tcode, $np_pos + 1, $html_id, $root_graphviz_id);
         }
     }
 
