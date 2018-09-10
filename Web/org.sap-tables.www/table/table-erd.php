@@ -23,11 +23,12 @@ if ($format == ERD_Format::png) {
 }
 
 $output_file_path = (new ERD($format, $table_name))->run();
-
 if (GLOBAL_UTIL::IsNotEmpty($output_file_path)) {
     header("Content-Type: " . $content_type);
     header("Content-Length: " . filesize($output_file_path));
     readfile($output_file_path);
+    
+    unlink($output_file_path);
 } else {
     header("Content-Type: " . $content_type);
     header("Content-Length: 0");

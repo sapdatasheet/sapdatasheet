@@ -1,5 +1,6 @@
 <!-- Bread crumb list -->
 <!-- $title_bc_list: Bread crumbs list -->
+<br>
 <ol class="breadcrumb">
     <?php foreach ($title_bc_list as $breadcrumb) { ?>
         <li <?php echo $breadcrumb[SITE_UI_CONST::KEY_CSS_CLASS] ?>>

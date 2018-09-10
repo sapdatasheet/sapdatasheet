@@ -180,6 +180,7 @@ $json_ld->url = ABAP_UI_TCODES_Navigation::TCode($abaptran['TCODE'], TRUE);
 
                 <!-- Site Panel: Begin -->
                 <div class="col-sm-3">
+                    <br>
 
                     <!-- Where Using List -->
                     <?php if (count($wil_list) > 0) { ?>

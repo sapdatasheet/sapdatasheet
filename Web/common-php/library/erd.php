@@ -4,7 +4,6 @@ $__COMMON_ROOT__ = dirname(__FILE__, 2);
 require_once($__COMMON_ROOT__ . '/library/global.php');
 require_once($__COMMON_ROOT__ . '/library/abap_db.php');
 
-
 /**
  * E-R Diagram wrapper based on https://github.com/BurntSushi/erd.
  */
@@ -19,7 +18,7 @@ class ERD {
     protected $table_name;
     protected $db_dd02l;
     protected $db_dd02t;
-
+    
     /**
      * Constructor of an ERD project.
      *
@@ -40,8 +39,8 @@ class ERD {
         $this->table_name = $this->db_dd02l['TABNAME'];
         $this->db_dd02t = $this->clean_desc(ABAP_DB_TABLE_TABL::DD02T($this->table_name));
     }
-    
-    private function clean_desc(string $desc = NULL) : string {
+
+    private function clean_desc(string $desc = NULL): string {
         if (GLOBAL_UTIL::IsNotEmpty($desc)) {
             return str_replace('"', "'", $desc);
         } else {
