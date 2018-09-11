@@ -280,7 +280,7 @@ class SITE_UI_TCODE {
      * @param string $abaptran Transaction Code Analytics Data
      * @return array Analytics data list: {label: value}
      */
-    public static function LoadAnalytics($abaptran) {
+    public static function LoadAnalytics($abaptran): array {
         $result = array();
         $count = 0;
 
