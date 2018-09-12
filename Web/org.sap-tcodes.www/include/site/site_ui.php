@@ -151,8 +151,8 @@ class SITE_UI_CONST {
 
     const CSS_CLASS_ACTIVE = 'class="active"';
     //
-    const GRAPHVIZ_NODE_ID = 'gid';
-    const GRAPHVIZ_SOURCE = 'gid';
+    const GRAPHVIZ_NODE_ID = 'graph_id';
+    const GRAPHVIZ_SOURCE = 'graph_source_id';
     //
     const JSON_GROUP = 'group';
     const JSON_ICON_URL = 'icon_url';
@@ -243,7 +243,7 @@ class SITE_UI_TCODE {
 
                     array_push($nodes, array(
                         SITE_UI_CONST::JSON_NAME => $tcode_item['TCODE'],
-                        SITE_UI_CONST::JSON_TILE => GLOBAL_ABAP_OTYPE::TRAN_DESC . ' ' . html_entity_decode(ABAP_UI_TOOL::GetObjectDescr(GLOBAL_ABAP_OTYPE::TRAN_NAME, $tcode_item['TCODE'])),
+                        SITE_UI_CONST::JSON_TILE => self::Graphviz_tooltip(GLOBAL_ABAP_OTYPE::TRAN_DESC, $tcode_item['TCODE'], html_entity_decode(ABAP_UI_TOOL::GetObjectDescr(GLOBAL_ABAP_OTYPE::TRAN_NAME, $tcode_item['TCODE']))),
                         SITE_UI_CONST::JSON_GROUP => $index,
                         SITE_UI_CONST::JSON_URL => ABAP_UI_TCODES_Navigation::TCode($tcode_item['TCODE']),
                         SITE_UI_CONST::JSON_NEW_WINDOW => SITE_UI_CONST::YES,
@@ -271,7 +271,12 @@ class SITE_UI_TCODE {
      * Calculate graphviz node id for an ABAP object.
      */
     public static function Graphviz_id(string $otype, string $id) {
-        return strtolower($otype) . '_' . GLOBAL_UTIL::SlashEscape($id);
+        return strtolower($otype) . '_' . strtolower(GLOBAL_UTIL::SlashEscape($id));
+    }
+
+    public static function Graphviz_tooltip(string $otype_desc, string $obj_name, string $obj_desc = NULL) {
+        $desc = ($obj_desc == NULL) ? '' : ' (' . $obj_desc . ')';
+        return $otype_desc . ' ' . $obj_name . $desc;
     }
 
     /**
@@ -305,7 +310,7 @@ class SITE_UI_TCODE {
                     SITE_UI_CONST::KEY_HTML_ID => $html_id,
                     //
                     SITE_UI_CONST::JSON_NAME => $abaptran['PGMNA'],
-                    SITE_UI_CONST::JSON_TILE => GLOBAL_ABAP_OTYPE::PROG_DESC . ' ' . ABAP_UI_TOOL::GetObjectDescr(GLOBAL_ABAP_OTYPE::PROG_NAME, $abaptran['PGMNA']),
+                    SITE_UI_CONST::JSON_TILE => self::Graphviz_tooltip(GLOBAL_ABAP_OTYPE::PROG_DESC, $abaptran['PGMNA'], ABAP_UI_TOOL::GetObjectDescr(GLOBAL_ABAP_OTYPE::PROG_NAME, $abaptran['PGMNA'])),
                     SITE_UI_CONST::JSON_URL => $url,
                     SITE_UI_CONST::JSON_NEW_WINDOW => SITE_UI_CONST::NO,
                     SITE_UI_CONST::JSON_ICON_URL => GLOBAL_ABAP_ICON::getIconURL(GLOBAL_ABAP_ICON::OTYPE_PROG, TRUE),
@@ -331,7 +336,7 @@ class SITE_UI_TCODE {
                     SITE_UI_CONST::KEY_HTML_ID => $html_id,
                     //
                     SITE_UI_CONST::JSON_NAME => $abaptran['CALLEDTCODE'],
-                    SITE_UI_CONST::JSON_TILE => 'Called TCode ' . ABAP_UI_TOOL::GetObjectDescr(GLOBAL_ABAP_OTYPE::TRAN_NAME, $abaptran['CALLEDTCODE']),
+                    SITE_UI_CONST::JSON_TILE => self::Graphviz_tooltip('Called TCode ', $abaptran['CALLEDTCODE'], ABAP_UI_TOOL::GetObjectDescr(GLOBAL_ABAP_OTYPE::TRAN_NAME, $abaptran['CALLEDTCODE'])),
                     SITE_UI_CONST::JSON_URL => ABAP_UI_TCODES_Navigation::TCode($abaptran['CALLEDTCODE'], TRUE),
                     SITE_UI_CONST::JSON_NEW_WINDOW => SITE_UI_CONST::NO,
                     SITE_UI_CONST::JSON_ICON_URL => GLOBAL_ABAP_ICON::getIconURL(GLOBAL_ABAP_ICON::OTYPE_TRAN, TRUE),
@@ -358,7 +363,7 @@ class SITE_UI_TCODE {
                     SITE_UI_CONST::KEY_HTML_ID => $html_id,
                     //
                     SITE_UI_CONST::JSON_NAME => $abaptran['CALLEDVIEW'],
-                    SITE_UI_CONST::JSON_TILE => 'Called View ' . ABAP_UI_TOOL::GetObjectDescr(GLOBAL_ABAP_OTYPE::VIEW_NAME, $abaptran['CALLEDVIEW']),
+                    SITE_UI_CONST::JSON_TILE => self::Graphviz_tooltip('Called View ', $abaptran['CALLEDVIEW'], ABAP_UI_TOOL::GetObjectDescr(GLOBAL_ABAP_OTYPE::VIEW_NAME, $abaptran['CALLEDVIEW'])),
                     SITE_UI_CONST::JSON_URL => $url,
                     SITE_UI_CONST::JSON_NEW_WINDOW => SITE_UI_CONST::NO,
                     SITE_UI_CONST::JSON_ICON_URL => GLOBAL_ABAP_ICON::getIconURL(GLOBAL_ABAP_ICON::OTYPE_VIEW, TRUE),
@@ -385,7 +390,7 @@ class SITE_UI_TCODE {
                     SITE_UI_CONST::KEY_HTML_ID => $html_id,
                     //
                     SITE_UI_CONST::JSON_NAME => $abaptran['CALLEDVIEWC'],
-                    SITE_UI_CONST::JSON_TILE => 'Called View Cluster ' . htmlentities($abaptran['CALLEDVIEWC']),
+                    SITE_UI_CONST::JSON_TILE => self::Graphviz_tooltip('Called View Cluster ', htmlentities($abaptran['CALLEDVIEWC'])),
                     SITE_UI_CONST::JSON_URL => $url,
                     SITE_UI_CONST::JSON_NEW_WINDOW => SITE_UI_CONST::NO,
                     SITE_UI_CONST::JSON_ICON_URL => GLOBAL_ABAP_ICON::getIconURL(GLOBAL_ABAP_ICON::OTYPE_VIEW, TRUE),
@@ -414,7 +419,7 @@ class SITE_UI_TCODE {
                     SITE_UI_CONST::KEY_HTML_ID => $html_id,
                     //
                     SITE_UI_CONST::JSON_NAME => $abaptran['PACKAGE'],
-                    SITE_UI_CONST::JSON_TILE => GLOBAL_ABAP_OTYPE::DEVC_DESC . ' ' . ABAP_UI_TOOL::GetObjectDescr(GLOBAL_ABAP_OTYPE::DEVC_NAME, $abaptran['PACKAGE']),
+                    SITE_UI_CONST::JSON_TILE => self::Graphviz_tooltip(GLOBAL_ABAP_OTYPE::DEVC_DESC, $abaptran['PACKAGE'], ABAP_UI_TOOL::GetObjectDescr(GLOBAL_ABAP_OTYPE::DEVC_NAME, $abaptran['PACKAGE'])),
                     SITE_UI_CONST::JSON_URL => $url,
                     SITE_UI_CONST::JSON_NEW_WINDOW => SITE_UI_CONST::NO,
                     SITE_UI_CONST::JSON_ICON_URL => GLOBAL_ABAP_ICON::getIconURL(GLOBAL_ABAP_ICON::OTYPE_DEVC, TRUE),
@@ -456,7 +461,7 @@ class SITE_UI_TCODE {
                     SITE_UI_CONST::KEY_HTML_ID => $html_id,
                     //
                     SITE_UI_CONST::JSON_NAME => $abaptran['PACKAGEP'],
-                    SITE_UI_CONST::JSON_TILE => 'Parant Package ' . ABAP_UI_TOOL::GetObjectDescr(GLOBAL_ABAP_OTYPE::DEVC_NAME, $abaptran['PACKAGEP']),
+                    SITE_UI_CONST::JSON_TILE => self::Graphviz_tooltip('Parant Package ', $abaptran['PACKAGEP'], ABAP_UI_TOOL::GetObjectDescr(GLOBAL_ABAP_OTYPE::DEVC_NAME, $abaptran['PACKAGEP'])),
                     SITE_UI_CONST::JSON_URL => $url,
                     SITE_UI_CONST::JSON_NEW_WINDOW => SITE_UI_CONST::NO,
                     SITE_UI_CONST::JSON_ICON_URL => GLOBAL_ABAP_ICON::getIconURL(GLOBAL_ABAP_ICON::OTYPE_DEVC, TRUE),
@@ -491,7 +496,7 @@ class SITE_UI_TCODE {
                     SITE_UI_CONST::KEY_HTML_ID => 'ana-softcomp',
                     //
                     SITE_UI_CONST::JSON_NAME => $abaptran['SOFTCOMP'],
-                    SITE_UI_CONST::JSON_TILE => GLOBAL_ABAP_OTYPE::CVERS_DESC . ' ' . ABAP_UI_TOOL::GetObjectDescr(GLOBAL_ABAP_OTYPE::CVERS_NAME, $abaptran['SOFTCOMP']),
+                    SITE_UI_CONST::JSON_TILE => self::Graphviz_tooltip(GLOBAL_ABAP_OTYPE::CVERS_DESC, $abaptran['SOFTCOMP'], ABAP_UI_TOOL::GetObjectDescr(GLOBAL_ABAP_OTYPE::CVERS_NAME, $abaptran['SOFTCOMP'])),
                     SITE_UI_CONST::JSON_URL => ABAP_UI_TCODES_Navigation::AnalyticsCompPath($abaptran['SOFTCOMP'], TRUE),
                     SITE_UI_CONST::JSON_NEW_WINDOW => SITE_UI_CONST::YES,
                     SITE_UI_CONST::JSON_ICON_URL => GLOBAL_ABAP_ICON::getIconURL(GLOBAL_ABAP_ICON::OTYPE_CVERS, TRUE),
@@ -523,7 +528,7 @@ class SITE_UI_TCODE {
                     SITE_UI_CONST::KEY_HTML_ID => 'ana-' . strtolower($column),
                     //
                     SITE_UI_CONST::JSON_NAME => $posid,
-                    SITE_UI_CONST::JSON_TILE => GLOBAL_ABAP_OTYPE::BMFR_DESC . ' ' . ABAP_DB_TABLE_HIER::DF14T($fctr),
+                    SITE_UI_CONST::JSON_TILE => self::Graphviz_tooltip(GLOBAL_ABAP_OTYPE::BMFR_DESC, $posid, ABAP_DB_TABLE_HIER::DF14T($fctr)),
                     SITE_UI_CONST::JSON_URL => ABAP_UI_TCODES_Navigation::AnalyticsModulePath($posid, TRUE),
                     SITE_UI_CONST::JSON_NEW_WINDOW => SITE_UI_CONST::YES,
                     SITE_UI_CONST::JSON_ICON_URL => GLOBAL_ABAP_ICON::getIconURL(GLOBAL_ABAP_ICON::OTYPE_BMFR, TRUE),
@@ -542,9 +547,9 @@ class SITE_UI_TCODE {
             $url = '#panel-' . $html_id;
             $data = ABAPANA_DB_TABLE::ABAPTRAN_NAMEPATTERN_LOAD($pattern);
             array_push($result, array(
-                SITE_UI_CONST::GRAPHVIZ_NODE_ID => self::Graphviz_id(ABAP_UI_TCODES_Navigation::PATH_ANALYTICS_NAME, $prefix),
+                SITE_UI_CONST::GRAPHVIZ_NODE_ID => self::Graphviz_id(ABAP_UI_TCODES_Navigation::SHEET_PARAMETER_FILTER_NAME, $prefix),
                 SITE_UI_CONST::GRAPHVIZ_SOURCE => $root_graphviz_id,
-                SITE_UI_CONST::KEY_OTYPE => ABAP_UI_TCODES_Navigation::PATH_ANALYTICS_NAME,
+                SITE_UI_CONST::KEY_OTYPE => ABAP_UI_TCODES_Navigation::SHEET_PARAMETER_FILTER_NAME,
                 SITE_UI_CONST::KEY_LABEL => 'Name Starts With',
                 SITE_UI_CONST::KEY_ABAP_OBJNAME => GLOBAL_ABAP_ICON::getIcon4NamePrefix(TRUE) . ' <a href="' . $url . '">' . $pattern . '</a>',
                 SITE_UI_CONST::KEY_ABAP_DSLINK => '',
@@ -553,7 +558,7 @@ class SITE_UI_TCODE {
                 SITE_UI_CONST::KEY_HTML_ID => $html_id,
                 //
                 SITE_UI_CONST::JSON_NAME => $pattern,
-                SITE_UI_CONST::JSON_TILE => 'Name Starts With ' . htmlentities($pattern),
+                SITE_UI_CONST::JSON_TILE => self::Graphviz_tooltip('Name Starts With ', htmlentities($pattern)),
                 SITE_UI_CONST::JSON_URL => $url,
                 SITE_UI_CONST::JSON_NEW_WINDOW => SITE_UI_CONST::NO,
                 SITE_UI_CONST::JSON_ICON_URL => GLOBAL_ABAP_ICON::getIconURL(GLOBAL_ABAP_ICON::NAMEPREFIX, TRUE),

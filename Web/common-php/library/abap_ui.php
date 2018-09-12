@@ -652,6 +652,7 @@ class ABAP_UI_TCODES_Navigation {
 
     const BOOK_PREFIX_MODULE = 'SAP-TCodes_Module_';
     const DOWNLOAD_NAME_ROW_MIN = 200;                   // Only download
+    const GRAPHVIZ_LAYOUT = 'layout';
     const PATH_ANALYTICS_COMP = '/analytics/component/';
     const PATH_ANALYTICS_MODULE = '/analytics/module/';
     const PATH_ANALYTICS_NAME = '/analytics/name/';

@@ -1,5 +1,10 @@
 #!/bin/sh
 
+# Clear the Test Folder from production
+cd /var/www/html
+sudo rm -rf test
+
+# Generate zip package
 cd /var/www
 sudo mv     html org.sap-tcodes.www
 sudo rm     *.zip

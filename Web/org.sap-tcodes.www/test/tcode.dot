@@ -1,0 +1,46 @@
+digraph "Transaction Code DSIP (DataSource InfoProvider Mapping)"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+
+  Node1   [height=0.2, width=0.4, style="filled", color="#678EB7", label="DSIP",             tooltip="Transaction Coe DSIP DataSource InfoProvider Mapping"                         fillcolor="#678EB7", shape=doubleoctagon, fontcolor="black"];
+  Node2   [height=0.2, width=0.4, style="filled", color="black",   label="UPBR",             tooltip="Parent package UPBR (SEM-BPS: Retractors SEM-BW to R/3)"                      fillcolor="#FFEB00", shape=tab,       target="_blank", URL="http://www.google.com"];
+  Node201 [height=0.2, width=0.4, style="filled", color="black",   label="UPBR_RULE",        tooltip="Transaction Coe UPBR_RULE (Planung: Übertragungsregeln)"                      fillcolor="#B9CEDF", shape=box,       target="_blank", URL="http://www.google.com"];
+  Node202 [height=0.2, width=0.4, style="filled", color="black",   label="UPBR_STRUCT",      tooltip="Transaction Coe UPBR_STRUCT (Planning: Maintenance sender struct.)"           fillcolor="#B9CEDF", shape=box,       target="_blank", URL="http://www.google.com"];
+  Node21  [height=0.2, width=0.4, style="filled", color="black",   label="RS_BCT_STRUPAK",   tooltip="Parent package RS_BCT_STRUPAK (BW Content Structure Package)"                 fillcolor="#FFEB00", shape=tab,       target="_blank", URL="http://www.google.com"];
+  Node211 [height=0.2, width=0.4, style="filled", color="black",   label="/MAP/AD01",        tooltip="Transaction Coe /MAP/AD01 (Assortment Definition)"                            fillcolor="#B9CEDF", shape=box,       target="_blank", URL="http://www.google.com"];
+  Node212 [height=0.2, width=0.4, style="filled", color="black",   label="/MAP/E_V_EVDIM",   tooltip="Transaction Coe /MAP/E_V_EVDIM (Definition of Event Dimensions)"              fillcolor="#B9CEDF", shape=box,       target="_blank", URL="http://www.google.com"];
+  Node213 [height=0.2, width=0.4, style="filled", color="black",   label="/MAP/E_V_EVENT",   tooltip="Transaction Coe /MAP/E_V_EVENT (Definition of Events)"                        fillcolor="#B9CEDF", shape=box,       target="_blank", URL="http://www.google.com"];
+  Node214 [height=0.2, width=0.4, style="filled", color="black",   label="/MAP/EM01",        tooltip="Transaction Coe  /MAP/EM01 (Edit Event Occurrence)"                           fillcolor="#B9CEDF", shape=box,       target="_blank", URL="http://www.google.com"];
+  Node215 [height=0.2, width=0.4, style="filled", color="black",   label="/MAP/FCMOD01",     tooltip="Transaction Coe /MAP/FCMOD01 (Test Forecast Model)"                           fillcolor="#B9CEDF", shape=box,       target="_blank", URL="http://www.google.com"];
+  Node216 [height=0.2, width=0.4, style="filled", color="black",   label="/MAP/FIF01",       tooltip="Transaction Coe /MAP/FIF01 (Test Value Determ. for Infl. Factor)"             fillcolor="#B9CEDF", shape=box,       target="_blank", URL="http://www.google.com"];
+  Node217 [height=0.2, width=0.4, style="filled", color="black",   label="/MAP/M_V_FIF_BPS", tooltip="Transaction Coe /MAP/M_V_FIF_BPS (Definition - IF Type BPS Key Fig.)"         fillcolor="#B9CEDF", shape=box,       target="_blank", URL="http://www.google.com"];
+  Node218 [height=0.2, width=0.4, style="filled", color="black",   label="/MAP/M_V_FIF_EV",  tooltip="Transaction Coe /MAP/M_V_FIF_EV (Definition - Infl. Factor Type Event)"       fillcolor="#B9CEDF", shape=box,       target="_blank", URL="http://www.google.com"];
+  Node3   [height=0.2, width=0.4, style="filled", color="black",   label="BW-BCT-CO-OM",     tooltip="Parent Application Component BW-BCT-CO-OM (Management of Internal Controls)"  fillcolor="#89A532", shape=component, target="_blank", URL="http://www.google.com"];
+  Node31  [height=0.2, width=0.4, style="filled", color="black",   label="BW-BCT-CO",        tooltip="Parent Application Component BW-BCT-CO (Controlling)"                         fillcolor="#89A532", shape=component, target="_blank", URL="http://www.google.com"];
+  Node32  [height=0.2, width=0.4, style="filled", color="black",   label="BW-BCT",           tooltip="Parent Application Component BW-BCT"                                          fillcolor="#89A532", shape=component, target="_blank", URL="http://www.google.com"];
+  Node33  [height=0.2, width=0.4, style="filled", color="black",   label="BW",               tooltip="Parent Application Component BW"                                              fillcolor="#89A532", shape=component, target="_blank", URL="http://www.google.com"];
+  Node4   [height=0.2, width=0.4, style="filled", color="black",   label="BI_CONT",          tooltip="Software Component BI_CONT (Business Intelligence Content)"                   fillcolor="#FCA215", shape=box3d,     target="_blank", URL="http://www.google.com"];
+
+  Node1  -> Node2   [dir="forward",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2  -> Node201 [dir="forward",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2  -> Node202 [dir="forward",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+
+  Node2  -> Node21  [dir="forward",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node21 -> Node211 [dir="forward",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node21 -> Node212 [dir="forward",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node21 -> Node213 [dir="forward",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node21 -> Node214 [dir="forward",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node21 -> Node215 [dir="forward",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node21 -> Node216 [dir="forward",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node21 -> Node217 [dir="forward",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node21 -> Node218 [dir="forward",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+
+  Node1  -> Node3   [dir="forward",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3  -> Node31  [dir="forward",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node31 -> Node32  [dir="forward",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node32 -> Node33  [dir="forward",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+
+  Node1  -> Node4   [dir="forward",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}
