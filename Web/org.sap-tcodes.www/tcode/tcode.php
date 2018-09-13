@@ -126,7 +126,7 @@ $json_ld->url = ABAP_UI_TCODES_Navigation::TCode($abaptran['TCODE'], TRUE);
 
                     <?php
                     foreach ($analytics_list as $analytics) {
-                        if (is_array($analytics[SITE_UI_CONST::KEY_ARRAY_DATA]) && $analytics[SITE_UI_CONST::JSON_NEW_WINDOW] == SITE_UI_CONST::NO) {
+                        if (is_array($analytics[ABAP_UI_TCODES_Navigation::KEY_ARRAY_DATA]) && $analytics[ABAP_UI_TCODES_Navigation::JSON_NEW_WINDOW] == ABAP_UI_TCODES_Navigation::NO) {
                             ?>
                             <div id="panel-<?php echo $analytics[SITE_UI_CONST::KEY_HTML_ID] ?>" class="panel panel-info">
                                 <div class="panel-heading">
@@ -137,7 +137,7 @@ $json_ld->url = ABAP_UI_TCODES_Navigation::TCode($abaptran['TCODE'], TRUE);
                                 <br />
                                 <?php
                                 $table_id = $analytics[SITE_UI_CONST::KEY_HTML_ID];
-                                $tcode_list = $analytics[SITE_UI_CONST::KEY_ARRAY_DATA];
+                                $tcode_list = $analytics[ABAP_UI_TCODES_Navigation::KEY_ARRAY_DATA];
                                 $tcode_count = $analytics[SITE_UI_CONST::KEY_VALUE];
                                 require $__ROOT__ . '/include/site/site_ui_tcodetable.php';
                                 ?>
@@ -261,7 +261,7 @@ $json_ld->url = ABAP_UI_TCODES_Navigation::TCode($abaptran['TCODE'], TRUE);
                                     $('[data-toggle="tooltip"]').tooltip({animation: true, delay: {show: 100, hide: 100}, html: true});
 <?php
 foreach ($analytics_list as $analytics) {
-    if (is_array($analytics[SITE_UI_CONST::KEY_ARRAY_DATA]) && $analytics[SITE_UI_CONST::KEY_VALUE] > 20) {
+    if (is_array($analytics[ABAP_UI_TCODES_Navigation::KEY_ARRAY_DATA]) && $analytics[SITE_UI_CONST::KEY_VALUE] > 20) {
         ?>
                                             $('#<?php echo $analytics[SITE_UI_CONST::KEY_HTML_ID] ?>').dataTable({
                                                 "iDisplayLength": 20

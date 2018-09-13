@@ -709,13 +709,6 @@ class GLOBAL_UTIL {
     }
 
     /**
-     * Change the un-recognized minus ('-') character as '_'.
-     */
-    public static function MinusEscape(string $name): string {
-        return str_replace('-', '_', $name);
-    }
-
-    /**
      * Change the un-recognized slash ('/') character as '_'.
      *
      * @param string $name The table name to be escaped

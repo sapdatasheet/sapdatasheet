@@ -651,7 +651,7 @@ class ABAP_UI_TABLES_Navigation {
 class ABAP_UI_TCODES_Navigation {
 
     const BOOK_PREFIX_MODULE = 'SAP-TCodes_Module_';
-    const DOWNLOAD_NAME_ROW_MIN = 200;                   // Only download
+    const DOWNLOAD_NAME_ROW_MIN = 200;                           // Only download
     const GRAPHVIZ_LAYOUT = 'layout';
     const PATH_ANALYTICS_COMP = '/analytics/component/';
     const PATH_ANALYTICS_MODULE = '/analytics/module/';
@@ -668,7 +668,18 @@ class ABAP_UI_TCODES_Navigation {
     const SHEET_PARAMETER_ID = 'id';
     const SHEET_PARAMETER_FORMAT = 'format';
     const SHEET_PREFIX = 'SAP-TCodes_';
-
+    //
+    const JSON_NAME = 'name';
+    const JSON_TILE = 'title';
+    const JSON_NEW_WINDOW = 'newwin';                // Yes / No
+    const JSON_URL = 'url';                          // https://www.sapdatasheet.org/abap/prog/name.html | #panel-ana-package
+    //        
+    const KEY_ARRAY_DATA = 'data';                   // Array Data
+    //
+    const NO = 'No';
+    const YES = 'Yes';
+    
+    
     /**
      * Create HTML Link (&lta&gt) to an software component.
      */
