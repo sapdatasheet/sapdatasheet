@@ -5,6 +5,7 @@ html {
     min-height: 100%;
 }
 body {
+    padding-top: 5rem;                 /* Margin top for Header */
     margin-bottom: 8em;                /* Margin bottom by footer height */
 }
 .navbar-static-top {

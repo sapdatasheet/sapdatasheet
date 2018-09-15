@@ -27,9 +27,6 @@ foreach ($tran_list as $tran) {
     //if ($count > 100) {
     //    break;
     //}
-    if ($count < 15000) {
-        continue;
-    }
 
     $tcode = $tran['TCODE'];
     echo PHP_EOL;

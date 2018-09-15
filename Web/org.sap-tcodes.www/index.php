@@ -24,19 +24,17 @@ $title = $search . GLOBAL_WEBSITE::SAP_TCODES_ORG_TITLE;
         <link rel="icon" href="/favicon.ico">
         <title><?php echo $title ?></title>
         <!-- Bootstrap core CSS -->
-        <link rel="stylesheet" href="/include/3rdparty/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/3rdparty/bootstrap/css/bootstrap.min.css">
         <!-- Custom styles for this template -->
         <link rel="stylesheet" href="/style.css">
     </head>
     <body>
-        <!-- Load Scripts -->
-        <script src="/include/3rdparty/d3/d3.min.js"></script>
-        <script src="d3bubblechart.js"></script>
 
         <!-- Navigation bar -->
         <?php require $__ROOT__ . '/include/site/site_ui_nav.php' ?>
 
         <div class="container-fluid">
+
             <div class="jumbotron">
                 <h1><?php echo GLOBAL_WEBSITE::SAP_TCODES_ORG_NAME ?></h1>      
                 <p><?php echo GLOBAL_WEBSITE::SAP_TCODES_ORG_DESC ?>; 
@@ -45,7 +43,7 @@ $title = $search . GLOBAL_WEBSITE::SAP_TCODES_ORG_TITLE;
             </div>
 
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col">
                     <h3><a href="/analytics/module/">TCodes Analytics by Module</a></h3>
                     <p>SAP TCodes analytics by Application Modules, examples:
                         <?php echo GLOBAL_ABAP_ICON::getIcon4OtypeBMFR(TRUE) ?> <a href="/analytics/module/fi.html" target="_blank">FI (Financial Accounting)</a>, 
@@ -57,7 +55,7 @@ $title = $search . GLOBAL_WEBSITE::SAP_TCODES_ORG_TITLE;
                         etc.
                     </p>
                 </div>
-                <div class="col-sm-4">
+                <div class="col">
                     <h3><a href="/analytics/module/">TCodes Analytics by Component</a></h3>
                     <p>SAP TCodes analytics by Software Components, examples: 
                         <?php echo GLOBAL_ABAP_ICON::getIcon4OtypeCVERS(TRUE) ?> <a href="/analytics/component/sap_appl.html" target="_blank">SAP_APPL (Logistics and Accounting)</a>, 
@@ -69,7 +67,7 @@ $title = $search . GLOBAL_WEBSITE::SAP_TCODES_ORG_TITLE;
                         etc.
                     </p>
                 </div>
-                <div class="col-sm-4">
+                <div class="col">
                     <h3><a href="/analytics/module/">TCodes Analytics by Name</a></h3>
                     <p>SAP TCodes analytics by TCode Name, examples: 
                         <?php echo GLOBAL_ABAP_ICON::getIcon4NamePrefix(TRUE) ?> <a href="/analytics/name//sapsll/.html" target="_blank">/SAPSLL/ (SAP Global Trade Services)</a>, 
@@ -82,7 +80,7 @@ $title = $search . GLOBAL_WEBSITE::SAP_TCODES_ORG_TITLE;
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col">
                     <h3><a href="/download/book/">Download SAP TCode Books</a></h3>
                     <p>Download SAP TCodes Books for each module, examples:
                         <?php echo GLOBAL_ABAP_ICON::getIcon4FilePDF(TRUE) ?>
@@ -98,7 +96,7 @@ $title = $search . GLOBAL_WEBSITE::SAP_TCODES_ORG_TITLE;
                         etc.
                     </p>
                 </div>
-                <div class="col-sm-4">
+                <div class="col">
                     <h3><a href="/download/sheet/">Download SAP TCode Sheets</a></h3>
                     <p>Download SAP TCodes Sheets for each module, examples:
                         <?php echo GLOBAL_ABAP_ICON::getIcon4FileXLSX(TRUE) ?>
@@ -114,7 +112,7 @@ $title = $search . GLOBAL_WEBSITE::SAP_TCODES_ORG_TITLE;
                         etc.
                     </p>
                 </div>
-                <div class="col-sm-4">&nbsp;</div>
+                <div class="col">&nbsp;</div>
             </div>
         </div>
 
@@ -124,8 +122,9 @@ $title = $search . GLOBAL_WEBSITE::SAP_TCODES_ORG_TITLE;
 
         <!-- Bootstrap core JavaScript -->
         <!-- Placed at the end of the document so the pages load faster -->
-        <script src="/include/3rdparty/jquery/jquery.min.js"></script>
-        <script src="/include/3rdparty/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/3rdparty/bootstrap/require/jquery.js"></script>
+        <script src="/3rdparty/bootstrap/require/popper.min.js"></script>
+        <script src="/3rdparty/bootstrap/js/bootstrap.min.js"></script>
         <script>
             $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip({animation: true, delay: {show: 100, hide: 100}, html: true});

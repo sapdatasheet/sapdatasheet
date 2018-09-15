@@ -48,7 +48,7 @@ $title = 'SAP TCodes in Module ' . $appl_posid . '(' . $appl_desc . ')';
         <link rel="icon" href="/favicon.ico">
         <title><?php echo $title . GLOBAL_WEBSITE::SAP_TCODES_ORG_TITLE ?></title>
         <!-- Bootstrap core CSS -->
-        <link rel="stylesheet" href="/include/3rdparty/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/3rdparty/bootstrap/css/bootstrap.min.css">
         <!-- Custom styles for this template -->
         <link rel="stylesheet" href="/style.css">
     </head>
@@ -192,8 +192,9 @@ $title = 'SAP TCodes in Module ' . $appl_posid . '(' . $appl_desc . ')';
 
         <!-- Bootstrap core JavaScript -->
         <!-- Placed at the end of the document so the pages load faster -->
-        <script src="/include/3rdparty/jquery/jquery.min.js"></script>
-        <script src="/include/3rdparty/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/3rdparty/bootstrap/require/jquery.js"></script>
+        <script src="/3rdparty/bootstrap/require/popper.min.js"></script>
+        <script src="/3rdparty/bootstrap/js/bootstrap.min.js"></script>
         <script src="/include/3rdparty/datatables/media/js/jquery.dataTables.min.js"></script>
         <script src="/include/3rdparty/datatables/media/js/dataTables.bootstrap.min.js"></script>
 

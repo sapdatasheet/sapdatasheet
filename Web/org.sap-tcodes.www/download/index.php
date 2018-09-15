@@ -13,9 +13,9 @@ require_once ($__ROOT__ . '/include/site/site_global.php');
         <meta name="description" content="">
         <meta name="author" content="">
         <link rel="icon" href="/favicon.ico">
-       <title><?php echo GLOBAL_WEBSITE::SAP_TCODES_ORG_NAME ?> - <?php echo GLOBAL_WEBSITE::SAP_TCODES_ORG_DESC ?></title>
-         <!-- Bootstrap core CSS -->
-        <link rel="stylesheet" href="/include/3rdparty/bootstrap/css/bootstrap.min.css">
+        <title><?php echo GLOBAL_WEBSITE::SAP_TCODES_ORG_NAME ?> - <?php echo GLOBAL_WEBSITE::SAP_TCODES_ORG_DESC ?></title>
+        <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="/3rdparty/bootstrap/css/bootstrap.min.css">
         <!-- Custom styles for this template -->
         <link rel="stylesheet" href="/style.css">
         <meta http-equiv="refresh" content="1;URL=/">
