@@ -72,7 +72,6 @@ $title = 'SAP TCodes in Component ' . $softcomp . ' (' . $softcomp_desc . ')';
                     <div class="panel panel-info">
                         <div class="panel-heading">
                             <?php echo GLOBAL_ABAP_ICON::getIcon4Analytics(TRUE) ?>&nbsp;Analytics Data Details
-                            <?php require $__ROOT__ . '/include/site/site_ui_backtotop.php'; ?>
                         </div>
                         <br>
                         <table id="chartdata_main" class="table table-hover">
@@ -106,7 +105,6 @@ $title = 'SAP TCodes in Component ' . $softcomp . ' (' . $softcomp_desc . ')';
                     <div class="panel panel-info">
                         <div class="panel-heading">
                             TCode List in Component <strong><?php echo $softcomp ?></strong>
-                            <?php require $__ROOT__ . '/include/site/site_ui_backtotop.php'; ?>
                         </div>
                         <br>
                         <?php

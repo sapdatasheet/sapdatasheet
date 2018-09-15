@@ -44,9 +44,9 @@
 </div>
     
 <?php if ($tcode_count > ABAP_DB_CONST::MAX_ROWS_LIMIT) { ?>
-    <div class="panel-footer">
+    </div>
+    <div class="card-footer">
         <strong><?php echo number_format(ABAP_DB_CONST::MAX_ROWS_LIMIT) ?></strong> of <strong><?php echo number_format($tcode_count) ?></strong> tcodes loaded.
         We did not load the full list for performance considerations. 
         <br>You may choose to download the <?php echo GLOBAL_ABAP_ICON::getIcon4FilePDF(TRUE) ?> <strong><a href="/download/book/" target="_blank">Books</a></strong> or <?php echo  GLOBAL_ABAP_ICON::getIcon4FileXLSX(TRUE)?> <strong><a href="/download/sheet/" target="_blank">Sheets</a></strong> to get the full list.
-    </div>
 <?php } ?>

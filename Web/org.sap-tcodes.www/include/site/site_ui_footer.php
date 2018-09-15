@@ -1,5 +1,5 @@
 <!-- Footer -->
-<footer class="footer">
+<footer class="footer mt-2">
     <!-- Google Adsense: bottom -->
     <div class="text-center">
         <?php include $__WS_ROOT__ . '/common-php/google/adsense-bottom.html' ?>
