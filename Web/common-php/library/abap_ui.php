@@ -661,6 +661,7 @@ class ABAP_UI_TCODES_Navigation {
     const PATH_DOWNLOAD_SHEET = '/download/sheet/';
     const PATH_DOWNLOAD_SHEET_DIST = '/download/sheet/dist/';
     const PATH_TCODE = '/tcode/';
+    const PATH_TCODE_GRAPH = '/tcode/tcode_graph.php?';
     const SHEET_PARAMETER_FILTER = 'filter';
     const SHEET_PARAMETER_FILTER_MODULE = 'module';
     const SHEET_PARAMETER_FILTER_COMPONENT = 'component';
@@ -872,6 +873,15 @@ class ABAP_UI_TCODES_Navigation {
         }
         return '<a href="' . $href . '" target="_blank" title="' . $title . '">'
                 . htmlentities($tcode) . '</a>';
+    }
+    
+    public static function TCodeGraph(string $tcode, string $layout, bool $with_domain = FALSE): string {
+    	$data = array(
+            self::SHEET_PARAMETER_ID => strtolower(GLOBAL_UTIL::Clear4Url($tcode)),
+            self::GRAPHVIZ_LAYOUT => $layout,
+        );
+    	$url = self::PATH_TCODE_GRAPH . http_build_query($data) ;
+    	return ($with_domain) ? GLOBAL_WEBSITE::SAP_TCODES_ORG_URL . $url : $url;
     }
 
 }

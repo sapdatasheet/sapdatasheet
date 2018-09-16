@@ -16,4 +16,3 @@
              title="<?php echo $tables_desc_png ?>">
     </a>
 </div>
-

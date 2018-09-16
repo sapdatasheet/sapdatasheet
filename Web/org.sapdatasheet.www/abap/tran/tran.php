@@ -6,6 +6,7 @@ require_once ($__WS_ROOT__ . '/common-php/library/global.php');
 require_once ($__WS_ROOT__ . '/common-php/library/abap_db.php');
 require_once ($__WS_ROOT__ . '/common-php/library/abap_ui.php');
 require_once ($__WS_ROOT__ . '/common-php/library/schemaorg.php');
+require_once ($__WS_ROOT__ . '/common-php/library/graphviz.php');
 GLOBAL_UTIL::UpdateSAPDescLangu();
 
 if (empty($ObjID)) {
@@ -188,6 +189,14 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::TRAN_NAME
                                     <tr><td class="sapds-gui-label"> SAP Release Created in  </td><td class="sapds-gui-field"><?php echo $hier->CRELEASE ?>&nbsp;</td><td>&nbsp;</td></tr>
                                 </tbody>
                             </table>
+                            
+                            <h5  class="pt-4"> <?php echo GLOBAL_ABAP_ICON::getIcon4ForeignKey() ?> Usage </h5>
+                            <div class="container-fluid">
+                            <object class="img-fluid" type="image/svg+xml"
+									data="<?php echo ABAP_UI_TCODES_Navigation::TCodeGraph($tstc['TCODE'], TCodeGraphviz::layout_sfdp, TRUE) ?>">
+									Your browser does not support SVG</object>
+                            </div>
+                            
                         </div> 
                     </div><!-- End Card -->
                 </main>
@@ -199,6 +208,13 @@ $json_ld->url = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::TRAN_NAME
                         <?php echo GLOBAL_ABAP_ICON::getIcon4Analytics() ?>
                         <?php echo ABAP_UI_TCODES_Navigation::TCodeHyperlink($tstc['TCODE'], TRUE) ?>
                         <sup><img src="<?php echo ABAP_UI_CONST::ICON_EXTERNAL_LINK ?>"></sup>
+                        
+                        <a href="<?php echo ABAP_UI_TCODES_Navigation::TCode($tstc['TCODE'], TRUE) ?>" target="_blank">
+                        <img class="img-fluid img-thumbnail mx-auto d-block"
+                             src="<?php echo ABAP_UI_TCODES_Navigation::TCodeGraph($tstc['TCODE'], TCodeGraphviz::layout_dot, TRUE) ?>"
+                             alt="<?php echo $tstc_desc ?>"
+                             title="<?php echo $tstc_desc ?>">
+                        </a>
                     </div>
 
                     <?php require $__ROOT__ . '/include/abap_relatedlinks.php' ?>

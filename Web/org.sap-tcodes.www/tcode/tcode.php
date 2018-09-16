@@ -102,21 +102,23 @@ $json_ld->url = ABAP_UI_TCODES_Navigation::TCode ( $abaptran ['TCODE'], TRUE );
 					<div class="card-body">
 						<!-- Nav tabs -->
 						<ul class="nav nav-tabs">
-							<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#graph-sfdp">Network Layout</a></li>
-							<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#graph-dot">Tree Layout</a></li>
+							<li class="nav-item"><a class="nav-link active" data-toggle="tab"
+								href="#graph-sfdp">Network Layout</a></li>
+							<li class="nav-item"><a class="nav-link" data-toggle="tab"
+								href="#graph-dot">Tree Layout</a></li>
 						</ul>
 
 						<!-- Tab panes -->
 						<div class="tab-content">
 							<div class="tab-pane container active" id="graph-sfdp">
 								<object class="img-fluid" type="image/svg+xml"
-									data="/tcode/tcode_graph.php?id=SE11&layout=sfdp">Your browser
-									does not support SVG</object>
+									data="<?php echo ABAP_UI_TCODES_Navigation::TCodeGraph($abaptran['TCODE'], TCodeGraphviz::layout_sfdp) ?>">
+									Your browser does not support SVG</object>
 							</div>
 							<div class="tab-pane container fade" id="graph-dot">
 								<object class="img-fluid" type="image/svg+xml"
-									data="/tcode/tcode_graph.php?id=SE11&layout=dot">Your browser
-									does not support SVG</object>
+									data="<?php echo ABAP_UI_TCODES_Navigation::TCodeGraph($abaptran['TCODE'], TCodeGraphviz::layout_dot) ?>">
+									Your browser does not support SVG</object>
 							</div>
 						</div>
 					</div>
