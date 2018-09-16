@@ -575,7 +575,7 @@ class SITE_UI_TCODE {
 
         // Software Component
         $title = ABAP_DB_TABLE_HIER::CVERS_REF($abaptran['SOFTCOMP'])
-                . '<br /> (' . GLOBAL_ABAP_OTYPE::CVERS_DESC . ')';
+                . '&#10; (' . GLOBAL_ABAP_OTYPE::CVERS_DESC . ')';
         $link = ABAP_UI_TCODES_Navigation::AnalyticsCompPath($abaptran['SOFTCOMP']);
         array_push($result, array(
             SITE_UI_CONST::KEY_CSS_CLASS => '',
@@ -636,7 +636,7 @@ class SITE_UI_TCODE {
     public static function LoadBreadcrumbs4AppComp(&$result, $fctr, $posid, $active) {
         if (GLOBAL_UTIL::IsNotEmpty($fctr)) {
             $link = ABAP_UI_DS_Navigation::GetObjectURL(GLOBAL_ABAP_OTYPE::BMFR_NAME, $fctr);
-            $title = ABAP_DB_TABLE_HIER::DF14T($fctr) . '<br /> (' . GLOBAL_ABAP_OTYPE::BMFR_DESC . ')';
+            $title = ABAP_DB_TABLE_HIER::DF14T($fctr) . '&#10; (' . GLOBAL_ABAP_OTYPE::BMFR_DESC . ')';
             array_push($result, array(
                 SITE_UI_CONST::KEY_CSS_CLASS => ($active == TRUE) ? SITE_UI_CONST::CSS_CLASS_ACTIVE : '',
                 SITE_UI_CONST::KEY_ICON_LINK => GLOBAL_ABAP_ICON::getIcon4OtypeBMFR(TRUE),
@@ -667,7 +667,6 @@ class SITE_UI_TCODE {
      */
     public static function LoadRelatedTCodes($abaptran) {
         $result = array();
-
 
         return $result;
     }

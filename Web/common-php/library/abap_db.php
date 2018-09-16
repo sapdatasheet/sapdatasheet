@@ -2409,7 +2409,7 @@ class ABAP_DB_TABLE_PROG {
      * Program name        : SAPL[FG]   [NameSpace]SAPLEMO
      * </pre>
      *
-     * @param $fugr Function Group name
+     * @param $fugr string Function Group name
      */
     public static function GET_PROG_FUGR($fugr) {
         $pos1 = strpos($fugr, "/");

@@ -58,20 +58,20 @@ $title = $search . GLOBAL_WEBSITE::SAP_TCODES_ORG_TITLE;
 				<div class="card mt-2">
 					<div class="card-header bg-info"><?php echo GLOBAL_ABAP_ICON::getIcon4Analytics(TRUE) ?>&nbsp;Analytics Chart</div>
 					<div class="d3chartarea_main">
-					<script>
+						<script>
                         var chartWidth = (window.innerWidth || document.body.clientWidth) * 8 / 12;
                         // var chartWidth = window.screen.width * 8 / 12;
                         chartWidth = (chartWidth > 700) ? 700 : chartWidth;
                         drawBubbleChart("/analytics/module/json_module.php", chartWidth);
                     </script>
-				</div>
+					</div>
 				</div>
 
 				<div class="card mt-4">
 					<div class="card-header bg-info"><?php echo GLOBAL_ABAP_ICON::getIcon4Analytics(TRUE) ?>&nbsp;Analytics Data Details</div>
 					<div class="card-body">
 
-						<table id="chartdata_main" class="table table-hover table-striped">
+						<table id="chartdata_main" class="table table-hover">
 							<thead>
 								<tr>
 									<th><div class="row">

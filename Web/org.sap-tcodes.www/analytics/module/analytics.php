@@ -88,8 +88,7 @@ $title = 'SAP TCodes in Module ' . $appl_posid . '(' . $appl_desc . ')';
 																	$modulel2_count = count ( $modulel2_list );
 																	?>
                 <div class="card mt-2">
-					<div class="card-header bg-info"><?php echo GLOBAL_ABAP_ICON::getIcon4Analytics(TRUE) ?>&nbsp;Sub-Modules in <strong><?php echo $appl_posid ?></strong>
-					</div>
+					<div class="card-header bg-info"><?php echo GLOBAL_ABAP_ICON::getIcon4Analytics(TRUE) ?>&nbsp;Sub-Modules in <strong><?php echo $appl_posid ?></strong></div>
 					<div id="d3pie_main"></div>
 					<script>
                                 var chartWidth = (window.innerWidth || document.body.clientWidth) * 8 / 12;

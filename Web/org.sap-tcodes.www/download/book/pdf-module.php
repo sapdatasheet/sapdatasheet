@@ -6,7 +6,7 @@ require_once ($__WS_ROOT__ . '/common-php/library/global.php');
 require_once ($__WS_ROOT__ . '/common-php/library/abap_db.php');
 require_once ($__WS_ROOT__ . '/common-php/library/abap_ui.php');
 require_once ($__ROOT__ . '/include/site/site_ui.php');
-require_once ($__ROOT__ . '/include/3rdparty/tcpdf/tcpdf_import.php');
+require_once ($__ROOT__ . '/3rdparty/tcpdf/tcpdf_import.php');
 
 // References
 //
