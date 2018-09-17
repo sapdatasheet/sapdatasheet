@@ -29,7 +29,7 @@
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="/download/sheet/" data-toggle="tooltip" data-placement="bottom" title="SAP TCode Sheets Download">
-                    <img src='/include/icon/s_x__xlv.gif'>TCode Sheets</a>
+                    <img src='/include/icon/s_x__xlv.gif'>TCode Excels</a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0" method="get" action="https://www.google.com/search" target="_blank">

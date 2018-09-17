@@ -111,11 +111,9 @@ $title = $search . GLOBAL_WEBSITE::SAP_TCODES_ORG_TITLE;
 
 			<!-- Site Panel: Begin -->
 			<div class="col-sm-3">
-
 				<!-- TCodes by Each Module -->
-                    <?php require $__ROOT__ . '/include/site/site_ui_side_module.php' ?>
-
-                </div>
+                <?php require $__ROOT__ . '/include/site/site_ui_side_module.php' ?>
+            </div>
 			<!-- Site Panel: End -->
 		</div>
 		<!-- Row: End -->
@@ -123,14 +121,13 @@ $title = $search . GLOBAL_WEBSITE::SAP_TCODES_ORG_TITLE;
 	<!-- Container:End -->
 
 	<!-- Footer -->
-        <?php require $__ROOT__ . '/include/site/site_ui_footer.php' ?>
+    <?php require $__ROOT__ . '/include/site/site_ui_footer.php' ?>
 
-        <!-- Bootstrap core JavaScript -->
+    <!-- Bootstrap core JavaScript -->
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="/3rdparty/bootstrap/require/jquery.js"></script>
 	<script src="/3rdparty/bootstrap/require/popper.min.js"></script>
 	<script src="/3rdparty/bootstrap/js/bootstrap.min.js"></script>
-	<!-- Data Tables -->
 	<!-- Data Tables -->
 	<script src="/3rdparty/datatables/js/jquery.dataTables.min.js"></script>
 	<script src="/3rdparty/datatables/js/dataTables.bootstrap4.min.js"></script>

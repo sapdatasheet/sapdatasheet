@@ -41,7 +41,7 @@ $title = $search . GLOBAL_WEBSITE::SAP_TCODES_ORG_TITLE;
 	<!-- Navigation bar -->
         <?php require $__ROOT__ . '/include/site/site_ui_nav.php' ?>
 
-        <!-- Container: Start -->
+    <!-- Container: Start -->
 	<div class="container-fluid">
 		<!-- Row: Start, Row with two columns divided in 3:1 ratio-->
 		<div class="row">
@@ -103,7 +103,6 @@ $title = $search . GLOBAL_WEBSITE::SAP_TCODES_ORG_TITLE;
 
 					</div>
 				</div>
-
 			</div>
 			<!-- Main Content: End -->
 

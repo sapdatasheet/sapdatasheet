@@ -69,7 +69,6 @@ $search = 'SAP TCode ' . $prefix;
                         <?php $table_id = 'data_main'; require $__ROOT__ . '/include/site/site_ui_tcodetable.php'; ?>
                     </div>
 				</div>
-
 			</div>
 			<!-- Main Content: End -->
 
@@ -86,9 +85,9 @@ $search = 'SAP TCode ' . $prefix;
 
 
 	<!-- Footer -->
-        <?php require $__ROOT__ . '/include/site/site_ui_footer.php'; ?>
+    <?php require $__ROOT__ . '/include/site/site_ui_footer.php'; ?>
 
-        <!-- Bootstrap core JavaScript -->
+    <!-- Bootstrap core JavaScript -->
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="/3rdparty/bootstrap/require/jquery.js"></script>
 	<script src="/3rdparty/bootstrap/require/popper.min.js"></script>
@@ -96,7 +95,6 @@ $search = 'SAP TCode ' . $prefix;
 	<!-- Data Tables -->
 	<script src="/3rdparty/datatables/js/jquery.dataTables.min.js"></script>
 	<script src="/3rdparty/datatables/js/dataTables.bootstrap4.min.js"></script>
-
 	<script>
             $(document).ready(function () {
                 $('#data_main').dataTable({

@@ -46,9 +46,9 @@ $title = 'SAP TCodes in Component ' . $softcomp . ' (' . $softcomp_desc . ')';
 	<script src="/include/js/d3bubblechart.js"></script>
 
 	<!-- Navigation bar -->
-        <?php require $__ROOT__ . '/include/site/site_ui_nav.php' ?>
+    <?php require $__ROOT__ . '/include/site/site_ui_nav.php' ?>
 
-        <!-- Container: Start -->
+    <!-- Container: Start -->
 	<div class="container-fluid">
 		<!-- Row: Start, Row with two columns divided in 3:1 ratio-->
 		<div class="row">
@@ -129,28 +129,24 @@ $title = 'SAP TCodes in Component ' . $softcomp . ' (' . $softcomp_desc . ')';
 																								?>
                     </div>
 				</div>
-
 			</div>
 			<!-- Main Content: End -->
 
 			<!-- Site Panel: Begin -->
 			<div class="col-sm-3">
-
 				<!-- TCodes by Each Module -->
                     <?php require $__ROOT__ . '/include/site/site_ui_side_module.php'; ?>
-
-                </div>
+            </div>
 			<!-- Site Panel: End -->
 		</div>
 		<!-- Row: End -->
 	</div>
 	<!-- Container:End -->
 
-
 	<!-- Footer -->
-        <?php require $__ROOT__ . '/include/site/site_ui_footer.php'; ?>
+    <?php require $__ROOT__ . '/include/site/site_ui_footer.php'; ?>
 
-        <!-- Bootstrap core JavaScript -->
+    <!-- Bootstrap core JavaScript -->
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="/3rdparty/bootstrap/require/jquery.js"></script>
 	<script src="/3rdparty/bootstrap/require/popper.min.js"></script>
@@ -158,7 +154,6 @@ $title = 'SAP TCodes in Component ' . $softcomp . ' (' . $softcomp_desc . ')';
 	<!-- Data Tables -->
 	<script src="/3rdparty/datatables/js/jquery.dataTables.min.js"></script>
 	<script src="/3rdparty/datatables/js/dataTables.bootstrap4.min.js"></script>
-
 	<script>
         $(document).ready(function () {
             $('#chartdata_main').dataTable({

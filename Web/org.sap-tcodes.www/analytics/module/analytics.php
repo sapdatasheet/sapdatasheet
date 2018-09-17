@@ -167,8 +167,6 @@ $title = 'SAP TCodes in Module ' . $appl_posid . '(' . $appl_desc . ')';
 					</div>
 					<!-- End card-body -->
 				</div>
-
-
                     <?php } // End ($level == 1) ?>
 
                 <div class="card mt-4">
@@ -194,9 +192,9 @@ $title = 'SAP TCodes in Module ' . $appl_posid . '(' . $appl_desc . ')';
 
 
 	<!-- Footer -->
-        <?php require $__ROOT__ . '/include/site/site_ui_footer.php' ?>
+    <?php require $__ROOT__ . '/include/site/site_ui_footer.php' ?>
 
-        <!-- Bootstrap core JavaScript -->
+    <!-- Bootstrap core JavaScript -->
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="/3rdparty/bootstrap/require/jquery.js"></script>
 	<script src="/3rdparty/bootstrap/require/popper.min.js"></script>
@@ -204,7 +202,6 @@ $title = 'SAP TCodes in Module ' . $appl_posid . '(' . $appl_desc . ')';
 	<!-- Data Tables -->
 	<script src="/3rdparty/datatables/js/jquery.dataTables.min.js"></script>
 	<script src="/3rdparty/datatables/js/dataTables.bootstrap4.min.js"></script>
-
 	<script>
         $(document).ready(function () {
             $('#data_main').dataTable({

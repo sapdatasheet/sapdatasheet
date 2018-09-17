@@ -109,20 +109,19 @@ $title = $search . GLOBAL_WEBSITE::SAP_TCODES_ORG_TITLE;
 	</div>
 
 
-
 	<!-- Footer -->
-        <?php require $__ROOT__ . '/include/site/site_ui_footer.php' ?>
+    <?php require $__ROOT__ . '/include/site/site_ui_footer.php' ?>
 
-        <!-- Bootstrap core JavaScript -->
+    <!-- Bootstrap core JavaScript -->
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="/3rdparty/bootstrap/require/jquery.js"></script>
 	<script src="/3rdparty/bootstrap/require/popper.min.js"></script>
 	<script src="/3rdparty/bootstrap/js/bootstrap.min.js"></script>
 	<script>
-            $(document).ready(function () {
-                $('[data-toggle="tooltip"]').tooltip({animation: true, delay: {show: 100, hide: 100}, html: true});
-            });
-        </script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip({animation: true, delay: {show: 100, hide: 100}, html: true});
+        });
+    </script>
 
 </body>
 </html>

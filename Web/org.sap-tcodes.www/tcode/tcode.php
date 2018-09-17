@@ -210,8 +210,7 @@ $json_ld->url = ABAP_UI_TCODES_Navigation::TCode ( $abaptran ['TCODE'], TRUE );
 					<!-- end card-body -->
 				</div>
                     <?php } ?>
-
-                </div>
+            </div>
 			<!-- Main Content: End -->
 
 			<!-- Site Panel: Begin -->
@@ -286,9 +285,9 @@ $json_ld->url = ABAP_UI_TCODES_Navigation::TCode ( $abaptran ['TCODE'], TRUE );
 	<!-- Container:End -->
 
 	<!-- Footer -->
-        <?php require $__ROOT__ . '/include/site/site_ui_footer.php' ?>
+    <?php require $__ROOT__ . '/include/site/site_ui_footer.php' ?>
 
-        <!-- Bootstrap core JavaScript -->
+    <!-- Bootstrap core JavaScript -->
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="/3rdparty/bootstrap/require/jquery.js"></script>
 	<script src="/3rdparty/bootstrap/require/popper.min.js"></script>
