@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 ./step1_deploy.sh
 ./step2_generate-book.sh

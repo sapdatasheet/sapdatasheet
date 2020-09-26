@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 sudo rm    -rf  /var/www/common-php
 sudo mkdir -p   /var/www/common-php

@@ -1,5 +1,4 @@
-#!/bin/sh
-
+#!/bin/bash
 #
 # Test the Graphviz for each TCode.
 #

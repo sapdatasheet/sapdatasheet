@@ -867,18 +867,18 @@ class ABAP_DB_TABLE {
      */
     public static function descr(string $sql, $paras) : string {
         $record = current(ABAP_DB_TABLE::select($sql, $paras));
-        $text = $record[ABAP_DB_CONST::COLUMN_V_DESCR];
+        $text = is_array($record) ? $record[ABAP_DB_CONST::COLUMN_V_DESCR] : '';
         // If we cannot find the text in logon language, then use English
         if (empty($text)) {
             $paras['lg'] = ABAP_DB_CONST::LANGU_EN;
             $record = current(ABAP_DB_TABLE::select($sql, $paras));
-            $text = $record[ABAP_DB_CONST::COLUMN_V_DESCR];
+            $text = is_array($record) ? $record[ABAP_DB_CONST::COLUMN_V_DESCR] : '';
         }
         // If we cannot find the text in English, then use Germany
         if (empty($text)) {
             $paras['lg'] = ABAP_DB_CONST::LANGU_DE;
             $record = current(ABAP_DB_TABLE::select($sql, $paras));
-            $text = $record[ABAP_DB_CONST::COLUMN_V_DESCR];
+            $text = is_array($record) ? $record[ABAP_DB_CONST::COLUMN_V_DESCR] : '';
         }
 
         // If we cannot find the text, say the database do not has the record - example: DD02T/(TABNAME='CI_EEW_BUT000')

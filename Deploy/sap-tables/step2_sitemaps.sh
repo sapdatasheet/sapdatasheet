@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Clear existing sitemap
 sudo rm /var/www/html/sitemap/*.xml
