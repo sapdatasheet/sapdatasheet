@@ -6,7 +6,7 @@ require_once ($__WS_ROOT__ . '/common-php/library/global.php');
 require_once ($__WS_ROOT__ . '/common-php/library/abap_db.php');
 require_once ($__WS_ROOT__ . '/common-php/library/abap_ui.php');
 require_once ($__ROOT__ . '/include/site/site_ui.php');
-require_once ($__ROOT__ . '/3rdparty/tcpdf/tcpdf_import.php');
+require_once ('tcpdf/tcpdf_import.php');
 
 // References
 //
@@ -45,7 +45,7 @@ class MYPDF extends TCPDF {
         }
 
         $this->SetFillColor(255, 128, 0);
-        $h = MYPDF::ROW_HEIGHT;
+        $h = self::ROW_HEIGHT;
         for ($i = 0; $i < count($this->tableHeaders); $i++) {
             $w = $this->tableWidths[$i];
             $a = isset($this->tableAligns[$i]) ? $this->tableAligns[$i] : 'L';
