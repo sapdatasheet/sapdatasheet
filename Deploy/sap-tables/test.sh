@@ -8,4 +8,4 @@ rm *.png
 php test.php
 
 echo "Test finished"
-sleep 1
+

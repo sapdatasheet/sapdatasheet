@@ -6,6 +6,6 @@ class ABAP_DB_CONFIG {
     const schema_abap = 'abap';
     const schema_abapana = 'abapanalytics';
     const user = 'abapread';
-    const pass = 'QWERTYUI87654321';
+    const pass = '123456';
     
 }

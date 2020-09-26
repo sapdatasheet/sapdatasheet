@@ -9,3 +9,4 @@ sudo php abap.php
 
 cd /var/www/html/sitemap/
 sudo rm *.php
+
