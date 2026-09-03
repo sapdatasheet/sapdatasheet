@@ -13,22 +13,22 @@ if ($fb_requri === '/wp/wp-admin/' || $fb_requri === '/wp-admin/' || $fb_requri 
     $fb_target = $__WS_ROOT__ . '/common-php/library/page404.php';
 
 // - /analytics/component/...
-} else if (GLOBAL_UTIL::StartsWith($fb_requri, ABAP_UI_TCODES_Navigation::PATH_ANALYTICS_COMP) && GLOBAL_UTIL::EndsWith($fb_requri, '.html')) {
+} else if (str_starts_with($fb_requri, ABAP_UI_TCODES_Navigation::PATH_ANALYTICS_COMP) && str_ends_with($fb_requri, '.html')) {
     $fb_ObjID = substr($fb_requri, strlen(ABAP_UI_TCODES_Navigation::PATH_ANALYTICS_COMP), -5);
     $fb_target = substr(ABAP_UI_TCODES_Navigation::PATH_ANALYTICS_COMP, 1) . 'analytics.php';
 
 // - /analytics/module/...
-} else if (GLOBAL_UTIL::StartsWith($fb_requri, ABAP_UI_TCODES_Navigation::PATH_ANALYTICS_MODULE) && GLOBAL_UTIL::EndsWith($fb_requri, '.html')) {
+} else if (str_starts_with($fb_requri, ABAP_UI_TCODES_Navigation::PATH_ANALYTICS_MODULE) && str_ends_with($fb_requri, '.html')) {
     $fb_ObjID = substr($fb_requri, strlen(ABAP_UI_TCODES_Navigation::PATH_ANALYTICS_MODULE), -5);
     $fb_target = substr(ABAP_UI_TCODES_Navigation::PATH_ANALYTICS_MODULE, 1) . 'analytics.php';
 
 // - /analytics/name/...
-} else if (GLOBAL_UTIL::StartsWith($fb_requri, ABAP_UI_TCODES_Navigation::PATH_ANALYTICS_NAME) && GLOBAL_UTIL::EndsWith($fb_requri, '.html')) {
+} else if (str_starts_with($fb_requri, ABAP_UI_TCODES_Navigation::PATH_ANALYTICS_NAME) && str_ends_with($fb_requri, '.html')) {
     $fb_ObjID = substr($fb_requri, strlen(ABAP_UI_TCODES_Navigation::PATH_ANALYTICS_NAME), -5);
     $fb_target = substr(ABAP_UI_TCODES_Navigation::PATH_ANALYTICS_NAME, 1) . 'analytics.php';
 
 // - /tcode/...
-} else if (GLOBAL_UTIL::StartsWith($fb_requri, ABAP_UI_TCODES_Navigation::PATH_TCODE) && GLOBAL_UTIL::EndsWith($fb_requri, '.html')) {
+} else if (str_starts_with($fb_requri, ABAP_UI_TCODES_Navigation::PATH_TCODE) && str_ends_with($fb_requri, '.html')) {
     $fb_ObjID = substr($fb_requri, strlen(ABAP_UI_TCODES_Navigation::PATH_TCODE), -5);
     $fb_target = substr(ABAP_UI_TCODES_Navigation::PATH_TCODE, 1) . 'tcode.php';
 }

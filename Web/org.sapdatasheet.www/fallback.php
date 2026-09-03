@@ -61,7 +61,7 @@ if ($requri === '/wp/wp-admin/' || $requri === '/wp-admin/' || $requri === '/tes
 //   http://localhost/abap/
 //   http://localhost/abap/cvers/
 //   http://localhost/abap/prog/
-} else if (GLOBAL_UTIL::StartsWith($requri, '/') && GLOBAL_UTIL::EndsWith($requri, '/')) {
+} else if (str_starts_with($requri, '/') && str_ends_with($requri, '/')) {
     $target = substr($requri, 1) . 'index.php';
 
 // - TABL - Tables (Transparent, Cluster, Pool)
@@ -78,7 +78,7 @@ if ($requri === '/wp/wp-admin/' || $requri === '/wp-admin/' || $requri === '/tes
 //   http://localhost/abap/tabl/tabl.php?id=bkpf
 } else if ($requri === '/abap/tabl/index.html') {
     $target = 'abap/tabl/index.php';
-} else if (GLOBAL_UTIL::StartsWith($requri, '/abap/tabl/index-') && GLOBAL_UTIL::EndsWith($requri, '.html')) {
+} else if (str_starts_with($requri, '/abap/tabl/index-') && str_ends_with($requri, '.html')) {
     $index_fname = substr($requri, 17, -5);
 
     // Copied from bellow - TODO Create a function/module for this
@@ -92,7 +92,7 @@ if ($requri === '/wp/wp-admin/' || $requri === '/wp-admin/' || $requri === '/tes
     }
 
     $target = 'abap/tabl/index.php';
-} else if (GLOBAL_UTIL::StartsWith($requri, '/abap/tabl/') && GLOBAL_UTIL::EndsWith($requri, '.html')) {
+} else if (str_starts_with($requri, '/abap/tabl/') && str_ends_with($requri, '.html')) {
     $TablURI = substr($requri, 11, -5);
     if (strpos($TablURI, '-') !== false) {
         list($Table, $FldPos) = explode('-', $TablURI, 2);
@@ -114,7 +114,7 @@ if ($requri === '/wp/wp-admin/' || $requri === '/wp-admin/' || $requri === '/tes
 //   http://localhost/abap/msag/a3-012.html
 } else if ($requri === '/abap/msag/index.html') {
     $target = 'abap/msag/index.php';
-} else if (GLOBAL_UTIL::StartsWith($requri, '/abap/msag/index-') && GLOBAL_UTIL::EndsWith($requri, '.html')) {
+} else if (str_starts_with($requri, '/abap/msag/index-') && str_ends_with($requri, '.html')) {
     $index_fname = substr($requri, 17, -5);
 
     // Copied from bellow - TODO merge the logic for msag/tabl to the central table
@@ -128,9 +128,9 @@ if ($requri === '/wp/wp-admin/' || $requri === '/wp-admin/' || $requri === '/tes
     }
     
     $target = 'abap/msag/index.php';
-} else if (GLOBAL_UTIL::StartsWith($requri, '/abap/msag/') && GLOBAL_UTIL::EndsWith($requri, '.html')) {
+} else if (str_starts_with($requri, '/abap/msag/') && str_ends_with($requri, '.html')) {
     $MsagURI = substr($requri, 11, -5);
-    if (GLOBAL_UTIL::EndsWith($MsagURI, '-')) {
+    if (str_ends_with($MsagURI, '-')) {
         // In case the message class name ends with '-'. Example: 'C-'
         $ObjID = $MsagURI;
         $target = 'abap/msag/msag.php';
@@ -145,12 +145,12 @@ if ($requri === '/wp/wp-admin/' || $requri === '/wp-admin/' || $requri === '/tes
         $ObjID = $MsagURI;
         $target = 'abap/msag/msag.php';
     }
-} else if (GLOBAL_UTIL::StartsWith($requri, '/abap/')) {
+} else if (str_starts_with($requri, '/abap/')) {
     foreach ($abap_uris as $abap_uri) {
         if ($requri === $abap_uri[1]) {
             $target = 'abap/' . $abap_uri[0] . '/index.php';
             break;
-        } else if (GLOBAL_UTIL::StartsWith($requri, $abap_uri[2]) && GLOBAL_UTIL::EndsWith($requri, '.html')) {
+        } else if (str_starts_with($requri, $abap_uri[2]) && str_ends_with($requri, '.html')) {
             $index_fname = substr($requri, strlen($abap_uri[2]), -5);
 
             $index_parts = explode('-', $index_fname);
@@ -164,7 +164,7 @@ if ($requri === '/wp/wp-admin/' || $requri === '/wp-admin/' || $requri === '/tes
 
             $target = 'abap/' . $abap_uri[0] . '/index.php';
             break;
-        } else if (GLOBAL_UTIL::StartsWith($requri, $abap_uri[3]) && GLOBAL_UTIL::EndsWith($requri, '.html')) {
+        } else if (str_starts_with($requri, $abap_uri[3]) && str_ends_with($requri, '.html')) {
             $ObjID = substr($requri, strlen($abap_uri[3]), -5);
             $target = 'abap/' . $abap_uri[0] . '/' . $abap_uri[0] . '.php';
             break;
@@ -173,10 +173,10 @@ if ($requri === '/wp/wp-admin/' || $requri === '/wp-admin/' || $requri === '/tes
 } else if ($requri === '/wul/abap/') {
     $index = 1;
     $target = 'wul/abap/index.php';
-} else if (GLOBAL_UTIL::StartsWith($requri, '/wul/abap/index-') && GLOBAL_UTIL::EndsWith($requri, '.html')) {
+} else if (str_starts_with($requri, '/wul/abap/index-') && str_ends_with($requri, '.html')) {
     $index = substr($requri, 16, -5);
     $target = 'wul/abap/index.php';
-} else if (GLOBAL_UTIL::StartsWith($requri, '/wul/abap/') && GLOBAL_UTIL::EndsWith($requri, '.html')) {
+} else if (str_starts_with($requri, '/wul/abap/') && str_ends_with($requri, '.html')) {
 //                                           1234567890                                      12345
 //
 //  - Example URI
@@ -256,10 +256,10 @@ if ($requri === '/wp/wp-admin/' || $requri === '/wp-admin/' || $requri === '/tes
 } else if ($requri === '/wil/abap/') {
     $index = 1;
     $target = 'wil/abap/index.php';
-} else if (GLOBAL_UTIL::StartsWith($requri, '/wil/abap/index-') && GLOBAL_UTIL::EndsWith($requri, '.html')) {
+} else if (str_starts_with($requri, '/wil/abap/index-') && str_ends_with($requri, '.html')) {
     $index = substr($requri, 16, -5);
     $target = 'wil/abap/index.php';
-} else if (GLOBAL_UTIL::StartsWith($requri, '/wil/abap/') && GLOBAL_UTIL::EndsWith($requri, '.html')) {
+} else if (str_starts_with($requri, '/wil/abap/') && str_ends_with($requri, '.html')) {
 //                                           1234567890                                      12345
 //
 //  - Example URI
@@ -337,7 +337,7 @@ if (empty($ObjID) === FALSE) {
 $target_valid = FALSE;
 if (isset($target) && GLOBAL_UTIL::IsNotEmpty($target)) {
     // Avoid Hacking URI
-    if ($target == 'index.php' || GLOBAL_UTIL::StartsWith($target, 'abap') || GLOBAL_UTIL::StartsWith($target, 'wil') || GLOBAL_UTIL::StartsWith($target, 'wul')) {
+    if ($target == 'index.php' || str_starts_with($target, 'abap') || str_starts_with($target, 'wil') || str_starts_with($target, 'wul')) {
         $target_valid = TRUE;
     }
 }

@@ -28,11 +28,11 @@ const TABLE_URI = array(
 );
 
 
-if (GLOBAL_UTIL::StartsWith($fb_requri, ABAP_UI_TABLES_Navigation::URI_PREFIX_TABLE)) {
+if (str_starts_with($fb_requri, ABAP_UI_TABLES_Navigation::URI_PREFIX_TABLE)) {
     $rest = substr($fb_requri, strlen(ABAP_UI_TABLES_Navigation::URI_PREFIX_TABLE));
     
     foreach (TABLE_URI as $row) {
-        if (GLOBAL_UTIL::EndsWith($rest, $row[0])) {
+        if (str_ends_with($rest, $row[0])) {
             if ($row[0] == ABAP_UI_TABLES_Navigation::URI_SUFFIX_HTML) {
                 $table_name = substr($rest, 0, $row[1]);
             } else {

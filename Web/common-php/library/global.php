@@ -697,18 +697,6 @@ class GLOBAL_UTIL {
     }
 
     /**
-     * @link http://stackoverflow.com/questions/834303/startswith-and-endswith-functions-in-php/834355#834355
-     */
-    public static function EndsWith(string $haystack, string $needle): bool {
-        $length = strlen($needle);
-        if ($length == 0) {
-            return true;
-        }
-
-        return (substr($haystack, -$length) === $needle);
-    }
-
-    /**
      * Change the un-recognized slash ('/') character as '_'.
      *
      * @param string $name The table name to be escaped
@@ -755,14 +743,6 @@ class GLOBAL_UTIL {
         } else {
             return FALSE;
         }
-    }
-
-    /**
-     * @link http://stackoverflow.com/questions/834303/startswith-and-endswith-functions-in-php/834355#834355
-     */
-    public static function StartsWith($haystack, $needle) {
-        $length = strlen($needle);
-        return (substr($haystack, 0, $length) === $needle);
     }
 
     /**
