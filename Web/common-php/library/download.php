@@ -27,9 +27,9 @@ class DOWNLOAD {
         }
 
         $fp = fopen('php://memory', 'w');
-        fputcsv($fp, array_keys($result[0]));        // output header row (if at least one row exists)
+        fputcsv($fp, array_keys($result[0]), ',', '"', '\\'); // output header row (if at least one row exists)
         foreach ($result as $row) {
-            fputcsv($fp, $row);                      // output each row
+            fputcsv($fp, $row, ',', '"', '\\');    // output each row
         }
 
         rewind($fp);
