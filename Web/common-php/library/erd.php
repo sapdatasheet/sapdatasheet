@@ -53,7 +53,7 @@ class ERD {
      * 
      * @param string $abap_card ABAP DDIC cardinality value, it could be NULL.
      */
-    private function card2cardinality(string $abap_card = NULL) {
+    private function card2cardinality(?string $abap_card = NULL) {
         switch ($abap_card) {
             case ABAP_DB_CONST::DOMAINVALUE_CARD_CN:
                 $result = ERD_Keyword::cardinality_0_or_more;

@@ -773,6 +773,13 @@ class ABAP_DB_TABLE {
     private static $conn_abap = null;
     private static $conn_abapana = null;
 
+    private static function mysql_connection_options(): array {
+        return array(
+            Pdo\Mysql::ATTR_INIT_COMMAND => 'SET NAMES utf8',
+            Pdo\Mysql::ATTR_USE_BUFFERED_QUERY => TRUE,
+        );
+    }
+
     /**
      * Get a new Database connection for 'abap' schema.
      *
@@ -782,10 +789,7 @@ class ABAP_DB_TABLE {
         if (self::$conn_abap == null) {
             $dsn = 'mysql:host=' . ABAP_DB_CONFIG::host
                     . ';dbname=' . ABAP_DB_CONFIG::schema_abap;
-            self::$conn_abap = new PDO($dsn, ABAP_DB_CONFIG::user, ABAP_DB_CONFIG::pass, array(
-                PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
-                PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => TRUE,
-            ));
+            self::$conn_abap = new PDO($dsn, ABAP_DB_CONFIG::user, ABAP_DB_CONFIG::pass, self::mysql_connection_options());
             // ABAP_DB_TABLE::$conn_abap->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, TRUE); 
         }
 
@@ -801,10 +805,7 @@ class ABAP_DB_TABLE {
         if (self::$conn_abapana == null) {
             $dsn = 'mysql:host=' . ABAP_DB_CONFIG::host
                     . ';dbname=' . ABAP_DB_CONFIG::schema_abap;
-            self::$conn_abapana = new PDO($dsn, ABAP_DB_CONFIG::user, ABAP_DB_CONFIG::pass, array(
-                PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
-                PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => TRUE,
-            ));
+            self::$conn_abapana = new PDO($dsn, ABAP_DB_CONFIG::user, ABAP_DB_CONFIG::pass, self::mysql_connection_options());
             // ABAP_DB_TABLE::$conn_abapana->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, TRUE); 
         }
 

@@ -186,35 +186,35 @@ class ABAP_UI_DS_Navigation {
         return $result;
     }
 
-    public static function GetHyperlink4Bmfr(string $fctr_id = NULL, string $posid = NULL, string $desc = NULL, bool $newwin = TRUE): string {
+    public static function GetHyperlink4Bmfr(?string $fctr_id = NULL, ?string $posid = NULL, ?string $desc = NULL, bool $newwin = TRUE): string {
         return self::GetHyperlink(GLOBAL_ABAP_OTYPE::BMFR_NAME, $fctr_id, $posid, $desc, $newwin);
     }
 
-    public static function GetHyperlink4Clas(string $class, string $desc = NULL, bool $newwin = TRUE): string {
+    public static function GetHyperlink4Clas(string $class, ?string $desc = NULL, bool $newwin = TRUE): string {
         return self::GetHyperlink(GLOBAL_ABAP_OTYPE::CLAS_NAME, $class, $class, $desc, $newwin);
     }
 
-    public static function GetHyperlink4Doma(string $domain, string $desc = NULL, bool $newwin = TRUE): string {
+    public static function GetHyperlink4Doma(string $domain, ?string $desc = NULL, bool $newwin = TRUE): string {
         return self::GetHyperlink(GLOBAL_ABAP_OTYPE::DOMA_NAME, $domain, $domain, $desc, $newwin);
     }
 
-    public static function GetHyperlink4DomainValue(string $domain, $domainValue, string $desc = NULL, bool $newwin = TRUE): string {
+    public static function GetHyperlink4DomainValue(string $domain, $domainValue, ?string $desc = NULL, bool $newwin = TRUE): string {
         return self::GetHyperlink(GLOBAL_ABAP_OTYPE::DOMA_NAME, $domain, $domainValue, $desc, $newwin, ABAP_UI_CONST::ANCHOR_VALUES);
     }
 
-    public static function GetHyperlink4Dtel(string $rollname, string $desc = NULL, bool $newwin = TRUE): string {
+    public static function GetHyperlink4Dtel(string $rollname, ?string $desc = NULL, bool $newwin = TRUE): string {
         return self::GetHyperlink(GLOBAL_ABAP_OTYPE::DTEL_NAME, $rollname, $rollname, $desc, $newwin);
     }
 
-    public static function GetHyperlink4DtelDocument(string $rollname = NULL, bool $newwin = TRUE): string {
+    public static function GetHyperlink4DtelDocument(?string $rollname = NULL, bool $newwin = TRUE): string {
         return self::GetHyperlink(GLOBAL_ABAP_OTYPE::DTEL_NAME, $rollname, GLOBAL_ABAP_ICON::getIcon4SystemHelp(), ABAP_UI_CONST::LABEL_F1Help, $newwin, ABAP_UI_CONST::ANCHOR_DOCUMENT);
     }
 
-    public static function GetHyperlink4Func(string $fm, string $desc = NULL, bool $newwin = TRUE): string {
+    public static function GetHyperlink4Func(string $fm, ?string $desc = NULL, bool $newwin = TRUE): string {
         return self::GetHyperlink(GLOBAL_ABAP_OTYPE::FUNC_NAME, $fm, $fm, $desc, $newwin);
     }
 
-    public static function GetHyperlink4Intf(string $intf, string $desc = NULL, bool $newwin = TRUE): string {
+    public static function GetHyperlink4Intf(string $intf, ?string $desc = NULL, bool $newwin = TRUE): string {
         return self::GetHyperlink(GLOBAL_ABAP_OTYPE::INTF_NAME, $intf, $intf, $desc, $newwin);
     }
 
@@ -222,7 +222,7 @@ class ABAP_UI_DS_Navigation {
         return self::GetHyperlink(GLOBAL_ABAP_OTYPE::FUGR_NAME, $fg, $fg, $desc, $newwin);
     }
 
-    public static function GetHyperlink4Msag(string $msgcls, string $desc = NULL, bool $newwin = TRUE): string {
+    public static function GetHyperlink4Msag(string $msgcls, ?string $desc = NULL, bool $newwin = TRUE): string {
         return self::GetHyperlink(GLOBAL_ABAP_OTYPE::MSAG_NAME, $msgcls, $msgcls, $desc, $newwin);
     }
 
@@ -235,34 +235,34 @@ class ABAP_UI_DS_Navigation {
         return self::GetHyperlink(GLOBAL_ABAP_OTYPE::MSAG_NAME, $objname, $msgnr, $title, $newwin);
     }
 
-    public static function GetHyperlink4Devc(string $package = NULL, string $desc = NULL, bool $newwin = TRUE): string {
+    public static function GetHyperlink4Devc(?string $package = NULL, ?string $desc = NULL, bool $newwin = TRUE): string {
         return self::GetHyperlink(GLOBAL_ABAP_OTYPE::DEVC_NAME, $package, $package, $desc, $newwin);
     }
 
-    public static function GetHyperlink4Prog(string $program, string $desc = NULL, $value = "", bool $newwin = TRUE): string {
+    public static function GetHyperlink4Prog(string $program, ?string $desc = NULL, $value = "", bool $newwin = TRUE): string {
         if ($value === "") {
             $value = $program;
         }
         return self::GetHyperlink(GLOBAL_ABAP_OTYPE::PROG_NAME, $program, $value, $desc, $newwin);
     }
 
-    public static function GetHyperlink4Shlp(string $shlp, string $desc = NULL, bool $newwin = TRUE): string {
+    public static function GetHyperlink4Shlp(string $shlp, ?string $desc = NULL, bool $newwin = TRUE): string {
         return self::GetHyperlink(GLOBAL_ABAP_OTYPE::SHLP_NAME, $shlp, $shlp, $desc, $newwin);
     }
 
-    public static function GetHyperlink4Cvers(string $compName = NULL, string $desc = NULL, bool $newwin = TRUE): string {
+    public static function GetHyperlink4Cvers(?string $compName = NULL, ?string $desc = NULL, bool $newwin = TRUE): string {
         return self::GetHyperlink(GLOBAL_ABAP_OTYPE::CVERS_NAME, $compName, $compName, $desc, $newwin);
     }
 
-    public static function GetHyperlink4Cus0IMGActivity(string $img, string $desc = NULL, bool $newwin = TRUE): string {
+    public static function GetHyperlink4Cus0IMGActivity(string $img, ?string $desc = NULL, bool $newwin = TRUE): string {
         return self::GetHyperlink(GLOBAL_ABAP_OTYPE::CUS0_NAME, $img, $img, $desc, $newwin);
     }
 
-    public static function GetHyperlink4Sqlt(string $sqlTable, string $desc = NULL, bool $newwin = TRUE): string {
+    public static function GetHyperlink4Sqlt(string $sqlTable, ?string $desc = NULL, bool $newwin = TRUE): string {
         return self::GetHyperlink(GLOBAL_ABAP_OTYPE::SQLT_NAME, $sqlTable, $sqlTable, $desc, $newwin);
     }
 
-    public static function GetHyperlink4Tabl(string $table, string $desc = NULL, $newwin = TRUE): string {
+    public static function GetHyperlink4Tabl(string $table, ?string $desc = NULL, $newwin = TRUE): string {
         return self::GetHyperlink(GLOBAL_ABAP_OTYPE::TABL_NAME, $table, $table, $desc, $newwin);
     }
 
@@ -282,7 +282,7 @@ class ABAP_UI_DS_Navigation {
         return self::GetHyperlink(GLOBAL_ABAP_OTYPE::TABL_NAME, $objname, $field, $position, $newwin);
     }
 
-    public static function GetHyperlink4Tran(string $tcode, string $desc = NULL, bool $newwin = TRUE): string {
+    public static function GetHyperlink4Tran(string $tcode, ?string $desc = NULL, bool $newwin = TRUE): string {
         return self::GetHyperlink(GLOBAL_ABAP_OTYPE::TRAN_NAME, $tcode, $tcode, $desc, $newwin);
     }
 
@@ -299,7 +299,7 @@ class ABAP_UI_DS_Navigation {
         return $result;
     }
 
-    public static function GetHyperlink4View(string $view, string $desc = NULL, bool $newwin = TRUE): string {
+    public static function GetHyperlink4View(string $view, ?string $desc = NULL, bool $newwin = TRUE): string {
         return self::GetHyperlink(GLOBAL_ABAP_OTYPE::VIEW_NAME, $view, $view, $desc, $newwin);
     }
 
@@ -327,7 +327,7 @@ class ABAP_UI_DS_Navigation {
     /**
      * Get ABAP Object URL with for Datasheet, with domain name.
      */
-    public static function GetObjectHyperlink4DS(string $oType, string $oName, string $subName = NULL, bool $withDesc = TRUE): string {
+    public static function GetObjectHyperlink4DS(string $oType, string $oName, ?string $subName = NULL, bool $withDesc = TRUE): string {
         $objname = ($subName === NULL) ? GLOBAL_UTIL::Clear4Url($oName) : GLOBAL_UTIL::Clear4Url($oName) . '-' . GLOBAL_UTIL::Clear4Url($subName);
         $url = self::GetObjectURL($oType, $objname);
         $desc = ABAP_UI_TOOL::GetObjectDescr($oType, $oName, $subName);
@@ -353,7 +353,7 @@ class ABAP_UI_DS_Navigation {
      * @param string $subName Object sub name, example: Message number, Class method
      * @return string Object URL for supported object type, or else return object Name
      */
-    public static function GetObjectHyperlink(string $oType, string $oName, string $subName = NULL) {
+    public static function GetObjectHyperlink(string $oType, string $oName, ?string $subName = NULL) {
         if (($oType == GLOBAL_ABAP_OTYPE::TABL_NAME && strlen(trim($subName)) > 0) || ($oType == GLOBAL_ABAP_OTYPE::DTF_NAME)) {
             return self::GetHyperlink4Tabl($oName)
                     . ' - '
@@ -960,7 +960,7 @@ class ABAP_UI_TOOL {
     /**
      * Clear zero value from UI.
      */
-    public static function ClearZero(int $Int = NULL) {
+    public static function ClearZero(?int $Int = NULL) {
         if ($Int == 0) {
             return '&nbsp;';
         } else {
@@ -971,7 +971,7 @@ class ABAP_UI_TOOL {
     /**
      * Get check box UI control.
      */
-    public static function GetCheckBox(string $Name, string $CheckedValue = null): string {
+    public static function GetCheckBox(string $Name, ?string $CheckedValue = null): string {
         if ($CheckedValue == ABAP_DB_CONST::FLAG_TRUE ||
                 $CheckedValue == ABAP_DB_CONST::TSTCC_S_WEBGUI_1 ||
                 $CheckedValue == ABAP_DB_CONST::TSTCC_S_WEBGUI_2) {
@@ -1026,7 +1026,7 @@ class ABAP_UI_TOOL {
      * <p> Related table RSFBTYPEIN.</p>
      *
      */
-    public static function GetFunctionModuleParameterType(string $Type = null): string {
+    public static function GetFunctionModuleParameterType(?string $Type = null): string {
         if ($Type == ABAP_DB_CONST::FUPARAREF_PARAMTYPE_I) {
             return GLOBAL_ABAP_ICON::getIcon4ParameterImport() . ' Importing';
         } else if ($Type == ABAP_DB_CONST::FUPARAREF_PARAMTYPE_E) {
@@ -1045,7 +1045,7 @@ class ABAP_UI_TOOL {
     /**
      * ABAP OO Paratmer Type icon.
      */
-    public static function GetOOParameterIcon(int $Type = null): string {
+    public static function GetOOParameterIcon(?int $Type = null): string {
         if ($Type == ABAP_DB_TABLE_SEO::SEOSUBCODF_PARDECLTYP_0) {
             return GLOBAL_ABAP_ICON::getIcon4ParameterImport();
         } else if ($Type == ABAP_DB_TABLE_SEO::SEOSUBCODF_PARDECLTYP_1) {
@@ -1069,7 +1069,7 @@ class ABAP_UI_TOOL {
      * <p> Related table RSFBTYPEIN.</p>
      *
      */
-    public static function GetFunctionModuleTyping(string $RefClass = null): string {
+    public static function GetFunctionModuleTyping(?string $RefClass = null): string {
         if ($RefClass == ABAP_DB_CONST::FLAG_TRUE) {
             return 'TYPE REF TO';
         } else {
@@ -1084,7 +1084,7 @@ class ABAP_UI_TOOL {
      * @param string $oName Object name, example: MANDT, BUKRS
      * @return string Object description text, or '' for un-recognized object type
      */
-    public static function GetObjectDescr(string $oType, string $oName, string $subName = NULL): string {
+    public static function GetObjectDescr(string $oType, string $oName, ?string $subName = NULL): string {
         switch ($oType) {
             case GLOBAL_ABAP_OTYPE::BMFR_NAME:
                 $desc = ABAP_DB_TABLE_HIER::DF14T($oName);
@@ -1164,7 +1164,7 @@ class ABAP_UI_TOOL {
      * @param string $oNameDisp Objec name desplay, for 'Application Component', Table field, etc
      * @return string Object title text
      */
-    public static function GetObjectTitle(string $oType, string $oName, string $oNameDisp = NULL): string {
+    public static function GetObjectTitle(string $oType, string $oName, ?string $oNameDisp = NULL): string {
         $title_name = ($oNameDisp === NULL) ? $oName : $oNameDisp;
         $title_name = 'SAP ABAP ' . GLOBAL_ABAP_OTYPE::getOTypeDesc($oType) . ' ' . htmlentities($title_name);
         $srcObjDesc = ABAP_UI_TOOL::GetObjectDescr($oType, $oName);
@@ -1279,7 +1279,7 @@ class ABAP_UI_TOOL {
      *
      * @return (description) or emtpy string
      */
-    public static function CheckDesc(string $desc = null): string {
+    public static function CheckDesc(?string $desc = null): string {
         if (!empty($desc)) {
             return '(' . htmlentities($desc) . ')';
         } else {

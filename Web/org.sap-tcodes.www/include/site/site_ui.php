@@ -93,7 +93,7 @@ class SITE_UI_ANALYTICS {
         $db_list = ABAPANA_DB_TABLE::ABAPTRAN_ANALYTICS_PS_POSID_L2($posid_l1);
         $ui_list = array();
         foreach ($db_list as $item) {
-            $posid = strlen(trim($item['PS_POSID_L2'])) > 0 ? $item['PS_POSID_L2'] : $posid_l1;
+            $posid = strlen(trim($item['PS_POSID_L2'] ?? '')) > 0 ? $item['PS_POSID_L2'] : $posid_l1;
 
             $abapbmfr = ABAPANA_DB_TABLE::ABAPBMFR_POSID($posid);
             $module_desc = htmlentities(ABAP_DB_TABLE_HIER::DF14T($abapbmfr['FCTR_ID']));

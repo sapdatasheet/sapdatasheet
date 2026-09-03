@@ -738,7 +738,7 @@ class GLOBAL_UTIL {
      * Check if the string is empty or not.
      */
     public static function IsNotEmpty(?string $string = null): bool {
-        if (strlen(trim($string)) > 0) {
+        if (strlen(trim($string ?? '')) > 0) {
             return TRUE;
         } else {
             return FALSE;
