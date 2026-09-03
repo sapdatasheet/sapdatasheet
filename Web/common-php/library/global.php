@@ -742,14 +742,14 @@ class GLOBAL_UTIL {
         return $bytes;
     }
 
-    public static function IsEmpty(string $string = null): bool {
+    public static function IsEmpty(?string $string = null): bool {
         return !GLOBAL_UTIL::IsNotEmpty($string);
     }
 
     /**
      * Check if the string is empty or not.
      */
-    public static function IsNotEmpty(string $string = null): bool {
+    public static function IsNotEmpty(?string $string = null): bool {
         if (strlen(trim($string)) > 0) {
             return TRUE;
         } else {

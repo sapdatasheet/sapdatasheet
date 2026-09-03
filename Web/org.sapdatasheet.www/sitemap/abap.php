@@ -108,7 +108,7 @@ function sitemap4index(array &$result) {
 /**
  * Generate site map for each ABAP Object Type.
  */
-function sitemap4otype(array &$result, string $otype, string $column_name, array $list, string $fname_prefix = NULL) {
+function sitemap4otype(array &$result, string $otype, string $column_name, array $list, ?string $fname_prefix = NULL) {
     $prefix = ($fname_prefix === NULL) ? $otype : $fname_prefix;
     $fname = 'abap-' . $prefix;
 

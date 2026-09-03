@@ -40,7 +40,7 @@ class ERD {
         $this->db_dd02t = $this->clean_desc(ABAP_DB_TABLE_TABL::DD02T($this->table_name));
     }
 
-    private function clean_desc(string $desc = NULL): string {
+    private function clean_desc(?string $desc = NULL): string {
         if (GLOBAL_UTIL::IsNotEmpty($desc)) {
             return str_replace('"', "'", $desc);
         } else {

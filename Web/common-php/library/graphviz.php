@@ -62,7 +62,7 @@ class TCodeGraphviz {
         return strtolower($otype) . '_' . strtolower(GLOBAL_UTIL::SlashEscape($id));
     }
 
-    public static function Graphviz_tooltip(string $otype_desc, string $obj_name, string $obj_desc = NULL) {
+    public static function Graphviz_tooltip(string $otype_desc, string $obj_name, ?string $obj_desc = NULL) {
         $desc = GLOBAL_UTIL::IsNotEmpty($obj_desc) ? '' : ' (' . str_replace($obj_desc, '"', ' ') . ')';
         return $otype_desc . ' ' . $obj_name . $desc;
     }
